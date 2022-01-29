@@ -9,4 +9,6 @@ target 'RunnerBe-iOS' do
 
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'
+  # SwiftFormat
+  pod 'SwiftFormat/CLI'
 end

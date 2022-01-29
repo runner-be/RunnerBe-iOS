@@ -121,6 +121,7 @@
 			buildConfigurationList = C393DAE727A584BC00283AC6 /* Build configuration list for PBXNativeTarget "RunnerBe-iOS" */;
 			buildPhases = (
 				1C2FB54B75C18BA8DCBA4BD4 /* [CP] Check Pods Manifest.lock */,
+				C393DAF527A599A000283AC6 /* SwiftFormat */,
 				C393DAEA27A5882400283AC6 /* SwiftGen Run Script */,
 				C393DACF27A584BB00283AC6 /* Sources */,
 				C393DAD027A584BB00283AC6 /* Frameworks */,
@@ -223,6 +224,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+		};
+		C393DAF527A599A000283AC6 /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
