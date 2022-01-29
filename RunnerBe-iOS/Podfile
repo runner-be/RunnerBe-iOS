@@ -7,4 +7,6 @@ target 'RunnerBe-iOS' do
 
   # Pods for RunnerBe-iOS
 
+  # SwiftGen
+  pod 'SwiftGen', '~> 6.0'
 end

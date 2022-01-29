@@ -11,19 +11,27 @@
 		C393DAD927A584BB00283AC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DAD827A584BB00283AC6 /* SceneDelegate.swift */; };
 		C393DADB27A584BB00283AC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DADA27A584BB00283AC6 /* ViewController.swift */; };
 		C393DADE27A584BB00283AC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C393DADC27A584BB00283AC6 /* Main.storyboard */; };
-		C393DAE027A584BC00283AC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DADF27A584BC00283AC6 /* Assets.xcassets */; };
 		C393DAE327A584BC00283AC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */; };
+		C393DAED27A5923E00283AC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEC27A5923E00283AC6 /* Images.xcassets */; };
+		C393DAEF27A5924C00283AC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEE27A5924C00283AC6 /* Colors.xcassets */; };
+		C393DAF427A596BC00283AC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAF327A596BC00283AC6 /* Assets.xcassets */; };
+		CCF25954AD874F64414CC203 /* Pods_RunnerBe_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2383CCB0028A0952F7BBDB1 /* Pods_RunnerBe_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3057C9D7EC1E1972706E8D01 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		72F90BAE3D262DB808C488AB /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C393DAD327A584BB00283AC6 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DAD627A584BB00283AC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C393DAD827A584BB00283AC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C393DADA27A584BB00283AC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C393DADD27A584BB00283AC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C393DADF27A584BC00283AC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C393DAE227A584BC00283AC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C393DAE427A584BC00283AC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C393DAEC27A5923E00283AC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C393DAEE27A5924C00283AC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		C393DAF327A596BC00283AC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D2383CCB0028A0952F7BBDB1 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF25954AD874F64414CC203 /* Pods_RunnerBe_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DAE90A353445618E884984A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3057C9D7EC1E1972706E8D01 /* Pods-RunnerBe-iOS.debug.xcconfig */,
+				72F90BAE3D262DB808C488AB /* Pods-RunnerBe-iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B298B4951802757104C35A66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D2383CCB0028A0952F7BBDB1 /* Pods_RunnerBe_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C393DACA27A584BA00283AC6 = {
 			isa = PBXGroup;
 			children = (
 				C393DAD527A584BB00283AC6 /* RunnerBe-iOS */,
 				C393DAD427A584BB00283AC6 /* Products */,
+				2DAE90A353445618E884984A /* Pods */,
+				B298B4951802757104C35A66 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +84,33 @@
 		C393DAD527A584BB00283AC6 /* RunnerBe-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C393DAEB27A5921700283AC6 /* Resources */,
 				C393DAD627A584BB00283AC6 /* AppDelegate.swift */,
 				C393DAD827A584BB00283AC6 /* SceneDelegate.swift */,
 				C393DADA27A584BB00283AC6 /* ViewController.swift */,
 				C393DADC27A584BB00283AC6 /* Main.storyboard */,
-				C393DADF27A584BC00283AC6 /* Assets.xcassets */,
 				C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */,
 				C393DAE427A584BC00283AC6 /* Info.plist */,
 			);
 			path = "RunnerBe-iOS";
+			sourceTree = "<group>";
+		};
+		C393DAEB27A5921700283AC6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C393DAF227A5960600283AC6 /* Fonts */,
+				C393DAEC27A5923E00283AC6 /* Images.xcassets */,
+				C393DAEE27A5924C00283AC6 /* Colors.xcassets */,
+				C393DAF327A596BC00283AC6 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C393DAF227A5960600283AC6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +120,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C393DAE727A584BC00283AC6 /* Build configuration list for PBXNativeTarget "RunnerBe-iOS" */;
 			buildPhases = (
+				1C2FB54B75C18BA8DCBA4BD4 /* [CP] Check Pods Manifest.lock */,
+				C393DAEA27A5882400283AC6 /* SwiftGen Run Script */,
 				C393DACF27A584BB00283AC6 /* Sources */,
 				C393DAD027A584BB00283AC6 /* Frameworks */,
 				C393DAD127A584BB00283AC6 /* Resources */,
@@ -125,13 +173,58 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C393DAEF27A5924C00283AC6 /* Colors.xcassets in Resources */,
 				C393DAE327A584BC00283AC6 /* LaunchScreen.storyboard in Resources */,
-				C393DAE027A584BC00283AC6 /* Assets.xcassets in Resources */,
+				C393DAED27A5923E00283AC6 /* Images.xcassets in Resources */,
 				C393DADE27A584BB00283AC6 /* Main.storyboard in Resources */,
+				C393DAF427A596BC00283AC6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C2FB54B75C18BA8DCBA4BD4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RunnerBe-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C393DAEA27A5882400283AC6 /* SwiftGen Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftGen Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C393DACF27A584BB00283AC6 /* Sources */ = {
@@ -284,6 +377,7 @@
 		};
 		C393DAE827A584BC00283AC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3057C9D7EC1E1972706E8D01 /* Pods-RunnerBe-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -312,6 +406,7 @@
 		};
 		C393DAE927A584BC00283AC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72F90BAE3D262DB808C488AB /* Pods-RunnerBe-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
