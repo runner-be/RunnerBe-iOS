@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  RunnerBe-iOS
+
+  Created by 김신우 on 2022/01/30.
+  
+*/
+
+/*
+    "Key" = "localizing한 문자열"
+ ex) "Hello" = "Hello"; << 세미콜론(;) 필수
+ 
+ */

@@ -76,3 +76,10 @@ fonts:
   outputs:
     templateName: swift5
     output: Fonts+Generated.swift
+
+strings:
+  inputs:
+    - Localization/en.lproj
+  outputs:
+    templateName: structured-swift5
+    output: Localizable+Generated.swift
