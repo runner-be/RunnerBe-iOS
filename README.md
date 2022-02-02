@@ -1,2 +1,3 @@
 # RunnerBe-iOS
-팀 애플망고 RunnerBe, iOS
+
+팀 애플맹고 RunnerBe, iOS
