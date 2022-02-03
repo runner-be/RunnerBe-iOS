@@ -16,4 +16,8 @@ target 'RunnerBe-iOS' do
   # RxSwift & Cocoa
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
+  # SnapKit
+  pod 'SnapKit', '~> 5.0.0'
+  # Then
+  pod 'Then'
 end
