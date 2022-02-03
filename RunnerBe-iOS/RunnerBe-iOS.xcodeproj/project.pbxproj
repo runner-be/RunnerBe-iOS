@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C367D65927AC0F97004835DC /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65627AC0F97004835DC /* Fonts+Generated.swift */; };
+		C367D65A27AC0F97004835DC /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65727AC0F97004835DC /* Assets+Generated.swift */; };
+		C367D65B27AC0F97004835DC /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65827AC0F97004835DC /* Localizable+Generated.swift */; };
+		C367D65D27AC0FB9004835DC /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65C27AC0FB9004835DC /* NeedleGenerated.swift */; };
 		C393DAD727A584BB00283AC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DAD627A584BB00283AC6 /* AppDelegate.swift */; };
-		C393DAD927A584BB00283AC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DAD827A584BB00283AC6 /* SceneDelegate.swift */; };
-		C393DADB27A584BB00283AC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DADA27A584BB00283AC6 /* ViewController.swift */; };
 		C393DAE327A584BC00283AC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */; };
 		C393DAED27A5923E00283AC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEC27A5923E00283AC6 /* Images.xcassets */; };
 		C393DAEF27A5924C00283AC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEE27A5924C00283AC6 /* Colors.xcassets */; };
@@ -21,12 +23,14 @@
 /* Begin PBXFileReference section */
 		3057C9D7EC1E1972706E8D01 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		72F90BAE3D262DB808C488AB /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C367D65627AC0F97004835DC /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
+		C367D65727AC0F97004835DC /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
+		C367D65827AC0F97004835DC /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
+		C367D65C27AC0FB9004835DC /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C393DAD327A584BB00283AC6 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DAD627A584BB00283AC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C393DAD827A584BB00283AC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C393DADA27A584BB00283AC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C393DAE227A584BC00283AC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C393DAE427A584BC00283AC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C393DAE427A584BC00283AC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/AppStart/Info.plist; sourceTree = "<group>"; };
 		C393DAEC27A5923E00283AC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C393DAEE27A5924C00283AC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C393DAF327A596BC00283AC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +69,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C374D3F427AC4F2E00CE88D3 /* 3_DependencyComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3_DependencyComponent;
+			sourceTree = "<group>";
+		};
+		C374D3FB27AC509200CE88D3 /* 0_Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 0_Service;
+			sourceTree = "<group>";
+		};
+		C374D3FC27AC50A000CE88D3 /* 1_Provider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 1_Provider;
+			sourceTree = "<group>";
+		};
+		C374D3FD27AC50A800CE88D3 /* 2_Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 2_Coordinator;
+			sourceTree = "<group>";
+		};
+		C374D3FE27AC50B600CE88D3 /* 4_Scene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 4_Scene;
+			sourceTree = "<group>";
+		};
 		C393DACA27A584BA00283AC6 = {
 			isa = PBXGroup;
 			children = (
@@ -86,7 +125,8 @@
 		C393DAD527A584BB00283AC6 /* RunnerBe-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C393DAF727A59CFA00283AC6 /* App */,
+				C393DAE427A584BC00283AC6 /* Info.plist */,
+				C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */,
 				C393DAF627A59CF100283AC6 /* Sources */,
 				C393DAEB27A5921700283AC6 /* Resources */,
 			);
@@ -96,6 +136,9 @@
 		C393DAEB27A5921700283AC6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C367D65727AC0F97004835DC /* Assets+Generated.swift */,
+				C367D65627AC0F97004835DC /* Fonts+Generated.swift */,
+				C367D65827AC0F97004835DC /* Localizable+Generated.swift */,
 				C393DAF827A6B82700283AC6 /* Localization */,
 				C393DAF227A5960600283AC6 /* Fonts */,
 				C393DAEC27A5923E00283AC6 /* Images.xcassets */,
@@ -115,20 +158,15 @@
 		C393DAF627A59CF100283AC6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C393DADA27A584BB00283AC6 /* ViewController.swift */,
+				C374D3FB27AC509200CE88D3 /* 0_Service */,
+				C374D3FC27AC50A000CE88D3 /* 1_Provider */,
+				C374D3FD27AC50A800CE88D3 /* 2_Coordinator */,
+				C374D3F427AC4F2E00CE88D3 /* 3_DependencyComponent */,
+				C374D3FE27AC50B600CE88D3 /* 4_Scene */,
+				C393DAD627A584BB00283AC6 /* AppDelegate.swift */,
+				C367D65C27AC0FB9004835DC /* NeedleGenerated.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		C393DAF727A59CFA00283AC6 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				C393DAD627A584BB00283AC6 /* AppDelegate.swift */,
-				C393DAD827A584BB00283AC6 /* SceneDelegate.swift */,
-				C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */,
-				C393DAE427A584BC00283AC6 /* Info.plist */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		C393DAF827A6B82700283AC6 /* Localization */ = {
@@ -148,6 +186,7 @@
 			buildPhases = (
 				1C2FB54B75C18BA8DCBA4BD4 /* [CP] Check Pods Manifest.lock */,
 				C393DAF527A599A000283AC6 /* SwiftFormat */,
+				C367D65527AC0AB8004835DC /* Needle Generate */,
 				C393DAEA27A5882400283AC6 /* SwiftGen Run Script */,
 				C393DACF27A584BB00283AC6 /* Sources */,
 				C393DAD027A584BB00283AC6 /* Frameworks */,
@@ -252,6 +291,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C367D65527AC0AB8004835DC /* Needle Generate */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Needle Generate";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate RunnerBe-iOS/Sources/NeedleGenerated.swift RunnerBe-iOS/Sources/ --header-doc copyright_header.txt\n";
+		};
 		C393DAEA27A5882400283AC6 /* SwiftGen Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -295,9 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C393DADB27A584BB00283AC6 /* ViewController.swift in Sources */,
+				C367D65927AC0F97004835DC /* Fonts+Generated.swift in Sources */,
+				C367D65B27AC0F97004835DC /* Localizable+Generated.swift in Sources */,
 				C393DAD727A584BB00283AC6 /* AppDelegate.swift in Sources */,
-				C393DAD927A584BB00283AC6 /* SceneDelegate.swift in Sources */,
+				C367D65D27AC0FB9004835DC /* NeedleGenerated.swift in Sources */,
+				C367D65A27AC0F97004835DC /* Assets+Generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -433,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -453,7 +512,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "RunnerBe-iOS/App/Info.plist";
+				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -481,7 +540,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "RunnerBe-iOS/App/Info.plist";
+				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
