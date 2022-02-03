@@ -11,4 +11,9 @@ target 'RunnerBe-iOS' do
   pod 'SwiftGen', '~> 6.0'
   # SwiftFormat
   pod 'SwiftFormat/CLI'
+  # Moya with rx
+  pod 'Moya/RxSwift', `~> 15.0`
+  # RxSwift & Cocoa
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
 end
