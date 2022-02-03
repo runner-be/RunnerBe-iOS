@@ -10,6 +10,9 @@ target 'RunnerBe-iOS' do
   # RIBS
   pod 'RIBs', :git => 'https://github.com/uber/RIBs', :commit => '95c97a0f1e2a2393cbdff503e1002d7cbddc09cc'
 
+  # Needle
+  pod 'NeedleFoundation'
+  
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'
   # SwiftFormat

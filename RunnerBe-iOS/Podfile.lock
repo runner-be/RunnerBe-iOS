@@ -5,6 +5,7 @@ PODS:
   - Moya/RxSwift (14.0.0):
     - Moya/Core
     - RxSwift (~> 5.0)
+  - NeedleFoundation (0.17.2)
   - RIBs (0.9.3):
     - RxRelay (~> 5.1)
     - RxSwift (~> 5.1)
@@ -21,6 +22,7 @@ PODS:
 
 DEPENDENCIES:
   - Moya/RxSwift (~> 14.0)
+  - NeedleFoundation
   - RIBs (from `https://github.com/uber/RIBs`, commit `95c97a0f1e2a2393cbdff503e1002d7cbddc09cc`)
   - RxCocoa (~> 5.1)
   - RxSwift (~> 5.1)
@@ -33,6 +35,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Moya
+    - NeedleFoundation
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -54,6 +57,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  NeedleFoundation: 36cfaea9ae9eb527a796f5c1df19296c722666b8
   RIBs: d4c4c7e7e4580f0bbe88bdc88b6c11704a738b7f
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
@@ -63,6 +67,6 @@ SPEC CHECKSUMS:
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 3c903675ace9c77e2c7284d5597d9ad425dbb925
+PODFILE CHECKSUM: c476518adde0391910fdd71a625ba9125ae6fa24
 
 COCOAPODS: 1.11.2
