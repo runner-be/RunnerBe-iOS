@@ -8,5 +8,5 @@
 import Foundation
 
 enum APIKeys {
-    static var KakaoKey: String = "xx"
+    static var KakaoKey: String = ""
 }

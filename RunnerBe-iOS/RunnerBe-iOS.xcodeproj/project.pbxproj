@@ -87,6 +87,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C308883927AC807000F62137 /* APIKey */ = {
+			isa = PBXGroup;
+			children = (
+				C3E9078F27AC7A3900B548A8 /* APIKeys.swift */,
+			);
+			path = APIKey;
+			sourceTree = "<group>";
+		};
 		C374D3F427AC4F2E00CE88D3 /* 3_DependencyComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +209,7 @@
 		C393DAEB27A5921700283AC6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3E9078F27AC7A3900B548A8 /* APIKeys.swift */,
+				C308883927AC807000F62137 /* APIKey */,
 				C367D65727AC0F97004835DC /* Assets+Generated.swift */,
 				C367D65627AC0F97004835DC /* Fonts+Generated.swift */,
 				C367D65827AC0F97004835DC /* Localizable+Generated.swift */,
