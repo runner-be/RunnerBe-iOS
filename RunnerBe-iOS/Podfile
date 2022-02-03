@@ -7,17 +7,21 @@ target 'RunnerBe-iOS' do
 
   # Pods for RunnerBe-iOS
 
+  # RIBS
+  pod 'RIBs', '~> 0.9.1'
+
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'
   # SwiftFormat
   pod 'SwiftFormat/CLI'
   # Moya with rx
-  pod 'Moya/RxSwift', `~> 15.0`
+  pod 'Moya/RxSwift', '~> 13.0'
   # RxSwift & Cocoa
-  pod 'RxSwift', '6.5.0'
-  pod 'RxCocoa', '6.5.0'
+  pod 'RxSwift', '~> 4.0'
+  pod 'RxCocoa', '~> 4.0'
   # SnapKit
   pod 'SnapKit', '~> 5.0.0'
   # Then
   pod 'Then'
+
 end
