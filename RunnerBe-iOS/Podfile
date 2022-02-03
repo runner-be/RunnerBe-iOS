@@ -8,17 +8,17 @@ target 'RunnerBe-iOS' do
   # Pods for RunnerBe-iOS
 
   # RIBS
-  pod 'RIBs', '~> 0.9.1'
+  pod 'RIBs', :git => 'https://github.com/uber/RIBs', :commit => '95c97a0f1e2a2393cbdff503e1002d7cbddc09cc'
 
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'
   # SwiftFormat
   pod 'SwiftFormat/CLI'
   # Moya with rx
-  pod 'Moya/RxSwift', '~> 13.0'
+  pod 'Moya/RxSwift', '~> 14.0'
   # RxSwift & Cocoa
-  pod 'RxSwift', '~> 4.0'
-  pod 'RxCocoa', '~> 4.0'
+  pod 'RxSwift', '~> 5.1'
+  pod 'RxCocoa', '~> 5.1'
   # SnapKit
   pod 'SnapKit', '~> 5.0.0'
   # Then
