@@ -9,7 +9,9 @@ import RxSwift
 import UIKit
 
 final class AppCoordinator: BasicCoordinator<Void> {
-    override func start() {}
+    override func start() {
+        navController.pushViewController(LoggedOutViewController(viewModel: LoggedOutViewModel()), animated: false)
+    }
 
     func showMain() {}
 

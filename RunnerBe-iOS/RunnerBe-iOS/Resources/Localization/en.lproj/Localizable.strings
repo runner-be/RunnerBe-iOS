@@ -11,3 +11,8 @@
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
  
  */
+
+// MARK: - LoggedOut
+"LoggedOut.KakaoBtn.text" = "Login with Kakao";
+"LoggedOut.NaverBtn.text" = "Login with Naver";
+"LoggedOut.AppleBtn.text" = "Login with Apple";

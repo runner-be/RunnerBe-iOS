@@ -10,6 +10,21 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+
+  internal enum LoggedOut {
+    internal enum AppleBtn {
+      /// Login with Apple
+      internal static let text = L10n.tr("Localizable", "LoggedOut.AppleBtn.text")
+    }
+    internal enum KakaoBtn {
+      /// Login with Kakao
+      internal static let text = L10n.tr("Localizable", "LoggedOut.KakaoBtn.text")
+    }
+    internal enum NaverBtn {
+      /// Login with Naver
+      internal static let text = L10n.tr("Localizable", "LoggedOut.NaverBtn.text")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

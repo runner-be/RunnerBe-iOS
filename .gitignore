@@ -113,3 +113,6 @@ iOSInjectionProject/
 .DS_Store
 .Trashes
 Thumbs.db
+
+# API Key 파일
+APIKeys.swift

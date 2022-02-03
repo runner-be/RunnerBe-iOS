@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C308883827AC7D2C00F62137 /* KakaoOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308883727AC7D2C00F62137 /* KakaoOAuthService.swift */; };
 		C367D65927AC0F97004835DC /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65627AC0F97004835DC /* Fonts+Generated.swift */; };
 		C367D65A27AC0F97004835DC /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65727AC0F97004835DC /* Assets+Generated.swift */; };
 		C367D65B27AC0F97004835DC /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367D65827AC0F97004835DC /* Localizable+Generated.swift */; };
@@ -14,18 +15,24 @@
 		C374D40027AC516500CE88D3 /* 0_BasicCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D3FF27AC516500CE88D3 /* 0_BasicCoordinator.swift */; };
 		C374D40227AC543500CE88D3 /* 1_AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D40127AC543500CE88D3 /* 1_AppCoordinator.swift */; };
 		C374D40427AC54EF00CE88D3 /* 0_AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D40327AC54EF00CE88D3 /* 0_AppComponent.swift */; };
+		C374D40927AC5FE600CE88D3 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D40827AC5FE500CE88D3 /* LoggedOutViewController.swift */; };
+		C374D40B27AC5FF500CE88D3 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D40A27AC5FF500CE88D3 /* LoggedOutViewModel.swift */; };
+		C374D41327AC6F7000CE88D3 /* UIStackView+Make.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D41227AC6F7000CE88D3 /* UIStackView+Make.swift */; };
 		C393DAD727A584BB00283AC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393DAD627A584BB00283AC6 /* AppDelegate.swift */; };
 		C393DAE327A584BC00283AC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */; };
 		C393DAED27A5923E00283AC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEC27A5923E00283AC6 /* Images.xcassets */; };
 		C393DAEF27A5924C00283AC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAEE27A5924C00283AC6 /* Colors.xcassets */; };
 		C393DAF427A596BC00283AC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C393DAF327A596BC00283AC6 /* Assets.xcassets */; };
 		C393DAFB27A6B93A00283AC6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C393DAFD27A6B93A00283AC6 /* Localizable.strings */; };
+		C3E9078D27AC78D300B548A8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9078C27AC78D300B548A8 /* BaseViewController.swift */; };
+		C3E9079027AC7A3900B548A8 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9078F27AC7A3900B548A8 /* APIKeys.swift */; };
 		CCF25954AD874F64414CC203 /* Pods_RunnerBe_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2383CCB0028A0952F7BBDB1 /* Pods_RunnerBe_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3057C9D7EC1E1972706E8D01 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		72F90BAE3D262DB808C488AB /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C308883727AC7D2C00F62137 /* KakaoOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoOAuthService.swift; sourceTree = "<group>"; };
 		C367D65627AC0F97004835DC /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 		C367D65727AC0F97004835DC /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
 		C367D65827AC0F97004835DC /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
@@ -33,16 +40,21 @@
 		C374D3FF27AC516500CE88D3 /* 0_BasicCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 0_BasicCoordinator.swift; sourceTree = "<group>"; };
 		C374D40127AC543500CE88D3 /* 1_AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1_AppCoordinator.swift; sourceTree = "<group>"; };
 		C374D40327AC54EF00CE88D3 /* 0_AppComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 0_AppComponent.swift; sourceTree = "<group>"; };
+		C374D40827AC5FE500CE88D3 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
+		C374D40A27AC5FF500CE88D3 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
+		C374D40C27AC631100CE88D3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = Info.plist; path = "../../../../../../../../Projects/RunnerBe-iOS/RunnerBe-iOS/RunnerBe-iOS/Info.plist"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C374D41227AC6F7000CE88D3 /* UIStackView+Make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Make.swift"; sourceTree = "<group>"; };
 		C393DAD327A584BB00283AC6 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DAD627A584BB00283AC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C393DAE227A584BC00283AC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C393DAE427A584BC00283AC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/AppStart/Info.plist; sourceTree = "<group>"; };
 		C393DAEC27A5923E00283AC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C393DAEE27A5924C00283AC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C393DAF327A596BC00283AC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C393DAFC27A6B93A00283AC6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C393DAFE27A6B98B00283AC6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C393DAFF27A6B98B00283AC6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3E9078C27AC78D300B548A8 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C3E9078F27AC7A3900B548A8 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		D2383CCB0028A0952F7BBDB1 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -86,6 +98,7 @@
 		C374D3FB27AC509200CE88D3 /* 0_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C3E9078E27AC79BA00B548A8 /* OAuthService */,
 			);
 			path = 0_Service;
 			sourceTree = "<group>";
@@ -111,6 +124,7 @@
 			children = (
 				C374D40527AC575B00CE88D3 /* 0_LoggedOut */,
 				C374D40627AC576C00CE88D3 /* 1_MainTabbar */,
+				C3E9078C27AC78D300B548A8 /* BaseViewController.swift */,
 			);
 			path = 4_Scene;
 			sourceTree = "<group>";
@@ -118,6 +132,9 @@
 		C374D40527AC575B00CE88D3 /* 0_LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
+				C374D40727AC5FD200CE88D3 /* View */,
+				C374D40827AC5FE500CE88D3 /* LoggedOutViewController.swift */,
+				C374D40A27AC5FF500CE88D3 /* LoggedOutViewModel.swift */,
 			);
 			path = 0_LoggedOut;
 			sourceTree = "<group>";
@@ -127,6 +144,29 @@
 			children = (
 			);
 			path = 1_MainTabbar;
+			sourceTree = "<group>";
+		};
+		C374D40727AC5FD200CE88D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C374D41027AC6F3200CE88D3 /* 5_Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C374D41127AC6F4E00CE88D3 /* +View */,
+			);
+			path = 5_Extensions;
+			sourceTree = "<group>";
+		};
+		C374D41127AC6F4E00CE88D3 /* +View */ = {
+			isa = PBXGroup;
+			children = (
+				C374D41227AC6F7000CE88D3 /* UIStackView+Make.swift */,
+			);
+			path = "+View";
 			sourceTree = "<group>";
 		};
 		C393DACA27A584BA00283AC6 = {
@@ -150,7 +190,7 @@
 		C393DAD527A584BB00283AC6 /* RunnerBe-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C393DAE427A584BC00283AC6 /* Info.plist */,
+				C374D40C27AC631100CE88D3 /* Info.plist */,
 				C393DAE127A584BC00283AC6 /* LaunchScreen.storyboard */,
 				C393DAF627A59CF100283AC6 /* Sources */,
 				C393DAEB27A5921700283AC6 /* Resources */,
@@ -161,6 +201,7 @@
 		C393DAEB27A5921700283AC6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3E9078F27AC7A3900B548A8 /* APIKeys.swift */,
 				C367D65727AC0F97004835DC /* Assets+Generated.swift */,
 				C367D65627AC0F97004835DC /* Fonts+Generated.swift */,
 				C367D65827AC0F97004835DC /* Localizable+Generated.swift */,
@@ -188,6 +229,7 @@
 				C374D3FD27AC50A800CE88D3 /* 2_Coordinator */,
 				C374D3F427AC4F2E00CE88D3 /* 3_DependencyComponent */,
 				C374D3FE27AC50B600CE88D3 /* 4_Scene */,
+				C374D41027AC6F3200CE88D3 /* 5_Extensions */,
 				C393DAD627A584BB00283AC6 /* AppDelegate.swift */,
 				C367D65C27AC0FB9004835DC /* NeedleGenerated.swift */,
 			);
@@ -200,6 +242,14 @@
 				C393DAFD27A6B93A00283AC6 /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		C3E9078E27AC79BA00B548A8 /* OAuthService */ = {
+			isa = PBXGroup;
+			children = (
+				C308883727AC7D2C00F62137 /* KakaoOAuthService.swift */,
+			);
+			path = OAuthService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,11 +430,17 @@
 				C367D65927AC0F97004835DC /* Fonts+Generated.swift in Sources */,
 				C367D65B27AC0F97004835DC /* Localizable+Generated.swift in Sources */,
 				C393DAD727A584BB00283AC6 /* AppDelegate.swift in Sources */,
+				C374D41327AC6F7000CE88D3 /* UIStackView+Make.swift in Sources */,
+				C3E9079027AC7A3900B548A8 /* APIKeys.swift in Sources */,
 				C367D65D27AC0FB9004835DC /* NeedleGenerated.swift in Sources */,
+				C3E9078D27AC78D300B548A8 /* BaseViewController.swift in Sources */,
 				C374D40027AC516500CE88D3 /* 0_BasicCoordinator.swift in Sources */,
 				C374D40227AC543500CE88D3 /* 1_AppCoordinator.swift in Sources */,
+				C308883827AC7D2C00F62137 /* KakaoOAuthService.swift in Sources */,
 				C374D40427AC54EF00CE88D3 /* 0_AppComponent.swift in Sources */,
+				C374D40927AC5FE600CE88D3 /* LoggedOutViewController.swift in Sources */,
 				C367D65A27AC0F97004835DC /* Assets+Generated.swift in Sources */,
+				C374D40B27AC5FF500CE88D3 /* LoggedOutViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -520,6 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -540,7 +598,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
+				INFOPLIST_FILE = info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -550,7 +608,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "sw.RunnerBe-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.RunnerBe-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -568,7 +626,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
+				INFOPLIST_FILE = info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -578,7 +636,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "sw.RunnerBe-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.RunnerBe-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
