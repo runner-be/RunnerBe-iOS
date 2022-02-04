@@ -8,4 +8,17 @@
 import Foundation
 import NeedleFoundation
 
-final class RootComponent: BootstrapComponent {}
+final class AppComponent: BootstrapComponent {
+    override init() {
+        super.init()
+        _ = kakaoOAuthService
+    }
+
+    var kakaoOAuthService: KakaoOAuthService {
+        return shared { KakaoOAuthService() }
+    }
+
+    var loggedOutComponent: LoggedOutComponent {
+        return LoggedOutComponent(parent: self)
+    }
+}

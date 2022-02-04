@@ -37,7 +37,7 @@ class BasicCoordinator<ResultType>: Coordinator {
     @discardableResult
     func coordinate<T>(coordinator: BasicCoordinator<T>) -> Observable<T> {
         childs[coordinator.uuid] = coordinator
-        start()
+        coordinator.start()
         return coordinator.closeSignal
     }
 

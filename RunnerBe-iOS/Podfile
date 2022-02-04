@@ -27,8 +27,9 @@ target 'RunnerBe-iOS' do
   pod 'Then'
 
   # Kakao Login
-  pod 'KakaoSDKCommon' # 필수 모듈
-  pod 'KakaoSDKAuth' # 카카오 로그인
+  pod 'RxKakaoSDKCommon' # 필수 모듈
+  pod 'RxKakaoSDKAuth' # 카카오 로그인
+  pod 'RxKakaoSDKUser' 
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

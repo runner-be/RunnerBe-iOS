@@ -14,21 +14,21 @@ import UIKit
 
 final class LoggedOutViewController: BaseViewController {
     var logoImageView = UIImageView().then {
-        $0.image = UIImage(asset: Asset.Images.logoSignature)
+        $0.image = Asset.Images.logoSignature.uiImage
     }
 
     var kakaoButton = UIImageView().then {
-        $0.image = UIImage(asset: Asset.Images.kakaoLogin)
+        $0.image = Asset.Images.kakaoLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
     var naverButton = UIImageView().then {
-        $0.image = UIImage(asset: Asset.Images.naverLogin)
+        $0.image = Asset.Images.naverLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
     var appleButton = UIImageView().then {
-        $0.image = UIImage(asset: Asset.Images.appleLogin)
+        $0.image = Asset.Images.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
@@ -46,8 +46,10 @@ final class LoggedOutViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(asset: Asset.Colors.background)
+
+        configureView()
         layout()
+
         bindViewEvent()
         bindViewModelOutput()
     }
@@ -79,6 +81,16 @@ final class LoggedOutViewController: BaseViewController {
 // MARK: - Layout
 
 private extension LoggedOutViewController {
+    func configureView() {
+        let backgroundGradientLayer = CAGradientLayer()
+        backgroundGradientLayer.colors = [
+            Asset.Colors.bgGradientTop.uiColor.cgColor,
+            Asset.Colors.bgGradientBottom.uiColor.cgColor,
+        ]
+        backgroundGradientLayer.frame = view.bounds
+        view.layer.addSublayer(backgroundGradientLayer)
+    }
+
     func layout() {
         view.addSubview(logoImageView)
         let vStack = UIStackView.make(

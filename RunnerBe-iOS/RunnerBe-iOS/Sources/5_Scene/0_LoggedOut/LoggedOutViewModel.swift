@@ -23,6 +23,16 @@ final class LoggedOutViewModel {
         let loginSuccess = PublishSubject<Void>()
     }
 
+    let kakaoOAuthService: KakaoOAuthServicable
+
+    init(kakaoOAuthService: KakaoOAuthServicable) {
+        self.kakaoOAuthService = kakaoOAuthService
+        input.kakaoLogin.subscribe(onNext: {
+            kakaoOAuthService.login()
+        }).disposed(by: disposeBag)
+    }
+
+    let disposeBag = DisposeBag()
     let input = Input()
     let output = Output()
     let route = Route()
