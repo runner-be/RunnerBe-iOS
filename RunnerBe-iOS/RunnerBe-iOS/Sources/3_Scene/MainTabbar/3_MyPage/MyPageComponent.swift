@@ -12,6 +12,6 @@ protocol MyPageDependency: Dependency {}
 
 final class MyPageComponent: Component<MyPageDependency> {
     var myPageViewController: UIViewController {
-        return shared{ MyPageViewController() }
+        return shared { MyPageViewController() }
     }
 }

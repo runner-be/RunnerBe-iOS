@@ -25,13 +25,13 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
     private func startTabbarController() {
         let tabbarCtrl = component.mainTabbarController
-       
+
         UITabBar.appearance().backgroundColor = Asset.Colors.tabbarBg.uiColor
         tabbarCtrl.setColors(
             iconNormal: Asset.Colors.tabIconNormal.uiColor,
             selected: Asset.Colors.tabIconSelected.uiColor
         )
-        
+
         let homeCoord = HomeCoordinator(component: component.homeComponent, navController: navController)
         let bookmarkCoord = BookMarkCoordinator(component: component.bookmarkComponent, navController: navController)
         let messageCoord = MessageCoordinator(component: component.messageComponent, navController: navController)

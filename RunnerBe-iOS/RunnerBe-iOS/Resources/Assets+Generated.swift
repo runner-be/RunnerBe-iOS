@@ -32,7 +32,7 @@ internal enum Asset {
     internal static let appleLogin = ImageAsset(name: "Apple_login")
     internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
     internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
-    internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_focused")
+    internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
     internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
     internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
     internal static let logoSignature = ImageAsset(name: "Logo_signature")

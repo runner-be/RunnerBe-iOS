@@ -12,6 +12,6 @@ protocol MessageDependency: Dependency {}
 
 final class MessageComponent: Component<MessageDependency> {
     var messageViewController: UIViewController {
-        return shared{ MessageViewController() }
+        return shared { MessageViewController() }
     }
 }
