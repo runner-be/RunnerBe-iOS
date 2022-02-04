@@ -23,12 +23,20 @@ final class LoggedOutViewModel {
         let loginSuccess = PublishSubject<Void>()
     }
 
-    let kakaoOAuthService: KakaoOAuthServicable
+    let kakaoNaverService: LoginServiceable
+    let naverLoginService: LoginServiceable
 
-    init(kakaoOAuthService: KakaoOAuthServicable) {
-        self.kakaoOAuthService = kakaoOAuthService
+    init(
+        kakaoLoginService: LoginServiceable,
+        naverLoginService: LoginServiceable
+    ) {
+        kakaoNaverService = kakaoLoginService
+        self.naverLoginService = naverLoginService
         input.kakaoLogin.subscribe(onNext: {
-            kakaoOAuthService.login()
+            _ = kakaoLoginService.login()
+        }).disposed(by: disposeBag)
+        input.naverLogin.subscribe(onNext: {
+            _ = naverLoginService.login()
         }).disposed(by: disposeBag)
     }
 

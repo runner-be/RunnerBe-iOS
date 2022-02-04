@@ -9,6 +9,8 @@ import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
 
+import NaverThirdPartyLogin
+
 import NeedleFoundation
 import UIKit
 
@@ -28,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator(component: appComponent, navController: navController)
 
         // TODO: appComponent에서 회원가입여부 확인 후 Main, Logged out 결정
-        appCoordinator.showLoggedOut()
+        appCoordinator.showMain()
         // TODO-END
 
         window.makeKeyAndVisible()
@@ -42,6 +44,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let url = URLContexts.first?.url {
             if AuthApi.isKakaoTalkLoginUrl(url) {
                 _ = AuthController.handleOpenUrl(url: url)
+            }
+
+            if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance(),
+               naverAPI.isNaverThirdPartyLoginAppschemeURL(url)
+            {
+                naverAPI.receiveAccessToken(url)
             }
         }
     }

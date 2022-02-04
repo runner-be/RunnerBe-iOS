@@ -11,14 +11,22 @@ import NeedleFoundation
 final class AppComponent: BootstrapComponent {
     override init() {
         super.init()
-        _ = kakaoOAuthService
+        _ = kakaoLoginService
     }
 
-    var kakaoOAuthService: KakaoOAuthService {
-        return shared { KakaoOAuthService() }
+    var kakaoLoginService: KakaoLoginService {
+        return shared { KakaoLoginService() }
+    }
+
+    var naverLoginService: NaverLoginService {
+        return shared { NaverLoginService() }
     }
 
     var loggedOutComponent: LoggedOutComponent {
         return LoggedOutComponent(parent: self)
+    }
+
+    var mainTabComponent: MainTabComponent {
+        return MainTabComponent(parent: self)
     }
 }

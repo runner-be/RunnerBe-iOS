@@ -18,7 +18,11 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     override func start() {}
 
-    func showMain() {}
+    func showMain() {
+        let mainTabbarCoord = MainTabbarCoordinator(component: component.mainTabComponent, navController: navController)
+
+        coordinate(coordinator: mainTabbarCoord)
+    }
 
     func showLoggedOut() {
         let loggedOutCoord = LoggedOutCoordinator(component: component.loggedOutComponent, navController: navController)

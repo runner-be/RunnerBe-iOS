@@ -24,11 +24,22 @@ internal enum Asset {
   internal enum Colors {
     internal static let bgGradientBottom = ColorAsset(name: "Bg-Gradient-bottom")
     internal static let bgGradientTop = ColorAsset(name: "Bg-Gradient-top")
+    internal static let tabIconNormal = ColorAsset(name: "TabIcon-normal")
+    internal static let tabIconSelected = ColorAsset(name: "TabIcon-selected")
+    internal static let tabbarBg = ColorAsset(name: "Tabbar-Bg")
   }
   internal enum Images {
     internal static let appleLogin = ImageAsset(name: "Apple_login")
+    internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
+    internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
+    internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_focused")
+    internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
     internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
     internal static let logoSignature = ImageAsset(name: "Logo_signature")
+    internal static let messageTabIconFocused = ImageAsset(name: "MessageTabIcon_focused")
+    internal static let messageTabIconNormal = ImageAsset(name: "MessageTabIcon_normal")
+    internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
+    internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
     internal static let naverLogin = ImageAsset(name: "Naver_login")
   }
 }

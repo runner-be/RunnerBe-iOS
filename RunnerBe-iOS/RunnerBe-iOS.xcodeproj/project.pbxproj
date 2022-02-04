@@ -17,14 +17,13 @@
 		C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */; };
 		C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */; };
 		C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */; };
-		C34FDA6A27AD5C83007718F8 /* OAuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5527AD5C82007718F8 /* OAuthToken.swift */; };
 		C34FDA6B27AD5C83007718F8 /* UIStackView+Make.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5827AD5C82007718F8 /* UIStackView+Make.swift */; };
 		C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */; };
 		C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */; };
-		C34FDA6E27AD5C83007718F8 /* KakaoOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5D27AD5C83007718F8 /* KakaoOAuthService.swift */; };
-		C34FDA6F27AD5C83007718F8 /* KakaoOAuthServicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5E27AD5C83007718F8 /* KakaoOAuthServicable.swift */; };
+		C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5D27AD5C83007718F8 /* KakaoLoginService.swift */; };
+		C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5E27AD5C83007718F8 /* LoginServiceable.swift */; };
 		C34FDA7027AD5C83007718F8 /* 1_AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6027AD5C83007718F8 /* 1_AppCoordinator.swift */; };
-		C34FDA7127AD5C83007718F8 /* 0_BasicCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6127AD5C83007718F8 /* 0_BasicCoordinator.swift */; };
+		C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */; };
 		C34FDA7227AD5C83007718F8 /* 2__LoggedOutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6227AD5C83007718F8 /* 2__LoggedOutCoordinator.swift */; };
 		C34FDA7327AD5C83007718F8 /* 0_AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6527AD5C83007718F8 /* 0_AppComponent.swift */; };
 		C34FDA7427AD5C83007718F8 /* 1__LoggedOutComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA6627AD5C83007718F8 /* 1__LoggedOutComponent.swift */; };
@@ -34,6 +33,28 @@
 		C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
 		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
+		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
+		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
+		C38F8F2327AD929D0050137D /* 3__MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* 3__MainTabbarCoordinator.swift */; };
+		C38F8F2527AD947E0050137D /* 2__MainTabComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2427AD947E0050137D /* 2__MainTabComponent.swift */; };
+		C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2A27AD963C0050137D /* HomeViewController.swift */; };
+		C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2C27AD96480050137D /* BookMarkViewController.swift */; };
+		C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2E27AD96530050137D /* MessageViewController.swift */; };
+		C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3027AD965C0050137D /* MyPageViewController.swift */; };
+		C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3227AD96CD0050137D /* HomeViewModel.swift */; };
+		C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */; };
+		C38F8F3727AD96E10050137D /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3627AD96E10050137D /* MessageViewModel.swift */; };
+		C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3827AD96E90050137D /* MyPageViewModel.swift */; };
+		C38F8F3C27AD99D70050137D /* 2__0_HomeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3B27AD99D70050137D /* 2__0_HomeComponent.swift */; };
+		C38F8F3E27AD99E50050137D /* 2__1_BookMarkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3D27AD99E50050137D /* 2__1_BookMarkComponent.swift */; };
+		C38F8F4027AD99F30050137D /* 2__2_MessageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3F27AD99F30050137D /* 2__2_MessageComponent.swift */; };
+		C38F8F4227AD9A0D0050137D /* 2__3_MyPageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4127AD9A0D0050137D /* 2__3_MyPageComponent.swift */; };
+		C38F8F4427AD9DEA0050137D /* 3__0_HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4327AD9DEA0050137D /* 3__0_HomeCoordinator.swift */; };
+		C38F8F4627AD9E990050137D /* 3__1_BookMarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4527AD9E990050137D /* 3__1_BookMarkCoordinator.swift */; };
+		C38F8F4827AD9EAA0050137D /* 3__2_MessageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4727AD9EAA0050137D /* 3__2_MessageCoordinator.swift */; };
+		C38F8F4A27AD9EBA0050137D /* 3__3_MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* 3__3_MyPageCoordinator.swift */; };
+		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
+		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,14 +71,13 @@
 		C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
 		C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
-		C34FDA5527AD5C82007718F8 /* OAuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthToken.swift; sourceTree = "<group>"; };
 		C34FDA5827AD5C82007718F8 /* UIStackView+Make.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Make.swift"; sourceTree = "<group>"; };
 		C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C34FDA5D27AD5C83007718F8 /* KakaoOAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoOAuthService.swift; sourceTree = "<group>"; };
-		C34FDA5E27AD5C83007718F8 /* KakaoOAuthServicable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoOAuthServicable.swift; sourceTree = "<group>"; };
+		C34FDA5D27AD5C83007718F8 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
+		C34FDA5E27AD5C83007718F8 /* LoginServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginServiceable.swift; sourceTree = "<group>"; };
 		C34FDA6027AD5C83007718F8 /* 1_AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 1_AppCoordinator.swift; sourceTree = "<group>"; };
-		C34FDA6127AD5C83007718F8 /* 0_BasicCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 0_BasicCoordinator.swift; sourceTree = "<group>"; };
+		C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCoordinator.swift; sourceTree = "<group>"; };
 		C34FDA6227AD5C83007718F8 /* 2__LoggedOutCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 2__LoggedOutCoordinator.swift; sourceTree = "<group>"; };
 		C34FDA6527AD5C83007718F8 /* 0_AppComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 0_AppComponent.swift; sourceTree = "<group>"; };
 		C34FDA6627AD5C83007718F8 /* 1__LoggedOutComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 1__LoggedOutComponent.swift; sourceTree = "<group>"; };
@@ -67,6 +87,28 @@
 		C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
+		C38F8F2227AD929D0050137D /* 3__MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3__MainTabbarCoordinator.swift; sourceTree = "<group>"; };
+		C38F8F2427AD947E0050137D /* 2__MainTabComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2__MainTabComponent.swift; sourceTree = "<group>"; };
+		C38F8F2A27AD963C0050137D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C38F8F2C27AD96480050137D /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
+		C38F8F2E27AD96530050137D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		C38F8F3027AD965C0050137D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		C38F8F3227AD96CD0050137D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewModel.swift; sourceTree = "<group>"; };
+		C38F8F3627AD96E10050137D /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		C38F8F3827AD96E90050137D /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		C38F8F3B27AD99D70050137D /* 2__0_HomeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2__0_HomeComponent.swift; sourceTree = "<group>"; };
+		C38F8F3D27AD99E50050137D /* 2__1_BookMarkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2__1_BookMarkComponent.swift; sourceTree = "<group>"; };
+		C38F8F3F27AD99F30050137D /* 2__2_MessageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2__2_MessageComponent.swift; sourceTree = "<group>"; };
+		C38F8F4127AD9A0D0050137D /* 2__3_MyPageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2__3_MyPageComponent.swift; sourceTree = "<group>"; };
+		C38F8F4327AD9DEA0050137D /* 3__0_HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3__0_HomeCoordinator.swift; sourceTree = "<group>"; };
+		C38F8F4527AD9E990050137D /* 3__1_BookMarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3__1_BookMarkCoordinator.swift; sourceTree = "<group>"; };
+		C38F8F4727AD9EAA0050137D /* 3__2_MessageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3__2_MessageCoordinator.swift; sourceTree = "<group>"; };
+		C38F8F4927AD9EBA0050137D /* 3__3_MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3__3_MyPageCoordinator.swift; sourceTree = "<group>"; };
+		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
+		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,6 +190,10 @@
 		C34FDA4F27AD5C82007718F8 /* 1_MainTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				C38F8F2627AD95FC0050137D /* 0_Home */,
+				C38F8F2727AD960C0050137D /* 1_BookMark */,
+				C38F8F2827AD96140050137D /* 2_Message */,
+				C38F8F2927AD961D0050137D /* 3_MyPage */,
 			);
 			path = 1_MainTabbar;
 			sourceTree = "<group>";
@@ -155,24 +201,15 @@
 		C34FDA5027AD5C82007718F8 /* 0_LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */,
 				C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */,
-				C34FDA5327AD5C82007718F8 /* View */,
+				C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */,
 			);
 			path = 0_LoggedOut;
-			sourceTree = "<group>";
-		};
-		C34FDA5327AD5C82007718F8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		C34FDA5427AD5C82007718F8 /* 0_Model */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA5527AD5C82007718F8 /* OAuthToken.swift */,
 			);
 			path = 0_Model;
 			sourceTree = "<group>";
@@ -190,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				C34FDA5827AD5C82007718F8 /* UIStackView+Make.swift */,
+				C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -197,26 +235,34 @@
 		C34FDA5B27AD5C83007718F8 /* 1_Service */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA5C27AD5C83007718F8 /* OAuthService */,
+				C34FDA5C27AD5C83007718F8 /* LoginService */,
 			);
 			path = 1_Service;
 			sourceTree = "<group>";
 		};
-		C34FDA5C27AD5C83007718F8 /* OAuthService */ = {
+		C34FDA5C27AD5C83007718F8 /* LoginService */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA5D27AD5C83007718F8 /* KakaoOAuthService.swift */,
-				C34FDA5E27AD5C83007718F8 /* KakaoOAuthServicable.swift */,
+				C38F8F2027AD88970050137D /* LoginType.swift */,
+				C38F8F1E27AD88700050137D /* LoginData.swift */,
+				C34FDA5E27AD5C83007718F8 /* LoginServiceable.swift */,
+				C34FDA5D27AD5C83007718F8 /* KakaoLoginService.swift */,
+				C3FEECAF27AD860C00135099 /* NaverLoginService.swift */,
 			);
-			path = OAuthService;
+			path = LoginService;
 			sourceTree = "<group>";
 		};
 		C34FDA5F27AD5C83007718F8 /* 4_Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
 				C34FDA6027AD5C83007718F8 /* 1_AppCoordinator.swift */,
-				C34FDA6127AD5C83007718F8 /* 0_BasicCoordinator.swift */,
 				C34FDA6227AD5C83007718F8 /* 2__LoggedOutCoordinator.swift */,
+				C38F8F2227AD929D0050137D /* 3__MainTabbarCoordinator.swift */,
+				C38F8F4327AD9DEA0050137D /* 3__0_HomeCoordinator.swift */,
+				C38F8F4527AD9E990050137D /* 3__1_BookMarkCoordinator.swift */,
+				C38F8F4727AD9EAA0050137D /* 3__2_MessageCoordinator.swift */,
+				C38F8F4927AD9EBA0050137D /* 3__3_MyPageCoordinator.swift */,
 			);
 			path = 4_Coordinator;
 			sourceTree = "<group>";
@@ -233,6 +279,11 @@
 			children = (
 				C34FDA6527AD5C83007718F8 /* 0_AppComponent.swift */,
 				C34FDA6627AD5C83007718F8 /* 1__LoggedOutComponent.swift */,
+				C38F8F2427AD947E0050137D /* 2__MainTabComponent.swift */,
+				C38F8F3B27AD99D70050137D /* 2__0_HomeComponent.swift */,
+				C38F8F3D27AD99E50050137D /* 2__1_BookMarkComponent.swift */,
+				C38F8F3F27AD99F30050137D /* 2__2_MessageComponent.swift */,
+				C38F8F4127AD9A0D0050137D /* 2__3_MyPageComponent.swift */,
 			);
 			path = 3_DependencyComponent;
 			sourceTree = "<group>";
@@ -248,8 +299,8 @@
 				C34FDA4D27AD5C82007718F8 /* 5_Scene */,
 				C34FDA5627AD5C82007718F8 /* 6_Extensions */,
 				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
-				C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */,
 				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
+				C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -268,6 +319,42 @@
 				C34FDA8827AD5FFB007718F8 /* Keys.swift */,
 			);
 			path = Ignore;
+			sourceTree = "<group>";
+		};
+		C38F8F2627AD95FC0050137D /* 0_Home */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2A27AD963C0050137D /* HomeViewController.swift */,
+				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
+			);
+			path = 0_Home;
+			sourceTree = "<group>";
+		};
+		C38F8F2727AD960C0050137D /* 1_BookMark */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2C27AD96480050137D /* BookMarkViewController.swift */,
+				C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */,
+			);
+			path = 1_BookMark;
+			sourceTree = "<group>";
+		};
+		C38F8F2827AD96140050137D /* 2_Message */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2E27AD96530050137D /* MessageViewController.swift */,
+				C38F8F3627AD96E10050137D /* MessageViewModel.swift */,
+			);
+			path = 2_Message;
+			sourceTree = "<group>";
+		};
+		C38F8F2927AD961D0050137D /* 3_MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
+				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
+			);
+			path = 3_MyPage;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -455,26 +542,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C38F8F4427AD9DEA0050137D /* 3__0_HomeCoordinator.swift in Sources */,
+				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
+				C38F8F4227AD9A0D0050137D /* 2__3_MyPageComponent.swift in Sources */,
+				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
+				C38F8F2327AD929D0050137D /* 3__MainTabbarCoordinator.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
-				C34FDA6A27AD5C83007718F8 /* OAuthToken.swift in Sources */,
-				C34FDA7127AD5C83007718F8 /* 0_BasicCoordinator.swift in Sources */,
+				C38F8F2527AD947E0050137D /* 2__MainTabComponent.swift in Sources */,
+				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
+				C38F8F4A27AD9EBA0050137D /* 3__3_MyPageCoordinator.swift in Sources */,
+				C38F8F4827AD9EAA0050137D /* 3__2_MessageCoordinator.swift in Sources */,
+				C38F8F4027AD99F30050137D /* 2__2_MessageComponent.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* 0_AppComponent.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
+				C38F8F3727AD96E10050137D /* MessageViewModel.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+Make.swift in Sources */,
-				C34FDA6E27AD5C83007718F8 /* KakaoOAuthService.swift in Sources */,
+				C38F8F4627AD9E990050137D /* 3__1_BookMarkCoordinator.swift in Sources */,
+				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
-				C34FDA6F27AD5C83007718F8 /* KakaoOAuthServicable.swift in Sources */,
+				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
+				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C38F8F3E27AD99E50050137D /* 2__1_BookMarkComponent.swift in Sources */,
+				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* 1_AppCoordinator.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
+				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* 1__LoggedOutComponent.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
+				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
+				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
+				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
+				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
+				C38F8F3C27AD99D70050137D /* 2__0_HomeComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* 2__LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
+				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
+				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

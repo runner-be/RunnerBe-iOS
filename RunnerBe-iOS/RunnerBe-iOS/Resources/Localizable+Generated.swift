@@ -25,6 +25,27 @@ internal enum L10n {
       internal static let text = L10n.tr("Localizable", "LoggedOut.NaverBtn.text")
     }
   }
+
+  internal enum MainTabbar {
+    internal enum Item {
+      internal enum BookMark {
+        /// BookMark
+        internal static let title = L10n.tr("Localizable", "MainTabbar.Item.BookMark.title")
+      }
+      internal enum Home {
+        /// Home
+        internal static let title = L10n.tr("Localizable", "MainTabbar.Item.Home.title")
+      }
+      internal enum Message {
+        /// Message
+        internal static let title = L10n.tr("Localizable", "MainTabbar.Item.Message.title")
+      }
+      internal enum MyPage {
+        /// MyPage
+        internal static let title = L10n.tr("Localizable", "MainTabbar.Item.MyPage.title")
+      }
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

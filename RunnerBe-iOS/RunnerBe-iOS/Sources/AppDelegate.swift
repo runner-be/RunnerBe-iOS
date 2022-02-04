@@ -12,6 +12,8 @@ import RxKakaoSDKAuth
 import RxKakaoSDKCommon
 import RxKakaoSDKUser
 
+import NaverThirdPartyLogin
+
 import NeedleFoundation
 import RxSwift
 import UIKit
@@ -21,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         registerProviderFactories()
         KakaoSDK.initSDK(appKey: AppKeys.KakaoKey)
+
+        let naverLogin = NaverThirdPartyLoginConnection.getSharedInstance()
+        naverLogin?.isNaverAppOauthEnable = true
+        naverLogin?.isInAppOauthEnable = true
+        naverLogin?.isOnlyPortraitSupportedInIphone()
+        naverLogin?.serviceUrlScheme = kServiceAppUrlScheme
+        naverLogin?.consumerKey = kConsumerKey
+        naverLogin?.consumerSecret = kConsumerSecret
+        naverLogin?.appName = kServiceAppName
+
         return true
     }
 

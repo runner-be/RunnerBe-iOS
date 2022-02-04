@@ -9,27 +9,35 @@ import Foundation
 import NeedleFoundation
 
 protocol LoggedOutDependency: Dependency {
-    var kakaoOAuthService: KakaoOAuthService { get }
+    var kakaoLoginService: KakaoLoginService { get }
+    var naverLoginService: NaverLoginService { get }
 }
 
-class LoggedOutComponent: Component<LoggedOutDependency>, LoggedOutBuilder {
+class LoggedOutComponent: Component<LoggedOutDependency> {
     var loggedOutViewController: UIViewController {
         return shared {
             LoggedOutViewController(viewModel: self.loggedOutViewModel)
         }
     }
 
-    var kakaoOAuthService: KakaoOAuthService {
+    var kakaoLoginService: KakaoLoginService {
         return shared {
-            KakaoOAuthService()
+            KakaoLoginService()
+        }
+    }
+
+    var naverLoginService: NaverLoginService {
+        return shared {
+            NaverLoginService()
         }
     }
 
     var loggedOutViewModel: LoggedOutViewModel {
         return shared {
-            LoggedOutViewModel(kakaoOAuthService: kakaoOAuthService)
+            LoggedOutViewModel(
+                kakaoLoginService: kakaoLoginService,
+                naverLoginService: naverLoginService
+            )
         }
     }
 }
-
-protocol LoggedOutBuilder {}
