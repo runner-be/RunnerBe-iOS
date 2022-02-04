@@ -11,3 +11,14 @@
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
  
  */
+
+// MARK: - LoggedOut
+"LoggedOut.KakaoBtn.text" = "카카오 로그인";
+"LoggedOut.NaverBtn.text" = "네이버 로그인";
+"LoggedOut.AppleBtn.text" = "Apple로 로그인";
+
+// MARK: - MainTabbar.Item
+"MainTabbar.Item.Home.title" = "홈";
+"MainTabbar.Item.BookMark.title" = "즐겨찾기";
+"MainTabbar.Item.Message.title" = "쪽지";
+"MainTabbar.Item.MyPage.title" = "MyPage";
