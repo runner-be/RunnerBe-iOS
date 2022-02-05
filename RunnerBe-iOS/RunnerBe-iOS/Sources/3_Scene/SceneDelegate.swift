@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions)
     {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene)
+        else { return }
         let window = UIWindow(windowScene: windowScene)
 
         let navController = UINavigationController()
@@ -32,7 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
         let appCoordinator = AppCoordinator(component: appComponent, navController: navController)
 
         // TODO: appComponent에서 회원가입여부 확인 후 Main, Logged out 결정
-        appCoordinator.showMain()
+//        appCoordinator.showMain()
+        appCoordinator.showLoggedOut()
         // TODO-END
 
         window.makeKeyAndVisible()
