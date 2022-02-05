@@ -7,12 +7,6 @@
 
 import UIKit
 
-extension ColorAsset {
-    var uiColor: UIColor {
-        UIColor(asset: self)!
-    }
-}
-
 extension ImageAsset {
     var uiImage: UIImage {
         UIImage(asset: self)!

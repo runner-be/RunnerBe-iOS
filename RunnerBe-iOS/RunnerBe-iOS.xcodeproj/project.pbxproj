@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		6446622B2E8C1F9E0907F3CD /* Pods_RunnerBe_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
+		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
-		C34FDA4227AD5BC7007718F8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3D27AD5BC6007718F8 /* Colors.xcassets */; };
-		C34FDA4327AD5BC7007718F8 /* Localization in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3E27AD5BC6007718F8 /* Localization */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
-		C34FDA4627AD5BC7007718F8 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4127AD5BC7007718F8 /* Fonts */; };
 		C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */; };
 		C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */; };
 		C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */; };
@@ -61,6 +59,16 @@
 		C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4727AD9EAA0050137D /* MessageCoordinator.swift */; };
 		C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */; };
 		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
+		C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */; };
+		C39D86C427AEB78700A9C201 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */; };
+		C39D86C527AEB78700A9C201 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BC27AEB78600A9C201 /* AppleSDGothicNeoL.ttf */; };
+		C39D86C627AEB78700A9C201 /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BD27AEB78600A9C201 /* AppleSDGothicNeoSB.ttf */; };
+		C39D86C727AEB78700A9C201 /* AppleSDGothicNeoT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BE27AEB78600A9C201 /* AppleSDGothicNeoT.ttf */; };
+		C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BF27AEB78600A9C201 /* AppleSDGothicNeoM.ttf */; };
+		C39D86C927AEB78700A9C201 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86C027AEB78600A9C201 /* AppleSDGothicNeoR.ttf */; };
+		C39D86CA27AEB78700A9C201 /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86C127AEB78700A9C201 /* AppleSDGothicNeoEB.ttf */; };
+		C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86C227AEB78700A9C201 /* AppleSDGothicNeoH.ttf */; };
+		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,14 +76,12 @@
 		1860118114B3D5CC6E48BE87 /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BFB91C4A0FEADEF7E83BF088 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
+		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C34FDA3D27AD5BC6007718F8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		C34FDA3E27AD5BC6007718F8 /* Localization */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Localization; sourceTree = "<group>"; };
 		C34FDA3F27AD5BC7007718F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C34FDA4027AD5BC7007718F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C34FDA4127AD5BC7007718F8 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
 		C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +128,18 @@
 		C38F8F4727AD9EAA0050137D /* MessageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
+		C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
+		C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
+		C39D86BC27AEB78600A9C201 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
+		C39D86BD27AEB78600A9C201 /* AppleSDGothicNeoSB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoSB.ttf; sourceTree = "<group>"; };
+		C39D86BE27AEB78600A9C201 /* AppleSDGothicNeoT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoT.ttf; sourceTree = "<group>"; };
+		C39D86BF27AEB78600A9C201 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
+		C39D86C027AEB78600A9C201 /* AppleSDGothicNeoR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoR.ttf; sourceTree = "<group>"; };
+		C39D86C127AEB78700A9C201 /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
+		C39D86C227AEB78700A9C201 /* AppleSDGothicNeoH.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoH.ttf; sourceTree = "<group>"; };
+		C39D86CC27AEB9E400A9C201 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -179,15 +197,15 @@
 		C34FDA3227AD59F3007718F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */,
 				C31C200E27AE678C00960E8A /* Font+.swift */,
 				C34FDA7627AD5D45007718F8 /* Assets+Generated.swift */,
 				C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */,
 				C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */,
 				C34FDA4027AD5BC7007718F8 /* Assets.xcassets */,
-				C34FDA3D27AD5BC6007718F8 /* Colors.xcassets */,
 				C34FDA3F27AD5BC7007718F8 /* Images.xcassets */,
-				C34FDA4127AD5BC7007718F8 /* Fonts */,
-				C34FDA3E27AD5BC6007718F8 /* Localization */,
+				C3F0968727AED10700959F9A /* Localization */,
+				C39D86B927AEB76100A9C201 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -221,11 +239,11 @@
 		C34FDA5027AD5C82007718F8 /* LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
-				C37E45F127AE397A00C12CA2 /* Nickname */,
 				C34FDA6627AD5C83007718F8 /* LoggedOutComponent.swift */,
 				C34FDA6227AD5C83007718F8 /* LoggedOutCoordinator.swift */,
 				C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */,
 				C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */,
+				C37E45F127AE397A00C12CA2 /* Nickname */,
 			);
 			path = LoggedOut;
 			sourceTree = "<group>";
@@ -386,6 +404,30 @@
 			path = 5_Utils;
 			sourceTree = "<group>";
 		};
+		C39D86B927AEB76100A9C201 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */,
+				C39D86C127AEB78700A9C201 /* AppleSDGothicNeoEB.ttf */,
+				C39D86C227AEB78700A9C201 /* AppleSDGothicNeoH.ttf */,
+				C39D86BC27AEB78600A9C201 /* AppleSDGothicNeoL.ttf */,
+				C39D86BF27AEB78600A9C201 /* AppleSDGothicNeoM.ttf */,
+				C39D86C027AEB78600A9C201 /* AppleSDGothicNeoR.ttf */,
+				C39D86BD27AEB78600A9C201 /* AppleSDGothicNeoSB.ttf */,
+				C39D86BE27AEB78600A9C201 /* AppleSDGothicNeoT.ttf */,
+				C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C3F0968727AED10700959F9A /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C3F0968627AED0F900959F9A /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +485,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = C34FDA1127AD5997007718F8;
 			productRefGroup = C34FDA1B27AD5997007718F8 /* Products */;
@@ -459,12 +502,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C39D86C927AEB78700A9C201 /* AppleSDGothicNeoR.ttf in Resources */,
+				C39D86C627AEB78700A9C201 /* AppleSDGothicNeoSB.ttf in Resources */,
 				C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */,
 				C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */,
-				C34FDA4227AD5BC7007718F8 /* Colors.xcassets in Resources */,
-				C34FDA4627AD5BC7007718F8 /* Fonts in Resources */,
-				C34FDA4327AD5BC7007718F8 /* Localization in Resources */,
+				C39D86C427AEB78700A9C201 /* AppleSDGothicNeoB.ttf in Resources */,
+				C39D86C727AEB78700A9C201 /* AppleSDGothicNeoT.ttf in Resources */,
+				C39D86C527AEB78700A9C201 /* AppleSDGothicNeoL.ttf in Resources */,
 				C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */,
+				C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */,
+				C3F0968427AED0F900959F9A /* Localizable.strings in Resources */,
+				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
+				C39D86CA27AEB78700A9C201 /* AppleSDGothicNeoEB.ttf in Resources */,
+				C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +648,7 @@
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C37E45EE27AE395300C12CA2 /* OnboardingComponent.swift.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C37E45F027AE396500C12CA2 /* OnboardingCoordinator.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
@@ -629,8 +680,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				C34FDA2927AD5999007718F8 /* Base */,
+				C39D86CC27AEB9E400A9C201 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C3F0968627AED0F900959F9A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3F0968527AED0F900959F9A /* en */,
+				C3F0968827AED12200959F9A /* ko */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -640,6 +701,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -701,6 +763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

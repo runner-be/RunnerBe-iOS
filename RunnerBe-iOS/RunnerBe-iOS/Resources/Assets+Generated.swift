@@ -10,8 +10,6 @@
 #endif
 
 // Deprecated typealiases
-@available(*, deprecated, renamed: "ColorAsset.Color", message: "This typealias will be removed in SwiftGen 7.0")
-internal typealias AssetColorTypeAlias = ColorAsset.Color
 @available(*, deprecated, renamed: "ImageAsset.Image", message: "This typealias will be removed in SwiftGen 7.0")
 internal typealias AssetImageTypeAlias = ImageAsset.Image
 
@@ -21,92 +19,22 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
-  internal enum Colors {
-    internal static let bgGradientBottom = ColorAsset(name: "Bg-Gradient-bottom")
-    internal static let bgGradientTop = ColorAsset(name: "Bg-Gradient-top")
-    internal static let darkBlack = ColorAsset(name: "Dark-Black")
-    internal static let darkG1 = ColorAsset(name: "Dark-G1")
-    internal static let darkG25 = ColorAsset(name: "Dark-G2.5")
-    internal static let darkG2 = ColorAsset(name: "Dark-G2")
-    internal static let darkG35 = ColorAsset(name: "Dark-G3.5")
-    internal static let darkG3 = ColorAsset(name: "Dark-G3")
-    internal static let darkG45 = ColorAsset(name: "Dark-G4.5")
-    internal static let darkG4 = ColorAsset(name: "Dark-G4")
-    internal static let darkG55 = ColorAsset(name: "Dark-G5.5")
-    internal static let darkG5 = ColorAsset(name: "Dark-G5")
-    internal static let darkG6 = ColorAsset(name: "Dark-G6")
-    internal static let darkWhite = ColorAsset(name: "Dark-White")
-    internal static let error = ColorAsset(name: "Error")
-    internal static let errorLight = ColorAsset(name: "ErrorLight")
-    internal static let primary = ColorAsset(name: "Primary")
-    internal static let primaryDark = ColorAsset(name: "PrimaryDark")
-    internal static let primaryDarker = ColorAsset(name: "PrimaryDarker")
-  }
-  internal enum Images {
-    internal static let appleLogin = ImageAsset(name: "Apple_login")
-    internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
-    internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
-    internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
-    internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
-    internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
-    internal static let logoSignature = ImageAsset(name: "Logo_signature")
-    internal static let messageTabIconFocused = ImageAsset(name: "MessageTabIcon_focused")
-    internal static let messageTabIconNormal = ImageAsset(name: "MessageTabIcon_normal")
-    internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
-    internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
-    internal static let naverLogin = ImageAsset(name: "Naver_login")
-  }
+  internal static let appleLogin = ImageAsset(name: "Apple_login")
+  internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
+  internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
+  internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
+  internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
+  internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
+  internal static let logoSignature = ImageAsset(name: "Logo_signature")
+  internal static let messageTabIconFocused = ImageAsset(name: "MessageTabIcon_focused")
+  internal static let messageTabIconNormal = ImageAsset(name: "MessageTabIcon_normal")
+  internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
+  internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
+  internal static let naverLogin = ImageAsset(name: "Naver_login")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
 // MARK: - Implementation Details
-
-internal final class ColorAsset {
-  internal fileprivate(set) var name: String
-
-  #if os(macOS)
-  internal typealias Color = NSColor
-  #elseif os(iOS) || os(tvOS) || os(watchOS)
-  internal typealias Color = UIColor
-  #endif
-
-  @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  internal private(set) lazy var color: Color = {
-    guard let color = Color(asset: self) else {
-      fatalError("Unable to load color asset named \(name).")
-    }
-    return color
-  }()
-
-  #if os(iOS) || os(tvOS)
-  @available(iOS 11.0, tvOS 11.0, *)
-  internal func color(compatibleWith traitCollection: UITraitCollection) -> Color {
-    let bundle = BundleToken.bundle
-    guard let color = Color(named: name, in: bundle, compatibleWith: traitCollection) else {
-      fatalError("Unable to load color asset named \(name).")
-    }
-    return color
-  }
-  #endif
-
-  fileprivate init(name: String) {
-    self.name = name
-  }
-}
-
-internal extension ColorAsset.Color {
-  @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  convenience init?(asset: ColorAsset) {
-    let bundle = BundleToken.bundle
-    #if os(iOS) || os(tvOS)
-    self.init(named: asset.name, in: bundle, compatibleWith: nil)
-    #elseif os(macOS)
-    self.init(named: NSColor.Name(asset.name), bundle: bundle)
-    #elseif os(watchOS)
-    self.init(named: asset.name)
-    #endif
-  }
-}
 
 internal struct ImageAsset {
   internal fileprivate(set) var name: String

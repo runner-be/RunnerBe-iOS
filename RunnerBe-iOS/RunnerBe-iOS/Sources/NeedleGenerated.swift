@@ -12,6 +12,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent") { component in
         return EmptyDependencyProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->NickNameComponent") { component in
+        return NickNameDependencyba0813dbe4324c60068bProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent") { component in
         return LoggedOutDependency2bcab0d3625f6f252479Provider(component: component)
     }
@@ -35,6 +38,19 @@ public func registerProviderFactories() {
 
 // MARK: - Providers
 
+private class NickNameDependencyba0813dbe4324c60068bBaseProvider: NickNameDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->NickNameComponent
+private class NickNameDependencyba0813dbe4324c60068bProvider: NickNameDependencyba0813dbe4324c60068bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
 private class LoggedOutDependency2bcab0d3625f6f252479BaseProvider: LoggedOutDependency {
     var kakaoLoginService: KakaoLoginService {
         return appComponent.kakaoLoginService

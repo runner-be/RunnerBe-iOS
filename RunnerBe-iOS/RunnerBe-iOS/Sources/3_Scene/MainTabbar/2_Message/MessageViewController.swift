@@ -31,8 +31,8 @@ class MessageViewController: BaseViewController {
     private func configureTabItem() {
         tabBarItem = UITabBarItem(
             title: "",
-            image: Asset.Images.messageTabIconNormal.uiImage,
-            selectedImage: Asset.Images.messageTabIconFocused.uiImage
+            image: Asset.messageTabIconNormal.uiImage,
+            selectedImage: Asset.messageTabIconFocused.uiImage
         )
         tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }

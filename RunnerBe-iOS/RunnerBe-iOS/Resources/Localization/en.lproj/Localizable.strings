@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   RunnerBe-iOS
 
@@ -22,3 +22,14 @@
 "MainTabbar.Item.BookMark.title" = "BookMark";
 "MainTabbar.Item.Message.title" = "Message";
 "MainTabbar.Item.MyPage.title" = "MyPage";
+
+// MARK: - NickName
+"NickName.title1" = "어떤 닉네임으로";
+"NickName.title2" = "활동하실 건가요?";
+"NickName.subtitle" = "한 번 정한 닉네임은 수정할 수 없어요.";
+"NickName.textfield.placeholder" = "영어 8자/한글 6자까지 쓸 수 있어요.";
+"NickName.button.checkDup.title" = "중복 확인";
+"NickName.button.setNickname.title" = "정했어요!";
+"NickName.error.textformat" = "특수문자, 띄어쓰기는 쓸 수 없어요!";
+"NickName.error.duplicated" = "중복된 닉네임이에요!";
+

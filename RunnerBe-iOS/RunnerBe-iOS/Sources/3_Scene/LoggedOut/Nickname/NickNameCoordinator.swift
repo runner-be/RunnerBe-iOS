@@ -22,5 +22,7 @@ final class NickNameCoordinator: BasicCoordinator<NickNameResult> {
 
     var component: NickNameComponent
 
-    override func start() {}
+    override func start() {
+        navController.pushViewController(component.nickNameViewController, animated: true)
+    }
 }

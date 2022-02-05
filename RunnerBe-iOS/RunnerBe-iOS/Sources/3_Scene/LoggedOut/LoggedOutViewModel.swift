@@ -17,12 +17,21 @@ final class LoggedOutViewModel {
     ) {
         kakaoNaverService = kakaoLoginService
         self.naverLoginService = naverLoginService
+
         input.kakaoLogin.subscribe(onNext: {
             _ = kakaoLoginService.login()
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
+
         input.naverLogin.subscribe(onNext: {
             _ = naverLoginService.login()
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
+
+        input.appleLogin.subscribe(onNext: {
+            self.route.loginSuccess.onNext(())
+        })
+        .disposed(by: disposeBag)
     }
 
     // MARK: Internal

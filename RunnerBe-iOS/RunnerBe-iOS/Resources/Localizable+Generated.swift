@@ -46,6 +46,35 @@ internal enum L10n {
       }
     }
   }
+
+  internal enum NickName {
+    /// 한 번 정한 닉네임은 수정할 수 없어요.
+    internal static let subtitle = L10n.tr("Localizable", "NickName.subtitle")
+    /// 어떤 닉네임으로
+    internal static let title1 = L10n.tr("Localizable", "NickName.title1")
+    /// 활동하실 건가요?
+    internal static let title2 = L10n.tr("Localizable", "NickName.title2")
+    internal enum Button {
+      internal enum CheckDup {
+        /// 중복 확인
+        internal static let title = L10n.tr("Localizable", "NickName.button.checkDup.title")
+      }
+      internal enum SetNickname {
+        /// 정했어요!
+        internal static let title = L10n.tr("Localizable", "NickName.button.setNickname.title")
+      }
+    }
+    internal enum Error {
+      /// 중복된 닉네임이에요!
+      internal static let duplicated = L10n.tr("Localizable", "NickName.error.duplicated")
+      /// 특수문자, 띄어쓰기는 쓸 수 없어요!
+      internal static let textformat = L10n.tr("Localizable", "NickName.error.textformat")
+    }
+    internal enum Textfield {
+      /// 영어 8자/한글 6자까지 쓸 수 있어요.
+      internal static let placeholder = L10n.tr("Localizable", "NickName.textfield.placeholder")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

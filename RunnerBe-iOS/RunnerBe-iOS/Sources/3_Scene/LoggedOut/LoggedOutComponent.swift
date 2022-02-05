@@ -40,4 +40,8 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
             )
         }
     }
+
+    var nickNameComponent: NickNameComponent {
+        return NickNameComponent(parent: self)
+    }
 }

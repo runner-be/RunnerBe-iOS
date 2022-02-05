@@ -65,17 +65,9 @@ output_dir: RunnerBe-iOS/Resources/
 xcassets:
   inputs:
     - Images.xcassets
-    - Colors.xcassets
   outputs:
     templateName: swift5
     output: Assets+Generated.swift
-
-fonts:
-  inputs:
-    - Fonts
-  outputs:
-    templateName: swift5
-    output: Fonts+Generated.swift
 
 strings:
   inputs:
@@ -83,3 +75,10 @@ strings:
   outputs:
     templateName: structured-swift5
     output: Localizable+Generated.swift
+
+fonts:
+  inputs:
+    - Fonts
+  outputs:
+    templateName: swift5
+    output: Fonts+Generated.swift

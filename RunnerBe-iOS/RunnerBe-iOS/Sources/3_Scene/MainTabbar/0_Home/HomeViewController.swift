@@ -31,8 +31,8 @@ class HomeViewController: BaseViewController {
     private func configureTabItem() {
         tabBarItem = UITabBarItem(
             title: "",
-            image: Asset.Images.homeTabIconNormal.uiImage,
-            selectedImage: Asset.Images.homeTabIconFocused.uiImage
+            image: Asset.homeTabIconNormal.uiImage,
+            selectedImage: Asset.homeTabIconFocused.uiImage
         )
         tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }

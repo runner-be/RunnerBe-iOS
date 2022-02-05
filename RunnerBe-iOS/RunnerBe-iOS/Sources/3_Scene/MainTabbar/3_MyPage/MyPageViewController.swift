@@ -31,8 +31,8 @@ class MyPageViewController: BaseViewController {
     private func configureTabItem() {
         tabBarItem = UITabBarItem(
             title: "",
-            image: Asset.Images.myPageTabIconNormal.uiImage,
-            selectedImage: Asset.Images.myPageTabIconFocused.uiImage
+            image: Asset.myPageTabIconNormal.uiImage,
+            selectedImage: Asset.myPageTabIconFocused.uiImage
         )
         tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }

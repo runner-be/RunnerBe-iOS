@@ -38,21 +38,21 @@ final class LoggedOutViewController: BaseViewController {
     // MARK: Internal
 
     var logoImageView = UIImageView().then {
-        $0.image = Asset.Images.logoSignature.uiImage
+        $0.image = Asset.logoSignature.uiImage
     }
 
     var kakaoButton = UIImageView().then {
-        $0.image = Asset.Images.kakaoLogin.uiImage
+        $0.image = Asset.kakaoLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
     var naverButton = UIImageView().then {
-        $0.image = Asset.Images.naverLogin.uiImage
+        $0.image = Asset.naverLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
     var appleButton = UIImageView().then {
-        $0.image = Asset.Images.appleLogin.uiImage
+        $0.image = Asset.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
@@ -90,8 +90,8 @@ private extension LoggedOutViewController {
     func gradientBackground() {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [
-            Asset.Colors.bgGradientTop.uiColor.cgColor,
-            Asset.Colors.bgGradientBottom.uiColor.cgColor,
+            UIColor.darkG55.cgColor,
+            UIColor.darkG6.cgColor,
         ]
         backgroundGradientLayer.frame = view.bounds
         view.layer.addSublayer(backgroundGradientLayer)

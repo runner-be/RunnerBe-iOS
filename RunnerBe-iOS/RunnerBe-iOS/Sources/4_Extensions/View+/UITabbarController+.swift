@@ -8,8 +8,6 @@
 import UIKit
 
 extension UITabBarController {
-    func setBackgroundColor(_: UIColor) {}
-
     func setColors(iconNormal: UIColor, selected: UIColor) {
         let appearance = UITabBarAppearance()
 
