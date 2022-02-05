@@ -34,5 +34,6 @@ class MessageViewController: BaseViewController {
             image: Asset.Images.messageTabIconNormal.uiImage,
             selectedImage: Asset.Images.messageTabIconFocused.uiImage
         )
+        tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }
 }

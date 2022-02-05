@@ -34,5 +34,6 @@ class BookMarkViewController: BaseViewController {
             image: Asset.Images.bookmarkTabIconNormal.uiImage,
             selectedImage: Asset.Images.bookmarkTabIconFocused.uiImage
         )
+        tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }
 }

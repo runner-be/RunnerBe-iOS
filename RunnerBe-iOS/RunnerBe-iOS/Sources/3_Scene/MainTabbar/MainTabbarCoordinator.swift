@@ -32,10 +32,10 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     private func startTabbarController() {
         let tabbarCtrl = component.mainTabbarController
 
-        UITabBar.appearance().backgroundColor = Asset.Colors.tabbarBg.uiColor
+        UITabBar.appearance().backgroundColor = Asset.Colors.darkG6.uiColor
         tabbarCtrl.setColors(
-            iconNormal: Asset.Colors.tabIconNormal.uiColor,
-            selected: Asset.Colors.tabIconSelected.uiColor
+            iconNormal: Asset.Colors.darkG35.uiColor,
+            selected: Asset.Colors.primary.uiColor
         )
 
         let homeCoord = HomeCoordinator(component: component.homeComponent, navController: navController)

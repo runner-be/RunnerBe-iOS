@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6446622B2E8C1F9E0907F3CD /* Pods_RunnerBe_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */; };
+		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4227AD5BC7007718F8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3D27AD5BC6007718F8 /* Colors.xcassets */; };
 		C34FDA4327AD5BC7007718F8 /* Localization in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3E27AD5BC6007718F8 /* Localization */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		1860118114B3D5CC6E48BE87 /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BFB91C4A0FEADEF7E83BF088 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,13 +179,14 @@
 		C34FDA3227AD59F3007718F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C31C200E27AE678C00960E8A /* Font+.swift */,
 				C34FDA7627AD5D45007718F8 /* Assets+Generated.swift */,
 				C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */,
 				C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */,
 				C34FDA4027AD5BC7007718F8 /* Assets.xcassets */,
 				C34FDA3D27AD5BC6007718F8 /* Colors.xcassets */,
-				C34FDA4127AD5BC7007718F8 /* Fonts */,
 				C34FDA3F27AD5BC7007718F8 /* Images.xcassets */,
+				C34FDA4127AD5BC7007718F8 /* Fonts */,
 				C34FDA3E27AD5BC6007718F8 /* Localization */,
 			);
 			path = Resources;
@@ -205,12 +208,12 @@
 		C34FDA4F27AD5C82007718F8 /* MainTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
+				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C38F8F2627AD95FC0050137D /* 0_Home */,
 				C38F8F2727AD960C0050137D /* 1_BookMark */,
 				C38F8F2827AD96140050137D /* 2_Message */,
 				C38F8F2927AD961D0050137D /* 3_MyPage */,
-				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
-				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 			);
 			path = MainTabbar;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
+				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C37E45EE27AE395300C12CA2 /* OnboardingComponent.swift.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,

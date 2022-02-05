@@ -34,5 +34,6 @@ class HomeViewController: BaseViewController {
             image: Asset.Images.homeTabIconNormal.uiImage,
             selectedImage: Asset.Images.homeTabIconFocused.uiImage
         )
+        tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }
 }
