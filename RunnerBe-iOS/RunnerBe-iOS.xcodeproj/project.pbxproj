@@ -248,13 +248,13 @@
 			path = 0_Model;
 			sourceTree = "<group>";
 		};
-		C34FDA5627AD5C82007718F8 /* 4_Extensions */ = {
+		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				C34FDA7E27AD5DA1007718F8 /* Asset+ */,
 				C34FDA5727AD5C82007718F8 /* View+ */,
 			);
-			path = 4_Extensions;
+			path = 5_Extensions;
 			sourceTree = "<group>";
 		};
 		C34FDA5727AD5C82007718F8 /* View+ */ = {
@@ -301,8 +301,9 @@
 				C34FDA5B27AD5C83007718F8 /* 1_Service */,
 				C34FDA6327AD5C83007718F8 /* 2_Provider */,
 				C34FDA4D27AD5C82007718F8 /* 3_Scene */,
-				C34FDA5627AD5C82007718F8 /* 4_Extensions */,
-				C38F8F5127ADB3F60050137D /* 5_Utils */,
+				C3F0968B27AEDDCF00959F9A /* 4_CustomViews */,
+				C34FDA5627AD5C82007718F8 /* 5_Extensions */,
+				C38F8F5127ADB3F60050137D /* 6_Utils */,
 				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
 				C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */,
 			);
@@ -378,13 +379,13 @@
 			path = 3_MyPage;
 			sourceTree = "<group>";
 		};
-		C38F8F5127ADB3F60050137D /* 5_Utils */ = {
+		C38F8F5127ADB3F60050137D /* 6_Utils */ = {
 			isa = PBXGroup;
 			children = (
 				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
 				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
 			);
-			path = 5_Utils;
+			path = 6_Utils;
 			sourceTree = "<group>";
 		};
 		C39D86B927AEB76100A9C201 /* Fonts */ = {
@@ -409,6 +410,13 @@
 				C3F0968627AED0F900959F9A /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 4_CustomViews;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
