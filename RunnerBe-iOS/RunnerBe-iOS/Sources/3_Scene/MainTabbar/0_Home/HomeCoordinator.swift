@@ -10,13 +10,19 @@ import RxSwift
 
 protocol HomeResult {}
 
-final class HomeCoordinator: BasicCoordinator<HomeResult> {
-    var component: HomeComponent
+final class HomeCoordinator: BasicCoordinator<HomeResult>
+{
+    // MARK: Lifecycle
 
-    init(component: HomeComponent, navController: UINavigationController) {
+    init(component: HomeComponent, navController: UINavigationController)
+    {
         self.component = component
         super.init(navController: navController)
     }
+
+    // MARK: Internal
+
+    var component: HomeComponent
 
     override func start() {}
 }

@@ -1,5 +1,5 @@
 //
-//  3__3_MyPageCoordinator.swift
+//  NickNameCoordinator.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/05.
@@ -8,13 +8,13 @@
 import Foundation
 import RxSwift
 
-protocol MyPageResult {}
+enum NickNameResult {}
 
-final class MyPageCoordinator: BasicCoordinator<MyPageResult>
+final class NickNameCoordinator: BasicCoordinator<NickNameResult>
 {
     // MARK: Lifecycle
 
-    init(component: MyPageComponent, navController: UINavigationController)
+    init(component: NickNameComponent, navController: UINavigationController)
     {
         self.component = component
         super.init(navController: navController)
@@ -22,7 +22,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult>
 
     // MARK: Internal
 
-    var component: MyPageComponent
+    var component: NickNameComponent
 
     override func start() {}
 }

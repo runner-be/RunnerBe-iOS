@@ -14,12 +14,14 @@ import NaverThirdPartyLogin
 import NeedleFoundation
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate
+{
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
     var appComponent: AppComponent?
 
-    func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions)
+    {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
 
@@ -40,9 +42,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.appCoordinator = appCoordinator
     }
 
-    func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        if let url = URLContexts.first?.url {
-            if AuthApi.isKakaoTalkLoginUrl(url) {
+    func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
+    {
+        if let url = URLContexts.first?.url
+        {
+            if AuthApi.isKakaoTalkLoginUrl(url)
+            {
                 _ = AuthController.handleOpenUrl(url: url)
             }
 

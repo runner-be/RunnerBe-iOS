@@ -10,8 +10,10 @@ import NeedleFoundation
 
 protocol BookMarkDependency: Dependency {}
 
-final class BookMarkComponent: Component<BookMarkDependency> {
-    var bookMarkViewController: UIViewController {
+final class BookMarkComponent: Component<BookMarkDependency>
+{
+    var bookMarkViewController: UIViewController
+    {
         return shared { BookMarkViewController() }
     }
 }

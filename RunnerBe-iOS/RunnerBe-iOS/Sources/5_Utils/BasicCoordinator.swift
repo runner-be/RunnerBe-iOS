@@ -8,13 +8,25 @@
 import RxSwift
 import UIKit
 
-protocol Coordinator: AnyObject {
+protocol Coordinator: AnyObject
+{
     var uuid: UUID { get }
     var navController: UINavigationController { get set }
     var childs: [UUID: Coordinator] { get set }
 }
 
-class BasicCoordinator<ResultType>: Coordinator {
+class BasicCoordinator<ResultType>: Coordinator
+{
+    // MARK: Lifecycle
+
+    init(navController: UINavigationController)
+    {
+        self.navController = navController
+        navController.setNavigationBarHidden(true, animated: false)
+    }
+
+    // MARK: Internal
+
     typealias CoordinationResult = ResultType
 
     let uuid = UUID()
@@ -25,30 +37,31 @@ class BasicCoordinator<ResultType>: Coordinator {
 
     var closeSignal = PublishSubject<CoordinationResult>()
 
-    init(navController: UINavigationController) {
-        self.navController = navController
-        navController.setNavigationBarHidden(true, animated: false)
-    }
-
-    private func store<T>(coordinator: BasicCoordinator<T>) {
-        childs[coordinator.uuid] = coordinator
-    }
-
     @discardableResult
-    func coordinate<T>(coordinator: BasicCoordinator<T>) -> Observable<T> {
+    func coordinate<T>(coordinator: BasicCoordinator<T>) -> Observable<T>
+    {
         childs[coordinator.uuid] = coordinator
         coordinator.start()
         return coordinator.closeSignal
     }
 
-    func release<T>(coordinator: BasicCoordinator<T>) {
+    func release<T>(coordinator: BasicCoordinator<T>)
+    {
         let uuid = coordinator.uuid
         childs[uuid] = nil
         closeBags[uuid]?.dispose()
         closeBags.removeValue(forKey: uuid)
     }
 
-    func start() {
+    func start()
+    {
         fatalError("start() must be impl")
+    }
+
+    // MARK: Private
+
+    private func store<T>(coordinator: BasicCoordinator<T>)
+    {
+        childs[coordinator.uuid] = coordinator
     }
 }

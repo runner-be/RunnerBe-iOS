@@ -1,0 +1,71 @@
+--swiftversion 5.0
+
+# format options
+--acronyms #ID, URL, UUID
+--allman true
+
+--elseposition same-line
+--guardelse next-line
+
+--emptybraces no-space
+
+--indent 4
+--indentcase false
+
+--enable initCoderUnavailable
+
+--enable isEmpty ## count == 0 -> isempty
+
+--enable leadingDelimiters
+
+--marktypes always
+
+--modifierorder
+
+--enable organizeDeclarations
+--lifecycle viewDidLoad,viewWillAppear,viewDidAppear,viewWillDisappear,viewDidDisappear
+
+--closurevoid remove
+
+--semicolons never
+
+--enable sortedImports
+--importgrouping "alpha"
+
+--enable sortedSwitchCases
+
+--enable spaceAroundBraces
+
+--enable spaceAroundBrackets
+
+--enable spaceAroundComments
+
+--enable spaceAroundGenerics
+
+--enable spaceAroundOperators
+
+--enable spaceInsideBraces
+
+--enable spaceInsideBrackets
+
+--enable spaceInsideComments
+
+--enable spaceInsideGenerics
+
+--enable spaceInsideParens
+
+--enable todos
+
+--enable trailingClosures
+--trailingclosures
+
+--enable trailingCommas
+--commas always
+
+--enable trailingSpace
+--trimwhitespace always
+
+--wrapparameters before-first
+
+# file options
+--exclude Pods, RunnerBe-iOS/Resources

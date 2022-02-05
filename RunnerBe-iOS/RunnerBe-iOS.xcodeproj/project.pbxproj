@@ -33,6 +33,12 @@
 		C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
 		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
+		C37E45EE27AE395300C12CA2 /* OnboardingComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45ED27AE395300C12CA2 /* OnboardingComponent.swift.swift */; };
+		C37E45F027AE396500C12CA2 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45EF27AE396500C12CA2 /* OnboardingCoordinator.swift */; };
+		C37E45F327AE3F1400C12CA2 /* NickNameComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45F227AE3F1400C12CA2 /* NickNameComponent.swift */; };
+		C37E45F527AE3F1E00C12CA2 /* NickNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45F427AE3F1E00C12CA2 /* NickNameCoordinator.swift */; };
+		C37E45F727AE3F2900C12CA2 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45F627AE3F2900C12CA2 /* NickNameViewController.swift */; };
+		C37E45F927AE3F3200C12CA2 /* NickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E45F827AE3F3200C12CA2 /* NickNameViewModel.swift */; };
 		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
 		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -87,6 +93,12 @@
 		C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		C37E45ED27AE395300C12CA2 /* OnboardingComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComponent.swift.swift; sourceTree = "<group>"; };
+		C37E45EF27AE396500C12CA2 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		C37E45F227AE3F1400C12CA2 /* NickNameComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameComponent.swift; sourceTree = "<group>"; };
+		C37E45F427AE3F1E00C12CA2 /* NickNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCoordinator.swift; sourceTree = "<group>"; };
+		C37E45F627AE3F2900C12CA2 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		C37E45F827AE3F3200C12CA2 /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -185,6 +197,7 @@
 				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 				C34FDA5027AD5C82007718F8 /* LoggedOut */,
+				C37E45EC27AE383A00C12CA2 /* Onboarding */,
 			);
 			path = 3_Scene;
 			sourceTree = "<group>";
@@ -205,6 +218,7 @@
 		C34FDA5027AD5C82007718F8 /* LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
+				C37E45F127AE397A00C12CA2 /* Nickname */,
 				C34FDA6627AD5C83007718F8 /* LoggedOutComponent.swift */,
 				C34FDA6227AD5C83007718F8 /* LoggedOutCoordinator.swift */,
 				C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */,
@@ -294,6 +308,26 @@
 				C34FDA8827AD5FFB007718F8 /* Keys.swift */,
 			);
 			path = Ignore;
+			sourceTree = "<group>";
+		};
+		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C37E45ED27AE395300C12CA2 /* OnboardingComponent.swift.swift */,
+				C37E45EF27AE396500C12CA2 /* OnboardingCoordinator.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		C37E45F127AE397A00C12CA2 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				C37E45F227AE3F1400C12CA2 /* NickNameComponent.swift */,
+				C37E45F427AE3F1E00C12CA2 /* NickNameCoordinator.swift */,
+				C37E45F627AE3F2900C12CA2 /* NickNameViewController.swift */,
+				C37E45F827AE3F3200C12CA2 /* NickNameViewModel.swift */,
+			);
+			path = Nickname;
 			sourceTree = "<group>";
 		};
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
@@ -534,17 +568,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37E45F727AE3F2900C12CA2 /* NickNameViewController.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
+				C37E45F527AE3F1E00C12CA2 /* NickNameCoordinator.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */,
+				C37E45F927AE3F3200C12CA2 /* NickNameViewModel.swift in Sources */,
 				C38F8F4027AD99F30050137D /* MessageComponent.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
@@ -555,14 +592,17 @@
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
+				C37E45EE27AE395300C12CA2 /* OnboardingComponent.swift.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
+				C37E45F027AE396500C12CA2 /* OnboardingCoordinator.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
+				C37E45F327AE3F1400C12CA2 /* NickNameComponent.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,

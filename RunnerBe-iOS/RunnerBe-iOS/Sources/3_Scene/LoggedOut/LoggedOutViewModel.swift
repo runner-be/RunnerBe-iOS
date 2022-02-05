@@ -8,28 +8,15 @@
 import Foundation
 import RxSwift
 
-final class LoggedOutViewModel {
-    struct Input {
-        let kakaoLogin = PublishSubject<Void>()
-        let naverLogin = PublishSubject<Void>()
-        let appleLogin = PublishSubject<Void>()
-    }
-
-    struct Output {
-        let loginFail = PublishSubject<Void>()
-    }
-
-    struct Route {
-        let loginSuccess = PublishSubject<Void>()
-    }
-
-    let kakaoNaverService: LoginServiceable
-    let naverLoginService: LoginServiceable
+final class LoggedOutViewModel
+{
+    // MARK: Lifecycle
 
     init(
         kakaoLoginService: LoginServiceable,
         naverLoginService: LoginServiceable
-    ) {
+    )
+    {
         kakaoNaverService = kakaoLoginService
         self.naverLoginService = naverLoginService
         input.kakaoLogin.subscribe(onNext: {
@@ -39,6 +26,28 @@ final class LoggedOutViewModel {
             _ = naverLoginService.login()
         }).disposed(by: disposeBag)
     }
+
+    // MARK: Internal
+
+    struct Input
+    {
+        let kakaoLogin = PublishSubject<Void>()
+        let naverLogin = PublishSubject<Void>()
+        let appleLogin = PublishSubject<Void>()
+    }
+
+    struct Output
+    {
+        let loginFail = PublishSubject<Void>()
+    }
+
+    struct Route
+    {
+        let loginSuccess = PublishSubject<Void>()
+    }
+
+    let kakaoNaverService: LoginServiceable
+    let naverLoginService: LoginServiceable
 
     let disposeBag = DisposeBag()
     let input = Input()

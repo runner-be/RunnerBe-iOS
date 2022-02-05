@@ -10,13 +10,19 @@ import RxSwift
 
 protocol BookMarkResult {}
 
-final class BookMarkCoordinator: BasicCoordinator<BookMarkResult> {
-    var component: BookMarkComponent
+final class BookMarkCoordinator: BasicCoordinator<BookMarkResult>
+{
+    // MARK: Lifecycle
 
-    init(component: BookMarkComponent, navController: UINavigationController) {
+    init(component: BookMarkComponent, navController: UINavigationController)
+    {
         self.component = component
         super.init(navController: navController)
     }
+
+    // MARK: Internal
+
+    var component: BookMarkComponent
 
     override func start() {}
 }

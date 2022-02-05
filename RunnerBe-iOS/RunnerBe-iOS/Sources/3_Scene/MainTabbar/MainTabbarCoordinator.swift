@@ -9,21 +9,31 @@ import Foundation
 import RxSwift
 import UIKit
 
-protocol MainTabbarResult {}
+enum MainTabbarResult {}
 
-final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
-    var component: MainTabComponent
+final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult>
+{
+    // MARK: Lifecycle
 
-    init(component: MainTabComponent, navController: UINavigationController) {
+    init(component: MainTabComponent, navController: UINavigationController)
+    {
         self.component = component
         super.init(navController: navController)
     }
 
-    override func start() {
+    // MARK: Internal
+
+    var component: MainTabComponent
+
+    override func start()
+    {
         startTabbarController()
     }
 
-    private func startTabbarController() {
+    // MARK: Private
+
+    private func startTabbarController()
+    {
         let tabbarCtrl = component.mainTabbarController
 
         UITabBar.appearance().backgroundColor = Asset.Colors.tabbarBg.uiColor
