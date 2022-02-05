@@ -8,8 +8,7 @@
 import Foundation
 import RxSwift
 
-final class MyPageViewModel
-{
+final class MyPageViewModel {
     struct Input {}
 
     struct Output {}

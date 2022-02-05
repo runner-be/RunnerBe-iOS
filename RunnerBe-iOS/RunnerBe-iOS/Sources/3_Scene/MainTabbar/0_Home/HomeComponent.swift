@@ -10,10 +10,8 @@ import NeedleFoundation
 
 protocol HomeDependency: Dependency {}
 
-final class HomeComponent: Component<HomeDependency>
-{
-    var homeViewController: UIViewController
-    {
+final class HomeComponent: Component<HomeDependency> {
+    var homeViewController: UIViewController {
         return shared { HomeViewController() }
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct LoginData
-{
+struct LoginData {
     let token: String
 }

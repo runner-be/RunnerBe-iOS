@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol LoginServiceable
-{
+protocol LoginServiceable {
     func login() -> Observable<LoginData>
 }

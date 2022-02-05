@@ -10,10 +10,8 @@ import NeedleFoundation
 
 protocol NickNameDependency: Dependency {}
 
-final class NickNameComponent: Component<NickNameDependency>
-{
-    var nickNameViewController: UIViewController
-    {
+final class NickNameComponent: Component<NickNameDependency> {
+    var nickNameViewController: UIViewController {
         return NickNameViewController()
     }
 }

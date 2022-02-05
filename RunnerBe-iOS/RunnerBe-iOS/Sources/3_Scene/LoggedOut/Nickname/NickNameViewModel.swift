@@ -8,8 +8,7 @@
 import Foundation
 import RxSwift
 
-final class NickNameViewModel
-{
+final class NickNameViewModel {
     // MARK: Internal
 
     struct Input {}

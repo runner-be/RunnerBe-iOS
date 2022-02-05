@@ -8,12 +8,10 @@
 import RxSwift
 import UIKit
 
-final class AppCoordinator: BasicCoordinator<Void>
-{
+final class AppCoordinator: BasicCoordinator<Void> {
     // MARK: Lifecycle
 
-    init(component: AppComponent, navController: UINavigationController)
-    {
+    init(component: AppComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -24,15 +22,13 @@ final class AppCoordinator: BasicCoordinator<Void>
 
     override func start() {}
 
-    func showMain()
-    {
+    func showMain() {
         let mainTabbarCoord = MainTabbarCoordinator(component: component.mainTabComponent, navController: navController)
 
         coordinate(coordinator: mainTabbarCoord)
     }
 
-    func showLoggedOut()
-    {
+    func showLoggedOut() {
         let loggedOutCoord = LoggedOutCoordinator(component: component.loggedOutComponent, navController: navController)
         coordinate(coordinator: loggedOutCoord)
     }

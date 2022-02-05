@@ -10,12 +10,10 @@ import RxSwift
 
 enum NickNameResult {}
 
-final class NickNameCoordinator: BasicCoordinator<NickNameResult>
-{
+final class NickNameCoordinator: BasicCoordinator<NickNameResult> {
     // MARK: Lifecycle
 
-    init(component: NickNameComponent, navController: UINavigationController)
-    {
+    init(component: NickNameComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }

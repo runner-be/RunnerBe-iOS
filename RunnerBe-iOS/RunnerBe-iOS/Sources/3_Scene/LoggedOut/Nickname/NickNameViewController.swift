@@ -9,28 +9,23 @@ import RxCocoa
 import RxGesture
 import UIKit
 
-class NickNameViewController: BaseViewController
-{
-    override init()
-    {
+class NickNameViewController: BaseViewController {
+    override init() {
         super.init()
     }
 
     @available(*, unavailable)
-    required init?(coder _: NSCoder)
-    {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
 
 // MARK: - Layout
 
-extension NickNameViewController
-{
+extension NickNameViewController {
     private func initialLayout() {}
 }

@@ -8,8 +8,7 @@
 import Foundation
 import RxSwift
 
-final class MessageViewModel
-{
+final class MessageViewModel {
     struct Input {}
 
     struct Output {}

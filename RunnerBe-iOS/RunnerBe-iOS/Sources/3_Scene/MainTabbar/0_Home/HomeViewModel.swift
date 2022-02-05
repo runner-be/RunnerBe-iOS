@@ -8,8 +8,7 @@
 import Foundation
 import RxSwift
 
-final class HomeViewModel
-{
+final class HomeViewModel {
     struct Input {}
 
     struct Output {}

@@ -11,12 +11,10 @@ import UIKit
 
 enum MainTabbarResult {}
 
-final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult>
-{
+final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     // MARK: Lifecycle
 
-    init(component: MainTabComponent, navController: UINavigationController)
-    {
+    init(component: MainTabComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -25,15 +23,13 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult>
 
     var component: MainTabComponent
 
-    override func start()
-    {
+    override func start() {
         startTabbarController()
     }
 
     // MARK: Private
 
-    private func startTabbarController()
-    {
+    private func startTabbarController() {
         let tabbarCtrl = component.mainTabbarController
 
         UITabBar.appearance().backgroundColor = Asset.Colors.tabbarBg.uiColor

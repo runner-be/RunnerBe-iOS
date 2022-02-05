@@ -12,24 +12,20 @@ import SnapKit
 import Then
 import UIKit
 
-final class LoggedOutViewController: BaseViewController
-{
+final class LoggedOutViewController: BaseViewController {
     // MARK: Lifecycle
 
-    init(viewModel: LoggedOutViewModel)
-    {
+    init(viewModel: LoggedOutViewModel) {
         self.viewModel = viewModel
         super.init()
     }
 
     @available(*, unavailable)
-    required init?(coder _: NSCoder)
-    {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         gradientBackground()
@@ -41,40 +37,34 @@ final class LoggedOutViewController: BaseViewController
 
     // MARK: Internal
 
-    var logoImageView = UIImageView().then
-    {
+    var logoImageView = UIImageView().then {
         $0.image = Asset.Images.logoSignature.uiImage
     }
 
-    var kakaoButton = UIImageView().then
-    {
+    var kakaoButton = UIImageView().then {
         $0.image = Asset.Images.kakaoLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
-    var naverButton = UIImageView().then
-    {
+    var naverButton = UIImageView().then {
         $0.image = Asset.Images.naverLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
-    var appleButton = UIImageView().then
-    {
+    var appleButton = UIImageView().then {
         $0.image = Asset.Images.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
-    var viewModel: LoggedOutViewModel
-
-    override var preferredStatusBarStyle: UIStatusBarStyle
-    {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
     // MARK: Private
 
-    private func bindViewModelInput()
-    {
+    private var viewModel: LoggedOutViewModel
+
+    private func bindViewModelInput() {
         kakaoButton.rx.tapGesture()
             .when(.recognized).map { _ in }
             .bind(to: viewModel.input.kakaoLogin)
@@ -96,10 +86,8 @@ final class LoggedOutViewController: BaseViewController
 
 // MARK: - Layout
 
-private extension LoggedOutViewController
-{
-    func gradientBackground()
-    {
+private extension LoggedOutViewController {
+    func gradientBackground() {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [
             Asset.Colors.bgGradientTop.uiColor.cgColor,
@@ -109,8 +97,7 @@ private extension LoggedOutViewController
         view.layer.addSublayer(backgroundGradientLayer)
     }
 
-    func initialLayout()
-    {
+    func initialLayout() {
         view.addSubview(logoImageView)
         let vStack = UIStackView.make(
             with: [kakaoButton, naverButton, appleButton],
@@ -121,14 +108,12 @@ private extension LoggedOutViewController
         )
         view.addSubview(vStack)
 
-        logoImageView.snp.makeConstraints
-        { make in
+        logoImageView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(180)
             make.centerX.equalTo(view.snp.centerX)
         }
 
-        vStack.snp.makeConstraints
-        { make in
+        vStack.snp.makeConstraints { make in
             make.bottom.equalTo(view.snp.bottom).offset(-81)
             make.left.equalTo(view.snp.left).offset(16)
             make.right.equalTo(view.snp.right).offset(-16)

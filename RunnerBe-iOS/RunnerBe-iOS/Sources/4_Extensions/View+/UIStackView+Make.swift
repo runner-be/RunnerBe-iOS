@@ -7,16 +7,14 @@
 
 import UIKit
 
-extension UIStackView
-{
+extension UIStackView {
     static func make(
         with subviews: [UIView],
         axis: NSLayoutConstraint.Axis = .horizontal,
         alignment: UIStackView.Alignment = .fill,
         distribution: Distribution = .fill,
         spacing: CGFloat = 0
-    ) -> UIStackView
-    {
+    ) -> UIStackView {
         let view = UIStackView(arrangedSubviews: subviews)
         view.axis = axis
         view.alignment = alignment

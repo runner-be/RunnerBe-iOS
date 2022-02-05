@@ -2,7 +2,7 @@
 
 # format options
 --acronyms #ID, URL, UUID
---allman true
+--allman false
 
 --elseposition same-line
 --guardelse next-line

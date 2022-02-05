@@ -10,10 +10,8 @@ import NeedleFoundation
 
 protocol MyPageDependency: Dependency {}
 
-final class MyPageComponent: Component<MyPageDependency>
-{
-    var myPageViewController: UIViewController
-    {
+final class MyPageComponent: Component<MyPageDependency> {
+    var myPageViewController: UIViewController {
         return shared { MyPageViewController() }
     }
 }

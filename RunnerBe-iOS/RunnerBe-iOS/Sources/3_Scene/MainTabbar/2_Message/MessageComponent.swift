@@ -10,10 +10,8 @@ import NeedleFoundation
 
 protocol MessageDependency: Dependency {}
 
-final class MessageComponent: Component<MessageDependency>
-{
-    var messageViewController: UIViewController
-    {
+final class MessageComponent: Component<MessageDependency> {
+    var messageViewController: UIViewController {
         return shared { MessageViewController() }
     }
 }

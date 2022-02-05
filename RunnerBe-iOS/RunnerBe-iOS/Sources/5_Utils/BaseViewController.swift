@@ -12,18 +12,15 @@ import SnapKit
 import Then
 import UIKit
 
-class BaseViewController: UIViewController
-{
+class BaseViewController: UIViewController {
     // MARK: Lifecycle
 
-    init()
-    {
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 
     @available(*, unavailable)
-    required init?(coder _: NSCoder)
-    {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

@@ -7,12 +7,10 @@
 
 import UIKit
 
-extension UITabBarController
-{
+extension UITabBarController {
     func setBackgroundColor(_: UIColor) {}
 
-    func setColors(iconNormal: UIColor, selected: UIColor)
-    {
+    func setColors(iconNormal: UIColor, selected: UIColor) {
         let appearance = UITabBarAppearance()
 
         appearance.stackedLayoutAppearance.normal.iconColor = iconNormal

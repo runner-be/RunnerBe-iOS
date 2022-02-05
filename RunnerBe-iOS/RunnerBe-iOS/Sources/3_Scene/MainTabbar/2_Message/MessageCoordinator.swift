@@ -10,12 +10,10 @@ import RxSwift
 
 protocol MessageResult {}
 
-final class MessageCoordinator: BasicCoordinator<MessageResult>
-{
+final class MessageCoordinator: BasicCoordinator<MessageResult> {
     // MARK: Lifecycle
 
-    init(component: MessageComponent, navController: UINavigationController)
-    {
+    init(component: MessageComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }

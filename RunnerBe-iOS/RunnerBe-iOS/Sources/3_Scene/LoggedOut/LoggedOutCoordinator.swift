@@ -10,12 +10,10 @@ import RxSwift
 
 enum LoggedOutResult {}
 
-final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult>
-{
+final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
     // MARK: Lifecycle
 
-    init(component: LoggedOutComponent, navController: UINavigationController)
-    {
+    init(component: LoggedOutComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -24,8 +22,7 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult>
 
     var component: LoggedOutComponent
 
-    override func start()
-    {
+    override func start() {
         navController.pushViewController(component.loggedOutViewController, animated: false)
     }
 }

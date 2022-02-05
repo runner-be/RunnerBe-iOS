@@ -8,35 +8,29 @@
 import Foundation
 import NeedleFoundation
 
-final class AppComponent: BootstrapComponent
-{
+final class AppComponent: BootstrapComponent {
     // MARK: Lifecycle
 
-    override init()
-    {
+    override init() {
         super.init()
         _ = kakaoLoginService
     }
 
     // MARK: Internal
 
-    var kakaoLoginService: KakaoLoginService
-    {
+    var kakaoLoginService: KakaoLoginService {
         return shared { KakaoLoginService() }
     }
 
-    var naverLoginService: NaverLoginService
-    {
+    var naverLoginService: NaverLoginService {
         return shared { NaverLoginService() }
     }
 
-    var loggedOutComponent: LoggedOutComponent
-    {
+    var loggedOutComponent: LoggedOutComponent {
         return LoggedOutComponent(parent: self)
     }
 
-    var mainTabComponent: MainTabComponent
-    {
+    var mainTabComponent: MainTabComponent {
         return MainTabComponent(parent: self)
     }
 }
