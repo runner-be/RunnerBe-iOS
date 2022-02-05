@@ -25,19 +25,5 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
     override func start() {
         navController.pushViewController(component.loggedOutViewController, animated: false)
-
-        component.loggedOutViewModel.route.loginSuccess
-            .subscribe(onNext: {
-                self.showNickNamePage()
-            })
-            .disposed(by: disposeBag)
-    }
-
-    // MARK: Private
-
-    private func showNickNamePage() {
-        let nickNameComp = component.nickNameComponent
-        let coordinator = NickNameCoordinator(component: nickNameComp, navController: navController)
-        coordinate(coordinator: coordinator)
     }
 }
