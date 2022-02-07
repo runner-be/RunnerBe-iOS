@@ -46,12 +46,23 @@ final class PolicyTermViewModel {
         inputs.tapNext
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
+        
+        inputs.tapCancel
+            .subscribe(routes.cancel)
+            .disposed(by: disposeBag)
+        
+        inputs.tapBackward
+            .subscribe(routes.backward)
+            .disposed(by: disposeBag)
+        
     }
 
     // MARK: Internal
 
     struct Input {
         var tapNext = PublishSubject<Void>()
+        var tapCancel = PublishSubject<Void>()
+        var tapBackward = PublishSubject<Void>()
 
         var tapServicePolicy = BehaviorSubject<Bool>(value: false)
         var tapPrivacyPolicy = BehaviorSubject<Bool>(value: false)
@@ -69,6 +80,8 @@ final class PolicyTermViewModel {
     struct Route {
         var showPolicy = PublishSubject<PolicyType>()
         var nextProcess = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
+        var cancel = PublishSubject<Void>()
     }
 
     var inputs = Input()

@@ -20,6 +20,7 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal static let appleLogin = ImageAsset(name: "Apple_login")
+  internal static let arrowLeft = ImageAsset(name: "Arrow_Left")
   internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
   internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
   internal static let checkBoxIconChecked = ImageAsset(name: "CheckBoxIcon_Checked")
@@ -34,6 +35,7 @@ internal enum Asset {
   internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
   internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
   internal static let naverLogin = ImageAsset(name: "Naver_login")
+  internal static let x = ImageAsset(name: "X")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

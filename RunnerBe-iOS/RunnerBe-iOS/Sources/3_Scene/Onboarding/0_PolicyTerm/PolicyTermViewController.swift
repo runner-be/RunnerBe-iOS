@@ -159,6 +159,13 @@ class PolicyTermViewController: BaseViewController {
         button.clipsToBounds = true
         button.isEnabled = false
     }
+
+    private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.titleLabel.text = ""
+        navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightSecondBtnItem.isHidden = true
+    }
 }
 
 // MARK: - Layout
@@ -168,6 +175,7 @@ extension PolicyTermViewController {
         gradientBackground()
 
         view.addSubviews([
+            navBar,
             titleLabel1,
             titleLabel2,
             policyContainerView,
@@ -184,6 +192,13 @@ extension PolicyTermViewController {
     }
 
     private func initialLayout() {
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide
+                .snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+
         titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(114)
             make.leading.equalTo(view.snp.leading).offset(16)
