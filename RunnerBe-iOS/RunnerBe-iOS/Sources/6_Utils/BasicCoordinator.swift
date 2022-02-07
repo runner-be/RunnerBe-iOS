@@ -27,11 +27,12 @@ class BasicCoordinator<ResultType>: Coordinator {
     typealias CoordinationResult = ResultType
 
     let uuid = UUID()
+    var disposeBag = DisposeBag()
+
     var navController: UINavigationController
 
     var childs = [UUID: Coordinator]()
-    var closeBags = [UUID: Disposable]()
-
+    var childsBags = [UUID: [Disposable]]()
     var closeSignal = PublishSubject<CoordinationResult>()
 
     @discardableResult
@@ -44,8 +45,8 @@ class BasicCoordinator<ResultType>: Coordinator {
     func release<T>(coordinator: BasicCoordinator<T>) {
         let uuid = coordinator.uuid
         childs[uuid] = nil
-        closeBags[uuid]?.dispose()
-        closeBags.removeValue(forKey: uuid)
+        childsBags[uuid]?.forEach { $0.dispose() }
+        childsBags.removeValue(forKey: uuid)
     }
 
     func start() {

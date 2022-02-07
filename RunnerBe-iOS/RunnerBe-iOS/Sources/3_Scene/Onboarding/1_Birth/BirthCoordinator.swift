@@ -22,5 +22,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
     var component: BirthComponent
 
-    override func start() {}
+    override func start() {
+        navController.pushViewController(component.birthViewController, animated: true)
+    }
 }

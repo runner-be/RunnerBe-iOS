@@ -11,6 +11,23 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum Birth {
+    /// 정확한 나이는 공개되지 않아요!
+    internal static let subTitle1 = L10n.tr("Localizable", "Birth.subTitle1")
+    /// 20대 초반, 30대 중반 등으로 표기될 거에요.
+    internal static let subTitle2 = L10n.tr("Localizable", "Birth.subTitle2")
+    /// 출생년도를 입력해주세요.
+    internal static let title = L10n.tr("Localizable", "Birth.title")
+    internal enum Button {
+      /// 다음
+      internal static let next = L10n.tr("Localizable", "Birth.button.next")
+    }
+    internal enum Error {
+      /// 19세 미만은 이용할 수 없어요!
+      internal static let age = L10n.tr("Localizable", "Birth.error.age")
+    }
+  }
+
   internal enum LoggedOut {
     internal enum AppleBtn {
       /// Login with Apple

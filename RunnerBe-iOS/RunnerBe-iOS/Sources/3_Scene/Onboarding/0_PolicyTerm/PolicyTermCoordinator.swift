@@ -24,5 +24,21 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
     override func start() {
         navController.pushViewController(component.policyTermViewController, animated: true)
+
+        component.policyTermViewModel.routes.nextProcess
+            .subscribe(onNext: {
+                self.pushBirthCoord()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: Private
+
+    private func pushBirthCoord() {
+        let birthComp = component.birthComponent
+
+        let birthCoord = BirthCoordinator(component: birthComp, navController: navController)
+
+        coordinate(coordinator: birthCoord)
     }
 }

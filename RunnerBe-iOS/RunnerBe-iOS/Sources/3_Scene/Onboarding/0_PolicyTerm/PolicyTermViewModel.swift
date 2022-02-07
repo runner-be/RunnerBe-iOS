@@ -46,15 +46,14 @@ final class PolicyTermViewModel {
         inputs.tapNext
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
-        
+
         inputs.tapCancel
             .subscribe(routes.cancel)
             .disposed(by: disposeBag)
-        
+
         inputs.tapBackward
             .subscribe(routes.backward)
             .disposed(by: disposeBag)
-        
     }
 
     // MARK: Internal

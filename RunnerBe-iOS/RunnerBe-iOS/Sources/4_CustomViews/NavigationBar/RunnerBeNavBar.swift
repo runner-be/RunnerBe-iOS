@@ -64,7 +64,7 @@ extension RunnerbeNavBar {
 
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.snp.centerX)
-            make.bottom.equalTo(self.snp.bottom).offset(-8)
+            make.centerY.equalTo(leftBtnItem.snp.centerY)
         }
 
         snp.makeConstraints { make in

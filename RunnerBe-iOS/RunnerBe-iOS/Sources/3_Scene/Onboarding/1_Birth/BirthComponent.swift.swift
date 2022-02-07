@@ -14,6 +14,10 @@ protocol BirthDependency: Dependency {}
 
 final class BirthComponent: Component<BirthDependency> {
     var birthViewController: UIViewController {
-        return BirthViewController()
+        return BirthViewController(viewModel: birthViewModel)
+    }
+
+    var birthViewModel: BirthViewModel {
+        return shared { BirthViewModel() }
     }
 }

@@ -41,3 +41,10 @@
 "PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
 "PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
 "PolicyTerm.Button.Next.title" = "다음";
+
+// MARK: - Birth
+"Birth.title" = "출생년도를 입력해주세요.";
+"Birth.subTitle1" = "정확한 나이는 공개되지 않아요!";
+"Birth.subTitle2" = "20대 초반, 30대 중반 등으로 표기될 거에요.";
+"Birth.error.age" = "19세 미만은 이용할 수 없어요!";
+"Birth.button.next" = "다음";

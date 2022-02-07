@@ -21,7 +21,6 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
     // MARK: Internal
 
     var component: LoggedOutComponent
-    var disposeBag = DisposeBag()
 
     override func start() {
         navController.pushViewController(component.loggedOutViewController, animated: false)

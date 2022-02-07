@@ -18,4 +18,8 @@ final class PolicyTermComponent: Component<PolicyTermDependency> {
     var policyTermViewModel: PolicyTermViewModel {
         return shared { PolicyTermViewModel() }
     }
+
+    var birthComponent: BirthComponent {
+        return BirthComponent(parent: self)
+    }
 }
