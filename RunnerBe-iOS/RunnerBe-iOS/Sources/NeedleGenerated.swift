@@ -30,6 +30,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
+        return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
+    }
     
 }
 
@@ -114,6 +117,19 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ecd6b5263bd0e9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class PolicyTermDependency28006fce607070d6ca75BaseProvider: PolicyTermDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent
+private class PolicyTermDependency28006fce607070d6ca75Provider: PolicyTermDependency28006fce607070d6ca75BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

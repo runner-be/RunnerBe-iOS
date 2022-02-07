@@ -28,39 +28,41 @@ final class LoggedOutViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        gradientBackground()
+        setupViews()
         initialLayout()
 
         bindViewModelInput()
         bindViewModelOutput()
     }
 
-    // MARK: Internal
+    // MARK: Private
 
-    var logoImageView = UIImageView().then {
+    private var logoImageView = UIImageView().then {
         $0.image = Asset.logoSignature.uiImage
     }
 
-    var kakaoButton = UIImageView().then {
+    private var loginBtnVStackView = UIStackView.make(
+        with: [],
+        axis: .vertical,
+        alignment: .center,
+        distribution: .equalSpacing,
+        spacing: 16
+    )
+
+    private var kakaoButton = UIImageView().then {
         $0.image = Asset.kakaoLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
-    var naverButton = UIImageView().then {
+    private var naverButton = UIImageView().then {
         $0.image = Asset.naverLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
 
-    var appleButton = UIImageView().then {
+    private var appleButton = UIImageView().then {
         $0.image = Asset.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    // MARK: Private
 
     private var viewModel: LoggedOutViewModel
 
@@ -86,37 +88,43 @@ final class LoggedOutViewController: BaseViewController {
 
 // MARK: - Layout
 
-private extension LoggedOutViewController {
-    func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.darkG55.cgColor,
-            UIColor.darkG6.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
+extension LoggedOutViewController {
+    private func setupViews() {
+        gradientBackground()
+
+        view.addSubview(logoImageView)
+        view.addSubview(loginBtnVStackView)
+        loginBtnVStackView.addArrangedSubviews([
+            kakaoButton,
+            naverButton,
+            appleButton,
+        ])
     }
 
-    func initialLayout() {
-        view.addSubview(logoImageView)
-        let vStack = UIStackView.make(
-            with: [kakaoButton, naverButton, appleButton],
-            axis: .vertical,
-            alignment: .center,
-            distribution: .equalSpacing,
-            spacing: 16
-        )
-        view.addSubview(vStack)
-
+    private func initialLayout() {
         logoImageView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(180)
             make.centerX.equalTo(view.snp.centerX)
         }
 
-        vStack.snp.makeConstraints { make in
+        loginBtnVStackView.snp.makeConstraints { make in
             make.bottom.equalTo(view.snp.bottom).offset(-81)
             make.left.equalTo(view.snp.left).offset(16)
             make.right.equalTo(view.snp.right).offset(-16)
         }
+    }
+
+    private func gradientBackground() {
+        let backgroundGradientLayer = CAGradientLayer()
+        backgroundGradientLayer.colors = [
+            UIColor.darkG6.cgColor,
+            UIColor.darkG55.cgColor,
+        ]
+        backgroundGradientLayer.frame = view.bounds
+        view.layer.addSublayer(backgroundGradientLayer)
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

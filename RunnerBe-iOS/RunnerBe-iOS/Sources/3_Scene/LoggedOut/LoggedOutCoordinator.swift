@@ -25,5 +25,21 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
     override func start() {
         navController.pushViewController(component.loggedOutViewController, animated: false)
+
+        component.loggedOutViewModel.route.loginSuccess
+            .subscribe(onNext: {
+                self.pushPolicyTerm()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: Private
+
+    private func pushPolicyTerm() {
+        let policyComp = component.policyTermComponent
+
+        let policyCoord = PolicyTermCoordinator(component: policyComp, navController: navController)
+
+        coordinate(coordinator: policyCoord)
     }
 }

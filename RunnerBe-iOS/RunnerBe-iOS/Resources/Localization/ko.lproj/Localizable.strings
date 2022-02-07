@@ -32,3 +32,12 @@
 "NickName.button.setNickname.title" = "정했어요!";
 "NickName.error.textformat" = "특수문자, 띄어쓰기는 쓸 수 없어요!";
 "NickName.error.duplicated" = "중복된 닉네임이에요!";
+
+// MARK: - PolicyTerm
+"PolicyTerm.title1" = "먼저 이용약관을 읽고";
+"PolicyTerm.title2" = "동의해주세요!";
+"PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
+"PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
+"PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
+"PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
+"PolicyTerm.Button.Next.title" = "다음";

@@ -17,23 +17,24 @@ import RxKakaoSDKUser
 import RxSwift
 
 class KakaoLoginService: LoginServiceable {
-    // MARK: Lifecycle
-
-    init() {}
-
     // MARK: Internal
 
-    let disposeBag = DisposeBag()
-
     func login() -> Observable<LoginData> {
-        return UserApi.isKakaoTalkLoginAvailable() ? loginWithKakaoApp() : loginWithKakaoAccount()
+        if UserApi.isKakaoTalkLoginAvailable() {
+            return loginWithKakaoApp()
+        } else {
+            return loginWithKakaoAccount()
+        }
     }
 
     // MARK: Private
 
     private func loginWithKakaoApp() -> Observable<LoginData> {
         return UserApi.shared.rx.loginWithKakaoTalk()
-            .do(onNext: nil, onError: { print($0) })
+            .do(onNext: nil,
+                onError: {
+                    print($0)
+                })
             .map {
                 print("loginWithKakaoTalk() success! \($0.accessToken)")
                 return LoginData(token: $0.accessToken)

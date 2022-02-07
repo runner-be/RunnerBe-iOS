@@ -40,4 +40,8 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
             )
         }
     }
+
+    var policyTermComponent: PolicyTermComponent {
+        return PolicyTermComponent(parent: self)
+    }
 }

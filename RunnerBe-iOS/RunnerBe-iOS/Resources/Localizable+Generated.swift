@@ -75,6 +75,37 @@ internal enum L10n {
       internal static let placeholder = L10n.tr("Localizable", "NickName.textfield.placeholder")
     }
   }
+
+  internal enum PolicyTerm {
+    /// 먼저 이용약관을 읽고
+    internal static let title1 = L10n.tr("Localizable", "PolicyTerm.title1")
+    /// 동의해주세요!
+    internal static let title2 = L10n.tr("Localizable", "PolicyTerm.title2")
+    internal enum Agree {
+      internal enum All {
+        /// 모든 약관을 읽었으며, 이에 동의해요
+        internal static let title = L10n.tr("Localizable", "PolicyTerm.Agree.All.title")
+      }
+      internal enum Location {
+        /// [필수] 위치기반 서비스 이용약관 동의
+        internal static let title = L10n.tr("Localizable", "PolicyTerm.Agree.Location.title")
+      }
+      internal enum Privacy {
+        /// [필수] 개인정보 수집/이용 동의
+        internal static let title = L10n.tr("Localizable", "PolicyTerm.Agree.Privacy.title")
+      }
+      internal enum Service {
+        /// [필수] 서비스 이용약관 동의
+        internal static let title = L10n.tr("Localizable", "PolicyTerm.Agree.Service.title")
+      }
+    }
+    internal enum Button {
+      internal enum Next {
+        /// 다음
+        internal static let title = L10n.tr("Localizable", "PolicyTerm.Button.Next.title")
+      }
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

@@ -9,15 +9,6 @@ import Foundation
 import NeedleFoundation
 
 final class AppComponent: BootstrapComponent {
-    // MARK: Lifecycle
-
-    override init() {
-        super.init()
-        _ = kakaoLoginService
-    }
-
-    // MARK: Internal
-
     var kakaoLoginService: KakaoLoginService {
         return shared { KakaoLoginService() }
     }
