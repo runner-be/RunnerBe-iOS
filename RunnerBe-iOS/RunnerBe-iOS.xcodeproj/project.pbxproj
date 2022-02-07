@@ -71,6 +71,10 @@
 		C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6927B0A4BF002D5846 /* PolicyTermViewController.swift */; };
 		C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6C27B0A846002D5846 /* CheckBoxView.swift */; };
 		C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6E27B0B444002D5846 /* UIView+.swift */; };
+		C3F74B7627B125F4002D5846 /* BirthComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7527B125F4002D5846 /* BirthComponent.swift.swift */; };
+		C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7727B12614002D5846 /* BirthCoordinator.swift */; };
+		C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7927B1262A002D5846 /* BirthViewModel.swift */; };
+		C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7B27B1263B002D5846 /* BirthViewController.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +148,10 @@
 		C3F74B6927B0A4BF002D5846 /* PolicyTermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermViewController.swift; sourceTree = "<group>"; };
 		C3F74B6C27B0A846002D5846 /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		C3F74B6E27B0B444002D5846 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		C3F74B7527B125F4002D5846 /* BirthComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthComponent.swift.swift; sourceTree = "<group>"; };
+		C3F74B7727B12614002D5846 /* BirthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthCoordinator.swift; sourceTree = "<group>"; };
+		C3F74B7927B1262A002D5846 /* BirthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewModel.swift; sourceTree = "<group>"; };
+		C3F74B7B27B1263B002D5846 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -342,6 +350,8 @@
 			children = (
 				C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */,
 				C3F74B7227B0F362002D5846 /* 1_Birth */,
+				C3F74B7427B0F3DA002D5846 /* 2_Gender */,
+				C3F74B7327B0F3AD002D5846 /* 3_JobGroup */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -462,8 +472,26 @@
 		C3F74B7227B0F362002D5846 /* 1_Birth */ = {
 			isa = PBXGroup;
 			children = (
+				C3F74B7527B125F4002D5846 /* BirthComponent.swift.swift */,
+				C3F74B7727B12614002D5846 /* BirthCoordinator.swift */,
+				C3F74B7927B1262A002D5846 /* BirthViewModel.swift */,
+				C3F74B7B27B1263B002D5846 /* BirthViewController.swift */,
 			);
 			path = 1_Birth;
+			sourceTree = "<group>";
+		};
+		C3F74B7327B0F3AD002D5846 /* 3_JobGroup */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3_JobGroup;
+			sourceTree = "<group>";
+		};
+		C3F74B7427B0F3DA002D5846 /* 2_Gender */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 2_Gender;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -668,6 +696,7 @@
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
+				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
@@ -680,6 +709,7 @@
 				C38F8F3727AD96E10050137D /* MessageViewModel.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
+				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
@@ -688,6 +718,7 @@
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
@@ -695,6 +726,7 @@
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
+				C3F74B7627B125F4002D5846 /* BirthComponent.swift.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
