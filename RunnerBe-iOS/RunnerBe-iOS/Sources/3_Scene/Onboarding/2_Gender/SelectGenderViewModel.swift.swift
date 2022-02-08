@@ -11,9 +11,21 @@ import RxSwift
 final class SelectGenderViewModel {
     // MARK: Internal
 
-    struct Input {}
-    struct Output {}
-    struct Route {}
+    struct Input {
+        
+        var tapNext = PublishSubject<Void>()
+        var tapCancel = PublishSubject<Void>()
+        var tapBackward = PublishSubject<Void>()
+    }
+    struct Output {
+        
+        var enableNext = PublishSubject<Bool>()
+    }
+    struct Route {
+        var nextProcess = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
+        var cancel = PublishSubject<Void>()
+    }
 
     var inputs = Input()
     var outputs = Output()

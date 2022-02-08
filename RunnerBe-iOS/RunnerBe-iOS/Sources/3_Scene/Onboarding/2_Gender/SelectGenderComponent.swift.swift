@@ -12,6 +12,10 @@ protocol SelectGenderDependency: Dependency {}
 
 final class SelectGenderComponent: Component<SelectGenderDependency> {
     var selectGenderViewController: UIViewController {
-        return SelectGenderViewController()
+        return SelectGenderViewController(viewModel: selectGenderViewModel)
+    }
+
+    var selectGenderViewModel: SelectGenderViewModel {
+        return shared { SelectGenderViewModel() }
     }
 }

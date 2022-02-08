@@ -19,9 +19,13 @@ class SelectGenderViewController: BaseViewController {
         super.viewDidLoad()
         setupViews()
         initialLayout()
+        
+        viewModelInput()
+        viewModelOutput()
     }
 
-    override init() {
+    init(viewModel: SelectGenderViewModel) {
+        self.viewModel = viewModel
         super.init()
     }
 
@@ -32,6 +36,8 @@ class SelectGenderViewController: BaseViewController {
 
     // MARK: Private
 
+    private var viewModel: SelectGenderViewModel
+    
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.SelectGender.NavBar.title
@@ -59,6 +65,12 @@ class SelectGenderViewController: BaseViewController {
         button.clipsToBounds = true
         button.isEnabled = false
     }
+
+    private func viewModelInput() {
+        
+    }
+
+    private func viewModelOutput() {}
 }
 
 // MARK: - Layout

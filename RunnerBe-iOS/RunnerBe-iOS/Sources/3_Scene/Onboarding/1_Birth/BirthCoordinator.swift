@@ -25,8 +25,11 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     override func start() {
         navController.pushViewController(component.birthViewController, animated: true)
 
-//        component.birthViewModel.routes.nextProcess
-//            .
+        component.birthViewModel.routes.nextProcess
+            .subscribe(onNext: {
+                self.pushSelectGenderCoord()
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

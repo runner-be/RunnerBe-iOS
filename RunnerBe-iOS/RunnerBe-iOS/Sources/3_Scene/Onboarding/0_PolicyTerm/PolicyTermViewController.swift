@@ -37,6 +37,55 @@ class PolicyTermViewController: BaseViewController {
 
     private var viewModel: PolicyTermViewModel
 
+    private func bindViewModelInput() {
+        checkAllPolicyView.tapCheck
+            .subscribe(onNext: { check in
+                self.servicePolicyView.isSelected = check
+                self.privacyPolicyView.isSelected = check
+                self.locationPolicyView.isSelected = check
+                self.viewModel.inputs.tapServicePolicy.onNext(check)
+                self.viewModel.inputs.tapLocationPolicy.onNext(check)
+                self.viewModel.inputs.tapServicePolicy.onNext(check)
+            })
+            .disposed(by: disposeBags)
+
+        servicePolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapServicePolicy)
+            .disposed(by: disposeBags)
+
+        privacyPolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapPrivacyPolicy)
+            .disposed(by: disposeBags)
+
+        locationPolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapLocationPolicy)
+            .disposed(by: disposeBags)
+
+        servicePolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapServiceDetail)
+            .disposed(by: disposeBags)
+
+        privacyPolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapPrivacyDetail)
+            .disposed(by: disposeBags)
+
+        locationPolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapLocationDetail)
+            .disposed(by: disposeBags)
+
+        nextButton.rx.tap
+            .subscribe(viewModel.inputs.tapNext)
+            .disposed(by: disposeBags)
+    }
+
+    private func bindViewModelOutput() {
+        viewModel.outputs.enableNext
+            .subscribe(onNext: { enable in
+                self.nextButton.isEnabled = enable
+            })
+            .disposed(by: disposeBags)
+    }
+    
     private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.text = L10n.PolicyTerm.title1
@@ -116,54 +165,6 @@ class PolicyTermViewController: BaseViewController {
         navBar.rightSecondBtnItem.isHidden = true
     }
 
-    private func bindViewModelInput() {
-        checkAllPolicyView.tapCheck
-            .subscribe(onNext: { check in
-                self.servicePolicyView.isSelected = check
-                self.privacyPolicyView.isSelected = check
-                self.locationPolicyView.isSelected = check
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
-                self.viewModel.inputs.tapLocationPolicy.onNext(check)
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
-            })
-            .disposed(by: disposeBags)
-
-        servicePolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapServicePolicy)
-            .disposed(by: disposeBags)
-
-        privacyPolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapPrivacyPolicy)
-            .disposed(by: disposeBags)
-
-        locationPolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapLocationPolicy)
-            .disposed(by: disposeBags)
-
-        servicePolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapServiceDetail)
-            .disposed(by: disposeBags)
-
-        privacyPolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapPrivacyDetail)
-            .disposed(by: disposeBags)
-
-        locationPolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapLocationDetail)
-            .disposed(by: disposeBags)
-
-        nextButton.rx.tap
-            .subscribe(viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
-    }
-
-    private func bindViewModelOutput() {
-        viewModel.outputs.enableNext
-            .subscribe(onNext: { enable in
-                self.nextButton.isEnabled = enable
-            })
-            .disposed(by: disposeBags)
-    }
 }
 
 // MARK: - Layout
