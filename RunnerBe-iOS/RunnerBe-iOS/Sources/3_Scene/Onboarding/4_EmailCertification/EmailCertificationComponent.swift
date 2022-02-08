@@ -18,4 +18,8 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
     var emailCertificationViewModel: EmailCertificationViewModel {
         return shared { EmailCertificationViewModel() }
     }
+
+    var photoCertificationComponent: PhotoCertificationComponent {
+        return PhotoCertificationComponent(parent: self)
+    }
 }

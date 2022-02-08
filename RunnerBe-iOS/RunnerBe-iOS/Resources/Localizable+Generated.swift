@@ -97,6 +97,41 @@ internal enum L10n {
     }
   }
 
+  internal enum PhotoCertification {
+    /// 해당 정보는 러너님이 직장인임을 확인하는 용도로만
+    internal static let subTitle1 = L10n.tr("Localizable", "PhotoCertification.subTitle1")
+    /// 사용되며, 인증 후 안전하게 폐기됩니다.
+    internal static let subTitle2 = L10n.tr("Localizable", "PhotoCertification.subTitle2")
+    /// 사진(ex. 사원증, 명함)으로
+    internal static let title1 = L10n.tr("Localizable", "PhotoCertification.title1")
+    /// 직업을 인증해주세요!
+    internal static let title2 = L10n.tr("Localizable", "PhotoCertification.title2")
+    internal enum Button {
+      internal enum Certificate {
+        /// 인증하기
+        internal static let title = L10n.tr("Localizable", "PhotoCertification.Button.Certificate.title")
+      }
+    }
+    internal enum ImageRule {
+      /// 👉
+      internal static let emoji = L10n.tr("Localizable", "PhotoCertification.ImageRule.emoji")
+      /// 정보를 식별할 수 있어야 해요
+      internal static let no2 = L10n.tr("Localizable", "PhotoCertification.ImageRule.no2")
+      /// 개인정보 보호를 위해 다른 정보는 가려주세요
+      internal static let no3 = L10n.tr("Localizable", "PhotoCertification.ImageRule.no3")
+      internal enum No1 {
+        /// 직장명, 직무/직위
+        internal static let highlighted = L10n.tr("Localizable", "PhotoCertification.ImageRule.no1.highlighted")
+        /// 는 꼭 드러나야 해요!
+        internal static let normal = L10n.tr("Localizable", "PhotoCertification.ImageRule.no1.normal")
+      }
+    }
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "PhotoCertification.NavBar.title")
+    }
+  }
+
   internal enum PolicyTerm {
     /// 먼저 이용약관을 읽고
     internal static let title1 = L10n.tr("Localizable", "PolicyTerm.title1")

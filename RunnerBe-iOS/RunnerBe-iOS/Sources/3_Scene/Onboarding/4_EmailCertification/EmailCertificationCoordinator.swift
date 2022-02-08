@@ -24,5 +24,19 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     override func start() {
         navController.pushViewController(component.emailCertificationViewController, animated: true)
+
+        component.emailCertificationViewModel
+            .routes.photoCertification
+            .subscribe(onNext: {
+                self.pushPhotoCertificationCoord()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func pushPhotoCertificationCoord() {
+        let photoCertificationComp = component.photoCertificationComponent
+        let photoCertificationCoord = PhotoCertificationCoordinator(component: photoCertificationComp, navController: navController)
+
+        coordinate(coordinator: photoCertificationCoord)
     }
 }

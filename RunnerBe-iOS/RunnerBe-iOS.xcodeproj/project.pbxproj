@@ -41,6 +41,12 @@
 		C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */; };
 		C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C927B2939800824ABE /* EmailCertificationViewController.swift */; };
 		C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */; };
+		C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6CF27B2B5D700824ABE /* PhotoCertificationComponent.swift */; };
+		C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D127B2B60E00824ABE /* PhotoCertificationCoordinator.swift */; };
+		C361B6D427B2B62300824ABE /* PhotoCertificationViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D327B2B62300824ABE /* PhotoCertificationViewModel.swift.swift */; };
+		C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */; };
+		C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */; };
+		C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */; };
 		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
 		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -129,6 +135,12 @@
 		C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationViewModel.swift; sourceTree = "<group>"; };
 		C361B6C927B2939800824ABE /* EmailCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationViewController.swift; sourceTree = "<group>"; };
 		C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPadding.swift; sourceTree = "<group>"; };
+		C361B6CF27B2B5D700824ABE /* PhotoCertificationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationComponent.swift; sourceTree = "<group>"; };
+		C361B6D127B2B60E00824ABE /* PhotoCertificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationCoordinator.swift; sourceTree = "<group>"; };
+		C361B6D327B2B62300824ABE /* PhotoCertificationViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationViewModel.swift.swift; sourceTree = "<group>"; };
+		C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationViewController.swift; sourceTree = "<group>"; };
+		C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChoosableView.swift; sourceTree = "<group>"; };
+		C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Style.swift"; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -301,6 +313,7 @@
 				C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */,
 				C3F0968927AED7AC00959F9A /* UIButton+.swift */,
 				C3F74B6E27B0B444002D5846 /* UIView+.swift */,
+				C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -393,8 +406,21 @@
 		C361B6CE27B2B27100824ABE /* 5_PhotoCertification */ = {
 			isa = PBXGroup;
 			children = (
+				C361B6D727B2BA2900824ABE /* View */,
+				C361B6CF27B2B5D700824ABE /* PhotoCertificationComponent.swift */,
+				C361B6D127B2B60E00824ABE /* PhotoCertificationCoordinator.swift */,
+				C361B6D327B2B62300824ABE /* PhotoCertificationViewModel.swift.swift */,
+				C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */,
 			);
 			path = 5_PhotoCertification;
+			sourceTree = "<group>";
+		};
+		C361B6D727B2BA2900824ABE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
@@ -753,9 +779,12 @@
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
+				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
+				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
+				C361B6D427B2B62300824ABE /* PhotoCertificationViewModel.swift.swift in Sources */,
 				C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
@@ -802,7 +831,9 @@
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
+				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
+				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
@@ -811,6 +842,7 @@
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
+				C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,

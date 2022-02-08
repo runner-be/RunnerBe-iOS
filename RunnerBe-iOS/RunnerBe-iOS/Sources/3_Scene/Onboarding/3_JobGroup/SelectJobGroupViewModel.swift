@@ -12,8 +12,6 @@ final class SelectJobGroupViewModel {
     // MARK: Lifecycle
 
     init() {
-        outputs.enableNext.onNext(true)
-
         inputs.tapCancel
             .subscribe(routes.cancel)
             .disposed(by: disposeBag)

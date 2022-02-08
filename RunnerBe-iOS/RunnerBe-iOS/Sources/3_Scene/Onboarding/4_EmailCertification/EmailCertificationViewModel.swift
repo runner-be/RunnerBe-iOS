@@ -9,10 +9,24 @@ import Foundation
 import RxSwift
 
 final class EmailCertificationViewModel {
+    init() {
+        inputs.tapCancel
+            .subscribe(routes.cancel)
+            .disposed(by: disposeBag)
+
+        inputs.tapBackward
+            .subscribe(routes.backward)
+            .disposed(by: disposeBag)
+
+        inputs.tapButtonButton
+            .subscribe(routes.photoCertification)
+            .disposed(by: disposeBag)
+    }
+
     // MARK: Internal
 
     struct Input {
-        var tapNext = PublishSubject<Void>()
+        var tapButtonButton = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
     }
@@ -22,7 +36,7 @@ final class EmailCertificationViewModel {
     }
 
     struct Route {
-        var nextProcess = PublishSubject<Void>()
+        var photoCertification = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var cancel = PublishSubject<Void>()
     }

@@ -76,3 +76,16 @@
 "emailCertification.Message.MailSend2" = "메일이 오지 않는다면 스팸 메일함도 확인해주세요!";
 "emailCertification.error.duplicated" = "이미 사용 중인 이메일이에요!";
 "emailCertification.emailField.placeholder" = "runnerbee@company.com";
+
+// MARK: - PhotoCertification
+"PhotoCertification.NavBar.title" = "TITLE";
+"PhotoCertification.title1" = "사진(ex. 사원증, 명함)으로";
+"PhotoCertification.title2" = "직업을 인증해주세요!";
+"PhotoCertification.subTitle1" = "해당 정보는 러너님이 직장인임을 확인하는 용도로만";
+"PhotoCertification.subTitle2" = "사용되며, 인증 후 안전하게 폐기됩니다.";
+"PhotoCertification.ImageRule.emoji" = "👉";
+"PhotoCertification.ImageRule.no1.highlighted" = "직장명, 직무/직위";
+"PhotoCertification.ImageRule.no1.normal" = "는 꼭 드러나야 해요!";
+"PhotoCertification.ImageRule.no2" = "정보를 식별할 수 있어야 해요";
+"PhotoCertification.ImageRule.no3" = "개인정보 보호를 위해 다른 정보는 가려주세요";
+"PhotoCertification.Button.Certificate.title" = "인증하기";

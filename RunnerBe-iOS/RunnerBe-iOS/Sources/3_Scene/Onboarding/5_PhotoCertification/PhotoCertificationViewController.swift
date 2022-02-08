@@ -1,5 +1,5 @@
 //
-//  EmailCertificationViewController.swift
+//  PhotoCertificationViewController.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/08.
@@ -12,9 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EmailCertificationViewController: BaseViewController {
-    // MARK: Lifecycle
-
+class PhotoCertificationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -24,7 +22,7 @@ class EmailCertificationViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: EmailCertificationViewModel) {
+    init(viewModel: PhotoCertificationViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -36,35 +34,16 @@ class EmailCertificationViewController: BaseViewController {
 
     // MARK: ViewModel Binding
 
-    private var viewModel: EmailCertificationViewModel
+    private var viewModel: PhotoCertificationViewModel
 
-    private func viewModelInput() {
-        navBar.leftBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
-
-        navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
-
-        nextButton.rx.tap
-            .bind(to: viewModel.inputs.tapButtonButton)
-            .disposed(by: disposeBags)
-    }
-
-    private func viewModelOutput() {
-        viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
-            })
-            .disposed(by: disposeBags)
-    }
+    private func viewModelInput() {}
+    private func viewModelOutput() {}
 
     // MARK: Private
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.text = L10n.SelectGender.NavBar.title
+        navBar.titleLabel.text = L10n.PhotoCertification.NavBar.title
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
@@ -74,85 +53,86 @@ class EmailCertificationViewController: BaseViewController {
     private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
-        label.text = L10n.EmailCertification.title1
+        label.text = L10n.PhotoCertification.title1
     }
 
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
-        label.text = L10n.EmailCertification.title2
+        label.text = L10n.PhotoCertification.title2
     }
 
     private var subTitleLabel1 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
-        label.text = L10n.EmailCertification.subTitle1
+        label.text = L10n.PhotoCertification.subTitle1
     }
 
     private var subTitleLabel2 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
-        label.text = L10n.EmailCertification.subTitle2
+        label.text = L10n.PhotoCertification.subTitle2
     }
 
-    private var emailField = TextFieldWithPadding().then { field in
-        field.textPadding = UIEdgeInsets(top: 12, left: 14, bottom: 14, right: 14)
-        field.backgroundColor = .darkG55
-        field.font = .iosBody15R
-        field.textAlignment = .left
-        field.textColor = .darkG2
-        field.attributedPlaceholder = NSAttributedString(string: L10n.EmailCertification.EmailField.placeholder, attributes: [.foregroundColor: UIColor.darkG2])
-
-        field.clipsToBounds = true
-        field.layer.cornerRadius = 8
-
-        field.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    private var photoView = PhotoChoosableView().then { view in
+        view.layer.borderColor = UIColor.darkG25.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 8
     }
 
-    private var certificateButton = UIButton().then { button in
-        button.setTitle(L10n.EmailCertification.Button.Certificate.title, for: .normal)
-        button.setTitleColor(.darkG6, for: .normal)
-        button.setBackgroundColor(.primary, for: .normal)
-        button.titleLabel?.font = .iosBody15B
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 8
-        button.setContentHuggingPriority(.required, for: .horizontal)
+    private var ruleLabel1 = UILabel().then { label in
+        label.attributedText = NSMutableAttributedString()
+            .style(to: L10n.PhotoCertification.ImageRule.emoji,
+                   attributes: [
+                       .font: UIFont.iosBody15R,
+                       .foregroundColor: UIColor.darkG25,
+                   ])
+            .style(to: L10n.PhotoCertification.ImageRule.No1.highlighted,
+                   attributes: [
+                       .font: UIFont.iosBody15B,
+                       .foregroundColor: UIColor.darkG25,
+                       .underlineStyle: NSUnderlineStyle.single.rawValue,
+                       .underlineColor: UIColor.darkG25,
+                   ])
+            .style(to: L10n.PhotoCertification.ImageRule.No1.normal,
+                   attributes: [
+                       .font: UIFont.iosBody15R,
+                       .foregroundColor: UIColor.darkG25,
+                   ])
     }
 
-    private var messageLabel1 = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .primary
-        label.text = L10n.EmailCertification.Message.mailSend1
+    private var ruleLabel2 = UILabel().then { label in
+        label.font = .iosBody15R
+        label.textColor = .darkG25
+        label.text = L10n.PhotoCertification.ImageRule.emoji
+            + L10n.PhotoCertification.ImageRule.no2
     }
 
-    private var messageLabel2 = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .primary
-        label.text = L10n.EmailCertification.Message.mailSend2
+    private var ruleLabel3 = UILabel().then { label in
+        label.font = .iosBody15R
+        label.textColor = .darkG25
+        label.text = L10n.PhotoCertification.ImageRule.emoji
+            + L10n.PhotoCertification.ImageRule.no3
     }
 
-    private var errorLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .errorlight
-        label.text = L10n.EmailCertification.Error.duplicated
-    }
-
-    private lazy var messageVStack = UIStackView.make(
-        with: [messageLabel1, messageLabel2, errorLabel],
+    private lazy var ruleLabelVStack = UIStackView.make(
+        with: [ruleLabel1, ruleLabel2, ruleLabel3],
         axis: .vertical,
         alignment: .leading,
         distribution: .equalSpacing,
-        spacing: 4
+        spacing: 2
     )
 
     private var nextButton = UIButton().then { button in
-        button.setTitle(L10n.EmailCertification.Button.NotHaveEmail.title, for: .normal)
-        button.setTitleColor(UIColor.primary, for: .normal)
-        button.setBackgroundColor(UIColor.clear, for: .normal)
-        button.titleLabel?.font = .iosBody15B
+        button.setTitle(L10n.PhotoCertification.Button.Certificate.title, for: .normal)
+        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setBackgroundColor(UIColor.primary, for: .normal)
 
-        button.layer.borderColor = UIColor.primary.cgColor
-        button.layer.borderWidth = 1
+        button.setTitle(L10n.PhotoCertification.Button.Certificate.title, for: .disabled)
+        button.setTitleColor(UIColor.darkG45, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+
+        button.titleLabel?.font = .iosBody15R
 
         button.clipsToBounds = true
         // TODO: 임시로 버튼 활성화
@@ -162,22 +142,18 @@ class EmailCertificationViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension EmailCertificationViewController {
+extension PhotoCertificationViewController {
     private func setupViews() {
         gradientBackground()
 
         view.addSubviews([
             navBar,
-
             titleLabel1,
             titleLabel2,
             subTitleLabel1,
             subTitleLabel2,
-
-            emailField,
-            certificateButton,
-
-            messageVStack,
+            photoView,
+            ruleLabelVStack,
 
             nextButton,
         ])
@@ -210,21 +186,15 @@ extension EmailCertificationViewController {
             make.leading.equalTo(view.snp.leading).offset(18)
         }
 
-        emailField.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel2.snp.bottom).offset(72)
+        photoView.snp.makeConstraints { make in
+            make.top.equalTo(subTitleLabel2.snp.bottom).offset(76)
             make.leading.equalTo(view.snp.leading).offset(16)
-        }
-
-        certificateButton.snp.makeConstraints { make in
-            make.top.equalTo(emailField.snp.top)
-            make.leading.equalTo(emailField.snp.trailing).offset(12)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(emailField.snp.bottom)
-            make.width.equalTo(92)
+            make.height.equalTo(193)
         }
 
-        messageVStack.snp.makeConstraints { make in
-            make.top.equalTo(emailField.snp.bottom).offset(12)
+        ruleLabelVStack.snp.makeConstraints { make in
+            make.top.equalTo(photoView.snp.bottom).offset(24)
             make.leading.equalTo(view.snp.leading).offset(16)
         }
 
