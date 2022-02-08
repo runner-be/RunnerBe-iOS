@@ -12,6 +12,7 @@ protocol Coordinator: AnyObject {
     var uuid: UUID { get }
     var navController: UINavigationController { get set }
     var childs: [UUID: Coordinator] { get set }
+    func release()
 }
 
 class BasicCoordinator<ResultType>: Coordinator {
@@ -44,9 +45,19 @@ class BasicCoordinator<ResultType>: Coordinator {
 
     func release<T>(coordinator: BasicCoordinator<T>) {
         let uuid = coordinator.uuid
-        childs[uuid] = nil
+        coordinator.release()
+        childs.removeValue(forKey: uuid)
         childsBags[uuid]?.forEach { $0.dispose() }
         childsBags.removeValue(forKey: uuid)
+    }
+
+    func release() {
+        childs.forEach { _, coord in coord.release() }
+        childsBags.flatMap { $1 }
+            .forEach { $0.dispose() }
+
+        childs.removeAll()
+        childsBags.removeAll()
     }
 
     func start() {

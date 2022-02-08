@@ -1,5 +1,5 @@
 //
-//  SelectGenderViewController.swift
+//  SelectJobGroupViewController.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/08.
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SelectGenderViewController: BaseViewController {
+class SelectJobGroupViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class SelectGenderViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: SelectGenderViewModel) {
+    init(viewModel: SelectJobGroupViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -36,7 +36,7 @@ class SelectGenderViewController: BaseViewController {
 
     // MARK: ViewModel Binding
 
-    private var viewModel: SelectGenderViewModel
+    private var viewModel: SelectJobGroupViewModel
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
@@ -71,10 +71,22 @@ class SelectGenderViewController: BaseViewController {
         navBar.rightSecondBtnItem.isHidden = true
     }
 
-    private var titleLabel = UILabel().then { label in
+    private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
-        label.text = L10n.SelectGender.title
+        label.text = L10n.SelectJobGroup.title1
+    }
+
+    private var titleLabel2 = UILabel().then { label in
+        label.font = UIFont.iosHeader31Sb
+        label.textColor = .primary
+        label.text = L10n.SelectJobGroup.title2
+    }
+
+    private var subTitleLabel = UILabel().then { label in
+        label.font = UIFont.iosBody15R
+        label.textColor = .darkG25
+        label.text = L10n.SelectJobGroup.subTitle
     }
 
     private var nextButton = UIButton().then { button in
@@ -96,13 +108,15 @@ class SelectGenderViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension SelectGenderViewController {
+extension SelectJobGroupViewController {
     private func setupViews() {
         gradientBackground()
 
         view.addSubviews([
             navBar,
-            titleLabel,
+            titleLabel1,
+            titleLabel2,
+            subTitleLabel,
 
             nextButton,
         ])
@@ -115,9 +129,19 @@ extension SelectGenderViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        titleLabel.snp.makeConstraints { make in
+        titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+        }
+
+        titleLabel2.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel1.snp.bottom).offset(2)
+            make.leading.equalTo(view.snp.leading).offset(16)
+        }
+
+        subTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel2.snp.bottom).offset(12)
+            make.leading.equalTo(view.snp.leading).offset(18)
         }
 
         nextButton.snp.makeConstraints { make in

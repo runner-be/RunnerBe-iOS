@@ -22,9 +22,6 @@
 
 --modifierorder
 
---enable organizeDeclarations
---lifecycle viewDidLoad,viewWillAppear,viewDidAppear,viewWillDisappear,viewDidDisappear
-
 --closurevoid remove
 
 --semicolons never

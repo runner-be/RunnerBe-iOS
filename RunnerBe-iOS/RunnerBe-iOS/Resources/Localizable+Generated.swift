@@ -148,6 +148,64 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "SelectGender.NavBar.title")
     }
   }
+
+  internal enum SelectJobGroup {
+    /// 추후 마이페이지에서 수정할 수 있어요!
+    internal static let subTitle = L10n.tr("Localizable", "SelectJobGroup.subTitle")
+    /// 어떤 직군에서
+    internal static let title1 = L10n.tr("Localizable", "SelectJobGroup.title1")
+    /// 활동하시나요?
+    internal static let title2 = L10n.tr("Localizable", "SelectJobGroup.title2")
+    internal enum Button {
+      internal enum Next {
+        /// 다음
+        internal static let title = L10n.tr("Localizable", "SelectJobGroup.Button.Next.title")
+      }
+    }
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "SelectJobGroup.NavBar.title")
+    }
+  }
+
+  internal enum EmailCertification {
+    /// 해당 정보는 러너님이 직장임을 확인하는 용도로만
+    internal static let subTitle1 = L10n.tr("Localizable", "emailCertification.subTitle1")
+    /// 사용되며, 외부에 공개되지 않습니다.
+    internal static let subTitle2 = L10n.tr("Localizable", "emailCertification.subTitle2")
+    /// 회사 이메일로
+    internal static let title1 = L10n.tr("Localizable", "emailCertification.title1")
+    /// 직장을 인증해주세요
+    internal static let title2 = L10n.tr("Localizable", "emailCertification.title2")
+    internal enum Button {
+      internal enum Certificate {
+        /// 인증하기
+        internal static let title = L10n.tr("Localizable", "emailCertification.Button.Certificate.title")
+      }
+      internal enum NotHaveEmail {
+        /// 회사 이메일이 없어요
+        internal static let title = L10n.tr("Localizable", "emailCertification.Button.NotHaveEmail.title")
+      }
+    }
+    internal enum Message {
+      /// 인증 링크가 발송되었어요
+      internal static let mailSend1 = L10n.tr("Localizable", "emailCertification.Message.MailSend1")
+      /// 메일이 오지 않는다면 스팸 메일함도 확인해주세요!
+      internal static let mailSend2 = L10n.tr("Localizable", "emailCertification.Message.MailSend2")
+    }
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "emailCertification.NavBar.title")
+    }
+    internal enum EmailField {
+      /// runnerbee@company.com
+      internal static let placeholder = L10n.tr("Localizable", "emailCertification.emailField.placeholder")
+    }
+    internal enum Error {
+      /// 이미 사용 중인 이메일이에요!
+      internal static let duplicated = L10n.tr("Localizable", "emailCertification.error.duplicated")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

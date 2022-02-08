@@ -24,5 +24,21 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
     override func start() {
         navController.pushViewController(component.selectGenderViewController, animated: true)
+
+        component.selectGenderViewModel.routes.nextProcess
+            .subscribe(onNext: {
+                self.pushSelectJobGroupCoord()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: Private
+
+    private func pushSelectJobGroupCoord() {
+        let selectJobGroupComp = component.selectJobGroupCoord
+
+        let selectJobGroupCoord = SelectJobGroupCoordinator(component: selectJobGroupComp, navController: navController)
+
+        coordinate(coordinator: selectJobGroupCoord)
     }
 }

@@ -56,3 +56,23 @@
 "SelectGender.Gender.male" = "남성";
 "SelectGender.Gender.female" = "여성";
 "SelectGender.Button.Next.title" = "다음";
+
+// MARK: - SelectJobGroup
+"SelectJobGroup.NavBar.title" = "TITLE";
+"SelectJobGroup.title1" = "어떤 직군에서";
+"SelectJobGroup.title2" = "활동하시나요?";
+"SelectJobGroup.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
+"SelectJobGroup.Button.Next.title" = "다음";
+
+// MARK: - emailCertification
+"emailCertification.NavBar.title" = "TITLE";
+"emailCertification.title1" = "회사 이메일로";
+"emailCertification.title2" = "직장을 인증해주세요";
+"emailCertification.subTitle1" = "해당 정보는 러너님이 직장임을 확인하는 용도로만";
+"emailCertification.subTitle2" = "사용되며, 외부에 공개되지 않습니다.";
+"emailCertification.Button.Certificate.title" = "인증하기";
+"emailCertification.Button.NotHaveEmail.title" = "회사 이메일이 없어요";
+"emailCertification.Message.MailSend1" = "인증 링크가 발송되었어요";
+"emailCertification.Message.MailSend2" = "메일이 오지 않는다면 스팸 메일함도 확인해주세요!";
+"emailCertification.error.duplicated" = "이미 사용 중인 이메일이에요!";
+"emailCertification.emailField.placeholder" = "runnerbee@company.com";

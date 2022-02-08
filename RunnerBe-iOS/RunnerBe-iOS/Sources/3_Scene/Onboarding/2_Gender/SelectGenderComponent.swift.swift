@@ -18,4 +18,8 @@ final class SelectGenderComponent: Component<SelectGenderDependency> {
     var selectGenderViewModel: SelectGenderViewModel {
         return shared { SelectGenderViewModel() }
     }
+
+    var selectJobGroupCoord: SelectJobGroupComponent {
+        return SelectJobGroupComponent(parent: self)
+    }
 }

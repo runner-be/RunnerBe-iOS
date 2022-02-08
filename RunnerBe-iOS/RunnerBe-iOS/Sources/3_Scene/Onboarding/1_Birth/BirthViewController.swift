@@ -35,9 +35,34 @@ class BirthViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Private
+    // MARK: ViewModel Binding
 
     private var viewModel: BirthViewModel
+
+    private func bindViewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapBackward)
+            .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapCancel)
+            .disposed(by: disposeBags)
+
+        nextButton.rx.tap
+            .bind(to: viewModel.inputs.tapNext)
+            .disposed(by: disposeBags)
+    }
+
+    private func bindViewModelOutput() {
+        viewModel.outputs.enableNext
+            .subscribe(onNext: {
+                self.nextButton.isEnabled = $0
+                self.errorLabel.isHidden = $0
+            })
+            .disposed(by: disposeBags)
+    }
+
+    // MARK: Private
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
@@ -95,31 +120,10 @@ class BirthViewController: BaseViewController {
         button.setTitleColor(UIColor.darkG45, for: .disabled)
         button.setBackgroundColor(UIColor.darkG3, for: .disabled)
 
+        button.titleLabel?.font = .iosBody15R
+
         button.clipsToBounds = true
         button.isEnabled = false
-    }
-
-    private func bindViewModelInput() {
-        navBar.leftBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
-
-        navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
-
-        nextButton.rx.tap
-            .bind(to: viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
-    }
-
-    private func bindViewModelOutput() {
-        viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
-                self.errorLabel.isHidden = $0
-            })
-            .disposed(by: disposeBags)
     }
 }
 
@@ -206,8 +210,8 @@ extension BirthViewController {
     private func gradientBackground() {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [
-            UIColor.darkG6.cgColor,
-            UIColor.darkG55.cgColor,
+            UIColor.bgBottom.cgColor,
+            UIColor.bgTop.cgColor,
         ]
         backgroundGradientLayer.frame = view.bounds
         view.layer.addSublayer(backgroundGradientLayer)

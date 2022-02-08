@@ -33,7 +33,7 @@ class PolicyTermViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Private
+    // MARK: ViewModel Binding
 
     private var viewModel: PolicyTermViewModel
 
@@ -85,7 +85,9 @@ class PolicyTermViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
     }
-    
+
+    // MARK: Private
+
     private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.text = L10n.PolicyTerm.title1
@@ -154,6 +156,8 @@ class PolicyTermViewController: BaseViewController {
         button.setTitleColor(UIColor.darkG45, for: .disabled)
         button.setBackgroundColor(UIColor.darkG3, for: .disabled)
 
+        button.titleLabel?.font = .iosBody15R
+
         button.clipsToBounds = true
         button.isEnabled = false
     }
@@ -164,7 +168,6 @@ class PolicyTermViewController: BaseViewController {
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
     }
-
 }
 
 // MARK: - Layout
@@ -257,8 +260,8 @@ extension PolicyTermViewController {
     private func gradientBackground() {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [
-            UIColor.darkG6.cgColor,
-            UIColor.darkG55.cgColor,
+            UIColor.bgBottom.cgColor,
+            UIColor.bgTop.cgColor,
         ]
         backgroundGradientLayer.frame = view.bounds
         view.layer.addSublayer(backgroundGradientLayer)

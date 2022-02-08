@@ -1,5 +1,5 @@
 //
-//  SelectGenderViewModel.swift.swift
+//  EmailCertificationViewModel.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/08.
@@ -8,23 +8,7 @@
 import Foundation
 import RxSwift
 
-final class SelectGenderViewModel {
-    // MARK: Lifecycle
-
-    init() {
-        inputs.tapCancel
-            .subscribe(routes.cancel)
-            .disposed(by: disposeBag)
-
-        inputs.tapBackward
-            .subscribe(routes.backward)
-            .disposed(by: disposeBag)
-
-        inputs.tapNext
-            .subscribe(routes.nextProcess)
-            .disposed(by: disposeBag)
-    }
-
+final class EmailCertificationViewModel {
     // MARK: Internal
 
     struct Input {

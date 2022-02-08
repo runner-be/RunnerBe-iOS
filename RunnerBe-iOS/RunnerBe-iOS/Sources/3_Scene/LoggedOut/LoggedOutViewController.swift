@@ -35,9 +35,30 @@ final class LoggedOutViewController: BaseViewController {
         bindViewModelOutput()
     }
 
-    // MARK: Private
+    // MARK: ViewModel Binding
 
     private var viewModel: LoggedOutViewModel
+
+    private func bindViewModelInput() {
+        kakaoButton.rx.tapGesture()
+            .when(.recognized).map { _ in }
+            .bind(to: viewModel.input.kakaoLogin)
+            .disposed(by: disposeBags)
+
+        naverButton.rx.tapGesture()
+            .when(.recognized).map { _ in }
+            .bind(to: viewModel.input.naverLogin)
+            .disposed(by: disposeBags)
+
+        appleButton.rx.tapGesture()
+            .when(.recognized).map { _ in }
+            .bind(to: viewModel.input.appleLogin)
+            .disposed(by: disposeBags)
+    }
+
+    private func bindViewModelOutput() {}
+
+    // MARK: Private
 
     private var logoImageView = UIImageView().then {
         $0.image = Asset.logoSignature.uiImage
@@ -65,25 +86,6 @@ final class LoggedOutViewController: BaseViewController {
         $0.image = Asset.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
-
-    private func bindViewModelInput() {
-        kakaoButton.rx.tapGesture()
-            .when(.recognized).map { _ in }
-            .bind(to: viewModel.input.kakaoLogin)
-            .disposed(by: disposeBags)
-
-        naverButton.rx.tapGesture()
-            .when(.recognized).map { _ in }
-            .bind(to: viewModel.input.naverLogin)
-            .disposed(by: disposeBags)
-
-        appleButton.rx.tapGesture()
-            .when(.recognized).map { _ in }
-            .bind(to: viewModel.input.appleLogin)
-            .disposed(by: disposeBags)
-    }
-
-    private func bindViewModelOutput() {}
 }
 
 // MARK: - Layout
@@ -117,8 +119,8 @@ extension LoggedOutViewController {
     private func gradientBackground() {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [
-            UIColor.darkG6.cgColor,
-            UIColor.darkG55.cgColor,
+            UIColor.bgBottom.cgColor,
+            UIColor.bgTop.cgColor,
         ]
         backgroundGradientLayer.frame = view.bounds
         view.layer.addSublayer(backgroundGradientLayer)

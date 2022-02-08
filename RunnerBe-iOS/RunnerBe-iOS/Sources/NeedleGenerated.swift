@@ -33,8 +33,14 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
         return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent") { component in
+        return EmailCertificationDependencyf5f9a83429ebc20c0ea9Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent") { component in
         return BirthDependencyeacd7a6dc893684c63a8Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent") { component in
+        return SelectJobGroupDependency2420d5f31bd0022c257fProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent") { component in
         return SelectGenderDependency1501a6b74f78c8951e52Provider(component: component)
@@ -140,6 +146,19 @@ private class PolicyTermDependency28006fce607070d6ca75Provider: PolicyTermDepend
         super.init()
     }
 }
+private class EmailCertificationDependencyf5f9a83429ebc20c0ea9BaseProvider: EmailCertificationDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent
+private class EmailCertificationDependencyf5f9a83429ebc20c0ea9Provider: EmailCertificationDependencyf5f9a83429ebc20c0ea9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
 private class BirthDependencyeacd7a6dc893684c63a8BaseProvider: BirthDependency {
 
 
@@ -149,6 +168,19 @@ private class BirthDependencyeacd7a6dc893684c63a8BaseProvider: BirthDependency {
 }
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent
 private class BirthDependencyeacd7a6dc893684c63a8Provider: BirthDependencyeacd7a6dc893684c63a8BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class SelectJobGroupDependency2420d5f31bd0022c257fBaseProvider: SelectJobGroupDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent
+private class SelectJobGroupDependency2420d5f31bd0022c257fProvider: SelectJobGroupDependency2420d5f31bd0022c257fBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

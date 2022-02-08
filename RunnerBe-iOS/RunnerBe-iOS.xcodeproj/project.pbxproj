@@ -32,6 +32,15 @@
 		C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
 		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
+		C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */; };
+		C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */; };
+		C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */; };
+		C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */; };
+		C361B6C427B2934800824ABE /* EmailCertificationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C327B2934800824ABE /* EmailCertificationComponent.swift */; };
+		C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C527B2937300824ABE /* EmailCertificationCoordinator.swift */; };
+		C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */; };
+		C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6C927B2939800824ABE /* EmailCertificationViewController.swift */; };
+		C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */; };
 		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
 		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -111,6 +120,15 @@
 		C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupCoordinator.swift; sourceTree = "<group>"; };
+		C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupComponent.swift; sourceTree = "<group>"; };
+		C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupViewController.swift; sourceTree = "<group>"; };
+		C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupViewModel.swift; sourceTree = "<group>"; };
+		C361B6C327B2934800824ABE /* EmailCertificationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationComponent.swift; sourceTree = "<group>"; };
+		C361B6C527B2937300824ABE /* EmailCertificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationCoordinator.swift; sourceTree = "<group>"; };
+		C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationViewModel.swift; sourceTree = "<group>"; };
+		C361B6C927B2939800824ABE /* EmailCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationViewController.swift; sourceTree = "<group>"; };
+		C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPadding.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -261,17 +279,10 @@
 			children = (
 				C34FDA6627AD5C83007718F8 /* LoggedOutComponent.swift */,
 				C34FDA6227AD5C83007718F8 /* LoggedOutCoordinator.swift */,
-				C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */,
 				C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */,
+				C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */,
 			);
 			path = LoggedOut;
-			sourceTree = "<group>";
-		};
-		C34FDA5427AD5C82007718F8 /* 0_Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = 0_Model;
 			sourceTree = "<group>";
 		};
 		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
@@ -314,23 +325,16 @@
 			path = LoginService;
 			sourceTree = "<group>";
 		};
-		C34FDA6327AD5C83007718F8 /* 2_Provider */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = 2_Provider;
-			sourceTree = "<group>";
-		};
 		C34FDA7527AD5C98007718F8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA5427AD5C82007718F8 /* 0_Model */,
+				C361B6C027B285F500824ABE /* 0_Model */,
 				C34FDA5B27AD5C83007718F8 /* 1_Service */,
-				C34FDA6327AD5C83007718F8 /* 2_Provider */,
+				C361B6C127B285FC00824ABE /* 2_Provider */,
 				C34FDA4D27AD5C82007718F8 /* 3_Scene */,
 				C3F0968B27AEDDCF00959F9A /* 4_CustomViews */,
 				C34FDA5627AD5C82007718F8 /* 5_Extensions */,
-				C38F8F5127ADB3F60050137D /* 6_Utils */,
+				C38F8F5127ADB3F60050137D /* 6_Base */,
 				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
 				C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */,
 			);
@@ -353,6 +357,46 @@
 			path = Ignore;
 			sourceTree = "<group>";
 		};
+		C361B6C027B285F500824ABE /* 0_Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 0_Model;
+			sourceTree = "<group>";
+		};
+		C361B6C127B285FC00824ABE /* 2_Provider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 2_Provider;
+			sourceTree = "<group>";
+		};
+		C361B6C227B2930600824ABE /* 4_EmailCertification */ = {
+			isa = PBXGroup;
+			children = (
+				C361B6C327B2934800824ABE /* EmailCertificationComponent.swift */,
+				C361B6C527B2937300824ABE /* EmailCertificationCoordinator.swift */,
+				C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */,
+				C361B6C927B2939800824ABE /* EmailCertificationViewController.swift */,
+			);
+			path = 4_EmailCertification;
+			sourceTree = "<group>";
+		};
+		C361B6CB27B29FE200824ABE /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
+		C361B6CE27B2B27100824ABE /* 5_PhotoCertification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 5_PhotoCertification;
+			sourceTree = "<group>";
+		};
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +404,8 @@
 				C3F74B7227B0F362002D5846 /* 1_Birth */,
 				C3F74B7427B0F3DA002D5846 /* 2_Gender */,
 				C3F74B7327B0F3AD002D5846 /* 3_JobGroup */,
+				C361B6C227B2930600824ABE /* 4_EmailCertification */,
+				C361B6CE27B2B27100824ABE /* 5_PhotoCertification */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -408,13 +454,13 @@
 			path = 3_MyPage;
 			sourceTree = "<group>";
 		};
-		C38F8F5127ADB3F60050137D /* 6_Utils */ = {
+		C38F8F5127ADB3F60050137D /* 6_Base */ = {
 			isa = PBXGroup;
 			children = (
 				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
 				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
 			);
-			path = 6_Utils;
+			path = 6_Base;
 			sourceTree = "<group>";
 		};
 		C39D86B927AEB76100A9C201 /* Fonts */ = {
@@ -444,6 +490,7 @@
 		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C361B6CB27B29FE200824ABE /* TextField */,
 				C3F74B7D27B126E9002D5846 /* NavigationBar */,
 			);
 			path = 4_CustomViews;
@@ -483,6 +530,10 @@
 		C3F74B7327B0F3AD002D5846 /* 3_JobGroup */ = {
 			isa = PBXGroup;
 			children = (
+				C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */,
+				C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */,
+				C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */,
+				C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */,
 			);
 			path = 3_JobGroup;
 			sourceTree = "<group>";
@@ -705,6 +756,7 @@
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
+				C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
@@ -716,6 +768,7 @@
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
+				C361B6C427B2934800824ABE /* EmailCertificationComponent.swift in Sources */,
 				C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */,
 				C38F8F4027AD99F30050137D /* MessageComponent.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
@@ -732,6 +785,7 @@
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
+				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
@@ -741,23 +795,29 @@
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
+				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift.swift in Sources */,
+				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
+				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
+				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
+				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
+				C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

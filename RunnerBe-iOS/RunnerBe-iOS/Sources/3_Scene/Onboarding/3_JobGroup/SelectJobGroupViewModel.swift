@@ -1,5 +1,5 @@
 //
-//  SelectGenderViewModel.swift.swift
+//  SelectJobGroupViewModel.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/08.
@@ -8,10 +8,12 @@
 import Foundation
 import RxSwift
 
-final class SelectGenderViewModel {
+final class SelectJobGroupViewModel {
     // MARK: Lifecycle
 
     init() {
+        outputs.enableNext.onNext(true)
+
         inputs.tapCancel
             .subscribe(routes.cancel)
             .disposed(by: disposeBag)
