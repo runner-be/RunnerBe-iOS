@@ -37,6 +37,8 @@ final class LoggedOutViewController: BaseViewController {
 
     // MARK: Private
 
+    private var viewModel: LoggedOutViewModel
+
     private var logoImageView = UIImageView().then {
         $0.image = Asset.logoSignature.uiImage
     }
@@ -63,8 +65,6 @@ final class LoggedOutViewController: BaseViewController {
         $0.image = Asset.appleLogin.uiImage
         $0.contentMode = .scaleAspectFit
     }
-
-    private var viewModel: LoggedOutViewModel
 
     private func bindViewModelInput() {
         kakaoButton.rx.tapGesture()

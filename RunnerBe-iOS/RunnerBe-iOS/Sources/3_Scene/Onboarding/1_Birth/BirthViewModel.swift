@@ -12,7 +12,6 @@ final class BirthViewModel {
     // MARK: Lifecycle
 
     init() {
-        
         // TODO: DateFormatter DI
         let today = Date()
         let dateFormatter = DateFormatter()

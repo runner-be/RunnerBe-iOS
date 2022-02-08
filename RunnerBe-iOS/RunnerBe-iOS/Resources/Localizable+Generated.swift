@@ -18,6 +18,10 @@ internal enum L10n {
     internal static let subTitle2 = L10n.tr("Localizable", "Birth.subTitle2")
     /// 출생년도를 입력해주세요.
     internal static let title = L10n.tr("Localizable", "Birth.title")
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "Birth.NavBar.title")
+    }
     internal enum Button {
       /// 다음
       internal static let next = L10n.tr("Localizable", "Birth.button.next")
@@ -121,6 +125,27 @@ internal enum L10n {
         /// 다음
         internal static let title = L10n.tr("Localizable", "PolicyTerm.Button.Next.title")
       }
+    }
+  }
+
+  internal enum SelectGender {
+    /// 성별을 선택해주세요.
+    internal static let title = L10n.tr("Localizable", "SelectGender.title")
+    internal enum Button {
+      internal enum Next {
+        /// 다음
+        internal static let title = L10n.tr("Localizable", "SelectGender.Button.Next.title")
+      }
+    }
+    internal enum Gender {
+      /// 여성
+      internal static let female = L10n.tr("Localizable", "SelectGender.Gender.female")
+      /// 남성
+      internal static let male = L10n.tr("Localizable", "SelectGender.Gender.male")
+    }
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "SelectGender.NavBar.title")
     }
   }
 }

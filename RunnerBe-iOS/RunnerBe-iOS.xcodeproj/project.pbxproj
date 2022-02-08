@@ -64,6 +64,10 @@
 		C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86C227AEB78700A9C201 /* AppleSDGothicNeoH.ttf */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
+		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
+		C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */; };
+		C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */; };
+		C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */; };
 		C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6327B0A3BA002D5846 /* PolicyTermCoordinator.swift */; };
 		C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6527B0A477002D5846 /* PolicyTermComponent.swift */; };
 		C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6727B0A4AA002D5846 /* PolicyTermViewModel.swift */; };
@@ -141,6 +145,10 @@
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderComponent.swift.swift; sourceTree = "<group>"; };
+		C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderCoordinator.swift; sourceTree = "<group>"; };
+		C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewModel.swift.swift; sourceTree = "<group>"; };
+		C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewController.swift; sourceTree = "<group>"; };
 		C3F74B6327B0A3BA002D5846 /* PolicyTermCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermCoordinator.swift; sourceTree = "<group>"; };
 		C3F74B6527B0A477002D5846 /* PolicyTermComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermComponent.swift; sourceTree = "<group>"; };
 		C3F74B6727B0A4AA002D5846 /* PolicyTermViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermViewModel.swift; sourceTree = "<group>"; };
@@ -482,6 +490,10 @@
 		C3F74B7427B0F3DA002D5846 /* 2_Gender */ = {
 			isa = PBXGroup;
 			children = (
+				C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */,
+				C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */,
+				C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */,
+				C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */,
 			);
 			path = 2_Gender;
 			sourceTree = "<group>";
@@ -693,6 +705,7 @@
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
+				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
@@ -700,6 +713,7 @@
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
+				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */,
@@ -713,9 +727,11 @@
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
+				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
+				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,

@@ -20,4 +20,8 @@ final class BirthComponent: Component<BirthDependency> {
     var birthViewModel: BirthViewModel {
         return shared { BirthViewModel() }
     }
+
+    var selectGenderComponent: SelectGenderComponent {
+        return SelectGenderComponent(parent: self)
+    }
 }

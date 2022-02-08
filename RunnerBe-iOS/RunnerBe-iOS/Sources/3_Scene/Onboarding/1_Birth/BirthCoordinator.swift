@@ -24,5 +24,18 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
     override func start() {
         navController.pushViewController(component.birthViewController, animated: true)
+
+//        component.birthViewModel.routes.nextProcess
+//            .
+    }
+
+    // MARK: Private
+
+    private func pushSelectGenderCoord() {
+        let selectGenderComp = component.selectGenderComponent
+
+        let selectGenderCoord = SelectGenderCoordinator(component: selectGenderComp, navController: navController)
+
+        coordinate(coordinator: selectGenderCoord)
     }
 }

@@ -35,38 +35,13 @@ class BirthViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Internal
-
-    func bindViewModelInput() {
-        navBar.leftBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
-
-        navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
-
-        nextButton.rx.tap
-            .bind(to: viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
-    }
-
-    func bindViewModelOutput() {
-        viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
-                self.errorLabel.isHidden = $0
-            })
-            .disposed(by: disposeBags)
-    }
-
     // MARK: Private
 
     private var viewModel: BirthViewModel
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.text = "TITLE"
+        navBar.titleLabel.text = L10n.Birth.NavBar.title
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
@@ -122,6 +97,29 @@ class BirthViewController: BaseViewController {
 
         button.clipsToBounds = true
         button.isEnabled = false
+    }
+
+    private func bindViewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapBackward)
+            .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapCancel)
+            .disposed(by: disposeBags)
+
+        nextButton.rx.tap
+            .bind(to: viewModel.inputs.tapNext)
+            .disposed(by: disposeBags)
+    }
+
+    private func bindViewModelOutput() {
+        viewModel.outputs.enableNext
+            .subscribe(onNext: {
+                self.nextButton.isEnabled = $0
+                self.errorLabel.isHidden = $0
+            })
+            .disposed(by: disposeBags)
     }
 }
 

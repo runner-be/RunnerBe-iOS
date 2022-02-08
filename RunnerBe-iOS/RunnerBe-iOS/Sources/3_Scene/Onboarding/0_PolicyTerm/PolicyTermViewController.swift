@@ -33,60 +33,9 @@ class PolicyTermViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Internal
-
-    var viewModel: PolicyTermViewModel
-
-    func bindViewModelInput() {
-        checkAllPolicyView.tapCheck
-            .subscribe(onNext: { check in
-                self.servicePolicyView.isSelected = check
-                self.privacyPolicyView.isSelected = check
-                self.locationPolicyView.isSelected = check
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
-                self.viewModel.inputs.tapLocationPolicy.onNext(check)
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
-            })
-            .disposed(by: disposeBags)
-
-        servicePolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapServicePolicy)
-            .disposed(by: disposeBags)
-
-        privacyPolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapPrivacyPolicy)
-            .disposed(by: disposeBags)
-
-        locationPolicyView.tapCheck
-            .subscribe(viewModel.inputs.tapLocationPolicy)
-            .disposed(by: disposeBags)
-
-        servicePolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapServiceDetail)
-            .disposed(by: disposeBags)
-
-        privacyPolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapPrivacyDetail)
-            .disposed(by: disposeBags)
-
-        locationPolicyView.tapDetail
-            .subscribe(viewModel.inputs.tapLocationDetail)
-            .disposed(by: disposeBags)
-
-        nextButton.rx.tap
-            .subscribe(viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
-    }
-
-    func bindViewModelOutput() {
-        viewModel.outputs.enableNext
-            .subscribe(onNext: { enable in
-                self.nextButton.isEnabled = enable
-            })
-            .disposed(by: disposeBags)
-    }
-
     // MARK: Private
+
+    private var viewModel: PolicyTermViewModel
 
     private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
@@ -165,6 +114,55 @@ class PolicyTermViewController: BaseViewController {
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
+    }
+
+    private func bindViewModelInput() {
+        checkAllPolicyView.tapCheck
+            .subscribe(onNext: { check in
+                self.servicePolicyView.isSelected = check
+                self.privacyPolicyView.isSelected = check
+                self.locationPolicyView.isSelected = check
+                self.viewModel.inputs.tapServicePolicy.onNext(check)
+                self.viewModel.inputs.tapLocationPolicy.onNext(check)
+                self.viewModel.inputs.tapServicePolicy.onNext(check)
+            })
+            .disposed(by: disposeBags)
+
+        servicePolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapServicePolicy)
+            .disposed(by: disposeBags)
+
+        privacyPolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapPrivacyPolicy)
+            .disposed(by: disposeBags)
+
+        locationPolicyView.tapCheck
+            .subscribe(viewModel.inputs.tapLocationPolicy)
+            .disposed(by: disposeBags)
+
+        servicePolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapServiceDetail)
+            .disposed(by: disposeBags)
+
+        privacyPolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapPrivacyDetail)
+            .disposed(by: disposeBags)
+
+        locationPolicyView.tapDetail
+            .subscribe(viewModel.inputs.tapLocationDetail)
+            .disposed(by: disposeBags)
+
+        nextButton.rx.tap
+            .subscribe(viewModel.inputs.tapNext)
+            .disposed(by: disposeBags)
+    }
+
+    private func bindViewModelOutput() {
+        viewModel.outputs.enableNext
+            .subscribe(onNext: { enable in
+                self.nextButton.isEnabled = enable
+            })
+            .disposed(by: disposeBags)
     }
 }
 
