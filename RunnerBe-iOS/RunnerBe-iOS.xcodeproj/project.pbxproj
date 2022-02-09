@@ -47,6 +47,10 @@
 		C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */; };
 		C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */; };
 		C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */; };
+		C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */; };
+		C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */; };
+		C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */; };
+		C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E427B3461900824ABE /* PhotoModalViewController.swift */; };
 		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
 		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -141,6 +145,10 @@
 		C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationViewController.swift; sourceTree = "<group>"; };
 		C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChoosableView.swift; sourceTree = "<group>"; };
 		C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Style.swift"; sourceTree = "<group>"; };
+		C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalComponent.swift.swift; sourceTree = "<group>"; };
+		C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalCoordinator.swift; sourceTree = "<group>"; };
+		C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewModel.swift; sourceTree = "<group>"; };
+		C361B6E427B3461900824ABE /* PhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewController.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -406,6 +414,7 @@
 		C361B6CE27B2B27100824ABE /* 5_PhotoCertification */ = {
 			isa = PBXGroup;
 			children = (
+				C361B6DC27B3458100824ABE /* PhotoModal */,
 				C361B6D727B2BA2900824ABE /* View */,
 				C361B6CF27B2B5D700824ABE /* PhotoCertificationComponent.swift */,
 				C361B6D127B2B60E00824ABE /* PhotoCertificationCoordinator.swift */,
@@ -421,6 +430,17 @@
 				C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C361B6DC27B3458100824ABE /* PhotoModal */ = {
+			isa = PBXGroup;
+			children = (
+				C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */,
+				C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */,
+				C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */,
+				C361B6E427B3461900824ABE /* PhotoModalViewController.swift */,
+			);
+			path = PhotoModal;
 			sourceTree = "<group>";
 		};
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
@@ -808,6 +828,7 @@
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
+				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
@@ -817,6 +838,7 @@
 				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
@@ -824,6 +846,7 @@
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
+				C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */,
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift.swift in Sources */,
@@ -848,6 +871,7 @@
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
+				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */,
 			);

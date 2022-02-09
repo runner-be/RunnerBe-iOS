@@ -36,7 +36,14 @@ class PhotoCertificationViewController: BaseViewController {
 
     private var viewModel: PhotoCertificationViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        photoView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .subscribe(viewModel.inputs.tapPhoto)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     // MARK: Private
@@ -78,11 +85,12 @@ class PhotoCertificationViewController: BaseViewController {
         view.layer.borderColor = UIColor.darkG25.cgColor
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 8
+        view.image = nil
     }
 
     private var ruleLabel1 = UILabel().then { label in
         label.attributedText = NSMutableAttributedString()
-            .style(to: L10n.PhotoCertification.ImageRule.emoji,
+            .style(to: L10n.PhotoCertification.ImageRule.emoji + " ",
                    attributes: [
                        .font: UIFont.iosBody15R,
                        .foregroundColor: UIColor.darkG25,
@@ -104,14 +112,14 @@ class PhotoCertificationViewController: BaseViewController {
     private var ruleLabel2 = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG25
-        label.text = L10n.PhotoCertification.ImageRule.emoji
+        label.text = L10n.PhotoCertification.ImageRule.emoji + " "
             + L10n.PhotoCertification.ImageRule.no2
     }
 
     private var ruleLabel3 = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG25
-        label.text = L10n.PhotoCertification.ImageRule.emoji
+        label.text = L10n.PhotoCertification.ImageRule.emoji + " "
             + L10n.PhotoCertification.ImageRule.no3
     }
 

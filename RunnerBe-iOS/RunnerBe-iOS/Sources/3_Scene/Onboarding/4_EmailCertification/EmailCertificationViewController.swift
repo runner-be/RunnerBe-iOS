@@ -20,6 +20,7 @@ class EmailCertificationViewController: BaseViewController {
         setupViews()
         initialLayout()
 
+        viewInput()
         viewModelInput()
         viewModelOutput()
     }
@@ -48,7 +49,7 @@ class EmailCertificationViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         nextButton.rx.tap
-            .bind(to: viewModel.inputs.tapButtonButton)
+            .bind(to: viewModel.inputs.tapNoEmail)
             .disposed(by: disposeBags)
     }
 
@@ -56,6 +57,20 @@ class EmailCertificationViewController: BaseViewController {
         viewModel.outputs.enableNext
             .subscribe(onNext: {
                 self.nextButton.isEnabled = $0
+            })
+            .disposed(by: disposeBags)
+    }
+
+    private func viewInput() {
+        emailField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: {
+                self.emailField.layer.borderWidth = 1
+            })
+            .disposed(by: disposeBags)
+
+        emailField.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext: {
+                self.emailField.layer.borderWidth = 0
             })
             .disposed(by: disposeBags)
     }
@@ -101,10 +116,14 @@ class EmailCertificationViewController: BaseViewController {
         field.font = .iosBody15R
         field.textAlignment = .left
         field.textColor = .darkG2
-        field.attributedPlaceholder = NSAttributedString(string: L10n.EmailCertification.EmailField.placeholder, attributes: [.foregroundColor: UIColor.darkG2])
+        field.attributedPlaceholder = NSAttributedString(
+            string: L10n.EmailCertification.EmailField.placeholder,
+            attributes: [.foregroundColor: UIColor.darkG35]
+        )
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 8
+        field.layer.borderColor = UIColor.primary.cgColor
 
         field.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
@@ -113,6 +132,9 @@ class EmailCertificationViewController: BaseViewController {
         button.setTitle(L10n.EmailCertification.Button.Certificate.title, for: .normal)
         button.setTitleColor(.darkG6, for: .normal)
         button.setBackgroundColor(.primary, for: .normal)
+        button.setTitle(L10n.EmailCertification.Button.Certificate.title, for: .disabled)
+        button.setTitleColor(.darkG45, for: .disabled)
+        button.setBackgroundColor(.darkG3, for: .disabled)
         button.titleLabel?.font = .iosBody15B
         button.clipsToBounds = true
         button.layer.cornerRadius = 8

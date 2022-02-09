@@ -126,6 +126,18 @@ internal enum L10n {
         internal static let normal = L10n.tr("Localizable", "PhotoCertification.ImageRule.no1.normal")
       }
     }
+    internal enum Modal {
+      /// 인증 확인까지 최대 6시간 정도가
+      internal static let title1 = L10n.tr("Localizable", "PhotoCertification.Modal.title1")
+      /// 소요될 수 있어요!
+      internal static let title2 = L10n.tr("Localizable", "PhotoCertification.Modal.title2")
+      internal enum Button {
+        /// 촬영하기
+        internal static let _1 = L10n.tr("Localizable", "PhotoCertification.Modal.Button.1")
+        /// 앨범에서 선택하기
+        internal static let _2 = L10n.tr("Localizable", "PhotoCertification.Modal.Button.2")
+      }
+    }
     internal enum NavBar {
       /// TITLE
       internal static let title = L10n.tr("Localizable", "PhotoCertification.NavBar.title")

@@ -36,6 +36,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent") { component in
         return PhotoCertificationDependency919976e3bbe7c6970accProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent") { component in
+        return PhotoModalDependency256710ef3f831e315f20Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent") { component in
         return EmailCertificationDependencyf5f9a83429ebc20c0ea9Provider(component: component)
     }
@@ -158,6 +161,19 @@ private class PhotoCertificationDependency919976e3bbe7c6970accBaseProvider: Phot
 }
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent
 private class PhotoCertificationDependency919976e3bbe7c6970accProvider: PhotoCertificationDependency919976e3bbe7c6970accBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class PhotoModalDependency256710ef3f831e315f20BaseProvider: PhotoModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent
+private class PhotoModalDependency256710ef3f831e315f20Provider: PhotoModalDependency256710ef3f831e315f20BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

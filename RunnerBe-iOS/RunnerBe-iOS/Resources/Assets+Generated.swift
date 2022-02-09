@@ -35,6 +35,7 @@ internal enum Asset {
   internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
   internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
   internal static let naverLogin = ImageAsset(name: "Naver_login")
+  internal static let upload = ImageAsset(name: "Upload")
   internal static let x = ImageAsset(name: "X")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

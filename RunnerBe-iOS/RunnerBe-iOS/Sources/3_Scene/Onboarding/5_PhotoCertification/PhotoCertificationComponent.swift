@@ -18,4 +18,8 @@ final class PhotoCertificationComponent: Component<PhotoCertificationDependency>
     var photoCertificationViewModel: PhotoCertificationViewModel {
         return shared { PhotoCertificationViewModel() }
     }
+
+    var photoModalComponent: PhotoModalComponent {
+        return PhotoModalComponent(parent: self)
+    }
 }

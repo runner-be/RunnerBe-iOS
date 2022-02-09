@@ -20,5 +20,37 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
     override func start() {
         navController.pushViewController(component.photoCertificationViewController, animated: true)
+
+        component.photoCertificationViewModel
+            .routes.photoModal
+            .flatMap { self.presentPhotoModal() }
+            .subscribe(component.photoCertificationViewModel.routeInputs.photoModal)
+            .disposed(by: disposeBag)
+    }
+
+    private func presentPhotoModal() -> Observable<Data?> {
+        let comp = component.photoModalComponent
+        let coord = PhotoModalCoordinator(component: comp, navController: navController)
+
+        return coordinate(coordinator: coord)
+            .flatMap { modalResult -> Observable<Data?> in
+                defer { self.release(coordinator: coord) }
+                switch modalResult {
+                case .takePhoto:
+                    return self.presentTakePhoto()
+                case .choosePhoto:
+                    return self.presentChoosePhoto()
+                case .cancel:
+                    return .just(nil)
+                }
+            }
+    }
+
+    private func presentTakePhoto() -> Observable<Data?> {
+        return .just(nil)
+    }
+
+    private func presentChoosePhoto() -> Observable<Data?> {
+        return .just(nil)
     }
 }

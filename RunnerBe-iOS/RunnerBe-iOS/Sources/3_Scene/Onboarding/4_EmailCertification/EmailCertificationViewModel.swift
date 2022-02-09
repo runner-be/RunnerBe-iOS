@@ -18,7 +18,7 @@ final class EmailCertificationViewModel {
             .subscribe(routes.backward)
             .disposed(by: disposeBag)
 
-        inputs.tapButtonButton
+        inputs.tapNoEmail
             .subscribe(routes.photoCertification)
             .disposed(by: disposeBag)
     }
@@ -26,7 +26,7 @@ final class EmailCertificationViewModel {
     // MARK: Internal
 
     struct Input {
-        var tapButtonButton = PublishSubject<Void>()
+        var tapNoEmail = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
     }

@@ -89,3 +89,9 @@
 "PhotoCertification.ImageRule.no2" = "정보를 식별할 수 있어야 해요";
 "PhotoCertification.ImageRule.no3" = "개인정보 보호를 위해 다른 정보는 가려주세요";
 "PhotoCertification.Button.Certificate.title" = "인증하기";
+
+// PhotoModal
+"PhotoCertification.Modal.title1" = "인증 확인까지 최대 6시간 정도가";
+"PhotoCertification.Modal.title2" = "소요될 수 있어요!";
+"PhotoCertification.Modal.Button.1" = "촬영하기";
+"PhotoCertification.Modal.Button.2" = "앨범에서 선택하기";
