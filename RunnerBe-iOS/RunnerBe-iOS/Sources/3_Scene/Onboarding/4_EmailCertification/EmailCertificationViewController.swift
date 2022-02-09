@@ -73,6 +73,17 @@ class EmailCertificationViewController: BaseViewController {
                 self.emailField.layer.borderWidth = 0
             })
             .disposed(by: disposeBags)
+
+        view.rx.tapGesture()
+            .when(.recognized)
+            .filter { [weak self] recognizer in
+                guard let self = self else { return false }
+                return !self.emailField.frame.contains(recognizer.location(in: self.view))
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.emailField.endEditing(true)
+            })
+            .disposed(by: disposeBags)
     }
 
     // MARK: Private

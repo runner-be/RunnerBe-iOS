@@ -189,7 +189,7 @@ class PhotoCertificationViewController: BaseViewController {
         button.titleLabel?.font = .iosBody15R
 
         button.clipsToBounds = true
-        
+
         button.isEnabled = false
     }
 }
