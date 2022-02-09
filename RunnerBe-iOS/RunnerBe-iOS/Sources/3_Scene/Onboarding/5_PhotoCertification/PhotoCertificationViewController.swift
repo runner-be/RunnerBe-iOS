@@ -12,6 +12,17 @@ import SnapKit
 import Then
 import UIKit
 
+extension ImagePickerType {
+    var sourceType: UIImagePickerController.SourceType {
+        switch self {
+        case .camera:
+            return .camera
+        case .library:
+            return .photoLibrary
+        }
+    }
+}
+
 class PhotoCertificationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +50,47 @@ class PhotoCertificationViewController: BaseViewController {
     private func viewModelInput() {
         photoView.rx.tapGesture()
             .when(.recognized)
+            .filter { [weak self] _ in
+                self?.photoView.image == nil
+            }
             .map { _ in }
             .subscribe(viewModel.inputs.tapPhoto)
             .disposed(by: disposeBags)
+
+        photoView.deleteIconTapped
+            .subscribe(viewModel.inputs.tapDeletePhoto)
+            .disposed(by: disposeBags)
+
+        certificateButton.rx.tap
+            .subscribe(viewModel.inputs.tapCertificate)
+            .disposed(by: disposeBags)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.enableCertificate
+            .subscribe(onNext: { [weak self] enable in
+                self?.certificateButton.isEnabled = enable
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.photo
+            .subscribe(onNext: { [weak self] data in
+                self?.photoView.image = data != nil ? UIImage(data: data!) : nil
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.routes.showPicker
+            .map { $0.sourceType }
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.sourceType = sourceType
+                picker.allowsEditing = false
+                picker.delegate = self
+                self.present(picker, animated: true)
+            })
+            .disposed(by: disposeBags)
+    }
 
     // MARK: Private
 
@@ -131,7 +177,7 @@ class PhotoCertificationViewController: BaseViewController {
         spacing: 2
     )
 
-    private var nextButton = UIButton().then { button in
+    private var certificateButton = UIButton().then { button in
         button.setTitle(L10n.PhotoCertification.Button.Certificate.title, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
@@ -143,8 +189,8 @@ class PhotoCertificationViewController: BaseViewController {
         button.titleLabel?.font = .iosBody15R
 
         button.clipsToBounds = true
-        // TODO: 임시로 버튼 활성화
-//        button.isEnabled = false
+        
+        button.isEnabled = false
     }
 }
 
@@ -163,7 +209,7 @@ extension PhotoCertificationViewController {
             photoView,
             ruleLabelVStack,
 
-            nextButton,
+            certificateButton,
         ])
     }
 
@@ -206,13 +252,13 @@ extension PhotoCertificationViewController {
             make.leading.equalTo(view.snp.leading).offset(16)
         }
 
-        nextButton.snp.makeConstraints { make in
+        certificateButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-21)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.height.equalTo(48)
         }
-        nextButton.layer.cornerRadius = 24
+        certificateButton.layer.cornerRadius = 24
     }
 
     private func gradientBackground() {
@@ -227,5 +273,20 @@ extension PhotoCertificationViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+}
+
+// MARK: - UIImagePickerViewController Delegate
+
+extension PhotoCertificationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let image = info[.originalImage] as? UIImage
+        photoView.image = image
+
+        picker.dismiss(animated: true)
     }
 }

@@ -5,21 +5,32 @@
 //  Created by 김신우 on 2022/02/08.
 //
 
+import RxCocoa
+import RxGesture
+import RxSwift
 import Then
 import UIKit
 
 class PhotoChoosableView: UIView {
     var image: UIImage? {
         didSet {
-            if let image = oldValue {
-                mainImageView.image = image
+            if let newImage = image {
+                mainImageView.image = newImage
                 deleteIcon.isHidden = false
                 uploadIcon.isHidden = true
             } else {
-                deleteIcon.isHighlighted = true
+                mainImageView.image = nil
+                deleteIcon.isHidden = true
                 uploadIcon.isHidden = false
             }
+            mainImageView.setNeedsDisplay()
         }
+    }
+
+    var deleteIconTapped: Observable<Void> {
+        deleteIcon.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
     }
 
     init() {
@@ -33,7 +44,9 @@ class PhotoChoosableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var mainImageView = UIImageView()
+    private var mainImageView = UIImageView().then { view in
+        view.contentMode = .scaleAspectFit
+    }
 
     private var deleteIcon = UIImageView().then { view in
         view.image = Asset.x.uiImage

@@ -28,29 +28,21 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
             .disposed(by: disposeBag)
     }
 
-    private func presentPhotoModal() -> Observable<Data?> {
+    private func presentPhotoModal() -> Observable<ImagePickerType?> {
         let comp = component.photoModalComponent
         let coord = PhotoModalCoordinator(component: comp, navController: navController)
 
         return coordinate(coordinator: coord)
-            .flatMap { modalResult -> Observable<Data?> in
+            .flatMap { coordResult -> Observable<ImagePickerType?> in
                 defer { self.release(coordinator: coord) }
-                switch modalResult {
+                switch coordResult {
                 case .takePhoto:
-                    return self.presentTakePhoto()
+                    return .just(.camera)
                 case .choosePhoto:
-                    return self.presentChoosePhoto()
+                    return .just(.library)
                 case .cancel:
                     return .just(nil)
                 }
             }
-    }
-
-    private func presentTakePhoto() -> Observable<Data?> {
-        return .just(nil)
-    }
-
-    private func presentChoosePhoto() -> Observable<Data?> {
-        return .just(nil)
     }
 }
