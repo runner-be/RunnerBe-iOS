@@ -50,6 +50,15 @@ final class SelectGenderViewController: BaseViewController {
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
             .disposed(by: disposeBags)
+
+        genderLabelGroup.tap
+            .compactMap { $0 }
+            .map { [weak self] numSelected in
+                guard let self = self else { return [] }
+                return (numSelected != 0) ? self.genderLabelGroup.selected : []
+            }
+            .bind(to: viewModel.inputs.tapGroup)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
@@ -85,7 +94,7 @@ final class SelectGenderViewController: BaseViewController {
         label.text = L10n.SelectGender.Gender.male
     }
 
-    private var onOffGroup = OnOffLabelGroup().then { group in
+    private var genderLabelGroup = OnOffLabelGroup().then { group in
 
         group.styleOn = OnOffLabel.Style(
             font: .iosBody15R,
@@ -122,8 +131,8 @@ final class SelectGenderViewController: BaseViewController {
         button.titleLabel?.font = .iosBody15R
 
         button.clipsToBounds = true
-        // TODO: 임시로 버튼 활성화
-//        button.isEnabled = false
+
+        button.isEnabled = false
     }
 }
 
@@ -142,7 +151,7 @@ extension SelectGenderViewController {
 
             nextButton,
         ])
-        onOffGroup.append(labels: [femaleLabel, malelabel])
+        genderLabelGroup.append(labels: [femaleLabel, malelabel])
     }
 
     private func initialLayout() {

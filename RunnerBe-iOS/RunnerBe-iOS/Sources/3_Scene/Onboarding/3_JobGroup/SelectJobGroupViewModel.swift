@@ -23,6 +23,11 @@ final class SelectJobGroupViewModel {
         inputs.tapNext
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
+
+        inputs.tapGroup
+            .map { $0.isEmpty == false }
+            .subscribe(outputs.enableNext)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Internal
@@ -31,6 +36,7 @@ final class SelectJobGroupViewModel {
         var tapNext = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
+        var tapGroup = PublishSubject<[Int]>()
     }
 
     struct Output {

@@ -19,7 +19,7 @@ final class SelectJobGroupViewController: BaseViewController {
         super.viewDidLoad()
         setupViews()
         initialLayout()
-        
+
         viewModelInput()
         viewModelOutput()
     }
@@ -49,6 +49,15 @@ final class SelectJobGroupViewController: BaseViewController {
 
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
+            .disposed(by: disposeBags)
+
+        jobGroup.tap
+            .compactMap { $0 }
+            .map { [weak self] numSelected in
+                guard let self = self else { return [] }
+                return (numSelected != 0) ? self.jobGroup.selected : []
+            }
+            .bind(to: viewModel.inputs.tapGroup)
             .disposed(by: disposeBags)
 
         // TODO: 직군 종류들을 ViewModel로 넘길지 고민해보기
@@ -163,8 +172,8 @@ final class SelectJobGroupViewController: BaseViewController {
         button.titleLabel?.font = .iosBody15R
 
         button.clipsToBounds = true
-        // TODO: 임시로 버튼 활성화
-//        button.isEnabled = false
+
+        button.isEnabled = false
     }
 }
 

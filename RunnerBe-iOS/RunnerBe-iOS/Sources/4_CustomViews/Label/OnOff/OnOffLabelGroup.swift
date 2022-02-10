@@ -25,8 +25,10 @@ class OnOffLabelGroup {
 
     var selected: [Int] {
         var result = [Int]()
-        for (idx, _) in labels.enumerated() {
-            result.append(idx)
+        for (idx, label) in labels.enumerated() {
+            if label.isOn {
+                result.append(idx)
+            }
         }
         return result
     }
@@ -42,6 +44,8 @@ class OnOffLabelGroup {
         }
     }
 
+    var tap = PublishSubject<Int>()
+
     private var disposeBags = DisposeBag()
     private var labels = [OnOffLabel]()
     private var numberOfOnState = 0
@@ -51,18 +55,22 @@ class OnOffLabelGroup {
         labels.forEach {
             $0.styleOn = styleOn
             $0.styleOff = styleOff
-            self.append(label: $0)
+            self.register(label: $0)
         }
     }
 
-    private func append(label: OnOffLabel) {
+    private func register(label: OnOffLabel) {
         label.rx.tapGesture()
             .when(.recognized)
             .map { _ in label }
-            .subscribe(onNext: { [weak self] label in
+            .do(onNext: { [weak self] label in
                 self?.toggle(label: label)
             })
+            .subscribe(onNext: { [weak self] _ in
+                self?.tap.onNext(self?.numberOfOnState ?? 0)
+            })
             .disposed(by: disposeBags)
+        labels.append(label)
     }
 
     private func toggle(label: OnOffLabel) {
