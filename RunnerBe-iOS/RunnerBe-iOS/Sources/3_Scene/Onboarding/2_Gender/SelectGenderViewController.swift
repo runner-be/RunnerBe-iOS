@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SelectGenderViewController: BaseViewController {
+final class SelectGenderViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {

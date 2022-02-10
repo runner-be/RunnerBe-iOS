@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MessageViewController: BaseViewController {
+final class MessageViewController: BaseViewController {
     // MARK: Lifecycle
 
     override init() {

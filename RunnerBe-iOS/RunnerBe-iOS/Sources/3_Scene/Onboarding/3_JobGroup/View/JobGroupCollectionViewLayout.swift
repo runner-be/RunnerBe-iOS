@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
+final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
     var ySpacing: CGFloat = 10
     var xSpacing: CGFloat = 10
 

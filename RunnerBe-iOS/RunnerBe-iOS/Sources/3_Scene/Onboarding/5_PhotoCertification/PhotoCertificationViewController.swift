@@ -23,7 +23,7 @@ extension ImagePickerType {
     }
 }
 
-class PhotoCertificationViewController: BaseViewController {
+final class PhotoCertificationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

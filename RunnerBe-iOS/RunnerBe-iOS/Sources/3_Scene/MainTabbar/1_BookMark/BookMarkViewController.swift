@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookMarkViewController: BaseViewController {
+final class BookMarkViewController: BaseViewController {
     // MARK: Lifecycle
 
     override init() {

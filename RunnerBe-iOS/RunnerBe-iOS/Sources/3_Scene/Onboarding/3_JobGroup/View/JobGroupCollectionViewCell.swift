@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class JobGroupCollectionViewCell: UICollectionViewCell {
+final class JobGroupCollectionViewCell: UICollectionViewCell {
     var label: OnOffLabel? {
         didSet {
             oldValue?.removeFromSuperview()

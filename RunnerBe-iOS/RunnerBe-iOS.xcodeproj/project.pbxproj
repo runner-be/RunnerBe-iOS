@@ -471,8 +471,8 @@
 			children = (
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
-				C38F8F2A27AD963C0050137D /* HomeViewController.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
+				C38F8F2A27AD963C0050137D /* HomeViewController.swift */,
 			);
 			path = 0_Home;
 			sourceTree = "<group>";

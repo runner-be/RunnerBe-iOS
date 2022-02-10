@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EmailCertificationViewController: BaseViewController {
+final class EmailCertificationViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {

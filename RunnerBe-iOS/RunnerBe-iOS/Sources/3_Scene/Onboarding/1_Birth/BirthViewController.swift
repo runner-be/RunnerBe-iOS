@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class BirthViewController: BaseViewController {
+final class BirthViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {

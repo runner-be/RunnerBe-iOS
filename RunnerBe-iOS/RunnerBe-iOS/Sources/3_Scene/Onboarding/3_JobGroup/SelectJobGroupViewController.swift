@@ -12,14 +12,14 @@ import SnapKit
 import Then
 import UIKit
 
-class SelectJobGroupViewController: BaseViewController {
+final class SelectJobGroupViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         initialLayout()
-
+        
         viewModelInput()
         viewModelOutput()
     }
@@ -51,6 +51,7 @@ class SelectJobGroupViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapNext)
             .disposed(by: disposeBags)
 
+        // TODO: 직군 종류들을 ViewModel로 넘길지 고민해보기
         let jobGroupLabels = Observable.of(jobLabels)
         jobGroupLabels.bind(
             to: jobGroupCollectionView.rx.items(
