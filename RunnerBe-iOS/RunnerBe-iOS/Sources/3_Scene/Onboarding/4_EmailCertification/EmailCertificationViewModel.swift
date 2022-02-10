@@ -21,6 +21,12 @@ final class EmailCertificationViewModel {
         inputs.tapNoEmail
             .subscribe(routes.photoCertification)
             .disposed(by: disposeBag)
+
+        inputs.emailText
+            .map { $0?.count ?? 0 }
+            .map { $0 != 0 }
+            .bind(to: outputs.enableNext)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Internal
@@ -29,6 +35,8 @@ final class EmailCertificationViewModel {
         var tapNoEmail = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
+
+        var emailText = PublishSubject<String?>()
     }
 
     struct Output {

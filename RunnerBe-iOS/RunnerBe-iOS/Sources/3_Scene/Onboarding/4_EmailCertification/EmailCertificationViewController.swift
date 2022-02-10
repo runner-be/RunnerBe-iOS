@@ -48,15 +48,19 @@ final class EmailCertificationViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapCancel)
             .disposed(by: disposeBags)
 
-        nextButton.rx.tap
+        noEmailButton.rx.tap
             .bind(to: viewModel.inputs.tapNoEmail)
+            .disposed(by: disposeBags)
+
+        emailField.rx.text
+            .bind(to: viewModel.inputs.emailText)
             .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
         viewModel.outputs.enableNext
             .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
+                self.certificateButton.isEnabled = $0
             })
             .disposed(by: disposeBags)
     }
@@ -82,6 +86,14 @@ final class EmailCertificationViewController: BaseViewController {
             }
             .subscribe(onNext: { [weak self] _ in
                 self?.emailField.endEditing(true)
+            })
+            .disposed(by: disposeBags)
+
+        certificateButton.rx.tap
+            .take(1)
+            .subscribe(onNext: { [weak self] in
+                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .normal)
+                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .disabled)
             })
             .disposed(by: disposeBags)
     }
@@ -140,16 +152,18 @@ final class EmailCertificationViewController: BaseViewController {
     }
 
     private var certificateButton = UIButton().then { button in
-        button.setTitle(L10n.EmailCertification.Button.Certificate.title, for: .normal)
+        button.setTitle(L10n.EmailCertification.Button.Certificate.firstSend, for: .normal)
         button.setTitleColor(.darkG6, for: .normal)
         button.setBackgroundColor(.primary, for: .normal)
-        button.setTitle(L10n.EmailCertification.Button.Certificate.title, for: .disabled)
+        button.setTitle(L10n.EmailCertification.Button.Certificate.firstSend, for: .disabled)
         button.setTitleColor(.darkG45, for: .disabled)
         button.setBackgroundColor(.darkG3, for: .disabled)
         button.titleLabel?.font = .iosBody15B
         button.clipsToBounds = true
         button.layer.cornerRadius = 8
         button.setContentHuggingPriority(.required, for: .horizontal)
+
+        button.isEnabled = false
     }
 
     private var messageLabel1 = UILabel().then { label in
@@ -178,7 +192,7 @@ final class EmailCertificationViewController: BaseViewController {
         spacing: 4
     )
 
-    private var nextButton = UIButton().then { button in
+    private var noEmailButton = UIButton().then { button in
         button.setTitle(L10n.EmailCertification.Button.NotHaveEmail.title, for: .normal)
         button.setTitleColor(UIColor.primary, for: .normal)
         button.setBackgroundColor(UIColor.clear, for: .normal)
@@ -188,8 +202,8 @@ final class EmailCertificationViewController: BaseViewController {
         button.layer.borderWidth = 1
 
         button.clipsToBounds = true
-        // TODO: 임시로 버튼 활성화
-//        button.isEnabled = false
+
+        button.isEnabled = false
     }
 }
 
@@ -212,7 +226,7 @@ extension EmailCertificationViewController {
 
             messageVStack,
 
-            nextButton,
+            noEmailButton,
         ])
     }
 
@@ -261,13 +275,13 @@ extension EmailCertificationViewController {
             make.leading.equalTo(view.snp.leading).offset(16)
         }
 
-        nextButton.snp.makeConstraints { make in
+        noEmailButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-21)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.height.equalTo(48)
         }
-        nextButton.layer.cornerRadius = 24
+        noEmailButton.layer.cornerRadius = 24
     }
 
     private func gradientBackground() {

@@ -257,7 +257,9 @@ internal enum L10n {
     internal enum Button {
       internal enum Certificate {
         /// 인증하기
-        internal static let title = L10n.tr("Localizable", "emailCertification.Button.Certificate.title")
+        internal static let firstSend = L10n.tr("Localizable", "emailCertification.Button.Certificate.firstSend")
+        /// 재전송
+        internal static let resend = L10n.tr("Localizable", "emailCertification.Button.Certificate.resend")
       }
       internal enum NotHaveEmail {
         /// 회사 이메일이 없어요
