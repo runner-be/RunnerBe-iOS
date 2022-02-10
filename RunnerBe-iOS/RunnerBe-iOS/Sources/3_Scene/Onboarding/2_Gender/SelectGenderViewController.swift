@@ -77,6 +77,39 @@ class SelectGenderViewController: BaseViewController {
         label.text = L10n.SelectGender.title
     }
 
+    private var femaleLabel = OnOffLabel().then { label in
+        label.text = L10n.SelectGender.Gender.female
+    }
+
+    private var malelabel = OnOffLabel().then { label in
+        label.text = L10n.SelectGender.Gender.male
+    }
+
+    private var onOffGroup = OnOffLabelGroup().then { group in
+
+        group.styleOn = OnOffLabel.Style(
+            font: .iosBody15R,
+            backgroundColor: .clear,
+            textColor: .primary,
+            borderWidth: 1,
+            borderColor: .primary,
+            cornerRadiusRatio: 1,
+            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+        )
+
+        group.styleOff = OnOffLabel.Style(
+            font: .iosBody15R,
+            backgroundColor: .clear,
+            textColor: .darkG35,
+            borderWidth: 1,
+            borderColor: .darkG35,
+            cornerRadiusRatio: 1,
+            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+        )
+
+        group.maxNumberOfOnState = 1
+    }
+
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.PolicyTerm.Button.Next.title, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
@@ -104,8 +137,12 @@ extension SelectGenderViewController {
             navBar,
             titleLabel,
 
+            femaleLabel,
+            malelabel,
+
             nextButton,
         ])
+        onOffGroup.append(labels: [femaleLabel, malelabel])
     }
 
     private func initialLayout() {
@@ -118,6 +155,16 @@ extension SelectGenderViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+        }
+
+        femaleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel).offset(76)
+            make.trailing.equalTo(view.snp.centerX).offset(-8)
+        }
+
+        malelabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel).offset(76)
+            make.leading.equalTo(view.snp.centerX).offset(8)
         }
 
         nextButton.snp.makeConstraints { make in
