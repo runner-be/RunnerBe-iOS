@@ -26,4 +26,8 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
         return OnboardingCancelModalComponent(parent: self)
     }
+
+    var initModalComponent: EmailCertificationInitModalComponent {
+        return EmailCertificationInitModalComponent(parent: self)
+    }
 }

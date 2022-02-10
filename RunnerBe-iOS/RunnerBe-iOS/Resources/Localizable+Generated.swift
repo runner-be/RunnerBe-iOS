@@ -32,6 +32,59 @@ internal enum L10n {
     }
   }
 
+  internal enum EmailCertification {
+    /// 해당 정보는 러너님이 직장임을 확인하는 용도로만
+    internal static let subTitle1 = L10n.tr("Localizable", "EmailCertification.subTitle1")
+    /// 사용되며, 외부에 공개되지 않습니다.
+    internal static let subTitle2 = L10n.tr("Localizable", "EmailCertification.subTitle2")
+    /// 회사 이메일로
+    internal static let title1 = L10n.tr("Localizable", "EmailCertification.title1")
+    /// 직장을 인증해주세요
+    internal static let title2 = L10n.tr("Localizable", "EmailCertification.title2")
+    internal enum Button {
+      internal enum Certificate {
+        /// 인증하기
+        internal static let firstSend = L10n.tr("Localizable", "EmailCertification.Button.Certificate.firstSend")
+        /// 재전송
+        internal static let resend = L10n.tr("Localizable", "EmailCertification.Button.Certificate.resend")
+      }
+      internal enum NotHaveEmail {
+        /// 회사 이메일이 없어요
+        internal static let title = L10n.tr("Localizable", "EmailCertification.Button.NotHaveEmail.title")
+      }
+    }
+    internal enum Message {
+      /// 인증 링크가 발송되었어요
+      internal static let mailSend1 = L10n.tr("Localizable", "EmailCertification.Message.MailSend1")
+      /// 메일이 오지 않는다면 스팸 메일함도 확인해주세요!
+      internal static let mailSend2 = L10n.tr("Localizable", "EmailCertification.Message.MailSend2")
+    }
+    internal enum Modal {
+      internal enum Button {
+        /// OK
+        internal static let yes = L10n.tr("Localizable", "EmailCertification.Modal.Button.yes")
+      }
+      internal enum Message {
+        /// 메일 인증은 현재 접속하신
+        internal static let _1 = L10n.tr("Localizable", "EmailCertification.Modal.Message.1")
+        /// 기기 내에서만 가능합니다!
+        internal static let _2 = L10n.tr("Localizable", "EmailCertification.Modal.Message.2")
+      }
+    }
+    internal enum NavBar {
+      /// TITLE
+      internal static let title = L10n.tr("Localizable", "EmailCertification.NavBar.title")
+    }
+    internal enum EmailField {
+      /// runnerbee@company.com
+      internal static let placeholder = L10n.tr("Localizable", "EmailCertification.emailField.placeholder")
+    }
+    internal enum Error {
+      /// 이미 사용 중인 이메일이에요!
+      internal static let duplicated = L10n.tr("Localizable", "EmailCertification.error.duplicated")
+    }
+  }
+
   internal enum LoggedOut {
     internal enum AppleBtn {
       /// Login with Apple
@@ -261,47 +314,6 @@ internal enum L10n {
     internal enum NavBar {
       /// TITLE
       internal static let title = L10n.tr("Localizable", "SelectJobGroup.NavBar.title")
-    }
-  }
-
-  internal enum EmailCertification {
-    /// 해당 정보는 러너님이 직장임을 확인하는 용도로만
-    internal static let subTitle1 = L10n.tr("Localizable", "emailCertification.subTitle1")
-    /// 사용되며, 외부에 공개되지 않습니다.
-    internal static let subTitle2 = L10n.tr("Localizable", "emailCertification.subTitle2")
-    /// 회사 이메일로
-    internal static let title1 = L10n.tr("Localizable", "emailCertification.title1")
-    /// 직장을 인증해주세요
-    internal static let title2 = L10n.tr("Localizable", "emailCertification.title2")
-    internal enum Button {
-      internal enum Certificate {
-        /// 인증하기
-        internal static let firstSend = L10n.tr("Localizable", "emailCertification.Button.Certificate.firstSend")
-        /// 재전송
-        internal static let resend = L10n.tr("Localizable", "emailCertification.Button.Certificate.resend")
-      }
-      internal enum NotHaveEmail {
-        /// 회사 이메일이 없어요
-        internal static let title = L10n.tr("Localizable", "emailCertification.Button.NotHaveEmail.title")
-      }
-    }
-    internal enum Message {
-      /// 인증 링크가 발송되었어요
-      internal static let mailSend1 = L10n.tr("Localizable", "emailCertification.Message.MailSend1")
-      /// 메일이 오지 않는다면 스팸 메일함도 확인해주세요!
-      internal static let mailSend2 = L10n.tr("Localizable", "emailCertification.Message.MailSend2")
-    }
-    internal enum NavBar {
-      /// TITLE
-      internal static let title = L10n.tr("Localizable", "emailCertification.NavBar.title")
-    }
-    internal enum EmailField {
-      /// runnerbee@company.com
-      internal static let placeholder = L10n.tr("Localizable", "emailCertification.emailField.placeholder")
-    }
-    internal enum Error {
-      /// 이미 사용 중인 이메일이에요!
-      internal static let duplicated = L10n.tr("Localizable", "emailCertification.error.duplicated")
     }
   }
 }

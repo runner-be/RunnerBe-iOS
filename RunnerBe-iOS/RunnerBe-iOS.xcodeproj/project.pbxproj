@@ -90,6 +90,10 @@
 		C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B727B571140048CA76 /* OnboardingCancelModalCoordinator.swift */; };
 		C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */; };
 		C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */; };
+		C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45BE27B59F560048CA76 /* EmailCertificationInitModalComponent.swift */; };
+		C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45C027B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift */; };
+		C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45C227B59F720048CA76 /* EmailCertificationInitModalViewModel.swift */; };
+		C3BA45C527B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45C427B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
 		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
@@ -198,6 +202,10 @@
 		C3BA45B727B571140048CA76 /* OnboardingCancelModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalCoordinator.swift; sourceTree = "<group>"; };
 		C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalViewModel.swift; sourceTree = "<group>"; };
 		C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalViewController.swift; sourceTree = "<group>"; };
+		C3BA45BE27B59F560048CA76 /* EmailCertificationInitModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationInitModalComponent.swift; sourceTree = "<group>"; };
+		C3BA45C027B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationInitModalCoordinator.swift; sourceTree = "<group>"; };
+		C3BA45C227B59F720048CA76 /* EmailCertificationInitModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationInitModalViewModel.swift; sourceTree = "<group>"; };
+		C3BA45C427B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationInitModalViewController.swift; sourceTree = "<group>"; };
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -413,6 +421,7 @@
 		C361B6C227B2930600824ABE /* 4_EmailCertification */ = {
 			isa = PBXGroup;
 			children = (
+				C3BA45BD27B59F360048CA76 /* InitialModal */,
 				C361B6C327B2934800824ABE /* EmailCertificationComponent.swift */,
 				C361B6C527B2937300824ABE /* EmailCertificationCoordinator.swift */,
 				C361B6C727B2938900824ABE /* EmailCertificationViewModel.swift */,
@@ -580,6 +589,17 @@
 				C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */,
 			);
 			path = OnboardingCancelModal;
+			sourceTree = "<group>";
+		};
+		C3BA45BD27B59F360048CA76 /* InitialModal */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA45BE27B59F560048CA76 /* EmailCertificationInitModalComponent.swift */,
+				C3BA45C027B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift */,
+				C3BA45C227B59F720048CA76 /* EmailCertificationInitModalViewModel.swift */,
+				C3BA45C427B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift */,
+			);
+			path = InitialModal;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {
@@ -901,7 +921,9 @@
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* LoginServiceable.swift in Sources */,
+				C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
+				C3BA45C527B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift in Sources */,
 				C38F8F2127AD88970050137D /* LoginType.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
@@ -910,6 +932,7 @@
 				C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
+				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
@@ -944,6 +967,7 @@
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
+				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */,
 			);

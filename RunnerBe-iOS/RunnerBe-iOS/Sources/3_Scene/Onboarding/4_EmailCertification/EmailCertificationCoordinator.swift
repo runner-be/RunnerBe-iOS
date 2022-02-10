@@ -29,6 +29,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
         let viewController = component.emailCertificationViewController
         navController.pushViewController(viewController, animated: true)
 
+        navController.rx.didShow
+            .take(1)
+            .subscribe(onNext: { _ in
+                self.presentInitModal()
+            })
+            .disposed(by: disposeBag)
+
         closeSignal
             .subscribe(onNext: { [weak self] result in
                 switch result {
@@ -92,6 +99,18 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 case .cancelModal:
                     break
                 }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func presentInitModal() {
+        let initModalComp = component.initModalComponent
+        let initModalCoord = EmailCertificationInitModalCoordinator(component: initModalComp, navController: navController)
+
+        coordinate(coordinator: initModalCoord)
+            .take(1)
+            .subscribe(onNext: { _ in
+                self.release(coordinator: initModalCoord)
             })
             .disposed(by: disposeBag)
     }
