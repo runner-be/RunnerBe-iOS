@@ -50,6 +50,15 @@ class SelectJobGroupViewController: BaseViewController {
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
             .disposed(by: disposeBags)
+
+        let jobGroupLabels = Observable.of(jobLabels)
+        jobGroupLabels.bind(
+            to: jobGroupCollectionView.rx.items(
+                cellIdentifier: JobGroupCollectionViewCell.id,
+                cellType: JobGroupCollectionViewCell.self
+            )
+        ) { _, label, cell in cell.label = label }
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
@@ -89,6 +98,58 @@ class SelectJobGroupViewController: BaseViewController {
         label.text = L10n.SelectJobGroup.subTitle
     }
 
+    private var jobLabels = [
+        OnOffLabel(text: L10n.SelectJobGroup.Group._1),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._2),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._3),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._4),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._5),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._6),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._7),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._8),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._9),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._10),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._11),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._12),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._13),
+        OnOffLabel(text: L10n.SelectJobGroup.Group._14),
+    ]
+
+    private var jobGroup = OnOffLabelGroup().then { group in
+        group.styleOn = OnOffLabel.Style(
+            font: .iosBody15R,
+            backgroundColor: .clear,
+            textColor: .primary,
+            borderWidth: 1,
+            borderColor: .primary,
+            cornerRadiusRatio: 1,
+            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+        )
+
+        group.styleOff = OnOffLabel.Style(
+            font: .iosBody15R,
+            backgroundColor: .clear,
+            textColor: .darkG35,
+            borderWidth: 1,
+            borderColor: .darkG35,
+            cornerRadiusRatio: 1,
+            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+        )
+
+        group.maxNumberOfOnState = 1
+    }
+
+    var jobGroupCollectionView: UICollectionView = {
+        var layout = JobGroupCollectionViewLayout()
+        layout.xSpacing = 12
+        layout.ySpacing = 16
+        layout.estimatedItemSize = CGSize(width: 140, height: 40)
+        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(JobGroupCollectionViewCell.self, forCellWithReuseIdentifier: JobGroupCollectionViewCell.id)
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.PolicyTerm.Button.Next.title, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
@@ -117,9 +178,11 @@ extension SelectJobGroupViewController {
             titleLabel1,
             titleLabel2,
             subTitleLabel,
-
+            jobGroupCollectionView,
             nextButton,
         ])
+
+        jobGroup.append(labels: jobLabels)
     }
 
     private func initialLayout() {
@@ -142,6 +205,13 @@ extension SelectJobGroupViewController {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel2.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(18)
+        }
+
+        jobGroupCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(76)
+            make.leading.equalTo(view.snp.leading).offset(56)
+            make.trailing.equalTo(view.snp.trailing).offset(-56)
+            make.height.equalTo(244)
         }
 
         nextButton.snp.makeConstraints { make in

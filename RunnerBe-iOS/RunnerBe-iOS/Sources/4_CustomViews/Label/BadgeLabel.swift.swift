@@ -33,6 +33,12 @@ class BadgeLabel: UILabel {
         textAlignment = .center
     }
 
+    init(text: String) {
+        super.init(frame: .zero)
+        textAlignment = .center
+        self.text = text
+    }
+
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
