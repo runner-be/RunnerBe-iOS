@@ -24,4 +24,8 @@ final class BirthComponent: Component<BirthDependency> {
     var selectGenderComponent: SelectGenderComponent {
         return SelectGenderComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

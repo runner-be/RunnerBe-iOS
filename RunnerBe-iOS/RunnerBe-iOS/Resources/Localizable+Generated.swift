@@ -109,10 +109,8 @@ internal enum L10n {
         internal enum Message {
           /// 정보를 입력하지 않으면
           internal static let _1 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.1")
-          /// 둘러보기만 가능해요!
+          /// 둘러보기만 가능해요! 그만할까요?
           internal static let _2 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.2")
-          /// 계속 등록하러 가볼까요?
-          internal static let _3 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.3")
         }
       }
     }

@@ -45,6 +45,24 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent") { component in
         return BirthDependencyeacd7a6dc893684c63a8Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency163a186c00ad3225b79bProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency680f661d1573dc6db5cbProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency41086b612da017603ac7Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependencyd5d244529412faa64d91Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependencycb42558bc283046b72a5Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency07be119931b373c0743bProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent") { component in
         return SelectJobGroupDependency2420d5f31bd0022c257fProvider(component: component)
     }
@@ -200,6 +218,49 @@ private class BirthDependencyeacd7a6dc893684c63a8BaseProvider: BirthDependency {
 }
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent
 private class BirthDependencyeacd7a6dc893684c63a8Provider: BirthDependencyeacd7a6dc893684c63a8BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider: OnboardingCancelModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency163a186c00ad3225b79bProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency680f661d1573dc6db5cbProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency41086b612da017603ac7Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependencyd5d244529412faa64d91Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependencycb42558bc283046b72a5Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency07be119931b373c0743bProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

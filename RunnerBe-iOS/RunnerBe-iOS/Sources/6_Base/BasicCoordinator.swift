@@ -23,6 +23,10 @@ class BasicCoordinator<ResultType>: Coordinator {
         navController.setNavigationBarHidden(true, animated: false)
     }
 
+    deinit {
+        print("\(Self.self) deinit")
+    }
+
     // MARK: Internal
 
     typealias CoordinationResult = ResultType
@@ -33,7 +37,6 @@ class BasicCoordinator<ResultType>: Coordinator {
     var navController: UINavigationController
 
     var childs = [UUID: Coordinator]()
-    var childsBags = [UUID: [Disposable]]()
     var closeSignal = PublishSubject<CoordinationResult>()
 
     @discardableResult
@@ -47,17 +50,11 @@ class BasicCoordinator<ResultType>: Coordinator {
         let uuid = coordinator.uuid
         coordinator.release()
         childs.removeValue(forKey: uuid)
-        childsBags[uuid]?.forEach { $0.dispose() }
-        childsBags.removeValue(forKey: uuid)
     }
 
     func release() {
         childs.forEach { _, coord in coord.release() }
-        childsBags.flatMap { $1 }
-            .forEach { $0.dispose() }
-
         childs.removeAll()
-        childsBags.removeAll()
     }
 
     func start() {

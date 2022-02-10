@@ -25,21 +25,21 @@ final class OnboardingCancelModalCoordinator: BasicCoordinator<OnboardingCancelM
         let viewController = component.onboardingCancelModalViewController
         viewController.modalPresentationStyle = .overCurrentContext
         navController.present(viewController, animated: false)
-        
-        component.onboardingCancelModalViewModel
-            .routes.backward
-            .do(onNext: {
+
+        closeSignal
+            .subscribe(onNext: { _ in
                 viewController.dismiss(animated: false)
             })
+            .disposed(by: disposeBag)
+
+        component.onboardingCancelModalViewModel
+            .routes.backward
             .map { OnboardingCancelModalResult.cancelModal }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
-        
+
         component.onboardingCancelModalViewModel
             .routes.cancel
-            .do(onNext: {
-                viewController.dismiss(animated: false)
-            })
             .map { OnboardingCancelModalResult.cancelOnboarding }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

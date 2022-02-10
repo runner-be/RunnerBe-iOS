@@ -9,24 +9,23 @@ import Foundation
 import RxSwift
 
 final class OnboardingCancelModalViewModel {
-    
     init() {
         inputs.tapBackward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
-        
+
         inputs.tapYes
             .bind(to: routes.cancel)
             .disposed(by: disposeBag)
     }
-    
+
     struct Input {
         var tapBackward = PublishSubject<Void>()
         var tapYes = PublishSubject<Void>()
     }
 
     struct Output {}
-    
+
     struct Route {
         var backward = PublishSubject<Void>()
         var cancel = PublishSubject<Void>()

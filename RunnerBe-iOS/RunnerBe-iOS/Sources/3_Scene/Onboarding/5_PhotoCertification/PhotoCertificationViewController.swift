@@ -48,6 +48,14 @@ final class PhotoCertificationViewController: BaseViewController {
     private var viewModel: PhotoCertificationViewModel
 
     private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapBackward)
+            .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapCancel)
+            .disposed(by: disposeBags)
+
         photoView.rx.tapGesture()
             .when(.recognized)
             .filter { [weak self] _ in

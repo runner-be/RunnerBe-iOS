@@ -22,4 +22,8 @@ final class PolicyTermComponent: Component<PolicyTermDependency> {
     var birthComponent: BirthComponent {
         return BirthComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

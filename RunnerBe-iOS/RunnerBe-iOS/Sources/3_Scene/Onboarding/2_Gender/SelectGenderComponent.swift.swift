@@ -22,4 +22,8 @@ final class SelectGenderComponent: Component<SelectGenderDependency> {
     var selectJobGroupCoord: SelectJobGroupComponent {
         return SelectJobGroupComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

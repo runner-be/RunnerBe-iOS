@@ -22,4 +22,8 @@ final class PhotoCertificationComponent: Component<PhotoCertificationDependency>
     var photoModalComponent: PhotoModalComponent {
         return PhotoModalComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

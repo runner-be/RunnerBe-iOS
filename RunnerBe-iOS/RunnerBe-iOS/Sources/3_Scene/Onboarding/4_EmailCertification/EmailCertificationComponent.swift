@@ -22,4 +22,8 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
     var photoCertificationComponent: PhotoCertificationComponent {
         return PhotoCertificationComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

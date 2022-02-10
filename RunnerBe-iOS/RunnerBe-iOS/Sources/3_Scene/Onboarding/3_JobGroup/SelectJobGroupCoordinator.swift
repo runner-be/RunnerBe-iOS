@@ -8,7 +8,10 @@
 import Foundation
 import RxSwift
 
-enum SelectJobGroupResult {}
+enum SelectJobGroupResult {
+    case cancelOnboarding
+    case backward
+}
 
 final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     // MARK: Lifecycle
@@ -23,12 +26,35 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     var component: SelectJobGroupComponent
 
     override func start() {
-        navController.pushViewController(component.selectJobGroupViewController, animated: true)
+        let viewController = component.selectJobGroupViewController
+        navController.pushViewController(viewController, animated: true)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .backward:
+                    self?.navController.popViewController(animated: true)
+                case .cancelOnboarding:
+                    self?.navController.popViewController(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
 
         component.selectJobGroupViewModel.routes.nextProcess
             .subscribe(onNext: {
                 self.pushEmailCertificationCoord()
             })
+            .disposed(by: disposeBag)
+
+        component.selectJobGroupViewModel.routes.cancel
+            .subscribe(onNext: {
+                self.presentOnboardingCancelCoord()
+            })
+            .disposed(by: disposeBag)
+
+        component.selectJobGroupViewModel.routes.backward
+            .map { SelectJobGroupResult.backward }
+            .subscribe(closeSignal)
             .disposed(by: disposeBag)
     }
 
@@ -40,5 +66,33 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
         let emailCertificationCoord = EmailCertificationCoordinator(component: emailCertificationComp, navController: navController)
 
         coordinate(coordinator: emailCertificationCoord)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: emailCertificationCoord) }
+                switch coordResult {
+                case .cancelOnboarding:
+                    self?.closeSignal.onNext(.cancelOnboarding)
+                case .backward: break
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func presentOnboardingCancelCoord() {
+        let cancelModalComp = component.onboardingCancelModalComponent
+        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
+
+        coordinate(coordinator: cancelModalCoord)
+            .take(1)
+            .subscribe(onNext: { coordResult in
+                defer { self.release(coordinator: cancelModalCoord) }
+                switch coordResult {
+                case .cancelOnboarding:
+                    self.closeSignal.onNext(.cancelOnboarding)
+                case .cancelModal:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

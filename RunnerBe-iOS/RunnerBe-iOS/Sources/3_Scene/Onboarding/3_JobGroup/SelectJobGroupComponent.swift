@@ -22,4 +22,8 @@ final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
     var emailCertificationComponent: EmailCertificationComponent {
         return EmailCertificationComponent(parent: self)
     }
+
+    var onboardingCancelModalComponent: OnboardingCancelModalComponent {
+        return OnboardingCancelModalComponent(parent: self)
+    }
 }

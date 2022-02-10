@@ -40,5 +40,10 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
         let policyCoord = PolicyTermCoordinator(component: policyComp, navController: navController)
 
         coordinate(coordinator: policyCoord)
+            .take(1)
+            .subscribe(onNext: { [weak self] _ in
+                self?.release(coordinator: policyCoord)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -464,7 +464,7 @@
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				C3BA45B427B570CF0048CA76 /* CommonCancelModal */,
+				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
 				C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */,
 				C3F74B7227B0F362002D5846 /* 1_Birth */,
 				C3F74B7427B0F3DA002D5846 /* 2_Gender */,
@@ -571,7 +571,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C3BA45B427B570CF0048CA76 /* CommonCancelModal */ = {
+		C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */ = {
 			isa = PBXGroup;
 			children = (
 				C3BA45B527B571040048CA76 /* OnboardingCancelModalComponent.swift */,
@@ -579,7 +579,7 @@
 				C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */,
 				C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */,
 			);
-			path = CommonCancelModal;
+			path = OnboardingCancelModal;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {

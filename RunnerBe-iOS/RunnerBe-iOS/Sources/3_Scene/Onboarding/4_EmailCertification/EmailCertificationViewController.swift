@@ -203,7 +203,7 @@ final class EmailCertificationViewController: BaseViewController {
 
         button.clipsToBounds = true
 
-        button.isEnabled = false
+        button.isEnabled = true
     }
 }
 
