@@ -97,6 +97,27 @@ internal enum L10n {
     }
   }
 
+  internal enum Onboarding {
+    internal enum Modal {
+      internal enum Cancel {
+        internal enum Button {
+          /// 아니요
+          internal static let no = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Button.no")
+          /// 네
+          internal static let yes = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Button.yes")
+        }
+        internal enum Message {
+          /// 정보를 입력하지 않으면
+          internal static let _1 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.1")
+          /// 둘러보기만 가능해요!
+          internal static let _2 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.2")
+          /// 계속 등록하러 가볼까요?
+          internal static let _3 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.3")
+        }
+      }
+    }
+  }
+
   internal enum PhotoCertification {
     /// 해당 정보는 러너님이 직장인임을 확인하는 용도로만
     internal static let subTitle1 = L10n.tr("Localizable", "PhotoCertification.subTitle1")

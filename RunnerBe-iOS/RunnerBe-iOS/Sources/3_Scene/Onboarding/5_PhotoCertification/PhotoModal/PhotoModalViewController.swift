@@ -54,7 +54,7 @@ final class PhotoModalViewController: BaseViewController {
     // MARK: - Private
 
     private var sheet = UIView().then { view in
-        view.backgroundColor = .darkG55
+        view.backgroundColor = .darkG5
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
     }

@@ -86,6 +86,10 @@
 		C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */; };
 		C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B027B4A76A0048CA76 /* JobGroupCollectionViewLayout.swift */; };
 		C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B227B4A7D10048CA76 /* JobGroupCollectionViewCell.swift */; };
+		C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B527B571040048CA76 /* OnboardingCancelModalComponent.swift */; };
+		C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B727B571140048CA76 /* OnboardingCancelModalCoordinator.swift */; };
+		C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */; };
+		C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
 		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
@@ -190,6 +194,10 @@
 		C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelGroup.swift; sourceTree = "<group>"; };
 		C3BA45B027B4A76A0048CA76 /* JobGroupCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobGroupCollectionViewLayout.swift; sourceTree = "<group>"; };
 		C3BA45B227B4A7D10048CA76 /* JobGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobGroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		C3BA45B527B571040048CA76 /* OnboardingCancelModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalComponent.swift; sourceTree = "<group>"; };
+		C3BA45B727B571140048CA76 /* OnboardingCancelModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalCoordinator.swift; sourceTree = "<group>"; };
+		C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalViewModel.swift; sourceTree = "<group>"; };
+		C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCancelModalViewController.swift; sourceTree = "<group>"; };
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -456,6 +464,7 @@
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C3BA45B427B570CF0048CA76 /* CommonCancelModal */,
 				C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */,
 				C3F74B7227B0F362002D5846 /* 1_Birth */,
 				C3F74B7427B0F3DA002D5846 /* 2_Gender */,
@@ -560,6 +569,17 @@
 				C3BA45B227B4A7D10048CA76 /* JobGroupCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C3BA45B427B570CF0048CA76 /* CommonCancelModal */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA45B527B571040048CA76 /* OnboardingCancelModalComponent.swift */,
+				C3BA45B727B571140048CA76 /* OnboardingCancelModalCoordinator.swift */,
+				C3BA45B927B5711F0048CA76 /* OnboardingCancelModalViewModel.swift */,
+				C3BA45BB27B5712D0048CA76 /* OnboardingCancelModalViewController.swift */,
+			);
+			path = CommonCancelModal;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {
@@ -840,6 +860,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
+				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
@@ -855,6 +876,7 @@
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
+				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
@@ -919,7 +941,9 @@
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
+				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
+				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */,
 			);

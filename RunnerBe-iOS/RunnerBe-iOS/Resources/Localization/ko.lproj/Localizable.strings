@@ -105,8 +105,14 @@
 "PhotoCertification.ImageRule.no3" = "개인정보 보호를 위해 다른 정보는 가려주세요";
 "PhotoCertification.Button.Certificate.title" = "인증하기";
 
-// PhotoModal
+// MARK: - PhotoModal
 "PhotoCertification.Modal.title1" = "인증 확인까지 최대 6시간 정도가";
 "PhotoCertification.Modal.title2" = "소요될 수 있어요!";
 "PhotoCertification.Modal.Button.1" = "촬영하기";
 "PhotoCertification.Modal.Button.2" = "앨범에서 선택하기";
+
+// MARK: - OnboardingCancelModal
+"Onboarding.Modal.Cancel.Message.1" = "정보를 입력하지 않으면";
+"Onboarding.Modal.Cancel.Message.2" = "둘러보기만 가능해요! 그만할까요?";
+"Onboarding.Modal.Cancel.Button.yes" = "네";
+"Onboarding.Modal.Cancel.Button.no" = "아니요";
