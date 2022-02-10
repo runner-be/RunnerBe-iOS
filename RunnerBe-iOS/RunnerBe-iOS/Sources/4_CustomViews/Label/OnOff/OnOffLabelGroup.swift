@@ -45,6 +45,7 @@ class OnOffLabelGroup {
     private var disposeBags = DisposeBag()
     private var labels = [OnOffLabel]()
     private var numberOfOnState = 0
+    private var lastSelected: OnOffLabel?
 
     func append(labels: [OnOffLabel]) {
         labels.forEach {
@@ -68,10 +69,17 @@ class OnOffLabelGroup {
         if label.isOn {
             label.isOn = false
             numberOfOnState -= 1
+            if lastSelected === label {
+                lastSelected = nil
+            }
             return
         } else {
-            if maxNumberOfOnState <= numberOfOnState { return }
+            if maxNumberOfOnState <= numberOfOnState {
+                lastSelected?.isOn = false
+                numberOfOnState -= 1
+            }
             label.isOn = true
+            lastSelected = label
             numberOfOnState += 1
         }
     }

@@ -658,6 +658,8 @@
 			dependencies = (
 			);
 			name = "RunnerBe-iOS";
+			packageProductDependencies = (
+			);
 			productName = "RunnerBe-iOS";
 			productReference = C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -688,6 +690,8 @@
 				ko,
 			);
 			mainGroup = C34FDA1127AD5997007718F8;
+			packageReferences = (
+			);
 			productRefGroup = C34FDA1B27AD5997007718F8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
