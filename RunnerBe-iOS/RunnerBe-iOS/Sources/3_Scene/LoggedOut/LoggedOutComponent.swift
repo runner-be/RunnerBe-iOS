@@ -14,10 +14,9 @@ protocol LoggedOutDependency: Dependency {
 }
 
 class LoggedOutComponent: Component<LoggedOutDependency> {
-    var loggedOutViewController: UIViewController {
-        return shared {
-            LoggedOutViewController(viewModel: self.loggedOutViewModel)
-        }
+    var scene: (VC: UIViewController, VM: LoggedOutViewModel) {
+        let viewModel = self.viewModel
+        return (LoggedOutViewController(viewModel: viewModel), viewModel)
     }
 
     var kakaoLoginService: KakaoLoginService {
@@ -32,13 +31,11 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
         }
     }
 
-    var loggedOutViewModel: LoggedOutViewModel {
-        return shared {
-            LoggedOutViewModel(
+    var viewModel: LoggedOutViewModel {
+        return LoggedOutViewModel(
                 kakaoLoginService: kakaoLoginService,
                 naverLoginService: naverLoginService
             )
-        }
     }
 
     var policyTermComponent: PolicyTermComponent {

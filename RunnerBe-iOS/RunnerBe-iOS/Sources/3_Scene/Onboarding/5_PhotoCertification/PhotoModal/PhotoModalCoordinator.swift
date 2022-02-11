@@ -23,28 +23,28 @@ final class PhotoModalCoordinator: BasicCoordinator<PhotoModalResult> {
     }
 
     override func start() {
-        let photoModal = component.photoModal
+        let scene = component.scene
 
-        photoModal.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(photoModal.VC, animated: false)
+        scene.VC.modalPresentationStyle = .overCurrentContext
+        navController.present(scene.VC, animated: false)
 
         closeSignal
             .subscribe(onNext: { _ in
-                photoModal.VC.dismiss(animated: false)
+                scene.VC.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
 
-        photoModal.VM.routes.backward
+        scene.VM.routes.backward
             .map { PhotoModalResult.cancel }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)
 
-        photoModal.VM.routes.choosePhoto
+        scene.VM.routes.choosePhoto
             .map { PhotoModalResult.choosePhoto }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)
 
-        photoModal.VM.routes.takePhoto
+        scene.VM.routes.takePhoto
             .map { PhotoModalResult.takePhoto }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)

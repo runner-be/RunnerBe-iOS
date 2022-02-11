@@ -26,7 +26,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     var component: SelectJobGroupComponent
 
     override func start() {
-        let selectJob = component.selectJob
+        let selectJob = component.scene
         navController.pushViewController(selectJob.VC, animated: true)
 
         closeSignal

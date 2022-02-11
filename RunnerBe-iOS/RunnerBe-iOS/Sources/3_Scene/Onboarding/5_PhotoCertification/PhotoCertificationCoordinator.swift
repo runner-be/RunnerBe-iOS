@@ -22,8 +22,8 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
     }
 
     override func start() {
-        let photoCertification = component.photoCertification
-        navController.pushViewController(photoCertification.VC, animated: true)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -36,18 +36,18 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
             })
             .disposed(by: disposeBag)
 
-        photoCertification.VM.routes.photoModal
+        scene.VM.routes.photoModal
             .flatMap { [weak self] in self?.presentPhotoModal() ?? .just(nil) }
-            .subscribe(photoCertification.VM.routeInputs.photoModal)
+            .subscribe(scene.VM.routeInputs.photoModal)
             .disposed(by: disposeBag)
 
-        photoCertification.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        photoCertification.VM.routes.backward
+        scene.VM.routes.backward
             .map { PhotoCertificationResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

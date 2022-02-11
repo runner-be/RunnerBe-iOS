@@ -26,8 +26,8 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
     var component: SelectGenderComponent
 
     override func start() {
-        let selectGender = component.selectGender
-        navController.pushViewController(selectGender.VC, animated: true)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,19 +40,19 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
             })
             .disposed(by: disposeBag)
 
-        selectGender.VM.routes.nextProcess
+        scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushSelectJobGroupCoord()
             })
             .disposed(by: disposeBag)
 
-        selectGender.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        selectGender.VM.routes.backward
+        scene.VM.routes.backward
             .map { SelectGenderResult.backward }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)

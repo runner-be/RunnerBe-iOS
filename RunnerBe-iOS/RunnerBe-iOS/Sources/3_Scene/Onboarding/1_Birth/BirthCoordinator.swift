@@ -26,8 +26,8 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     var component: BirthComponent
 
     override func start() {
-        let selectBirth = component.selectBirth
-        navController.pushViewController(selectBirth.VC, animated: true)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,19 +40,19 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
             })
             .disposed(by: disposeBag)
 
-        selectBirth.VM.routes.nextProcess
+        scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushSelectGenderCoord()
             })
             .disposed(by: disposeBag)
 
-        selectBirth.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        selectBirth.VM.routes.backward
+        scene.VM.routes.backward
             .map { BirthResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

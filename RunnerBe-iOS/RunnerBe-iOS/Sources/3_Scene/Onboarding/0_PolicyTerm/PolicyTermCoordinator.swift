@@ -26,9 +26,9 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
     var component: PolicyTermComponent
 
     override func start() {
-        let policyTerm = component.policyTerm
+        let scene = component.scene
 
-        navController.pushViewController(policyTerm.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -41,19 +41,19 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             })
             .disposed(by: disposeBag)
 
-        policyTerm.VM.routes.nextProcess
+        scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushBirthCoord()
             })
             .disposed(by: disposeBag)
 
-        policyTerm.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        policyTerm.VM.routes.backward
+        scene.VM.routes.backward
             .map { PolicyTermResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

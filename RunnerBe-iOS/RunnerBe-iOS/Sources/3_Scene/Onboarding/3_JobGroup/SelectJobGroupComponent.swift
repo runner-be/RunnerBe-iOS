@@ -11,12 +11,12 @@ import NeedleFoundation
 protocol SelectJobGroupDependency: Dependency {}
 
 final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
-    var selectJob: (VC: UIViewController, VM: SelectJobGroupViewModel) {
-        let viewModel = selectJobGroupViewModel
+    var scene: (VC: UIViewController, VM: SelectJobGroupViewModel) {
+        let viewModel = viewModel
         return (SelectJobGroupViewController(viewModel: viewModel), viewModel)
     }
 
-    private var selectJobGroupViewModel: SelectJobGroupViewModel {
+    private var viewModel: SelectJobGroupViewModel {
         return SelectJobGroupViewModel()
     }
 

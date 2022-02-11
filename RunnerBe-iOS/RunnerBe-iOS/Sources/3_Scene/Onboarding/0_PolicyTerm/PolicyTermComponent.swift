@@ -11,12 +11,12 @@ import NeedleFoundation
 protocol PolicyTermDependency: Dependency {}
 
 final class PolicyTermComponent: Component<PolicyTermDependency> {
-    var policyTerm: (VC: UIViewController, VM: PolicyTermViewModel) {
-        let viewModel = policyTermViewModel
+    var scene: (VC: UIViewController, VM: PolicyTermViewModel) {
+        let viewModel = viewModel
         return (PolicyTermViewController(viewModel: viewModel), viewModel)
     }
 
-    private var policyTermViewModel: PolicyTermViewModel {
+    private var viewModel: PolicyTermViewModel {
         return PolicyTermViewModel()
     }
 

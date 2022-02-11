@@ -11,12 +11,12 @@ import NeedleFoundation
 protocol EmailCertificationDependency: Dependency {}
 
 final class EmailCertificationComponent: Component<EmailCertificationDependency> {
-    var emailCertification: (VC: UIViewController, VM: EmailCertificationViewModel) {
-        let viewModel = emailCertificationViewModel
+    var scene: (VC: UIViewController, VM: EmailCertificationViewModel) {
+        let viewModel = viewModel
         return (EmailCertificationViewController(viewModel: viewModel), viewModel)
     }
 
-    private var emailCertificationViewModel: EmailCertificationViewModel {
+    private var viewModel: EmailCertificationViewModel {
         return EmailCertificationViewModel()
     }
 

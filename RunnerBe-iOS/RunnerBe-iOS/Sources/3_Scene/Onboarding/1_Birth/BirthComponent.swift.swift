@@ -13,12 +13,12 @@ import NeedleFoundation
 protocol BirthDependency: Dependency {}
 
 final class BirthComponent: Component<BirthDependency> {
-    var selectBirth: (VC: UIViewController, VM: BirthViewModel) {
-        let viewModel = birthViewModel
+    var scene: (VC: UIViewController, VM: BirthViewModel) {
+        let viewModel = viewModel
         return (BirthViewController(viewModel: viewModel), viewModel)
     }
 
-    private var birthViewModel: BirthViewModel {
+    private var viewModel: BirthViewModel {
         return BirthViewModel()
     }
 

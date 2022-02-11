@@ -26,7 +26,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
     var component: EmailCertificationComponent
 
     override func start() {
-        let emailCertification = component.emailCertification
+        let emailCertification = component.scene
         navController.pushViewController(emailCertification.VC, animated: true)
 
         navController.rx.didShow

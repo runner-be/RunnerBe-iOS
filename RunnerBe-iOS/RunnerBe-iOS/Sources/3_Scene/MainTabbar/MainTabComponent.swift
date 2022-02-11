@@ -11,8 +11,8 @@ import NeedleFoundation
 protocol MainTabDependency: Dependency {}
 
 final class MainTabComponent: Component<MainTabDependency> {
-    var mainTabbarController: UITabBarController {
-        return shared { UITabBarController() }
+    var scene: (VC: UITabBarController) {
+        return UITabBarController()
     }
 
     var homeComponent: HomeComponent {

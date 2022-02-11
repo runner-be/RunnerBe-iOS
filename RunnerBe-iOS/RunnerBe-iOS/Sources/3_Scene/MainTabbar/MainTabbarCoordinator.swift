@@ -30,10 +30,10 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     // MARK: Private
 
     private func startTabbarController() {
-        let tabbarCtrl = component.mainTabbarController
+        let tabScene = component.scene
 
         UITabBar.appearance().backgroundColor = UIColor.darkG6
-        tabbarCtrl.setColors(
+        tabScene.setColors(
             iconNormal: UIColor.darkG35,
             selected: UIColor.primary
         )
@@ -48,13 +48,13 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         coordinate(coordinator: messageCoord)
         coordinate(coordinator: mypageCoord)
 
-        tabbarCtrl.viewControllers = [
+        tabScene.viewControllers = [
             homeCoord.component.homeViewController,
             bookmarkCoord.component.bookMarkViewController,
             messageCoord.component.messageViewController,
             mypageCoord.component.myPageViewController,
         ]
 
-        navController.pushViewController(tabbarCtrl, animated: false)
+        navController.pushViewController(tabScene, animated: false)
     }
 }

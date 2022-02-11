@@ -23,9 +23,10 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
     var component: LoggedOutComponent
 
     override func start() {
-        navController.pushViewController(component.loggedOutViewController, animated: false)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: false)
 
-        component.loggedOutViewModel.route.loginSuccess
+        scene.VM.route.loginSuccess
             .subscribe(onNext: {
                 self.pushPolicyTerm()
             })

@@ -22,23 +22,23 @@ final class OnboardingCancelModalCoordinator: BasicCoordinator<OnboardingCancelM
     }
 
     override func start() {
-        let onboardingCancelModal = component.onboardingCancelModal
-        onboardingCancelModal.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(onboardingCancelModal.VC, animated: false)
+        let scene = component.scene
+        scene.VC.modalPresentationStyle = .overCurrentContext
+        navController.present(scene.VC, animated: false)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in
-                onboardingCancelModal.VC.dismiss(animated: false)
+                scene.VC.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
 
-        onboardingCancelModal.VM
+        scene.VM
             .routes.backward
             .map { OnboardingCancelModalResult.cancelModal }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
-        onboardingCancelModal.VM
+        scene.VM
             .routes.cancel
             .map { OnboardingCancelModalResult.cancelOnboarding }
             .bind(to: closeSignal)
