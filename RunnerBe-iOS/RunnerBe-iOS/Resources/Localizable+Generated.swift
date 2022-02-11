@@ -169,6 +169,17 @@ internal enum L10n {
     }
   }
 
+  internal enum OnboardingCompletion {
+    /// 이제 러너비에서 함께 달려볼까요?
+    internal static let subTitle = L10n.tr("Localizable", "OnboardingCompletion.subTitle")
+    /// 나를 충분히 소개했어요. 달릴 준비 완료!
+    internal static let title = L10n.tr("Localizable", "OnboardingCompletion.title")
+    internal enum Button {
+      /// Start!
+      internal static let start = L10n.tr("Localizable", "OnboardingCompletion.Button.start")
+    }
+  }
+
   internal enum PhotoCertification {
     /// 해당 정보는 러너님이 직장인임을 확인하는 용도로만
     internal static let subTitle1 = L10n.tr("Localizable", "PhotoCertification.subTitle1")
@@ -321,6 +332,23 @@ internal enum L10n {
     internal enum NavBar {
       /// TITLE
       internal static let title = L10n.tr("Localizable", "SelectJobGroup.NavBar.title")
+    }
+  }
+
+  internal enum WaitCertification {
+    /// 제출이 완료되었습니다. 확인 후 알려드릴게요!
+    internal static let title1 = L10n.tr("Localizable", "WaitCertification.title1")
+    internal enum Button {
+      /// 메인 화면으로
+      internal static let toMain = L10n.tr("Localizable", "WaitCertification.Button.toMain")
+    }
+    internal enum SubTitle1 {
+      /// 소요 시간은 
+      internal static let _1 = L10n.tr("Localizable", "WaitCertification.subTitle1.1")
+      /// 최대 6시간
+      internal static let _2 = L10n.tr("Localizable", "WaitCertification.subTitle1.2")
+      ///  정도이며, 완료 시 알림을 보내드립니다. 그 전까지는 둘러보기만 가능해요
+      internal static let _3 = L10n.tr("Localizable", "WaitCertification.subTitle1.3")
     }
   }
 }

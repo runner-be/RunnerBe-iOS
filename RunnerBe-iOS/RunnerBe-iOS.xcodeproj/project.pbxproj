@@ -99,6 +99,14 @@
 		C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45CB27B5FED40048CA76 /* PolicyDetailCoordinator.swift */; };
 		C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45CD27B5FEE10048CA76 /* PolicyDetailViewModel.swift */; };
 		C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45CF27B5FEEC0048CA76 /* PolicyDetailViewController.swift */; };
+		C3BA45D527B60E1A0048CA76 /* WaitCertificationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45D427B60E1A0048CA76 /* WaitCertificationComponent.swift */; };
+		C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45D627B60E220048CA76 /* WaitCertificationCoordinator.swift */; };
+		C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45D827B60E290048CA76 /* WaitCertificationViewModel.swift */; };
+		C3BA45DB27B60E320048CA76 /* WaitCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DA27B60E320048CA76 /* WaitCertificationViewController.swift */; };
+		C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DC27B621850048CA76 /* OnboardingCompletionComponent.swift */; };
+		C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */; };
+		C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */; };
+		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
 		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
@@ -216,6 +224,14 @@
 		C3BA45CB27B5FED40048CA76 /* PolicyDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailCoordinator.swift; sourceTree = "<group>"; };
 		C3BA45CD27B5FEE10048CA76 /* PolicyDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailViewModel.swift; sourceTree = "<group>"; };
 		C3BA45CF27B5FEEC0048CA76 /* PolicyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailViewController.swift; sourceTree = "<group>"; };
+		C3BA45D427B60E1A0048CA76 /* WaitCertificationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCertificationComponent.swift; sourceTree = "<group>"; };
+		C3BA45D627B60E220048CA76 /* WaitCertificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCertificationCoordinator.swift; sourceTree = "<group>"; };
+		C3BA45D827B60E290048CA76 /* WaitCertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCertificationViewModel.swift; sourceTree = "<group>"; };
+		C3BA45DA27B60E320048CA76 /* WaitCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCertificationViewController.swift; sourceTree = "<group>"; };
+		C3BA45DC27B621850048CA76 /* OnboardingCompletionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionComponent.swift; sourceTree = "<group>"; };
+		C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionCoordinator.swift; sourceTree = "<group>"; };
+		C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewModel.swift; sourceTree = "<group>"; };
+		C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewController.swift; sourceTree = "<group>"; };
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -490,6 +506,7 @@
 				C3F74B7327B0F3AD002D5846 /* 3_JobGroup */,
 				C361B6C227B2930600824ABE /* 4_EmailCertification */,
 				C361B6CE27B2B27100824ABE /* 5_PhotoCertification */,
+				C3BA45D127B60C4D0048CA76 /* 6_OnboardingCompletion */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -622,6 +639,37 @@
 				C3BA45CF27B5FEEC0048CA76 /* PolicyDetailViewController.swift */,
 			);
 			path = PolicyDetail;
+			sourceTree = "<group>";
+		};
+		C3BA45D127B60C4D0048CA76 /* 6_OnboardingCompletion */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA45D327B60C7B0048CA76 /* WaitCertification */,
+				C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */,
+			);
+			path = 6_OnboardingCompletion;
+			sourceTree = "<group>";
+		};
+		C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA45DC27B621850048CA76 /* OnboardingCompletionComponent.swift */,
+				C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */,
+				C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */,
+				C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */,
+			);
+			path = OnboardingCompletion;
+			sourceTree = "<group>";
+		};
+		C3BA45D327B60C7B0048CA76 /* WaitCertification */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA45D427B60E1A0048CA76 /* WaitCertificationComponent.swift */,
+				C3BA45D627B60E220048CA76 /* WaitCertificationCoordinator.swift */,
+				C3BA45D827B60E290048CA76 /* WaitCertificationViewModel.swift */,
+				C3BA45DA27B60E320048CA76 /* WaitCertificationViewController.swift */,
+			);
+			path = WaitCertification;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {
@@ -910,6 +958,8 @@
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
+				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
+				C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */,
 				C3BA459A27B405210048CA76 /* BadgeLabel.swift.swift in Sources */,
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageViewController.swift in Sources */,
@@ -925,6 +975,7 @@
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
+				C3BA45DB27B60E320048CA76 /* WaitCertificationViewController.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
@@ -940,6 +991,7 @@
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
+				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
 				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
@@ -973,9 +1025,11 @@
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
+				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
+				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
@@ -985,6 +1039,7 @@
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
+				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
@@ -992,6 +1047,7 @@
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
+				C3BA45D527B60E1A0048CA76 /* WaitCertificationComponent.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,

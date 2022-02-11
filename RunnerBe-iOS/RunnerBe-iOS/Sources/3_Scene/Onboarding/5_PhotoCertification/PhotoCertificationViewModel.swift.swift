@@ -45,6 +45,10 @@ final class PhotoCertificationViewModel: BaseViewModel {
             .map { $0 != nil }
             .subscribe(outputs.enableCertificate)
             .disposed(by: disposeBag)
+
+        inputs.tapCertificate
+            .subscribe(routes.certificate)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -65,6 +69,7 @@ final class PhotoCertificationViewModel: BaseViewModel {
         var showPicker = PublishSubject<ImagePickerType>()
         var backward = PublishSubject<Void>()
         var cancel = PublishSubject<Void>()
+        var certificate = PublishSubject<Void>()
     }
 
     struct RouteInput {

@@ -13,6 +13,19 @@ enum PhotoCertificationResult {
     case backward
 }
 
+extension PhotoModalResult {
+    var imagePickerType: ImagePickerType? {
+        switch self {
+        case .cancel:
+            return nil
+        case .choosePhoto:
+            return .library
+        case .takePhoto:
+            return .camera
+        }
+    }
+}
+
 final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationResult> {
     var component: PhotoCertificationComponent
 
@@ -37,8 +50,10 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
             .disposed(by: disposeBag)
 
         scene.VM.routes.photoModal
-            .flatMap { [weak self] in self?.presentPhotoModal() ?? .just(nil) }
-            .subscribe(scene.VM.routeInputs.photoModal)
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentPhotoModal(vm: vm)
+            })
             .disposed(by: disposeBag)
 
         scene.VM.routes.cancel
@@ -51,31 +66,31 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
             .map { PhotoCertificationResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
+
+        scene.VM.routes.certificate
+            .subscribe(onNext: { [weak self] in
+                self?.pushWaitCertificateCoord()
+            })
+            .disposed(by: disposeBag)
     }
 
-    private func presentPhotoModal() -> Observable<ImagePickerType?> {
+    private func presentPhotoModal(vm: PhotoCertificationViewModel) {
         let comp = component.photoModalComponent
         let coord = PhotoModalCoordinator(component: comp, navController: navController)
 
-        return coordinate(coordinator: coord)
-            .debug()
-            .map { [weak self] coordResult in
+        let disposable = coordinate(coordinator: coord)
+            .map { $0.imagePickerType }
+            .subscribe(onNext: { [weak self] imagePickerType in
                 defer { self?.release(coordinator: coord) }
-                switch coordResult {
-                case .cancel:
-                    return nil
-                case .choosePhoto:
-                    return .library
-                case .takePhoto:
-                    return .camera
-                }
-            }
+                vm.routeInputs.photoModal.onNext(imagePickerType)
+            })
+
+        addChildBag(uuid: coord.uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -89,6 +104,19 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(uuid: coord.uuid, disposable: disposable)
+    }
+
+    private func pushWaitCertificateCoord() {
+        let comp = component.waitCertificationComponent
+        let coord = WaitCertificationCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord)
+            .take(1)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+            })
+
+        addChildBag(uuid: coord.uuid, disposable: disposable)
     }
 }

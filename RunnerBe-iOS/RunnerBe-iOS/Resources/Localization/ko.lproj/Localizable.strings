@@ -124,3 +124,15 @@
 "EmailCertification.Modal.Message.1" = "메일 인증은 현재 접속하신";
 "EmailCertification.Modal.Message.2" = "기기 내에서만 가능합니다!";
 "EmailCertification.Modal.Button.yes" = "OK";
+
+// MARK: - WaitCertification
+"WaitCertification.title1" = "제출이 완료되었습니다. 확인 후 알려드릴게요!";
+"WaitCertification.subTitle1.1" = "소요 시간은 ";
+"WaitCertification.subTitle1.2" = "최대 6시간";
+"WaitCertification.subTitle1.3" = " 정도이며, 완료 시 알림을 보내드립니다. 그 전까지는 둘러보기만 가능해요";
+"WaitCertification.Button.toMain" = "메인 화면으로";
+
+// MARK: - OnboardingCompletion
+"OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
+"OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
+"OnboardingCompletion.Button.start" = "Start!";
