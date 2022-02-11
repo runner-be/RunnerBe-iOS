@@ -42,6 +42,9 @@
 "PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
 "PolicyTerm.Button.Next.title" = "다음";
 
+// MARK: - PolicyDetail
+"PolicyDetail.NavBar.title" = "제목";
+
 // MARK: - Birth
 "Birth.NavBar.title" = "TITLE";
 "Birth.title" = "출생년도를 입력해주세요.";

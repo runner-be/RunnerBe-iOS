@@ -216,6 +216,13 @@ internal enum L10n {
     }
   }
 
+  internal enum PolicyDetail {
+    internal enum NavBar {
+      /// 제목
+      internal static let title = L10n.tr("Localizable", "PolicyDetail.NavBar.title")
+    }
+  }
+
   internal enum PolicyTerm {
     /// 먼저 이용약관을 읽고
     internal static let title1 = L10n.tr("Localizable", "PolicyTerm.title1")

@@ -57,19 +57,24 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             .map { PolicyTermResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
+
+        scene.VM.routes.showPolicy
+            .subscribe(onNext: { [weak self] policyType in
+                self?.presentPolicyDetail(type: policyType)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private
 
     private func pushBirthCoord() {
-        let birthComp = component.birthComponent
+        let comp = component.birthComponent
+        let coord = BirthCoordinator(component: comp, navController: navController)
 
-        let birthCoord = BirthCoordinator(component: birthComp, navController: navController)
-
-        let disposable = coordinate(coordinator: birthCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: birthCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -77,17 +82,29 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 }
             })
 
-        childBags[birthCoord.uuid, default: []].append(disposable)
+        addChildBag(uuid: coord.uuid, disposable: disposable)
+    }
+
+    private func presentPolicyDetail(type: PolicyType) {
+        let comp = component.policyDetailComponent
+        comp.policyType = type
+        let coord = PolicyDetailCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord)
+            .subscribe(onNext: { [weak self] _ in
+                self?.release(coordinator: coord)
+            })
+        addChildBag(uuid: coord.uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
-        let cancelModalComp = component.onboardingCancelModalComponent
-        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
+        let comp = component.onboardingCancelModalComponent
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: cancelModalCoord)
+        let disposable = coordinate(coordinator: coord)
             .debug("PolicyTerm - close Onboarding")
             .subscribe(onNext: { [weak self] modalResult in
-                defer { self?.release(coordinator: cancelModalCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch modalResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -95,6 +112,6 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                     break
                 }
             })
-        childBags[cancelModalCoord.uuid, default: []].append(disposable)
+        addChildBag(uuid: coord.uuid, disposable: disposable)
     }
 }

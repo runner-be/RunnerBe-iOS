@@ -33,9 +33,9 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
 
     var viewModel: LoggedOutViewModel {
         return LoggedOutViewModel(
-                kakaoLoginService: kakaoLoginService,
-                naverLoginService: naverLoginService
-            )
+            kakaoLoginService: kakaoLoginService,
+            naverLoginService: naverLoginService
+        )
     }
 
     var policyTermComponent: PolicyTermComponent {

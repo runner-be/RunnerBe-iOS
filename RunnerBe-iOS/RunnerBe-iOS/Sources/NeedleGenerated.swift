@@ -33,6 +33,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
         return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent") { component in
+        return PolicyDetailDependencyab7a37b72bd8b136a461Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent") { component in
         return PhotoCertificationDependency919976e3bbe7c6970accProvider(component: component)
     }
@@ -169,6 +172,19 @@ private class PolicyTermDependency28006fce607070d6ca75BaseProvider: PolicyTermDe
 }
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent
 private class PolicyTermDependency28006fce607070d6ca75Provider: PolicyTermDependency28006fce607070d6ca75BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class PolicyDetailDependencyab7a37b72bd8b136a461BaseProvider: PolicyDetailDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent
+private class PolicyDetailDependencyab7a37b72bd8b136a461Provider: PolicyDetailDependencyab7a37b72bd8b136a461BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
