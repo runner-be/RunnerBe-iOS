@@ -51,7 +51,7 @@
 		C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */; };
 		C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */; };
 		C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E427B3461900824ABE /* PhotoModalViewController.swift */; };
-		C38F8F1F27AD88700050137D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* LoginData.swift */; };
+		C38F8F1F27AD88700050137D /* OAuthLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* OAuthLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* LoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
 		C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2427AD947E0050137D /* MainTabComponent.swift */; };
@@ -175,7 +175,7 @@
 		C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalCoordinator.swift; sourceTree = "<group>"; };
 		C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewModel.swift; sourceTree = "<group>"; };
 		C361B6E427B3461900824ABE /* PhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewController.swift; sourceTree = "<group>"; };
-		C38F8F1E27AD88700050137D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		C38F8F1E27AD88700050137D /* OAuthLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F2427AD947E0050137D /* MainTabComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabComponent.swift; sourceTree = "<group>"; };
@@ -389,8 +389,7 @@
 		C34FDA5C27AD5C83007718F8 /* LoginService */ = {
 			isa = PBXGroup;
 			children = (
-				C38F8F2027AD88970050137D /* LoginType.swift */,
-				C38F8F1E27AD88700050137D /* LoginData.swift */,
+				C3BA45E627B6317A0048CA76 /* Model */,
 				C34FDA5E27AD5C83007718F8 /* LoginServiceable.swift */,
 				C34FDA5D27AD5C83007718F8 /* KakaoLoginService.swift */,
 				C3FEECAF27AD860C00135099 /* NaverLoginService.swift */,
@@ -670,6 +669,15 @@
 				C3BA45DA27B60E320048CA76 /* WaitCertificationViewController.swift */,
 			);
 			path = WaitCertification;
+			sourceTree = "<group>";
+		};
+		C3BA45E627B6317A0048CA76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2027AD88970050137D /* LoginType.swift */,
+				C38F8F1E27AD88700050137D /* OAuthLoginResult.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {
@@ -1046,7 +1054,7 @@
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
-				C38F8F1F27AD88700050137D /* LoginData.swift in Sources */,
+				C38F8F1F27AD88700050137D /* OAuthLoginResult.swift in Sources */,
 				C3BA45D527B60E1A0048CA76 /* WaitCertificationComponent.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,

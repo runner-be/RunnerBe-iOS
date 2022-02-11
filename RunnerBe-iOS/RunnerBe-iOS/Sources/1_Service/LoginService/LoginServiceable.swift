@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol LoginServiceable {
-    func login() -> Observable<LoginData>
+    func login() -> Observable<OAuthLoginResult>
 }

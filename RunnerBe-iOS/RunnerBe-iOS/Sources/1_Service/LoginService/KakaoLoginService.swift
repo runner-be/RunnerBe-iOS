@@ -19,7 +19,7 @@ import RxSwift
 class KakaoLoginService: LoginServiceable {
     // MARK: Internal
 
-    func login() -> Observable<LoginData> {
+    func login() -> Observable<OAuthLoginResult> {
         if UserApi.isKakaoTalkLoginAvailable() {
             return loginWithKakaoApp()
         } else {
@@ -29,24 +29,18 @@ class KakaoLoginService: LoginServiceable {
 
     // MARK: Private
 
-    private func loginWithKakaoApp() -> Observable<LoginData> {
+    private func loginWithKakaoApp() -> Observable<OAuthLoginResult> {
         return UserApi.shared.rx.loginWithKakaoTalk()
-            .do(onNext: nil,
-                onError: {
-                    print($0)
-                })
             .map {
-                print("loginWithKakaoTalk() success! \($0.accessToken)")
-                return LoginData(token: $0.accessToken)
+                return OAuthLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 
-    private func loginWithKakaoAccount() -> Observable<LoginData> {
+    private func loginWithKakaoAccount() -> Observable<OAuthLoginResult> {
         return UserApi.shared.rx.loginWithKakaoAccount()
             .do(onNext: nil, onError: { print($0) })
             .map {
-                print("loginWithKakaoAccount() success! \($0.accessToken)")
-                return LoginData(token: $0.accessToken)
+                return OAuthLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 }

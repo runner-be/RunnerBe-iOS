@@ -20,9 +20,9 @@ final class NaverLoginService: NSObject, LoginServiceable {
 
     // MARK: Internal
 
-    var loginDataStream = PublishSubject<LoginData>()
+    var loginDataStream = PublishSubject<OAuthLoginResult>()
 
-    func login() -> Observable<LoginData> {
+    func login() -> Observable<OAuthLoginResult> {
         loginConnection.requestThirdPartyLogin()
         return loginDataStream
     }
@@ -35,8 +35,10 @@ final class NaverLoginService: NSObject, LoginServiceable {
 extension NaverLoginService: NaverThirdPartyLoginConnectionDelegate {
     // 로그인 성고시 호출됨
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
-        print("loginWithNaver() success! \(loginConnection.accessToken)")
-        loginDataStream.onNext(LoginData(token: loginConnection.accessToken))
+        loginDataStream.onNext(OAuthLoginResult(
+            token: loginConnection.accessToken,
+            loginType: .naver)
+        )
     }
 
     // refresh token

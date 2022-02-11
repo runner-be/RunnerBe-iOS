@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct LoginData {
+struct OAuthLoginResult {
     let token: String
+    let loginType: LoginType
 }
