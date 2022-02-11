@@ -38,12 +38,14 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
         let policyComp = component.policyTermComponent
 
         let policyCoord = PolicyTermCoordinator(component: policyComp, navController: navController)
+        let uuid = policyCoord.uuid
 
-        coordinate(coordinator: policyCoord)
+        let disposable = coordinate(coordinator: policyCoord)
             .take(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.release(coordinator: policyCoord)
             })
-            .disposed(by: disposeBag)
+
+        childBags[uuid, default: []].append(disposable)
     }
 }

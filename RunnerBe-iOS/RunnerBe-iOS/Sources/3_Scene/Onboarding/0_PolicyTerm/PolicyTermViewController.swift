@@ -35,7 +35,7 @@ final class PolicyTermViewController: BaseViewController {
 
     // MARK: ViewModel Binding
 
-    private var viewModel: PolicyTermViewModel
+    var viewModel: PolicyTermViewModel
 
     private func bindViewModelInput() {
         navBar.leftBtnItem.rx.tap
@@ -51,13 +51,13 @@ final class PolicyTermViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         checkAllPolicyView.tapCheck
-            .subscribe(onNext: { check in
-                self.servicePolicyView.isSelected = check
-                self.privacyPolicyView.isSelected = check
-                self.locationPolicyView.isSelected = check
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
-                self.viewModel.inputs.tapLocationPolicy.onNext(check)
-                self.viewModel.inputs.tapServicePolicy.onNext(check)
+            .subscribe(onNext: { [weak self] check in
+                self?.servicePolicyView.isSelected = check
+                self?.privacyPolicyView.isSelected = check
+                self?.locationPolicyView.isSelected = check
+                self?.viewModel.inputs.tapServicePolicy.onNext(check)
+                self?.viewModel.inputs.tapLocationPolicy.onNext(check)
+                self?.viewModel.inputs.tapServicePolicy.onNext(check)
             })
             .disposed(by: disposeBags)
 
@@ -88,8 +88,8 @@ final class PolicyTermViewController: BaseViewController {
 
     private func bindViewModelOutput() {
         viewModel.outputs.enableNext
-            .subscribe(onNext: { enable in
-                self.nextButton.isEnabled = enable
+            .subscribe(onNext: { [weak self] enable in
+                self?.nextButton.isEnabled = enable
             })
             .disposed(by: disposeBags)
     }

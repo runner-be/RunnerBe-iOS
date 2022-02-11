@@ -26,8 +26,8 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     var component: BirthComponent
 
     override func start() {
-        let viewController = component.birthViewController
-        navController.pushViewController(viewController, animated: true)
+        let selectBirth = component.selectBirth
+        navController.pushViewController(selectBirth.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,19 +40,19 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
             })
             .disposed(by: disposeBag)
 
-        component.birthViewModel.routes.nextProcess
-            .subscribe(onNext: {
-                self.pushSelectGenderCoord()
+        selectBirth.VM.routes.nextProcess
+            .subscribe(onNext: { [weak self] in
+                self?.pushSelectGenderCoord()
             })
             .disposed(by: disposeBag)
 
-        component.birthViewModel.routes.cancel
-            .subscribe(onNext: {
-                self.presentOnboardingCancelCoord()
+        selectBirth.VM.routes.cancel
+            .subscribe(onNext: { [weak self] in
+                self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        component.birthViewModel.routes.backward
+        selectBirth.VM.routes.backward
             .map { BirthResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
@@ -64,8 +64,9 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
         let selectGenderComp = component.selectGenderComponent
 
         let selectGenderCoord = SelectGenderCoordinator(component: selectGenderComp, navController: navController)
+        let uuid = selectGenderCoord.uuid
 
-        coordinate(coordinator: selectGenderCoord)
+        let disposable = coordinate(coordinator: selectGenderCoord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: selectGenderCoord) }
@@ -75,24 +76,27 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 case .backward: break
                 }
             })
-            .disposed(by: disposeBag)
+
+        childBags[uuid, default: []].append(disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let cancelModalComp = component.onboardingCancelModalComponent
         let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
+        let uuid = cancelModalCoord.uuid
 
-        coordinate(coordinator: cancelModalCoord)
+        let disposable = coordinate(coordinator: cancelModalCoord)
             .take(1)
-            .subscribe(onNext: { modalResult in
-                defer { self.release(coordinator: cancelModalCoord) }
+            .subscribe(onNext: { [weak self] modalResult in
+                defer { self?.release(coordinator: cancelModalCoord) }
                 switch modalResult {
                 case .cancelOnboarding:
-                    self.closeSignal.onNext(.cancelOnboarding)
+                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .cancelModal:
                     break
                 }
             })
-            .disposed(by: disposeBag)
+
+        childBags[uuid, default: []].append(disposable)
     }
 }

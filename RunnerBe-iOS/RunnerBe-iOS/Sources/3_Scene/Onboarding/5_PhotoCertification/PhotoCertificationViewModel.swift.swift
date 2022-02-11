@@ -13,8 +13,10 @@ enum ImagePickerType {
     case camera
 }
 
-final class PhotoCertificationViewModel {
-    init() {
+final class PhotoCertificationViewModel: BaseViewModel {
+    override init() {
+        super.init()
+
         inputs.tapPhoto
             .subscribe(routes.photoModal)
             .disposed(by: disposeBag)

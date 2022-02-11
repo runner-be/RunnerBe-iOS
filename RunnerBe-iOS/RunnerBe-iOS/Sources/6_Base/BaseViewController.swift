@@ -16,12 +16,21 @@ class BaseViewController: UIViewController {
     // MARK: Lifecycle
 
     init() {
+        #if DEBUG
+            print("[init:   VC] \(Self.self)")
+        #endif
         super.init(nibName: nil, bundle: nil)
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        #if DEBUG
+            print("[deinit: VC] \(Self.self)")
+        #endif
     }
 
     // MARK: Internal

@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class LoggedOutViewModel {
+final class LoggedOutViewModel: BaseViewModel {
     // MARK: Lifecycle
 
     init(
@@ -17,6 +17,7 @@ final class LoggedOutViewModel {
     ) {
         kakaoNaverService = kakaoLoginService
         self.naverLoginService = naverLoginService
+        super.init()
 
         input.kakaoLogin.subscribe(onNext: {
             _ = kakaoLoginService.login()

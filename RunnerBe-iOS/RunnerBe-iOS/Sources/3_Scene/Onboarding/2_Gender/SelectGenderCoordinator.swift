@@ -26,8 +26,8 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
     var component: SelectGenderComponent
 
     override func start() {
-        let viewController = component.selectGenderViewController
-        navController.pushViewController(viewController, animated: true)
+        let selectGender = component.selectGender
+        navController.pushViewController(selectGender.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,19 +40,19 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
             })
             .disposed(by: disposeBag)
 
-        component.selectGenderViewModel.routes.nextProcess
-            .subscribe(onNext: {
-                self.pushSelectJobGroupCoord()
+        selectGender.VM.routes.nextProcess
+            .subscribe(onNext: { [weak self] in
+                self?.pushSelectJobGroupCoord()
             })
             .disposed(by: disposeBag)
 
-        component.selectGenderViewModel.routes.cancel
-            .subscribe(onNext: {
-                self.presentOnboardingCancelCoord()
+        selectGender.VM.routes.cancel
+            .subscribe(onNext: { [weak self] in
+                self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        component.selectGenderViewModel.routes.backward
+        selectGender.VM.routes.backward
             .map { SelectGenderResult.backward }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)
@@ -61,38 +61,41 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
     // MARK: Private
 
     private func pushSelectJobGroupCoord() {
-        let selectJobGroupComp = component.selectJobGroupCoord
+        let comp = component.selectJobGroupCoord
+        let coord = SelectJobGroupCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
 
-        let selectJobGroupCoord = SelectJobGroupCoordinator(component: selectJobGroupComp, navController: navController)
-
-        coordinate(coordinator: selectJobGroupCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: selectJobGroupCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
                 case .backward: break
                 }
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
-        let cancelModalComp = component.onboardingCancelModalComponent
-        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
+        let comp = component.onboardingCancelModalComponent
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
 
-        coordinate(coordinator: cancelModalCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { coordResult in
-                defer { self.release(coordinator: cancelModalCoord) }
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
-                    self.closeSignal.onNext(.cancelOnboarding)
+                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .cancelModal:
                     break
                 }
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 }

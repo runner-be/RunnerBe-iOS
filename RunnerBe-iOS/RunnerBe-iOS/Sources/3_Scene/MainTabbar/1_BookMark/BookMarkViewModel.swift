@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class BookMarkViewModel {
+final class BookMarkViewModel: BaseViewModel {
     struct Input {}
 
     struct Output {}

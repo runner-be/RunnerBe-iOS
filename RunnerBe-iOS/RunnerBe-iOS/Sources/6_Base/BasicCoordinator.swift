@@ -19,12 +19,17 @@ class BasicCoordinator<ResultType>: Coordinator {
     // MARK: Lifecycle
 
     init(navController: UINavigationController) {
+        #if DEBUG
+            print("[init:   Coord]  \(Self.self)")
+        #endif
         self.navController = navController
         navController.setNavigationBarHidden(true, animated: false)
     }
 
     deinit {
-        print("\(Self.self) deinit")
+        #if DEBUG
+            print("[deinit: Coord]  \(Self.self)")
+        #endif
     }
 
     // MARK: Internal
@@ -37,6 +42,8 @@ class BasicCoordinator<ResultType>: Coordinator {
     var navController: UINavigationController
 
     var childs = [UUID: Coordinator]()
+    var childBags = [UUID: [Disposable]]()
+
     var closeSignal = PublishSubject<CoordinationResult>()
 
     @discardableResult
@@ -46,15 +53,30 @@ class BasicCoordinator<ResultType>: Coordinator {
         return coordinator.closeSignal
     }
 
+    func addChildBag(uuid: UUID, disposable: Disposable) {
+        childBags[uuid, default: []].append(disposable)
+    }
+
     func release<T>(coordinator: BasicCoordinator<T>) {
-        let uuid = coordinator.uuid
         coordinator.release()
+        let uuid = coordinator.uuid
+        childBags[uuid]?.forEach { $0.dispose() }
         childs.removeValue(forKey: uuid)
+        childBags.removeValue(forKey: uuid)
     }
 
     func release() {
+        #if DEBUG
+            print("[release:    Coord]  \(Self.self)")
+        #endif
         childs.forEach { _, coord in coord.release() }
+        childBags.flatMap { $1 }
+            .forEach { $0.dispose() }
         childs.removeAll()
+        childBags.removeAll()
+        #if DEBUG
+            print("[released:   Coord]   \(Self.self)")
+        #endif
     }
 
     func start() {

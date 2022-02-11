@@ -11,12 +11,13 @@ import NeedleFoundation
 protocol PhotoCertificationDependency: Dependency {}
 
 final class PhotoCertificationComponent: Component<PhotoCertificationDependency> {
-    var photoCertificationViewController: UIViewController {
-        return PhotoCertificationViewController(viewModel: photoCertificationViewModel)
+    var photoCertification: (VC: UIViewController, VM: PhotoCertificationViewModel) {
+        let viewModel = photoCertificationViewModel
+        return (PhotoCertificationViewController(viewModel: viewModel), viewModel)
     }
 
-    var photoCertificationViewModel: PhotoCertificationViewModel {
-        return shared { PhotoCertificationViewModel() }
+    private var photoCertificationViewModel: PhotoCertificationViewModel {
+        return PhotoCertificationViewModel()
     }
 
     var photoModalComponent: PhotoModalComponent {

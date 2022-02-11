@@ -26,8 +26,8 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     var component: SelectJobGroupComponent
 
     override func start() {
-        let viewController = component.selectJobGroupViewController
-        navController.pushViewController(viewController, animated: true)
+        let selectJob = component.selectJob
+        navController.pushViewController(selectJob.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,59 +40,60 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
             })
             .disposed(by: disposeBag)
 
-        component.selectJobGroupViewModel.routes.nextProcess
-            .subscribe(onNext: {
-                self.pushEmailCertificationCoord()
+        selectJob.VM.routes.nextProcess
+            .subscribe(onNext: { [weak self] in
+                self?.pushEmailCertificationCoord()
             })
             .disposed(by: disposeBag)
 
-        component.selectJobGroupViewModel.routes.cancel
-            .subscribe(onNext: {
-                self.presentOnboardingCancelCoord()
+        selectJob.VM.routes.cancel
+            .subscribe(onNext: { [weak self] in
+                self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        component.selectJobGroupViewModel.routes.backward
+        selectJob.VM.routes.backward
             .map { SelectJobGroupResult.backward }
-            .subscribe(closeSignal)
+            .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }
 
     // MARK: Private
 
     private func pushEmailCertificationCoord() {
-        let emailCertificationComp = component.emailCertificationComponent
+        let comp = component.emailCertificationComponent
+        let coord = EmailCertificationCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
 
-        let emailCertificationCoord = EmailCertificationCoordinator(component: emailCertificationComp, navController: navController)
-
-        coordinate(coordinator: emailCertificationCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: emailCertificationCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
                 case .backward: break
                 }
             })
-            .disposed(by: disposeBag)
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
-        let cancelModalComp = component.onboardingCancelModalComponent
-        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
-
-        coordinate(coordinator: cancelModalCoord)
+        let comp = component.onboardingCancelModalComponent
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
+        let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { coordResult in
-                defer { self.release(coordinator: cancelModalCoord) }
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
-                    self.closeSignal.onNext(.cancelOnboarding)
+                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .cancelModal:
                     break
                 }
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 }

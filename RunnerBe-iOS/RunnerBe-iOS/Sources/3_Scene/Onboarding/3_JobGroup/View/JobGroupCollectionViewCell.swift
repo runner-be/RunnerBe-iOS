@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 final class JobGroupCollectionViewCell: UICollectionViewCell {
-    var label: OnOffLabel? {
+    weak var label: OnOffLabel? {
         didSet {
             oldValue?.removeFromSuperview()
             if let view = label {

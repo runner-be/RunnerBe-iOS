@@ -59,22 +59,22 @@ final class EmailCertificationViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.certificateButton.isEnabled = $0
+            .subscribe(onNext: { [weak self] enable in
+                self?.certificateButton.isEnabled = enable
             })
             .disposed(by: disposeBags)
     }
 
     private func viewInput() {
         emailField.rx.controlEvent(.editingDidBegin)
-            .subscribe(onNext: {
-                self.emailField.layer.borderWidth = 1
+            .subscribe(onNext: { [weak self] _ in
+                self?.emailField.layer.borderWidth = 1
             })
             .disposed(by: disposeBags)
 
         emailField.rx.controlEvent(.editingDidEnd)
-            .subscribe(onNext: {
-                self.emailField.layer.borderWidth = 0
+            .subscribe(onNext: { [weak self] _ in
+                self?.emailField.layer.borderWidth = 0
             })
             .disposed(by: disposeBags)
 

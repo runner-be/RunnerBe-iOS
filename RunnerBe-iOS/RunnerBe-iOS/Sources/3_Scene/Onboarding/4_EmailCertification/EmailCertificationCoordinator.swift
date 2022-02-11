@@ -26,13 +26,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
     var component: EmailCertificationComponent
 
     override func start() {
-        let viewController = component.emailCertificationViewController
-        navController.pushViewController(viewController, animated: true)
+        let emailCertification = component.emailCertification
+        navController.pushViewController(emailCertification.VC, animated: true)
 
         navController.rx.didShow
             .take(1)
-            .subscribe(onNext: { _ in
-                self.presentInitModal()
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentInitModal()
             })
             .disposed(by: disposeBag)
 
@@ -47,71 +47,73 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
             })
             .disposed(by: disposeBag)
 
-        component.emailCertificationViewModel
-            .routes.photoCertification
-            .subscribe(onNext: {
-                self.pushPhotoCertificationCoord()
+        emailCertification.VM.routes.photoCertification
+            .subscribe(onNext: { [weak self] in
+                self?.pushPhotoCertificationCoord()
             })
             .disposed(by: disposeBag)
 
-        component.emailCertificationViewModel
-            .routes.cancel
-            .subscribe(onNext: {
-                self.presentOnboardingCancelCoord()
+        emailCertification.VM.routes.cancel
+            .subscribe(onNext: { [weak self] in
+                self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        component.emailCertificationViewModel
-            .routes.backward
+        emailCertification.VM.routes.backward
             .map { EmailCertificationResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }
 
     private func pushPhotoCertificationCoord() {
-        let photoCertificationComp = component.photoCertificationComponent
-        let photoCertificationCoord = PhotoCertificationCoordinator(component: photoCertificationComp, navController: navController)
+        let comp = component.photoCertificationComponent
+        let coord = PhotoCertificationCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
 
-        coordinate(coordinator: photoCertificationCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: photoCertificationCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
                 case .backward: break
                 }
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
-        let cancelModalComp = component.onboardingCancelModalComponent
-        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
+        let comp = component.onboardingCancelModalComponent
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        let uuid = coord.uuid
 
-        coordinate(coordinator: cancelModalCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { coordResult in
-                defer { self.release(coordinator: cancelModalCoord) }
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
-                    self.closeSignal.onNext(.cancelOnboarding)
+                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .cancelModal:
                     break
                 }
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 
     private func presentInitModal() {
-        let initModalComp = component.initModalComponent
-        let initModalCoord = EmailCertificationInitModalCoordinator(component: initModalComp, navController: navController)
+        let comp = component.initModalComponent
+        let coord = EmailCertificationInitModalCoordinator(component: comp, navController: navController)
 
-        coordinate(coordinator: initModalCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { _ in
-                self.release(coordinator: initModalCoord)
+            .subscribe(onNext: { [weak self] _ in
+                self?.release(coordinator: coord)
             })
-            .disposed(by: disposeBag)
+
+        addChildBag(uuid: uuid, disposable: disposable)
     }
 }

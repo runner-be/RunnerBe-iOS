@@ -8,8 +8,10 @@
 import Foundation
 import RxSwift
 
-final class PhotoModalViewModel {
-    init() {
+final class PhotoModalViewModel: BaseViewModel {
+    override init() {
+        super.init()
+
         inputs.tapBackward
             .subscribe(routes.backward)
             .disposed(by: disposeBag)

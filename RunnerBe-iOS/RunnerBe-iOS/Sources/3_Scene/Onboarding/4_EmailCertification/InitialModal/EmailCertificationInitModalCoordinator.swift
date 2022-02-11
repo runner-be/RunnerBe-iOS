@@ -21,17 +21,17 @@ final class EmailCertificationInitModalCoordinator: BasicCoordinator<EmailCertif
     }
 
     override func start() {
-        let viewController = component.emailCertificationInitModalViewController
-        viewController.modalPresentationStyle = .overCurrentContext
-        navController.present(viewController, animated: false)
+        let emailCertificationInitModal = component.emailCertificationInitModal
+        emailCertificationInitModal.VC.modalPresentationStyle = .overCurrentContext
+        navController.present(emailCertificationInitModal.VC, animated: false)
 
         closeSignal
             .subscribe(onNext: { _ in
-                viewController.dismiss(animated: false)
+                emailCertificationInitModal.VC.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
 
-        component.emailCertificationInitModalViewModel
+        emailCertificationInitModal.VM
             .routes.backward
             .map { EmailCertificationInitModalResult.backward }
             .bind(to: closeSignal)

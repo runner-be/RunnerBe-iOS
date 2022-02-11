@@ -8,8 +8,10 @@
 import Foundation
 import RxSwift
 
-final class EmailCertificationInitModalViewModel {
-    init() {
+final class EmailCertificationInitModalViewModel: BaseViewModel {
+    override init() {
+        super.init()
+
         inputs.tapOK
             .bind(to: routes.backward)
             .disposed(by: disposeBag)

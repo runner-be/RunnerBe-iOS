@@ -8,8 +8,10 @@
 import Foundation
 import RxSwift
 
-final class EmailCertificationViewModel {
-    init() {
+final class EmailCertificationViewModel: BaseViewModel {
+    override init() {
+        super.init()
+
         inputs.tapCancel
             .subscribe(routes.cancel)
             .disposed(by: disposeBag)

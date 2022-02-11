@@ -11,11 +11,12 @@ import NeedleFoundation
 protocol OnboardingCancelModalDependency: Dependency {}
 
 final class OnboardingCancelModalComponent: Component<OnboardingCancelModalDependency> {
-    var onboardingCancelModalViewController: UIViewController {
-        return OnboardingCancelModalViewController(viewModel: onboardingCancelModalViewModel)
+    var onboardingCancelModal: (VC: UIViewController, VM: OnboardingCancelModalViewModel) {
+        let viewModel = onboardingCancelModalViewModel
+        return (OnboardingCancelModalViewController(viewModel: viewModel), viewModel)
     }
 
-    var onboardingCancelModalViewModel: OnboardingCancelModalViewModel {
-        return shared { OnboardingCancelModalViewModel() }
+    private var onboardingCancelModalViewModel: OnboardingCancelModalViewModel {
+        return OnboardingCancelModalViewModel()
     }
 }

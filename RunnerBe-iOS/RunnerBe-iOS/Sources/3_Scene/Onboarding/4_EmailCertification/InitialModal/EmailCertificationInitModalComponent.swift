@@ -11,11 +11,12 @@ import NeedleFoundation
 protocol EmailCertificationInitModalDependency: Dependency {}
 
 final class EmailCertificationInitModalComponent: Component<EmailCertificationInitModalDependency> {
-    var emailCertificationInitModalViewController: UIViewController {
-        return EmailCertificationInitModalViewController(viewModel: emailCertificationInitModalViewModel)
+    var emailCertificationInitModal: (VC: UIViewController, VM: EmailCertificationInitModalViewModel) {
+        let viewModel = emailCertificationInitModalViewModel
+        return (EmailCertificationInitModalViewController(viewModel: viewModel), viewModel)
     }
 
-    var emailCertificationInitModalViewModel: EmailCertificationInitModalViewModel {
-        return shared { EmailCertificationInitModalViewModel() }
+    private var emailCertificationInitModalViewModel: EmailCertificationInitModalViewModel {
+        return EmailCertificationInitModalViewModel()
     }
 }

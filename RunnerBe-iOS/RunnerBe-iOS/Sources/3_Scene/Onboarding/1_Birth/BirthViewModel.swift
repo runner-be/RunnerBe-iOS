@@ -8,10 +8,12 @@
 import Foundation
 import RxSwift
 
-final class BirthViewModel {
+final class BirthViewModel: BaseViewModel {
     // MARK: Lifecycle
 
-    init() {
+    override init() {
+        super.init()
+
         // TODO: DateFormatter DI
         let today = Date()
         let dateFormatter = DateFormatter()
@@ -23,9 +25,8 @@ final class BirthViewModel {
             .forEach { self.outputs.items.append($0) }
 
         inputs.itemSelected
-            .filter { $0 < self.outputs.items.count && $0 > 0 }
-            .map { self.outputs.items[$0] }
-            .map { thisYear - $0 > 19 }
+            .filter { $0 < 81 && $0 > 0 }
+            .map { $0 > 19 }
             .subscribe(outputs.enableNext)
             .disposed(by: disposeBag)
 

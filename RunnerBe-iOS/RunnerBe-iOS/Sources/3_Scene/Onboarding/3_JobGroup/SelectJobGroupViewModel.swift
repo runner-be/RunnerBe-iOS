@@ -8,16 +8,18 @@
 import Foundation
 import RxSwift
 
-final class SelectJobGroupViewModel {
+final class SelectJobGroupViewModel: BaseViewModel {
     // MARK: Lifecycle
 
-    init() {
+    override init() {
+        super.init()
+
         inputs.tapCancel
-            .subscribe(routes.cancel)
+            .bind(to: routes.cancel)
             .disposed(by: disposeBag)
 
         inputs.tapBackward
-            .subscribe(routes.backward)
+            .bind(to: routes.backward)
             .disposed(by: disposeBag)
 
         inputs.tapNext
@@ -26,7 +28,7 @@ final class SelectJobGroupViewModel {
 
         inputs.tapGroup
             .map { $0.isEmpty == false }
-            .subscribe(outputs.enableNext)
+            .bind(to: outputs.enableNext)
             .disposed(by: disposeBag)
     }
 

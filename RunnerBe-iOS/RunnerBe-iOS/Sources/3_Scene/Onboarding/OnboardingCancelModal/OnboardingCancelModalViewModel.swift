@@ -8,8 +8,10 @@
 import Foundation
 import RxSwift
 
-final class OnboardingCancelModalViewModel {
-    init() {
+final class OnboardingCancelModalViewModel: BaseViewModel {
+    override init() {
+        super.init()
+
         inputs.tapBackward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)

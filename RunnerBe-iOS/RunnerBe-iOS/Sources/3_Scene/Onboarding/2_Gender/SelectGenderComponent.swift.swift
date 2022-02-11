@@ -11,12 +11,13 @@ import NeedleFoundation
 protocol SelectGenderDependency: Dependency {}
 
 final class SelectGenderComponent: Component<SelectGenderDependency> {
-    var selectGenderViewController: UIViewController {
-        return SelectGenderViewController(viewModel: selectGenderViewModel)
+    var selectGender: (VC: UIViewController, VM: SelectGenderViewModel) {
+        let viewModel = selectGenderViewModel
+        return (SelectGenderViewController(viewModel: viewModel), viewModel)
     }
 
-    var selectGenderViewModel: SelectGenderViewModel {
-        return shared { SelectGenderViewModel() }
+    private var selectGenderViewModel: SelectGenderViewModel {
+        return SelectGenderViewModel()
     }
 
     var selectJobGroupCoord: SelectJobGroupComponent {

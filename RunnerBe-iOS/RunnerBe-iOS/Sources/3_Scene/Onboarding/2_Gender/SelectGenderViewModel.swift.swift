@@ -8,10 +8,12 @@
 import Foundation
 import RxSwift
 
-final class SelectGenderViewModel {
+final class SelectGenderViewModel: BaseViewModel {
     // MARK: Lifecycle
 
-    init() {
+    override init() {
+        super.init()
+
         inputs.tapCancel
             .subscribe(routes.cancel)
             .disposed(by: disposeBag)

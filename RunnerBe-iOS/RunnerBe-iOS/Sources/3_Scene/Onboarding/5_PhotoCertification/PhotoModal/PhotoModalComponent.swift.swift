@@ -11,11 +11,12 @@ import NeedleFoundation
 protocol PhotoModalDependency: Dependency {}
 
 final class PhotoModalComponent: Component<PhotoModalDependency> {
-    var photoModalViewController: UIViewController {
-        return PhotoModalViewController(viewModel: photoModalViewModel)
+    var photoModal: (VC: UIViewController, VM: PhotoModalViewModel) {
+        let viewModel = photoModalViewModel
+        return (PhotoModalViewController(viewModel: viewModel), viewModel)
     }
 
-    var photoModalViewModel: PhotoModalViewModel {
-        return shared { PhotoModalViewModel() }
+    private var photoModalViewModel: PhotoModalViewModel {
+        return PhotoModalViewModel()
     }
 }

@@ -14,10 +14,12 @@ enum PolicyType {
     case location
 }
 
-final class PolicyTermViewModel {
+final class PolicyTermViewModel: BaseViewModel {
     // MARK: Lifecycle
 
-    init() {
+    override init() {
+        super.init()
+
         Observable<Bool>.combineLatest(
             inputs.tapServicePolicy,
             inputs.tapPrivacyPolicy,

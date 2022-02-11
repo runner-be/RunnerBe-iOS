@@ -73,8 +73,8 @@ final class SelectJobGroupViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
+            .subscribe(onNext: { [weak self] enable in
+                self?.nextButton.isEnabled = enable
             })
             .disposed(by: disposeBags)
     }

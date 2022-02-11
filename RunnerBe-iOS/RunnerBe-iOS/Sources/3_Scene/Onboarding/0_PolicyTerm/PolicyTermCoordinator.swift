@@ -26,8 +26,9 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
     var component: PolicyTermComponent
 
     override func start() {
-        let viewController = component.policyTermViewController
-        navController.pushViewController(viewController, animated: true)
+        let policyTerm = component.policyTerm
+
+        navController.pushViewController(policyTerm.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,19 +41,19 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             })
             .disposed(by: disposeBag)
 
-        component.policyTermViewModel.routes.nextProcess
-            .subscribe(onNext: {
-                self.pushBirthCoord()
+        policyTerm.VM.routes.nextProcess
+            .subscribe(onNext: { [weak self] in
+                self?.pushBirthCoord()
             })
             .disposed(by: disposeBag)
 
-        component.policyTermViewModel.routes.cancel
-            .subscribe(onNext: {
-                self.presentOnboardingCancelCoord()
+        policyTerm.VM.routes.cancel
+            .subscribe(onNext: { [weak self] in
+                self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        component.policyTermViewModel.routes.backward
+        policyTerm.VM.routes.backward
             .map { PolicyTermResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
@@ -65,7 +66,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
         let birthCoord = BirthCoordinator(component: birthComp, navController: navController)
 
-        coordinate(coordinator: birthCoord)
+        let disposable = coordinate(coordinator: birthCoord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: birthCoord) }
@@ -75,25 +76,25 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 case .backward: break
                 }
             })
-            .disposed(by: disposeBag)
+
+        childBags[birthCoord.uuid, default: []].append(disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let cancelModalComp = component.onboardingCancelModalComponent
         let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
 
-        coordinate(coordinator: cancelModalCoord)
-            .take(1)
+        let disposable = coordinate(coordinator: cancelModalCoord)
             .debug("PolicyTerm - close Onboarding")
-            .subscribe(onNext: { modalResult in
-                defer { self.release(coordinator: cancelModalCoord) }
+            .subscribe(onNext: { [weak self] modalResult in
+                defer { self?.release(coordinator: cancelModalCoord) }
                 switch modalResult {
                 case .cancelOnboarding:
-                    self.closeSignal.onNext(.cancelOnboarding)
+                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .cancelModal:
                     break
                 }
             })
-            .disposed(by: disposeBag)
+        childBags[cancelModalCoord.uuid, default: []].append(disposable)
     }
 }

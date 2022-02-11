@@ -55,9 +55,9 @@ final class BirthViewController: BaseViewController {
 
     private func bindViewModelOutput() {
         viewModel.outputs.enableNext
-            .subscribe(onNext: {
-                self.nextButton.isEnabled = $0
-                self.errorLabel.isHidden = $0
+            .subscribe(onNext: { [weak self] in
+                self?.nextButton.isEnabled = $0
+                self?.errorLabel.isHidden = $0
             })
             .disposed(by: disposeBags)
     }
