@@ -39,7 +39,7 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
         let policyComp = component.policyTermComponent
 
         let policyCoord = PolicyTermCoordinator(component: policyComp, navController: navController)
-        let uuid = policyCoord.uuid
+        let uuid = policyCoord.id
 
         let disposable = coordinate(coordinator: policyCoord)
             .take(1)

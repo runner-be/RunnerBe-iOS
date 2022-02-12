@@ -82,7 +82,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 }
             })
 
-        addChildBag(uuid: coord.uuid, disposable: disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     private func presentPolicyDetail(type: PolicyType) {
@@ -94,7 +94,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.release(coordinator: coord)
             })
-        addChildBag(uuid: coord.uuid, disposable: disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
@@ -112,6 +112,6 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                     break
                 }
             })
-        addChildBag(uuid: coord.uuid, disposable: disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 }

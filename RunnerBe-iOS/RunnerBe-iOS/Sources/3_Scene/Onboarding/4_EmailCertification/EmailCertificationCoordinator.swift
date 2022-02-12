@@ -68,7 +68,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
     private func pushPhotoCertificationCoord() {
         let comp = component.photoCertificationComponent
         let coord = PhotoCertificationCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -81,13 +81,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -101,7 +101,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 
     private func presentInitModal() {
@@ -114,6 +114,6 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 self?.release(coordinator: coord)
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: id, disposable: disposable)
     }
 }

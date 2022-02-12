@@ -63,7 +63,7 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
     private func pushSelectJobGroupCoord() {
         let comp = component.selectJobGroupCoord
         let coord = SelectJobGroupCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -76,13 +76,13 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -96,6 +96,6 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 }

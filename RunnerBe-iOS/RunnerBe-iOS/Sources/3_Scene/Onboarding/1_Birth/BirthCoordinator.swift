@@ -64,7 +64,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
         let selectGenderComp = component.selectGenderComponent
 
         let selectGenderCoord = SelectGenderCoordinator(component: selectGenderComp, navController: navController)
-        let uuid = selectGenderCoord.uuid
+        let uuid = selectGenderCoord.id
 
         let disposable = coordinate(coordinator: selectGenderCoord)
             .take(1)
@@ -83,7 +83,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     private func presentOnboardingCancelCoord() {
         let cancelModalComp = component.onboardingCancelModalComponent
         let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
-        let uuid = cancelModalCoord.uuid
+        let uuid = cancelModalCoord.id
 
         let disposable = coordinate(coordinator: cancelModalCoord)
             .take(1)

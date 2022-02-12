@@ -37,7 +37,8 @@ extension NaverLoginService: NaverThirdPartyLoginConnectionDelegate {
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         loginDataStream.onNext(OAuthLoginResult(
             token: loginConnection.accessToken,
-            loginType: .naver)
+            loginType: .naver
+        )
         )
     }
 

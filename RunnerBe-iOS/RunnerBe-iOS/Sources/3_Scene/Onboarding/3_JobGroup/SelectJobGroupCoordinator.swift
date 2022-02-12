@@ -63,7 +63,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     private func pushEmailCertificationCoord() {
         let comp = component.emailCertificationComponent
         let coord = EmailCertificationCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
@@ -75,13 +75,13 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 case .backward: break
                 }
             })
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.uuid
+        let uuid = coord.id
         let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
@@ -94,6 +94,6 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 }
             })
 
-        addChildBag(uuid: uuid, disposable: disposable)
+        addChildBag(id: uuid, disposable: disposable)
     }
 }

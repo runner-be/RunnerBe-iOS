@@ -35,8 +35,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         ////        appCoordinator.showMain()
         appCoordinator.showLoggedOut()
 //        // TODO-END
-        
-// 뷰 테스트용!
+
+        // 뷰 테스트용!
 //        window.rootViewController = OnboardingCompletionViewController(viewModel: OnboardingCompletionViewModel())
 
         window.makeKeyAndVisible()
