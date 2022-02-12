@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OAuthLoginResult {
+struct SocialLoginResult {
     let token: String
-    let loginType: LoginType
+    let loginType: SocialLoginType
 }

@@ -9,8 +9,7 @@ import Foundation
 import NeedleFoundation
 
 protocol LoggedOutDependency: Dependency {
-    var kakaoLoginService: KakaoLoginService { get }
-    var naverLoginService: NaverLoginService { get }
+    var loginService: LoginService { get }
 }
 
 class LoggedOutComponent: Component<LoggedOutDependency> {
@@ -19,23 +18,8 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
         return (LoggedOutViewController(viewModel: viewModel), viewModel)
     }
 
-    var kakaoLoginService: KakaoLoginService {
-        return shared {
-            KakaoLoginService()
-        }
-    }
-
-    var naverLoginService: NaverLoginService {
-        return shared {
-            NaverLoginService()
-        }
-    }
-
     var viewModel: LoggedOutViewModel {
-        return LoggedOutViewModel(
-            kakaoLoginService: kakaoLoginService,
-            naverLoginService: naverLoginService
-        )
+        return LoggedOutViewModel(loginService: dependency.loginService)
     }
 
     var policyTermComponent: PolicyTermComponent {

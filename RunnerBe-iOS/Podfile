@@ -25,6 +25,10 @@ target 'RunnerBe-iOS' do
   pod 'SnapKit', '~> 5.0.0'
   # Then
   pod 'Then'
+  # SwiftyJson
+  pod 'SwiftyJSON', '~> 4.0'
+  # SwiftKeychainWrapper
+  pod 'SwiftKeychainWrapper'
 
   # Kakao Login
   pod 'RxKakaoSDKCommon' # 필수 모듈

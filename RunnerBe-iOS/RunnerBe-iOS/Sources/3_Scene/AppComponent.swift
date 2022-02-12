@@ -9,12 +9,13 @@ import Foundation
 import NeedleFoundation
 
 final class AppComponent: BootstrapComponent {
-    var kakaoLoginService: KakaoLoginService {
-        return shared { KakaoLoginService() }
-    }
-
-    var naverLoginService: NaverLoginService {
-        return shared { NaverLoginService() }
+    var loginService: LoginService {
+        return shared { BasicLoginService(
+            loginKeyChainService: loginKeyChainService,
+            loginAPIService: loginAPIService,
+            kakaoLoginService: kakaoLoginService,
+            naverLoginService: naverLoginService
+        ) }
     }
 
     var loggedOutComponent: LoggedOutComponent {
@@ -23,5 +24,21 @@ final class AppComponent: BootstrapComponent {
 
     var mainTabComponent: MainTabComponent {
         return MainTabComponent(parent: self)
+    }
+
+    private var kakaoLoginService: KakaoLoginService {
+        return shared { KakaoLoginService() }
+    }
+
+    private var naverLoginService: NaverLoginService {
+        return shared { NaverLoginService() }
+    }
+
+    private var loginKeyChainService: LoginKeyChainService {
+        return shared { BasicLoginKeyChainService() }
+    }
+
+    private var loginAPIService: LoginAPIService {
+        return shared { BasicLoginAPIService() }
     }
 }

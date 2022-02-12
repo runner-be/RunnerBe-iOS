@@ -9,7 +9,7 @@ import Foundation
 import NaverThirdPartyLogin
 import RxSwift
 
-final class NaverLoginService: NSObject, LoginServiceable {
+final class NaverLoginService: NSObject, SocialLoginService {
     // MARK: Lifecycle
 
     override init() {
@@ -20,9 +20,9 @@ final class NaverLoginService: NSObject, LoginServiceable {
 
     // MARK: Internal
 
-    var loginDataStream = PublishSubject<OAuthLoginResult>()
+    var loginDataStream = PublishSubject<SocialLoginResult>()
 
-    func login() -> Observable<OAuthLoginResult> {
+    func login() -> Observable<SocialLoginResult> {
         loginConnection.requestThirdPartyLogin()
         return loginDataStream
     }
@@ -35,7 +35,7 @@ final class NaverLoginService: NSObject, LoginServiceable {
 extension NaverLoginService: NaverThirdPartyLoginConnectionDelegate {
     // 로그인 성고시 호출됨
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
-        loginDataStream.onNext(OAuthLoginResult(
+        loginDataStream.onNext(SocialLoginResult(
             token: loginConnection.accessToken,
             loginType: .naver
         )

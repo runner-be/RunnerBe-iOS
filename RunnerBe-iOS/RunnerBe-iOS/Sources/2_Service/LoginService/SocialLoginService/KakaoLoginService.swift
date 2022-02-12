@@ -16,10 +16,10 @@ import RxKakaoSDKUser
 
 import RxSwift
 
-class KakaoLoginService: LoginServiceable {
+final class KakaoLoginService: SocialLoginService {
     // MARK: Internal
 
-    func login() -> Observable<OAuthLoginResult> {
+    func login() -> Observable<SocialLoginResult> {
         if UserApi.isKakaoTalkLoginAvailable() {
             return loginWithKakaoApp()
         } else {
@@ -29,18 +29,18 @@ class KakaoLoginService: LoginServiceable {
 
     // MARK: Private
 
-    private func loginWithKakaoApp() -> Observable<OAuthLoginResult> {
+    private func loginWithKakaoApp() -> Observable<SocialLoginResult> {
         return UserApi.shared.rx.loginWithKakaoTalk()
             .map {
-                return OAuthLoginResult(token: $0.accessToken, loginType: .kakao)
+                return SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 
-    private func loginWithKakaoAccount() -> Observable<OAuthLoginResult> {
+    private func loginWithKakaoAccount() -> Observable<SocialLoginResult> {
         return UserApi.shared.rx.loginWithKakaoAccount()
             .do(onNext: nil, onError: { print($0) })
             .map {
-                return OAuthLoginResult(token: $0.accessToken, loginType: .kakao)
+                return SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 }

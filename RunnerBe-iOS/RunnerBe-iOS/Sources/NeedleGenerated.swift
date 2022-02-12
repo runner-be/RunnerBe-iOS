@@ -84,11 +84,8 @@ public func registerProviderFactories() {
 // MARK: - Providers
 
 private class LoggedOutDependency2bcab0d3625f6f252479BaseProvider: LoggedOutDependency {
-    var kakaoLoginService: KakaoLoginService {
-        return appComponent.kakaoLoginService
-    }
-    var naverLoginService: NaverLoginService {
-        return appComponent.naverLoginService
+    var loginService: LoginService {
+        return appComponent.loginService
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {

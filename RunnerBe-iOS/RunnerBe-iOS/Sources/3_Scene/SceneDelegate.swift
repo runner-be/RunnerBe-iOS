@@ -10,6 +10,7 @@ import KakaoSDKCommon
 import KakaoSDKUser
 
 import NaverThirdPartyLogin
+import RxSwift
 
 import NeedleFoundation
 import UIKit
@@ -18,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
     var appComponent: AppComponent?
+    var disposeBag = DisposeBag()
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions)
     {
@@ -32,12 +34,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator(component: appComponent, navController: navController)
 
         // TODO: appComponent에서 회원가입여부 확인 후 Main, Logged out 결정
-        ////        appCoordinator.showMain()
-        appCoordinator.showLoggedOut()
-//        // TODO-END
-
-        // 뷰 테스트용!
-//        window.rootViewController = OnboardingCompletionViewController(viewModel: OnboardingCompletionViewModel())
+        appComponent.loginService.checkLogin()
+            .subscribe(onNext: { result in
+                switch result {
+                case .succeed:
+                    appCoordinator.showMain()
+                default:
+                    appCoordinator.showLoggedOut()
+                }
+            })
+            .disposed(by: disposeBag)
 
         window.makeKeyAndVisible()
 

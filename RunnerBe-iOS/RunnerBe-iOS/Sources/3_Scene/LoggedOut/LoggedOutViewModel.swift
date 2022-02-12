@@ -9,28 +9,46 @@ import Foundation
 import RxSwift
 
 final class LoggedOutViewModel: BaseViewModel {
+    let loginService: LoginService
+
     // MARK: Lifecycle
 
-    init(
-        kakaoLoginService: LoginServiceable,
-        naverLoginService: LoginServiceable
-    ) {
-        kakaoNaverService = kakaoLoginService
-        self.naverLoginService = naverLoginService
+    init(loginService: LoginService) {
+        self.loginService = loginService
         super.init()
 
-        input.kakaoLogin.subscribe(onNext: {
-            _ = kakaoLoginService.login()
-        })
-        .disposed(by: disposeBag)
+        inputs.kakaoLogin
+            .flatMap { loginService.login(with: .kakao) }
+            .subscribe(onNext: { result in
+                switch result {
+                case .member, .succeed:
+                    self.routes.loginSuccess.onNext(())
+                case .nonMember:
+                    self.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    // TODO: 로그인 실패시 어떻게 처리
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
 
-        input.naverLogin.subscribe(onNext: {
-            _ = naverLoginService.login()
-        })
-        .disposed(by: disposeBag)
+        inputs.naverLogin
+            .flatMap { loginService.login(with: .naver) }
+            .subscribe(onNext: { result in
+                switch result {
+                case .member, .succeed:
+                    self.routes.loginSuccess.onNext(())
+                case .nonMember:
+                    self.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    // TODO: 로그인 실패시 어떻게 처리
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
 
-        input.appleLogin.subscribe(onNext: {
-            self.route.loginSuccess.onNext(())
+        inputs.appleLogin.subscribe(onNext: {
+            self.routes.nonMember.onNext(())
         })
         .disposed(by: disposeBag)
     }
@@ -49,13 +67,11 @@ final class LoggedOutViewModel: BaseViewModel {
 
     struct Route {
         let loginSuccess = PublishSubject<Void>()
+        let nonMember = PublishSubject<Void>()
     }
 
-    let kakaoNaverService: LoginServiceable
-    let naverLoginService: LoginServiceable
-
     let disposeBag = DisposeBag()
-    let input = Input()
-    let output = Output()
-    let route = Route()
+    let inputs = Input()
+    let outputs = Output()
+    let routes = Route()
 }
