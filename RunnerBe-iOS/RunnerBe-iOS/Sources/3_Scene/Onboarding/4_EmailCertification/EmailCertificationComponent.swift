@@ -8,7 +8,10 @@
 import Foundation
 import NeedleFoundation
 
-protocol EmailCertificationDependency: Dependency {}
+protocol EmailCertificationDependency: Dependency {
+    var loginKeyChainService: LoginKeyChainService { get }
+    var signupKeyChainService: SignupKeyChainService { get }
+}
 
 final class EmailCertificationComponent: Component<EmailCertificationDependency> {
     var scene: (VC: UIViewController, VM: EmailCertificationViewModel) {
@@ -30,5 +33,28 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
 
     var initModalComponent: EmailCertificationInitModalComponent {
         return EmailCertificationInitModalComponent(parent: self)
+    }
+
+    var signupService: SignupService {
+        return shared { BasicSignupService(
+            loginKeyChainService: dependency.loginKeyChainService,
+            signupKeyChainService: dependency.signupKeyChainService,
+            signupAPIService: signupAPIService,
+            emailCertificationService: emailCertificationService,
+            imageUploadService: imageUploadService
+        )
+        }
+    }
+
+    private var signupAPIService: SignupAPIService {
+        return shared { BasicSignupAPIService() }
+    }
+
+    private var emailCertificationService: EmailCertificationService {
+        return shared { BasicEmailCertificationService() }
+    }
+
+    private var imageUploadService: ImageUploadService {
+        return shared { BasicImageUploadService() }
     }
 }

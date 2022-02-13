@@ -5,6 +5,8 @@
 //  Created by 김신우 on 2022/01/29.
 //
 
+import Firebase
+
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
@@ -23,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         registerProviderFactories()
+        FirebaseApp.configure()
+
         RxKakaoSDK.initSDK(appKey: AppKeys.KakaoKey)
 
         let naverLogin = NaverThirdPartyLoginConnection.getSharedInstance()

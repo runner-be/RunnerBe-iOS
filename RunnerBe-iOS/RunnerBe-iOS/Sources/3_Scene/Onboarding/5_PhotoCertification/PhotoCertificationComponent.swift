@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol PhotoCertificationDependency: Dependency {}
+protocol PhotoCertificationDependency: Dependency {
+    var signupService: SignupService { get }
+}
 
 final class PhotoCertificationComponent: Component<PhotoCertificationDependency> {
     var scene: (VC: UIViewController, VM: PhotoCertificationViewModel) {
@@ -17,7 +19,7 @@ final class PhotoCertificationComponent: Component<PhotoCertificationDependency>
     }
 
     private var viewModel: PhotoCertificationViewModel {
-        return PhotoCertificationViewModel()
+        return PhotoCertificationViewModel(signupService: dependency.signupService)
     }
 
     var photoModalComponent: PhotoModalComponent {

@@ -26,7 +26,7 @@ class BasicLoginAPIService: LoginAPIService {
         provider.rx.request(.login(type: social, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (response: LoginResponse, json: JSON)? in
+            .map { json -> (response: BasicResponse, json: JSON)? in
                 #if DEBUG
                     print("[LoginAPIService] login(with: \(social), token: \(token))")
                 #endif
@@ -40,7 +40,7 @@ class BasicLoginAPIService: LoginAPIService {
                 #if DEBUG
                     print("result:\n\(json)")
                 #endif
-                return try? (response: LoginResponse(json: json), json: json)
+                return try? (response: BasicResponse(json: json), json: json)
             }
             .map {
                 guard let result = $0

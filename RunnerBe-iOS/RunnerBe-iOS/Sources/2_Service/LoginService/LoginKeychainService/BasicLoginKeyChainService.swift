@@ -23,8 +23,8 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
         }
 
         set {
+            keychainWrapper.remove(forKey: .loginTokenKey)
             if let loginToken = newValue {
-                keychainWrapper.remove(forKey: .loginTokenKey)
                 keychainWrapper.set(loginToken.token, forKey: KeychainWrapper.Key.loginTokenKey.rawValue)
             }
         }

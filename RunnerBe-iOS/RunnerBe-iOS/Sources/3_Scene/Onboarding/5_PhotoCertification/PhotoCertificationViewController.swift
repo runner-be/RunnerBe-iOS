@@ -81,7 +81,7 @@ final class PhotoCertificationViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
 
-        viewModel.outputs.photo
+        viewModel.outputs.idCardImage
             .subscribe(onNext: { [weak self] data in
                 self?.photoView.image = data != nil ? UIImage(data: data!) : nil
             })
@@ -294,7 +294,7 @@ extension PhotoCertificationViewController: UIImagePickerControllerDelegate, UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let image = info[.originalImage] as? UIImage
         photoView.image = image
-
+        viewModel.inputs.photoSelected.onNext(image?.pngData())
         picker.dismiss(animated: true)
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-struct LoginResponse {
+struct BasicResponse {
     let isSuccess: Bool
     let code: Int
     let message: String

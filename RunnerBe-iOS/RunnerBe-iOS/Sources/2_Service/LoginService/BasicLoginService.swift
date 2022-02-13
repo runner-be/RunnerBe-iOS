@@ -9,10 +9,10 @@ import Foundation
 import RxSwift
 
 final class BasicLoginService: LoginService {
-    var loginKeyChainService: LoginKeyChainService
-    let kakaoLoginService: SocialLoginService
-    let naverLoginService: SocialLoginService
-    let loginAPIService: LoginAPIService
+    private var loginKeyChainService: LoginKeyChainService
+    private let kakaoLoginService: SocialLoginService
+    private let naverLoginService: SocialLoginService
+    private let loginAPIService: LoginAPIService
 
     init(
         loginKeyChainService: LoginKeyChainService,

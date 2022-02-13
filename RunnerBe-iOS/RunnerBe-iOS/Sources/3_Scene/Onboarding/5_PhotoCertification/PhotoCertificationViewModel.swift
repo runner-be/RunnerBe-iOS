@@ -14,7 +14,11 @@ enum ImagePickerType {
 }
 
 final class PhotoCertificationViewModel: BaseViewModel {
-    override init() {
+    private let signupService: SignupService
+    private var image: Data?
+
+    init(signupService: SignupService) {
+        self.signupService = signupService
         super.init()
 
         inputs.tapPhoto
@@ -31,7 +35,8 @@ final class PhotoCertificationViewModel: BaseViewModel {
 
         inputs.tapDeletePhoto
             .subscribe(onNext: { [weak self] in
-                self?.outputs.photo.onNext(nil)
+                self?.image = nil
+                self?.outputs.idCardImage.onNext(nil)
                 self?.outputs.enableCertificate.onNext(false)
             })
             .disposed(by: disposeBag)
@@ -46,8 +51,32 @@ final class PhotoCertificationViewModel: BaseViewModel {
             .subscribe(outputs.enableCertificate)
             .disposed(by: disposeBag)
 
+        inputs.photoSelected
+            .subscribe(onNext: { [weak self] data in
+                self?.image = data
+            })
+            .disposed(by: disposeBag)
+
         inputs.tapCertificate
-            .subscribe(routes.certificate)
+            .map { [weak self] () -> Observable<SignupWithIdCardResult> in
+                guard let self = self,
+                      let data = self.image
+                else { return .just(.imageUploadFail) }
+                return self.signupService.certificateIdCardImage(data)
+            }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .imageUploaded:
+                    self?.routes.certificate.onNext(())
+                case .imageUploadFail:
+                    // TODO: 이미지 업로드 실패시 안내문구? 추가
+                    break
+                case .needUUID:
+                    // TODO: UUID 오류시 해결방안 생각해보기
+                    break
+                }
+            })
             .disposed(by: disposeBag)
     }
 
@@ -57,10 +86,11 @@ final class PhotoCertificationViewModel: BaseViewModel {
         var tapPhoto = PublishSubject<Void>()
         var tapDeletePhoto = PublishSubject<Void>()
         var tapCertificate = PublishSubject<Void>()
+        var photoSelected = PublishSubject<Data?>()
     }
 
     struct Output {
-        var photo = BehaviorSubject<Data?>(value: nil)
+        var idCardImage = PublishSubject<Data?>()
         var enableCertificate = PublishSubject<Bool>()
     }
 

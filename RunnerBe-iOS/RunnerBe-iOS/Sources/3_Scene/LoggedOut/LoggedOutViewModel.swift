@@ -10,11 +10,13 @@ import RxSwift
 
 final class LoggedOutViewModel: BaseViewModel {
     let loginService: LoginService
+    private var signupKeyChainService: SignupKeyChainService
 
     // MARK: Lifecycle
 
-    init(loginService: LoginService) {
+    init(loginService: LoginService, signupKeyChainService: SignupKeyChainService) {
         self.loginService = loginService
+        self.signupKeyChainService = signupKeyChainService
         super.init()
 
         inputs.kakaoLogin
@@ -23,7 +25,8 @@ final class LoggedOutViewModel: BaseViewModel {
                 switch result {
                 case .member, .succeed:
                     self.routes.loginSuccess.onNext(())
-                case .nonMember:
+                case let .nonMember(uuid):
+                    self.signupKeyChainService.uuid = uuid
                     self.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     // TODO: 로그인 실패시 어떻게 처리
@@ -38,7 +41,8 @@ final class LoggedOutViewModel: BaseViewModel {
                 switch result {
                 case .member, .succeed:
                     self.routes.loginSuccess.onNext(())
-                case .nonMember:
+                case let .nonMember(uuid):
+                    self.signupKeyChainService.uuid = uuid
                     self.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     // TODO: 로그인 실패시 어떻게 처리

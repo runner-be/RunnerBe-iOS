@@ -56,8 +56,6 @@
 // MARK: - SelectGender
 "SelectGender.NavBar.title" = "TITLE";
 "SelectGender.title" = "성별을 선택해주세요.";
-"SelectGender.Gender.male" = "남성";
-"SelectGender.Gender.female" = "여성";
 "SelectGender.Button.Next.title" = "다음";
 
 // MARK: - SelectJobGroup
@@ -66,20 +64,6 @@
 "SelectJobGroup.title2" = "활동하시나요?";
 "SelectJobGroup.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
 "SelectJobGroup.Button.Next.title" = "다음";
-"SelectJobGroup.Group.1" = "공무원";
-"SelectJobGroup.Group.2" = "교육";
-"SelectJobGroup.Group.3" = "개발";
-"SelectJobGroup.Group.4" = "기획/전략/경영";
-"SelectJobGroup.Group.5" = "디자인";
-"SelectJobGroup.Group.6" = "마케팅/PR";
-"SelectJobGroup.Group.7" = "서비스";
-"SelectJobGroup.Group.8" = "생산";
-"SelectJobGroup.Group.9" = "연구";
-"SelectJobGroup.Group.10" = "영업/제휴";
-"SelectJobGroup.Group.11" = "의료";
-"SelectJobGroup.Group.12" = "인사";
-"SelectJobGroup.Group.13" = "재무/회계";
-"SelectJobGroup.Group.14" = "CS";
 
 // MARK: - emailCertification
 "EmailCertification.NavBar.title" = "TITLE";
@@ -136,3 +120,26 @@
 "OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
 "OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
 "OnboardingCompletion.Button.start" = "Start!";
+
+
+
+// MARK: - Job
+
+"Job.PSV" = "공무원";
+"Job.EDU" = "교육";
+"Job.DEV" = "개발";
+"Job.PSM" = "기획/전략/경영";
+"Job.DES" = "디자인";
+"Job.MPR" = "마케팅/PR";
+"Job.SER" = "서비스";
+"Job.PRO" = "생산";
+"Job.RES" = "연구";
+"Job.SAF" = "영업/제휴";
+"Job.MED" = "의료";
+"Job.HUR" = "인사";
+"Job.ACC" = "재무/회계";
+"Job.CUS" = "CS";
+
+// MARK: - Gender
+"Gender.male" = "남성";
+"Gender.female" = "여성";

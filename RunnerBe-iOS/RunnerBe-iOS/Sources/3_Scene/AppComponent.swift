@@ -26,19 +26,19 @@ final class AppComponent: BootstrapComponent {
         return MainTabComponent(parent: self)
     }
 
-    private var kakaoLoginService: KakaoLoginService {
+    var kakaoLoginService: KakaoLoginService {
         return shared { KakaoLoginService() }
     }
 
-    private var naverLoginService: NaverLoginService {
+    var naverLoginService: NaverLoginService {
         return shared { NaverLoginService() }
     }
 
-    private var loginKeyChainService: LoginKeyChainService {
+    var loginKeyChainService: LoginKeyChainService {
         return shared { BasicLoginKeyChainService() }
     }
 
-    private var loginAPIService: LoginAPIService {
+    var loginAPIService: LoginAPIService {
         return shared { BasicLoginAPIService() }
     }
 }

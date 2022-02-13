@@ -87,11 +87,11 @@ final class SelectGenderViewController: BaseViewController {
     }
 
     private var femaleLabel = OnOffLabel().then { label in
-        label.text = L10n.SelectGender.Gender.female
+        label.text = L10n.Gender.female
     }
 
     private var malelabel = OnOffLabel().then { label in
-        label.text = L10n.SelectGender.Gender.male
+        label.text = L10n.Gender.male
     }
 
     private var genderLabelGroup = OnOffLabelGroup().then { group in

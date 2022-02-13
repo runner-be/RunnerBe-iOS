@@ -9,17 +9,17 @@ import Foundation
 import RxSwift
 
 final class BirthViewModel: BaseViewModel {
+    private var signupKeyChainService: SignupKeyChainService
+    private let dateService: DateService
+
     // MARK: Lifecycle
 
-    override init() {
+    init(signupKeyChainService: SignupKeyChainService, dateService: DateService) {
+        self.signupKeyChainService = signupKeyChainService
+        self.dateService = dateService
         super.init()
 
-        // TODO: DateFormatter DI
-        let today = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        let yearString = dateFormatter.string(from: today)
-        let thisYear = Int(yearString) ?? 2020
+        let thisYear = Int(dateService.getCurrent(format: .yyyy)) ?? dateService.defaultYear
 
         ((thisYear - 80) ... thisYear).reversed()
             .forEach { self.outputs.items.append($0) }
@@ -31,6 +31,12 @@ final class BirthViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapNext
+            .do(onNext: { [weak self] in
+                guard let self = self else { return }
+                let idx = try! self.inputs.itemSelected.value()
+                let year = self.outputs.items[idx]
+                self.signupKeyChainService.birthDay = year
+            })
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
 

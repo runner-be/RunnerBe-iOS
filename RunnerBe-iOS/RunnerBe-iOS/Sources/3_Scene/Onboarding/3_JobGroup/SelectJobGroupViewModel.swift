@@ -9,9 +9,12 @@ import Foundation
 import RxSwift
 
 final class SelectJobGroupViewModel: BaseViewModel {
+    var signupKeyChainService: SignupKeyChainService
+
     // MARK: Lifecycle
 
-    override init() {
+    init(signupKeyChainService: SignupKeyChainService) {
+        self.signupKeyChainService = signupKeyChainService
         super.init()
 
         inputs.tapCancel
@@ -27,7 +30,16 @@ final class SelectJobGroupViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapGroup
-            .map { $0.isEmpty == false }
+            .map { selected -> Job in
+                guard let idx = selected.first,
+                      idx >= 0, idx < Job.allCases.count
+                else { return .none }
+                return Job.allCases[idx]
+            }
+            .do(onNext: { [weak self] job in
+                self?.signupKeyChainService.job = job
+            })
+            .map { $0 != .none }
             .bind(to: outputs.enableNext)
             .disposed(by: disposeBag)
     }

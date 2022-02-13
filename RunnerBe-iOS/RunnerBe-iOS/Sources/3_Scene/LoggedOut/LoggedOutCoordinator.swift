@@ -26,7 +26,7 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
         let scene = component.scene
         navController.pushViewController(scene.VC, animated: false)
 
-        scene.VM.routes.loginSuccess
+        scene.VM.routes.nonMember
             .subscribe(onNext: {
                 self.pushPolicyTerm()
             })

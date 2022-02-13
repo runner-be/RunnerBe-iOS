@@ -19,10 +19,14 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
     }
 
     var viewModel: LoggedOutViewModel {
-        return LoggedOutViewModel(loginService: dependency.loginService)
+        return LoggedOutViewModel(loginService: dependency.loginService, signupKeyChainService: signupKeyChainService)
     }
 
     var policyTermComponent: PolicyTermComponent {
         return PolicyTermComponent(parent: self)
+    }
+
+    var signupKeyChainService: SignupKeyChainService {
+        return shared { BasicSignupKeyChainService() }
     }
 }

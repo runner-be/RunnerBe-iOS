@@ -85,6 +85,44 @@ internal enum L10n {
     }
   }
 
+  internal enum Gender {
+    /// 여성
+    internal static let female = L10n.tr("Localizable", "Gender.female")
+    /// 남성
+    internal static let male = L10n.tr("Localizable", "Gender.male")
+  }
+
+  internal enum Job {
+    /// 재무/회계
+    internal static let acc = L10n.tr("Localizable", "Job.ACC")
+    /// CS
+    internal static let cus = L10n.tr("Localizable", "Job.CUS")
+    /// 디자인
+    internal static let des = L10n.tr("Localizable", "Job.DES")
+    /// 개발
+    internal static let dev = L10n.tr("Localizable", "Job.DEV")
+    /// 교육
+    internal static let edu = L10n.tr("Localizable", "Job.EDU")
+    /// 인사
+    internal static let hur = L10n.tr("Localizable", "Job.HUR")
+    /// 의료
+    internal static let med = L10n.tr("Localizable", "Job.MED")
+    /// 마케팅/PR
+    internal static let mpr = L10n.tr("Localizable", "Job.MPR")
+    /// 생산
+    internal static let pro = L10n.tr("Localizable", "Job.PRO")
+    /// 기획/전략/경영
+    internal static let psm = L10n.tr("Localizable", "Job.PSM")
+    /// 공무원
+    internal static let psv = L10n.tr("Localizable", "Job.PSV")
+    /// 연구
+    internal static let res = L10n.tr("Localizable", "Job.RES")
+    /// 영업/제휴
+    internal static let saf = L10n.tr("Localizable", "Job.SAF")
+    /// 서비스
+    internal static let ser = L10n.tr("Localizable", "Job.SER")
+  }
+
   internal enum LoggedOut {
     internal enum AppleBtn {
       /// Login with Apple
@@ -274,12 +312,6 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "SelectGender.Button.Next.title")
       }
     }
-    internal enum Gender {
-      /// 여성
-      internal static let female = L10n.tr("Localizable", "SelectGender.Gender.female")
-      /// 남성
-      internal static let male = L10n.tr("Localizable", "SelectGender.Gender.male")
-    }
     internal enum NavBar {
       /// TITLE
       internal static let title = L10n.tr("Localizable", "SelectGender.NavBar.title")
@@ -298,36 +330,6 @@ internal enum L10n {
         /// 다음
         internal static let title = L10n.tr("Localizable", "SelectJobGroup.Button.Next.title")
       }
-    }
-    internal enum Group {
-      /// 공무원
-      internal static let _1 = L10n.tr("Localizable", "SelectJobGroup.Group.1")
-      /// 영업/제휴
-      internal static let _10 = L10n.tr("Localizable", "SelectJobGroup.Group.10")
-      /// 의료
-      internal static let _11 = L10n.tr("Localizable", "SelectJobGroup.Group.11")
-      /// 인사
-      internal static let _12 = L10n.tr("Localizable", "SelectJobGroup.Group.12")
-      /// 재무/회계
-      internal static let _13 = L10n.tr("Localizable", "SelectJobGroup.Group.13")
-      /// CS
-      internal static let _14 = L10n.tr("Localizable", "SelectJobGroup.Group.14")
-      /// 교육
-      internal static let _2 = L10n.tr("Localizable", "SelectJobGroup.Group.2")
-      /// 개발
-      internal static let _3 = L10n.tr("Localizable", "SelectJobGroup.Group.3")
-      /// 기획/전략/경영
-      internal static let _4 = L10n.tr("Localizable", "SelectJobGroup.Group.4")
-      /// 디자인
-      internal static let _5 = L10n.tr("Localizable", "SelectJobGroup.Group.5")
-      /// 마케팅/PR
-      internal static let _6 = L10n.tr("Localizable", "SelectJobGroup.Group.6")
-      /// 서비스
-      internal static let _7 = L10n.tr("Localizable", "SelectJobGroup.Group.7")
-      /// 생산
-      internal static let _8 = L10n.tr("Localizable", "SelectJobGroup.Group.8")
-      /// 연구
-      internal static let _9 = L10n.tr("Localizable", "SelectJobGroup.Group.9")
     }
     internal enum NavBar {
       /// TITLE

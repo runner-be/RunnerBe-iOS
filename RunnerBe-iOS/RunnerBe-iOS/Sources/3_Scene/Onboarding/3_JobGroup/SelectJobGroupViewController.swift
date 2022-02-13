@@ -108,22 +108,11 @@ final class SelectJobGroupViewController: BaseViewController {
         label.text = L10n.SelectJobGroup.subTitle
     }
 
-    private var jobLabels = [
-        OnOffLabel(text: L10n.SelectJobGroup.Group._1),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._2),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._3),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._4),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._5),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._6),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._7),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._8),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._9),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._10),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._11),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._12),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._13),
-        OnOffLabel(text: L10n.SelectJobGroup.Group._14),
-    ]
+    private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
+        if job != .none {
+            partialResult.append(OnOffLabel(text: job.name))
+        }
+    }
 
     private var jobGroup = OnOffLabelGroup().then { group in
         group.styleOn = OnOffLabel.Style(
