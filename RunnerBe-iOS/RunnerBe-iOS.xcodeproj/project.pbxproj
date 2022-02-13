@@ -14,7 +14,6 @@
 		C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */; };
 		C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA727B8315F00DEFF51 /* LoginToken.swift */; };
 		C3432CAB27B8317500DEFF51 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CAA27B8317500DEFF51 /* LoginResultData.swift */; };
-		C3432CAF27B8ACCD00DEFF51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3432CAE27B8ACCD00DEFF51 /* GoogleService-Info.plist */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
@@ -166,7 +165,6 @@
 		C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLoginKeyChainService.swift; sourceTree = "<group>"; };
 		C3432CA727B8315F00DEFF51 /* LoginToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToken.swift; sourceTree = "<group>"; };
 		C3432CAA27B8317500DEFF51 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
-		C3432CAE27B8ACCD00DEFF51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -389,7 +387,6 @@
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
-				C3432CAE27B8ACCD00DEFF51 /* GoogleService-Info.plist */,
 			);
 			path = "RunnerBe-iOS";
 			sourceTree = "<group>";
@@ -1070,7 +1067,6 @@
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
 				C39D86CA27AEB78700A9C201 /* AppleSDGothicNeoEB.ttf in Resources */,
 				C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */,
-				C3432CAF27B8ACCD00DEFF51 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
