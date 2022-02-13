@@ -8,20 +8,20 @@
 import Foundation
 
 enum Job: CaseIterable {
-    case psv
-    case edu
-    case psm
-    case dev
-    case mpr
-    case ser
-    case des
-    case pro
-    case res
-    case saf
-    case med
-    case hur
-    case acc
-    case cus
+    case psv // 공무원
+    case edu // 교육
+    case dev // 개발
+    case psm // 기획/전략/경영
+    case des // 디자인
+    case mpr // 마케팅/PR
+    case ser // 서비스
+    case pro // 생산
+    case res // 연구
+    case saf // 영업/제휴
+    case med // 의료
+    case hur // 인사
+    case acc // 재무 회계
+    case cus // CS
     case none
 }
 
