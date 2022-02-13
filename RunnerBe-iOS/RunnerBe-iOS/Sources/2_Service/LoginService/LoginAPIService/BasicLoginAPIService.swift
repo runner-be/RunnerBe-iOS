@@ -46,9 +46,9 @@ class BasicLoginAPIService: LoginAPIService {
                 guard let result = $0
                 else { return nil }
                 switch result.response.code {
-                case let code where code == 1001:
+                case let code where code == 1001: // 1001 = 회원 로그인 성공
                     return try? LoginResultData.Member(json: result.json)
-                case let code where code == 1002:
+                case let code where code == 1002: // 1002 = 비회원 로그인 성공
                     return try? LoginResultData.NonMember(json: result.json)
                 default:
                     return nil

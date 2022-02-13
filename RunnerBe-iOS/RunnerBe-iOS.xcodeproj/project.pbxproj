@@ -307,6 +307,20 @@
 			path = LoginKeychainService;
 			sourceTree = "<group>";
 		};
+		C3432CAC27B8448400DEFF51 /* SignUpService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUpService;
+			sourceTree = "<group>";
+		};
+		C3432CAD27B8449900DEFF51 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		C34FDA1127AD5997007718F8 = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +428,7 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C3432CAC27B8448400DEFF51 /* SignUpService */,
 				C3AD115827B825F500A7044C /* LoginService */,
 			);
 			path = 2_Service;
@@ -474,6 +489,7 @@
 		C361B6C127B285FC00824ABE /* 1_EndPoint */ = {
 			isa = PBXGroup;
 			children = (
+				C3432CAD27B8449900DEFF51 /* SignUp */,
 				C3AD114727B8111100A7044C /* Login */,
 				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
 			);
