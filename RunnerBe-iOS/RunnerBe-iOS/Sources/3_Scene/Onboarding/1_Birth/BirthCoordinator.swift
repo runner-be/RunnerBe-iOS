@@ -62,15 +62,14 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     // MARK: Private
 
     private func pushSelectGenderCoord() {
-        let selectGenderComp = component.selectGenderComponent
+        let comp = component.selectGenderComponent
 
-        let selectGenderCoord = SelectGenderCoordinator(component: selectGenderComp, navController: navController)
-        let uuid = selectGenderCoord.id
-
-        let disposable = coordinate(coordinator: selectGenderCoord)
+        let coord = SelectGenderCoordinator(component: comp, navController: navController)
+        
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: selectGenderCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -78,18 +77,17 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        childBags[uuid, default: []].append(disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord() {
-        let cancelModalComp = component.onboardingCancelModalComponent
-        let cancelModalCoord = OnboardingCancelModalCoordinator(component: cancelModalComp, navController: navController)
-        let uuid = cancelModalCoord.id
-
-        let disposable = coordinate(coordinator: cancelModalCoord)
+        let comp = component.onboardingCancelModalComponent
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] modalResult in
-                defer { self?.release(coordinator: cancelModalCoord) }
+                defer { self?.release(coordinator: coord) }
                 switch modalResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -98,6 +96,6 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        childBags[uuid, default: []].append(disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 }
