@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum LoggedOutResult {}
+enum LoggedOutResult {
+    case loginSuccess(isCertificated: Bool)
+}
 
 final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
     // MARK: Lifecycle
@@ -26,9 +28,25 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
         let scene = component.scene
         navController.pushViewController(scene.VC, animated: false)
 
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                defer { scene.VC.removeFromParent() }
+                switch result {
+                case .loginSuccess:
+                    self?.navController.popViewController(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
+
         scene.VM.routes.nonMember
-            .subscribe(onNext: {
-                self.pushPolicyTerm()
+            .subscribe(onNext: { [weak self] in
+                self?.pushPolicyTerm()
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.loginSuccess
+            .subscribe(onNext: { [weak self] isCertificated in
+                self?.closeSignal.onNext(.loginSuccess(isCertificated: isCertificated))
             })
             .disposed(by: disposeBag)
     }
@@ -36,17 +54,15 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
     // MARK: Private
 
     private func pushPolicyTerm() {
-        let policyComp = component.policyTermComponent
+        let comp = component.policyTermComponent
+        let coord = PolicyTermCoordinator(component: comp, navController: navController)
 
-        let policyCoord = PolicyTermCoordinator(component: policyComp, navController: navController)
-        let uuid = policyCoord.id
-
-        let disposable = coordinate(coordinator: policyCoord)
+        let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] _ in
-                self?.release(coordinator: policyCoord)
+                self?.release(coordinator: coord)
             })
 
-        childBags[uuid, default: []].append(disposable)
+        addChildBag(id: coord.id, disposable: disposable)
     }
 }

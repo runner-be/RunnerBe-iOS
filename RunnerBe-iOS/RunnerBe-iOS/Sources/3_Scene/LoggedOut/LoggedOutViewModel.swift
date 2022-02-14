@@ -20,16 +20,18 @@ final class LoggedOutViewModel: BaseViewModel {
         super.init()
 
         inputs.kakaoLogin
-            .flatMap { loginService.login(with: .kakao) }
-            .subscribe(onNext: { result in
+            .map { [weak self] in self?.loginService.login(with: .kakao) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .member, .succeed:
-                    self.routes.loginSuccess.onNext(true)
+                    self?.routes.loginSuccess.onNext(true)
                 case .memberWaitCertification:
-                    self.routes.loginSuccess.onNext(false)
+                    self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
-                    self.signupKeyChainService.uuid = uuid
-                    self.routes.nonMember.onNext(())
+                    self?.signupKeyChainService.uuid = uuid
+                    self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     // TODO: 로그인 실패시 어떻게 처리
                     break
@@ -38,16 +40,18 @@ final class LoggedOutViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.naverLogin
-            .flatMap { loginService.login(with: .naver) }
-            .subscribe(onNext: { result in
+            .map { [weak self] in self?.loginService.login(with: .naver) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .member, .succeed:
-                    self.routes.loginSuccess.onNext(true)
+                    self?.routes.loginSuccess.onNext(true)
                 case .memberWaitCertification:
-                    self.routes.loginSuccess.onNext(false)
+                    self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
-                    self.signupKeyChainService.uuid = uuid
-                    self.routes.nonMember.onNext(())
+                    self?.signupKeyChainService.uuid = uuid
+                    self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     // TODO: 로그인 실패시 어떻게 처리
                     break
@@ -55,8 +59,8 @@ final class LoggedOutViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.appleLogin.subscribe(onNext: {
-            self.routes.nonMember.onNext(())
+        inputs.appleLogin.subscribe(onNext: { [weak self] in
+            self?.routes.nonMember.onNext(())
         })
         .disposed(by: disposeBag)
     }

@@ -22,14 +22,26 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     override func start() {}
 
-    func showMain() {
+    func showMain(certificated _: Bool) {
         let mainTabbarCoord = MainTabbarCoordinator(component: component.mainTabComponent, navController: navController)
 
         coordinate(coordinator: mainTabbarCoord)
     }
 
     func showLoggedOut() {
-        let loggedOutCoord = LoggedOutCoordinator(component: component.loggedOutComponent, navController: navController)
-        coordinate(coordinator: loggedOutCoord)
+        let comp = component.loggedOutComponent
+        let coord = LoggedOutCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+
+                switch coordResult {
+                case let .loginSuccess(certificated):
+                    self?.showMain(certificated: certificated)
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
     }
 }

@@ -33,6 +33,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
         closeSignal
             .subscribe(onNext: { [weak self] result in
                 switch result {
+                    defer { scene.VC.removeFromParent() }
                 case .backward:
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:

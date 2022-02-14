@@ -22,18 +22,35 @@ class BasicLoginAPIService: LoginAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json in
+                #if DEBUG
+                    print("[LoginAPIService] login(with: token: \(token.jwt))")
+                #endif
                 guard let json = json,
                       let response = try? BasicResponse(json: json)
-                else { return .nonMember }
+                else {
+                    #if DEBUG
+                        print("result: (\(#line)) return .noneMember")
+                    #endif
+                    return .nonMember
+                }
 
                 if !response.isSuccess {
+                    #if DEBUG
+                        print("result: (\(#line)) isSuccess = false return .noneMember")
+                    #endif
                     return .nonMember
                 }
 
                 switch response.code {
                 case let code where code == 1001: // 인증 된 회원
+                    #if DEBUG
+                        print("result: (\(#line)) code = 1001(인증 된 회원) return .member")
+                    #endif
                     return .member
                 case let code where code == 1007: // 인증 대기
+                    #if DEBUG
+                        print("result: (\(#line)) code = 1007(인증 대기 회원) return .waitCertification")
+                    #endif
                     return .waitCertification
                 default:
                     return .nonMember
