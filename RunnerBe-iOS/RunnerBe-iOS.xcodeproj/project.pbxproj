@@ -103,6 +103,7 @@
 		C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926127BACCF300798F3A /* EmailAPI.swift */; };
 		C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926427BACFB100798F3A /* MailingAPIService.swift */; };
 		C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */; };
+		C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926B27BB0B1000798F3A /* TabCoordinator.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
 		C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114A27B8113000A7044C /* BaseAPI.swift */; };
@@ -265,6 +266,7 @@
 		C39E926127BACCF300798F3A /* EmailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAPI.swift; sourceTree = "<group>"; };
 		C39E926427BACFB100798F3A /* MailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailingAPIService.swift; sourceTree = "<group>"; };
 		C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMailingAPIService.swift; sourceTree = "<group>"; };
+		C39E926B27BB0B1000798F3A /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		C3AD114A27B8113000A7044C /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -706,8 +708,8 @@
 			children = (
 				C38F8F3D27AD99E50050137D /* BookMarkComponent.swift */,
 				C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */,
-				C38F8F2C27AD96480050137D /* BookMarkViewController.swift */,
 				C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */,
+				C38F8F2C27AD96480050137D /* BookMarkViewController.swift */,
 			);
 			path = 1_BookMark;
 			sourceTree = "<group>";
@@ -717,8 +719,8 @@
 			children = (
 				C38F8F3F27AD99F30050137D /* MessageComponent.swift */,
 				C38F8F4727AD9EAA0050137D /* MessageCoordinator.swift */,
-				C38F8F2E27AD96530050137D /* MessageViewController.swift */,
 				C38F8F3627AD96E10050137D /* MessageViewModel.swift */,
+				C38F8F2E27AD96530050137D /* MessageViewController.swift */,
 			);
 			path = 2_Message;
 			sourceTree = "<group>";
@@ -737,7 +739,7 @@
 		C38F8F5127ADB3F60050137D /* 6_Base */ = {
 			isa = PBXGroup;
 			children = (
-				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
+				C39E926827BB0ADA00798F3A /* Coordinator */,
 				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
 				C3BA45C627B5AEB40048CA76 /* BaseViewModel.swift */,
 			);
@@ -791,6 +793,15 @@
 				C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */,
 			);
 			path = MailingAPIService;
+			sourceTree = "<group>";
+		};
+		C39E926827BB0ADA00798F3A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
+				C39E926B27BB0B1000798F3A /* TabCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
@@ -1301,6 +1312,7 @@
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
+				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,

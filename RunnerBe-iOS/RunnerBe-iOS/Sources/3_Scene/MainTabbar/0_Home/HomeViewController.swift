@@ -5,12 +5,25 @@
 //  Created by 김신우 on 2022/02/05.
 //
 
+import RxCocoa
+import RxGesture
+import RxSwift
+import SnapKit
+import Then
 import UIKit
 
-final class HomeViewController: BaseViewController {
-    // MARK: Lifecycle
+class HomeViewController: BaseViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        initialLayout()
 
-    override init() {
+        viewModelInput()
+        viewModelOutput()
+    }
+
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
         super.init()
         configureTabItem()
     }
@@ -20,13 +33,18 @@ final class HomeViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .red
-        // Do any additional setup after loading the view.
-    }
+    private var viewModel: HomeViewModel
 
-    // MARK: Private
+    private func viewModelInput() {}
+    private func viewModelOutput() {}
+}
+
+// MARK: - Layout
+
+extension HomeViewController {
+    private func setupViews() {}
+
+    private func initialLayout() {}
 
     private func configureTabItem() {
         tabBarItem = UITabBarItem(
@@ -37,3 +55,7 @@ final class HomeViewController: BaseViewController {
         tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
     }
 }
+
+/*
+
+ */

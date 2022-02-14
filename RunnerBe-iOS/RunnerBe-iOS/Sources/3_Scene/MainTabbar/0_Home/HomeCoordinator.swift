@@ -7,15 +7,16 @@
 
 import Foundation
 import RxSwift
+import UIKit
 
 protocol HomeResult {}
 
-final class HomeCoordinator: BasicCoordinator<HomeResult> {
+final class HomeCoordinator: TabCoordinator<HomeResult> {
     // MARK: Lifecycle
 
-    init(component: HomeComponent, navController: UINavigationController) {
+    init(component: HomeComponent, tabController: UITabBarController, navController: UINavigationController) {
         self.component = component
-        super.init(navController: navController)
+        super.init(tabController: tabController, navController: navController)
     }
 
     // MARK: Internal

@@ -11,7 +11,14 @@ import NeedleFoundation
 protocol HomeDependency: Dependency {}
 
 final class HomeComponent: Component<HomeDependency> {
-    var homeViewController: UIViewController {
-        return shared { HomeViewController() }
+    var scene: (VC: HomeViewController, VM: HomeViewModel) {
+        return shared {
+            let viewModel = viewModel
+            return (VC: HomeViewController(viewModel: viewModel), VM: viewModel)
+        }
+    }
+
+    var viewModel: HomeViewModel {
+        return HomeViewModel()
     }
 }

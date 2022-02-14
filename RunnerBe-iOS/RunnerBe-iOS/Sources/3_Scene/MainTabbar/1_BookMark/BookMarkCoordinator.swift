@@ -10,12 +10,12 @@ import RxSwift
 
 protocol BookMarkResult {}
 
-final class BookMarkCoordinator: BasicCoordinator<BookMarkResult> {
+final class BookMarkCoordinator: TabCoordinator<HomeResult> {
     // MARK: Lifecycle
 
-    init(component: BookMarkComponent, navController: UINavigationController) {
+    init(component: BookMarkComponent, tabController: UITabBarController, navController: UINavigationController) {
         self.component = component
-        super.init(navController: navController)
+        super.init(tabController: tabController, navController: navController)
     }
 
     // MARK: Internal

@@ -10,12 +10,12 @@ import RxSwift
 
 protocol MyPageResult {}
 
-final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
+final class MyPageCoordinator: TabCoordinator<HomeResult> {
     // MARK: Lifecycle
 
-    init(component: MyPageComponent, navController: UINavigationController) {
+    init(component: MyPageComponent, tabController: UITabBarController, navController: UINavigationController) {
         self.component = component
-        super.init(navController: navController)
+        super.init(tabController: tabController, navController: navController)
     }
 
     // MARK: Internal

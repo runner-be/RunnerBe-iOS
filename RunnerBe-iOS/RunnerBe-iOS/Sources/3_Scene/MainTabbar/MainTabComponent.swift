@@ -16,18 +16,18 @@ final class MainTabComponent: Component<MainTabDependency> {
     }
 
     var homeComponent: HomeComponent {
-        return shared { HomeComponent(parent: self) }
+        return HomeComponent(parent: self)
     }
 
     var bookmarkComponent: BookMarkComponent {
-        return shared { BookMarkComponent(parent: self) }
+        return BookMarkComponent(parent: self)
     }
 
     var messageComponent: MessageComponent {
-        return shared { MessageComponent(parent: self) }
+        return MessageComponent(parent: self)
     }
 
     var myPageComponent: MyPageComponent {
-        return shared { MyPageComponent(parent: self) }
+        return MyPageComponent(parent: self)
     }
 }

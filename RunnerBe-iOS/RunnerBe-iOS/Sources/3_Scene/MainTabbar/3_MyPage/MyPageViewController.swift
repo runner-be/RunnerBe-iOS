@@ -4,13 +4,25 @@
 //
 //  Created by 김신우 on 2022/02/05.
 //
-
+import RxCocoa
+import RxGesture
+import RxSwift
+import SnapKit
+import Then
 import UIKit
 
-final class MyPageViewController: BaseViewController {
-    // MARK: Lifecycle
+class MyPageViewController: BaseViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        initialLayout()
 
-    override init() {
+        viewModelInput()
+        viewModelOutput()
+    }
+
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
         super.init()
         configureTabItem()
     }
@@ -20,13 +32,18 @@ final class MyPageViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        // Do any additional setup after loading the view.
-    }
+    private var viewModel: MyPageViewModel
 
-    // MARK: Private
+    private func viewModelInput() {}
+    private func viewModelOutput() {}
+}
+
+// MARK: - Layout
+
+extension MyPageViewController {
+    private func setupViews() {}
+
+    private func initialLayout() {}
 
     private func configureTabItem() {
         tabBarItem = UITabBarItem(

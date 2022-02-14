@@ -26,8 +26,8 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     var component: SelectJobGroupComponent
 
     override func start() {
-        let selectJob = component.scene
-        navController.pushViewController(selectJob.VC, animated: true)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -41,19 +41,19 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
             })
             .disposed(by: disposeBag)
 
-        selectJob.VM.routes.nextProcess
+        scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushEmailCertificationCoord()
             })
             .disposed(by: disposeBag)
 
-        selectJob.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        selectJob.VM.routes.backward
+        scene.VM.routes.backward
             .map { SelectJobGroupResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

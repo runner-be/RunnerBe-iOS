@@ -11,7 +11,14 @@ import NeedleFoundation
 protocol MessageDependency: Dependency {}
 
 final class MessageComponent: Component<MessageDependency> {
-    var messageViewController: UIViewController {
-        return shared { MessageViewController() }
+    var scene: (VC: MessageViewController, VM: MessageViewModel) {
+        return shared {
+            let viewModel = viewModel
+            return (VC: MessageViewController(viewModel: viewModel), VM: viewModel)
+        }
+    }
+
+    var viewModel: MessageViewModel {
+        return MessageViewModel()
     }
 }

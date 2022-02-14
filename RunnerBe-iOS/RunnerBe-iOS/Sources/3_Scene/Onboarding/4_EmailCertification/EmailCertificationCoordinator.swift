@@ -26,8 +26,8 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
     var component: EmailCertificationComponent
 
     override func start() {
-        let emailCertification = component.scene
-        navController.pushViewController(emailCertification.VC, animated: true)
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
 
         navController.rx.didShow
             .take(1)
@@ -48,19 +48,19 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
             })
             .disposed(by: disposeBag)
 
-        emailCertification.VM.routes.photoCertification
+        scene.VM.routes.photoCertification
             .subscribe(onNext: { [weak self] in
                 self?.pushPhotoCertificationCoord()
             })
             .disposed(by: disposeBag)
 
-        emailCertification.VM.routes.cancel
+        scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord()
             })
             .disposed(by: disposeBag)
 
-        emailCertification.VM.routes.backward
+        scene.VM.routes.backward
             .map { EmailCertificationResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)

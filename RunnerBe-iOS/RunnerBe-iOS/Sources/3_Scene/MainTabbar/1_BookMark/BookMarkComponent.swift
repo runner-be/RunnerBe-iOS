@@ -11,7 +11,14 @@ import NeedleFoundation
 protocol BookMarkDependency: Dependency {}
 
 final class BookMarkComponent: Component<BookMarkDependency> {
-    var bookMarkViewController: UIViewController {
-        return shared { BookMarkViewController() }
+    var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) {
+        return shared {
+            let viewModel = viewModel
+            return (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)
+        }
+    }
+
+    var viewModel: BookMarkViewModel {
+        return BookMarkViewModel()
     }
 }

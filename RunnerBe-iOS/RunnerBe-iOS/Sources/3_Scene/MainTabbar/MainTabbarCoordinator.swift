@@ -11,12 +11,12 @@ import UIKit
 
 enum MainTabbarResult {}
 
-final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
+final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
     // MARK: Lifecycle
 
     init(component: MainTabComponent, navController: UINavigationController) {
         self.component = component
-        super.init(navController: navController)
+        super.init(tabController: component.scene, navController: navController)
     }
 
     // MARK: Internal
@@ -30,31 +30,55 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     // MARK: Private
 
     private func startTabbarController() {
-        let tabScene = component.scene
-
         UITabBar.appearance().backgroundColor = UIColor.darkG6
-        tabScene.setColors(
+        tabController.setColors(
             iconNormal: UIColor.darkG35,
             selected: UIColor.primary
         )
 
-        let homeCoord = HomeCoordinator(component: component.homeComponent, navController: navController)
-        let bookmarkCoord = BookMarkCoordinator(component: component.bookmarkComponent, navController: navController)
-        let messageCoord = MessageCoordinator(component: component.messageComponent, navController: navController)
-        let mypageCoord = MyPageCoordinator(component: component.myPageComponent, navController: navController)
-
-        coordinate(coordinator: homeCoord)
-        coordinate(coordinator: bookmarkCoord)
-        coordinate(coordinator: messageCoord)
-        coordinate(coordinator: mypageCoord)
-
-        tabScene.viewControllers = [
-            homeCoord.component.homeViewController,
-            bookmarkCoord.component.bookMarkViewController,
-            messageCoord.component.messageViewController,
-            mypageCoord.component.myPageViewController,
+        tabController.viewControllers = [
+            configureAndGetHomeScene(),
+            configureAndGetBookMarkScene(),
+            configureAndGetMessageScene(),
+            configureAndGetMyPageScene(),
         ]
 
-        navController.pushViewController(tabScene, animated: false)
+        navController.pushViewController(tabController, animated: false)
+    }
+
+    private func configureAndGetHomeScene() -> UIViewController {
+        let comp = component.homeComponent
+        let coord = HomeCoordinator(component: comp, tabController: tabController, navController: navController)
+
+        coordinate(coordinator: coord)
+
+        return comp.scene.VC
+    }
+
+    private func configureAndGetBookMarkScene() -> UIViewController {
+        let comp = component.bookmarkComponent
+        let coord = BookMarkCoordinator(component: comp, tabController: tabController, navController: navController)
+
+        coordinate(coordinator: coord)
+
+        return comp.scene.VC
+    }
+
+    private func configureAndGetMessageScene() -> UIViewController {
+        let comp = component.messageComponent
+        let coord = MessageCoordinator(component: comp, tabController: tabController, navController: navController)
+
+        coordinate(coordinator: coord)
+
+        return comp.scene.VC
+    }
+
+    private func configureAndGetMyPageScene() -> UIViewController {
+        let comp = component.myPageComponent
+        let coord = MyPageCoordinator(component: comp, tabController: tabController, navController: navController)
+
+        coordinate(coordinator: coord)
+
+        return comp.scene.VC
     }
 }
