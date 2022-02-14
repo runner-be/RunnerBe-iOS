@@ -37,9 +37,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appComponent.loginService.checkLogin()
             .subscribe(onNext: { result in
                 switch result {
-                case .succeed:
+                case .member:
                     appCoordinator.showMain()
-                default:
+                case .memberWaitCertification:
+                    appCoordinator.showMain()
+                case .nonMember:
                     appCoordinator.showLoggedOut()
                 }
             })

@@ -25,7 +25,7 @@ final class LoggedOutViewModel: BaseViewModel {
                 switch result {
                 case .member, .succeed:
                     self.routes.loginSuccess.onNext(true)
-                case .memberNotCertificated:
+                case .memberWaitCertification:
                     self.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     self.signupKeyChainService.uuid = uuid
@@ -43,7 +43,7 @@ final class LoggedOutViewModel: BaseViewModel {
                 switch result {
                 case .member, .succeed:
                     self.routes.loginSuccess.onNext(true)
-                case .memberNotCertificated:
+                case .memberWaitCertification:
                     self.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     self.signupKeyChainService.uuid = uuid

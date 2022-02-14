@@ -26,13 +26,20 @@ final class BasicLoginService: LoginService {
         self.loginKeyChainService = loginKeyChainService
     }
 
-    func checkLogin() -> Observable<LoginResult> {
+    func checkLogin() -> Observable<CheckLoginResult> {
         guard let token = loginKeyChainService.token
-        else { return .just(.loginFail) }
+        else { return .just(.nonMember) }
 
         return loginAPIService.login(with: token)
-            .map { loginSuccess in
-                loginSuccess ? LoginResult.succeed : LoginResult.loginFail
+            .map { result in
+                switch result {
+                case .member:
+                    return .member
+                case .nonMember:
+                    return .nonMember
+                case .waitCertification:
+                    return .memberWaitCertification
+                }
             }
     }
 
@@ -58,13 +65,13 @@ final class BasicLoginService: LoginService {
                 else { return LoginResult.loginFail }
                 switch result {
                 case let LoginAPIResult.member(_, jwt, _):
-                    self?.loginKeyChainService.token = LoginToken(token: jwt)
+                    self?.loginKeyChainService.token = LoginToken(jwt: jwt)
                     return .member
                 case let LoginAPIResult.nonMember(uuid, _):
                     return .nonMember(uuid: uuid)
                 case let LoginAPIResult.memberNotCertificated(_, jwt, _):
-                    self?.loginKeyChainService.token = LoginToken(token: jwt)
-                    return .memberNotCertificated
+                    self?.loginKeyChainService.token = LoginToken(jwt: jwt)
+                    return .memberWaitCertification
                 }
             }
     }

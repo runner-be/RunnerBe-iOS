@@ -27,7 +27,7 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
                 #endif
                 return nil
             }
-            let loginToken = LoginToken(token: token)
+            let loginToken = LoginToken(jwt: token)
             #if DEBUG
                 print("\t= \"\(loginToken)\"")
             #endif
@@ -40,7 +40,7 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
             #endif
             keychainWrapper.remove(forKey: .loginTokenKey)
             if let loginToken = newValue {
-                keychainWrapper.set(loginToken.token, forKey: KeychainWrapper.Key.loginTokenKey.rawValue)
+                keychainWrapper.set(loginToken.jwt, forKey: KeychainWrapper.Key.loginTokenKey.rawValue)
             }
         }
     }

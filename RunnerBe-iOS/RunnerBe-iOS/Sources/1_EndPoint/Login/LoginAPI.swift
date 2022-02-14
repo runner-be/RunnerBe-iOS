@@ -9,7 +9,8 @@ import Foundation
 import Moya
 
 enum LoginAPI {
-    case login(type: SocialLoginType, token: String)
+    case socialLogin(type: SocialLoginType, token: String)
+    case login(token: LoginToken)
 }
 
 extension LoginAPI: TargetType {
@@ -19,7 +20,7 @@ extension LoginAPI: TargetType {
 
     var path: String {
         switch self {
-        case let .login(type, _):
+        case let .socialLogin(type, _):
             switch type {
             case .kakao:
                 return "users/kakao-login"
@@ -28,21 +29,35 @@ extension LoginAPI: TargetType {
             case .apple:
                 fatalError("apple login not implemented")
             }
+        case .login:
+            return "users/auth"
         }
     }
 
     var method: Moya.Method {
-        return .post
+        switch self {
+        case .socialLogin:
+            return .post
+        case .login:
+            return .get
+        }
     }
 
     var task: Task {
         switch self {
-        case let .login(_, token):
+        case let .socialLogin(_, token):
             return .requestParameters(parameters: ["accessToken": token], encoding: URLEncoding.default)
+        case .login:
+            return .requestPlain
         }
     }
 
     var headers: [String: String]? {
-        return nil
+        switch self {
+        case .socialLogin:
+            return nil
+        case let .login(token):
+            return ["x-access-token": "\(token.jwt)"]
+        }
     }
 }

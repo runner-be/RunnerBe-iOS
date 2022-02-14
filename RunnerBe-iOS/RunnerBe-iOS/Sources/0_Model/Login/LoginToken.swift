@@ -8,5 +8,5 @@
 import Foundation
 
 struct LoginToken {
-    let token: String
+    let jwt: String
 }

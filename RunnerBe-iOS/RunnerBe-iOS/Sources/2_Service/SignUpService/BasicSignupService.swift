@@ -126,7 +126,7 @@ final class BasicSignupService: SignupService {
                     #if DEBUG
                         print("[BasicSignupService][certificateIdCardImage] \(#line) success! token : \(token) return .imageUploaded")
                     #endif
-                    self?.loginKeyChainService.token = LoginToken(token: token)
+                    self?.loginKeyChainService.token = LoginToken(jwt: token)
                     return .imageUploaded
                 default:
                     #if DEBUG

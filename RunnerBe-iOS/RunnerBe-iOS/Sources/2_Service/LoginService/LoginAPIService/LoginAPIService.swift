@@ -8,7 +8,13 @@
 import Foundation
 import RxSwift
 
+enum LoginWithTokenResult {
+    case nonMember
+    case waitCertification
+    case member
+}
+
 protocol LoginAPIService {
-    func login(with token: LoginToken) -> Observable<Bool>
+    func login(with token: LoginToken) -> Observable<LoginWithTokenResult>
     func login(with social: SocialLoginType, token: String) -> Observable<LoginAPIResult?>
 }

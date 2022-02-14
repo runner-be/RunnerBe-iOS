@@ -17,13 +17,32 @@ class BasicLoginAPIService: LoginAPIService {
         self.provider = provider
     }
 
-    func login(with _: LoginToken) -> Observable<Bool> {
-        // TODO: login with token
-        return .just(false)
+    func login(with token: LoginToken) -> Observable<LoginWithTokenResult> {
+        provider.rx.request(.login(token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json in
+                guard let json = json,
+                      let response = try? BasicResponse(json: json)
+                else { return .nonMember }
+
+                if !response.isSuccess {
+                    return .nonMember
+                }
+
+                switch response.code {
+                case let code where code == 1001: // 인증 된 회원
+                    return .member
+                case let code where code == 1007: // 인증 대기
+                    return .waitCertification
+                default:
+                    return .nonMember
+                }
+            }
     }
 
     func login(with social: SocialLoginType, token: String) -> Observable<LoginAPIResult?> {
-        provider.rx.request(.login(type: social, token: token))
+        provider.rx.request(.socialLogin(type: social, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
