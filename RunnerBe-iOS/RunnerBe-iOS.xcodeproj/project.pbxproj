@@ -13,7 +13,7 @@
 		C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */; };
 		C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */; };
 		C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA727B8315F00DEFF51 /* LoginToken.swift */; };
-		C3432CAB27B8317500DEFF51 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CAA27B8317500DEFF51 /* LoginResultData.swift */; };
+		C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
@@ -140,7 +140,7 @@
 		C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */; };
 		C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD727B8B70900775779 /* SignupAPI.swift */; };
 		C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CDA27B8B79800775779 /* SignupForm.swift */; };
-		C3EB5CE027B8BBAC00775779 /* SignupResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CDF27B8BBAC00775779 /* SignupResultData.swift */; };
+		C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CDF27B8BBAC00775779 /* SignupAPIResult.swift */; };
 		C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CE227B8BC6800775779 /* SignupKeyChainService.swift */; };
 		C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
@@ -171,7 +171,7 @@
 		C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginKeyChainService.swift; sourceTree = "<group>"; };
 		C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLoginKeyChainService.swift; sourceTree = "<group>"; };
 		C3432CA727B8315F00DEFF51 /* LoginToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToken.swift; sourceTree = "<group>"; };
-		C3432CAA27B8317500DEFF51 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
+		C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPIResult.swift; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 		C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupAPIService.swift; sourceTree = "<group>"; };
 		C3EB5CD727B8B70900775779 /* SignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPI.swift; sourceTree = "<group>"; };
 		C3EB5CDA27B8B79800775779 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
-		C3EB5CDF27B8BBAC00775779 /* SignupResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResultData.swift; sourceTree = "<group>"; };
+		C3EB5CDF27B8BBAC00775779 /* SignupAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPIResult.swift; sourceTree = "<group>"; };
 		C3EB5CE227B8BC6800775779 /* SignupKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupKeyChainService.swift; sourceTree = "<group>"; };
 		C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupKeyChainService.swift; sourceTree = "<group>"; };
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -762,7 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
-				C3432CAA27B8317500DEFF51 /* LoginResultData.swift */,
+				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -926,7 +926,7 @@
 			isa = PBXGroup;
 			children = (
 				C3EB5CDA27B8B79800775779 /* SignupForm.swift */,
-				C3EB5CDF27B8BBAC00775779 /* SignupResultData.swift */,
+				C3EB5CDF27B8BBAC00775779 /* SignupAPIResult.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -1291,7 +1291,7 @@
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
 				C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */,
-				C3432CAB27B8317500DEFF51 /* LoginResultData.swift in Sources */,
+				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C3BA45C527B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
@@ -1315,7 +1315,7 @@
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
-				C3EB5CE027B8BBAC00775779 /* SignupResultData.swift in Sources */,
+				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,

@@ -22,7 +22,7 @@ class BasicLoginAPIService: LoginAPIService {
         return .just(false)
     }
 
-    func login(with social: SocialLoginType, token: String) -> Observable<LoginResultData?> {
+    func login(with social: SocialLoginType, token: String) -> Observable<LoginAPIResult?> {
         provider.rx.request(.login(type: social, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -47,11 +47,11 @@ class BasicLoginAPIService: LoginAPIService {
                 else { return nil }
                 switch result.response.code {
                 case let code where code == 1001: // 1001 = 회원 로그인 성공
-                    return try? LoginResultData.Member(json: result.json)
+                    return try? LoginAPIResult.Member(json: result.json)
                 case let code where code == 1007:
-                    return try? LoginResultData.MemberNonCertificated(json: result.json)
+                    return try? LoginAPIResult.MemberNonCertificated(json: result.json)
                 case let code where code == 1002: // 1002 = 비회원 로그인 성공
-                    return try? LoginResultData.NonMember(json: result.json)
+                    return try? LoginAPIResult.NonMember(json: result.json)
                 default:
                     return nil
                 }

@@ -57,12 +57,12 @@ final class BasicLoginService: LoginService {
                 guard let result = apiResult
                 else { return LoginResult.loginFail }
                 switch result {
-                case let LoginResultData.member(_, jwt, _):
+                case let LoginAPIResult.member(_, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(token: jwt)
                     return .member
-                case let LoginResultData.nonMember(uuid, _):
+                case let LoginAPIResult.nonMember(uuid, _):
                     return .nonMember(uuid: uuid)
-                case let LoginResultData.memberNotCertificated(_, jwt, _):
+                case let LoginAPIResult.memberNotCertificated(_, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(token: jwt)
                     return .memberNotCertificated
                 }

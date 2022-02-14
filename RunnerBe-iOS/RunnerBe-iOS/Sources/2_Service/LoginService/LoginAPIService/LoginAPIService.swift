@@ -10,5 +10,5 @@ import RxSwift
 
 protocol LoginAPIService {
     func login(with token: LoginToken) -> Observable<Bool>
-    func login(with social: SocialLoginType, token: String) -> Observable<LoginResultData?>
+    func login(with social: SocialLoginType, token: String) -> Observable<LoginAPIResult?>
 }

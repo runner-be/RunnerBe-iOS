@@ -45,7 +45,7 @@ final class BasicSignupService: SignupService {
 
         return imageUploadService.uploadImage(data: data, path: path)
             .asObservable()
-            .map { [weak self] url -> Observable<SignupResultData?> in
+            .map { [weak self] url -> Observable<SignupAPIResult?> in
                 guard let self = self,
                       let url = url
                 else { return .just(nil) }
@@ -60,7 +60,7 @@ final class BasicSignupService: SignupService {
                 return self.signupAPIService.signup(with: signupForm)
             }
             .flatMap { $0 }
-            .map { [weak self] result -> Observable<SignupResultData?> in
+            .map { [weak self] result -> Observable<SignupAPIResult?> in
                 guard let self = self,
                       let result = result
                 else { return .just(nil) }
@@ -93,7 +93,7 @@ final class BasicSignupService: SignupService {
             }
     }
 
-    private func retrySignupWhenNickNameDuplicated() -> Observable<SignupResultData?> {
+    private func retrySignupWhenNickNameDuplicated() -> Observable<SignupAPIResult?> {
         #if DEBUG
             print("[BasicSignupService][NickNameErr] Retry")
         #endif
@@ -104,10 +104,10 @@ final class BasicSignupService: SignupService {
         )
         let signupForm = signupKeyChainService.signupForm
         return signupAPIService.signup(with: signupForm)
-            .map { [weak self] result -> Observable<SignupResultData?> in
+            .map { [weak self] result -> Observable<SignupAPIResult?> in
                 guard let self = self,
                       let result = result
-                else { return Observable<SignupResultData?>.just(nil) }
+                else { return Observable<SignupAPIResult?>.just(nil) }
 
                 switch result {
                 case .succeed:

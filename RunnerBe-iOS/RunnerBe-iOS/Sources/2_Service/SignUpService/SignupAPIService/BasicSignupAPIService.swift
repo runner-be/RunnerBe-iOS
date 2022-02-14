@@ -40,7 +40,7 @@ final class BasicSignupAPIService: SignupAPIService {
             .map { $0?.isSuccess ?? false }
     }
 
-    func signup(with signupForm: SignupForm) -> Observable<SignupResultData?> {
+    func signup(with signupForm: SignupForm) -> Observable<SignupAPIResult?> {
         provider.rx.request(.signup(signupForm))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -63,7 +63,7 @@ final class BasicSignupAPIService: SignupAPIService {
             .map {
                 guard let result = $0
                 else { return nil }
-                return SignupResultData(json: result.json, code: result.response.code)
+                return SignupAPIResult(json: result.json, code: result.response.code)
             }
     }
 }
