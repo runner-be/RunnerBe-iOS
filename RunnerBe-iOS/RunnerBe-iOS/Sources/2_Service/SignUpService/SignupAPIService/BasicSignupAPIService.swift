@@ -13,7 +13,7 @@ import SwiftyJSON
 final class BasicSignupAPIService: SignupAPIService {
     let provider: MoyaProvider<SignupAPI>
 
-    init(provider: MoyaProvider<SignupAPI> = .init()) {
+    init(provider: MoyaProvider<SignupAPI> = MoyaProvider<SignupAPI>(plugins: [VerbosePlugin(verbose: true)])) {
         self.provider = provider
     }
 
@@ -63,7 +63,7 @@ final class BasicSignupAPIService: SignupAPIService {
             .map {
                 guard let result = $0
                 else { return nil }
-                return try? SignupResultData(json: result.json)
+                return SignupResultData(json: result.json, code: result.response.code)
             }
     }
 }

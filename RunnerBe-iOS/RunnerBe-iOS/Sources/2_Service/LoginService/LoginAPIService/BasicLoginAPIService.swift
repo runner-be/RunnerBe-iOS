@@ -13,7 +13,7 @@ import SwiftyJSON
 class BasicLoginAPIService: LoginAPIService {
     let provider: MoyaProvider<LoginAPI>
 
-    init(provider: MoyaProvider<LoginAPI> = .init()) {
+    init(provider: MoyaProvider<LoginAPI> = MoyaProvider<LoginAPI>(plugins: [VerbosePlugin(verbose: true)])) {
         self.provider = provider
     }
 
@@ -48,6 +48,8 @@ class BasicLoginAPIService: LoginAPIService {
                 switch result.response.code {
                 case let code where code == 1001: // 1001 = 회원 로그인 성공
                     return try? LoginResultData.Member(json: result.json)
+                case let code where code == 1007:
+                    return try? LoginResultData.MemberNonCertificated(json: result.json)
                 case let code where code == 1002: // 1002 = 비회원 로그인 성공
                     return try? LoginResultData.NonMember(json: result.json)
                 default:

@@ -8,12 +8,18 @@
 import Foundation
 import SwiftyJSON
 
-struct SignupResultData {
-    let token: String
+enum SignupResultData {
+    case succeed(token: String)
+    case error(Int)
+}
 
-    init(json: JSON) throws {
+extension SignupResultData {
+    init(json: JSON, code: Int) {
         guard let token = json["result"].string
-        else { throw JSONError.decoding }
-        self.token = token
+        else {
+            self = .error(code)
+            return
+        }
+        self = .succeed(token: token)
     }
 }

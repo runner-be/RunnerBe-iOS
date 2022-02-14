@@ -62,6 +62,9 @@ final class BasicLoginService: LoginService {
                     return .member
                 case let LoginResultData.nonMember(uuid, _):
                     return .nonMember(uuid: uuid)
+                case let LoginResultData.memberNotCertificated(_, jwt, _):
+                    self?.loginKeyChainService.token = LoginToken(token: jwt)
+                    return .memberNotCertificated
                 }
             }
     }

@@ -41,7 +41,8 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
             signupKeyChainService: dependency.signupKeyChainService,
             signupAPIService: signupAPIService,
             emailCertificationService: emailCertificationService,
-            imageUploadService: imageUploadService
+            imageUploadService: imageUploadService,
+            randomNickNameGenerator: randomNickNameGenerator
         )
         }
     }
@@ -56,5 +57,9 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
 
     private var imageUploadService: ImageUploadService {
         return shared { BasicImageUploadService() }
+    }
+
+    private var randomNickNameGenerator: RandomNickNameGenerator {
+        return shared { RandomNickNameGenerator() }
     }
 }

@@ -63,6 +63,12 @@
 		C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E427B3461900824ABE /* PhotoModalViewController.swift */; };
 		C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365B46527B90C4F00BFFCB8 /* DateService.swift */; };
 		C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365B46727B90C5700BFFCB8 /* BasicDateService.swift */; };
+		C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */; };
+		C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */; };
+		C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301B27B9FB010076AB85 /* DynamicLinkService.swift */; };
+		C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */; };
+		C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302027BA012E0076AB85 /* String+Subscript.swift */; };
+		C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302327BA20A30076AB85 /* VerbosePlugin.swift */; };
 		C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* SocialLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* SocialLoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -214,6 +220,12 @@
 		C361B6E427B3461900824ABE /* PhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewController.swift; sourceTree = "<group>"; };
 		C365B46527B90C4F00BFFCB8 /* DateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateService.swift; sourceTree = "<group>"; };
 		C365B46727B90C5700BFFCB8 /* BasicDateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDateService.swift; sourceTree = "<group>"; };
+		C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameGenerator.swift; sourceTree = "<group>"; };
+		C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNickNameGenerator.swift; sourceTree = "<group>"; };
+		C379301B27B9FB010076AB85 /* DynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkService.swift; sourceTree = "<group>"; };
+		C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDynamicLinkService.swift; sourceTree = "<group>"; };
+		C379302027BA012E0076AB85 /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
+		C379302327BA20A30076AB85 /* VerbosePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbosePlugin.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* SocialLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -346,6 +358,7 @@
 		C3432CAC27B8448400DEFF51 /* SignUpService */ = {
 			isa = PBXGroup;
 			children = (
+				C379301527B9FA920076AB85 /* RendomNickNameGenerator */,
 				C3EB5CE127B8BC5900775779 /* SignupKeyChainService */,
 				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
 				C3EB5CCD27B8B68500775779 /* EmailCertificationService */,
@@ -450,6 +463,7 @@
 		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C379301F27BA01210076AB85 /* String+ */,
 				C34FDA7E27AD5DA1007718F8 /* Asset+ */,
 				C34FDA5727AD5C82007718F8 /* View+ */,
 			);
@@ -471,6 +485,8 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C379302227BA20920076AB85 /* MoyaPlugin */,
+				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
 				C365B46427B90C1B00BFFCB8 /* DateService */,
 				C3EB5CC827B8B62200775779 /* ImageUploadService */,
 				C3432CAC27B8448400DEFF51 /* SignUpService */,
@@ -612,6 +628,40 @@
 				C365B46727B90C5700BFFCB8 /* BasicDateService.swift */,
 			);
 			path = DateService;
+			sourceTree = "<group>";
+		};
+		C379301527B9FA920076AB85 /* RendomNickNameGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */,
+				C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */,
+			);
+			path = RendomNickNameGenerator;
+			sourceTree = "<group>";
+		};
+		C379301A27B9FAEF0076AB85 /* DynamicLinkService */ = {
+			isa = PBXGroup;
+			children = (
+				C379301B27B9FB010076AB85 /* DynamicLinkService.swift */,
+				C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */,
+			);
+			path = DynamicLinkService;
+			sourceTree = "<group>";
+		};
+		C379301F27BA01210076AB85 /* String+ */ = {
+			isa = PBXGroup;
+			children = (
+				C379302027BA012E0076AB85 /* String+Subscript.swift */,
+			);
+			path = "String+";
+			sourceTree = "<group>";
+		};
+		C379302227BA20920076AB85 /* MoyaPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				C379302327BA20A30076AB85 /* VerbosePlugin.swift */,
+			);
+			path = MoyaPlugin;
 			sourceTree = "<group>";
 		};
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
@@ -1184,6 +1234,7 @@
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
+				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
 				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
@@ -1224,6 +1275,8 @@
 				C38F8F4027AD99F30050137D /* MessageComponent.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
+				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
+				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
 				C38F8F3727AD96E10050137D /* MessageViewModel.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
@@ -1246,6 +1299,7 @@
 				C3EB5CCF27B8B69D00775779 /* EmailCertificationService.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
+				C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
@@ -1264,6 +1318,7 @@
 				C3EB5CE027B8BBAC00775779 /* SignupResultData.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
+				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */,
@@ -1306,6 +1361,7 @@
 				C3BA45D527B60E1A0048CA76 /* WaitCertificationComponent.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
+				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,

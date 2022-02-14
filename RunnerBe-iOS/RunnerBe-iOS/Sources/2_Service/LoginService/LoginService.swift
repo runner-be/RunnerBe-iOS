@@ -11,6 +11,7 @@ import RxSwift
 enum LoginResult {
     case succeed
     case member
+    case memberNotCertificated
     case nonMember(uuid: String)
     case socialLoginFail
     case loginFail

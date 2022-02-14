@@ -10,6 +10,7 @@ import SwiftyJSON
 
 enum LoginResultData {
     case member(userId: Int, jwt: String, message: String)
+    case memberNotCertificated(userId: Int, jwt: String, message: String)
     case nonMember(uuid: String, message: String)
 }
 
@@ -21,6 +22,15 @@ extension LoginResultData {
               let message = result["message"].string
         else { throw JSONError.decoding }
         return LoginResultData.member(userId: userId, jwt: jwt, message: message)
+    }
+
+    static func MemberNonCertificated(json: JSON) throws -> LoginResultData {
+        let result = json["result"]
+        guard let userId = result["userId"].int,
+              let jwt = result["jwt"].string,
+              let message = result["message"].string
+        else { throw JSONError.decoding }
+        return LoginResultData.memberNotCertificated(userId: userId, jwt: jwt, message: message)
     }
 
     static func NonMember(json: JSON) throws -> LoginResultData {

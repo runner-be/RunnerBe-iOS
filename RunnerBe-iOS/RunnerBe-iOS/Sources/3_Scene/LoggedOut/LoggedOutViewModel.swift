@@ -24,7 +24,9 @@ final class LoggedOutViewModel: BaseViewModel {
             .subscribe(onNext: { result in
                 switch result {
                 case .member, .succeed:
-                    self.routes.loginSuccess.onNext(())
+                    self.routes.loginSuccess.onNext(true)
+                case .memberNotCertificated:
+                    self.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     self.signupKeyChainService.uuid = uuid
                     self.routes.nonMember.onNext(())
@@ -40,7 +42,9 @@ final class LoggedOutViewModel: BaseViewModel {
             .subscribe(onNext: { result in
                 switch result {
                 case .member, .succeed:
-                    self.routes.loginSuccess.onNext(())
+                    self.routes.loginSuccess.onNext(true)
+                case .memberNotCertificated:
+                    self.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     self.signupKeyChainService.uuid = uuid
                     self.routes.nonMember.onNext(())
@@ -70,7 +74,7 @@ final class LoggedOutViewModel: BaseViewModel {
     }
 
     struct Route {
-        let loginSuccess = PublishSubject<Void>()
+        let loginSuccess = PublishSubject<Bool>()
         let nonMember = PublishSubject<Void>()
     }
 
