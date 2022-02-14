@@ -9,7 +9,10 @@ import Foundation
 import RxSwift
 
 final class EmailCertificationViewModel: BaseViewModel {
-    override init() {
+    private let signupService: SignupService
+
+    init(signupService: SignupService) {
+        self.signupService = signupService
         super.init()
 
         inputs.tapCancel
@@ -29,6 +32,25 @@ final class EmailCertificationViewModel: BaseViewModel {
             .map { $0 != 0 }
             .bind(to: outputs.enableNext)
             .disposed(by: disposeBag)
+
+        inputs.tapCertificate
+            .map { [weak self] address in
+                self?.signupService.sendEmail(address)
+            }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .emailDuplicated:
+                    self?.outputs.emailDuplicated.onNext(true)
+                case .sendEmailCompleted:
+                    self?.outputs.emailSended.onNext(())
+                case .sendEmailFailed:
+                    // TODO: 이메일 전송 실패 시 처리
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Internal
@@ -37,12 +59,15 @@ final class EmailCertificationViewModel: BaseViewModel {
         var tapNoEmail = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
+        var tapCertificate = PublishSubject<String>()
 
         var emailText = PublishSubject<String?>()
     }
 
     struct Output {
         var enableNext = PublishSubject<Bool>()
+        var emailDuplicated = PublishSubject<Bool>()
+        var emailSended = PublishSubject<Void>()
     }
 
     struct Route {

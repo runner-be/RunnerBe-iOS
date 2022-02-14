@@ -55,6 +55,13 @@ final class EmailCertificationViewController: BaseViewController {
         emailField.rx.text
             .bind(to: viewModel.inputs.emailText)
             .disposed(by: disposeBags)
+
+        certificateButton.rx.tap
+            .compactMap { [weak self] in
+                self?.emailField.text
+            }
+            .bind(to: viewModel.inputs.tapCertificate)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
@@ -63,6 +70,18 @@ final class EmailCertificationViewController: BaseViewController {
                 self?.certificateButton.isEnabled = enable
             })
             .disposed(by: disposeBags)
+
+        viewModel.outputs.emailDuplicated
+            .subscribe(onNext: { [weak self] show in
+                self?.errorLabel.isHidden = !show
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.emailSended
+            .subscribe(onNext: { [weak self] in
+                self?.messageLabel1.isHidden = false
+                self?.messageLabel2.isHidden = false
+            })
     }
 
     private func viewInput() {
@@ -143,6 +162,7 @@ final class EmailCertificationViewController: BaseViewController {
             string: L10n.EmailCertification.EmailField.placeholder,
             attributes: [.foregroundColor: UIColor.darkG35]
         )
+        field.autocapitalizationType = .none
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 8
@@ -170,18 +190,21 @@ final class EmailCertificationViewController: BaseViewController {
         label.font = .iosBody13R
         label.textColor = .primary
         label.text = L10n.EmailCertification.Message.mailSend1
+        label.isHidden = true
     }
 
     private var messageLabel2 = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .primary
         label.text = L10n.EmailCertification.Message.mailSend2
+        label.isHidden = true
     }
 
     private var errorLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .errorlight
         label.text = L10n.EmailCertification.Error.duplicated
+        label.isHidden = true
     }
 
     private lazy var messageVStack = UIStackView.make(

@@ -11,7 +11,7 @@ import RxSwift
 enum SignupWithEmailResult {
     case emailDuplicated
     case sendEmailCompleted
-    case needsUUID
+    case sendEmailFailed
 }
 
 enum SignupWithIdCardResult {

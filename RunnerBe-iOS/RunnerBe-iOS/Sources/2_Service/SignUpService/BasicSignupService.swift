@@ -6,21 +6,24 @@
 //
 
 import Foundation
+import RxRelay
 import RxSwift
 
 final class BasicSignupService: SignupService {
     var loginKeyChainService: LoginKeyChainService
     var signupKeyChainService: SignupKeyChainService
     let signupAPIService: SignupAPIService
-    let emailCertificationService: EmailCertificationService
+    let emailCertificationService: MailingCertificationService
     let imageUploadService: ImageUploadService
     let randomNickNameGenerator: RandomNickNameGenerator
+
+    var disposeBag = DisposeBag()
 
     init(
         loginKeyChainService: LoginKeyChainService,
         signupKeyChainService: SignupKeyChainService,
         signupAPIService: SignupAPIService,
-        emailCertificationService: EmailCertificationService,
+        emailCertificationService: MailingCertificationService,
         imageUploadService: ImageUploadService,
         randomNickNameGenerator: RandomNickNameGenerator
     ) {
@@ -32,8 +35,49 @@ final class BasicSignupService: SignupService {
         self.randomNickNameGenerator = randomNickNameGenerator
     }
 
-    func sendEmail(_: String) -> Observable<SignupWithEmailResult> {
-        return .just(.emailDuplicated)
+    func sendEmail(_ email: String) -> Observable<SignupWithEmailResult> {
+        let sendResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
+
+        signupAPIService.checkEmailOK(email)
+            .take(1)
+            .filter {
+                if !$0 {
+                    #if DEBUG
+                        print("[BasicSignupService][sendEmail] checkEmailOk false, return .emailDuplicated")
+                    #endif
+                    sendResult.onNext(.emailDuplicated)
+                }
+                return $0
+            }
+            .map { [weak self] _ in // email is not duplicated
+                self?.emailCertificationService.send(address: email, dynamicLink: "링크!")
+            }
+            .compactMap { result -> Observable<MailingCertificationResult>? in
+                #if DEBUG
+                    print("[BasicSignupService][sendEmail] result of send is nil, return .sendEmailFail")
+                #endif
+                if result == nil { sendResult.onNext(.sendEmailFailed) }
+                return result
+            }
+            .flatMap { $0 }
+            .subscribe(onNext: {
+                switch $0 {
+                case .success:
+                    #if DEBUG
+                        print("[BasicSignupService][sendEmail] send success, return .sendEmailCompleted")
+                    #endif
+                    sendResult.onNext(.sendEmailCompleted)
+                case .fail:
+                    #if DEBUG
+                        print("[BasicSignupService][sendEmail] send success, return .sendEmailFailed")
+                    #endif
+                    sendResult.onNext(.sendEmailFailed)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        return sendResult
+            .debug()
     }
 
     func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult> {
@@ -51,7 +95,7 @@ final class BasicSignupService: SignupService {
                 else { return .just(nil) }
                 self.signupKeyChainService.idCardUrl = url
                 self.signupKeyChainService.nickName = self.randomNickNameGenerator.generate(
-                    numOfRandom: 5,
+                    numOfRandom: 4,
                     prefix: "Runner",
                     suffix: ""
                 )

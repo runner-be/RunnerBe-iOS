@@ -6,5 +6,6 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DynamicLinkService {}

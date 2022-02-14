@@ -20,7 +20,7 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
     }
 
     private var viewModel: EmailCertificationViewModel {
-        return EmailCertificationViewModel()
+        return EmailCertificationViewModel(signupService: signupService)
     }
 
     var photoCertificationComponent: PhotoCertificationComponent {
@@ -51,8 +51,8 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
         return shared { BasicSignupAPIService() }
     }
 
-    private var emailCertificationService: EmailCertificationService {
-        return shared { BasicEmailCertificationService() }
+    private var emailCertificationService: MailingCertificationService {
+        return shared { BasicMailingCertificationService(mailingAPIService: BasicMailingAPIService()) }
     }
 
     private var imageUploadService: ImageUploadService {
