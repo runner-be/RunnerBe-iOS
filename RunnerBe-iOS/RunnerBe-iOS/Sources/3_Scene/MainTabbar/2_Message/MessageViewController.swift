@@ -42,7 +42,9 @@ class MessageViewController: BaseViewController {
 // MARK: - Layout
 
 extension MessageViewController {
-    private func setupViews() {}
+    private func setupViews() {
+        gradientBackground()
+    }
 
     private func initialLayout() {}
 
@@ -53,5 +55,19 @@ extension MessageViewController {
             selectedImage: Asset.messageTabIconFocused.uiImage
         )
         tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+    }
+
+    private func gradientBackground() {
+        let backgroundGradientLayer = CAGradientLayer()
+        backgroundGradientLayer.colors = [
+            UIColor.bgBottom.cgColor,
+            UIColor.bgTop.cgColor,
+        ]
+        backgroundGradientLayer.frame = view.bounds
+        view.layer.addSublayer(backgroundGradientLayer)
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
 }

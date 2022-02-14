@@ -65,7 +65,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
         let comp = component.selectGenderComponent
 
         let coord = SelectGenderCoordinator(component: comp, navController: navController)
-        
+
         let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
@@ -83,7 +83,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     private func presentOnboardingCancelCoord() {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        
+
         let disposable = coordinate(coordinator: coord)
             .take(1)
             .subscribe(onNext: { [weak self] modalResult in

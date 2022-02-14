@@ -730,8 +730,8 @@
 			children = (
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
-				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
+				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
 			);
 			path = 3_MyPage;
 			sourceTree = "<group>";
