@@ -115,24 +115,36 @@ final class PhotoCertificationViewController: BaseViewController {
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.PhotoCertification.title1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.PhotoCertification.title2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel1 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
         label.text = L10n.PhotoCertification.subTitle1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel2 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
         label.text = L10n.PhotoCertification.subTitle2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var photoView = PhotoChoosableView().then { view in
@@ -161,6 +173,9 @@ final class PhotoCertificationViewController: BaseViewController {
                        .font: UIFont.iosBody15R,
                        .foregroundColor: UIColor.darkG25,
                    ])
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var ruleLabel2 = UILabel().then { label in
@@ -168,6 +183,9 @@ final class PhotoCertificationViewController: BaseViewController {
         label.textColor = .darkG25
         label.text = L10n.PhotoCertification.ImageRule.emoji + " "
             + L10n.PhotoCertification.ImageRule.no2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var ruleLabel3 = UILabel().then { label in
@@ -175,6 +193,9 @@ final class PhotoCertificationViewController: BaseViewController {
         label.textColor = .darkG25
         label.text = L10n.PhotoCertification.ImageRule.emoji + " "
             + L10n.PhotoCertification.ImageRule.no3
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private lazy var ruleLabelVStack = UIStackView.make(
@@ -231,21 +252,25 @@ extension PhotoCertificationViewController {
         titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-39)
         }
 
         titleLabel2.snp.makeConstraints { make in
             make.top.equalTo(titleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-39)
         }
 
         subTitleLabel1.snp.makeConstraints { make in
             make.top.equalTo(titleLabel2.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-58)
         }
 
         subTitleLabel2.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-58)
         }
 
         photoView.snp.makeConstraints { make in
@@ -258,6 +283,7 @@ extension PhotoCertificationViewController {
         ruleLabelVStack.snp.makeConstraints { make in
             make.top.equalTo(photoView.snp.bottom).offset(24)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-50)
         }
 
         certificateButton.snp.makeConstraints { make in

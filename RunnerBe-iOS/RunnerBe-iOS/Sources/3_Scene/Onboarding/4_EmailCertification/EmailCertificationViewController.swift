@@ -82,11 +82,13 @@ final class EmailCertificationViewController: BaseViewController {
                 self?.messageLabel1.isHidden = false
                 self?.messageLabel2.isHidden = false
             })
+            .disposed(by: disposeBags)
 
         viewModel.outputs.enableCertificate
             .subscribe(onNext: { [weak self] enable in
                 self?.certificateButton.isEnabled = enable
             })
+            .disposed(by: disposeBags)
     }
 
     private func viewInput() {
@@ -137,24 +139,36 @@ final class EmailCertificationViewController: BaseViewController {
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.EmailCertification.title1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.EmailCertification.title2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel1 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
         label.text = L10n.EmailCertification.subTitle1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel2 = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
         label.text = L10n.EmailCertification.subTitle2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var emailField = TextFieldWithPadding().then { field in
@@ -196,6 +210,9 @@ final class EmailCertificationViewController: BaseViewController {
         label.textColor = .primary
         label.text = L10n.EmailCertification.Message.mailSend1
         label.isHidden = true
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var messageLabel2 = UILabel().then { label in
@@ -203,6 +220,9 @@ final class EmailCertificationViewController: BaseViewController {
         label.textColor = .primary
         label.text = L10n.EmailCertification.Message.mailSend2
         label.isHidden = true
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var errorLabel = UILabel().then { label in
@@ -210,6 +230,9 @@ final class EmailCertificationViewController: BaseViewController {
         label.textColor = .errorlight
         label.text = L10n.EmailCertification.Error.duplicated
         label.isHidden = true
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private lazy var messageVStack = UIStackView.make(
@@ -268,21 +291,25 @@ extension EmailCertificationViewController {
         titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
 
         titleLabel2.snp.makeConstraints { make in
             make.top.equalTo(titleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
 
         subTitleLabel1.snp.makeConstraints { make in
             make.top.equalTo(titleLabel2.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-58)
         }
 
         subTitleLabel2.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-58)
         }
 
         emailField.snp.makeConstraints { make in
@@ -301,6 +328,7 @@ extension EmailCertificationViewController {
         messageVStack.snp.makeConstraints { make in
             make.top.equalTo(emailField.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
 
         noEmailButton.snp.makeConstraints { make in

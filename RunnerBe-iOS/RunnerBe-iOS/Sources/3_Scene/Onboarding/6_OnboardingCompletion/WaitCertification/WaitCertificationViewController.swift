@@ -42,6 +42,8 @@ class WaitCertificationViewController: BaseViewController {
         label.textColor = .primary
         label.text = L10n.WaitCertification.title1
         label.numberOfLines = 2
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel = UILabel().then { label in
@@ -64,6 +66,8 @@ class WaitCertificationViewController: BaseViewController {
                        .foregroundColor: UIColor.darkG25,
                    ])
         label.numberOfLines = 2
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var iconView = UILabel().then { label in

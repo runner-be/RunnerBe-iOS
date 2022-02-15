@@ -77,18 +77,27 @@ final class BirthViewController: BaseViewController {
         label.font = .iosHeader31Sb
         label.text = L10n.Birth.title
         label.textColor = .primary
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel1 = UILabel().then { label in
         label.font = .iosBody15R
         label.text = L10n.Birth.subTitle1
         label.textColor = .darkG25
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel2 = UILabel().then { label in
         label.font = .iosBody15R
         label.text = L10n.Birth.subTitle2
         label.textColor = .darkG25
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var pickerView = PickerView().then { picker in
@@ -160,16 +169,19 @@ extension BirthViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-51)
         }
 
         subTitleLabel1.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-107)
         }
 
         subTitleLabel2.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-107)
         }
 
         hDivider1.snp.makeConstraints { make in

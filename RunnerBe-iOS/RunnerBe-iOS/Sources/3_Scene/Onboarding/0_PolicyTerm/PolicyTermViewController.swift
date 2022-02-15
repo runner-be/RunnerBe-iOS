@@ -100,12 +100,18 @@ final class PolicyTermViewController: BaseViewController {
         label.font = UIFont.iosHeader31Sb
         label.text = L10n.PolicyTerm.title1
         label.textColor = UIColor.primary
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.text = L10n.PolicyTerm.title2
         label.textColor = UIColor.primary
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var policyContainerView = UIView().then { view in
@@ -212,10 +218,12 @@ extension PolicyTermViewController {
         titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(114)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
         titleLabel2.snp.makeConstraints { make in
             make.top.equalTo(titleLabel1.snp.bottom)
             make.leading.equalTo(titleLabel1.snp.leading)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
 
         policyContainerView.snp.makeConstraints { make in

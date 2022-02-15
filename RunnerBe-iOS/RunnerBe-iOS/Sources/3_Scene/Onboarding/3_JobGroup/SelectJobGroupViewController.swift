@@ -94,18 +94,27 @@ final class SelectJobGroupViewController: BaseViewController {
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.SelectJobGroup.title1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.SelectJobGroup.title2
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var subTitleLabel = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
         label.text = L10n.SelectJobGroup.subTitle
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
@@ -194,16 +203,19 @@ extension SelectJobGroupViewController {
         titleLabel1.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-185)
         }
 
         titleLabel2.snp.makeConstraints { make in
             make.top.equalTo(titleLabel1.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-185)
         }
 
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel2.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-137)
         }
 
         jobGroupCollectionView.snp.makeConstraints { make in

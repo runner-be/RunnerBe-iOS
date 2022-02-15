@@ -43,13 +43,20 @@ class OnboardingCompletionViewController: BaseViewController {
         label.font = .iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.OnboardingCompletion.title
+        
         label.numberOfLines = 2
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     var subTitleLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG25
         label.text = L10n.OnboardingCompletion.subTitle
+        
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     var iconLabel = UILabel().then { label in
@@ -95,12 +102,14 @@ extension OnboardingCompletionViewController {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-105)
         }
 
         iconLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
         }
+        
         startButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-21)
             make.leading.equalTo(view.snp.leading).offset(16)

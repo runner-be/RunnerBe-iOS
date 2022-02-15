@@ -198,6 +198,12 @@ final class BasicSignupService: SignupService {
                     } else {
                         functionResult.onNext(.imageUploadFail)
                     }
+
+                    #if DEBUG
+                        if code == 3001 {
+                            print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
+                        }
+                    #endif
                 }
             })
             .disposed(by: disposeBag)

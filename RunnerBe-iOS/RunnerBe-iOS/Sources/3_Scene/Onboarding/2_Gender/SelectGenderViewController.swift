@@ -84,6 +84,9 @@ final class SelectGenderViewController: BaseViewController {
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.SelectGender.title
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
     }
 
     private var femaleLabel = OnOffLabel().then { label in
@@ -164,6 +167,7 @@ extension SelectGenderViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(26)
             make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-104)
         }
 
         femaleLabel.snp.makeConstraints { make in
