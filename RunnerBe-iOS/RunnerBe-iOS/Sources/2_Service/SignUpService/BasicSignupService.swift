@@ -44,6 +44,7 @@ final class BasicSignupService: SignupService {
         let sendEmailResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
 
         signupAPIService.checkEmailOK(email)
+            .debug()
             .take(1)
             .subscribe(onNext: {
                 if $0 {
@@ -55,6 +56,7 @@ final class BasicSignupService: SignupService {
             .disposed(by: disposeBag)
 
         emailCheckOK
+            .debug()
             .map { [weak self] in self?.dynamicLinkService.generateLink() }
             .compactMap { $0 }
             .flatMap { $0 }
@@ -69,6 +71,7 @@ final class BasicSignupService: SignupService {
             .disposed(by: disposeBag)
 
         dynamicLinkResult
+            .debug()
             .map { [weak self] url in
                 self?.emailCertificationService.send(address: email, dynamicLink: url.absoluteString)
             }
@@ -85,48 +88,9 @@ final class BasicSignupService: SignupService {
             .disposed(by: disposeBag)
 
         return sendEmailResult
-//        let sendResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
-//
-//        signupAPIService.checkEmailOK(email)
-//            .take(1)
-//            .filter {
-//                if !$0 {
-//                    #if DEBUG
-//                        print("[BasicSignupService][sendEmail] checkEmailOk false, return .emailDuplicated")
-//                    #endif
-//                    sendResult.onNext(.emailDuplicated)
-//                }
-//                return $0
-//            }
-//            .map { [weak self] _ in // email is not duplicated
-//                self?.emailCertificationService.send(address: email, dynamicLink: "링크!")
-//            }
-//            .compactMap { result -> Observable<MailingCertificationResult>? in
-//                #if DEBUG
-//                    print("[BasicSignupService][sendEmail] result of send is nil, return .sendEmailFail")
-//                #endif
-//                if result == nil { sendResult.onNext(.sendEmailFailed) }
-//                return result
-//            }
-//            .flatMap { $0 }
-//            .subscribe(onNext: {
-//                switch $0 {
-//                case .success:
-//                    #if DEBUG
-//                        print("[BasicSignupService][sendEmail] send success, return .sendEmailCompleted")
-//                    #endif
-//                    sendResult.onNext(.sendEmailCompleted)
-//                case .fail:
-//                    #if DEBUG
-//                        print("[BasicSignupService][sendEmail] send success, return .sendEmailFailed")
-//                    #endif
-//                    sendResult.onNext(.sendEmailFailed)
-//                }
-//            })
-//            .disposed(by: disposeBag)
-//
-//        return sendResult
-//            .debug()
+            .do(onNext: { [weak self] _ in
+                self?.disposeBag = DisposeBag()
+            })
     }
 
     func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult> {
@@ -136,82 +100,109 @@ final class BasicSignupService: SignupService {
         }
         let path = "IdCardCertification/\(uuid).png"
 
-        return imageUploadService.uploadImage(data: data, path: path)
-            .asObservable()
-            .map { [weak self] url -> Observable<SignupAPIResult?> in
-                guard let self = self,
-                      let url = url
-                else { return .just(nil) }
-                self.signupKeyChainService.idCardUrl = url
+        let imageUploaded = ReplaySubject<String>.create(bufferSize: 1)
+        let keyChainWithOutNickName = ReplaySubject<Void>.create(bufferSize: 1)
+        let signupFormReady = ReplaySubject<SignupForm>.create(bufferSize: 1)
+        let functionResult = ReplaySubject<SignupWithIdCardResult>.create(bufferSize: 1)
+
+        imageUploadService.uploadImage(data: data, path: path)
+            .debug()
+            .subscribe(onNext: { url in
+                guard let url = url
+                else {
+                    functionResult.onNext(.imageUploadFail)
+                    return
+                }
+                imageUploaded.onNext(url)
+            })
+            .disposed(by: disposeBag)
+
+        imageUploaded
+            .debug()
+            .subscribe(onNext: { [weak self] idCardUrl in
+                guard let self = self
+                else {
+                    functionResult.onNext(.imageUploadFail)
+                    return
+                }
+                self.signupKeyChainService.idCardUrl = idCardUrl
                 self.signupKeyChainService.nickName = self.randomNickNameGenerator.generate(
                     numOfRandom: 4,
                     prefix: "Runner",
                     suffix: ""
                 )
-                var signupForm = self.signupKeyChainService.signupForm
-                signupForm.officeEmail = nil
-                return self.signupAPIService.signup(with: signupForm)
+                self.signupKeyChainService.officeMail = nil
+
+                let form = self.signupKeyChainService.signupForm
+                signupFormReady.onNext(form)
+            })
+            .disposed(by: disposeBag)
+
+        imageUploaded
+            .debug()
+            .subscribe(onNext: { [weak self] idCardUrl in
+                guard var keyChain = self?.signupKeyChainService
+                else {
+                    // TODO: unowned?
+                    functionResult.onNext(.imageUploadFail)
+                    return
+                }
+
+                keyChain.idCardUrl = idCardUrl
+                keyChain.officeMail = nil
+                keyChainWithOutNickName.onNext(())
+            })
+            .disposed(by: disposeBag)
+
+        keyChainWithOutNickName
+            .debug()
+            .subscribe(onNext: { [weak self] in
+                guard var keyChain = self?.signupKeyChainService,
+                      let nickNameGenerator = self?.randomNickNameGenerator
+                else {
+                    // TODO: unowned?
+                    functionResult.onNext(.imageUploadFail)
+                    return
+                }
+
+                keyChain.nickName = nickNameGenerator.generate(
+                    numOfRandom: 4,
+                    prefix: "Runner",
+                    suffix: ""
+                )
+
+                signupFormReady.onNext(keyChain.signupForm)
+            })
+            .disposed(by: disposeBag)
+
+        signupFormReady
+            .debug()
+            .map { [weak self] form in
+                self?.signupAPIService.signup(with: form)
             }
+            .compactMap { $0 }
             .flatMap { $0 }
-            .map { [weak self] result -> Observable<SignupAPIResult?> in
-                guard let self = self,
-                      let result = result
-                else { return .just(nil) }
+            .subscribe(onNext: { result in
+                guard let result = result
+                else {
+                    functionResult.onNext(.imageUploadFail)
+                    return
+                }
+
                 switch result {
                 case .succeed:
-                    return .just(result)
+                    functionResult.onNext(.imageUploaded)
                 case let .error(code):
                     if code == 2009 { // 닉네임 중복 오류
-                        return self.retrySignupWhenNickNameDuplicated()
+                        keyChainWithOutNickName.onNext(())
                     }
                 }
-                return .just(nil)
-            }
-            .flatMap { $0 }
-            .map { [weak self] result -> SignupWithIdCardResult in
-                guard let result = result else { return .imageUploadFail }
-                switch result {
-                case let .succeed(token):
-                    #if DEBUG
-                        print("[BasicSignupService][certificateIdCardImage] \(#line) success! token : \(token) return .imageUploaded")
-                    #endif
-                    self?.loginKeyChainService.token = LoginToken(jwt: token)
-                    return .imageUploaded
-                default:
-                    #if DEBUG
-                        print("[BasicSignupService][certificateIdCardImage] \(#line) fail .imageUploadFail")
-                    #endif
-                    return .imageUploadFail
-                }
-            }
-    }
+            })
+            .disposed(by: disposeBag)
 
-    private func retrySignupWhenNickNameDuplicated() -> Observable<SignupAPIResult?> {
-        #if DEBUG
-            print("[BasicSignupService][NickNameErr] Retry")
-        #endif
-        signupKeyChainService.nickName = randomNickNameGenerator.generate(
-            numOfRandom: 4,
-            prefix: "Runner",
-            suffix: ""
-        )
-        let signupForm = signupKeyChainService.signupForm
-        return signupAPIService.signup(with: signupForm)
-            .map { [weak self] result -> Observable<SignupAPIResult?> in
-                guard let self = self,
-                      let result = result
-                else { return Observable<SignupAPIResult?>.just(nil) }
-
-                switch result {
-                case .succeed:
-                    return .just(result)
-                case let .error(code):
-                    if code == 2009 { // 닉네임 중복오류
-                        return self.retrySignupWhenNickNameDuplicated()
-                    }
-                }
-                return .just(result)
-            }
-            .flatMap { $0 }
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposeBag = DisposeBag()
+            })
     }
 }

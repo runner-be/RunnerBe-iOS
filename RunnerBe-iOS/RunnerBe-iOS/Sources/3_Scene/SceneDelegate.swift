@@ -98,27 +98,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func handleIncomingDynamicLink(dynamicLink: DynamicLink) {
         guard let url = dynamicLink.url else { return }
         #if DEBUG
-        print("[SceneDelegate][handleIncomingDynamicLink] imcoming link parameter is \(url.absoluteString)")
+            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link parameter is \(url.absoluteString)")
         #endif
-        
-        guard
-            dynamicLink.matchType == .unique || dynamicLink.matchType == .default
-        else {
-#if DEBUG
-print("[SceneDelegate][handleIncomingDynamicLink] matchType != .unique != .default")
-#endif
-            return
-        }
-        
-        let deepLinkHandler = DeeplinkHander()
-        guard let deepLink = deepLinkHandler.parseComponents(from: url)
-        else {
-#if DEBUG
-print("[SceneDelegate][handleIncomingDynamicLink] deepLinkHandler parseComponent = \"nil\"")
-#endif
-            return
-        }
-        
-        
+
+//        guard
+//            dynamicLink.matchType == .unique || dynamicLink.matchType == .default
+//        else {
+//            #if DEBUG
+//                print("[SceneDelegate][handleIncomingDynamicLink] matchType != .unique != .default")
+//            #endif
+//            return
+//        }
+//
+//        let deepLinkHandler = DeeplinkHander()
+//        guard let deepLink = deepLinkHandler.parseComponents(from: url)
+//        else {
+//            #if DEBUG
+//                print("[SceneDelegate][handleIncomingDynamicLink] deepLinkHandler parseComponent = \"nil\"")
+//            #endif
+//            return
+//        }
     }
 }
