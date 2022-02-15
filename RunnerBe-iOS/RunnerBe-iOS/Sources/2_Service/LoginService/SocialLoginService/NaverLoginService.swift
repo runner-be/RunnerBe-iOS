@@ -43,7 +43,13 @@ extension NaverLoginService: NaverThirdPartyLoginConnectionDelegate {
     }
 
     // refresh token
-    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {}
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        loginDataStream.onNext(SocialLoginResult(
+            token: loginConnection.accessToken,
+            loginType: .naver
+        )
+        )
+    }
 
     // 로그아웃
     func oauth20ConnectionDidFinishDeleteToken() {}

@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RxKakaoSDK.initSDK(appKey: AppKeys.KakaoKey)
 
         let naverLogin = NaverThirdPartyLoginConnection.getSharedInstance()
-        naverLogin?.isNaverAppOauthEnable = true
+        naverLogin?.isNaverAppOauthEnable = false
         naverLogin?.isInAppOauthEnable = true
         naverLogin?.isOnlyPortraitSupportedInIphone()
         naverLogin?.serviceUrlScheme = kServiceAppUrlScheme

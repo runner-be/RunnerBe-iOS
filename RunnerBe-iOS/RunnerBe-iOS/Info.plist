@@ -11,7 +11,7 @@
 			<string>kakao</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao024af3098edc2f65a56b67e7b10a3a59</string>
+				<string>kakao79430152d14608c76e8db1d7e33e7d75</string>
 			</array>
 		</dict>
 		<dict>
@@ -23,7 +23,7 @@
 			<string>naver</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>runnerbe-ios</string>
+				<string>naverrunnerbeios</string>
 			</array>
 		</dict>
 		<dict>

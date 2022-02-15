@@ -41,7 +41,6 @@
 		C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC627B8B58700775779 /* BasicSignupService.swift */; };
 		C35B832627B91E6600551AC5 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B832527B91E6600551AC5 /* Job.swift */; };
 		C35B832827B91E6E00551AC5 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B832727B91E6E00551AC5 /* Gender.swift */; };
-		C35B832A27B9565600551AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C35B832927B9565600551AC5 /* GoogleService-Info.plist */; };
 		C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */; };
 		C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */; };
 		C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */; };
@@ -138,6 +137,7 @@
 		C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */; };
 		C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */; };
 		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
+		C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */; };
 		C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC927B8B64100775779 /* ImageUploadService.swift */; };
 		C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */; };
 		C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCE27B8B69D00775779 /* MailingCertificationService.swift */; };
@@ -203,7 +203,6 @@
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		C35B832527B91E6600551AC5 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		C35B832727B91E6E00551AC5 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
-		C35B832927B9565600551AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupCoordinator.swift; sourceTree = "<group>"; };
 		C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupComponent.swift; sourceTree = "<group>"; };
 		C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +301,7 @@
 		C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewModel.swift; sourceTree = "<group>"; };
 		C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewController.swift; sourceTree = "<group>"; };
 		C3D3937927BB469300D47C9C /* RunnerBe-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerBe-iOS.entitlements"; sourceTree = "<group>"; };
+		C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3EB5CC427B8B57D00775779 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC627B8B58700775779 /* BasicSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC927B8B64100775779 /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
@@ -414,7 +414,7 @@
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
-				C35B832927B9565600551AC5 /* GoogleService-Info.plist */,
+				C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */,
 			);
 			path = "RunnerBe-iOS";
 			sourceTree = "<group>";
@@ -1177,7 +1177,7 @@
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
 				C39D86CA27AEB78700A9C201 /* AppleSDGothicNeoEB.ttf in Resources */,
 				C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */,
-				C35B832A27B9565600551AC5 /* GoogleService-Info.plist in Resources */,
+				C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,7 +1598,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shivvv.RunnerBe-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1632,7 +1632,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shivvv.RunnerBe-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

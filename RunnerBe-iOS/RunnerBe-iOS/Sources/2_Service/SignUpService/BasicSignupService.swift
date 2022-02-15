@@ -195,6 +195,8 @@ final class BasicSignupService: SignupService {
                 case let .error(code):
                     if code == 2009 { // 닉네임 중복 오류
                         keyChainWithOutNickName.onNext(())
+                    } else {
+                        functionResult.onNext(.imageUploadFail)
                     }
                 }
             })
