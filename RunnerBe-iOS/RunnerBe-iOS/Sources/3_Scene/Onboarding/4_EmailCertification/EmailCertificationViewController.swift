@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 final class EmailCertificationViewController: BaseViewController {
@@ -87,6 +88,12 @@ final class EmailCertificationViewController: BaseViewController {
         viewModel.outputs.enableCertificate
             .subscribe(onNext: { [weak self] enable in
                 self?.certificateButton.isEnabled = enable
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)
     }

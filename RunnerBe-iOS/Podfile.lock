@@ -164,6 +164,7 @@ PODS:
   - SwiftKeychainWrapper (4.0.1)
   - SwiftyJSON (4.3.0)
   - Then (2.7.0)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -186,6 +187,7 @@ DEPENDENCIES:
   - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
   - Then
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
@@ -225,6 +227,7 @@ SPEC REPOS:
     - SwiftKeychainWrapper
     - SwiftyJSON
     - Then
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
@@ -263,7 +266,8 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 2ec93984deec8c7be587432c9b107b622728fa6f
+PODFILE CHECKSUM: 488c7e6d3fb0f35afa6428269be5ffa2c57605dd
 
 COCOAPODS: 1.11.2

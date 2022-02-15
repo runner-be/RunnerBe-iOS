@@ -52,8 +52,7 @@ final class EmailCertificationViewModel: BaseViewModel {
                 case .sendEmailCompleted:
                     self?.outputs.emailSended.onNext(())
                 case .sendEmailFailed:
-                    // TODO: 이메일 전송 실패 시 처리
-                    break
+                    self?.outputs.toast.onNext("이메일 전송에 실패했습니다.")
                 }
                 self?.outputs.enableCertificate.onNext(true)
             })
@@ -68,8 +67,7 @@ final class EmailCertificationViewModel: BaseViewModel {
                 case .success:
                     self?.routes.signupComplete.onNext(())
                 case .fail:
-                    // TODO: 오류메시지
-                    break
+                    self?.outputs.toast.onNext("오류가 발생했습니다. 다시 시도해 주세요")
                 }
             })
             .disposed(by: disposeBag)
@@ -91,6 +89,7 @@ final class EmailCertificationViewModel: BaseViewModel {
         var enableCertificate = PublishSubject<Bool>()
         var emailDuplicated = PublishSubject<Bool>()
         var emailSended = PublishSubject<Void>()
+        var toast = PublishSubject<String>()
     }
 
     struct Route {

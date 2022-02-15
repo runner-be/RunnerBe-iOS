@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 extension ImagePickerType {
@@ -98,6 +99,21 @@ final class PhotoCertificationViewController: BaseViewController {
                 self.present(picker, animated: true)
             })
             .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toastActivity
+            .subscribe(onNext: { [weak self] show in
+                if show {
+                    self?.view.makeToastActivity(.center)
+                } else {
+                    self?.view.hideToastActivity()
+                }
+            })
     }
 
     // MARK: Private

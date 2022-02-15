@@ -38,7 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // TEST: token 초기화
         BasicLoginKeyChainService().token = nil
 
-        // TODO: appComponent에서 회원가입여부 확인 후 Main, Logged out 결정
         appComponent.loginService.checkLogin()
             .subscribe(onNext: { result in
                 switch result {

@@ -162,7 +162,6 @@ final class BasicSignupService: SignupService {
             .subscribe(onNext: { [weak self] idCardUrl in
                 guard var keyChain = self?.signupKeyChainService
                 else {
-                    // TODO: unowned?
                     functionResult.onNext(.imageUploadFail)
                     return
                 }
@@ -179,7 +178,6 @@ final class BasicSignupService: SignupService {
                 guard var keyChain = self?.signupKeyChainService,
                       let nickNameGenerator = self?.randomNickNameGenerator
                 else {
-                    // TODO: unowned?
                     functionResult.onNext(.imageUploadFail)
                     return
                 }

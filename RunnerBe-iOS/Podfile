@@ -49,6 +49,8 @@ target 'RunnerBe-iOS' do
 
   # PickerView
   pod 'PickerView'
+  # Toast
+  pod 'Toast-Swift', '~> 5.0.1'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

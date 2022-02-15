@@ -60,6 +60,7 @@ final class PhotoCertificationViewModel: BaseViewModel {
         inputs.tapCertificate
             .do(onNext: { [weak self] _ in
                 self?.outputs.enableCertificate.onNext(false)
+                self?.outputs.toastActivity.onNext(true)
             })
             .map { [weak self] () -> Observable<SignupWithIdCardResult> in
                 guard let self = self,
@@ -73,13 +74,13 @@ final class PhotoCertificationViewModel: BaseViewModel {
                 case .imageUploaded:
                     self?.routes.certificate.onNext(())
                 case .imageUploadFail:
-                    // TODO: 이미지 업로드 실패시 안내문구? 추가
-                    break
+                    self?.outputs.toast.onNext("이미지 전송을 실패했습니다.")
                 case .needUUID:
                     // TODO: UUID 오류시 해결방안 생각해보기
-                    break
+                    self?.outputs.toast.onNext("회원가입 과정에 오류가 있습니다.")
                 }
                 self?.outputs.enableCertificate.onNext(true)
+                self?.outputs.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
     }
@@ -96,6 +97,8 @@ final class PhotoCertificationViewModel: BaseViewModel {
     struct Output {
         var idCardImage = PublishSubject<Data?>()
         var enableCertificate = PublishSubject<Bool>()
+        var toast = PublishSubject<String>()
+        var toastActivity = PublishSubject<Bool>()
     }
 
     struct Route {

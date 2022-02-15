@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 final class LoggedOutViewController: BaseViewController {
@@ -56,7 +57,13 @@ final class LoggedOutViewController: BaseViewController {
             .disposed(by: disposeBags)
     }
 
-    private func bindViewModelOutput() {}
+    private func bindViewModelOutput() {
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBags)
+    }
 
     // MARK: Private
 
