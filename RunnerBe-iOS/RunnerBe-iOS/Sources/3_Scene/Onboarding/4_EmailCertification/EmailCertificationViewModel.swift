@@ -28,6 +28,9 @@ final class EmailCertificationViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.emailText
+            .do(onNext: { [weak self] _ in
+                self?.outputs.emailDuplicated.onNext(false)
+            })
             .map { $0?.count ?? 0 }
             .map { $0 != 0 }
             .bind(to: outputs.enableNext)
