@@ -31,7 +31,11 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
         navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
-            .subscribe(onNext: { [weak self] result in                switch result {
+            .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[PolicyTermCoordinator][closeSignal] popViewController")
+                #endif
+                switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:

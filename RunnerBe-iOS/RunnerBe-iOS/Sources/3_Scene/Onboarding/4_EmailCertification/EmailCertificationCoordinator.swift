@@ -38,6 +38,9 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[EmailCertificationCoordinator][closeSignal] popViewController")
+                #endif
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)

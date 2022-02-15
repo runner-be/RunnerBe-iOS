@@ -31,6 +31,9 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[BirthCoordinator][closeSignal] popViewController")
+                #endif
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)

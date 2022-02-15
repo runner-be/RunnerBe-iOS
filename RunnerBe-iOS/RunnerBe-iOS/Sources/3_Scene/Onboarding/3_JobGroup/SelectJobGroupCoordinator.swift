@@ -31,6 +31,9 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[SelectJobCoordinator][closeSignal] popViewController")
+                #endif
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)

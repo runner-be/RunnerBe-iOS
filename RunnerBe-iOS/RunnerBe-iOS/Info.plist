@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow access to select a photo</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow to use Camera</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -28,6 +24,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>runnerbe-ios</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>RunnerBe</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.shivvv.RunnerBe-iOS</string>
 			</array>
 		</dict>
 	</array>

@@ -15,11 +15,11 @@ final class BasicMailingCertificationService: MailingCertificationService {
         self.mailingAPIService = mailingAPIService
     }
 
-    func send(address: String, dynamicLink _: String) -> Observable<MailingCertificationResult> {
-        let mailFrom = MailAddress(email: "", name: "RunnerBe")
+    func send(address: String, dynamicLink: String) -> Observable<MailingCertificationResult> {
+        let mailFrom = MailAddress(email: "sinsdhk@gmail.com", name: "RunnerBe")
         let mailTo = MailAddress(email: address, name: "Runner")
         let subject = "[From: RunnerBe] 인증을 진행해 주세요!"
-        let text = "안녕하세요 러너비입니다.\n\n아래 링크를 통해 회원가입 절차를 완료해 주세요!\n\n<link> "
+        let text = "안녕하세요 러너비입니다.\n\n아래 링크를 통해 회원가입 절차를 완료해 주세요!\n\n\(dynamicLink) "
 
         let mail = Mail(from: mailFrom, to: [mailTo], subject: subject, textPart: text, htmlPart: nil)
 

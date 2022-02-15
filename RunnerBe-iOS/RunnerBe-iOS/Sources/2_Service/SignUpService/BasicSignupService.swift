@@ -13,6 +13,7 @@ final class BasicSignupService: SignupService {
     var loginKeyChainService: LoginKeyChainService
     var signupKeyChainService: SignupKeyChainService
     let signupAPIService: SignupAPIService
+    let dynamicLinkService: DynamicLinkService
     let emailCertificationService: MailingCertificationService
     let imageUploadService: ImageUploadService
     let randomNickNameGenerator: RandomNickNameGenerator
@@ -23,6 +24,7 @@ final class BasicSignupService: SignupService {
         loginKeyChainService: LoginKeyChainService,
         signupKeyChainService: SignupKeyChainService,
         signupAPIService: SignupAPIService,
+        dynamicLinkService: DynamicLinkService,
         emailCertificationService: MailingCertificationService,
         imageUploadService: ImageUploadService,
         randomNickNameGenerator: RandomNickNameGenerator
@@ -30,54 +32,101 @@ final class BasicSignupService: SignupService {
         self.loginKeyChainService = loginKeyChainService
         self.signupKeyChainService = signupKeyChainService
         self.signupAPIService = signupAPIService
+        self.dynamicLinkService = dynamicLinkService
         self.emailCertificationService = emailCertificationService
         self.imageUploadService = imageUploadService
         self.randomNickNameGenerator = randomNickNameGenerator
     }
 
     func sendEmail(_ email: String) -> Observable<SignupWithEmailResult> {
-        let sendResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
+        let emailCheckOK = ReplaySubject<Void>.create(bufferSize: 1)
+        let dynamicLinkResult = ReplaySubject<URL>.create(bufferSize: 1)
+        let sendEmailResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
 
         signupAPIService.checkEmailOK(email)
             .take(1)
-            .filter {
-                if !$0 {
-                    #if DEBUG
-                        print("[BasicSignupService][sendEmail] checkEmailOk false, return .emailDuplicated")
-                    #endif
-                    sendResult.onNext(.emailDuplicated)
-                }
-                return $0
-            }
-            .map { [weak self] _ in // email is not duplicated
-                self?.emailCertificationService.send(address: email, dynamicLink: "링크!")
-            }
-            .compactMap { result -> Observable<MailingCertificationResult>? in
-                #if DEBUG
-                    print("[BasicSignupService][sendEmail] result of send is nil, return .sendEmailFail")
-                #endif
-                if result == nil { sendResult.onNext(.sendEmailFailed) }
-                return result
-            }
-            .flatMap { $0 }
             .subscribe(onNext: {
-                switch $0 {
-                case .success:
-                    #if DEBUG
-                        print("[BasicSignupService][sendEmail] send success, return .sendEmailCompleted")
-                    #endif
-                    sendResult.onNext(.sendEmailCompleted)
-                case .fail:
-                    #if DEBUG
-                        print("[BasicSignupService][sendEmail] send success, return .sendEmailFailed")
-                    #endif
-                    sendResult.onNext(.sendEmailFailed)
+                if $0 {
+                    emailCheckOK.onNext(())
+                } else {
+                    sendEmailResult.onNext(.emailDuplicated)
                 }
             })
             .disposed(by: disposeBag)
 
-        return sendResult
-            .debug()
+        emailCheckOK
+            .map { [weak self] in self?.dynamicLinkService.generateLink() }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: {
+                guard let url = $0
+                else {
+                    sendEmailResult.onNext(.sendEmailFailed)
+                    return
+                }
+                dynamicLinkResult.onNext(url)
+            })
+            .disposed(by: disposeBag)
+
+        dynamicLinkResult
+            .map { [weak self] url in
+                self?.emailCertificationService.send(address: email, dynamicLink: url.absoluteString)
+            }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { emailResult in
+                switch emailResult {
+                case .success:
+                    sendEmailResult.onNext(.sendEmailCompleted)
+                case .fail:
+                    sendEmailResult.onNext(.sendEmailFailed)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        return sendEmailResult
+//        let sendResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
+//
+//        signupAPIService.checkEmailOK(email)
+//            .take(1)
+//            .filter {
+//                if !$0 {
+//                    #if DEBUG
+//                        print("[BasicSignupService][sendEmail] checkEmailOk false, return .emailDuplicated")
+//                    #endif
+//                    sendResult.onNext(.emailDuplicated)
+//                }
+//                return $0
+//            }
+//            .map { [weak self] _ in // email is not duplicated
+//                self?.emailCertificationService.send(address: email, dynamicLink: "링크!")
+//            }
+//            .compactMap { result -> Observable<MailingCertificationResult>? in
+//                #if DEBUG
+//                    print("[BasicSignupService][sendEmail] result of send is nil, return .sendEmailFail")
+//                #endif
+//                if result == nil { sendResult.onNext(.sendEmailFailed) }
+//                return result
+//            }
+//            .flatMap { $0 }
+//            .subscribe(onNext: {
+//                switch $0 {
+//                case .success:
+//                    #if DEBUG
+//                        print("[BasicSignupService][sendEmail] send success, return .sendEmailCompleted")
+//                    #endif
+//                    sendResult.onNext(.sendEmailCompleted)
+//                case .fail:
+//                    #if DEBUG
+//                        print("[BasicSignupService][sendEmail] send success, return .sendEmailFailed")
+//                    #endif
+//                    sendResult.onNext(.sendEmailFailed)
+//                }
+//            })
+//            .disposed(by: disposeBag)
+//
+//        return sendResult
+//            .debug()
     }
 
     func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult> {

@@ -40,6 +40,7 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
             loginKeyChainService: dependency.loginKeyChainService,
             signupKeyChainService: dependency.signupKeyChainService,
             signupAPIService: signupAPIService,
+            dynamicLinkService: dynamicLinkService,
             emailCertificationService: emailCertificationService,
             imageUploadService: imageUploadService,
             randomNickNameGenerator: randomNickNameGenerator
@@ -53,6 +54,10 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
 
     private var emailCertificationService: MailingCertificationService {
         return shared { BasicMailingCertificationService(mailingAPIService: BasicMailingAPIService()) }
+    }
+
+    private var dynamicLinkService: DynamicLinkService {
+        return shared { BasicDynamicLinkService() }
     }
 
     private var imageUploadService: ImageUploadService {

@@ -40,6 +40,9 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[PhotoCertificationCoordinator][closeSignal] popViewController")
+                #endif
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)

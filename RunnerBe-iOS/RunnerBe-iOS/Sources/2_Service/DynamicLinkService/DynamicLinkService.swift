@@ -8,4 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol DynamicLinkService {}
+protocol DynamicLinkService {
+    func generateLink() -> Observable<URL?>
+}
