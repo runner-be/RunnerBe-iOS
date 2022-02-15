@@ -43,7 +43,7 @@ class OnboardingCompletionViewController: BaseViewController {
         label.font = .iosHeader31Sb
         label.textColor = .primary
         label.text = L10n.OnboardingCompletion.title
-        
+
         label.numberOfLines = 2
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -53,7 +53,7 @@ class OnboardingCompletionViewController: BaseViewController {
         label.font = .iosTitle19R
         label.textColor = .darkG25
         label.text = L10n.OnboardingCompletion.subTitle
-        
+
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -109,7 +109,7 @@ extension OnboardingCompletionViewController {
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
         }
-        
+
         startButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-21)
             make.leading.equalTo(view.snp.leading).offset(16)

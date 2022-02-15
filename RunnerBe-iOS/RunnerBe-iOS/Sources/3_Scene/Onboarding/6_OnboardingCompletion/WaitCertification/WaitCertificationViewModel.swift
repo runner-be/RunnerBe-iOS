@@ -11,11 +11,21 @@ import RxSwift
 final class WaitCertificationViewModel: BaseViewModel {
     override init() {
         super.init()
+
+        inputs.tapToMain
+            .map { false }
+            .subscribe(routes.toMain)
+            .disposed(by: disposeBag)
     }
 
-    struct Input {}
+    struct Input {
+        let tapToMain = PublishSubject<Void>()
+    }
+
     struct Output {}
-    struct Route {}
+    struct Route {
+        let toMain = PublishSubject<Bool>()
+    }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()

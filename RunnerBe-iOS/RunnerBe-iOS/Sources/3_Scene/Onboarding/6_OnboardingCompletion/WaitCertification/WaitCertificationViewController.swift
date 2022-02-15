@@ -34,7 +34,12 @@ class WaitCertificationViewController: BaseViewController {
 
     private var viewModel: WaitCertificationViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        toMainButton.rx.tap
+            .bind(to: viewModel.inputs.tapToMain)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     private var titleLabel = UILabel().then { label in

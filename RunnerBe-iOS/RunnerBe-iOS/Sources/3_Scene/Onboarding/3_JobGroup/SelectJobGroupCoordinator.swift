@@ -11,6 +11,7 @@ import RxSwift
 enum SelectJobGroupResult {
     case cancelOnboarding
     case backward
+    case toMain(certificated: Bool)
 }
 
 final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
@@ -38,6 +39,8 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 case .backward:
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:
+                    self?.navController.popViewController(animated: false)
+                case .toMain:
                     self?.navController.popViewController(animated: false)
                 }
             })
@@ -75,6 +78,8 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
+                case let .toMain(certificated):
+                    self?.closeSignal.onNext(.toMain(certificated: certificated))
                 case .backward: break
                 }
             })

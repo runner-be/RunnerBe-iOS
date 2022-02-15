@@ -11,6 +11,7 @@ import RxSwift
 enum PhotoCertificationResult {
     case cancelOnboarding
     case backward
+    case toMain(certificated: Bool)
 }
 
 extension PhotoModalResult {
@@ -47,6 +48,8 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 case .backward:
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:
+                    self?.navController.popViewController(animated: false)
+                case .toMain:
                     self?.navController.popViewController(animated: false)
                 }
             })
@@ -116,8 +119,12 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .toMain(certificated):
+                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

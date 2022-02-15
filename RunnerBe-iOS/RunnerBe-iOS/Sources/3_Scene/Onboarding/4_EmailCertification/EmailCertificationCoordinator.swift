@@ -11,6 +11,7 @@ import RxSwift
 enum EmailCertificationResult {
     case cancelOnboarding
     case backward
+    case toMain(certificated: Bool)
 }
 
 final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationResult> {
@@ -46,6 +47,8 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:
                     self?.navController.popViewController(animated: false)
+                case .toMain:
+                    self?.navController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -80,6 +83,8 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
+                case let .toMain(certificated):
+                    self?.closeSignal.onNext(.toMain(certificated: certificated))
                 case .backward: break
                 }
             })

@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum WaitCertificationResult {}
+enum WaitCertificationResult {
+    case toMain(certificated: Bool)
+}
 
 final class WaitCertificationCoordinator: BasicCoordinator<WaitCertificationResult> {
     var component: WaitCertificationComponent
@@ -21,5 +23,22 @@ final class WaitCertificationCoordinator: BasicCoordinator<WaitCertificationResu
     override func start() {
         let scene = component.scene
         navController.pushViewController(scene.VC, animated: true)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[WaitCertificationCoordinator][closeSignal] popViewController")
+                #endif
+                switch result {
+                case .toMain:
+                    self?.navController.popViewController(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.toMain
+            .map { WaitCertificationResult.toMain(certificated: $0) }
+            .subscribe(closeSignal)
+            .disposed(by: disposeBag)
     }
 }

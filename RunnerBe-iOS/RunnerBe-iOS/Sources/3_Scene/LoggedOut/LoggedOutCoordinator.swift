@@ -59,8 +59,14 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
         let disposable = coordinate(coordinator: coord)
             .take(1)
-            .subscribe(onNext: { [weak self] _ in
-                self?.release(coordinator: coord)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .toMain(certificated):
+                    self?.closeSignal.onNext(.loginSuccess(isCertificated: certificated))
+                case .backward, .cancelOnboarding:
+                    break
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

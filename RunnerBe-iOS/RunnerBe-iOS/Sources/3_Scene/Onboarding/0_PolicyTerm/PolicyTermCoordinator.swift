@@ -11,6 +11,7 @@ import RxSwift
 enum PolicyTermResult {
     case cancelOnboarding
     case backward
+    case toMain(certificated: Bool)
 }
 
 final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
@@ -40,6 +41,8 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                     self?.navController.popViewController(animated: true)
                 case .cancelOnboarding:
                     self?.navController.popViewController(animated: true)
+                case .toMain:
+                    self?.navController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -81,6 +84,8 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
+                case let .toMain(certificated):
+                    self?.closeSignal.onNext(.toMain(certificated: certificated))
                 case .backward: break
                 }
             })
