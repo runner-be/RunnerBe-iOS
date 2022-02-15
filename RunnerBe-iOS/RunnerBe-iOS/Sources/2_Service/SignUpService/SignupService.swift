@@ -14,6 +14,11 @@ enum SignupWithEmailResult {
     case sendEmailFailed
 }
 
+enum EmailCertificatedResult {
+    case success
+    case fail
+}
+
 enum SignupWithIdCardResult {
     case imageUploaded
     case imageUploadFail
@@ -22,5 +27,6 @@ enum SignupWithIdCardResult {
 
 protocol SignupService {
     func sendEmail(_ email: String) -> Observable<SignupWithEmailResult>
+    func emailCertificated(email: String) -> Observable<EmailCertificatedResult>
     func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult>
 }

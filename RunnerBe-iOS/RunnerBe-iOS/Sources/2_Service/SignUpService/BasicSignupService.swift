@@ -39,6 +39,8 @@ final class BasicSignupService: SignupService {
     }
 
     func sendEmail(_ email: String) -> Observable<SignupWithEmailResult> {
+        signupKeyChainService.officeMail = email
+
         let emailCheckOK = ReplaySubject<Void>.create(bufferSize: 1)
         let uuidReady = ReplaySubject<String>.create(bufferSize: 1)
         let dynamicLinkReady = ReplaySubject<URL>.create(bufferSize: 1)
@@ -71,8 +73,8 @@ final class BasicSignupService: SignupService {
             .debug()
             .map { [weak self] uuid in
                 self?.dynamicLinkService.generateLink(
-                    resultPath: "MainTabComponent",
-                    parameters: ["id": uuid.sha256]
+                    resultPath: "EmailCertification",
+                    parameters: ["id": uuid.sha256, "email": email]
                 )
             }
             .compactMap { $0 }
@@ -221,6 +223,66 @@ final class BasicSignupService: SignupService {
                             print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
                         }
                     #endif
+                }
+            })
+            .disposed(by: disposeBag)
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposeBag = DisposeBag()
+            })
+    }
+
+    func emailCertificated(email: String) -> Observable<EmailCertificatedResult> {
+        let functionResult = ReplaySubject<EmailCertificatedResult>.create(bufferSize: 1)
+        let formReadyWithoutNickName = ReplaySubject<Void>.create(bufferSize: 1)
+        let formReady = ReplaySubject<SignupForm>.create(bufferSize: 1)
+
+        signupKeyChainService.officeMail = email
+        signupKeyChainService.idCardUrl = nil
+        formReadyWithoutNickName.onNext(())
+
+        formReadyWithoutNickName
+            .subscribe(onNext: { [weak self] in
+                guard var keyChain = self?.signupKeyChainService,
+                      let nickNameGenerator = self?.randomNickNameGenerator
+                else {
+                    functionResult.onNext(.fail)
+                    return
+                }
+                keyChain.nickName = nickNameGenerator.generate(
+                    numOfRandom: 4,
+                    prefix: "Runner",
+                    suffix: ""
+                )
+                formReady.onNext(keyChain.signupForm)
+            })
+            .disposed(by: disposeBag)
+
+        formReady
+            .map { [weak self] form in
+                self?.signupAPIService.signup(with: form)
+            }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] apiResult in
+                guard let self = self,
+                      let result = apiResult
+                else {
+                    functionResult.onNext(.fail)
+                    return
+                }
+
+                switch result {
+                case let .succeed(jwt):
+                    self.loginKeyChainService.token = LoginToken(jwt: jwt)
+                    functionResult.onNext(.success)
+                case let .error(code):
+                    if code == 2009 {
+                        formReadyWithoutNickName.onNext(())
+                    } else {
+                        functionResult.onNext(.fail)
+                    }
                 }
             })
             .disposed(by: disposeBag)

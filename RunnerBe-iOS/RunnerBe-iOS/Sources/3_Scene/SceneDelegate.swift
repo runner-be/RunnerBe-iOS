@@ -43,11 +43,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .subscribe(onNext: { result in
                 switch result {
                 case .member:
-                    appCoordinator.showMain(certificated: true)
+                    appCoordinator.showMain(certificated: true, animated: false)
                 case .memberWaitCertification:
-                    appCoordinator.showMain(certificated: false)
+                    appCoordinator.showMain(certificated: false, animated: false)
                 case .nonMember:
-                    appCoordinator.showLoggedOut()
+                    appCoordinator.showLoggedOut(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -118,22 +118,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("[SceneDelegate][handleIncomingDynamicLink] imcoming link parameter is \(url.absoluteString)")
         #endif
 
-//        guard
-//            dynamicLink.matchType == .unique || dynamicLink.matchType == .default
-//        else {
-//            #if DEBUG
-//                print("[SceneDelegate][handleIncomingDynamicLink] matchType != .unique != .default")
-//            #endif
-//            return
-//        }
-//
-//        let deepLinkHandler = DeeplinkHander()
-//        guard let deepLink = deepLinkHandler.parseComponents(from: url)
-//        else {
-//            #if DEBUG
-//                print("[SceneDelegate][handleIncomingDynamicLink] deepLinkHandler parseComponent = \"nil\"")
-//            #endif
-//            return
-//        }
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        else { return }
+        #if DEBUG
+            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link path : \"\(String(describing: urlComponents.path))\"")
+
+            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link queryItems :")
+            urlComponents.queryItems?.forEach {
+                if let value = $0.value {
+                    print("\"\($0.name)\": \"\(value)\"")
+                }
+            }
+        #endif
+
+        let paths = urlComponents.path.components(separatedBy: "/")
+            .filter { !$0.isEmpty }
+        let componets = urlComponents.queryItems?
+            .filter { $0.value != nil }
+            .reduce(into: [String: String]()) { $0[$1.name] = $1.value }
+
+        guard let name = paths.first,
+              let parameters = componets,
+              let deepLinkType = DeepLinkType.from(name: name, parameters: parameters)
+        else { return }
+
+        switch deepLinkType {
+        case .emailCertification:
+            appCoordinator?.handleDeepLink(type: deepLinkType)
+        }
     }
 }

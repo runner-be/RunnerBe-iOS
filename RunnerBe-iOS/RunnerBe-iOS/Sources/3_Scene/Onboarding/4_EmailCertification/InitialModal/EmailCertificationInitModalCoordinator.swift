@@ -20,10 +20,10 @@ final class EmailCertificationInitModalCoordinator: BasicCoordinator<EmailCertif
         super.init(navController: navController)
     }
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let emailCertificationInitModal = component.emailCertificationInitModal
         emailCertificationInitModal.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(emailCertificationInitModal.VC, animated: false)
+        navController.present(emailCertificationInitModal.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { _ in

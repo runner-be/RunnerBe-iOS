@@ -139,6 +139,7 @@
 		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
 		C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */; };
 		C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937C27BB886A00D47C9C /* String+SHA256.swift */; };
+		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
 		C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC927B8B64100775779 /* ImageUploadService.swift */; };
 		C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */; };
 		C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCE27B8B69D00775779 /* MailingCertificationService.swift */; };
@@ -304,6 +305,7 @@
 		C3D3937927BB469300D47C9C /* RunnerBe-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerBe-iOS.entitlements"; sourceTree = "<group>"; };
 		C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D3937C27BB886A00D47C9C /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
+		C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkType.swift; sourceTree = "<group>"; };
 		C3EB5CC427B8B57D00775779 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC627B8B58700775779 /* BasicSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC927B8B64100775779 /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 		C34FDA4D27AD5C82007718F8 /* 3_Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
 				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
 				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
 				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
@@ -1408,6 +1411,7 @@
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
+				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,

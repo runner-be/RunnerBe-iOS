@@ -20,28 +20,40 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     var component: AppComponent
 
-    override func start() {}
+    override func start(animated _: Bool = true) {}
 
-    func showMain(certificated _: Bool) {
+    func showMain(certificated _: Bool, animated: Bool) {
         let mainTabbarCoord = MainTabbarCoordinator(component: component.mainTabComponent, navController: navController)
 
-        coordinate(coordinator: mainTabbarCoord)
+        coordinate(coordinator: mainTabbarCoord, animated: animated)
     }
 
-    func showLoggedOut() {
+    func showLoggedOut(animated: Bool) {
         let comp = component.loggedOutComponent
         let coord = LoggedOutCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
 
                 switch coordResult {
                 case let .loginSuccess(certificated):
-                    self?.showMain(certificated: certificated)
+                    self?.showMain(certificated: certificated, animated: false)
                 }
             })
 
         addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    override func handleDeepLink(type: DeepLinkType) {
+        switch type {
+        case .emailCertification:
+            if let coord = childs["LoggedOutCoordinator"] {
+                coord.handleDeepLink(type: type)
+            } else {
+                showLoggedOut(animated: false)
+                childs["LoggedOutCoordinator"]!.handleDeepLink(type: type)
+            }
+        }
     }
 }

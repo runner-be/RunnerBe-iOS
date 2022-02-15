@@ -23,7 +23,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
     var component: MainTabComponent
 
-    override func start() {
+    override func start(animated _: Bool = true) {
         startTabbarController()
     }
 
@@ -50,7 +50,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         let comp = component.homeComponent
         let coord = HomeCoordinator(component: comp, tabController: tabController, navController: navController)
 
-        coordinate(coordinator: coord)
+        coordinate(coordinator: coord, animated: false)
 
         return comp.scene.VC
     }
@@ -59,7 +59,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         let comp = component.bookmarkComponent
         let coord = BookMarkCoordinator(component: comp, tabController: tabController, navController: navController)
 
-        coordinate(coordinator: coord)
+        coordinate(coordinator: coord, animated: false)
 
         return comp.scene.VC
     }
@@ -68,7 +68,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         let comp = component.messageComponent
         let coord = MessageCoordinator(component: comp, tabController: tabController, navController: navController)
 
-        coordinate(coordinator: coord)
+        coordinate(coordinator: coord, animated: false)
 
         return comp.scene.VC
     }
@@ -77,7 +77,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         let comp = component.myPageComponent
         let coord = MyPageCoordinator(component: comp, tabController: tabController, navController: navController)
 
-        coordinate(coordinator: coord)
+        coordinate(coordinator: coord, animated: false)
 
         return comp.scene.VC
     }

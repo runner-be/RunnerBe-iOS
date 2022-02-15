@@ -22,5 +22,5 @@ final class MessageCoordinator: TabCoordinator<HomeResult> {
 
     var component: MessageComponent
 
-    override func start() {}
+    override func start(animated _: Bool = true) {}
 }

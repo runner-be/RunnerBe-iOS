@@ -34,7 +34,12 @@ class OnboardingCompletionViewController: BaseViewController {
 
     private var viewModel: OnboardingCompletionViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        startButton.rx.tap
+            .bind(to: viewModel.inputs.tapStart)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     // MARK: Private

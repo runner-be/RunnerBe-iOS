@@ -39,6 +39,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent") { component in
         return WaitCertificationDependencya59e7f4494bb58452d1aProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent") { component in
+        return OnboardingCompletionDependencyfab662889368f161b644Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent") { component in
         return PhotoCertificationDependency919976e3bbe7c6970accProvider(component: component)
     }
@@ -205,6 +208,19 @@ private class WaitCertificationDependencya59e7f4494bb58452d1aBaseProvider: WaitC
 }
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent
 private class WaitCertificationDependencya59e7f4494bb58452d1aProvider: WaitCertificationDependencya59e7f4494bb58452d1aBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class OnboardingCompletionDependencyfab662889368f161b644BaseProvider: OnboardingCompletionDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent
+private class OnboardingCompletionDependencyfab662889368f161b644Provider: OnboardingCompletionDependencyfab662889368f161b644BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

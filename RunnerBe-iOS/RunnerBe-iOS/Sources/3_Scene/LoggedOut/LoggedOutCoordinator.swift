@@ -24,9 +24,9 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
     var component: LoggedOutComponent
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: false)
+        navController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -40,7 +40,7 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
         scene.VM.routes.nonMember
             .subscribe(onNext: { [weak self] in
-                self?.pushPolicyTerm()
+                self?.pushPolicyTerm(animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -53,11 +53,11 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
 
     // MARK: Private
 
-    private func pushPolicyTerm() {
+    private func pushPolicyTerm(animated: Bool) {
         let comp = component.policyTermComponent
         let coord = PolicyTermCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
@@ -70,5 +70,17 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
             })
 
         addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    override func handleDeepLink(type: DeepLinkType) {
+        switch type {
+        case .emailCertification:
+            if let coord = childs["PolicyTermCoordinator"] {
+                coord.handleDeepLink(type: type)
+            } else {
+                pushPolicyTerm(animated: false)
+                childs["PolicyTermCoordinator"]!.handleDeepLink(type: type)
+            }
+        }
     }
 }

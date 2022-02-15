@@ -21,10 +21,10 @@ final class OnboardingCancelModalCoordinator: BasicCoordinator<OnboardingCancelM
         super.init(navController: navController)
     }
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(scene.VC, animated: false)
+        navController.present(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in

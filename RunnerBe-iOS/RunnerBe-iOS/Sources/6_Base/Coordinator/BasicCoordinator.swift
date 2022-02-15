@@ -14,6 +14,9 @@ protocol Coordinator: AnyObject {
     var childs: [String: Coordinator] { get set }
     var childBags: [String: [Disposable]] { get set }
     func release()
+    func release(coordinator: Coordinator)
+
+    func handleDeepLink(type: DeepLinkType)
 }
 
 class BasicCoordinator<ResultType>: Coordinator {
@@ -48,9 +51,9 @@ class BasicCoordinator<ResultType>: Coordinator {
     var closeSignal = PublishSubject<CoordinationResult>()
 
     @discardableResult
-    func coordinate<T>(coordinator: BasicCoordinator<T>) -> Observable<T> {
+    func coordinate<T>(coordinator: BasicCoordinator<T>, animated: Bool = true) -> Observable<T> {
         childs[coordinator.id] = coordinator
-        coordinator.start()
+        coordinator.start(animated: animated)
         return coordinator.closeSignal
     }
 
@@ -58,7 +61,7 @@ class BasicCoordinator<ResultType>: Coordinator {
         childBags[id, default: []].append(disposable)
     }
 
-    func release<T>(coordinator: BasicCoordinator<T>) {
+    func release(coordinator: Coordinator) {
         coordinator.release()
         let id = coordinator.id
         childBags[id]?.forEach { $0.dispose() }
@@ -80,9 +83,11 @@ class BasicCoordinator<ResultType>: Coordinator {
         #endif
     }
 
-    func start() {
+    func start(animated _: Bool) {
         fatalError("start() must be impl")
     }
+
+    func handleDeepLink(type _: DeepLinkType) {}
 
     // MARK: Private
 

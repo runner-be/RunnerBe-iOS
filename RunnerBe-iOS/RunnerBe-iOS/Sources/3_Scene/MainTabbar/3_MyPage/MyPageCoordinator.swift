@@ -22,5 +22,5 @@ final class MyPageCoordinator: TabCoordinator<HomeResult> {
 
     var component: MyPageComponent
 
-    override func start() {}
+    override func start(animated _: Bool = true) {}
 }

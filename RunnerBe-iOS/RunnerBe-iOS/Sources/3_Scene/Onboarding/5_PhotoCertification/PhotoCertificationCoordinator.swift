@@ -35,9 +35,9 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
         super.init(navController: navController)
     }
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -58,13 +58,13 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
         scene.VM.routes.photoModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
-                self?.presentPhotoModal(vm: vm)
+                self?.presentPhotoModal(vm: vm, animated: false)
             })
             .disposed(by: disposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
-                self?.presentOnboardingCancelCoord()
+                self?.presentOnboardingCancelCoord(animated: false)
             })
             .disposed(by: disposeBag)
 
@@ -75,16 +75,16 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
         scene.VM.routes.certificate
             .subscribe(onNext: { [weak self] in
-                self?.pushWaitCertificateCoord()
+                self?.pushWaitCertificateCoord(animated: true)
             })
             .disposed(by: disposeBag)
     }
 
-    private func presentPhotoModal(vm: PhotoCertificationViewModel) {
+    private func presentPhotoModal(vm: PhotoCertificationViewModel, animated: Bool) {
         let comp = component.photoModalComponent
         let coord = PhotoModalCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .map { $0.imagePickerType }
             .subscribe(onNext: { [weak self] imagePickerType in
                 defer { self?.release(coordinator: coord) }
@@ -94,11 +94,11 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func presentOnboardingCancelCoord() {
+    private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
@@ -113,11 +113,11 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func pushWaitCertificateCoord() {
+    private func pushWaitCertificateCoord(animated: Bool) {
         let comp = component.waitCertificationComponent
         let coord = WaitCertificationCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }

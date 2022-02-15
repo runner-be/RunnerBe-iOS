@@ -24,7 +24,7 @@ final class EmailCertificationViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapNoEmail
-            .subscribe(routes.photoCertification)
+            .subscribe(routes.toIDCardCertification)
             .disposed(by: disposeBag)
 
         inputs.emailText
@@ -55,6 +55,21 @@ final class EmailCertificationViewModel: BaseViewModel {
                 self?.outputs.enableCertificate.onNext(true)
             })
             .disposed(by: disposeBag)
+
+        routeInputs.emailCertifated
+            .map { [weak self] in self?.signupService.emailCertificated(email: $0) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.routes.signupComplete.onNext(())
+                case .fail:
+                    // TODO: 오류메시지
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Internal
@@ -76,14 +91,20 @@ final class EmailCertificationViewModel: BaseViewModel {
     }
 
     struct Route {
-        var photoCertification = PublishSubject<Void>()
+        var signupComplete = PublishSubject<Void>()
+        var toIDCardCertification = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var cancel = PublishSubject<Void>()
+    }
+
+    struct RouteInput {
+        var emailCertifated = PublishSubject<String>()
     }
 
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+    var routeInputs = RouteInput()
 
     // MARK: Private
 

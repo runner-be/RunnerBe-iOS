@@ -15,20 +15,26 @@ protocol EmailCertificationDependency: Dependency {
 
 final class EmailCertificationComponent: Component<EmailCertificationDependency> {
     var scene: (VC: UIViewController, VM: EmailCertificationViewModel) {
-        let viewModel = viewModel
-        return (EmailCertificationViewController(viewModel: viewModel), viewModel)
+        return shared {
+            let viewModel = viewModel
+            return (EmailCertificationViewController(viewModel: viewModel), viewModel)
+        }
     }
 
     private var viewModel: EmailCertificationViewModel {
         return EmailCertificationViewModel(signupService: signupService)
     }
 
-    var photoCertificationComponent: PhotoCertificationComponent {
+    var idCardCertificationComponent: PhotoCertificationComponent {
         return PhotoCertificationComponent(parent: self)
     }
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
         return OnboardingCancelModalComponent(parent: self)
+    }
+
+    var onboardingCompletionComponent: OnboardingCompletionComponent {
+        return OnboardingCompletionComponent(parent: self)
     }
 
     var initModalComponent: EmailCertificationInitModalComponent {

@@ -22,5 +22,5 @@ final class BookMarkCoordinator: TabCoordinator<HomeResult> {
 
     var component: BookMarkComponent
 
-    override func start() {}
+    override func start(animated _: Bool = true) {}
 }

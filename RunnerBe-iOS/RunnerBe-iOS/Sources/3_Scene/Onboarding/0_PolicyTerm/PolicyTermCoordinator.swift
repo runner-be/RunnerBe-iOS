@@ -26,10 +26,10 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
     var component: PolicyTermComponent
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
 
-        navController.pushViewController(scene.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -49,13 +49,13 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
         scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
-                self?.pushBirthCoord()
+                self?.pushBirthCoord(animated: true)
             })
             .disposed(by: disposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
-                self?.presentOnboardingCancelCoord()
+                self?.presentOnboardingCancelCoord(animated: false)
             })
             .disposed(by: disposeBag)
 
@@ -66,18 +66,18 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
         scene.VM.routes.showPolicy
             .subscribe(onNext: { [weak self] policyType in
-                self?.presentPolicyDetail(type: policyType)
+                self?.presentPolicyDetail(type: policyType, animated: true)
             })
             .disposed(by: disposeBag)
     }
 
     // MARK: Private
 
-    private func pushBirthCoord() {
+    private func pushBirthCoord(animated: Bool) {
         let comp = component.birthComponent
         let coord = BirthCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
@@ -93,23 +93,23 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func presentPolicyDetail(type: PolicyType) {
+    private func presentPolicyDetail(type: PolicyType, animated: Bool) {
         let comp = component.policyDetailComponent
         comp.policyType = type
         let coord = PolicyDetailCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] _ in
                 self?.release(coordinator: coord)
             })
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func presentOnboardingCancelCoord() {
+    private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
 
-        let disposable = coordinate(coordinator: coord)
+        let disposable = coordinate(coordinator: coord, animated: animated)
             .debug("PolicyTerm - close Onboarding")
             .subscribe(onNext: { [weak self] modalResult in
                 defer { self?.release(coordinator: coord) }
@@ -121,5 +121,17 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 }
             })
         addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    override func handleDeepLink(type: DeepLinkType) {
+        switch type {
+        case .emailCertification:
+            if let coord = childs["BirthCoordinator"] {
+                coord.handleDeepLink(type: type)
+            } else {
+                pushBirthCoord(animated: false)
+                childs["BirthCoordinator"]!.handleDeepLink(type: type)
+            }
+        }
     }
 }

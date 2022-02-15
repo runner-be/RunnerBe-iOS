@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum OnboardingCompletionResult {}
+enum OnboardingCompletionResult {
+    case toMain(certificated: Bool)
+}
 
 final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompletionResult> {
     var component: OnboardingCompletionComponent
@@ -18,8 +20,25 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
         super.init(navController: navController)
     }
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: animated)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                #if DEBUG
+                    print("[WaitCertificationCoordinator][closeSignal] popViewController")
+                #endif
+                switch result {
+                case .toMain:
+                    self?.navController.popViewController(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.toMain
+            .map { .toMain(certificated: $0) }
+            .subscribe(closeSignal)
+            .disposed(by: disposeBag)
     }
 }

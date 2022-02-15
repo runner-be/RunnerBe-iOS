@@ -20,11 +20,11 @@ final class PolicyDetailCoordinator: BasicCoordinator<PolicyDetailResult> {
         super.init(navController: navController)
     }
 
-    override func start() {
+    override func start(animated: Bool = true) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
         scene.VC.modalTransitionStyle = .coverVertical
-        navController.present(scene.VC, animated: true)
+        navController.present(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { _ in
