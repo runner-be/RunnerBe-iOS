@@ -31,7 +31,6 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
-                defer { scene.VC.removeFromParent() }
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)

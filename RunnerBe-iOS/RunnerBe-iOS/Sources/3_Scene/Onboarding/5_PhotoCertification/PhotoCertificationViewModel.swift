@@ -58,6 +58,9 @@ final class PhotoCertificationViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapCertificate
+            .do(onNext: { [weak self] _ in
+                self?.outputs.enableCertificate.onNext(false)
+            })
             .map { [weak self] () -> Observable<SignupWithIdCardResult> in
                 guard let self = self,
                       let data = self.image
@@ -76,6 +79,7 @@ final class PhotoCertificationViewModel: BaseViewModel {
                     // TODO: UUID 오류시 해결방안 생각해보기
                     break
                 }
+                self?.outputs.enableCertificate.onNext(true)
             })
             .disposed(by: disposeBag)
     }

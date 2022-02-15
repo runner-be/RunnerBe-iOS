@@ -82,6 +82,11 @@ final class EmailCertificationViewController: BaseViewController {
                 self?.messageLabel1.isHidden = false
                 self?.messageLabel2.isHidden = false
             })
+
+        viewModel.outputs.enableCertificate
+            .subscribe(onNext: { [weak self] enable in
+                self?.certificateButton.isEnabled = enable
+            })
     }
 
     private func viewInput() {

@@ -34,6 +34,9 @@ final class EmailCertificationViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapCertificate
+            .do(onNext: { [weak self] _ in
+                self?.outputs.enableCertificate.onNext(false)
+            })
             .map { [weak self] address in
                 self?.signupService.sendEmail(address)
             }
@@ -49,6 +52,7 @@ final class EmailCertificationViewModel: BaseViewModel {
                     // TODO: 이메일 전송 실패 시 처리
                     break
                 }
+                self?.outputs.enableCertificate.onNext(true)
             })
             .disposed(by: disposeBag)
     }
@@ -66,6 +70,7 @@ final class EmailCertificationViewModel: BaseViewModel {
 
     struct Output {
         var enableNext = PublishSubject<Bool>()
+        var enableCertificate = PublishSubject<Bool>()
         var emailDuplicated = PublishSubject<Bool>()
         var emailSended = PublishSubject<Void>()
     }
