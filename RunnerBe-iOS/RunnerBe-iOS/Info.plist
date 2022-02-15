@@ -33,9 +33,13 @@
 			<string>RunnerBe</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.shivvv.RunnerBe-iOS</string>
+				<string>com.shivvv.RunnerBeiOS</string>
 			</array>
 		</dict>
+	</array>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://runnerbeios.page.link</string>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>

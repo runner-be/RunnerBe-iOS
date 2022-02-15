@@ -10,33 +10,26 @@ import Foundation
 import RxSwift
 
 final class BasicDynamicLinkService: DynamicLinkService {
-    func generateLink() -> Observable<URL?> {
+    func generateLink(resultPath: String, parameters: [String: String]) -> Observable<URL?> {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "" // host
-        components.path = "" // to show page
+        components.host = DynamicLinkElement.host
+        components.path = "/\(resultPath)" // to show page
 
-        // to find a specific recipe on website or in the app
-        //        let itemIDQueryItem = URLQueryItem(name: "recipeID", value: "abcd")
-        //        components.queryItems = [itemIDQueryItem]
-
+        components.queryItems = parameters.reduce(into: [URLQueryItem]()) { partialResult, keyValue in
+            partialResult?.append(URLQueryItem(name: keyValue.key, value: keyValue.value))
+        }
         guard let linkParameter = components.url else { return .just(nil) }
 
-        // defines a dynamic link component object with the URL you defined previously
-        // and the URI prefix, which is what you defined in the Firebase console
-        // under dynamic links: https://[your domain].
-        // TODO: replace with your own URL
-        let domain = "https://runnerbeios.page.link"
+        let domain = DynamicLinkElement.domain
         guard let linkBuilder = DynamicLinkComponents(link: linkParameter, domainURIPrefix: domain)
         else { return .just(nil) }
 
-        // define a DynamicLinkIOSParameters object and assign it a value of app's bundleID
         if let myBundleId = Bundle.main.bundleIdentifier {
             linkBuilder.iOSParameters = DynamicLinkIOSParameters(bundleID: myBundleId)
         }
 
-        // The link needs to know where to send users who don't have the app installed
-        linkBuilder.iOSParameters?.appStoreID = "1610047211"
+        linkBuilder.iOSParameters?.appStoreID = DynamicLinkElement.appStoreID
 
         guard let longURL = linkBuilder.url else { return .just(nil) }
         let urlSubject = ReplaySubject<URL?>.create(bufferSize: 1)
@@ -49,15 +42,19 @@ final class BasicDynamicLinkService: DynamicLinkService {
 
             if let warnings = warnings {
                 for warning in warnings {
-                    print("Warning: \(warning)")
+                    #if DEBUG
+                        print("[BasicDynamicLinkService][shorten][\(#line)] Warning: \(warning)")
+                    #endif
                 }
             }
 
             guard let url = url else { return }
             urlSubject.onNext(url)
-            print("short url to share! \(url.absoluteString)")
+            #if DEBUG
+                print("[BasicDynamicLinkService][shorten][\(#line)] shorten url: \(url.absoluteString)")
+            #endif
         }
 
-        return urlSubject
+        return urlSubject.take(1)
     }
 }

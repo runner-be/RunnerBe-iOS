@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol DynamicLinkService {
-    func generateLink() -> Observable<URL?>
+    func generateLink(resultPath: String, parameters: [String: String]) -> Observable<URL?>
 }

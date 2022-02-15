@@ -76,26 +76,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
 
             if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
-                handleIncomingDynamicLink(dynamicLink: dynamicLink)
+                handleDynamicLink(dynamicLink: dynamicLink)
             }
         }
     }
 
     func scene(_: UIScene, continue userActivity: NSUserActivity) {
         if let incomingURL = userActivity.webpageURL {
-            let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL, completion: { dynamicLink, _ in
+            let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL, completion: { dynamicLink, error in
                 #if DEBUG
-                    print("[SceneDelegate][continue userActivity] dynamicLinks: \(dynamicLink)")
+                    print("[SceneDelegate][continue userActivity][\(#line)] dynamicLinks: \(String(describing: dynamicLink)) incomingURL: \(incomingURL)")
                 #endif
-                if let dynamicLink = dynamicLink {
-                    self.handleIncomingDynamicLink(dynamicLink: dynamicLink)
+                guard error == nil
+                else {
+                    #if DEBUG
+                        print("[SceneDelegate][continue userActivity][\(#line)] error \(error!.localizedDescription)")
+                    #endif
+                    return
                 }
 
+                if let dynamicLink = dynamicLink {
+                    self.handleDynamicLink(dynamicLink: dynamicLink)
+                }
             })
+
+            if linkHandled {
+                #if DEBUG
+                    print("[SceneDelegate][continue userActivity][\(#line)] link handled")
+                #endif
+            } else {
+                #if DEBUG
+                    print("[SceneDelegate][continue userActivity][\(#line)] no link handled")
+                #endif
+            }
         }
     }
 
-    func handleIncomingDynamicLink(dynamicLink: DynamicLink) {
+    func handleDynamicLink(dynamicLink: DynamicLink) {
         guard let url = dynamicLink.url else { return }
         #if DEBUG
             print("[SceneDelegate][handleIncomingDynamicLink] imcoming link parameter is \(url.absoluteString)")

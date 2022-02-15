@@ -40,8 +40,9 @@ final class BasicSignupService: SignupService {
 
     func sendEmail(_ email: String) -> Observable<SignupWithEmailResult> {
         let emailCheckOK = ReplaySubject<Void>.create(bufferSize: 1)
-        let dynamicLinkResult = ReplaySubject<URL>.create(bufferSize: 1)
-        let sendEmailResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
+        let uuidReady = ReplaySubject<String>.create(bufferSize: 1)
+        let dynamicLinkReady = ReplaySubject<URL>.create(bufferSize: 1)
+        let functionResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
 
         signupAPIService.checkEmailOK(email)
             .debug()
@@ -50,27 +51,43 @@ final class BasicSignupService: SignupService {
                 if $0 {
                     emailCheckOK.onNext(())
                 } else {
-                    sendEmailResult.onNext(.emailDuplicated)
+                    functionResult.onNext(.emailDuplicated)
                 }
             })
             .disposed(by: disposeBag)
 
-        emailCheckOK
+        emailCheckOK.subscribe(onNext: { [weak self] in
+            guard let signupKeyChain = self?.signupKeyChainService,
+                  !signupKeyChain.uuid.isEmpty
+            else {
+                functionResult.onNext(.sendEmailFailed)
+                return
+            }
+            uuidReady.onNext(signupKeyChain.uuid)
+        })
+        .disposed(by: disposeBag)
+
+        uuidReady
             .debug()
-            .map { [weak self] in self?.dynamicLinkService.generateLink() }
+            .map { [weak self] uuid in
+                self?.dynamicLinkService.generateLink(
+                    resultPath: "MainTabComponent",
+                    parameters: ["id": uuid.sha256]
+                )
+            }
             .compactMap { $0 }
             .flatMap { $0 }
             .subscribe(onNext: {
                 guard let url = $0
                 else {
-                    sendEmailResult.onNext(.sendEmailFailed)
+                    functionResult.onNext(.sendEmailFailed)
                     return
                 }
-                dynamicLinkResult.onNext(url)
+                dynamicLinkReady.onNext(url)
             })
             .disposed(by: disposeBag)
 
-        dynamicLinkResult
+        dynamicLinkReady
             .debug()
             .map { [weak self] url in
                 self?.emailCertificationService.send(address: email, dynamicLink: url.absoluteString)
@@ -80,14 +97,14 @@ final class BasicSignupService: SignupService {
             .subscribe(onNext: { emailResult in
                 switch emailResult {
                 case .success:
-                    sendEmailResult.onNext(.sendEmailCompleted)
+                    functionResult.onNext(.sendEmailCompleted)
                 case .fail:
-                    sendEmailResult.onNext(.sendEmailFailed)
+                    functionResult.onNext(.sendEmailFailed)
                 }
             })
             .disposed(by: disposeBag)
 
-        return sendEmailResult
+        return functionResult
             .do(onNext: { [weak self] _ in
                 self?.disposeBag = DisposeBag()
             })
