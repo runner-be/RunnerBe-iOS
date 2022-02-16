@@ -90,6 +90,35 @@ internal enum L10n {
     internal static let female = L10n.tr("Localizable", "Gender.female")
     /// 남성
     internal static let male = L10n.tr("Localizable", "Gender.male")
+    /// 전체
+    internal static let `none` = L10n.tr("Localizable", "Gender.none")
+  }
+
+  internal enum Home {
+    internal enum Filter {
+      internal enum Age {
+        /// 모든연령
+        internal static let all = L10n.tr("Localizable", "Home.Filter.Age.all")
+        /// 연령
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Age.title")
+      }
+      internal enum Gender {
+        /// 성별
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Gender.title")
+      }
+      internal enum Job {
+        /// 직군
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Job.title")
+      }
+      internal enum NavBar {
+        /// 필터
+        internal static let title = L10n.tr("Localizable", "Home.Filter.NavBar.title")
+      }
+      internal enum Place {
+        /// 모임장소
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title")
+      }
+    }
   }
 
   internal enum Job {

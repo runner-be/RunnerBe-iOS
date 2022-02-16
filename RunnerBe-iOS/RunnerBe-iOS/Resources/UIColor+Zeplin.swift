@@ -59,7 +59,8 @@ extension UIColor {
   @nonobjc class var darkWhite100: UIColor {
     return UIColor(white: 1.0, alpha: 1.0)
   }
-    
+
+    // +
     @nonobjc class var bgTop: UIColor {
         return UIColor(red: 18.0 / 255.0, green: 18.0 / 255.0, blue: 18.0 / 255.0, alpha: 1.0)
     }
@@ -70,5 +71,13 @@ extension UIColor {
     
     @nonobjc class var bgSheet: UIColor {
         return UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+    }
+    
+    @nonobjc class var sliderBgBot: UIColor {
+        return UIColor(red: 239.0/255.0, green: 182.0/255.0, blue: 97.0 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var sliderBgTop: UIColor {
+        return .primarydark
     }
 }

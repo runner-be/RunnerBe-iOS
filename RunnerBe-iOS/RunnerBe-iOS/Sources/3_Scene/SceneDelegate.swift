@@ -37,19 +37,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // TEST: token 초기화
         BasicLoginKeyChainService().token = nil
+        // HomeFilter Test
+        window.rootViewController = HomeFilterViewController(viewModel: HomeFilterViewModel())
 
-        appComponent.loginService.checkLogin()
-            .subscribe(onNext: { result in
-                switch result {
-                case .member:
-                    appCoordinator.showMain(certificated: true, animated: false)
-                case .memberWaitCertification:
-                    appCoordinator.showMain(certificated: false, animated: false)
-                case .nonMember:
-                    appCoordinator.showLoggedOut(animated: false)
-                }
-            })
-            .disposed(by: disposeBag)
+//        appComponent.loginService.checkLogin()
+//            .subscribe(onNext: { result in
+//                switch result {
+//                case .member:
+//                    appCoordinator.showMain(certificated: true, animated: false)
+//                case .memberWaitCertification:
+//                    appCoordinator.showMain(certificated: false, animated: false)
+//                case .nonMember:
+//                    appCoordinator.showLoggedOut(animated: false)
+//                }
+//            })
+//            .disposed(by: disposeBag)
 
         window.makeKeyAndVisible()
 

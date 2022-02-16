@@ -103,6 +103,12 @@
 		C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926427BACFB100798F3A /* MailingAPIService.swift */; };
 		C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */; };
 		C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926B27BB0B1000798F3A /* TabCoordinator.swift */; };
+		C39F2E9B27BC536100A7D86B /* FilterBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2E9A27BC536100A7D86B /* FilterBaseView.swift */; };
+		C39F2E9D27BC56FC00A7D86B /* FilterGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2E9C27BC56FC00A7D86B /* FilterGenderView.swift */; };
+		C39F2EA027BC5EF300A7D86B /* RunnerbeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2E9F27BC5EF300A7D86B /* RunnerbeSlider.swift */; };
+		C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA427BC71C300A7D86B /* CGPoint+.swift */; };
+		C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA727BC71FD00A7D86B /* CGRect+.swift */; };
+		C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
 		C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114A27B8113000A7044C /* BaseAPI.swift */; };
@@ -137,6 +143,10 @@
 		C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */; };
 		C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */; };
 		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
+		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */; };
+		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
+		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
+		C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */; };
 		C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */; };
 		C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937C27BB886A00D47C9C /* String+SHA256.swift */; };
 		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
@@ -268,6 +278,12 @@
 		C39E926427BACFB100798F3A /* MailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailingAPIService.swift; sourceTree = "<group>"; };
 		C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMailingAPIService.swift; sourceTree = "<group>"; };
 		C39E926B27BB0B1000798F3A /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		C39F2E9A27BC536100A7D86B /* FilterBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBaseView.swift; sourceTree = "<group>"; };
+		C39F2E9C27BC56FC00A7D86B /* FilterGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterGenderView.swift; sourceTree = "<group>"; };
+		C39F2E9F27BC5EF300A7D86B /* RunnerbeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerbeSlider.swift; sourceTree = "<group>"; };
+		C39F2EA427BC71C300A7D86B /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
+		C39F2EA727BC71FD00A7D86B /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
+		C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		C3AD114A27B8113000A7044C /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -302,6 +318,10 @@
 		C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionCoordinator.swift; sourceTree = "<group>"; };
 		C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewModel.swift; sourceTree = "<group>"; };
 		C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewController.swift; sourceTree = "<group>"; };
+		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift.swift; sourceTree = "<group>"; };
+		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
+		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
+		C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewController.swift; sourceTree = "<group>"; };
 		C3D3937927BB469300D47C9C /* RunnerBe-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerBe-iOS.entitlements"; sourceTree = "<group>"; };
 		C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D3937C27BB886A00D47C9C /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
@@ -703,6 +723,7 @@
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
 			isa = PBXGroup;
 			children = (
+				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
@@ -782,6 +803,9 @@
 			isa = PBXGroup;
 			children = (
 				C379302227BA20920076AB85 /* MoyaPlugin */,
+				C39F2EA727BC71FD00A7D86B /* CGRect+.swift */,
+				C39F2EA427BC71C300A7D86B /* CGPoint+.swift */,
+				C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */,
 			);
 			path = 7_Utils;
 			sourceTree = "<group>";
@@ -810,6 +834,23 @@
 				C39E926B27BB0B1000798F3A /* TabCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C39F2E9927BC533F00A7D86B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C39F2E9A27BC536100A7D86B /* FilterBaseView.swift */,
+				C39F2E9C27BC56FC00A7D86B /* FilterGenderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C39F2E9E27BC5E6D00A7D86B /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				C39F2E9F27BC5EF300A7D86B /* RunnerbeSlider.swift */,
+			);
+			path = Slider;
 			sourceTree = "<group>";
 		};
 		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
@@ -876,13 +917,13 @@
 			path = OnOff;
 			sourceTree = "<group>";
 		};
-		C3BA45AF27B4A61E0048CA76 /* View */ = {
+		C3BA45AF27B4A61E0048CA76 /* JobGroupCollection */ = {
 			isa = PBXGroup;
 			children = (
 				C3BA45B027B4A76A0048CA76 /* JobGroupCollectionViewLayout.swift */,
 				C3BA45B227B4A7D10048CA76 /* JobGroupCollectionViewCell.swift */,
 			);
-			path = View;
+			path = JobGroupCollection;
 			sourceTree = "<group>";
 		};
 		C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */ = {
@@ -958,6 +999,18 @@
 			path = SocialLogin;
 			sourceTree = "<group>";
 		};
+		C3CA2AF027BC4E5300AEF623 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				C39F2E9927BC533F00A7D86B /* View */,
+				C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */,
+				C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */,
+				C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */,
+				C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		C3EB5CC827B8B62200775779 /* ImageUploadService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1022,6 +1075,8 @@
 		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C39F2E9E27BC5E6D00A7D86B /* Slider */,
+				C3BA45AF27B4A61E0048CA76 /* JobGroupCollection */,
 				C3BA459827B405060048CA76 /* Label */,
 				C361B6CB27B29FE200824ABE /* TextField */,
 				C3F74B7D27B126E9002D5846 /* NavigationBar */,
@@ -1064,7 +1119,6 @@
 		C3F74B7327B0F3AD002D5846 /* 3_JobGroup */ = {
 			isa = PBXGroup;
 			children = (
-				C3BA45AF27B4A61E0048CA76 /* View */,
 				C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */,
 				C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */,
 				C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */,
@@ -1294,6 +1348,7 @@
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
+				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
@@ -1329,6 +1384,7 @@
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
+				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
@@ -1337,6 +1393,7 @@
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */,
 				C38F8F4027AD99F30050137D /* MessageComponent.swift in Sources */,
+				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
@@ -1347,6 +1404,7 @@
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
+				C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
 				C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */,
@@ -1359,21 +1417,25 @@
 				C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
+				C39F2E9D27BC56FC00A7D86B /* FilterGenderView.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C3BA45C527B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
 				C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */,
+				C39F2EA027BC5EF300A7D86B /* RunnerbeSlider.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
 				C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
 				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
 				C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
+				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
@@ -1400,6 +1462,7 @@
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
+				C39F2E9B27BC536100A7D86B /* FilterBaseView.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
@@ -1418,6 +1481,7 @@
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
+				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,

@@ -1,0 +1,26 @@
+//
+//  CGFloat+.swift
+//  RunnerBe-iOS
+//
+//  Created by 김신우 on 2022/02/16.
+//
+
+import UIKit
+
+extension CGFloat {
+    func clamp(min: CGFloat, max: CGFloat) -> CGFloat {
+        if self < min {
+            return min
+        }
+
+        if self > max {
+            return max
+        }
+
+        return self
+    }
+
+    mutating func clamped(min: CGFloat, max: CGFloat) {
+        self = clamp(min: min, max: max)
+    }
+}

@@ -143,3 +143,13 @@
 // MARK: - Gender
 "Gender.male" = "남성";
 "Gender.female" = "여성";
+"Gender.none" = "전체";
+
+
+// MARK: - Home.Filter
+"Home.Filter.NavBar.title" = "필터";
+"Home.Filter.Gender.title" = "성별";
+"Home.Filter.Age.title" = "연령";
+"Home.Filter.Job.title" = "직군";
+"Home.Filter.Place.title" = "모임장소";
+"Home.Filter.Age.all" = "모든연령";
