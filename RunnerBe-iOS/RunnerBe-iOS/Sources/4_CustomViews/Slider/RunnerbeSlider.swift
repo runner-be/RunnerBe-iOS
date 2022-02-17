@@ -94,9 +94,16 @@ class RunnerbeSlider: UIControl {
 
     private func updateColors() {
         lineBackground.backgroundColor = lineBackgroundColor.cgColor
-        lineForeground.backgroundColor = lineForegroundColor.cgColor
-        leftHandle.updateColors()
-        rightHandle.updateColors()
+        lineForeground.backgroundColor = enable ? lineForegroundColor.cgColor : lineDisableColor.cgColor
+        leftHandle.updateColors(enable: enable)
+        rightHandle.updateColors(enable: enable)
+        rightHandleFollower.updateColors(enable: enable)
+    }
+
+    var enable: Bool = false {
+        didSet {
+            updateColors()
+        }
     }
 
     // Variables
@@ -124,7 +131,7 @@ class RunnerbeSlider: UIControl {
     private var rightHandleFollower: RunnerbeHandlerFollower = .init()
 
     // Separator
-    var separatorStepEnable: Bool = true
+    var separatorStepEnable: Bool = false
     var separatorModulo: CGFloat = 10
     var separatorColor: UIColor = .darkG6
     var separatorWidth: CGFloat = 2
@@ -172,6 +179,8 @@ class RunnerbeSlider: UIControl {
     var trackingMode: TrackingMode = .none
 
     override func beginTracking(_ touch: UITouch, with _: UIEvent?) -> Bool {
+        guard enable else { return false }
+
         let touchPoint = touch.location(in: self)
         if !sensableAreaContains(point: touchPoint) {
             return false
@@ -185,13 +194,17 @@ class RunnerbeSlider: UIControl {
     }
 
     override func continueTracking(_ touch: UITouch, with _: UIEvent?) -> Bool {
-        if trackingMode == .none { return false }
+        if !enable || trackingMode == .none { return false }
 
         let touchPoint = touch.location(in: self)
         applySelectedValue(at: touchPoint, trackingMode: trackingMode)
 
         CATransaction.begin()
-        CATransaction.setAnimationDuration(0.12)
+        if separatorStepEnable {
+            CATransaction.setAnimationDuration(0.12)
+        } else {
+            CATransaction.setDisableActions(true)
+        }
         updatePositions()
         rightHandleFollower.update()
         CATransaction.commit()
@@ -199,16 +212,15 @@ class RunnerbeSlider: UIControl {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+        guard enable else { return }
+
         if touches.count == 1,
            let touchPoint = touches.first?.location(in: self),
            sensableAreaContains(point: touchPoint)
         {
             applySelectedValue(at: touchPoint, trackingMode: trackingMode)
             updatePositions()
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(0.12)
             rightHandleFollower.update()
-            CATransaction.commit()
         }
 
         let handle = trackingMode == .left ? leftHandle : rightHandle

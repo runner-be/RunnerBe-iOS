@@ -22,7 +22,6 @@ class CircularHandle: CAGradientLayer {
         self.enableColors = enableColors.map { $0.cgColor }
         self.disableColors = disableColors.map { $0.cgColor }
         handleSize = CGSize(width: diameter, height: diameter)
-        enable = true
         super.init()
 
         setup()
@@ -37,13 +36,7 @@ class CircularHandle: CAGradientLayer {
         frame.size = CGSize(width: handleSize.width, height: handleSize.height)
         cornerRadius = handleSize.width / 2
 
-        updateColors()
-    }
-
-    var enable: Bool = true {
-        didSet {
-            updateColors()
-        }
+        updateColors(enable: true)
     }
 
     var handleSize: CGSize = .init(width: 16, height: 16)
@@ -69,7 +62,7 @@ class CircularHandle: CAGradientLayer {
         )
     }
 
-    func updateColors() {
+    func updateColors(enable: Bool) {
         colors = enable ? enableColors : disableColors
     }
 }

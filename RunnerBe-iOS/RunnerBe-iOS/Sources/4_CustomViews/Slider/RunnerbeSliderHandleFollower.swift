@@ -42,7 +42,7 @@ class RunnerbeHandlerFollower: CALayer {
         path.addLine(to: CGPoint(x: arrowDiameter, y: 0))
         path.close()
         arrowLayer.path = path.cgPath
-        updateColors()
+        updateColors(enable: true)
         update()
     }
 
@@ -56,7 +56,8 @@ class RunnerbeHandlerFollower: CALayer {
     var textSize: CGSize = NSString(string: "00-00").size(withAttributes: [.font: UIFont.iosBody15R])
     var textFont: UIFont = .iosBody15R
     var textFontSize: CGFloat = 15
-    var textColor: CGColor = UIColor.primary.cgColor
+    var textEnableColor: CGColor = UIColor.primary.cgColor
+    var textDisableColor: CGColor = UIColor.darkG45.cgColor
     var textPadding: UIEdgeInsets = .zero
 
     var arrowLayer = CAShapeLayer()
@@ -65,11 +66,11 @@ class RunnerbeHandlerFollower: CALayer {
     var arrowDiameter: CGFloat = 8
     var arrowLineWidth: CGFloat = 1
 
-    func updateColors() {
-        textLayer.foregroundColor = textColor
+    func updateColors(enable: Bool) {
         textBox.backgroundColor = textBoxColor
         arrowLayer.fillColor = arrowFillColor
         arrowLayer.strokeColor = arrowStrokeColor
+        textLayer.foregroundColor = enable ? textEnableColor : textDisableColor
     }
 
     weak var slider: RunnerbeSlider?
