@@ -5,6 +5,8 @@
 //  Created by 김신우 on 2022/02/16.
 //
 
+import RxCocoa
+import RxSwift
 import Then
 import UIKit
 
@@ -13,12 +15,15 @@ class FilterGenderView: FilterBaseView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
+        processingInputs()
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    private func processingInputs() {}
 
     var genderNonLabel = OnOffLabel().then { label in
         label.text = L10n.Gender.none
@@ -41,6 +46,7 @@ class FilterGenderView: FilterBaseView {
             borderWidth: 1,
             borderColor: .primary,
             cornerRadiusRatio: 1,
+            useCornerRadiusAsFactor: true,
             padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
         )
 
@@ -51,6 +57,7 @@ class FilterGenderView: FilterBaseView {
             borderWidth: 1,
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
+            useCornerRadiusAsFactor: true,
             padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
         )
 
@@ -59,6 +66,7 @@ class FilterGenderView: FilterBaseView {
 
     override func setupViews() {
         super.setupViews()
+        titleLabel.text = L10n.Home.Filter.Gender.title
 
         contentView.addSubviews([
             genderNonLabel,

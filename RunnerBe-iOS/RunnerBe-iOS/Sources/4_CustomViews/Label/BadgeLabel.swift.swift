@@ -15,11 +15,18 @@ class BadgeLabel: UILabel {
         var borderWidth: CGFloat = 0
         var borderColor: UIColor = .clear
         var cornerRadiusRatio: CGFloat = 0
+        var useCornerRadiusAsFactor: Bool = true
         var padding: UIEdgeInsets = .zero
     }
 
     var cornerRadiusRatio: CGFloat = 0 {
         didSet { setNeedsLayout() }
+    }
+
+    var cornerRadius: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
     }
 
     var padding: UIEdgeInsets = .zero {
@@ -37,6 +44,7 @@ class BadgeLabel: UILabel {
         super.init(frame: .zero)
         textAlignment = .center
         self.text = text
+        clipsToBounds = true
     }
 
     @available(*, unavailable)
@@ -59,10 +67,16 @@ class BadgeLabel: UILabel {
     func applyStyle(_ style: BadgeLabel.Style) {
         font = style.font
         textColor = style.textColor
-        backgroundColor = style.backgroundColor
+        layer.backgroundColor = style.backgroundColor.cgColor
         layer.borderWidth = style.borderWidth
         layer.borderColor = style.borderColor.cgColor
-        cornerRadiusRatio = style.cornerRadiusRatio
+        if style.useCornerRadiusAsFactor {
+            cornerRadiusRatio = style.cornerRadiusRatio
+            layer.cornerRadius = 0
+        } else {
+            layer.cornerRadius = style.cornerRadiusRatio
+            cornerRadiusRatio = 0
+        }
         padding = style.padding
         invalidateIntrinsicContentSize()
     }

@@ -1,13 +1,13 @@
 //
-//  RunnerbeSliderProtocols.swift
+//  BubbleFollower.swift
 //  RunnerBe-iOS
 //
-//  Created by 김신우 on 2022/02/16.
+//  Created by 김신우 on 2022/02/17.
 //
 
 import UIKit
 
-class RunnerbeHandlerFollower: CALayer {
+class BubbleFollower: CALayer, SliderHandleFollower {
     override init() {
         super.init()
         setup()
@@ -46,6 +46,7 @@ class RunnerbeHandlerFollower: CALayer {
         update()
     }
 
+    var moreThanMax: Bool = true
     var ySpacing: CGFloat = 12
 
     var textBox = CALayer()
@@ -73,14 +74,14 @@ class RunnerbeHandlerFollower: CALayer {
         textLayer.foregroundColor = enable ? textEnableColor : textDisableColor
     }
 
-    weak var slider: RunnerbeSlider?
-    weak var handle: CircularHandle?
+    weak var slider: Slider?
+    weak var handle: SliderHandle?
 
     func update() {
         guard let slider = slider else { return }
 
         var text = "\(Int(slider.selectedMinValue))-\(Int(slider.selectedMaxValue))"
-        if slider.maxValue == slider.selectedMaxValue {
+        if moreThanMax, slider.maxValue == slider.selectedMaxValue {
             text += "↑"
             textPadding = UIEdgeInsets(top: 3, left: 4, bottom: 3, right: 3)
         } else {

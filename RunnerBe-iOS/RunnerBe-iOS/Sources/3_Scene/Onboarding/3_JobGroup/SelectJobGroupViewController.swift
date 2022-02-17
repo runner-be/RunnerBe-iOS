@@ -131,6 +131,7 @@ final class SelectJobGroupViewController: BaseViewController {
             borderWidth: 1,
             borderColor: .primary,
             cornerRadiusRatio: 1,
+            useCornerRadiusAsFactor: true,
             padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
         )
 
@@ -141,6 +142,7 @@ final class SelectJobGroupViewController: BaseViewController {
             borderWidth: 1,
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
+            useCornerRadiusAsFactor: true,
             padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
         )
 

@@ -12,6 +12,7 @@ private let reuseIdentifier = "Cell"
 final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
     var ySpacing: CGFloat = 10
     var xSpacing: CGFloat = 10
+    var contentHeight: CGFloat = 0
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let attributes = super.layoutAttributesForElements(in: rect)
@@ -28,7 +29,7 @@ final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
             rows.last?.add(attribute: attribute)
         }
 
-        _ = rows.reduce(CGFloat(0)) { offsetY, collectionRow in
+        contentHeight = rows.reduce(CGFloat(0)) { offsetY, collectionRow in
             collectionRow.centerLayout(
                 collectionViewWidth: collectionView?.frame.width ?? 0,
                 offsetY: offsetY
@@ -37,6 +38,11 @@ final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
         }
 
         return rows.flatMap { $0.attributes }
+    }
+
+    override var collectionViewContentSize: CGSize {
+        let size = super.collectionViewContentSize
+        return CGSize(width: size.width, height: contentHeight)
     }
 }
 

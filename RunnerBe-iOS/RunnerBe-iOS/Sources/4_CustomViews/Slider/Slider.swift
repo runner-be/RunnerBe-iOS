@@ -8,39 +8,53 @@
 import SnapKit
 import UIKit
 
-class RunnerbeSlider: UIControl {
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+class Slider: UIControl {
+    init(leftHandle: SliderHandle, rightHandle: SliderHandle) {
+        self.leftHandle = leftHandle
+        self.rightHandle = rightHandle
+        super.init(frame: .zero)
         setup()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError()
     }
 
     override var intrinsicContentSize: CGSize {
         var height = max(leftHandle.handleSize.height, rightHandle.handleSize.height, lineHeight)
-        if showRightFollower {
+
+        if showRightFollower, let rightHandleFollower = rightHandleFollower {
             rightHandleFollower.update()
             height += rightHandleFollower.frame.size.height + followerSpacing
         }
+        if let sliderLabels = sliderLabels {
+            height += sliderLabels.frame.size.height + labelGroupSpacing
+        }
+
         return CGSize(width: UIView.noIntrinsicMetric, height: height)
     }
 
     private func setup() {
         layer.addSublayer(lineBackground)
-        layer.addSublayer(separatorBackground)
+        lineBackground.addSublayer(separatorBackground)
         layer.addSublayer(lineForeground)
+
         layer.addSublayer(leftHandle)
         layer.addSublayer(rightHandle)
-        rightHandle.addSublayer(rightHandleFollower)
+
+        if let rightHandleFollower = rightHandleFollower {
+            layer.addSublayer(rightHandleFollower)
+        }
 
         lineBackground.frame = .zero
         lineForeground.frame = .zero
-        rightHandleFollower.slider = self
-        rightHandleFollower.handle = rightHandle
-
+        separatorBackground.frame = .zero
+        rightHandleFollower?.slider = self
+        rightHandleFollower?.handle = rightHandle
+        sliderLabels?.slider = self
+        selectedMaxValue.clamped(min: minValue, max: maxValue)
+        selectedMinValue.clamped(min: minValue, max: selectedMaxValue)
         sliderType = .range
     }
 
@@ -54,7 +68,7 @@ class RunnerbeSlider: UIControl {
 
             updateFixedPosition()
             updatePositions()
-            rightHandleFollower.update()
+            rightHandleFollower?.update()
             updateColors()
         }
     }
@@ -84,8 +98,18 @@ class RunnerbeSlider: UIControl {
     }
 
     // Variables
-    var maxValue: CGFloat = 100
-    var minValue: CGFloat = 0
+    var maxValue: CGFloat = 65 {
+        didSet {
+            selectedMaxValue.clamped(min: selectedMinValue, max: maxValue)
+        }
+    }
+
+    var minValue: CGFloat = 20 {
+        didSet {
+            selectedMinValue.clamped(min: minValue, max: selectedMaxValue)
+        }
+    }
+
     var selectedMaxValue: CGFloat = 100
     var selectedMinValue: CGFloat = 0
 
@@ -99,20 +123,44 @@ class RunnerbeSlider: UIControl {
     private var lineForeground: CALayer = .init()
 
     // Handle
-    private var leftHandle: CircularHandle = .init(diameter: 16)
-    private var rightHandle: CircularHandle = .init(diameter: 16)
+    private var leftHandle: SliderHandle
+    private var rightHandle: SliderHandle
 
     // Handler Follower
     var showRightFollower: Bool = true
     var followerSpacing: CGFloat = 12
-    private var rightHandleFollower: RunnerbeHandlerFollower = .init()
+    var rightHandleFollower: SliderHandleFollower? {
+        didSet {
+            if let rightHandleFollower = rightHandleFollower {
+                rightHandle.addSublayer(rightHandleFollower)
+                rightHandleFollower.slider = self
+                rightHandleFollower.handle = rightHandle
+                rightHandleFollower.update()
+                needLayout = true
+                setNeedsLayout()
+            }
+        }
+    }
 
     // Separator
     var separatorStepEnable: Bool = false
-    var separatorModulo: CGFloat = 10
+    var separatorModulo: CGFloat = 5
     var separatorColor: UIColor = .darkG6
     var separatorWidth: CGFloat = 2
     private var separatorBackground: CALayer = .init()
+
+    // labels
+    var labelGroupSpacing: CGFloat = 12
+    var sliderLabels: SliderLabelGroup? {
+        didSet {
+            if let sliderLabels = sliderLabels {
+                sliderLabels.slider = self
+                layer.addSublayer(sliderLabels)
+                needLayout = true
+                setNeedsLayout()
+            }
+        }
+    }
 
     // MARK: Update & Refresh
 
@@ -120,25 +168,30 @@ class RunnerbeSlider: UIControl {
         if separatorModulo == 0 { return }
         let numberOfSeparators = Int(((maxValue - 1) - minValue) / separatorModulo)
         let firstSeparator = minValue + (separatorModulo - CGFloat(Int(minValue) % Int(separatorModulo)))
+
         let separatorValues = (0 ..< numberOfSeparators).reduce(into: [CGFloat]()) { partialResult, value in
             partialResult.append(CGFloat(value) * separatorModulo + firstSeparator)
         }
 
         separatorBackground.sublayers?.forEach { $0.removeFromSuperlayer() }
-        separatorBackground.sublayers = separatorValues.reduce(into: [CALayer]()) { partialResult, value in
-            let layer = CALayer()
-            layer.backgroundColor = separatorColor.cgColor
-            layer.frame = CGRect(
-                x: positionInRange(of: value) - separatorWidth / 2.0,
-                y: 0,
-                width: separatorWidth, height: lineBackground.frame.height
-            )
-            partialResult.append(layer)
-        }
+        separatorBackground.sublayers = separatorValues
+            .reduce(into: [CALayer]()) { partialResult, value in
+                let layer = CALayer()
+                layer.backgroundColor = separatorColor.cgColor
+                layer.frame = CGRect(
+                    x: positionInRange(of: value) - separatorWidth / 2.0,
+                    y: 0,
+                    width: separatorWidth, height: lineBackground.frame.height
+                )
+                partialResult.append(layer)
+            }
+
+        sliderLabels?.refresh()
     }
 
     private func updateFixedPosition() {
-        let middleY: CGFloat = rightHandleFollower.frame.height + followerSpacing + lineHeight / 2.0
+        let middleY: CGFloat = lineHeight / 2.0 + (rightHandleFollower?.frame.height ?? 0) + (rightHandleFollower != nil ? followerSpacing : 0)
+
         let leftPos = CGPoint(x: leftHandle.handleSize.width / 2.0, y: middleY)
         let rightPos = CGPoint(x: frame.width - rightHandle.handleSize.width / 2.0, y: middleY)
 
@@ -153,14 +206,18 @@ class RunnerbeSlider: UIControl {
         lineBackground.cornerRadius = lineHeight / 2.0
         lineForeground.cornerRadius = lineHeight / 2.0
 
-        separatorBackground.frame = backgroundFrame
+        separatorBackground.frame.size = backgroundFrame.size
         refreshSeparators()
+        sliderLabels?.frame.origin = CGPoint(
+            x: lineBackground.frame.minX,
+            y: lineBackground.frame.maxY + (sliderLabels != nil ? labelGroupSpacing : 0)
+        )
     }
 
     private func updatePositions() {
         let yPosition = lineBackground.frame.midY
-        let leftPosition = CGPoint(x: positionInRange(of: selectedMinValue), y: yPosition)
-        let rightPosition = CGPoint(x: positionInRange(of: selectedMaxValue), y: yPosition)
+        let leftPosition = CGPoint(x: positionInRange(of: selectedMinValue) + lineBackground.frame.minX, y: yPosition)
+        let rightPosition = CGPoint(x: positionInRange(of: selectedMaxValue) + lineBackground.frame.minX, y: yPosition)
         leftHandle.updatePosition(to: leftPosition)
         rightHandle.updatePosition(to: rightPosition)
 
@@ -177,11 +234,13 @@ class RunnerbeSlider: UIControl {
         lineForeground.backgroundColor = enable ? lineForegroundColor.cgColor : lineDisableColor.cgColor
         leftHandle.updateColors(enable: enable)
         rightHandle.updateColors(enable: enable)
-        rightHandleFollower.updateColors(enable: enable)
+        rightHandleFollower?.updateColors(enable: enable)
     }
 
     func percentageInRange(of value: CGFloat) -> CGFloat {
-        if value < minValue || maxValue <= minValue { return 0 }
+        if value < minValue { return 0 }
+        if value > maxValue { return 1 }
+        if maxValue == minValue { return 1 }
         return (value - minValue) / (maxValue - minValue)
     }
 
@@ -190,7 +249,7 @@ class RunnerbeSlider: UIControl {
         let width = (lineBackground.frame.maxX - lineBackground.frame.minX)
         if width <= 0 { return 0 }
         let offset = width * percentage
-        return offset + lineBackground.frame.minX
+        return offset
     }
 
     // MARK: Event
@@ -229,7 +288,7 @@ class RunnerbeSlider: UIControl {
             CATransaction.setDisableActions(true)
         }
         updatePositions()
-        rightHandleFollower.update()
+        rightHandleFollower?.update()
         CATransaction.commit()
         return true
     }
@@ -243,7 +302,7 @@ class RunnerbeSlider: UIControl {
         {
             applySelectedValue(at: touchPoint, trackingMode: trackingMode)
             updatePositions()
-            rightHandleFollower.update()
+            rightHandleFollower?.update()
         }
 
         let handle = trackingMode == .left ? leftHandle : rightHandle
@@ -264,11 +323,22 @@ class RunnerbeSlider: UIControl {
 
         let diffMaxMin = maxValue - minValue
 
-        return (ratioAtLine * diffMaxMin).clamp(min: minValue, max: maxValue)
+        return (ratioAtLine * diffMaxMin + minValue).clamp(min: minValue, max: maxValue)
     }
 
     private func trackingModeAt(point: CGPoint) -> TrackingMode {
-        if leftHandle.position.x.diff(from: point.x) < rightHandle.position.x.diff(from: point.x) {
+        let diffFromLeft = leftHandle.position.x.diff(from: point.x)
+        let diffFromRight = rightHandle.position.x.diff(from: point.x)
+
+        if diffFromLeft == diffFromRight {
+            if point.isLeftSide(from: leftHandle.position) {
+                return .left
+            } else {
+                return .right
+            }
+        }
+
+        if diffFromLeft < diffFromRight {
             return .left
         } else {
             return .right

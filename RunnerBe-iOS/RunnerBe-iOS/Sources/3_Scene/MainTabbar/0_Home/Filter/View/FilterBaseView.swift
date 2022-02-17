@@ -5,10 +5,14 @@
 //  Created by 김신우 on 2022/02/16.
 //
 
+import RxCocoa
+import RxSwift
 import Then
 import UIKit
 
 class FilterBaseView: UIView {
+    var disposeBag = DisposeBag()
+
     var titleLabel = UILabel().then { label in
         label.text = ""
         label.font = .iosBody17Sb

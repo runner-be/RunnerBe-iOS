@@ -31,4 +31,9 @@ extension CGFloat {
     var clean: CGFloat {
         return rounded(.towardZero)
     }
+
+    func turncate(to point: Int) -> CGFloat {
+        let turncated = NSString(format: "%.\(point)f" as NSString, self)
+        return CGFloat(turncated.floatValue)
+    }
 }

@@ -143,6 +143,7 @@
 // MARK: - Gender
 "Gender.male" = "남성";
 "Gender.female" = "여성";
+"Gender.none" = "전체";
 
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";
