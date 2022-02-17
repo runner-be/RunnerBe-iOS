@@ -33,14 +33,4 @@ class OnOffLabel: BadgeLabel {
             setNeedsDisplay()
         }
     }
-
-    private func applyStyle(_ style: BadgeLabel.Style) {
-        font = style.font
-        textColor = style.textColor
-        backgroundColor = style.backgroundColor
-        layer.borderWidth = style.borderWidth
-        layer.borderColor = style.borderColor.cgColor
-        cornerRadiusRatio = style.cornerRadiusRatio
-        padding = style.padding
-    }
 }

@@ -73,7 +73,7 @@ extension HomeFilterViewController {
         slider.snp.makeConstraints { make in
             make.centerY.equalTo(view.snp.centerY)
             make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-20)
+            make.trailing.equalTo(view.snp.trailing).offset(-50)
         }
     }
 

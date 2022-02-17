@@ -31,6 +31,20 @@ final class CheckBoxView: UIStackView {
     var disposeBag = DisposeBag()
     var tapCheck = PublishSubject<Bool>()
     var tapDetail = PublishSubject<Void>()
+    var leftBox = true {
+        didSet {
+            checkBoxButton.removeFromSuperview()
+            titleLabel.removeFromSuperview()
+            moreInfoButton.removeFromSuperview()
+            if leftBox {
+                addArrangedSubviews([checkBoxButton, titleLabel, moreInfoButton])
+            } else {
+                addArrangedSubviews([titleLabel, checkBoxButton, moreInfoButton])
+            }
+        }
+    }
+
+    var showMoreInfo = true
 
     var checkBoxButton = UIButton().then { button in
         button.setImage(Asset.checkBoxIconEmpty.uiImage.withTintColor(.darkG35), for: .normal)
@@ -98,7 +112,11 @@ extension CheckBoxView {
     private func setupViews() {
         alignment = .center
         distribution = .fill
-        addArrangedSubviews([checkBoxButton, titleLabel, moreInfoButton])
+        if leftBox {
+            addArrangedSubviews([checkBoxButton, titleLabel, moreInfoButton])
+        } else {
+            addArrangedSubviews([titleLabel, checkBoxButton, moreInfoButton])
+        }
     }
 
     private func initialLayout() {}

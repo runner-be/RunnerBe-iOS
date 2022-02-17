@@ -55,4 +55,15 @@ class BadgeLabel: UILabel {
 
         layer.cornerRadius = bounds.height * (cornerRadiusRatio / 2.0)
     }
+
+    func applyStyle(_ style: BadgeLabel.Style) {
+        font = style.font
+        textColor = style.textColor
+        backgroundColor = style.backgroundColor
+        layer.borderWidth = style.borderWidth
+        layer.borderColor = style.borderColor.cgColor
+        cornerRadiusRatio = style.cornerRadiusRatio
+        padding = style.padding
+        invalidateIntrinsicContentSize()
+    }
 }

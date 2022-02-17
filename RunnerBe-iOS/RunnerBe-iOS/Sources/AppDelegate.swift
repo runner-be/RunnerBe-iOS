@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         registerProviderFactories()
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
 
         RxKakaoSDK.initSDK(appKey: AppKeys.KakaoKey)
 

@@ -23,4 +23,12 @@ extension CGFloat {
     mutating func clamped(min: CGFloat, max: CGFloat) {
         self = clamp(min: min, max: max)
     }
+
+    func diff(from value: CGFloat) -> CGFloat {
+        return abs(self - value)
+    }
+
+    var clean: CGFloat {
+        return rounded(.towardZero)
+    }
 }
