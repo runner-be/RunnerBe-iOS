@@ -40,20 +40,100 @@ class RunnerbeSlider: UIControl {
         lineForeground.frame = .zero
         rightHandleFollower.slider = self
         rightHandleFollower.handle = rightHandle
+
+        sliderType = .range
     }
 
-    private var needLayout: Bool = false
+    private var needLayout: Bool = true
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if !needLayout {
-            needLayout = true
+        if needLayout {
+            needLayout = false
 
             updateFixedPosition()
             updatePositions()
             rightHandleFollower.update()
             updateColors()
+        }
+    }
+
+    // MARK: Variables
+
+    enum SliderType {
+        case single, range
+    }
+
+    var sliderType: SliderType = .range {
+        didSet {
+            switch sliderType {
+            case .single:
+                applySelectedValue(minValue, trackingMode: .right)
+            case .range:
+                applySelectedValue(minValue, trackingMode: .left)
+                applySelectedValue(maxValue, trackingMode: .right)
+            }
+        }
+    }
+
+    var enable: Bool = true {
+        didSet {
+            updateColors()
+        }
+    }
+
+    // Variables
+    var maxValue: CGFloat = 100
+    var minValue: CGFloat = 0
+    var selectedMaxValue: CGFloat = 100
+    var selectedMinValue: CGFloat = 0
+
+    // Line Background
+    var lineHeight: CGFloat = 8
+    var lineBackgroundColor: UIColor = .darkG55
+    var lineForegroundColor: UIColor = .primary
+    var lineDisableColor: UIColor = .darkG45
+
+    private var lineBackground: CALayer = .init()
+    private var lineForeground: CALayer = .init()
+
+    // Handle
+    private var leftHandle: CircularHandle = .init(diameter: 16)
+    private var rightHandle: CircularHandle = .init(diameter: 16)
+
+    // Handler Follower
+    var showRightFollower: Bool = true
+    var followerSpacing: CGFloat = 12
+    private var rightHandleFollower: RunnerbeHandlerFollower = .init()
+
+    // Separator
+    var separatorStepEnable: Bool = false
+    var separatorModulo: CGFloat = 10
+    var separatorColor: UIColor = .darkG6
+    var separatorWidth: CGFloat = 2
+    private var separatorBackground: CALayer = .init()
+
+    // MARK: Update & Refresh
+
+    private func refreshSeparators() {
+        if separatorModulo == 0 { return }
+        let numberOfSeparators = Int(((maxValue - 1) - minValue) / separatorModulo)
+        let firstSeparator = minValue + (separatorModulo - CGFloat(Int(minValue) % Int(separatorModulo)))
+        let separatorValues = (0 ..< numberOfSeparators).reduce(into: [CGFloat]()) { partialResult, value in
+            partialResult.append(CGFloat(value) * separatorModulo + firstSeparator)
+        }
+
+        separatorBackground.sublayers?.forEach { $0.removeFromSuperlayer() }
+        separatorBackground.sublayers = separatorValues.reduce(into: [CALayer]()) { partialResult, value in
+            let layer = CALayer()
+            layer.backgroundColor = separatorColor.cgColor
+            layer.frame = CGRect(
+                x: positionInRange(of: value) - separatorWidth / 2.0,
+                y: 0,
+                width: separatorWidth, height: lineBackground.frame.height
+            )
+            partialResult.append(layer)
         }
     }
 
@@ -100,65 +180,6 @@ class RunnerbeSlider: UIControl {
         rightHandleFollower.updateColors(enable: enable)
     }
 
-    var enable: Bool = false {
-        didSet {
-            updateColors()
-        }
-    }
-
-    // Variables
-    var maxValue: CGFloat = 100
-    var minValue: CGFloat = 0
-    var selectedMaxValue: CGFloat = 100
-    var selectedMinValue: CGFloat = 0
-
-    // Line Background
-    var lineHeight: CGFloat = 8
-    var lineBackgroundColor: UIColor = .darkG55
-    var lineForegroundColor: UIColor = .primary
-    var lineDisableColor: UIColor = .darkG45
-
-    private var lineBackground: CALayer = .init()
-    private var lineForeground: CALayer = .init()
-
-    // Handle
-    private var leftHandle: CircularHandle = .init(diameter: 16)
-    private var rightHandle: CircularHandle = .init(diameter: 16)
-
-    // Handler Follower
-    var showRightFollower: Bool = true
-    var followerSpacing: CGFloat = 12
-    private var rightHandleFollower: RunnerbeHandlerFollower = .init()
-
-    // Separator
-    var separatorStepEnable: Bool = false
-    var separatorModulo: CGFloat = 10
-    var separatorColor: UIColor = .darkG6
-    var separatorWidth: CGFloat = 2
-    private var separatorBackground: CALayer = .init()
-
-    private func refreshSeparators() {
-        if separatorModulo == 0 { return }
-        let numberOfSeparators = Int(((maxValue - 1) - minValue) / separatorModulo)
-        let firstSeparator = minValue + (separatorModulo - CGFloat(Int(minValue) % Int(separatorModulo)))
-        let separatorValues = (0 ..< numberOfSeparators).reduce(into: [CGFloat]()) { partialResult, value in
-            partialResult.append(CGFloat(value) * separatorModulo + firstSeparator)
-        }
-
-        separatorBackground.sublayers?.forEach { $0.removeFromSuperlayer() }
-        separatorBackground.sublayers = separatorValues.reduce(into: [CALayer]()) { partialResult, value in
-            let layer = CALayer()
-            layer.backgroundColor = separatorColor.cgColor
-            layer.frame = CGRect(
-                x: positionInRange(of: value) - separatorWidth / 2.0,
-                y: 0,
-                width: separatorWidth, height: lineBackground.frame.height
-            )
-            partialResult.append(layer)
-        }
-    }
-
-    // Utils
     func percentageInRange(of value: CGFloat) -> CGFloat {
         if value < minValue || maxValue <= minValue { return 0 }
         return (value - minValue) / (maxValue - minValue)
@@ -171,6 +192,8 @@ class RunnerbeSlider: UIControl {
         let offset = width * percentage
         return offset + lineBackground.frame.minX
     }
+
+    // MARK: Event
 
     enum TrackingMode {
         case left, right, none
@@ -234,7 +257,11 @@ class RunnerbeSlider: UIControl {
     }
 
     private func valueInRange(at point: CGPoint) -> CGFloat {
-        let ratioAtLine = (point.x - lineBackground.frame.minX) / (lineBackground.frame.width)
+        let width = (point.x - lineBackground.frame.minX)
+        guard width != 0 else { return 0 }
+
+        let ratioAtLine = width / lineBackground.frame.width
+
         let diffMaxMin = maxValue - minValue
 
         return (ratioAtLine * diffMaxMin).clamp(min: minValue, max: maxValue)
@@ -260,11 +287,28 @@ class RunnerbeSlider: UIControl {
             }
         }
 
+        applySelectedValue(selectedValue, trackingMode: trackingMode)
+    }
+
+    private func applySelectedValue(_ value: CGFloat, trackingMode _: TrackingMode) {
+        let value = value.clamp(min: minValue, max: maxValue)
         switch trackingMode {
         case .left:
-            selectedMinValue = min(selectedValue, maxValue)
+            switch sliderType {
+            case .single:
+                selectedMinValue = min(value, maxValue)
+                selectedMaxValue = min(value, maxValue)
+            case .range:
+                selectedMinValue = min(value, selectedMaxValue)
+            }
         case .right:
-            selectedMaxValue = max(selectedMinValue, selectedValue)
+            switch sliderType {
+            case .single:
+                selectedMinValue = max(minValue, value)
+                selectedMaxValue = max(minValue, value)
+            case .range:
+                selectedMaxValue = max(selectedMinValue, value)
+            }
         case .none:
             break
         }

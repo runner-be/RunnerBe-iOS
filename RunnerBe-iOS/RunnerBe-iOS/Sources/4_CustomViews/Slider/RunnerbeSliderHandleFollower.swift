@@ -78,6 +78,7 @@ class RunnerbeHandlerFollower: CALayer {
 
     func update() {
         guard let slider = slider else { return }
+
         var text = "\(Int(slider.selectedMinValue))-\(Int(slider.selectedMaxValue))"
         if slider.maxValue == slider.selectedMaxValue {
             text += "↑"
