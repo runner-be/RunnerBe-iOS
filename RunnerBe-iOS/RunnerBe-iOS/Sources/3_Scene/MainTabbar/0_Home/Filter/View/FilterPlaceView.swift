@@ -82,7 +82,7 @@ class FilterPlaceView: FilterBaseView {
         }
 
         unitLabel.snp.makeConstraints { make in
-            make.top.equalTo(slider.snp.bottom).offset(2)
+            make.top.equalTo(slider.snp.bottom)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }

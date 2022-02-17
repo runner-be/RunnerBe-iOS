@@ -73,7 +73,7 @@ class OnOffLabelGroup {
         labels.append(label)
     }
 
-    private func toggle(label: OnOffLabel) {
+    func toggle(label: OnOffLabel) {
         if label.isOn {
             label.isOn = false
             numberOfOnState -= 1

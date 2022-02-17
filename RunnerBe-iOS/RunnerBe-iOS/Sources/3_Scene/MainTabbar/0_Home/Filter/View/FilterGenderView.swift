@@ -23,7 +23,9 @@ class FilterGenderView: FilterBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {}
+    private func processingInputs() {
+        genderLabelGroup.toggle(label: genderNonLabel)
+    }
 
     var genderNonLabel = OnOffLabel().then { label in
         label.text = L10n.Gender.none
