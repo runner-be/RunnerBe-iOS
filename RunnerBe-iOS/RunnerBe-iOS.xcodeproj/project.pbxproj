@@ -28,6 +28,19 @@
 		C343A34527BE3A8E008E6FA4 /* FilterJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343A34427BE3A8E008E6FA4 /* FilterJobView.swift */; };
 		C343A34727BE4533008E6FA4 /* FilterPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343A34627BE4533008E6FA4 /* FilterPlaceView.swift */; };
 		C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F2727BF728D003EDD0F /* SegmentedControl.swift */; };
+		C3498F2B27C0DB41003EDD0F /* WritingTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F2A27C0DB41003EDD0F /* WritingTitleView.swift */; };
+		C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F2C27C0DB5C003EDD0F /* WritingDateView.swift.swift */; };
+		C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F2E27C0DB65003EDD0F /* WritingTimeView.swift */; };
+		C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3027C0DB81003EDD0F /* WritingPlaceView.swift */; };
+		C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3427C0DE70003EDD0F /* IconTextButtonGroup.swift */; };
+		C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3927C13D53003EDD0F /* SelectTimeModalViewModel.swift */; };
+		C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3A27C13D53003EDD0F /* SelectTimeModalCoordinator.swift */; };
+		C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3B27C13D53003EDD0F /* SelectTimeModalComponent.swift */; };
+		C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F3C27C13D53003EDD0F /* SelectTimeModalViewController.swift */; };
+		C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4127C13D5D003EDD0F /* SelectDateModalViewController.swift */; };
+		C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */; };
+		C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */; };
+		C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
@@ -217,6 +230,19 @@
 		C343A34427BE3A8E008E6FA4 /* FilterJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterJobView.swift; sourceTree = "<group>"; };
 		C343A34627BE4533008E6FA4 /* FilterPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPlaceView.swift; sourceTree = "<group>"; };
 		C3498F2727BF728D003EDD0F /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		C3498F2A27C0DB41003EDD0F /* WritingTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingTitleView.swift; sourceTree = "<group>"; };
+		C3498F2C27C0DB5C003EDD0F /* WritingDateView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDateView.swift.swift; sourceTree = "<group>"; };
+		C3498F2E27C0DB65003EDD0F /* WritingTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingTimeView.swift; sourceTree = "<group>"; };
+		C3498F3027C0DB81003EDD0F /* WritingPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPlaceView.swift; sourceTree = "<group>"; };
+		C3498F3427C0DE70003EDD0F /* IconTextButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButtonGroup.swift; sourceTree = "<group>"; };
+		C3498F3927C13D53003EDD0F /* SelectTimeModalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeModalViewModel.swift; sourceTree = "<group>"; };
+		C3498F3A27C13D53003EDD0F /* SelectTimeModalCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeModalCoordinator.swift; sourceTree = "<group>"; };
+		C3498F3B27C13D53003EDD0F /* SelectTimeModalComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeModalComponent.swift; sourceTree = "<group>"; };
+		C3498F3C27C13D53003EDD0F /* SelectTimeModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeModalViewController.swift; sourceTree = "<group>"; };
+		C3498F4127C13D5D003EDD0F /* SelectDateModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalViewController.swift; sourceTree = "<group>"; };
+		C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalCoordinator.swift; sourceTree = "<group>"; };
+		C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalComponent.swift; sourceTree = "<group>"; };
+		C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalViewModel.swift; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -412,10 +438,8 @@
 		C3089AF227BF45C100884987 /* WritingPost */ = {
 			isa = PBXGroup;
 			children = (
-				C3089AF327BF45F700884987 /* WritingPostComponent.swift */,
-				C3089AF527BF45FE00884987 /* WritingPostCoordinator.swift */,
-				C3089AF727BF460500884987 /* WritingPostViewModel.swift */,
-				C3089AF927BF461400884987 /* WritingPostViewController.swift */,
+				C3498F2927C0DB2A003EDD0F /* View */,
+				C3498F3227C0DB8D003EDD0F /* Step1 */,
 			);
 			path = WritingPost;
 			sourceTree = "<group>";
@@ -483,6 +507,60 @@
 				C3498F2727BF728D003EDD0F /* SegmentedControl.swift */,
 			);
 			path = SegmentedControl;
+			sourceTree = "<group>";
+		};
+		C3498F2927C0DB2A003EDD0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3498F2A27C0DB41003EDD0F /* WritingTitleView.swift */,
+				C3498F2C27C0DB5C003EDD0F /* WritingDateView.swift.swift */,
+				C3498F2E27C0DB65003EDD0F /* WritingTimeView.swift */,
+				C3498F3027C0DB81003EDD0F /* WritingPlaceView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3498F3227C0DB8D003EDD0F /* Step1 */ = {
+			isa = PBXGroup;
+			children = (
+				C3498F3727C13C88003EDD0F /* SelectTime */,
+				C3498F3627C13C79003EDD0F /* SelectDate */,
+				C3089AF327BF45F700884987 /* WritingPostComponent.swift */,
+				C3089AF527BF45FE00884987 /* WritingPostCoordinator.swift */,
+				C3089AF727BF460500884987 /* WritingPostViewModel.swift */,
+				C3089AF927BF461400884987 /* WritingPostViewController.swift */,
+			);
+			path = Step1;
+			sourceTree = "<group>";
+		};
+		C3498F3327C0DE5B003EDD0F /* IconTextButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				C3498F3427C0DE70003EDD0F /* IconTextButtonGroup.swift */,
+			);
+			path = IconTextButtonGroup;
+			sourceTree = "<group>";
+		};
+		C3498F3627C13C79003EDD0F /* SelectDate */ = {
+			isa = PBXGroup;
+			children = (
+				C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */,
+				C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */,
+				C3498F4127C13D5D003EDD0F /* SelectDateModalViewController.swift */,
+				C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */,
+			);
+			path = SelectDate;
+			sourceTree = "<group>";
+		};
+		C3498F3727C13C88003EDD0F /* SelectTime */ = {
+			isa = PBXGroup;
+			children = (
+				C3498F3B27C13D53003EDD0F /* SelectTimeModalComponent.swift */,
+				C3498F3A27C13D53003EDD0F /* SelectTimeModalCoordinator.swift */,
+				C3498F3C27C13D53003EDD0F /* SelectTimeModalViewController.swift */,
+				C3498F3927C13D53003EDD0F /* SelectTimeModalViewModel.swift */,
+			);
+			path = SelectTime;
 			sourceTree = "<group>";
 		};
 		C34FDA1127AD5997007718F8 = {
@@ -1164,6 +1242,7 @@
 		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C3498F3327C0DE5B003EDD0F /* IconTextButtonGroup */,
 				C3498F2627BF7126003EDD0F /* SegmentedControl */,
 				C39F2EB127BCF45200A7D86B /* CheckBox */,
 				C39F2E9E27BC5E6D00A7D86B /* Slider */,
@@ -1427,12 +1506,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
+				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
+				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
+				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
@@ -1453,6 +1535,7 @@
 				C361B6D427B2B62300824ABE /* PhotoCertificationViewModel.swift in Sources */,
 				C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
+				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
@@ -1474,6 +1557,7 @@
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				C361B6C427B2934800824ABE /* EmailCertificationComponent.swift in Sources */,
+				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C38F8F4827AD9EAA0050137D /* MessageCoordinator.swift in Sources */,
@@ -1499,6 +1583,7 @@
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C3089AF627BF45FE00884987 /* WritingPostCoordinator.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
+				C3498F2B27C0DB41003EDD0F /* WritingTitleView.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
 				C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */,
@@ -1518,8 +1603,10 @@
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
 				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
+				C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */,
 				C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
+				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
@@ -1535,6 +1622,7 @@
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
 				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
+				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
@@ -1550,10 +1638,12 @@
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
+				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* FilterBaseView.swift in Sources */,
+				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
@@ -1563,6 +1653,7 @@
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
+				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
@@ -1580,6 +1671,7 @@
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
+				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
 				C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,

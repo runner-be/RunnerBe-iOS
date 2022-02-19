@@ -40,7 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // HomeFilter Test
 //        window.rootViewController = HomeFilterViewController(viewModel: HomeFilterViewModel())
         // WritingPost Test
-        window.rootViewController = WritingPostViewController(viewModel: WritingPostViewModel())
+//        window.rootViewController = WritingPostViewController(viewModel: WritingPostViewModel())
+        // modal
+        window.rootViewController = SelectTimeModalViewController(viewModel: SelectTimeModalViewModel())
 
 //        appComponent.loginService.checkLogin()
 //            .subscribe(onNext: { result in

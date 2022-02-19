@@ -222,9 +222,9 @@ class Slider: UIControl {
         rightHandle.updatePosition(to: rightPosition)
 
         lineForeground.frame = CGRect(
-            x: leftPosition.x,
+            x: sliderType == .single ? 0 : leftPosition.x,
             y: lineBackground.frame.minY,
-            width: rightPosition.x - leftPosition.x,
+            width: sliderType == .single ? rightPosition.x : rightPosition.x - leftPosition.x,
             height: lineHeight
         )
     }

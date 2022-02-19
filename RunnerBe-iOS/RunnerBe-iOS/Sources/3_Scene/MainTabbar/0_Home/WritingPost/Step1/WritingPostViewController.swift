@@ -65,6 +65,36 @@ class WritingPostViewController: BaseViewController {
             L10n.Post.WorkTime.dayOff,
         ]
     }
+
+    private var scrollView = UIScrollView().then { view in
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.alwaysBounceVertical = false
+    }
+
+    private var writeTitleView = WritingTitleView()
+    private var hDivider1 = UIView().then { $0.backgroundColor = .darkG6 }
+    private var writeDateView = WritingDateView()
+    private var hDivider2 = UIView().then { $0.backgroundColor = .darkG6 }
+    private var writeTimeView = WritingTimeView()
+    private var hDivider3 = UIView().then { $0.backgroundColor = .darkG6 }
+    private var writePlaceView = WritingPlaceView()
+
+    private lazy var vStackView = UIStackView.make(
+        with: [
+            writeTitleView,
+            hDivider1,
+            writeDateView,
+            hDivider2,
+            writeTimeView,
+            hDivider3,
+            writePlaceView,
+        ],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 12
+    )
 }
 
 // MARK: - Layout
@@ -76,7 +106,10 @@ extension WritingPostViewController {
         view.addSubviews([
             navBar,
             segmentedControl,
+            scrollView,
         ])
+
+        scrollView.addSubview(vStackView)
     }
 
     private func initialLayout() {
@@ -91,7 +124,36 @@ extension WritingPostViewController {
             make.top.equalTo(navBar.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(14)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
-//            make.height.equalTo(32)
+        }
+
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom).offset(18)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+        }
+
+        vStackView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+        }
+
+        hDivider1.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.height.equalTo(1)
+        }
+        hDivider2.snp.makeConstraints { make in
+//            make.leading.equalTo(vStackView.snp.leading)
+//            make.trailing.equalTo(vStackView.snp.trailing)
+            make.height.equalTo(1)
+        }
+        hDivider3.snp.makeConstraints { make in
+//            make.leading.equalTo(vStackView.snp.leading)
+//            make.trailing.equalTo(vStackView.snp.trailing)
+            make.height.equalTo(1)
         }
     }
 

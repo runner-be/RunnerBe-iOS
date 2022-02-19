@@ -343,6 +343,8 @@ internal enum L10n {
 
   internal enum Post {
     internal enum Date {
+      /// 3/31 (금) AM 6:00
+      internal static let placeHolder = L10n.tr("Localizable", "Post.Date.PlaceHolder")
       /// 일시
       internal static let title = L10n.tr("Localizable", "Post.Date.Title")
     }
@@ -350,11 +352,15 @@ internal enum L10n {
       /// 모임 장소
       internal static let title = L10n.tr("Localizable", "Post.Place.Title")
       internal enum Guide {
-        /// *정확한 위치는 참여 러너에게만 보여요!
+        /// * 정확한 위치는 참여 러너에게만 보여요!
         internal static let readable = L10n.tr("Localizable", "Post.Place.Guide.Readable")
       }
     }
     internal enum Time {
+      /// 모임은 최대 5시간까지 가능해요
+      internal static let error = L10n.tr("Localizable", "Post.Time.Error")
+      /// 0 시간 20분
+      internal static let placeHolder = L10n.tr("Localizable", "Post.Time.PlaceHolder")
       /// 소요 시간
       internal static let title = L10n.tr("Localizable", "Post.Time.Title")
     }
