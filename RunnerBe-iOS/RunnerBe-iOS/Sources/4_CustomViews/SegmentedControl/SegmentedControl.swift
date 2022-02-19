@@ -148,7 +148,7 @@ class SegmentedControl: UIControl {
             let highlightTextLayer = CATextLayer()
             highlightLayer.addSublayer(highlightTextLayer)
             highlightTextLayer.font = highlightTextFont as CFTypeRef
-            highlightTextLayer.fontSize = 15
+            highlightTextLayer.fontSize = fontSize
             highlightTextLayer.foregroundColor = highlightTextColor.cgColor
             highlightTextLayer.contentsScale = UIScreen.main.scale
             highlightTextLayer.alignmentMode = .center

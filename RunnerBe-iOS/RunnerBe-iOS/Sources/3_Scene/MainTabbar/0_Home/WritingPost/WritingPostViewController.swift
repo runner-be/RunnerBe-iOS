@@ -53,6 +53,7 @@ class WritingPostViewController: BaseViewController {
         control.defaultTextColor = .darkG45
         control.highlightTextFont = .iosBody15B
         control.highlightTextColor = .darkG5
+        control.fontSize = 15
         control.boxColors = [.darkG6]
         control.highlightBoxColors = [.segmentBgTop, .segmentBgBot]
         control.highlightBoxPadding = .zero
