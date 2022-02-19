@@ -38,7 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // TEST: token 초기화
         BasicLoginKeyChainService().token = nil
         // HomeFilter Test
-        window.rootViewController = HomeFilterViewController(viewModel: HomeFilterViewModel())
+//        window.rootViewController = HomeFilterViewController(viewModel: HomeFilterViewModel())
+        // WritingPost Test
+        window.rootViewController = WritingPostViewController(viewModel: WritingPostViewModel())
 
 //        appComponent.loginService.checkLogin()
 //            .subscribe(onNext: { result in

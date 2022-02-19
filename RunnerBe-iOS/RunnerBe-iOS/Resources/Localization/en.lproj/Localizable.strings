@@ -153,3 +153,18 @@
 "Home.Filter.Job.title" = "직군";
 "Home.Filter.Place.title" = "모임장소";
 "Home.Filter.Age.all" = "모든연령";
+
+// MARK: - Post
+"Post.WorkTime.BeforeWork" = "출근 전";
+"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.DayOff" = "휴일";
+"Post.Title.Title" = "제목";
+"Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
+"Post.Date.Title" = "일시";
+"Post.Time.Title" = "소요 시간";
+"Post.Place.Title" = "모임 장소";
+"Post.Place.Guide.Readable" = "*정확한 위치는 참여 러너에게만 보여요!";
+
+
+// MARK: - Common NavBar
+"NavBar.Right.First.next" = "다음";

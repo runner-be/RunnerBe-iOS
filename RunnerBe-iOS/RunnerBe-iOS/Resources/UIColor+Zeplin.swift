@@ -80,4 +80,12 @@ extension UIColor {
     @nonobjc class var sliderBgTop: UIColor {
         return .primarydark
     }
+    
+    @nonobjc class var segmentBgBot: UIColor {
+        return UIColor(red: 220.0/255.0, green: 173.0/255.0, blue: 102.0/255.0, alpha: 1)
+    }
+    
+    @nonobjc class var segmentBgTop: UIColor {
+        return UIColor(red: 233.0/255.0, green: 207.0/255.0, blue: 130.0/255.0, alpha: 1)
+    }
 }

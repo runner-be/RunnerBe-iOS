@@ -188,6 +188,15 @@ internal enum L10n {
     }
   }
 
+  internal enum NavBar {
+    internal enum Right {
+      internal enum First {
+        /// 다음
+        internal static let next = L10n.tr("Localizable", "NavBar.Right.First.next")
+      }
+    }
+  }
+
   internal enum NickName {
     /// 한 번 정한 닉네임은 수정할 수 없어요.
     internal static let subtitle = L10n.tr("Localizable", "NickName.subtitle")
@@ -329,6 +338,39 @@ internal enum L10n {
         /// 다음
         internal static let title = L10n.tr("Localizable", "PolicyTerm.Button.Next.title")
       }
+    }
+  }
+
+  internal enum Post {
+    internal enum Date {
+      /// 일시
+      internal static let title = L10n.tr("Localizable", "Post.Date.Title")
+    }
+    internal enum Place {
+      /// 모임 장소
+      internal static let title = L10n.tr("Localizable", "Post.Place.Title")
+      internal enum Guide {
+        /// *정확한 위치는 참여 러너에게만 보여요!
+        internal static let readable = L10n.tr("Localizable", "Post.Place.Guide.Readable")
+      }
+    }
+    internal enum Time {
+      /// 소요 시간
+      internal static let title = L10n.tr("Localizable", "Post.Time.Title")
+    }
+    internal enum Title {
+      /// ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!
+      internal static let placeHolder = L10n.tr("Localizable", "Post.Title.PlaceHolder")
+      /// 제목
+      internal static let title = L10n.tr("Localizable", "Post.Title.Title")
+    }
+    internal enum WorkTime {
+      /// 퇴근 후
+      internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork")
+      /// 출근 전
+      internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork")
+      /// 휴일
+      internal static let dayOff = L10n.tr("Localizable", "Post.WorkTime.DayOff")
     }
   }
 
