@@ -139,21 +139,21 @@ extension SelectTimeModalViewController {
         datePickerView.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(sheet.snp.leading).offset(35)
-            make.height.equalTo(135)
+            make.height.equalTo(120)
             make.width.equalTo(80)
         }
 
         morningAfterPicker.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(datePickerView.snp.trailing).offset(24)
-            make.height.equalTo(135)
+            make.height.equalTo(datePickerView.snp.height)
             make.width.equalTo(43)
         }
 
         timePicker.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(morningAfterPicker.snp.trailing).offset(24)
-            make.height.equalTo(135)
+            make.height.equalTo(datePickerView.snp.height)
             make.width.equalTo(25)
         }
 
@@ -166,7 +166,7 @@ extension SelectTimeModalViewController {
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(separatorLabel.snp.trailing).offset(12)
             make.trailing.equalTo(sheet.snp.trailing).offset(-35)
-            make.height.equalTo(135)
+            make.height.equalTo(datePickerView.snp.height)
             make.width.equalTo(30)
         }
 

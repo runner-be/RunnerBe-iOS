@@ -546,8 +546,8 @@
 			children = (
 				C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */,
 				C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */,
-				C3498F4127C13D5D003EDD0F /* SelectDateModalViewController.swift */,
 				C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */,
+				C3498F4127C13D5D003EDD0F /* SelectDateModalViewController.swift */,
 			);
 			path = SelectDate;
 			sourceTree = "<group>";
@@ -557,8 +557,8 @@
 			children = (
 				C3498F3B27C13D53003EDD0F /* SelectTimeModalComponent.swift */,
 				C3498F3A27C13D53003EDD0F /* SelectTimeModalCoordinator.swift */,
-				C3498F3C27C13D53003EDD0F /* SelectTimeModalViewController.swift */,
 				C3498F3927C13D53003EDD0F /* SelectTimeModalViewModel.swift */,
+				C3498F3C27C13D53003EDD0F /* SelectTimeModalViewController.swift */,
 			);
 			path = SelectTime;
 			sourceTree = "<group>";

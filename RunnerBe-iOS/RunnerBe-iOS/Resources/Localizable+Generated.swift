@@ -348,6 +348,14 @@ internal enum L10n {
       /// 일시
       internal static let title = L10n.tr("Localizable", "Post.Date.Title")
     }
+    internal enum Modal {
+      internal enum Time {
+        /// 분
+        internal static let minute = L10n.tr("Localizable", "Post.Modal.Time.minute")
+        /// 시간
+        internal static let time = L10n.tr("Localizable", "Post.Modal.Time.time")
+      }
+    }
     internal enum Place {
       /// 모임 장소
       internal static let title = L10n.tr("Localizable", "Post.Place.Title")

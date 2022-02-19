@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
+import PickerView
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -42,24 +43,43 @@ class SelectDateModalViewController: BaseViewController {
 
     private func viewModelOutput() {}
 
+    let timeItem = ["0", "1", "2", "3", "4"]
+    let minuteItem = ["00", "10", "20", "30", "40", "50"]
+
     private var sheet = UIView().then { view in
         view.backgroundColor = .darkG5
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
     }
 
-    private var titleLabel1 = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .darkG1
-        label.text = L10n.EmailCertification.Modal.Message._1
-        label.textAlignment = .center
+    private lazy var timePicker = PickerView().then { picker in
+        picker.scrollingStyle = .default
+        picker.selectionStyle = .none
+        picker.backgroundColor = .clear
+        picker.tag = 0
+        picker.delegate = self
+        picker.dataSource = self
     }
 
-    private var titleLabel2 = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .darkG1
-        label.text = L10n.EmailCertification.Modal.Message._2
-        label.textAlignment = .center
+    private lazy var minutePicker = PickerView().then { picker in
+        picker.scrollingStyle = .default
+        picker.selectionStyle = .none
+        picker.backgroundColor = .clear
+        picker.tag = 1
+        picker.delegate = self
+        picker.dataSource = self
+    }
+
+    private var timeLabel = UILabel().then { label in
+        label.font = .iosBody17Sb
+        label.textColor = .primary
+        label.text = L10n.Post.Modal.Time.time
+    }
+
+    private var minuteLabel = UILabel().then { label in
+        label.font = .iosBody17Sb
+        label.textColor = .primary
+        label.text = L10n.Post.Modal.Time.minute
     }
 
     private var hDivider = UIView().then { view in
@@ -86,8 +106,10 @@ extension SelectDateModalViewController {
         ])
 
         sheet.addSubviews([
-            titleLabel1,
-            titleLabel2,
+            timePicker,
+            timeLabel,
+            minutePicker,
+            minuteLabel,
             hDivider,
             buttonOk,
         ])
@@ -97,23 +119,35 @@ extension SelectDateModalViewController {
         sheet.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
-            make.width.equalTo(270)
         }
 
-        titleLabel1.snp.makeConstraints { make in
+        timePicker.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(sheet.snp.leading).offset(24)
-            make.trailing.equalTo(sheet.snp.trailing).offset(-24)
+            make.leading.equalTo(sheet.snp.leading).offset(61)
+            make.height.equalTo(120)
+            make.width.equalTo(25)
         }
 
-        titleLabel2.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel1.snp.bottom).offset(2)
-            make.leading.equalTo(sheet.snp.leading).offset(24)
-            make.trailing.equalTo(sheet.snp.trailing).offset(-24)
+        timeLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(timePicker.snp.centerY)
+            make.leading.equalTo(timePicker.snp.trailing).offset(16)
+        }
+
+        minutePicker.snp.makeConstraints { make in
+            make.top.equalTo(sheet.snp.top).offset(24)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(56)
+            make.height.equalTo(timePicker)
+            make.width.equalTo(30)
+        }
+
+        minuteLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(minutePicker.snp.centerY)
+            make.leading.equalTo(minutePicker.snp.trailing).offset(16)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-61)
         }
 
         hDivider.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel2.snp.bottom).offset(23)
+            make.top.equalTo(timePicker.snp.bottom).offset(23)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
             make.height.equalTo(1)
@@ -126,5 +160,50 @@ extension SelectDateModalViewController {
             make.trailing.equalTo(sheet.snp.trailing)
             make.bottom.equalTo(sheet.snp.bottom)
         }
+    }
+}
+
+// MARK: - PickerViewDelegate, PickerViewDataSource
+
+extension SelectDateModalViewController: PickerViewDelegate, PickerViewDataSource {
+    func pickerViewHeightForRows(_: PickerView) -> CGFloat {
+        30
+    }
+
+    func pickerView(_ picker: PickerView, titleForRow row: Int) -> String {
+        switch picker.tag {
+        case 0:
+            return timeItem[row]
+        case 1:
+            return minuteItem[row]
+        default:
+            return ""
+        }
+    }
+
+    func pickerView(_: PickerView, styleForLabel label: UILabel, highlighted: Bool) {
+        label.textAlignment = .center
+        if highlighted {
+            label.font = .iosBody17Sb.withSize(22)
+            label.textColor = .primary
+        } else {
+            label.font = .iosTitle19R.withSize(19)
+            label.textColor = .darkG4
+        }
+    }
+
+    func pickerViewNumberOfRows(_ picker: PickerView) -> Int {
+        switch picker.tag {
+        case 0:
+            return timeItem.count
+        case 1:
+            return minuteItem.count
+        default:
+            return 0
+        }
+    }
+
+    func pickerView(_: PickerView, didSelectRow _: Int) {
+//        viewModel.inputs.itemSelected.onNext(didSelectRow)
     }
 }

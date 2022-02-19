@@ -168,6 +168,9 @@
 "Post.Place.Title" = "모임 장소";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
 
+"Post.Modal.Time.time" = "시간";
+"Post.Modal.Time.minute" = "분";
+
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";

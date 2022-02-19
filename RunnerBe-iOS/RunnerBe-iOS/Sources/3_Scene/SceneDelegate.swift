@@ -43,6 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window.rootViewController = WritingPostViewController(viewModel: WritingPostViewModel())
         // modal
         window.rootViewController = SelectTimeModalViewController(viewModel: SelectTimeModalViewModel())
+//        window.rootViewController = SelectDateModalViewController(viewModel: SelectDateModalViewModel())
 
 //        appComponent.loginService.checkLogin()
 //            .subscribe(onNext: { result in
