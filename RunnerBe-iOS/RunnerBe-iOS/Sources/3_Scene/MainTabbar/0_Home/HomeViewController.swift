@@ -71,7 +71,3 @@ extension HomeViewController {
         .lightContent
     }
 }
-
-/*
-
- */

@@ -213,14 +213,14 @@ final class BasicSignupService: SignupService {
 
     func emailCertificated(email: String) -> Observable<EmailCertificatedResult> {
         let functionResult = ReplaySubject<EmailCertificatedResult>.create(bufferSize: 1)
-        let formReadyWithoutNickName = ReplaySubject<Void>.create(bufferSize: 1)
+        let keyChainWithoutNickName = ReplaySubject<Void>.create(bufferSize: 1)
         let formReady = ReplaySubject<SignupForm>.create(bufferSize: 1)
 
         signupKeyChainService.officeMail = email
         signupKeyChainService.idCardUrl = nil
-        formReadyWithoutNickName.onNext(())
+        keyChainWithoutNickName.onNext(())
 
-        formReadyWithoutNickName
+        keyChainWithoutNickName
             .subscribe(onNext: { [weak self] in
                 guard var keyChain = self?.signupKeyChainService,
                       let nickNameGenerator = self?.randomNickNameGenerator
@@ -257,7 +257,7 @@ final class BasicSignupService: SignupService {
                     functionResult.onNext(.success)
                 case let .error(code):
                     if code == 2009 {
-                        formReadyWithoutNickName.onNext(())
+                        keyChainWithoutNickName.onNext(())
                     } else {
                         functionResult.onNext(.fail)
                     }
