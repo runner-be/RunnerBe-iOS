@@ -42,21 +42,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // WritingPost Test
 //        window.rootViewController = WritingPostViewController(viewModel: WritingPostViewModel())
         // modal
-        window.rootViewController = SelectTimeModalViewController(viewModel: SelectTimeModalViewModel())
+//        window.rootViewController = SelectTimeModalViewController(viewModel: SelectTimeModalViewModel())
 //        window.rootViewController = SelectDateModalViewController(viewModel: SelectDateModalViewModel())
 
-//        appComponent.loginService.checkLogin()
-//            .subscribe(onNext: { result in
-//                switch result {
-//                case .member:
-//                    appCoordinator.showMain(certificated: true, animated: false)
-//                case .memberWaitCertification:
-//                    appCoordinator.showMain(certificated: false, animated: false)
-//                case .nonMember:
-//                    appCoordinator.showLoggedOut(animated: false)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        appComponent.loginService.checkLogin()
+            .subscribe(onNext: { result in
+                switch result {
+                case .member:
+                    appCoordinator.showMain(certificated: true, animated: false)
+                case .memberWaitCertification:
+                    appCoordinator.showMain(certificated: false, animated: false)
+                case .nonMember:
+                    appCoordinator.showLoggedOut(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
 
         window.makeKeyAndVisible()
 

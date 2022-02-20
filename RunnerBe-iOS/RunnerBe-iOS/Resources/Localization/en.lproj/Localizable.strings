@@ -174,3 +174,7 @@
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";
+
+// MARK: - Home.MessageList
+"Home.MessageList.NavBar.Title" = "쪽지";
+"Home.MessageList.NavBar.RightItem" = "삭제";

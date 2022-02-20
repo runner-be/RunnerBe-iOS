@@ -119,6 +119,14 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title")
       }
     }
+    internal enum MessageList {
+      internal enum NavBar {
+        /// 삭제
+        internal static let rightItem = L10n.tr("Localizable", "Home.MessageList.NavBar.RightItem")
+        /// 쪽지
+        internal static let title = L10n.tr("Localizable", "Home.MessageList.NavBar.Title")
+      }
+    }
   }
 
   internal enum Job {

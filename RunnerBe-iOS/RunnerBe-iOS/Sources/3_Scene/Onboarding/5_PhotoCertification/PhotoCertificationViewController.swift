@@ -114,6 +114,7 @@ final class PhotoCertificationViewController: BaseViewController {
                     self?.view.hideToastActivity()
                 }
             })
+            .disposed(by: disposeBags)
     }
 
     // MARK: Private

@@ -136,6 +136,7 @@
 		C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA727BC71FD00A7D86B /* CGRect+.swift */; };
 		C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */; };
 		C39F2EB027BCF3FB00A7D86B /* FilterAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EAF27BCF3FB00A7D86B /* FilterAgeView.swift */; };
+		C3A9125927C1F592007DF12A /* MessageListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9125827C1F592007DF12A /* MessageListItemView.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
 		C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114A27B8113000A7044C /* BaseAPI.swift */; };
@@ -338,6 +339,7 @@
 		C39F2EA727BC71FD00A7D86B /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		C39F2EAF27BCF3FB00A7D86B /* FilterAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAgeView.swift; sourceTree = "<group>"; };
+		C3A9125827C1F592007DF12A /* MessageListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListItemView.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		C3AD114A27B8113000A7044C /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -899,6 +901,7 @@
 		C38F8F2827AD96140050137D /* 2_MessageList */ = {
 			isa = PBXGroup;
 			children = (
+				C3A9125727C1F57F007DF12A /* Views */,
 				C38F8F3F27AD99F30050137D /* MessageListComponent.swift */,
 				C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */,
 				C38F8F3627AD96E10050137D /* MessageListViewModel.swift */,
@@ -1018,6 +1021,14 @@
 				C3F74B6C27B0A846002D5846 /* CheckBoxView.swift */,
 			);
 			path = CheckBox;
+			sourceTree = "<group>";
+		};
+		C3A9125727C1F57F007DF12A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3A9125827C1F592007DF12A /* MessageListItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
@@ -1544,6 +1555,7 @@
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
 				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
+				C3A9125927C1F592007DF12A /* MessageListItemView.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
