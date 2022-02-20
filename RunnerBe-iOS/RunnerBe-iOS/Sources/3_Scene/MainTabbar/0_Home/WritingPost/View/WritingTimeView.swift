@@ -36,7 +36,7 @@ class WritingTimeView: FilterBaseView {
         view.layer.cornerRadius = 6
     }
 
-    private var iconTextButtonGroup = IconTextButtonGroup().then { group in
+    var iconTextButtonGroup = IconTextButtonGroup().then { group in
         group.icon = Asset.time.uiImage
         group.titleLabel.text = L10n.Post.Time.placeHolder
         group.titleLabel.font = .iosBody15R

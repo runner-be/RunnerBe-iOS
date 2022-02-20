@@ -38,9 +38,9 @@ final class PhotoModalViewController: BaseViewController {
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         })
-            .map { _ in }
-            .subscribe(viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
+        .map { _ in }
+        .subscribe(viewModel.inputs.tapBackward)
+        .disposed(by: disposeBags)
 
         takePhotoButton.rx.tap
             .subscribe(viewModel.inputs.tapTakePhoto)
