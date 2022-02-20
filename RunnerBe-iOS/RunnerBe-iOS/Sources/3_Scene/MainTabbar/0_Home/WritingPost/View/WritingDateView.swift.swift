@@ -25,6 +25,11 @@ class WritingDateView: FilterBaseView {
 
     private func processingInputs() {}
 
+    // TODO: rx.으로 빼기
+    var contentText: Binder<String?> {
+        iconTextButtonGroup.titleLabel.rx.text
+    }
+
     private var groupBackground = UIView().then { view in
         view.backgroundColor = .darkG55
         view.clipsToBounds = true

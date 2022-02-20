@@ -34,6 +34,7 @@ class MessageListItemView: UITableViewCell {
     var profileImage = UIImageView().then { view in
         view.image = Asset.profileEmptyIcon.uiImage
         view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
     }
 
     var titleLabel = UILabel().then { label in
@@ -53,7 +54,7 @@ class MessageListItemView: UITableViewCell {
         button.setImage(Asset.checkBoxIconChecked.uiImage.withTintColor(.primary), for: .selected)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.backgroundColor = .clear
-        button.isSelected = false
+        button.isSelected = true
     }
 
     private lazy var labelVStackView = UIStackView.make(
@@ -81,6 +82,7 @@ class MessageListItemView: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(12)
             make.bottom.equalTo(contentView.snp.bottom).offset(-15)
         }
+        profileImage.layer.cornerRadius = 24
 
         labelVStackView.snp.makeConstraints { make in
             make.centerY.equalTo(profileImage.snp.centerY)

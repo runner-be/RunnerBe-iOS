@@ -36,6 +36,13 @@ class SelectTimeModalViewController: BaseViewController {
     private var viewModel: SelectTimeModalViewModel
 
     private func viewModelInput() {
+        view.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        }).when(.recognized)
+            .map { _ in }
+            .subscribe(viewModel.inputs.tapBackground)
+            .disposed(by: disposeBags)
+
         buttonOk.rx.tap
             .bind(to: viewModel.inputs.tapOK)
             .disposed(by: disposeBags)
@@ -49,12 +56,7 @@ class SelectTimeModalViewController: BaseViewController {
         view.layer.cornerRadius = 12
     }
 
-    let dayItem = ["3/31 (목)", "4/1 (금)", "4/2 (토)", "4/3 (일)", "4/4 (월)", "4/5 (화)", "4/6 (수)", "4/7 (목)"]
-    let morningAfterNoon = ["AM", "PM"]
-    let timeItem = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
-    let minuteItem = ["00", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]
-
-    private lazy var datePickerView = PickerView().then { picker in
+    private lazy var timePicker = PickerView().then { picker in
         picker.scrollingStyle = .default
         picker.selectionStyle = .none
         picker.backgroundColor = .clear
@@ -63,7 +65,7 @@ class SelectTimeModalViewController: BaseViewController {
         picker.dataSource = self
     }
 
-    private lazy var morningAfterPicker = PickerView().then { picker in
+    private lazy var minutePicker = PickerView().then { picker in
         picker.scrollingStyle = .default
         picker.selectionStyle = .none
         picker.backgroundColor = .clear
@@ -72,28 +74,16 @@ class SelectTimeModalViewController: BaseViewController {
         picker.dataSource = self
     }
 
-    private lazy var timePicker = PickerView().then { picker in
-        picker.scrollingStyle = .default
-        picker.selectionStyle = .none
-        picker.backgroundColor = .clear
-        picker.tag = 2
-        picker.delegate = self
-        picker.dataSource = self
-    }
-
-    private var separatorLabel = UILabel().then { label in
+    private var timeLabel = UILabel().then { label in
         label.font = .iosBody17Sb
         label.textColor = .primary
-        label.text = ":"
+        label.text = L10n.Post.Modal.Time.time
     }
 
-    private lazy var minutePicker = PickerView().then { picker in
-        picker.scrollingStyle = .default
-        picker.selectionStyle = .none
-        picker.backgroundColor = .clear
-        picker.tag = 3
-        picker.delegate = self
-        picker.dataSource = self
+    private var minuteLabel = UILabel().then { label in
+        label.font = .iosBody17Sb
+        label.textColor = .primary
+        label.text = L10n.Post.Modal.Time.minute
     }
 
     private var hDivider = UIView().then { view in
@@ -120,11 +110,10 @@ extension SelectTimeModalViewController {
         ])
 
         sheet.addSubviews([
-            datePickerView,
-            morningAfterPicker,
             timePicker,
-            separatorLabel,
+            timeLabel,
             minutePicker,
+            minuteLabel,
             hDivider,
             buttonOk,
         ])
@@ -136,42 +125,33 @@ extension SelectTimeModalViewController {
             make.centerY.equalTo(view.snp.centerY)
         }
 
-        datePickerView.snp.makeConstraints { make in
-            make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(sheet.snp.leading).offset(35)
-            make.height.equalTo(120)
-            make.width.equalTo(80)
-        }
-
-        morningAfterPicker.snp.makeConstraints { make in
-            make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(datePickerView.snp.trailing).offset(24)
-            make.height.equalTo(datePickerView.snp.height)
-            make.width.equalTo(43)
-        }
-
         timePicker.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(morningAfterPicker.snp.trailing).offset(24)
-            make.height.equalTo(datePickerView.snp.height)
+            make.leading.equalTo(sheet.snp.leading).offset(61)
+            make.height.equalTo(120)
             make.width.equalTo(25)
         }
 
-        separatorLabel.snp.makeConstraints { make in
+        timeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(timePicker.snp.centerY)
-            make.leading.equalTo(timePicker.snp.trailing).offset(12)
+            make.leading.equalTo(timePicker.snp.trailing).offset(16)
         }
 
         minutePicker.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(separatorLabel.snp.trailing).offset(12)
-            make.trailing.equalTo(sheet.snp.trailing).offset(-35)
-            make.height.equalTo(datePickerView.snp.height)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(56)
+            make.height.equalTo(timePicker)
             make.width.equalTo(30)
         }
 
+        minuteLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(minutePicker.snp.centerY)
+            make.leading.equalTo(minutePicker.snp.trailing).offset(16)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-61)
+        }
+
         hDivider.snp.makeConstraints { make in
-            make.top.equalTo(datePickerView.snp.bottom).offset(23)
+            make.top.equalTo(timePicker.snp.bottom).offset(23)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
             make.height.equalTo(1)
@@ -187,8 +167,6 @@ extension SelectTimeModalViewController {
     }
 }
 
-// MARK: - PickerViewDelegate, PickerViewDataSource
-
 extension SelectTimeModalViewController: PickerViewDelegate, PickerViewDataSource {
     func pickerViewHeightForRows(_: PickerView) -> CGFloat {
         30
@@ -197,13 +175,9 @@ extension SelectTimeModalViewController: PickerViewDelegate, PickerViewDataSourc
     func pickerView(_ picker: PickerView, titleForRow row: Int) -> String {
         switch picker.tag {
         case 0:
-            return dayItem[row]
+            return viewModel.outputs.timeItems[row]
         case 1:
-            return morningAfterNoon[row]
-        case 2:
-            return timeItem[row]
-        case 3:
-            return minuteItem[row]
+            return viewModel.outputs.minuteItems[row]
         default:
             return ""
         }
@@ -223,19 +197,22 @@ extension SelectTimeModalViewController: PickerViewDelegate, PickerViewDataSourc
     func pickerViewNumberOfRows(_ picker: PickerView) -> Int {
         switch picker.tag {
         case 0:
-            return dayItem.count
+            return viewModel.outputs.timeItems.count
         case 1:
-            return morningAfterNoon.count
-        case 2:
-            return timeItem.count
-        case 3:
-            return minuteItem.count
+            return viewModel.outputs.minuteItems.count
         default:
             return 0
         }
     }
 
-    func pickerView(_: PickerView, didSelectRow _: Int) {
-//        viewModel.inputs.itemSelected.onNext(didSelectRow)
+    func pickerView(_ picker: PickerView, didSelectRow: Int) {
+        switch picker.tag {
+        case 0:
+            viewModel.inputs.timeSelected = didSelectRow
+        case 1:
+            viewModel.inputs.minuteSelected = didSelectRow
+        default:
+            break
+        }
     }
 }

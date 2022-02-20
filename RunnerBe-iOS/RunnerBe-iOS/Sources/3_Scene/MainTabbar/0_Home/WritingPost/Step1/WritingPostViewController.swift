@@ -34,8 +34,31 @@ class WritingPostViewController: BaseViewController {
 
     private var viewModel: WritingPostViewModel
 
-    private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelInput() {
+        writeDateView.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        }).when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editDate)
+            .disposed(by: disposeBags)
+
+        writeTimeView.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        }).when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editTime)
+            .disposed(by: disposeBags)
+    }
+
+    private func viewModelOutput() {
+        viewModel.outputs.date
+            .bind(to: writeDateView.contentText)
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.time
+            .bind(to: writeTimeView.contentText)
+            .disposed(by: disposeBags)
+    }
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = ""

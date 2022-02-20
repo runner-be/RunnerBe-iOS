@@ -24,6 +24,15 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent->SelectTimeModalComponent") { component in
+        return SelectTimeModalDependencye7e5c2b929c05cb2adadProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent") { component in
+        return WritingPostDependency419fc1a98ef54804ca75Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent->SelectDateModalComponent") { component in
+        return SelectDateModalDependency62687487b6c23fb46d37Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
     }
@@ -136,6 +145,45 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent
 private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a2dbc57f299854a2fBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class SelectTimeModalDependencye7e5c2b929c05cb2adadBaseProvider: SelectTimeModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->WritingPostComponent->SelectTimeModalComponent
+private class SelectTimeModalDependencye7e5c2b929c05cb2adadProvider: SelectTimeModalDependencye7e5c2b929c05cb2adadBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class WritingPostDependency419fc1a98ef54804ca75BaseProvider: WritingPostDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->WritingPostComponent
+private class WritingPostDependency419fc1a98ef54804ca75Provider: WritingPostDependency419fc1a98ef54804ca75BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class SelectDateModalDependency62687487b6c23fb46d37BaseProvider: SelectDateModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->WritingPostComponent->SelectDateModalComponent
+private class SelectDateModalDependency62687487b6c23fb46d37Provider: SelectDateModalDependency62687487b6c23fb46d37BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

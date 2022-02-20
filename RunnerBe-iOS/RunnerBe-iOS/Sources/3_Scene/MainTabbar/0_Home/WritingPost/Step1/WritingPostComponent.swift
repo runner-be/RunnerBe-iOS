@@ -19,4 +19,12 @@ final class WritingPostComponent: Component<WritingPostDependency> {
     var viewModel: WritingPostViewModel {
         return WritingPostViewModel()
     }
+
+    var selectTimeComponent: SelectTimeModalComponent {
+        return SelectTimeModalComponent(parent: self)
+    }
+
+    var selectDateComponent: SelectDateModalComponent {
+        return SelectDateModalComponent(parent: self)
+    }
 }

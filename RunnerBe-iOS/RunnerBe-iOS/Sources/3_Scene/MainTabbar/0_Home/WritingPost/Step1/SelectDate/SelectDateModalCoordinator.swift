@@ -9,7 +9,8 @@ import Foundation
 import RxSwift
 
 enum SelectDateModalResult {
-    case backward
+    case cancel
+    case apply(String)
 }
 
 final class SelectDateModalCoordinator: BasicCoordinator<SelectDateModalResult> {
@@ -32,8 +33,14 @@ final class SelectDateModalCoordinator: BasicCoordinator<SelectDateModalResult> 
             .disposed(by: disposeBag)
 
         scene.VM
-            .routes.backward
-            .map { SelectDateModalResult.backward }
+            .routes.cancel
+            .map { SelectDateModalResult.cancel }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.apply
+            .map { SelectDateModalResult.apply($0) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

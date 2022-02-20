@@ -9,7 +9,8 @@ import Foundation
 import RxSwift
 
 enum SelectTimeModalResult {
-    case backward
+    case cancel
+    case apply(String)
 }
 
 final class SelectTimeModalCoordinator: BasicCoordinator<SelectTimeModalResult> {
@@ -32,8 +33,14 @@ final class SelectTimeModalCoordinator: BasicCoordinator<SelectTimeModalResult> 
             .disposed(by: disposeBag)
 
         scene.VM
-            .routes.backward
-            .map { SelectTimeModalResult.backward }
+            .routes.cancel
+            .map { SelectTimeModalResult.cancel }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.apply
+            .map { SelectTimeModalResult.apply($0) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

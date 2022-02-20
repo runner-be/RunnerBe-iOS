@@ -45,4 +45,10 @@ final class AppComponent: BootstrapComponent {
     var loginAPIService: LoginAPIService {
         return shared { BasicLoginAPIService() }
     }
+
+    // MARK: for Test
+
+    var writingPostComponent: WritingPostComponent {
+        return WritingPostComponent(parent: self)
+    }
 }
