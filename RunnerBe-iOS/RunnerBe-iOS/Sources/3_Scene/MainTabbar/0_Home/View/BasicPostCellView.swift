@@ -36,6 +36,8 @@ class BasicPostCellView: UICollectionViewCell {
         }
     }
 
+    var blurAlpha: CGFloat = 1
+
     var profileLabel = IconLabel().then { view in
         view.icon.image = Asset.profileEmptyIcon.uiImage
         view.iconSize = CGSize(width: 14, height: 14)
@@ -111,7 +113,7 @@ class BasicPostCellView: UICollectionViewCell {
 
             let blur = UIBlurEffect(style: .dark)
             let blurView = UIVisualEffectView(effect: blur)
-            blurView.alpha = 0.6
+            blurView.alpha = blurAlpha
             blurView.frame = cover.bounds
             blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             cover.addSubview(blurView)
@@ -149,13 +151,13 @@ extension BasicPostCellView {
         clipsToBounds = true
 
         profileLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(20)
-            make.leading.equalTo(self.snp.leading).offset(17)
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(17)
         }
 
         bookMarkIcon.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(18)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.top.equalTo(contentView.snp.top).offset(18)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
         titleLabel.snp.makeConstraints { make in
@@ -176,7 +178,7 @@ extension BasicPostCellView {
         participantLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(4)
             make.leading.equalTo(profileLabel.snp.leading)
-            make.bottom.equalTo(self.snp.bottom).offset(-24)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-24)
         }
     }
 }

@@ -37,9 +37,12 @@ class HomeViewController: BaseViewController {
 
     private func viewModelInput() {}
     private func viewModelOutput() {
-        let items = ["a", "b", "c", "d", "e"]
+        let items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         let itemsOb = Observable.of(items)
-        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, _, _ in
+        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { row, _, cell in
+            let alpha = CGFloat(row) / 10
+            cell.blurAlpha = alpha
+            cell.postState = .closed
         }
         .disposed(by: disposeBags)
     }
