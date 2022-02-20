@@ -35,7 +35,9 @@ class OnboardingCancelModalViewController: BaseViewController {
     private var viewModel: OnboardingCancelModalViewModel
 
     private func viewModelInput() {
-        view.rx.tapGesture()
+        view.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
             .map { _ in }
             .bind(to: viewModel.inputs.tapBackward)
             .disposed(by: disposeBags)

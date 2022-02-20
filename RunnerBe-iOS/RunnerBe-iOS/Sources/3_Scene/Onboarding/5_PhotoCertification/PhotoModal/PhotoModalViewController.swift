@@ -35,7 +35,9 @@ final class PhotoModalViewController: BaseViewController {
     private var viewModel: PhotoModalViewModel
 
     private func viewModelInput() {
-        view.rx.tapGesture()
+        view.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
             .map { _ in }
             .subscribe(viewModel.inputs.tapBackward)
             .disposed(by: disposeBags)
