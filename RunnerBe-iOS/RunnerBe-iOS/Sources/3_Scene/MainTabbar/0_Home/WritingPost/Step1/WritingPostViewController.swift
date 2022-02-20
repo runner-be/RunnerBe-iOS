@@ -35,14 +35,14 @@ class WritingPostViewController: BaseViewController {
     private var viewModel: WritingPostViewModel
 
     private func viewModelInput() {
-        writeDateView.rx.tapGesture(configuration: { _, delegate in
+        writeDateView.contentView.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         }).when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.editDate)
             .disposed(by: disposeBags)
 
-        writeTimeView.rx.tapGesture(configuration: { _, delegate in
+        writeTimeView.contentView.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         }).when(.recognized)
             .map { _ in }
