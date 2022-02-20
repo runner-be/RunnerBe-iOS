@@ -20,6 +20,7 @@ class WritingPostViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        viewInputs()
     }
 
     init(viewModel: WritingPostViewModel) {
@@ -55,6 +56,31 @@ class WritingPostViewController: BaseViewController {
 
         viewModel.outputs.time
             .bind(to: writeTimeView.contentText)
+            .disposed(by: disposeBags)
+    }
+
+    private func viewInputs() {
+        writeTitleView.textField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: { [weak self] _ in
+                self?.writeTitleView.textField.layer.borderWidth = 1
+            })
+            .disposed(by: disposeBags)
+
+        writeTitleView.textField.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext: { [weak self] _ in
+                self?.writeTitleView.textField.layer.borderWidth = 0
+            })
+            .disposed(by: disposeBags)
+
+        view.rx.tapGesture()
+            .when(.recognized)
+            .filter { [weak self] recognizer in
+                guard let self = self else { return false }
+                return !self.writeTitleView.textField.frame.contains(recognizer.location(in: self.view))
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.writeTitleView.textField.endEditing(true)
+            })
             .disposed(by: disposeBags)
     }
 

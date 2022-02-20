@@ -25,7 +25,7 @@ class WritingTitleView: FilterBaseView {
 
     private func processingInputs() {}
 
-    private var textField = TextFieldWithPadding().then { field in
+    var textField = TextFieldWithPadding().then { field in
         field.textPadding = UIEdgeInsets(top: 18, left: 16, bottom: 18, right: 16)
         field.backgroundColor = .darkG55
         field.font = .iosBody15R
@@ -39,6 +39,8 @@ class WritingTitleView: FilterBaseView {
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 6
+
+        field.layer.borderColor = UIColor.primary.cgColor
     }
 
     override func setupViews() {
