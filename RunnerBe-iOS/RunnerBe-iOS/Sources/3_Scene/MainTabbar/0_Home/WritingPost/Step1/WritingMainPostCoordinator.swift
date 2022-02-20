@@ -1,5 +1,5 @@
 //
-//  WritingPostCoordinator.swift
+//  WritingMainPostCoordinator.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/18.
@@ -8,12 +8,12 @@
 import Foundation
 import RxSwift
 
-enum WritingPostResult {}
+enum WritingMainPostResult {}
 
-final class WritingPostCoordinator: BasicCoordinator<WritingPostResult> {
-    var component: WritingPostComponent
+final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> {
+    var component: WritingMainPostComponent
 
-    init(component: WritingPostComponent, navController: UINavigationController) {
+    init(component: WritingMainPostComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -47,7 +47,7 @@ final class WritingPostCoordinator: BasicCoordinator<WritingPostResult> {
             .disposed(by: disposeBag)
     }
 
-    private func presentSelectTimeModal(vm: WritingPostViewModel, animated: Bool) {
+    private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectTimeComponent
         let coord = SelectTimeModalCoordinator(component: comp, navController: navController)
 
@@ -65,7 +65,7 @@ final class WritingPostCoordinator: BasicCoordinator<WritingPostResult> {
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func presentSelectDateModal(vm: WritingPostViewModel, animated: Bool) {
+    private func presentSelectDateModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectDateComponent
         let coord = SelectDateModalCoordinator(component: comp, navController: navController)
 

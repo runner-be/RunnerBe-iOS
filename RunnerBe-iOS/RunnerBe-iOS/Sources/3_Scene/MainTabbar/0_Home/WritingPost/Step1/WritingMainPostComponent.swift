@@ -8,16 +8,16 @@
 import Foundation
 import NeedleFoundation
 
-protocol WritingPostDependency: Dependency {}
+protocol WritingMainPostDependency: Dependency {}
 
-final class WritingPostComponent: Component<WritingPostDependency> {
-    var scene: (VC: UIViewController, VM: WritingPostViewModel) {
+final class WritingMainPostComponent: Component<WritingMainPostDependency> {
+    var scene: (VC: UIViewController, VM: WritingMainPostViewModel) {
         let viewModel = self.viewModel
-        return (WritingPostViewController(viewModel: viewModel), viewModel)
+        return (WritingMainPostViewController(viewModel: viewModel), viewModel)
     }
 
-    var viewModel: WritingPostViewModel {
-        return WritingPostViewModel()
+    var viewModel: WritingMainPostViewModel {
+        return WritingMainPostViewModel()
     }
 
     var selectTimeComponent: SelectTimeModalComponent {

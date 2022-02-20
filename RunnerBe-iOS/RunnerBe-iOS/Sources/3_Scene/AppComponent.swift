@@ -48,7 +48,7 @@ final class AppComponent: BootstrapComponent {
 
     // MARK: for Test
 
-    var writingPostComponent: WritingPostComponent {
-        return WritingPostComponent(parent: self)
+    var writingPostComponent: WritingMainPostComponent {
+        return WritingMainPostComponent(parent: self)
     }
 }

@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		6446622B2E8C1F9E0907F3CD /* Pods_RunnerBe_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */; };
-		C3089AF427BF45F700884987 /* WritingPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingPostComponent.swift */; };
-		C3089AF627BF45FE00884987 /* WritingPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF527BF45FE00884987 /* WritingPostCoordinator.swift */; };
-		C3089AF827BF460500884987 /* WritingPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF727BF460500884987 /* WritingPostViewModel.swift */; };
-		C3089AFA27BF461400884987 /* WritingPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF927BF461400884987 /* WritingPostViewController.swift */; };
+		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
+		C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */; };
+		C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */; };
+		C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF927BF461400884987 /* WritingMainPostViewController.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
 		C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */; };
@@ -216,10 +216,10 @@
 /* Begin PBXFileReference section */
 		1860118114B3D5CC6E48BE87 /* Pods-RunnerBe-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.release.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BFB91C4A0FEADEF7E83BF088 /* Pods-RunnerBe-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerBe-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RunnerBe-iOS/Pods-RunnerBe-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		C3089AF327BF45F700884987 /* WritingPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostComponent.swift; sourceTree = "<group>"; };
-		C3089AF527BF45FE00884987 /* WritingPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostCoordinator.swift; sourceTree = "<group>"; };
-		C3089AF727BF460500884987 /* WritingPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostViewModel.swift; sourceTree = "<group>"; };
-		C3089AF927BF461400884987 /* WritingPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostViewController.swift; sourceTree = "<group>"; };
+		C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostComponent.swift; sourceTree = "<group>"; };
+		C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostCoordinator.swift; sourceTree = "<group>"; };
+		C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewModel.swift; sourceTree = "<group>"; };
+		C3089AF927BF461400884987 /* WritingMainPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewController.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
 		C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginKeyChainService.swift; sourceTree = "<group>"; };
@@ -452,6 +452,7 @@
 			children = (
 				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3227C0DB8D003EDD0F /* Step1 */,
+				C350CC7E27C2CC91000DEA15 /* Step2 */,
 			);
 			path = WritingPost;
 			sourceTree = "<group>";
@@ -537,10 +538,10 @@
 			children = (
 				C3498F3727C13C88003EDD0F /* SelectTime */,
 				C3498F3627C13C79003EDD0F /* SelectDate */,
-				C3089AF327BF45F700884987 /* WritingPostComponent.swift */,
-				C3089AF527BF45FE00884987 /* WritingPostCoordinator.swift */,
-				C3089AF727BF460500884987 /* WritingPostViewModel.swift */,
-				C3089AF927BF461400884987 /* WritingPostViewController.swift */,
+				C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */,
+				C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */,
+				C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */,
+				C3089AF927BF461400884987 /* WritingMainPostViewController.swift */,
 			);
 			path = Step1;
 			sourceTree = "<group>";
@@ -738,6 +739,13 @@
 				C34FDA8827AD5FFB007718F8 /* Keys.swift */,
 			);
 			path = Ignore;
+			sourceTree = "<group>";
+		};
+		C350CC7E27C2CC91000DEA15 /* Step2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Step2;
 			sourceTree = "<group>";
 		};
 		C35B832427B91E5B00551AC5 /* UserInfo */ = {
@@ -1564,7 +1572,7 @@
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
-				C3089AF827BF460500884987 /* WritingPostViewModel.swift in Sources */,
+				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
 				C38F8F2F27AD96530050137D /* MessageListViewController.swift in Sources */,
 				C3EB5CD127B8B6A900775779 /* BasicMailingCertificationService.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
@@ -1620,7 +1628,7 @@
 				C35B832827B91E6E00551AC5 /* Gender.swift in Sources */,
 				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
-				C3089AF627BF45FE00884987 /* WritingPostCoordinator.swift in Sources */,
+				C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C3498F2B27C0DB41003EDD0F /* WritingTitleView.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
@@ -1674,7 +1682,7 @@
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
-				C3089AF427BF45F700884987 /* WritingPostComponent.swift in Sources */,
+				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
@@ -1687,7 +1695,7 @@
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
-				C3089AFA27BF461400884987 /* WritingPostViewController.swift in Sources */,
+				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,

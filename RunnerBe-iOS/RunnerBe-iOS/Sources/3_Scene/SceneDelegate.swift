@@ -23,9 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var appComponent: AppComponent?
     var disposeBag = DisposeBag()
 
-    var writingComponent: WritingPostComponent?
-    var writingCoord: WritingPostCoordinator?
-
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options connectionOptions: UIScene.ConnectionOptions)
     {
         guard let windowScene = (scene as? UIWindowScene)
@@ -40,17 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // TEST: token 초기화
         BasicLoginKeyChainService().token = nil
-        // HomeFilter Test
-//        window.rootViewController = HomeFilterViewController(viewModel: HomeFilterViewModel())
-//         WritingPost Test
-//        let writingComoponent = appComponent.writingPostComponent
-//        let writingCoord = WritingPostCoordinator(component: writingComoponent, navController: navController)
-//        writingCoord.start(animated: false)
-//        writingComponent = writingComoponent
-//        self.writingCoord = writingCoord
-        // modal
-//        window.rootViewController = SelectTimeModalViewController(viewModel: SelectTimeModalViewModel())
-//        window.rootViewController = SelectDateModalViewController(viewModel: SelectDateModalViewModel())
 
         appComponent.loginService.checkLogin()
             .subscribe(onNext: { result in

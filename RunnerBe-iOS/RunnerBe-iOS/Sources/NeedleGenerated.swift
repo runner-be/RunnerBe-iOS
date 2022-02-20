@@ -24,14 +24,14 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent->SelectTimeModalComponent") { component in
-        return SelectTimeModalDependencye7e5c2b929c05cb2adadProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent->SelectTimeModalComponent") { component in
+        return SelectTimeModalDependency73202274b1202cad66d2Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent") { component in
-        return WritingPostDependency419fc1a98ef54804ca75Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent") { component in
+        return WritingMainPostDependency7dfdd3b9de3f5934d25fProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingPostComponent->SelectDateModalComponent") { component in
-        return SelectDateModalDependency62687487b6c23fb46d37Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
+        return SelectDateModalDependency73b3880575f60c44c55eProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
@@ -149,41 +149,41 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
         super.init()
     }
 }
-private class SelectTimeModalDependencye7e5c2b929c05cb2adadBaseProvider: SelectTimeModalDependency {
+private class SelectTimeModalDependency73202274b1202cad66d2BaseProvider: SelectTimeModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->WritingPostComponent->SelectTimeModalComponent
-private class SelectTimeModalDependencye7e5c2b929c05cb2adadProvider: SelectTimeModalDependencye7e5c2b929c05cb2adadBaseProvider {
+/// ^->AppComponent->WritingMainPostComponent->SelectTimeModalComponent
+private class SelectTimeModalDependency73202274b1202cad66d2Provider: SelectTimeModalDependency73202274b1202cad66d2BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class WritingPostDependency419fc1a98ef54804ca75BaseProvider: WritingPostDependency {
+private class WritingMainPostDependency7dfdd3b9de3f5934d25fBaseProvider: WritingMainPostDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->WritingPostComponent
-private class WritingPostDependency419fc1a98ef54804ca75Provider: WritingPostDependency419fc1a98ef54804ca75BaseProvider {
+/// ^->AppComponent->WritingMainPostComponent
+private class WritingMainPostDependency7dfdd3b9de3f5934d25fProvider: WritingMainPostDependency7dfdd3b9de3f5934d25fBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class SelectDateModalDependency62687487b6c23fb46d37BaseProvider: SelectDateModalDependency {
+private class SelectDateModalDependency73b3880575f60c44c55eBaseProvider: SelectDateModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->WritingPostComponent->SelectDateModalComponent
-private class SelectDateModalDependency62687487b6c23fb46d37Provider: SelectDateModalDependency62687487b6c23fb46d37BaseProvider {
+/// ^->AppComponent->WritingMainPostComponent->SelectDateModalComponent
+private class SelectDateModalDependency73b3880575f60c44c55eProvider: SelectDateModalDependency73b3880575f60c44c55eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

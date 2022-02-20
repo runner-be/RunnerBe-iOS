@@ -168,7 +168,7 @@ extension HomeViewController {
             make.top.equalTo(filterIcon.snp.bottom).offset(8)
             make.leading.equalTo(view.snp.leading).offset(14)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-14)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
     }
 

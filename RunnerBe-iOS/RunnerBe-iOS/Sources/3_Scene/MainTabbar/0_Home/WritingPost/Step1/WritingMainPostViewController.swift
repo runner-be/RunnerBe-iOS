@@ -1,5 +1,5 @@
 //
-//  WritingPostViewController.swift
+//  WritingMainPostViewController.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/18.
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class WritingPostViewController: BaseViewController {
+class WritingMainPostViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -23,7 +23,7 @@ class WritingPostViewController: BaseViewController {
         viewInputs()
     }
 
-    init(viewModel: WritingPostViewModel) {
+    init(viewModel: WritingMainPostViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -33,7 +33,7 @@ class WritingPostViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: WritingPostViewModel
+    private var viewModel: WritingMainPostViewModel
 
     private func viewModelInput() {
         writeDateView.iconTextButtonGroup.rx.tapGesture()
@@ -146,7 +146,7 @@ class WritingPostViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension WritingPostViewController {
+extension WritingMainPostViewController {
     private func setupViews() {
         gradientBackground()
 
@@ -193,13 +193,9 @@ extension WritingPostViewController {
             make.height.equalTo(1)
         }
         hDivider2.snp.makeConstraints { make in
-//            make.leading.equalTo(vStackView.snp.leading)
-//            make.trailing.equalTo(vStackView.snp.trailing)
             make.height.equalTo(1)
         }
         hDivider3.snp.makeConstraints { make in
-//            make.leading.equalTo(vStackView.snp.leading)
-//            make.trailing.equalTo(vStackView.snp.trailing)
             make.height.equalTo(1)
         }
     }
