@@ -8,19 +8,19 @@
 import Foundation
 import RxSwift
 
-protocol MessageResult {}
+protocol MessageListResult {}
 
-final class MessageCoordinator: TabCoordinator<HomeResult> {
+final class MessageListCoordinator: TabCoordinator<MessageListResult> {
     // MARK: Lifecycle
 
-    init(component: MessageComponent, tabController: UITabBarController, navController: UINavigationController) {
+    init(component: MessageListComponent, tabController: UITabBarController, navController: UINavigationController) {
         self.component = component
         super.init(tabController: tabController, navController: navController)
     }
 
     // MARK: Internal
 
-    var component: MessageComponent
+    var component: MessageListComponent
 
     override func start(animated _: Bool = true) {}
 }

@@ -21,14 +21,14 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent") { component in
         return BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent") { component in
-        return MessageDependencyb26316582fc24834a34cProvider(component: component)
-    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageListComponent") { component in
+        return MessageListDependencyc629b1c3a409a60ff598Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
         return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
@@ -127,19 +127,6 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency
         super.init()
     }
 }
-private class MessageDependencyb26316582fc24834a34cBaseProvider: MessageDependency {
-
-
-    init() {
-
-    }
-}
-/// ^->AppComponent->MainTabComponent->MessageComponent
-private class MessageDependencyb26316582fc24834a34cProvider: MessageDependencyb26316582fc24834a34cBaseProvider {
-    init(component: NeedleFoundation.Scope) {
-        super.init()
-    }
-}
 private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {
 
 
@@ -162,6 +149,19 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ecd6b5263bd0e9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class MessageListDependencyc629b1c3a409a60ff598BaseProvider: MessageListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MessageListComponent
+private class MessageListDependencyc629b1c3a409a60ff598Provider: MessageListDependencyc629b1c3a409a60ff598BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

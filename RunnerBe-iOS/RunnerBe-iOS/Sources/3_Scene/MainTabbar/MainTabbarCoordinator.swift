@@ -66,7 +66,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
     private func configureAndGetMessageScene() -> UIViewController {
         let comp = component.messageComponent
-        let coord = MessageCoordinator(component: comp, tabController: tabController, navController: navController)
+        let coord = MessageListCoordinator(component: comp, tabController: tabController, navController: navController)
 
         coordinate(coordinator: coord, animated: false)
 

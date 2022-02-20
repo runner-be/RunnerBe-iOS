@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageViewController: BaseViewController {
+class MessageListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,7 +22,7 @@ class MessageViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: MessageViewModel) {
+    init(viewModel: MessageListViewModel) {
         self.viewModel = viewModel
         super.init()
         configureTabItem()
@@ -33,7 +33,7 @@ class MessageViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: MessageViewModel
+    private var viewModel: MessageListViewModel
 
     private func viewModelInput() {}
     private func viewModelOutput() {}
@@ -41,7 +41,7 @@ class MessageViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension MessageViewController {
+extension MessageListViewController {
     private func setupViews() {
         gradientBackground()
     }
