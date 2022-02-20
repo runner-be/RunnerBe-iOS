@@ -139,27 +139,6 @@ final class BasicSignupService: SignupService {
         imageUploaded
             .debug()
             .subscribe(onNext: { [weak self] idCardUrl in
-                guard let self = self
-                else {
-                    functionResult.onNext(.imageUploadFail)
-                    return
-                }
-                self.signupKeyChainService.idCardUrl = idCardUrl
-                self.signupKeyChainService.nickName = self.randomNickNameGenerator.generate(
-                    numOfRandom: 4,
-                    prefix: "Runner",
-                    suffix: ""
-                )
-                self.signupKeyChainService.officeMail = nil
-
-                let form = self.signupKeyChainService.signupForm
-                signupFormReady.onNext(form)
-            })
-            .disposed(by: disposeBag)
-
-        imageUploaded
-            .debug()
-            .subscribe(onNext: { [weak self] idCardUrl in
                 guard var keyChain = self?.signupKeyChainService
                 else {
                     functionResult.onNext(.imageUploadFail)
@@ -210,17 +189,18 @@ final class BasicSignupService: SignupService {
                 case .succeed:
                     functionResult.onNext(.imageUploaded)
                 case let .error(code):
-                    if code == 2009 { // 닉네임 중복 오류
+                    
+                    switch code {
+                    case 2009: // 닉네임 중복
                         keyChainWithOutNickName.onNext(())
-                    } else {
+                    case 3001: // uuid 중복
+                        functionResult.onNext(.imageUploadFail)
+#if DEBUG
+    print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
+#endif
+                    default:
                         functionResult.onNext(.imageUploadFail)
                     }
-
-                    #if DEBUG
-                        if code == 3001 {
-                            print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
-                        }
-                    #endif
                 }
             })
             .disposed(by: disposeBag)
