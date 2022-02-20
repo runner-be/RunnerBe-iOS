@@ -36,7 +36,35 @@ class HomeViewController: BaseViewController {
     private var viewModel: HomeViewModel
 
     private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        let items = ["a", "b", "c", "d", "e"]
+        let itemsOb = Observable.of(items)
+        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, _, _ in
+        }
+        .disposed(by: disposeBags)
+    }
+
+    private lazy var postCollectionView: UICollectionView = {
+        let size = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(150)
+        )
+        var item = NSCollectionLayoutItem(layoutSize: size)
+        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+            leading: .fixed(0),
+            top: .fixed(12),
+            trailing: .fixed(0),
+            bottom: .fixed(12)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(BasicPostCellView.self, forCellWithReuseIdentifier: BasicPostCellView.id)
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
 }
 
 // MARK: - Layout
@@ -44,9 +72,19 @@ class HomeViewController: BaseViewController {
 extension HomeViewController {
     private func setupViews() {
         gradientBackground()
+        view.addSubviews([
+            postCollectionView,
+        ])
     }
 
-    private func initialLayout() {}
+    private func initialLayout() {
+        postCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading).offset(14)
+            make.trailing.equalTo(view.snp.trailing).offset(-14)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-14)
+        }
+    }
 
     private func configureTabItem() {
         tabBarItem = UITabBarItem(

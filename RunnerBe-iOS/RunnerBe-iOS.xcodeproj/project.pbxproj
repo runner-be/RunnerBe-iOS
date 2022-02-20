@@ -116,6 +116,8 @@
 		C38F8F4827AD9EAA0050137D /* MessageListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */; };
 		C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */; };
 		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
+		C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */; };
+		C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1427C290E700396DC3 /* IconLabel.swift */; };
 		C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */; };
 		C39D86C427AEB78700A9C201 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */; };
 		C39D86C527AEB78700A9C201 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BC27AEB78600A9C201 /* AppleSDGothicNeoL.ttf */; };
@@ -318,6 +320,8 @@
 		C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
+		C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostCellView.swift; sourceTree = "<group>"; };
+		C399FD1427C290E700396DC3 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
 		C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
 		C39D86BC27AEB78600A9C201 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
@@ -935,6 +939,7 @@
 		C399FD1127C2833400396DC3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1090,6 +1095,7 @@
 			children = (
 				C3BA45A127B426BE0048CA76 /* OnOff */,
 				C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */,
+				C399FD1427C290E700396DC3 /* IconLabel.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -1557,6 +1563,7 @@
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
+				C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
@@ -1648,6 +1655,7 @@
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
+				C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */,
 				C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */,
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,

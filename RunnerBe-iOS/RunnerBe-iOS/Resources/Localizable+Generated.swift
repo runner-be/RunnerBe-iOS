@@ -127,6 +127,28 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.MessageList.NavBar.Title")
       }
     }
+    internal enum PostList {
+      internal enum Cell {
+        internal enum Cover {
+          /// 모집을 마감했어요
+          internal static let closed = L10n.tr("Localizable", "Home.PostList.Cell.Cover.Closed")
+        }
+      }
+      internal enum Filter {
+        internal enum CheckBox {
+          /// 마감 포함
+          internal static let includeClosedPost = L10n.tr("Localizable", "Home.PostList.Filter.CheckBox.IncludeClosedPost")
+        }
+        internal enum Order {
+          /// 거리순
+          internal static let distance = L10n.tr("Localizable", "Home.PostList.Filter.Order.Distance")
+          /// 최신순
+          internal static let newest = L10n.tr("Localizable", "Home.PostList.Filter.Order.Newest")
+          /// 찜순
+          internal static let numBookMark = L10n.tr("Localizable", "Home.PostList.Filter.Order.NumBookMark")
+        }
+      }
+    }
   }
 
   internal enum Job {

@@ -189,15 +189,15 @@ final class BasicSignupService: SignupService {
                 case .succeed:
                     functionResult.onNext(.imageUploaded)
                 case let .error(code):
-                    
+
                     switch code {
                     case 2009: // 닉네임 중복
                         keyChainWithOutNickName.onNext(())
                     case 3001: // uuid 중복
                         functionResult.onNext(.imageUploadFail)
-#if DEBUG
-    print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
-#endif
+                        #if DEBUG
+                            print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
+                        #endif
                     default:
                         functionResult.onNext(.imageUploadFail)
                     }

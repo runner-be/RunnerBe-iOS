@@ -176,3 +176,10 @@
 // MARK: - Home.MessageList
 "Home.MessageList.NavBar.Title" = "쪽지";
 "Home.MessageList.NavBar.RightItem" = "삭제";
+
+// MARK: - Home.PostList
+"Home.PostList.Cell.Cover.Closed" = "모집을 마감했어요";
+"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감 포함";
+"Home.PostList.Filter.Order.Distance" = "거리순";
+"Home.PostList.Filter.Order.NumBookMark" = "찜순";
+"Home.PostList.Filter.Order.Newest" = "최신순";
