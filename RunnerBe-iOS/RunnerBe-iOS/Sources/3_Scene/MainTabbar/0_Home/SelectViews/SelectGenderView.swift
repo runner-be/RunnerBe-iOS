@@ -1,5 +1,5 @@
 //
-//  FilterGenderView.swift.swift
+//  SelectGenderView.swift.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/16.
@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class FilterGenderView: FilterBaseView {
+class SelectGenderView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

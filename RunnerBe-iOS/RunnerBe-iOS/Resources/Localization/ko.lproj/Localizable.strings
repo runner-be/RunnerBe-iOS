@@ -184,3 +184,11 @@
 "Home.PostList.Filter.Order.NumBookMark" = "찜순";
 "Home.PostList.Filter.Order.Newest" = "최신순";
 "Home.PostList.NavBar.title" = "러너비";
+
+// MARK: - Post.Detail
+"Post.Detail.NavBar.title" = "게시글 작성";
+"Post.Detail.NavBar.RightItem" = "등록";
+"Post.Detail.NumParticipant.title" = "인원";
+"Post.Detail.NumParticipant.mixError" = "모임 인원은 최소 2명 부터 가능해요!";
+"Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
+"Post.Detail.TextContent.PlaceHolder" = "입력 완료";

@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class WritingTitleView: FilterBaseView {
+class WritingTitleView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

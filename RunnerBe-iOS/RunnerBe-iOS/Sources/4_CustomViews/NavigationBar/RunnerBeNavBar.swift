@@ -58,17 +58,17 @@ extension RunnerbeNavBar {
     private func initialLayout() {
         leftBtnItem.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading).offset(16)
-            make.bottom.equalTo(self.snp.bottom).offset(-12)
+            make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         rightBtnItem.snp.makeConstraints { make in
             make.trailing.equalTo(self.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.snp.bottom).offset(-12)
+            make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         rightSecondBtnItem.snp.makeConstraints { make in
             make.trailing.equalTo(rightBtnItem.snp.leading).offset(-12)
-            make.bottom.equalTo(self.snp.bottom).offset(-12)
+            make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         titleLabel.snp.makeConstraints { make in

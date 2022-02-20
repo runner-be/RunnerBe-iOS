@@ -1,5 +1,5 @@
 //
-//  FilterAgeView.swift
+//  SelectAgeView.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/16.
@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class FilterAgeView: FilterBaseView {
+class SelectAgeView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

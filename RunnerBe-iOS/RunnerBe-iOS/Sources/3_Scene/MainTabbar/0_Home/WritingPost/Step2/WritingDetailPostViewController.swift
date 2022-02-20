@@ -1,8 +1,8 @@
 //
-//  HomeFilterViewController.swift
+//  WritingDetailPostViewController.swift
 //  RunnerBe-iOS
 //
-//  Created by 김신우 on 2022/02/16.
+//  Created by 김신우 on 2022/02/21.
 //
 
 import RxCocoa
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class HomeFilterViewController: BaseViewController {
+class WritingDetailPostViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,7 +22,7 @@ class HomeFilterViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: HomeFilterViewModel) {
+    init(viewModel: WritingDetailPostViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -32,43 +32,16 @@ class HomeFilterViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: HomeFilterViewModel
+    private var viewModel: WritingDetailPostViewModel
 
     private func viewModelInput() {}
     private func viewModelOutput() {}
 
-    private var filterGenderView = SelectGenderView()
+    private var summaryView = SummaryMainPostView()
+
     private var hDivider1 = UIView().then { view in
         view.backgroundColor = .darkG6
     }
-
-    private var filterAgeView = SelectAgeView()
-    private var hDivider2 = UIView().then { view in
-        view.backgroundColor = .darkG6
-    }
-
-    private var filterJobView = SelectJobView()
-    private var hDivider3 = UIView().then { view in
-        view.backgroundColor = .darkG6
-    }
-
-    private var filterPlaceView = SelectPlaceView()
-
-    private lazy var vStackView = UIStackView.make(
-        with: [
-            filterGenderView,
-            hDivider1,
-            filterAgeView,
-            hDivider2,
-            filterJobView,
-            hDivider3,
-            filterPlaceView,
-        ],
-        axis: .vertical,
-        alignment: .fill,
-        distribution: .equalSpacing,
-        spacing: 27
-    )
 
     private var scrollView = UIScrollView().then { view in
         view.showsHorizontalScrollIndicator = false
@@ -76,25 +49,66 @@ class HomeFilterViewController: BaseViewController {
         view.alwaysBounceVertical = false
     }
 
+    private var selectGenderView = SelectGenderView()
+
+    private var hDivider2 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var selectAgeView = SelectAgeView()
+
+    private var hDivider3 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var selectNumParticipantView = SelectNumParticipantView()
+
+    private var hDivider4 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var selectTextContentView = SelectTextContentView()
+
+    private lazy var vStackView = UIStackView.make(
+        with: [
+            selectGenderView,
+            hDivider2,
+            selectAgeView,
+            hDivider3,
+            selectNumParticipantView,
+            hDivider4,
+            selectTextContentView,
+        ],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 20
+    )
+
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = L10n.Home.Filter.NavBar.title
+        navBar.titleLabel.text = L10n.Post.Detail.NavBar.title
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.setImage(Asset.refresh.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightBtnItem.setTitle(L10n.Post.Detail.NavBar.rightItem, for: .normal)
+        navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
+        navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
+        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.leftBtnItem.isHidden = true
+        navBar.titleSpacing = 12
     }
 }
 
 // MARK: - Layout
 
-extension HomeFilterViewController {
+extension WritingDetailPostViewController {
     private func setupViews() {
         gradientBackground()
 
         view.addSubviews([
             navBar,
+            summaryView,
+            hDivider1,
             scrollView,
         ])
 
@@ -109,10 +123,23 @@ extension HomeFilterViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
+        summaryView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom).offset(16)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+        }
+
+        hDivider1.snp.makeConstraints { make in
+            make.top.equalTo(summaryView.snp.bottom).offset(18)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(10)
+        }
+
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(12)
-            make.leading.equalTo(view.snp.leading).offset(12)
-            make.trailing.equalTo(view.snp.trailing).offset(-12)
+            make.top.equalTo(hDivider1.snp.bottom).offset(16)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
@@ -123,19 +150,17 @@ extension HomeFilterViewController {
             make.bottom.equalTo(scrollView.snp.bottom)
         }
 
-        hDivider1.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(12)
-            make.trailing.equalTo(view.snp.trailing).offset(-12)
-            make.height.equalTo(1)
-        }
         hDivider2.snp.makeConstraints { make in
-            make.leading.equalTo(vStackView.snp.leading)
-            make.trailing.equalTo(vStackView.snp.trailing)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.height.equalTo(1)
         }
+
         hDivider3.snp.makeConstraints { make in
-            make.leading.equalTo(vStackView.snp.leading)
-            make.trailing.equalTo(vStackView.snp.trailing)
+            make.height.equalTo(1)
+        }
+
+        hDivider4.snp.makeConstraints { make in
             make.height.equalTo(1)
         }
     }

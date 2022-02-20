@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import UIKit
 
-class WritingPlaceView: FilterBaseView {
+class WritingPlaceView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

@@ -29,7 +29,16 @@ class IconLabel: UIView {
     }
 
     var icon = UIImageView()
+//        .then { view in
+//        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+//    }
+
     var label = UILabel()
+//        .then { view in
+//        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
+//        view.textAlignment = .left
+//    }
+
     private lazy var stackView: UIStackView = {
         UIStackView.make(
             with: iconPosition == .left ? [icon, label] : [label, icon],

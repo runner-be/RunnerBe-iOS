@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class WritingDateView: FilterBaseView {
+class WritingDateView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

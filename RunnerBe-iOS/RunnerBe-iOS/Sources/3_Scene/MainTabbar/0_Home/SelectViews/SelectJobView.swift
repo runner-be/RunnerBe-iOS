@@ -1,5 +1,5 @@
 //
-//  FilterJobView.swift
+//  SelectJobView.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/17.
@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class FilterJobView: FilterBaseView {
+class SelectJobView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()

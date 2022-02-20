@@ -382,6 +382,26 @@ internal enum L10n {
       /// 일시
       internal static let title = L10n.tr("Localizable", "Post.Date.Title")
     }
+    internal enum Detail {
+      internal enum NavBar {
+        /// 등록
+        internal static let rightItem = L10n.tr("Localizable", "Post.Detail.NavBar.RightItem")
+        /// 게시글 작성
+        internal static let title = L10n.tr("Localizable", "Post.Detail.NavBar.title")
+      }
+      internal enum NumParticipant {
+        /// 모임 인원은 최소 2명 부터 가능해요!
+        internal static let mixError = L10n.tr("Localizable", "Post.Detail.NumParticipant.mixError")
+        /// 인원
+        internal static let title = L10n.tr("Localizable", "Post.Detail.NumParticipant.title")
+      }
+      internal enum TextContent {
+        /// 입력 완료
+        internal static let placeHolder = L10n.tr("Localizable", "Post.Detail.TextContent.PlaceHolder")
+        /// 하고 싶은 말(선택)
+        internal static let title = L10n.tr("Localizable", "Post.Detail.TextContent.title")
+      }
+    }
     internal enum Modal {
       internal enum Time {
         /// 분

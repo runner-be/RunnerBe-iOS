@@ -1,5 +1,5 @@
 //
-//  FilterPlaceView.swift.swift
+//  SelectPlaceView.swift.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/17.
@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import UIKit
 
-class FilterPlaceView: FilterBaseView {
+class SelectPlaceView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()
