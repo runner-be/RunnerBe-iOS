@@ -148,6 +148,10 @@ internal enum L10n {
           internal static let numBookMark = L10n.tr("Localizable", "Home.PostList.Filter.Order.NumBookMark")
         }
       }
+      internal enum NavBar {
+        /// 러너비
+        internal static let title = L10n.tr("Localizable", "Home.PostList.NavBar.title")
+      }
     }
   }
 

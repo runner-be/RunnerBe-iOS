@@ -183,3 +183,4 @@
 "Home.PostList.Filter.Order.Distance" = "거리순";
 "Home.PostList.Filter.Order.NumBookMark" = "찜순";
 "Home.PostList.Filter.Order.Newest" = "최신순";
+"Home.PostList.NavBar.title" = "러너비";

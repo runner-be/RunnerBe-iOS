@@ -47,6 +47,55 @@ class HomeViewController: BaseViewController {
         .disposed(by: disposeBags)
     }
 
+    private var segmentedControl = SegmentedControl().then { control in
+        control.defaultTextFont = .iosBody15R
+        control.defaultTextColor = .darkG45
+        control.highlightTextFont = .iosBody15B
+        control.highlightTextColor = .darkG5
+        control.fontSize = 15
+        control.boxColors = [.darkG6]
+        control.highlightBoxColors = [.segmentBgTop, .segmentBgBot]
+        control.highlightBoxPadding = .zero
+        control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
+
+        control.items = [
+            L10n.Post.WorkTime.afterWork,
+            L10n.Post.WorkTime.beforeWork,
+            L10n.Post.WorkTime.dayOff,
+        ]
+    }
+
+    private var deadlineFilter = IconLabel(iconPosition: .right).then { view in
+        view.icon.image = Asset.checkBoxIconEmpty.uiImage
+        view.label.font = .iosBody13R
+        view.label.textColor = .darkG4
+        view.label.text = L10n.Home.PostList.Filter.CheckBox.includeClosedPost
+        view.iconSize = CGSize(width: 24, height: 24)
+        view.spacing = 5
+    }
+
+    private var orderFilter = IconLabel(iconPosition: .right).then { view in
+        view.icon.image = Asset.chevronDown.uiImage
+        view.label.font = .iosBody13R
+        view.label.textColor = .darkG4
+        view.label.text = L10n.Home.PostList.Filter.Order.distance
+        view.iconSize = CGSize(width: 16, height: 16)
+        view.spacing = 4
+    }
+
+    private var filterIcon = UIImageView().then { view in
+        view.image = Asset.filter.uiImage
+    }
+
+    private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.titleLabel.font = .aggroLight
+        navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
+        navBar.titleLabel.textColor = .primarydark
+        navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
+        navBar.rightSecondBtnItem.isHidden = true
+        navBar.titleSpacing = 8
+    }
+
     private lazy var postCollectionView: UICollectionView = {
         let size = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
@@ -76,13 +125,47 @@ extension HomeViewController {
     private func setupViews() {
         gradientBackground()
         view.addSubviews([
+            navBar,
+            segmentedControl,
+            deadlineFilter,
+            orderFilter,
+            filterIcon,
             postCollectionView,
         ])
     }
 
     private func initialLayout() {
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+
+        segmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom).offset(8)
+            make.leading.equalTo(view.snp.leading).offset(14)
+            make.trailing.equalTo(view.snp.trailing).offset(-14)
+        }
+
+        filterIcon.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom).offset(12)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
+
+        orderFilter.snp.makeConstraints { make in
+            make.centerY.equalTo(filterIcon.snp.centerY)
+            make.trailing.equalTo(filterIcon.snp.leading).offset(-16)
+        }
+
+        deadlineFilter.snp.makeConstraints { make in
+            make.centerY.equalTo(filterIcon.snp.centerY)
+            make.trailing.equalTo(orderFilter.snp.leading).offset(-29)
+        }
+
         postCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
+            make.top.equalTo(filterIcon.snp.bottom).offset(8)
             make.leading.equalTo(view.snp.leading).offset(14)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-14)

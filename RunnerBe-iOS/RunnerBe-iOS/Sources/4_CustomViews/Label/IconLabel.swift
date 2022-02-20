@@ -15,7 +15,14 @@ class IconLabel: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init() {
+    enum IconPosition {
+        case left, right
+    }
+
+    private let iconPosition: IconPosition
+
+    init(iconPosition: IconPosition = .left) {
+        self.iconPosition = iconPosition
         super.init(frame: .zero)
         setup()
         initialLayout()
@@ -23,13 +30,15 @@ class IconLabel: UIView {
 
     var icon = UIImageView()
     var label = UILabel()
-    private lazy var stackView = UIStackView.make(
-        with: [icon, label],
-        axis: .horizontal,
-        alignment: .center,
-        distribution: .equalSpacing,
-        spacing: spacing
-    )
+    private lazy var stackView: UIStackView = {
+        UIStackView.make(
+            with: iconPosition == .left ? [icon, label] : [label, icon],
+            axis: .horizontal,
+            alignment: .center,
+            distribution: .equalSpacing,
+            spacing: spacing
+        )
+    }()
 
     var iconSize: CGSize = .init(width: 14, height: 14) {
         didSet {

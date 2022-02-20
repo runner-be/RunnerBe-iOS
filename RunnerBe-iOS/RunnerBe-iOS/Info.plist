@@ -50,6 +50,9 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SBAggroOTFB.otf</string>
+		<string>SBAggroOTFL.otf</string>
+		<string>SBAggroOTFB.otf</string>
 		<string>AppleSDGothicNeoB.ttf</string>
 		<string>AppleSDGothicNeoEB.ttf</string>
 		<string>AppleSDGothicNeoHttf</string>

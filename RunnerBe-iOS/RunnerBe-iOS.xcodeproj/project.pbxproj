@@ -63,6 +63,9 @@
 		C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
 		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
+		C350CC7B27C2C428000DEA15 /* SBAggroOTFM.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */; };
+		C350CC7C27C2C428000DEA15 /* SBAggroOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7927C2C19F000DEA15 /* SBAggroOTFB.otf */; };
+		C350CC7D27C2C428000DEA15 /* SBAggroOTFL.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */; };
 		C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */; };
 		C35B832227B9176400551AC5 /* SignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC427B8B57D00775779 /* SignupService.swift */; };
 		C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC627B8B58700775779 /* BasicSignupService.swift */; };
@@ -270,6 +273,9 @@
 		C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFM.otf; sourceTree = "<group>"; };
+		C350CC7927C2C19F000DEA15 /* SBAggroOTFB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFB.otf; sourceTree = "<group>"; };
+		C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFL.otf; sourceTree = "<group>"; };
 		C35B832527B91E6600551AC5 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		C35B832727B91E6E00551AC5 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupCoordinator.swift; sourceTree = "<group>"; };
@@ -947,6 +953,9 @@
 		C39D86B927AEB76100A9C201 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C350CC7927C2C19F000DEA15 /* SBAggroOTFB.otf */,
+				C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */,
+				C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */,
 				C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */,
 				C39D86C127AEB78700A9C201 /* AppleSDGothicNeoEB.ttf */,
 				C39D86C227AEB78700A9C201 /* AppleSDGothicNeoH.ttf */,
@@ -1413,14 +1422,17 @@
 				C39D86C927AEB78700A9C201 /* AppleSDGothicNeoR.ttf in Resources */,
 				C39D86C627AEB78700A9C201 /* AppleSDGothicNeoSB.ttf in Resources */,
 				C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */,
+				C350CC7D27C2C428000DEA15 /* SBAggroOTFL.otf in Resources */,
 				C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */,
 				C39D86C427AEB78700A9C201 /* AppleSDGothicNeoB.ttf in Resources */,
 				C39D86C727AEB78700A9C201 /* AppleSDGothicNeoT.ttf in Resources */,
+				C350CC7C27C2C428000DEA15 /* SBAggroOTFB.otf in Resources */,
 				C39D86C527AEB78700A9C201 /* AppleSDGothicNeoL.ttf in Resources */,
 				C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */,
 				C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */,
 				C3F0968427AED0F900959F9A /* Localizable.strings in Resources */,
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
+				C350CC7B27C2C428000DEA15 /* SBAggroOTFM.otf in Resources */,
 				C39D86CA27AEB78700A9C201 /* AppleSDGothicNeoEB.ttf in Resources */,
 				C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */,
 				C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */,

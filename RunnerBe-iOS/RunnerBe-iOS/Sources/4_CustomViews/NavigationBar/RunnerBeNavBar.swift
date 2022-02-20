@@ -26,6 +26,15 @@ final class RunnerbeNavBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    var titleSpacing: CGFloat = 12 {
+        didSet {
+            titleLabel.snp.updateConstraints { make in
+                make.centerX.equalTo(self.snp.centerX)
+                make.bottom.equalTo(self.snp.bottom).offset(-titleSpacing)
+            }
+        }
+    }
+
     // MARK: Internal
 
     var leftBtnItem = UIButton()
@@ -64,7 +73,7 @@ extension RunnerbeNavBar {
 
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.snp.centerX)
-            make.centerY.equalTo(leftBtnItem.snp.centerY)
+            make.bottom.equalTo(self.snp.bottom).offset(-titleSpacing)
         }
 
         snp.makeConstraints { make in
