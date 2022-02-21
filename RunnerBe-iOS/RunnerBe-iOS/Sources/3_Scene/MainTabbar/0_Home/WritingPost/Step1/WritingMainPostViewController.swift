@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/18.
 //
 
+import MapKit
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -36,6 +37,11 @@ class WritingMainPostViewController: BaseViewController {
     private var viewModel: WritingMainPostViewModel
 
     private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .debug()
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+
         writeDateView.iconTextButtonGroup.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
@@ -56,6 +62,13 @@ class WritingMainPostViewController: BaseViewController {
 
         viewModel.outputs.time
             .bind(to: writeTimeView.contentText)
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.location
+            .take(1)
+            .subscribe(onNext: { [weak self] location in
+                self?.writePlaceView.mapView.centerToCoord(location, animated: false)
+            })
             .disposed(by: disposeBags)
     }
 

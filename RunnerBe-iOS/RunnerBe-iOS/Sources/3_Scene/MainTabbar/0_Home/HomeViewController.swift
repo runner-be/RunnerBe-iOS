@@ -35,13 +35,23 @@ class HomeViewController: BaseViewController {
 
     private var viewModel: HomeViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        filterIcon.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.filter)
+            .disposed(by: disposeBags)
+
+        // TODO: 플로팅 버튼 생성후 거기에 연결
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.writingPost)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {
         let items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         let itemsOb = Observable.of(items)
-        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { row, _, cell in
-            let alpha = CGFloat(row) / 10
-            cell.blurAlpha = alpha
+        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, _, cell in
             cell.postState = .closed
         }
         .disposed(by: disposeBags)

@@ -17,6 +17,7 @@ class SelectPlaceView: SelectBaseView {
         setupViews()
         initialLayout()
         processingInputs()
+        updateCircle()
     }
 
     @available(*, unavailable)
@@ -24,14 +25,38 @@ class SelectPlaceView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {}
-
-    private var mapView = MKMapView().then { view in
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 8
+    private func processingInputs() {
+        mapView.rx.touchDownGesture()
+            .when(.began)
+            .subscribe(onNext: { [weak self] _ in
+                guard let overlay = self?.circleOverlay else { return }
+                self?.mapView.removeOverlay(overlay)
+            })
+            .disposed(by: disposeBag)
     }
 
-    private var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
+    func setMapBoundary(_ mapRect: MKMapRect) {
+        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: mapRect)
+    }
+
+    func setMapCoord(_ coord: CLLocationCoordinate2D, animated: Bool) {
+        mapView.centerToCoord(coord, regionRadius: slider.selectedMaxValue * 3, animated: animated)
+        updateCircle()
+    }
+
+    private lazy var mapView = MKMapView().then { view in
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.isZoomEnabled = false
+        view.isRotateEnabled = false
+        view.isPitchEnabled = false
+        view.delegate = self
+    }
+
+    var offsetRange: CGFloat = 100
+    private var circleOverlay: MKCircle?
+
+    private lazy var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
 
         var labelGroups = BasicSliderLabelGroup(valueFormatter: { "\(($0 / 1000).turncate(to: 1))" })
         labelGroups.moduloFactor = 1
@@ -46,9 +71,11 @@ class SelectPlaceView: SelectBaseView {
         slider.minValue = 500
 
         slider.enable = true
+
+        slider.delegate = self
     }
 
-    private var unitLabel = UILabel().then { label in
+    var unitLabel = UILabel().then { label in
         label.font = UIFont.iosBody13R
         label.text = "(km)"
         label.textColor = .darkG4
@@ -86,5 +113,41 @@ class SelectPlaceView: SelectBaseView {
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
+    }
+
+    private func updateCircle() {
+        if let circle = circleOverlay {
+            mapView.removeOverlay(circle)
+        }
+        let center = mapView.centerCoordinate
+        let range = slider.selectedMaxValue
+        let circleOverlay = MKCircle(center: center, radius: range)
+        mapView.addOverlay(circleOverlay)
+
+        self.circleOverlay = circleOverlay
+    }
+}
+
+extension SelectPlaceView: SliderDelegate {
+    func didValueChaged(_: Slider, maxFrom _: CGFloat, maxTo _: CGFloat, minFrom: CGFloat, minTo: CGFloat) {
+        if minFrom != minTo {
+            mapView.zoomToRadius(regionRadius: minTo * 3, animated: true)
+
+            updateCircle()
+        }
+    }
+}
+
+extension SelectPlaceView: MKMapViewDelegate {
+    func mapView(_: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer = MKCircleRenderer(overlay: overlay)
+        circleRenderer.strokeColor = .primary
+        circleRenderer.fillColor = .primary.withAlphaComponent(0.5)
+        circleRenderer.lineWidth = 1
+        return circleRenderer
+    }
+
+    func mapView(_: MKMapView, regionDidChangeAnimated _: Bool) {
+        updateCircle()
     }
 }

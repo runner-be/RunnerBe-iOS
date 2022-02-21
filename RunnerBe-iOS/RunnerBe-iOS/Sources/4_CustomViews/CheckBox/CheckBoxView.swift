@@ -93,6 +93,7 @@ final class CheckBoxView: UIStackView {
             .disposed(by: disposeBag)
 
         titleLabel.rx.tapGesture()
+            .when(.recognized)
             .map { _ in
                 self.checkBoxButton.isSelected.toggle()
                 return self.checkBoxButton.isSelected

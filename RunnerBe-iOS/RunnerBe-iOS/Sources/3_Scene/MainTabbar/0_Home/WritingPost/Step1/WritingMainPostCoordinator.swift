@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum WritingMainPostResult {}
+enum WritingMainPostResult {
+    case backward
+}
 
 final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> {
     var component: WritingMainPostComponent
@@ -18,18 +20,25 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
         super.init(navController: navController)
     }
 
-    override func start(animated _: Bool) {
+    override func start(animated: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
+            .debug()
             .subscribe(onNext: { [weak self] _ in
                 #if DEBUG
-                    print("[SelectJobCoordinator][closeSignal] popViewController")
+                    print("[WritingMainPostCoordinator][closeSignal] popViewController")
                 #endif
 
                 self?.navController.popViewController(animated: true)
             })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.backward
+            .debug()
+            .map { WritingMainPostResult.backward }
+            .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
         scene.VM.routes.editTime

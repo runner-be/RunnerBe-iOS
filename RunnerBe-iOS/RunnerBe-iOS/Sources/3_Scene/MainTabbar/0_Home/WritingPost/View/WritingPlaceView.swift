@@ -26,9 +26,18 @@ class WritingPlaceView: SelectBaseView {
 
     private func processingInputs() {}
 
-    private var mapView = MKMapView().then { view in
+    func setMapBoundary(_ boundary: MKMapRect) {
+        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: boundary)
+    }
+
+    func setMapLocation(_: CLLocationCoordinate2D) {}
+
+    lazy var mapView = MKMapView().then { view in
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
+//        view.delegate = self
+        view.isRotateEnabled = false
+        view.isPitchEnabled = false
     }
 
     private var infoLabel = UILabel().then { label in

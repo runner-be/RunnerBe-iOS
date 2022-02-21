@@ -38,20 +38,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // TEST: token 초기화
         BasicLoginKeyChainService().token = nil
 
-        window.rootViewController = WritingDetailPostViewController(viewModel: WritingDetailPostViewModel())
+//        window.rootViewController = WritingDetailPostViewController(viewModel: WritingDetailPostViewModel())
 
-//        appComponent.loginService.checkLogin()
-//            .subscribe(onNext: { result in
-//                switch result {
-//                case .member:
-//                    appCoordinator.showMain(certificated: true, animated: false)
-//                case .memberWaitCertification:
-//                    appCoordinator.showMain(certificated: false, animated: false)
-//                case .nonMember:
-//                    appCoordinator.showLoggedOut(animated: false)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+//        window.rootViewController = WritingMainPostViewController(viewModel: WritingMainPostViewModel())
+
+        appComponent.loginService.checkLogin()
+            .subscribe(onNext: { result in
+                switch result {
+                case .member:
+                    appCoordinator.showMain(certificated: true, animated: false)
+                case .memberWaitCertification:
+                    appCoordinator.showMain(certificated: false, animated: false)
+                case .nonMember:
+                    appCoordinator.showLoggedOut(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
 
         window.makeKeyAndVisible()
 

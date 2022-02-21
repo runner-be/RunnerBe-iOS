@@ -5,12 +5,25 @@
 //  Created by 김신우 on 2022/02/18.
 //
 
+import CoreLocation
 import Foundation
 import RxSwift
 
 final class WritingMainPostViewModel: BaseViewModel {
-    override init() {
+    private var locationService: LocationService
+
+    init(locationService: LocationService) {
+        self.locationService = locationService
         super.init()
+
+        if let currentLocation = locationService.currentPlace {
+            outputs.location.onNext(currentLocation)
+        }
+
+        inputs.backward
+            .debug()
+            .bind(to: routes.backward)
+            .disposed(by: disposeBag)
 
         inputs.editDate
             .bind(to: routes.editDate)
@@ -32,16 +45,19 @@ final class WritingMainPostViewModel: BaseViewModel {
     struct Input {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
     }
 
     struct Output {
         var date = PublishSubject<String>()
         var time = PublishSubject<String>()
+        var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
     }
 
     struct Route {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
     }
 
     struct RouteInput {

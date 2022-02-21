@@ -9,11 +9,35 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: BaseViewModel {
-    struct Input {}
+    private var locationService: LocationService
+
+    init(locationService: LocationService) {
+        self.locationService = locationService
+        super.init()
+
+        inputs.filter
+            .bind(to: routes.filter)
+            .disposed(by: disposeBag)
+
+        inputs.writingPost
+            .bind(to: routes.writingPost)
+            .disposed(by: disposeBag)
+    }
+
+    struct Input {
+        var filter = PublishSubject<Void>()
+        var writingPost = PublishSubject<Void>()
+    }
 
     struct Output {}
 
-    struct route {}
+    struct Route {
+        var filter = PublishSubject<Void>()
+        var writingPost = PublishSubject<Void>()
+    }
 
     var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
 }

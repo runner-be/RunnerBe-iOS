@@ -183,7 +183,7 @@
 		C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */; };
 		C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */; };
 		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
-		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */; };
+		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
 		C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */; };
@@ -217,6 +217,11 @@
 		C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7927B1262A002D5846 /* BirthViewModel.swift */; };
 		C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7B27B1263B002D5846 /* BirthViewController.swift */; };
 		C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7E27B1270B002D5846 /* RunnerBeNavBar.swift */; };
+		C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C027C3B0370004CAB8 /* MKMapRect+.swift */; };
+		C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C327C421D80004CAB8 /* LocationService.swift */; };
+		C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */; };
+		C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */; };
+		C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 /* End PBXBuildFile section */
 
@@ -398,7 +403,7 @@
 		C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionCoordinator.swift; sourceTree = "<group>"; };
 		C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewModel.swift; sourceTree = "<group>"; };
 		C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewController.swift; sourceTree = "<group>"; };
-		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift.swift; sourceTree = "<group>"; };
+		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
 		C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewController.swift; sourceTree = "<group>"; };
@@ -437,6 +442,11 @@
 		C3F74B7927B1262A002D5846 /* BirthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewModel.swift; sourceTree = "<group>"; };
 		C3F74B7B27B1263B002D5846 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		C3F74B7E27B1270B002D5846 /* RunnerBeNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeNavBar.swift; sourceTree = "<group>"; };
+		C3F8D1C027C3B0370004CAB8 /* MKMapRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+.swift"; sourceTree = "<group>"; };
+		C3F8D1C327C421D80004CAB8 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLocationService.swift; sourceTree = "<group>"; };
+		C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
+		C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDelegate.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		C73CEAF854E36FCBA76FEB62 /* Pods_RunnerBe_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerBe_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -701,6 +711,7 @@
 		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C3F8D1BF27C3B02B0004CAB8 /* MapView+ */,
 				C379301F27BA01210076AB85 /* String+ */,
 				C34FDA7E27AD5DA1007718F8 /* Asset+ */,
 				C34FDA5727AD5C82007718F8 /* View+ */,
@@ -723,6 +734,8 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C3F8D1C727C427720004CAB8 /* WritingPostService */,
+				C3F8D1C227C421C30004CAB8 /* LocationService */,
 				C39E926327BACFA400798F3A /* MailingAPIService */,
 				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
 				C365B46427B90C1B00BFFCB8 /* DateService */,
@@ -814,6 +827,8 @@
 		C361B6C127B285FC00824ABE /* 1_EndPoint */ = {
 			isa = PBXGroup;
 			children = (
+				C3F8D1C927C4278F0004CAB8 /* FilteringPost */,
+				C3F8D1C827C427890004CAB8 /* WritingPost */,
 				C39E926027BACCE800798F3A /* Email */,
 				C3432CAD27B8449900DEFF51 /* SignUp */,
 				C3AD114727B8111100A7044C /* Login */,
@@ -1071,6 +1086,7 @@
 				C343A33E27BE224B008E6FA4 /* Follower */,
 				C343A33B27BE2205008E6FA4 /* Handle */,
 				C343A33327BD103C008E6FA4 /* Slider.swift */,
+				C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */,
 			);
 			path = Slider;
 			sourceTree = "<group>";
@@ -1241,7 +1257,7 @@
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift.swift */,
+				C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */,
 				C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */,
 				C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */,
 				C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */,
@@ -1313,6 +1329,7 @@
 		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C3F8D1D727C44F7F0004CAB8 /* CutomOverlay */,
 				C3498F3327C0DE5B003EDD0F /* IconTextButtonGroup */,
 				C3498F2627BF7126003EDD0F /* SegmentedControl */,
 				C39F2EB127BCF45200A7D86B /* CheckBox */,
@@ -1376,6 +1393,52 @@
 				C3F74B7E27B1270B002D5846 /* RunnerBeNavBar.swift */,
 			);
 			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		C3F8D1BF27C3B02B0004CAB8 /* MapView+ */ = {
+			isa = PBXGroup;
+			children = (
+				C3F8D1C027C3B0370004CAB8 /* MKMapRect+.swift */,
+				C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */,
+			);
+			path = "MapView+";
+			sourceTree = "<group>";
+		};
+		C3F8D1C227C421C30004CAB8 /* LocationService */ = {
+			isa = PBXGroup;
+			children = (
+				C3F8D1C327C421D80004CAB8 /* LocationService.swift */,
+				C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */,
+			);
+			path = LocationService;
+			sourceTree = "<group>";
+		};
+		C3F8D1C727C427720004CAB8 /* WritingPostService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WritingPostService;
+			sourceTree = "<group>";
+		};
+		C3F8D1C827C427890004CAB8 /* WritingPost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WritingPost;
+			sourceTree = "<group>";
+		};
+		C3F8D1C927C4278F0004CAB8 /* FilteringPost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FilteringPost;
+			sourceTree = "<group>";
+		};
+		C3F8D1D727C44F7F0004CAB8 /* CutomOverlay */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CutomOverlay;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -1601,6 +1664,7 @@
 				C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */,
 				C3347BED27C2D122006FB110 /* WritingDetailPostViewModel.swift in Sources */,
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
+				C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */,
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
@@ -1632,7 +1696,7 @@
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
-				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift.swift in Sources */,
+				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
@@ -1656,6 +1720,7 @@
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
 				C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */,
+				C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
 				C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */,
@@ -1696,6 +1761,7 @@
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
+				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
@@ -1714,6 +1780,7 @@
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
+				C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
@@ -1767,6 +1834,7 @@
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
+				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,

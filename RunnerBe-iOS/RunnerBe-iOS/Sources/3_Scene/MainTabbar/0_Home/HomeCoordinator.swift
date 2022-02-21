@@ -23,5 +23,49 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
 
     var component: HomeComponent
 
-    override func start(animated _: Bool = true) {}
+    override func start(animated _: Bool = true) {
+        var scene = component.scene
+
+        scene.VM.routes.filter
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushHomeFilterScene(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.writingPost
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushWritingPostScene(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func pushWritingPostScene(vm _: HomeViewModel, animated: Bool) {
+        let comp = component.writingPostComponent
+        let coord = WritingMainPostCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .debug()
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    private func pushHomeFilterScene(vm _: HomeViewModel, animated: Bool) {
+        let comp = component.postFilterComponent
+        let coord = HomeFilterCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+//            .debug()
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
 }

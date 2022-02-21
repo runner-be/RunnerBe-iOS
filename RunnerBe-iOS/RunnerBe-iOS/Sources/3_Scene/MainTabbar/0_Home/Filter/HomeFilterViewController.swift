@@ -34,8 +34,21 @@ class HomeFilterViewController: BaseViewController {
 
     private var viewModel: HomeFilterViewModel
 
-    private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .debug()
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+    }
+
+    private func viewModelOutput() {
+        viewModel.outputs.location
+            .take(1)
+            .subscribe(onNext: { [weak self] location in
+                self?.filterPlaceView.setMapCoord(location, animated: false)
+            })
+            .disposed(by: disposeBags)
+    }
 
     private var filterGenderView = SelectGenderView()
     private var hDivider1 = UIView().then { view in
@@ -83,7 +96,6 @@ class HomeFilterViewController: BaseViewController {
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.refresh.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.leftBtnItem.isHidden = true
     }
 }
 

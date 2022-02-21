@@ -36,7 +36,7 @@ class BasicPostCellView: UICollectionViewCell {
         }
     }
 
-    var blurAlpha: CGFloat = 1
+    var blurAlpha: CGFloat = 0.7
 
     var profileLabel = IconLabel().then { view in
         view.icon.image = Asset.profileEmptyIcon.uiImage

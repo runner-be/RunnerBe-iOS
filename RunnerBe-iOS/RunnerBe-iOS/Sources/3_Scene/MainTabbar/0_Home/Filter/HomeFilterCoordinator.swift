@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum HomeFilterResult {}
+enum HomeFilterResult {
+    case backward
+}
 
 final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
     var component: HomeFilterComponent
@@ -18,8 +20,21 @@ final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
         super.init(navController: navController)
     }
 
-    override func start(animated _: Bool) {
+    override func start(animated: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navController.pushViewController(scene.VC, animated: animated)
+
+        closeSignal
+//            .debug()
+            .subscribe(onNext: { [weak self] _ in
+                self?.navController.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.backward
+            .debug()
+            .map { HomeFilterResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
     }
 }

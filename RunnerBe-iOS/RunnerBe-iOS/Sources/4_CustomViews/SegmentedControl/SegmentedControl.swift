@@ -221,7 +221,9 @@ class SegmentedControl: UIControl {
     }
 
     private func applySelectedItem(at point: CGPoint) {
-        selectedItem = itemInRange(at: point)
+        let newSelected = itemInRange(at: point)
+        selectedItem = newSelected
+
         highlightOffset = (point.x - itemSize.width / 2.0).clamp(min: 0, max: CGFloat(items.count - 1) * itemSize.width)
     }
 

@@ -75,6 +75,8 @@ class Slider: UIControl {
 
     // MARK: Variables
 
+    weak var delegate: SliderDelegate?
+
     enum SliderType {
         case single, range
     }
@@ -362,6 +364,9 @@ class Slider: UIControl {
 
     private func applySelectedValue(_ value: CGFloat, trackingMode _: TrackingMode) {
         let value = value.clamp(min: minValue, max: maxValue)
+        let curMin = selectedMinValue
+        let curMax = selectedMaxValue
+
         switch trackingMode {
         case .left:
             switch sliderType {
@@ -382,5 +387,7 @@ class Slider: UIControl {
         case .none:
             break
         }
+
+        delegate?.didValueChaged(self, maxFrom: curMax, maxTo: selectedMaxValue, minFrom: curMin, minTo: selectedMinValue)
     }
 }

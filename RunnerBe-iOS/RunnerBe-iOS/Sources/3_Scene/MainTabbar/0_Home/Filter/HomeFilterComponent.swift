@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol HomeFilterDependency: Dependency {}
+protocol HomeFilterDependency: Dependency {
+    var locationService: LocationService { get }
+}
 
 final class HomeFilterComponent: Component<HomeFilterDependency> {
     var scene: (VC: UIViewController, VM: HomeFilterViewModel) {
@@ -17,6 +19,6 @@ final class HomeFilterComponent: Component<HomeFilterDependency> {
     }
 
     var viewModel: HomeFilterViewModel {
-        return HomeFilterViewModel()
+        return HomeFilterViewModel(locationService: dependency.locationService)
     }
 }

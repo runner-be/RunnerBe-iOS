@@ -19,6 +19,18 @@ final class HomeComponent: Component<HomeDependency> {
     }
 
     var viewModel: HomeViewModel {
-        return HomeViewModel()
+        return HomeViewModel(locationService: locationService)
+    }
+
+    var locationService: LocationService {
+        return shared { BasicLocationService() }
+    }
+
+    var writingPostComponent: WritingMainPostComponent {
+        return WritingMainPostComponent(parent: self)
+    }
+
+    var postFilterComponent: HomeFilterComponent {
+        return HomeFilterComponent(parent: self)
     }
 }

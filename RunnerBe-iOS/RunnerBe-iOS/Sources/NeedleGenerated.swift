@@ -24,14 +24,17 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent->SelectTimeModalComponent") { component in
-        return SelectTimeModalDependency73202274b1202cad66d2Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectTimeModalComponent") { component in
+        return SelectTimeModalDependencyd8ded48eb82c59809282Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent") { component in
-        return WritingMainPostDependency7dfdd3b9de3f5934d25fProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent") { component in
+        return WritingMainPostDependencyeba8c3d3228ba588faa8Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
-        return SelectDateModalDependency73b3880575f60c44c55eProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
+        return SelectDateModalDependency547a4536ad6f1082ff72Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent") { component in
+        return HomeFilterDependency4c2395ae43750f0e6394Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
@@ -149,43 +152,60 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
         super.init()
     }
 }
-private class SelectTimeModalDependency73202274b1202cad66d2BaseProvider: SelectTimeModalDependency {
+private class SelectTimeModalDependencyd8ded48eb82c59809282BaseProvider: SelectTimeModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->WritingMainPostComponent->SelectTimeModalComponent
-private class SelectTimeModalDependency73202274b1202cad66d2Provider: SelectTimeModalDependency73202274b1202cad66d2BaseProvider {
+/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectTimeModalComponent
+private class SelectTimeModalDependencyd8ded48eb82c59809282Provider: SelectTimeModalDependencyd8ded48eb82c59809282BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class WritingMainPostDependency7dfdd3b9de3f5934d25fBaseProvider: WritingMainPostDependency {
+private class WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider: WritingMainPostDependency {
+    var locationService: LocationService {
+        return homeComponent.locationService
+    }
+    private let homeComponent: HomeComponent
+    init(homeComponent: HomeComponent) {
+        self.homeComponent = homeComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent
+private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(homeComponent: component.parent as! HomeComponent)
+    }
+}
+private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectDateModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->WritingMainPostComponent
-private class WritingMainPostDependency7dfdd3b9de3f5934d25fProvider: WritingMainPostDependency7dfdd3b9de3f5934d25fBaseProvider {
+/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent
+private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class SelectDateModalDependency73b3880575f60c44c55eBaseProvider: SelectDateModalDependency {
-
-
-    init() {
-
+private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {
+    var locationService: LocationService {
+        return homeComponent.locationService
+    }
+    private let homeComponent: HomeComponent
+    init(homeComponent: HomeComponent) {
+        self.homeComponent = homeComponent
     }
 }
-/// ^->AppComponent->WritingMainPostComponent->SelectDateModalComponent
-private class SelectDateModalDependency73b3880575f60c44c55eProvider: SelectDateModalDependency73b3880575f60c44c55eBaseProvider {
+/// ^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent
+private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDependency4c2395ae43750f0e6394BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(homeComponent: component.parent as! HomeComponent)
     }
 }
 private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
