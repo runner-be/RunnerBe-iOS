@@ -112,19 +112,15 @@
 		C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2427AD947E0050137D /* MainTabComponent.swift */; };
 		C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2A27AD963C0050137D /* HomeViewController.swift */; };
 		C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2C27AD96480050137D /* BookMarkViewController.swift */; };
-		C38F8F2F27AD96530050137D /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2E27AD96530050137D /* MessageListViewController.swift */; };
 		C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3027AD965C0050137D /* MyPageViewController.swift */; };
 		C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3227AD96CD0050137D /* HomeViewModel.swift */; };
 		C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */; };
-		C38F8F3727AD96E10050137D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3627AD96E10050137D /* MessageListViewModel.swift */; };
 		C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3827AD96E90050137D /* MyPageViewModel.swift */; };
 		C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3B27AD99D70050137D /* HomeComponent.swift */; };
 		C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3D27AD99E50050137D /* BookMarkComponent.swift */; };
-		C38F8F4027AD99F30050137D /* MessageListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F3F27AD99F30050137D /* MessageListComponent.swift */; };
 		C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */; };
 		C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */; };
 		C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */; };
-		C38F8F4827AD9EAA0050137D /* MessageListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */; };
 		C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */; };
 		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
 		C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */; };
@@ -149,7 +145,6 @@
 		C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA727BC71FD00A7D86B /* CGRect+.swift */; };
 		C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */; };
 		C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EAF27BCF3FB00A7D86B /* SelectAgeView.swift */; };
-		C3A9125927C1F592007DF12A /* MessageListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9125827C1F592007DF12A /* MessageListItemView.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
 		C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114A27B8113000A7044C /* BaseAPI.swift */; };
@@ -332,19 +327,15 @@
 		C38F8F2427AD947E0050137D /* MainTabComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabComponent.swift; sourceTree = "<group>"; };
 		C38F8F2A27AD963C0050137D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C38F8F2C27AD96480050137D /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
-		C38F8F2E27AD96530050137D /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		C38F8F3027AD965C0050137D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C38F8F3227AD96CD0050137D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewModel.swift; sourceTree = "<group>"; };
-		C38F8F3627AD96E10050137D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		C38F8F3827AD96E90050137D /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		C38F8F3B27AD99D70050137D /* HomeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeComponent.swift; sourceTree = "<group>"; };
 		C38F8F3D27AD99E50050137D /* BookMarkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkComponent.swift; sourceTree = "<group>"; };
-		C38F8F3F27AD99F30050137D /* MessageListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListComponent.swift; sourceTree = "<group>"; };
 		C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageComponent.swift; sourceTree = "<group>"; };
 		C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkCoordinator.swift; sourceTree = "<group>"; };
-		C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
 		C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostCellView.swift; sourceTree = "<group>"; };
@@ -370,7 +361,6 @@
 		C39F2EA727BC71FD00A7D86B /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		C39F2EAF27BCF3FB00A7D86B /* SelectAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeView.swift; sourceTree = "<group>"; };
-		C3A9125827C1F592007DF12A /* MessageListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListItemView.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		C3AD114A27B8113000A7044C /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -701,7 +691,6 @@
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C38F8F2627AD95FC0050137D /* 0_Home */,
 				C38F8F2727AD960C0050137D /* 1_BookMark */,
-				C38F8F2827AD96140050137D /* 2_MessageList */,
 				C38F8F2927AD961D0050137D /* 3_MyPage */,
 			);
 			path = MainTabbar;
@@ -984,18 +973,6 @@
 			path = 1_BookMark;
 			sourceTree = "<group>";
 		};
-		C38F8F2827AD96140050137D /* 2_MessageList */ = {
-			isa = PBXGroup;
-			children = (
-				C3A9125727C1F57F007DF12A /* Views */,
-				C38F8F3F27AD99F30050137D /* MessageListComponent.swift */,
-				C38F8F4727AD9EAA0050137D /* MessageListCoordinator.swift */,
-				C38F8F3627AD96E10050137D /* MessageListViewModel.swift */,
-				C38F8F2E27AD96530050137D /* MessageListViewController.swift */,
-			);
-			path = 2_MessageList;
-			sourceTree = "<group>";
-		};
 		C38F8F2927AD961D0050137D /* 3_MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1107,14 +1084,6 @@
 				C3F74B6C27B0A846002D5846 /* CheckBoxView.swift */,
 			);
 			path = CheckBox;
-			sourceTree = "<group>";
-		};
-		C3A9125727C1F57F007DF12A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				C3A9125827C1F592007DF12A /* MessageListItemView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
@@ -1679,7 +1648,6 @@
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
-				C38F8F2F27AD96530050137D /* MessageListViewController.swift in Sources */,
 				C3EB5CD127B8B6A900775779 /* BasicMailingCertificationService.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
@@ -1698,7 +1666,6 @@
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
 				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
-				C3A9125927C1F592007DF12A /* MessageListItemView.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
@@ -1716,8 +1683,6 @@
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
-				C38F8F4827AD9EAA0050137D /* MessageListCoordinator.swift in Sources */,
-				C38F8F4027AD99F30050137D /* MessageListComponent.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
@@ -1725,7 +1690,6 @@
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
-				C38F8F3727AD96E10050137D /* MessageListViewModel.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,

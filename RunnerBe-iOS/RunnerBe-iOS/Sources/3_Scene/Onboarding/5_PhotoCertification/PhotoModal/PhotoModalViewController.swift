@@ -35,6 +35,13 @@ final class PhotoModalViewController: BaseViewController {
     private var viewModel: PhotoModalViewModel
 
     private func viewModelInput() {
+        sheet.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .subscribe()
+        .disposed(by: disposeBags)
+
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         })
@@ -163,5 +170,15 @@ extension PhotoModalViewController {
             make.trailing.equalTo(sheet.snp.trailing)
             make.bottom.equalTo(sheet.snp.bottom)
         }
+    }
+}
+
+extension PhotoModalViewController: RxGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: view)
+        if sheet.frame.contains(location) {
+            return false
+        }
+        return true
     }
 }

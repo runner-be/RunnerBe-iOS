@@ -39,7 +39,6 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         tabController.viewControllers = [
             configureAndGetHomeScene(),
             configureAndGetBookMarkScene(),
-            configureAndGetMessageScene(),
             configureAndGetMyPageScene(),
         ]
 
@@ -58,15 +57,6 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
     private func configureAndGetBookMarkScene() -> UIViewController {
         let comp = component.bookmarkComponent
         let coord = BookMarkCoordinator(component: comp, tabController: tabController, navController: navController)
-
-        coordinate(coordinator: coord, animated: false)
-
-        return comp.scene.VC
-    }
-
-    private func configureAndGetMessageScene() -> UIViewController {
-        let comp = component.messageComponent
-        let coord = MessageListCoordinator(component: comp, tabController: tabController, navController: navController)
 
         coordinate(coordinator: coord, animated: false)
 
