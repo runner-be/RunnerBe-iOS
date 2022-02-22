@@ -11,6 +11,9 @@
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
  
  */
+// MARK: - Locale
+"Locale" = "Ko-kr";
+
 
 // MARK: - LoggedOut
 "LoggedOut.KakaoBtn.text" = "Login with Kakao";

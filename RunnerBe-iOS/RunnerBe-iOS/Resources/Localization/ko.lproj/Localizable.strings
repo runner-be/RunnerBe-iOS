@@ -12,6 +12,9 @@
  
  */
 
+// MARK: - Locale
+"Locale" = "Ko-kr";
+
 // MARK: - LoggedOut
 "LoggedOut.KakaoBtn.text" = "카카오 로그인";
 "LoggedOut.NaverBtn.text" = "네이버 로그인";

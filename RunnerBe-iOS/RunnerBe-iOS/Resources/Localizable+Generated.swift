@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Ko-kr
+  internal static let locale = L10n.tr("Localizable", "Locale")
 
   internal enum Birth {
     /// 정확한 나이는 공개되지 않아요!
