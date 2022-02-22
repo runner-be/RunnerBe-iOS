@@ -30,6 +30,14 @@ class BasicLocationService: NSObject, LocationService {
         locationManager.location?.coordinate
     }
 
+    // https://cdn.discordapp.com/attachments/934610661974097980/945003205832622080/unknown.png
+    var allowableBoundary: [CLLocationCoordinate2D] {
+        [
+            CLLocationCoordinate2D(latitude: 37.045668, longitude: 126.747340),
+            CLLocationCoordinate2D(latitude: 37.805887, longitude: 127.473429),
+        ]
+    }
+
     func geoCodeLocation(at coord: CLLocationCoordinate2D) -> Observable<CLPlacemark?> {
         let location = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
         let geoCoder = CLGeocoder()

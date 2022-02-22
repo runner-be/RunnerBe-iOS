@@ -68,6 +68,13 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: writeTimeView.contentText)
             .disposed(by: disposeBags)
 
+        viewModel.outputs.boundaryLimit
+            .take(1)
+            .subscribe(onNext: { [weak self] coords in
+                self?.writePlaceView.setMapBoundary(with: coords)
+            })
+            .disposed(by: disposeBags)
+
         viewModel.outputs.location
             .take(1)
             .subscribe(onNext: { [weak self] location in

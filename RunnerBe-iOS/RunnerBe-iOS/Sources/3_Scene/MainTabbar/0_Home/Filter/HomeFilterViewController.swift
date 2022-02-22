@@ -48,6 +48,13 @@ class HomeFilterViewController: BaseViewController {
                 self?.filterPlaceView.setMapCoord(location, animated: false)
             })
             .disposed(by: disposeBags)
+
+        viewModel.outputs.boundaryLimit
+            .take(1)
+            .subscribe(onNext: { [weak self] coords in
+                self?.filterPlaceView.setMapBoundary(with: coords)
+            })
+            .disposed(by: disposeBags)
     }
 
     private var filterGenderView = SelectGenderView()

@@ -16,6 +16,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         self.locationService = locationService
         super.init()
 
+        outputs.boundaryLimit.onNext(locationService.allowableBoundary)
         if let currentLocation = locationService.currentPlace {
             outputs.location.onNext(currentLocation)
         }
@@ -70,6 +71,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var time = PublishSubject<String>()
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
         var placeInfo = PublishSubject<(city: String, detail: String)>()
+        var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
     }
 
     struct Route {

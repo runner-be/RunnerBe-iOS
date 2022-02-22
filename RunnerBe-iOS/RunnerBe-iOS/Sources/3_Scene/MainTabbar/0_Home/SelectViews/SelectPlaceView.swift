@@ -35,8 +35,8 @@ class SelectPlaceView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
-    func setMapBoundary(_ mapRect: MKMapRect) {
-        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: mapRect)
+    func setMapBoundary(with coords: [CLLocationCoordinate2D]) {
+        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
     }
 
     func setMapCoord(_ coord: CLLocationCoordinate2D, animated: Bool) {
@@ -132,7 +132,6 @@ extension SelectPlaceView: SliderDelegate {
     func didValueChaged(_: Slider, maxFrom _: CGFloat, maxTo _: CGFloat, minFrom: CGFloat, minTo: CGFloat) {
         if minFrom != minTo {
             mapView.zoomToRadius(regionRadius: minTo * 3, animated: true)
-
             updateCircle()
         }
     }

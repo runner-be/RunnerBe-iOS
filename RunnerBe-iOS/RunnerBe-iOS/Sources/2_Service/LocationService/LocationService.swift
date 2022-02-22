@@ -7,9 +7,11 @@
 
 import CoreLocation
 import Foundation
+import MapKit
 import RxSwift
 
 protocol LocationService {
+    var allowableBoundary: [CLLocationCoordinate2D] { get }
     var currentPlace: CLLocationCoordinate2D? { get }
     func geoCodeLocation(at coord: CLLocationCoordinate2D) -> Observable<CLPlacemark?>
 }

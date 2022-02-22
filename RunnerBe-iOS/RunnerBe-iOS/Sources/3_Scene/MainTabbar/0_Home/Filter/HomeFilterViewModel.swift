@@ -16,6 +16,7 @@ final class HomeFilterViewModel: BaseViewModel {
         self.locationService = locationService
         super.init()
 
+        outputs.boundaryLimit.onNext(locationService.allowableBoundary)
         if let currentLocation = locationService.currentPlace {
             outputs.location.onNext(currentLocation)
         }
@@ -32,6 +33,7 @@ final class HomeFilterViewModel: BaseViewModel {
 
     struct Output {
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
+        var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
     }
 
     struct Route {

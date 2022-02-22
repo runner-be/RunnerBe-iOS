@@ -26,8 +26,8 @@ class WritingPlaceView: SelectBaseView {
 
     private func processingInputs() {}
 
-    func setMapBoundary(_ boundary: MKMapRect) {
-        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: boundary)
+    func setMapBoundary(with coords: [CLLocationCoordinate2D]) {
+        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
     }
 
     func setMapCoord(_ coord: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000, animated: Bool) {
