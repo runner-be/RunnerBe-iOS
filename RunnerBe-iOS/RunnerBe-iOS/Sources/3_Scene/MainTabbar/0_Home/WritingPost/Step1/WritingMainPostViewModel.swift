@@ -26,6 +26,10 @@ final class WritingMainPostViewModel: BaseViewModel {
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
 
+        inputs.next
+            .bind(to: routes.next)
+            .disposed(by: disposeBag)
+
         inputs.editDate
             .bind(to: routes.editDate)
             .disposed(by: disposeBag)
@@ -63,6 +67,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
+        var next = PublishSubject<Void>()
         var locationChanged = PublishSubject<CLLocationCoordinate2D>()
     }
 
@@ -78,6 +83,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
+        var next = PublishSubject<Void>()
     }
 
     struct RouteInput {

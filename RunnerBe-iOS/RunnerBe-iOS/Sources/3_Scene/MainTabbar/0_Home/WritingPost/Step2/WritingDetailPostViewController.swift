@@ -34,7 +34,12 @@ class WritingDetailPostViewController: BaseViewController {
 
     private var viewModel: WritingDetailPostViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     private var summaryView = SummaryMainPostView()

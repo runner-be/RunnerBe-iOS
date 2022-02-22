@@ -11,11 +11,20 @@ import RxSwift
 final class WritingDetailPostViewModel: BaseViewModel {
     override init() {
         super.init()
+
+        inputs.backward
+            .bind(to: routes.backward)
+            .disposed(by: disposeBag)
     }
 
-    struct Input {}
+    struct Input {
+        var backward = PublishSubject<Void>()
+    }
+
     struct Output {}
-    struct Route {}
+    struct Route {
+        var backward = PublishSubject<Void>()
+    }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()

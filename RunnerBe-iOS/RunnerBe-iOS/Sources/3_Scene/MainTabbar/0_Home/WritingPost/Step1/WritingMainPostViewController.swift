@@ -42,6 +42,10 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBags)
 
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.next)
+            .disposed(by: disposeBags)
+
         writeDateView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         })

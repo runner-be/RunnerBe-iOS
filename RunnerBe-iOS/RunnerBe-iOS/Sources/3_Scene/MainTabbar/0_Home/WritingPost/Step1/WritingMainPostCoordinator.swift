@@ -41,6 +41,13 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
+        scene.VM.routes.next
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushWritingDetailPost(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+
         scene.VM.routes.editTime
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
@@ -54,6 +61,18 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 self?.presentSelectDateModal(vm: vm, animated: false)
             })
             .disposed(by: disposeBag)
+    }
+
+    private func pushWritingDetailPost(vm _: WritingMainPostViewModel, animated _: Bool) {
+        let comp = component.writingDetailPostComponent
+        let coord = WritingDetailPostCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {

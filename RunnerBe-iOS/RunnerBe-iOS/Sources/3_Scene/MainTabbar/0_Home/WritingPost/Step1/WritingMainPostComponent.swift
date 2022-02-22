@@ -29,4 +29,8 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
     var selectDateComponent: SelectDateModalComponent {
         return SelectDateModalComponent(parent: self)
     }
+
+    var writingDetailPostComponent: WritingDetailPostComponent {
+        return WritingDetailPostComponent(parent: self)
+    }
 }
