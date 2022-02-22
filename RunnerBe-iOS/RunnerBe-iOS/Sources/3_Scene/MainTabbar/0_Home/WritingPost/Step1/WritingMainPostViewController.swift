@@ -42,17 +42,21 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBags)
 
-        writeDateView.iconTextButtonGroup.rx.tapGesture()
-            .when(.recognized)
-            .map { _ in }
-            .bind(to: viewModel.inputs.editDate)
-            .disposed(by: disposeBags)
+        writeDateView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .map { _ in }
+        .bind(to: viewModel.inputs.editDate)
+        .disposed(by: disposeBags)
 
-        writeTimeView.iconTextButtonGroup.rx.tapGesture()
-            .when(.recognized)
-            .map { _ in }
-            .bind(to: viewModel.inputs.editTime)
-            .disposed(by: disposeBags)
+        writeTimeView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .map { _ in }
+        .bind(to: viewModel.inputs.editTime)
+        .disposed(by: disposeBags)
 
         writePlaceView.locationChanged
             .bind(to: viewModel.inputs.locationChanged)
@@ -102,16 +106,18 @@ class WritingMainPostViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
 
-        view.rx.tapGesture()
-            .when(.recognized)
-            .filter { [weak self] recognizer in
-                guard let self = self else { return false }
-                return !self.writeTitleView.textField.frame.contains(recognizer.location(in: self.view))
-            }
-            .subscribe(onNext: { [weak self] _ in
-                self?.writeTitleView.textField.endEditing(true)
-            })
-            .disposed(by: disposeBags)
+        vStackView.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .always
+        })
+        .when(.recognized)
+        .filter { [weak self] recognizer in
+            guard let self = self else { return false }
+            return !self.writeTitleView.textField.frame.contains(recognizer.location(in: self.view))
+        }
+        .subscribe(onNext: { [weak self] _ in
+            self?.writeTitleView.textField.endEditing(true)
+        })
+        .disposed(by: disposeBags)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -125,7 +131,6 @@ class WritingMainPostViewController: BaseViewController {
     }
 
     private var segmentedControl = SegmentedControl().then { control in
-
         control.defaultTextFont = .iosBody15R
         control.defaultTextColor = .darkG45
         control.highlightTextFont = .iosBody15B
@@ -182,11 +187,13 @@ extension WritingMainPostViewController {
 
         view.addSubviews([
             navBar,
-            segmentedControl,
             scrollView,
         ])
 
-        scrollView.addSubview(vStackView)
+        scrollView.addSubviews([
+            segmentedControl,
+            vStackView,
+        ])
     }
 
     private func initialLayout() {
@@ -197,23 +204,23 @@ extension WritingMainPostViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        segmentedControl.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(14)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
-        }
-
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(18)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        vStackView.snp.makeConstraints { make in
+        segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.top)
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
+        }
+
+        vStackView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom).offset(18)
+            make.leading.equalTo(scrollView.snp.leading).offset(2)
+            make.trailing.equalTo(scrollView.snp.trailing).offset(-2)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
 
@@ -224,9 +231,11 @@ extension WritingMainPostViewController {
         }
         hDivider2.snp.makeConstraints { make in
             make.height.equalTo(1)
+            make.width.equalTo(hDivider1)
         }
         hDivider3.snp.makeConstraints { make in
             make.height.equalTo(1)
+            make.width.equalTo(hDivider1)
         }
     }
 
