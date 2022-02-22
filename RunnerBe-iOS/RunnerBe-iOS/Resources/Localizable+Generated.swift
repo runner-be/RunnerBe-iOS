@@ -398,7 +398,7 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Post.Detail.NumParticipant.title")
       }
       internal enum TextContent {
-        /// 입력 완료
+        /// 함께할 러너들에게 하실 말씀이 있나요?
         internal static let placeHolder = L10n.tr("Localizable", "Post.Detail.TextContent.PlaceHolder")
         /// 하고 싶은 말(선택)
         internal static let title = L10n.tr("Localizable", "Post.Detail.TextContent.title")

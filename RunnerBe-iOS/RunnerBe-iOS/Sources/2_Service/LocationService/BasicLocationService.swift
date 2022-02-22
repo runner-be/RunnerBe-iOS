@@ -34,13 +34,13 @@ class BasicLocationService: NSObject, LocationService {
         let location = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
         let geoCoder = CLGeocoder()
         let locale = Locale(identifier: L10n.locale) // KOREA
-        
+
         let functionResult = ReplaySubject<CLPlacemark?>.create(bufferSize: 1)
-        
-        geoCoder.reverseGeocodeLocation(location, preferredLocale: locale) { places, error in
+
+        geoCoder.reverseGeocodeLocation(location, preferredLocale: locale) { places, _ in
             functionResult.onNext(places?.last)
         }
-        
+
         return functionResult
     }
 }

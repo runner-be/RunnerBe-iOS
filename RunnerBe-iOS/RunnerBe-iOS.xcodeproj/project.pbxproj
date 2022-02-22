@@ -14,6 +14,7 @@
 		C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF927BF461400884987 /* WritingMainPostViewController.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
+		C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3319A5327C517830054B688 /* BubbleLabel.swift */; };
 		C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */; };
 		C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */; };
 		C3347BED27C2D122006FB110 /* WritingDetailPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BEC27C2D122006FB110 /* WritingDetailPostViewModel.swift */; };
@@ -234,6 +235,7 @@
 		C3089AF927BF461400884987 /* WritingMainPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewController.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
+		C3319A5327C517830054B688 /* BubbleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleLabel.swift; sourceTree = "<group>"; };
 		C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostComponent.swift; sourceTree = "<group>"; };
 		C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostCoordinator.swift; sourceTree = "<group>"; };
 		C3347BEC27C2D122006FB110 /* WritingDetailPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostViewModel.swift; sourceTree = "<group>"; };
@@ -479,6 +481,14 @@
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
 			);
 			path = WritingPost;
+			sourceTree = "<group>";
+		};
+		C3319A5227C5170E0054B688 /* Bubble */ = {
+			isa = PBXGroup;
+			children = (
+				C3319A5327C517830054B688 /* BubbleLabel.swift */,
+			);
+			path = Bubble;
 			sourceTree = "<group>";
 		};
 		C3347BF227C2D29E006FB110 /* View */ = {
@@ -1156,6 +1166,7 @@
 		C3BA459827B405060048CA76 /* Label */ = {
 			isa = PBXGroup;
 			children = (
+				C3319A5227C5170E0054B688 /* Bubble */,
 				C3BA45A127B426BE0048CA76 /* OnOff */,
 				C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */,
 				C399FD1427C290E700396DC3 /* IconLabel.swift */,
@@ -1823,6 +1834,7 @@
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
 				C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */,
+				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,

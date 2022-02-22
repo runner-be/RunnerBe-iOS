@@ -30,20 +30,46 @@ class WritingPlaceView: SelectBaseView {
         mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: boundary)
     }
 
-    func setMapLocation(_: CLLocationCoordinate2D) {}
+    func setMapCoord(_ coord: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000, animated: Bool) {
+        mapView.centerToCoord(coord, regionRadius: regionRadius, animated: animated)
+    }
+
+    func showPlaceInfo(city: String, name: String) {
+        placeLabel.isHidden = city.isEmpty && name.isEmpty
+        placeLabel.texts = [city, name]
+    }
+
+    var locationChanged = PublishSubject<CLLocationCoordinate2D>()
 
     lazy var mapView = MKMapView().then { view in
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
-//        view.delegate = self
+        view.delegate = self
         view.isRotateEnabled = false
         view.isPitchEnabled = false
+    }
+
+    private var placeMark = UIImageView().then { view in
+        view.image = Asset.placeImage.uiImage
+        view.contentMode = .scaleAspectFit
+    }
+
+    private var placeLabel = BubbleLabel(direction: .left).then { label in
+        label.bubbleColor = .darkG6
+        label.bubbleBorderColor = .darkG6
+        label.bubbleLineWidth = 0
+        label.font = .iosBody13R
+        label.fontSize = 13
+        label.textColor = .darkG1
+        label.padding = UIEdgeInsets(top: 6, left: 9, bottom: 9, right: 8)
+        label.isHidden = true
     }
 
     private var infoLabel = UILabel().then { label in
         label.font = UIFont.iosBody13R
         label.text = L10n.Post.Place.Guide.readable
         label.textColor = .primarydark
+        label.numberOfLines = 2
     }
 
     override func setupViews() {
@@ -53,6 +79,11 @@ class WritingPlaceView: SelectBaseView {
         contentView.addSubviews([
             mapView,
             infoLabel,
+        ])
+
+        mapView.addSubviews([
+            placeMark,
+            placeLabel,
         ])
     }
 
@@ -71,5 +102,24 @@ class WritingPlaceView: SelectBaseView {
             make.leading.equalTo(titleLabel.snp.trailing).offset(4)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
+
+        placeMark.snp.makeConstraints { make in
+            make.centerX.equalTo(mapView.snp.centerX)
+            make.centerY.equalTo(mapView.snp.centerY)
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
+
+        placeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(placeMark.snp.trailing)
+            make.bottom.equalTo(placeMark.snp.top)
+            make.trailing.lessThanOrEqualTo(mapView.snp.trailing).offset(-30)
+        }
+    }
+}
+
+extension WritingPlaceView: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated _: Bool) {
+        locationChanged.onNext(mapView.centerCoordinate)
     }
 }
