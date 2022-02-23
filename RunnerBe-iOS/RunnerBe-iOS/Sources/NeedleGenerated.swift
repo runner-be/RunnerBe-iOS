@@ -217,16 +217,18 @@ private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMain
     }
 }
 private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectDateModalDependency {
-
-
-    init() {
-
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent
 private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
     }
 }
 private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {

@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol SelectDateModalDependency: Dependency {}
+protocol SelectDateModalDependency: Dependency {
+    var dateService: DateService { get }
+}
 
 final class SelectDateModalComponent: Component<SelectDateModalDependency> {
     var scene: (VC: UIViewController, VM: SelectDateModalViewModel) {
@@ -17,6 +19,6 @@ final class SelectDateModalComponent: Component<SelectDateModalDependency> {
     }
 
     private var viewModel: SelectDateModalViewModel {
-        return SelectDateModalViewModel()
+        return SelectDateModalViewModel(dateService: dependency.dateService)
     }
 }

@@ -137,14 +137,9 @@ class SummaryMainPostView: UIView {
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
         }
 
-        pointLabel.snp.makeConstraints { make in
-            make.leading.equalTo(dateLabel.snp.trailing).offset(7)
-            make.centerY.equalTo(dateLabel.snp.centerY)
-        }
-
         timeLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(pointLabel.snp.centerY)
-            make.leading.equalTo(pointLabel.snp.trailing).offset(6)
+            make.centerY.equalTo(dateLabel.snp.centerY)
+            make.leading.equalTo(dateLabel.snp.trailing).offset(6)
             make.trailing.lessThanOrEqualTo(self.snp.trailing)
         }
     }

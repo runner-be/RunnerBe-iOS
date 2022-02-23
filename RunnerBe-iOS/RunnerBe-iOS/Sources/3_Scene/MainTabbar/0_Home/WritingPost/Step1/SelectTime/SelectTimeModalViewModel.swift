@@ -37,7 +37,7 @@ final class SelectTimeModalViewModel: BaseViewModel {
                         minute: outputs.minuteItems[result.minute])
             }
             .compactMap { $0 }
-            .map { "\($0.time) 시간 \($0.minute) 분" }
+            .map { "\($0.time)시간 \($0.minute)분" }
             .bind(to: routes.apply)
             .disposed(by: disposeBag)
 

@@ -70,6 +70,21 @@ class WritingDetailPostViewController: BaseViewController {
             .disposed(by: disposeBags)
     }
 
+    private func viewInput() {
+        vStackView.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .always
+        })
+        .when(.recognized)
+        .filter { [weak self] recognizer in
+            guard let self = self else { return false }
+            return !self.selectTextContentView.textField.frame.contains(recognizer.location(in: self.view))
+        }
+        .subscribe(onNext: { [weak self] _ in
+            self?.selectTextContentView.textField.endEditing(true)
+        })
+        .disposed(by: disposeBags)
+    }
+
     private var summaryView = SummaryMainPostView()
 
     private var hDivider1 = UIView().then { view in

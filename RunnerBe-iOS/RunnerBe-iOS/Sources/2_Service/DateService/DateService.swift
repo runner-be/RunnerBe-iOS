@@ -37,7 +37,7 @@ extension DateFormat {
         case .MdE:
             return "M/d (E)"
         case .korHmm:
-            return "h 시간 mm 분"
+            return "h시간 mm분"
         }
     }
 }

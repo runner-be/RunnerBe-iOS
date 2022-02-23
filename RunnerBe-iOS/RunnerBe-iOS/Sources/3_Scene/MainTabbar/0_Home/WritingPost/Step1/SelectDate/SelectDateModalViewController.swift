@@ -147,7 +147,7 @@ extension SelectDateModalViewController {
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(sheet.snp.leading).offset(35)
             make.height.equalTo(120)
-            make.width.equalTo(80)
+            make.width.equalTo(85)
         }
 
         morningAfterPicker.snp.makeConstraints { make in

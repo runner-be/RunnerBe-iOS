@@ -23,7 +23,24 @@ class SelectTextContentView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {}
+    var wordMax = 500
+
+    private func processingInputs() {
+        textField.rx.text
+            .subscribe(onNext: { [weak self] text in
+                if let wordMax = self?.wordMax,
+                   let count = text?.count
+                {
+                    self?.numberWordsLabel.text = "\(count)/500"
+                    if count >= wordMax {
+                        self?.numberWordsLabel.textColor = .errorlight
+                    } else {
+                        self?.numberWordsLabel.textColor = .darkG4
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 
     private var numberWordsLabel = UILabel().then { label in
         label.font = .iosBody15R
@@ -31,7 +48,7 @@ class SelectTextContentView: SelectBaseView {
         label.text = "0/500"
     }
 
-    var textField = UITextView().then { field in
+    lazy var textField = UITextView().then { field in
         field.isEditable = true
         field.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 16, right: 12)
         field.backgroundColor = .darkG55
@@ -39,6 +56,7 @@ class SelectTextContentView: SelectBaseView {
         field.textColor = .darkG1
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
+        field.delegate = self
     }
 
     override func setupViews() {
@@ -69,5 +87,11 @@ class SelectTextContentView: SelectBaseView {
         }
         textField.clipsToBounds = true
         textField.layer.cornerRadius = 8
+    }
+}
+
+extension SelectTextContentView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return textView.text.count + (text.count - range.length) <= wordMax
     }
 }

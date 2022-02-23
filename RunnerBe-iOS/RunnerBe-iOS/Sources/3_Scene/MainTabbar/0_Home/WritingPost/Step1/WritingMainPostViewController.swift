@@ -155,11 +155,11 @@ class WritingMainPostViewController: BaseViewController {
         control.highlightBoxPadding = .zero
         control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
 
-        control.items = [
-            L10n.Post.WorkTime.afterWork,
-            L10n.Post.WorkTime.beforeWork,
-            L10n.Post.WorkTime.dayOff,
-        ]
+        control.items = RunningTag.allCases.reduce(into: [String]()) {
+            if !$1.name.isEmpty {
+                $0.append($1.name)
+            }
+        }
     }
 
     private var scrollView = UIScrollView().then { view in

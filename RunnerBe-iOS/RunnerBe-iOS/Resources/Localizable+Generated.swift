@@ -392,6 +392,8 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Post.Detail.NavBar.title")
       }
       internal enum NumParticipant {
+        /// 모임 인원은 최대 8명 까지 입니다.
+        internal static let maxError = L10n.tr("Localizable", "Post.Detail.NumParticipant.maxError")
         /// 모임 인원은 최소 2명 부터 가능해요!
         internal static let mixError = L10n.tr("Localizable", "Post.Detail.NumParticipant.mixError")
         /// 인원
@@ -423,7 +425,7 @@ internal enum L10n {
     internal enum Time {
       /// 모임은 최대 5시간까지 가능해요
       internal static let error = L10n.tr("Localizable", "Post.Time.Error")
-      /// 0 시간 20 분
+      /// 0시간 20분
       internal static let placeHolder = L10n.tr("Localizable", "Post.Time.PlaceHolder")
       /// 소요 시간
       internal static let title = L10n.tr("Localizable", "Post.Time.Title")

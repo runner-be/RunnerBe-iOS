@@ -23,7 +23,52 @@ class SelectNumParticipantView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {}
+    var maxNumber = 8
+    var minNumber = 2
+    var curNum = 2
+
+    private func processingInputs() {
+        minusBtn.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self
+                else { return }
+                var newNum = self.curNum - 1
+                self.plusBtn.isEnabled = true
+                self.errorLabel.isHidden = newNum > 2
+                self.minusBtn.isEnabled = newNum > 2
+
+                if newNum <= 2 {
+                    self.errorLabel.text = L10n.Post.Detail.NumParticipant.mixError
+                }
+
+                if newNum >= 2 {
+                    self.curNum = newNum
+                    self.numberLabel.text = String(newNum)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        plusBtn.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self
+                else { return }
+                var newNum = self.curNum + 1
+                self.minusBtn.isEnabled = true
+                self.errorLabel.isHidden = newNum < self.maxNumber
+                self.plusBtn.isEnabled = newNum < self.maxNumber
+
+                if newNum >= self.maxNumber {
+                    self.errorLabel.text = L10n.Post.Detail.NumParticipant.maxError
+                }
+
+                if newNum <= self.maxNumber {
+                    self.curNum = newNum
+                    self.numberLabel.text = String(newNum)
+                }
+
+            })
+            .disposed(by: disposeBag)
+    }
 
     var numberLabel = UILabel().then { label in
         label.font = .iosBody17Sb
@@ -34,6 +79,7 @@ class SelectNumParticipantView: SelectBaseView {
     private var minusBtn = UIButton().then { button in
         button.setImage(Asset.minus.uiImage.withTintColor(.darkG35), for: .normal)
         button.setImage(Asset.minus.uiImage.withTintColor(.darkG55), for: .disabled)
+        button.isEnabled = false
     }
 
     private var plusBtn = UIButton().then { button in
@@ -53,7 +99,6 @@ class SelectNumParticipantView: SelectBaseView {
         label.font = .iosBody13R
         label.textColor = .errorlight
         label.text = L10n.Post.Detail.NumParticipant.mixError
-        label.isHidden = true
     }
 
     private lazy var vStackView = UIStackView.make(

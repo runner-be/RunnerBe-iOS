@@ -35,8 +35,8 @@ class SelectPlaceView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
-    func setMapBoundary(with coords: [CLLocationCoordinate2D]) {
-        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
+    func setMapBoundary(with _: [CLLocationCoordinate2D]) {
+//        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
     }
 
     func setMapCoord(_ coord: CLLocationCoordinate2D, animated: Bool) {

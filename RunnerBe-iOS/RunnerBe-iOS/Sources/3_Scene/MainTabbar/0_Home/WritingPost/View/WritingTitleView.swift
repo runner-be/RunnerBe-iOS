@@ -30,12 +30,13 @@ class WritingTitleView: SelectBaseView {
         field.backgroundColor = .darkG55
         field.font = .iosBody15R
         field.textAlignment = .left
-        field.textColor = .darkG35
+        field.textColor = .darkG2
         field.attributedPlaceholder = NSAttributedString(
             string: L10n.Post.Title.placeHolder,
             attributes: [.foregroundColor: UIColor.darkG35]
         )
         field.autocapitalizationType = .none
+        field.autocorrectionType = .no
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 6

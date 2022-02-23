@@ -165,7 +165,7 @@
 "Post.Date.Title" = "일시";
 "Post.Date.PlaceHolder" = "3/31 (금) AM 6:00";
 "Post.Time.Title" = "소요 시간";
-"Post.Time.PlaceHolder" = "0 시간 20 분";
+"Post.Time.PlaceHolder" = "0시간 20분";
 "Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
 "Post.Place.Title" = "모임 장소";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
@@ -193,5 +193,6 @@
 "Post.Detail.NavBar.RightItem" = "등록";
 "Post.Detail.NumParticipant.title" = "인원";
 "Post.Detail.NumParticipant.mixError" = "모임 인원은 최소 2명 부터 가능해요!";
+"Post.Detail.NumParticipant.maxError" = "모임 인원은 최대 8명 까지 입니다.";
 "Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
 "Post.Detail.TextContent.PlaceHolder" = "함께할 러너들에게 하실 말씀이 있나요?";
