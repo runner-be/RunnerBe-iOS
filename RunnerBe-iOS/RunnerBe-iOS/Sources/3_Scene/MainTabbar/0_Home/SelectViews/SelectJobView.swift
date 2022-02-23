@@ -44,7 +44,7 @@ class SelectJobView: SelectBaseView {
         }
     }
 
-    private var jobGroup = OnOffLabelGroup().then { group in
+    var jobGroup = OnOffLabelGroup().then { group in
         group.styleOn = OnOffLabel.Style(
             font: .iosBody15B,
             backgroundColor: .primary,

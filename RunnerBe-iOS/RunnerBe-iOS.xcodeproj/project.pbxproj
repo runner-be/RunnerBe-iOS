@@ -12,6 +12,7 @@
 		C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */; };
 		C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */; };
 		C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF927BF461400884987 /* WritingMainPostViewController.swift */; };
+		C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
 		C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3319A5327C517830054B688 /* BubbleLabel.swift */; };
@@ -238,6 +239,7 @@
 		C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostCoordinator.swift; sourceTree = "<group>"; };
 		C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewModel.swift; sourceTree = "<group>"; };
 		C3089AF927BF461400884987 /* WritingMainPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewController.swift; sourceTree = "<group>"; };
+		C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlDelegate.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
 		C3319A5327C517830054B688 /* BubbleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleLabel.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				C3498F2727BF728D003EDD0F /* SegmentedControl.swift */,
+				C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */,
 			);
 			path = SegmentedControl;
 			sourceTree = "<group>";
@@ -1810,6 +1813,7 @@
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
+				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,

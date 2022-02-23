@@ -71,6 +71,13 @@ extension Job {
         self = .none
     }
 
+    init(idx: Int) {
+        if idx >= 0, idx < Job.allCases.count {
+            self = Job.allCases[idx]
+        }
+        self = .none
+    }
+
     var name: String {
         switch self {
         case .psv:

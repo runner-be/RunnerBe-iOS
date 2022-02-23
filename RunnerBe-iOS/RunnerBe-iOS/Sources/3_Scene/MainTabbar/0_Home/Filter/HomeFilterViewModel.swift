@@ -10,6 +10,14 @@ import Foundation
 import RxSwift
 
 final class HomeFilterViewModel: BaseViewModel {
+    typealias InputData = (
+        genderIdx: Int?,
+        jobIdx: Int?,
+        minAge: Int, maxAge: Int,
+        location: CLLocationCoordinate2D,
+        distance: Float
+    )
+
     private var locationService: LocationService
 
     init(locationService: LocationService) {
@@ -22,13 +30,46 @@ final class HomeFilterViewModel: BaseViewModel {
         }
 
         inputs.backward
-            .debug()
+            .map { input in
+                guard let input = input
+                else {
+                    return PostFilter(
+                        latitude: 0,
+                        longitude: 0,
+                        wheterEnd: .error,
+                        filter: .error,
+                        distanceFilter: 10,
+                        gender: .none,
+                        ageMin: 20, ageMax: 65,
+                        runningTag: .error,
+                        jobFilter: .none,
+                        keywordSearch: "N"
+                    )
+                }
+                let gender = Gender(idx: input.genderIdx ?? -1)
+                let job = Job(idx: input.jobIdx ?? -1)
+                let latitude = input.location.latitude
+                let longitude = input.location.longitude
+                let distance = input.distance
+                return PostFilter(
+                    latitude: latitude,
+                    longitude: longitude,
+                    wheterEnd: .error, filter: .error,
+                    distanceFilter: distance,
+                    gender: gender,
+                    ageMin: input.minAge,
+                    ageMax: input.maxAge,
+                    runningTag: .error,
+                    jobFilter: job,
+                    keywordSearch: "N"
+                )
+            }
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
     }
 
     struct Input {
-        var backward = PublishSubject<Void>()
+        var backward = PublishSubject<InputData?>()
     }
 
     struct Output {
@@ -37,7 +78,7 @@ final class HomeFilterViewModel: BaseViewModel {
     }
 
     struct Route {
-        var backward = PublishSubject<Void>()
+        var backward = PublishSubject<PostFilter>()
     }
 
     private var disposeBag = DisposeBag()

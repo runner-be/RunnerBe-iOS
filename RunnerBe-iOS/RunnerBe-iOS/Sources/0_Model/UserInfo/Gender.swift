@@ -26,7 +26,7 @@ extension Gender {
     }
 
     init(idx: Int) {
-        if idx < Gender.allCases.count {
+        if idx >= 0, idx < Gender.allCases.count {
             self = Gender.allCases[idx]
         }
         self = .none

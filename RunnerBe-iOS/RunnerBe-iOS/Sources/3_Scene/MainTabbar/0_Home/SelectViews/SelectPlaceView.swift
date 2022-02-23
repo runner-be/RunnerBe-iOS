@@ -44,7 +44,7 @@ class SelectPlaceView: SelectBaseView {
         updateCircle()
     }
 
-    private lazy var mapView = MKMapView().then { view in
+    lazy var mapView = MKMapView().then { view in
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
         view.isZoomEnabled = false
@@ -56,7 +56,7 @@ class SelectPlaceView: SelectBaseView {
     var offsetRange: CGFloat = 100
     private var circleOverlay: MKCircle?
 
-    private lazy var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
+    lazy var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
 
         var labelGroups = BasicSliderLabelGroup(valueFormatter: { "\(($0 / 1000).turncate(to: 1))" })
         labelGroups.moduloFactor = 1

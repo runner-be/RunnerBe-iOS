@@ -10,6 +10,7 @@ import RxSwift
 
 enum WritingMainPostResult {
     case backward
+    case toHome(Bool)
 }
 
 final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> {
@@ -26,12 +27,16 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
 
         closeSignal
             .debug()
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] result in
                 #if DEBUG
                     print("[WritingMainPostCoordinator][closeSignal] popViewController")
                 #endif
-
-                self?.navController.popViewController(animated: true)
+                switch result {
+                case .backward:
+                    self?.navController.popViewController(animated: true)
+                case .toHome:
+                    self?.navController.popViewController(animated: false)
+                }
             })
             .disposed(by: disposeBag)
 
@@ -67,8 +72,14 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
         let coord = WritingDetailPostCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .toHome(needUpdate):
+                    self?.closeSignal.onNext(.toHome(needUpdate))
+                case .backward:
+                    break
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

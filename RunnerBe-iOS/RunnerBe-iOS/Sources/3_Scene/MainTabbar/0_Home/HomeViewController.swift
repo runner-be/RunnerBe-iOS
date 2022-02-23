@@ -39,11 +39,15 @@ class HomeViewController: BaseViewController {
         filterIcon.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
-            .bind(to: viewModel.inputs.filter)
+            .bind(to: viewModel.inputs.showDetailFilter)
             .disposed(by: disposeBags)
 
         floatingButton.rx.tap
             .bind(to: viewModel.inputs.writingPost)
+            .disposed(by: disposeBags)
+
+        deadlineFilter.tapCheck
+            .bind(to: viewModel.inputs.deadLineChanged)
             .disposed(by: disposeBags)
     }
 
@@ -57,7 +61,7 @@ class HomeViewController: BaseViewController {
             .disposed(by: disposeBags)
     }
 
-    private var segmentedControl = SegmentedControl().then { control in
+    private lazy var segmentedControl = SegmentedControl().then { control in
         control.defaultTextFont = .iosBody15R
         control.defaultTextColor = .darkG45
         control.highlightTextFont = .iosBody15B
@@ -73,15 +77,19 @@ class HomeViewController: BaseViewController {
                 $0.append($1.name)
             }
         }
+
+        control.delegate = self
     }
 
-    private var deadlineFilter = IconLabel(iconPosition: .right).then { view in
-        view.icon.image = Asset.checkBoxIconEmpty.uiImage
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG4
-        view.label.text = L10n.Home.PostList.Filter.CheckBox.includeClosedPost
-        view.iconSize = CGSize(width: 24, height: 24)
+    var deadlineFilter = CheckBoxView().then { view in
+        view.leftBox = false
+        view.labelText = L10n.Home.PostList.Filter.CheckBox.includeClosedPost
+        view.moreInfoButton.isHidden = true
+        view.checkBoxButton.tintColor = .darkG35
+        view.titleLabel.textColor = .darkG4
+        view.titleLabel.font = .iosBody13R
         view.spacing = 5
+        view.isSelected = false
     }
 
     private var orderFilter = IconLabel(iconPosition: .right).then { view in
@@ -213,5 +221,13 @@ extension HomeViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+}
+
+extension HomeViewController: SegmentedControlDelegate {
+    func didChanged(_: SegmentedControl, from: Int, to: Int) {
+        if from != to {
+            viewModel.inputs.tagChanged.onNext(to)
+        }
     }
 }

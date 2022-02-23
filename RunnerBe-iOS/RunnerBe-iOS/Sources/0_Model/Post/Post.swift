@@ -9,11 +9,11 @@ import Foundation
 import SwiftyJSON
 
 struct PostAPIResult: Codable {
-    let postID: Int
+    let postId: Int
     let postingTime: String // 2022-02-10T09:25:58.000Z
     let postUserId: Int
     let nickName: String
-    let profileImageUrl: String
+    let profileImageUrl: String?
     let title: String
     let runningTime: String // 소요시간
     let gatheringTime: String
@@ -67,11 +67,11 @@ struct Post {
     let job: [Job]
 
     init(from apiResult: PostAPIResult) {
-        id = apiResult.postID
+        id = apiResult.postId
         postingTime = apiResult.postingTime
         writerID = apiResult.postUserId
         writerName = apiResult.nickName
-        profileImageUrl = apiResult.profileImageUrl
+        profileImageUrl = apiResult.profileImageUrl ?? ""
         title = apiResult.title
         runningTime = apiResult.runningTime
         gatheringTime = apiResult.gatheringTime

@@ -24,7 +24,7 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
     var component: HomeComponent
 
     override func start(animated _: Bool = true) {
-        var scene = component.scene
+        let scene = component.scene
 
         scene.VM.routes.filter
             .map { scene.VM }
@@ -41,29 +41,35 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
             .disposed(by: disposeBag)
     }
 
-    private func pushWritingPostScene(vm _: HomeViewModel, animated: Bool) {
+    private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
         let comp = component.writingPostComponent
         let coord = WritingMainPostCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
-            .debug()
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
-
+                switch coordResult {
+                case let .toHome(needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
+                case .backward:
+                    break
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func pushHomeFilterScene(vm _: HomeViewModel, animated: Bool) {
+    private func pushHomeFilterScene(vm: HomeViewModel, animated: Bool) {
         let comp = component.postFilterComponent
         let coord = HomeFilterCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
-//            .debug()
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
-
+                switch coordResult {
+                case let .backward(filter):
+                    vm.routeInputs.filterChanged.onNext(filter)
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

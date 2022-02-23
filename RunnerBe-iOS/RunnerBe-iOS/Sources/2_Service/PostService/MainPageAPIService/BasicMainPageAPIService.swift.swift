@@ -17,7 +17,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
     let provider: MoyaProvider<MainPageAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MainPageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
+    init(provider: MoyaProvider<MainPageAPI> = .init(), loginKeyChainService: LoginKeyChainService) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
     }
@@ -30,7 +30,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
                 #if DEBUG
-                    print("[MainPageAPIService] fetchPosts with filter: \(filter)")
+                    print("[MainPageAPIService] fetchPosts with filter: \n\(filter)")
                 #endif
                 guard let json = json
                 else {
@@ -46,7 +46,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
             }
             .map {
                 guard let result = $0,
-                      let payload = try? result.json["postingresult"].rawData()
+                      let payload = try? result.json["result"].rawData()
                 else { return nil }
                 return payload
             }
@@ -91,7 +91,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
                 #if DEBUG
-                    print("[\(#line)MainPageAPIService:\(#function)] posting with form: \(form)")
+                    print("[\(#line)MainPageAPIService:\(#function)] posting with form: \n\(form)")
                 #endif
                 guard let json = json
                 else {
@@ -118,7 +118,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
                     functionResult.onNext(.needLogin)
                 case 4000: // db에러
                     functionResult.onNext(.fail)
-                default:
+                default: // 나머지 에러
                     functionResult.onNext(.fail)
                 }
             })

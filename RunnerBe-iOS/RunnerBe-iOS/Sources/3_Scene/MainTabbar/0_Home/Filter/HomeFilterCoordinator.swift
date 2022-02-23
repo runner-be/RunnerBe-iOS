@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum HomeFilterResult {
-    case backward
+    case backward(filter: PostFilter)
 }
 
 final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
@@ -25,15 +25,13 @@ final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
         navController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
-//            .debug()
             .subscribe(onNext: { [weak self] _ in
                 self?.navController.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
 
         scene.VM.routes.backward
-            .debug()
-            .map { HomeFilterResult.backward }
+            .map { HomeFilterResult.backward(filter: $0) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

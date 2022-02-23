@@ -36,7 +36,20 @@ class HomeFilterViewController: BaseViewController {
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
-            .debug()
+            .map { [weak self] () -> (HomeFilterViewModel.InputData)? in
+                guard let self = self else { return nil }
+                let genderIdx = self.filterGenderView.genderLabelGroup.selected.first
+                let jobIdx = self.filterJobView.jobGroup.selected.first
+                var minAge = Int(self.filterAgeView.slider.selectedMinValue)
+                var maxAge = Int(self.filterAgeView.slider.selectedMaxValue)
+                if self.filterAgeView.checkBox.isSelected {
+                    minAge = 20
+                    maxAge = 65
+                }
+                let location = self.filterPlaceView.mapView.centerCoordinate
+                let distance = Float(self.filterPlaceView.slider.selectedMinValue)
+                return (genderIdx, jobIdx, minAge, maxAge, location, distance)
+            }
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBags)
     }

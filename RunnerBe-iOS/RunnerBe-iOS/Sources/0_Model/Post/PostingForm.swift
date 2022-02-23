@@ -21,3 +21,22 @@ struct PostingForm {
     let contents: String
     let runnerGender: Gender
 }
+
+extension PostingForm: CustomDebugStringConvertible {
+    var debugDescription: String {
+        """
+        PostingForm {
+            title:  \(title)
+            gatheringTime:  \(gatheringTime) // "YYYY-MM-dd hh:mm:ss"
+            runningTime:  \(runningTime) // "hh:mm"
+            gatherLatitude:  \(gatherLatitude) gatherLongitude:  \(gatherLongitude)
+            locationInfo:  \(locationInfo)
+            runningTag:  \(runningTag.name)
+            ageMin:  \(ageMin) ageMax:  \(ageMax)
+            runnerGender:  \(runnerGender)
+            peopleNum:  \(peopleNum)
+            contents:  \(contents)
+        }
+        """
+    }
+}

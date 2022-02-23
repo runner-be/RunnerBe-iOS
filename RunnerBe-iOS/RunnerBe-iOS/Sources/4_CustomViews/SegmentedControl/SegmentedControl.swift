@@ -30,6 +30,8 @@ class SegmentedControl: UIControl {
 
     // MARK: Accessible Value
 
+    weak var delegate: SegmentedControlDelegate?
+
     var fontSize: CGFloat = 15
     var defaultTextFont: UIFont = .iosBody15R
     var highlightTextFont: UIFont = .iosBody15B
@@ -222,8 +224,9 @@ class SegmentedControl: UIControl {
 
     private func applySelectedItem(at point: CGPoint) {
         let newSelected = itemInRange(at: point)
+        let oldSelected = selectedItem
         selectedItem = newSelected
-
+        delegate?.didChanged(self, from: oldSelected, to: newSelected)
         highlightOffset = (point.x - itemSize.width / 2.0).clamp(min: 0, max: CGFloat(items.count - 1) * itemSize.width)
     }
 

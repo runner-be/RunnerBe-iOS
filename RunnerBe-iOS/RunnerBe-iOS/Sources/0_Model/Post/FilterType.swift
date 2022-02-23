@@ -34,4 +34,11 @@ extension FilterType {
         }
         self = .error
     }
+
+    init(idx: Int) {
+        if idx >= 0, idx < FilterType.allCases.count {
+            self = FilterType.allCases[idx]
+        }
+        self = .error
+    }
 }

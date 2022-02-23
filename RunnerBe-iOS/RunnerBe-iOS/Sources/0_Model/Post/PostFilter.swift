@@ -8,15 +8,33 @@
 import Foundation
 
 struct PostFilter {
-    let latitude: Double
-    let longitude: Double
-    let wheterEnd: PostState
-    let filter: FilterType
-    let distanceFilter: Float
-    let gender: Gender
-    let ageMin: Int
-    let ageMax: Int
-    let runningTag: RunningTag
-    let jobFilter: Job
-    let keywordSearch: String
+    var latitude: Double
+    var longitude: Double
+    var wheterEnd: PostState
+    var filter: FilterType
+    var distanceFilter: Float
+    var gender: Gender
+    var ageMin: Int
+    var ageMax: Int
+    var runningTag: RunningTag
+    var jobFilter: Job
+    var keywordSearch: String
+}
+
+extension PostFilter: CustomDebugStringConvertible {
+    var debugDescription: String {
+        """
+        PostFilter {
+            runningTag: \(runningTag.name)
+            wheterEnd: \(wheterEnd)
+            filter: \(filter)
+            latitude: \(latitude) longitude: \(longitude)
+            distanceFilter: \(distanceFilter)
+            ageMin: \(ageMin) ageMax: \(ageMax)
+            jobFilter: \(jobFilter.name)
+            gender: \(gender.name)
+            keywordSearch: \(keywordSearch)
+        }
+        """
+    }
 }

@@ -61,4 +61,12 @@ extension RunningTag {
         }
         self = .error
     }
+
+    init(idx: Int) {
+        if idx >= 0, idx < RunningTag.allCases.count {
+            self = RunningTag.allCases[idx]
+            return
+        }
+        self = .error
+    }
 }
