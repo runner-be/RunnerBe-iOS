@@ -8,7 +8,11 @@
 import Foundation
 import NeedleFoundation
 
-protocol WritingDetailPostDependency: Dependency {}
+protocol WritingDetailPostDependency: Dependency {
+    var mainPageAPIService: MainPageAPIService { get }
+    var dateService: DateService { get }
+    var loginService: LoginService { get }
+}
 
 final class WritingDetailPostComponent: Component<WritingDetailPostDependency> {
     var scene: (VC: UIViewController, VM: WritingDetailPostViewModel) {
@@ -17,6 +21,13 @@ final class WritingDetailPostComponent: Component<WritingDetailPostDependency> {
     }
 
     var viewModel: WritingDetailPostViewModel {
-        return WritingDetailPostViewModel()
+        return WritingDetailPostViewModel(mainPostData: postMainData, mainPageAPIService: dependency.mainPageAPIService, dateService: dependency.dateService)
     }
+
+    init(parent: Scope, postMainData: PostMainData) {
+        self.postMainData = postMainData
+        super.init(parent: parent)
+    }
+
+    var postMainData: PostMainData
 }

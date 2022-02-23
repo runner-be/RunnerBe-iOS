@@ -9,7 +9,11 @@ import CoreLocation
 import Foundation
 import RxSwift
 
+typealias PostMainData = (tag: String, title: String, date: String, time: String, location: CLLocationCoordinate2D, placeInfo: String)
+
 final class WritingMainPostViewModel: BaseViewModel {
+    typealias ViewInputData = (tag: Int, title: String, date: String, time: String, location: CLLocationCoordinate2D, placeInfo: String)
+
     private var locationService: LocationService
 
     init(locationService: LocationService) {
@@ -27,6 +31,30 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.next
+            .do(onNext: { [weak self] inputData in
+                if inputData == nil {
+                    self?.outputs.toast.onNext("데이터 처리에 실패하였습니다.")
+                    return
+                }
+
+                if inputData!.title.isEmpty {
+                    self?.outputs.toast.onNext("제목을 입력해주세요")
+                }
+
+                if inputData!.date.isEmpty {
+                    self?.outputs.toast.onNext("일시를 입력해주세요")
+                }
+
+                if inputData!.time.isEmpty {
+                    self?.outputs.toast.onNext("소요시간을 입력해주세요")
+                }
+            })
+            .compactMap { $0 }
+            .filter { RunningTag.isValid($0.tag) && !$0.title.isEmpty && !$0.date.isEmpty && !$0.time.isEmpty }
+
+            .map {
+                (RunningTag.allCases[$0.tag].name, $0.title, $0.date, $0.time, $0.location, $0.placeInfo)
+            }
             .bind(to: routes.next)
             .disposed(by: disposeBag)
 
@@ -67,7 +95,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
-        var next = PublishSubject<Void>()
+        var next = PublishSubject<ViewInputData?>()
         var locationChanged = PublishSubject<CLLocationCoordinate2D>()
     }
 
@@ -77,13 +105,14 @@ final class WritingMainPostViewModel: BaseViewModel {
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
         var placeInfo = PublishSubject<(city: String, detail: String)>()
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
+        var toast = PublishSubject<String>()
     }
 
     struct Route {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
-        var next = PublishSubject<Void>()
+        var next = PublishSubject<PostMainData>()
     }
 
     struct RouteInput {

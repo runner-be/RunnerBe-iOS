@@ -8,7 +8,10 @@
 import Foundation
 import NeedleFoundation
 
-protocol HomeDependency: Dependency {}
+protocol HomeDependency: Dependency {
+    var dateService: DateService { get }
+    var loginService: LoginService { get }
+}
 
 final class HomeComponent: Component<HomeDependency> {
     var scene: (VC: HomeViewController, VM: HomeViewModel) {
@@ -19,11 +22,15 @@ final class HomeComponent: Component<HomeDependency> {
     }
 
     var viewModel: HomeViewModel {
-        return HomeViewModel(locationService: locationService)
+        return HomeViewModel(locationService: locationService, mainPageAPIService: mainPageAPIService)
     }
 
     var locationService: LocationService {
         return shared { BasicLocationService() }
+    }
+
+    var mainPageAPIService: MainPageAPIService {
+        return BasicMainPageAPIService()
     }
 
     var writingPostComponent: WritingMainPostComponent {

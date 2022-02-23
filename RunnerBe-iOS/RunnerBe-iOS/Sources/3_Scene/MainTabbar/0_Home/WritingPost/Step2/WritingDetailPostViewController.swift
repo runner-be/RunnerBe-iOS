@@ -38,9 +38,31 @@ class WritingDetailPostViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .map { [weak self] in
+                guard let self = self else { return nil }
+                let genderIdx = self.selectGenderView.genderLabelGroup.selected.first ?? 0
+                let ageMin = self.selectAgeView.checkBox.isSelected ?
+                    self.selectAgeView.slider.minValue : self.selectAgeView.slider.selectedMinValue
+                let ageMax = self.selectAgeView.checkBox.isSelected ?
+                    self.selectAgeView.slider.maxValue : self.selectAgeView.slider.selectedMaxValue
+                let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
+                let content = self.selectTextContentView.textField.text ?? ""
+                return (genderIdx, Int(ageMin), Int(ageMax), numPerson, content)
+            }
+            .subscribe(viewModel.inputs.posting)
+            .disposed(by: disposeBags)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.mainPostData
+            .subscribe(onNext: { [weak self] data in
+                guard let self = self else { return }
+                self.summaryView.configure(with: data)
+            })
+            .disposed(by: disposeBags)
+    }
 
     private var summaryView = SummaryMainPostView()
 

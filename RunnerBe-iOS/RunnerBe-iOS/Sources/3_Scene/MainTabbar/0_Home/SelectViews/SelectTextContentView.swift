@@ -31,7 +31,7 @@ class SelectTextContentView: SelectBaseView {
         label.text = "0/500"
     }
 
-    private var textField = UITextView().then { field in
+    var textField = UITextView().then { field in
         field.isEditable = true
         field.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 16, right: 12)
         field.backgroundColor = .darkG55

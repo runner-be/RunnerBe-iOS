@@ -8,7 +8,10 @@
 import Foundation
 import NeedleFoundation
 
-protocol MainTabDependency: Dependency {}
+protocol MainTabDependency: Dependency {
+    var dateService: DateService { get }
+    var loginService: LoginService { get }
+}
 
 final class MainTabComponent: Component<MainTabDependency> {
     var scene: UITabBarController {

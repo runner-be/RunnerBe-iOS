@@ -11,6 +11,7 @@ import Then
 import UIKit
 
 class SummaryMainPostView: UIView {
+    typealias ConfigureData = (tag: String, title: String, date: String, time: String, location: CLLocationCoordinate2D, placeInfo: String)
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -21,6 +22,15 @@ class SummaryMainPostView: UIView {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(with data: PostMainData) {
+        badgeLabel.text = data.tag
+        titleLabel.text = data.title
+        dateLabel.label.text = data.date
+        timeLabel.label.text = data.time
+        mapView.centerToCoord(data.location, regionRadius: 300, animated: false)
+        addressInfoView.label.text = data.placeInfo
     }
 
     private func processingInputs() {}

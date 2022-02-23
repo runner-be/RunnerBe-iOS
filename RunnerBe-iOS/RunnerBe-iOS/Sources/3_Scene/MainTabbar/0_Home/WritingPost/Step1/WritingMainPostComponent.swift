@@ -10,6 +10,8 @@ import NeedleFoundation
 
 protocol WritingMainPostDependency: Dependency {
     var locationService: LocationService { get }
+    var dateService: DateService { get }
+    var loginService: LoginService { get }
 }
 
 final class WritingMainPostComponent: Component<WritingMainPostDependency> {
@@ -30,7 +32,7 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
         return SelectDateModalComponent(parent: self)
     }
 
-    var writingDetailPostComponent: WritingDetailPostComponent {
-        return WritingDetailPostComponent(parent: self)
+    func BuildWritingDetailPostComponent(with data: PostMainData) -> WritingDetailPostComponent {
+        return WritingDetailPostComponent(parent: self, postMainData: data)
     }
 }

@@ -43,7 +43,7 @@ class HomeViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         // TODO: 플로팅 버튼 생성후 거기에 연결
-        navBar.rightBtnItem.rx.tap
+        floatingButton.rx.tap
             .bind(to: viewModel.inputs.writingPost)
             .disposed(by: disposeBags)
     }
@@ -55,6 +55,16 @@ class HomeViewController: BaseViewController {
             cell.postState = .closed
         }
         .disposed(by: disposeBags)
+
+        // 서버 연결
+        /*
+         viewModel.outputs.posts
+             .bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, post, cell in
+                 let configuration = PostCellConfiguringItem(from: post)
+                 cell.configure(with: configuration)
+             }
+             .disposed(by: disposeBags)
+         */
     }
 
     private var segmentedControl = SegmentedControl().then { control in
@@ -127,6 +137,10 @@ class HomeViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+
+    private var floatingButton = UIButton().then { button in
+        button.setImage(Asset.floatingButton.uiImage, for: .normal)
+    }
 }
 
 // MARK: - Layout
@@ -141,6 +155,7 @@ extension HomeViewController {
             orderFilter,
             filterIcon,
             postCollectionView,
+            floatingButton,
         ])
     }
 
@@ -179,6 +194,11 @@ extension HomeViewController {
             make.leading.equalTo(view.snp.leading).offset(14)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
+        }
+
+        floatingButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.trailing.equalTo(view.snp.trailing).offset(-14)
         }
     }
 

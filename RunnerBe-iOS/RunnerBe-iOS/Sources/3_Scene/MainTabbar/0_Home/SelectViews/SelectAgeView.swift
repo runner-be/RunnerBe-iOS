@@ -32,7 +32,7 @@ class SelectAgeView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
-    private var checkBox = CheckBoxView().then { view in
+    var checkBox = CheckBoxView().then { view in
         view.leftBox = false
         view.labelText = L10n.Home.Filter.Age.all
         view.moreInfoButton.isHidden = true
@@ -43,7 +43,7 @@ class SelectAgeView: SelectBaseView {
         view.isSelected = false
     }
 
-    private var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
+    var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
         let rightFollower = BubbleFollower()
         rightFollower.moreThanMax = true
         slider.showRightFollower = true

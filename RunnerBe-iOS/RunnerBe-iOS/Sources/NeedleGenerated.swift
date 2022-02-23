@@ -114,16 +114,21 @@ private class LoggedOutDependency2bcab0d3625f6f252479Provider: LoggedOutDependen
     }
 }
 private class MainTabDependency2826cdb310ed0b17a725BaseProvider: MainTabDependency {
-
-
-    init() {
-
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    var loginService: LoginService {
+        return appComponent.loginService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainTabComponent
 private class MainTabDependency2826cdb310ed0b17a725Provider: MainTabDependency2826cdb310ed0b17a725BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(appComponent: component.parent as! AppComponent)
     }
 }
 private class BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider: BookMarkDependency {
@@ -153,16 +158,26 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
     }
 }
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
-
-
-    init() {
-
+    var mainPageAPIService: MainPageAPIService {
+        return homeComponent.mainPageAPIService
+    }
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    var loginService: LoginService {
+        return appComponent.loginService
+    }
+    private let appComponent: AppComponent
+    private let homeComponent: HomeComponent
+    init(appComponent: AppComponent, homeComponent: HomeComponent) {
+        self.appComponent = appComponent
+        self.homeComponent = homeComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent
 private class WritingDetailPostDependencybef9fe2df3caa6a55869Provider: WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, homeComponent: component.parent.parent as! HomeComponent)
     }
 }
 private class SelectTimeModalDependencyd8ded48eb82c59809282BaseProvider: SelectTimeModalDependency {
@@ -182,15 +197,23 @@ private class WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider: Writing
     var locationService: LocationService {
         return homeComponent.locationService
     }
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    var loginService: LoginService {
+        return appComponent.loginService
+    }
+    private let appComponent: AppComponent
     private let homeComponent: HomeComponent
-    init(homeComponent: HomeComponent) {
+    init(appComponent: AppComponent, homeComponent: HomeComponent) {
+        self.appComponent = appComponent
         self.homeComponent = homeComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent
 private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(homeComponent: component.parent as! HomeComponent)
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, homeComponent: component.parent as! HomeComponent)
     }
 }
 private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectDateModalDependency {
@@ -222,16 +245,21 @@ private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDepend
     }
 }
 private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
-
-
-    init() {
-
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    var loginService: LoginService {
+        return appComponent.loginService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ecd6b5263bd0e9BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(appComponent: component.parent.parent as! AppComponent)
     }
 }
 private class PolicyTermDependency28006fce607070d6ca75BaseProvider: PolicyTermDependency {

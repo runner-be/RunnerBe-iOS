@@ -25,9 +25,26 @@ extension Gender {
         }
     }
 
+    init(idx: Int) {
+        if idx < Gender.allCases.count {
+            self = Gender.allCases[idx]
+        }
+        self = .none
+    }
+
     init(code: String) {
         for gender in Gender.allCases {
             if gender.code == code {
+                self = gender
+                return
+            }
+        }
+        self = .none
+    }
+
+    init(name: String) {
+        for gender in Gender.allCases {
+            if gender.name == name {
                 self = gender
                 return
             }
@@ -42,7 +59,7 @@ extension Gender {
         case .female:
             return L10n.Gender.female
         case .none:
-            return ""
+            return L10n.Gender.none
         }
     }
 }

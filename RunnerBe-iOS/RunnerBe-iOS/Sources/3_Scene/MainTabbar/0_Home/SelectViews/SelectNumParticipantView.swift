@@ -25,7 +25,7 @@ class SelectNumParticipantView: SelectBaseView {
 
     private func processingInputs() {}
 
-    private var numberLabel = UILabel().then { label in
+    var numberLabel = UILabel().then { label in
         label.font = .iosBody17Sb
         label.textColor = .primary
         label.text = "2"

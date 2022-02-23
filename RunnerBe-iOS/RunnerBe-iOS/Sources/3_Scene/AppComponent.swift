@@ -45,4 +45,8 @@ final class AppComponent: BootstrapComponent {
     var loginAPIService: LoginAPIService {
         return shared { BasicLoginAPIService() }
     }
+
+    var dateService: DateService {
+        return shared { BasicDateService() }
+    }
 }

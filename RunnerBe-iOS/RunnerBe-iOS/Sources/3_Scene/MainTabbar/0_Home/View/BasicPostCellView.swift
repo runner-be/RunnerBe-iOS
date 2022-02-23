@@ -10,7 +10,7 @@ import Then
 import UIKit
 
 class BasicPostCellView: UICollectionViewCell {
-    enum PostState {
+    enum State {
         case open
         case closed
     }
@@ -26,11 +26,21 @@ class BasicPostCellView: UICollectionViewCell {
         initialLayout()
     }
 
+    func configure(with item: PostCellConfiguringItem) {
+        profileLabel.label.text = item.writerName
+        bookMarkIcon.isSelected = item.bookmarked
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.label.text = "\(item.gender) · \(item.ageText)"
+        placeLabel.label.text = item.place
+        postState = item.closed ? .closed : .open
+    }
+
     override func prepareForReuse() {
         postState = .open
     }
 
-    var postState: PostState = .closed {
+    var postState: State = .closed {
         didSet {
             updateCover()
         }

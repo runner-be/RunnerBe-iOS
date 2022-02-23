@@ -42,9 +42,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: disposeBag)
 
         scene.VM.routes.next
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushWritingDetailPost(vm: vm, animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.pushWritingDetailPost(data: $0, animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -63,8 +62,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: disposeBag)
     }
 
-    private func pushWritingDetailPost(vm _: WritingMainPostViewModel, animated _: Bool) {
-        let comp = component.writingDetailPostComponent
+    private func pushWritingDetailPost(data: PostMainData, animated _: Bool) {
+        let comp = component.BuildWritingDetailPostComponent(with: data)
         let coord = WritingDetailPostCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord)

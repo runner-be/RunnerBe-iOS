@@ -49,12 +49,12 @@ class WritingPlaceView: SelectBaseView {
         view.isPitchEnabled = false
     }
 
-    private var placeMark = UIImageView().then { view in
+    var placeMark = UIImageView().then { view in
         view.image = Asset.placeImage.uiImage
         view.contentMode = .scaleAspectFit
     }
 
-    private var placeLabel = BubbleLabel(direction: .left).then { label in
+    var placeLabel = BubbleLabel(direction: .left).then { label in
         label.bubbleColor = .darkG6
         label.bubbleBorderColor = .darkG6
         label.bubbleLineWidth = 0

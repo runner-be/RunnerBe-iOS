@@ -33,6 +33,10 @@ class BubbleLabel: UIView {
         }
     }
 
+    var text: String {
+        texts.last ?? ""
+    }
+
     var fontSize: CGFloat = 13 {
         didSet {
             textLayer.fontSize = fontSize

@@ -1,0 +1,18 @@
+//
+//  MainPageAPIService.swift
+//  RunnerBe-iOS
+//
+//  Created by 김신우 on 2022/02/23.
+//
+
+import Foundation
+import RxSwift
+
+enum PostingResult {
+    case succeed, fail
+}
+
+protocol MainPageAPIService {
+    func fetchPosts(with filter: PostFilter) -> Observable<[Post]?>
+    func posting(form: PostingForm) -> Observable<PostingResult>
+}

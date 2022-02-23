@@ -29,6 +29,7 @@ internal enum Asset {
   internal static let chevronRight = ImageAsset(name: "Chevron_right")
   internal static let filter = ImageAsset(name: "Filter")
   internal static let filterHighlighted = ImageAsset(name: "FilterHighlighted")
+  internal static let floatingButton = ImageAsset(name: "FloatingButton")
   internal static let group = ImageAsset(name: "Group")
   internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
   internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")

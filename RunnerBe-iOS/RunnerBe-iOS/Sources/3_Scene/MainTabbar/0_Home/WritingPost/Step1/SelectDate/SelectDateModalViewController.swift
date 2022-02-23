@@ -36,6 +36,13 @@ class SelectDateModalViewController: BaseViewController {
     private var viewModel: SelectDateModalViewModel
 
     private func viewModelInput() {
+        sheet.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .subscribe()
+        .disposed(by: disposeBags)
+
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         }).when(.recognized)
