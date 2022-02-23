@@ -24,11 +24,15 @@ final class BasicDateService: DateService {
     }
 
     func changeFormat(_ text: String, from: DateFormat, to: DateFormat) -> String? {
+        print("[BasicDateService:changeFormat][from:\(from.formatString)][to:\(to.formatString)] text: \(text)")
         dateFormatter.dateFormat = from.formatString
+        print("[BasicDateService:changeFormat][from:\(from.formatString)]date: \(dateFormatter.date(from: text))")
+
         guard let date = dateFormatter.date(from: text)
         else { return nil }
 
         dateFormatter.dateFormat = to.formatString
+        print("[BasicDateService:changeFormat][to:\(from.formatString)]string: \(dateFormatter.string(from: date))")
         return dateFormatter.string(from: date)
     }
 

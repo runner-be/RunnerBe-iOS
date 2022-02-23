@@ -21,7 +21,7 @@ extension Gender {
         case .female:
             return "F"
         case .none:
-            return ""
+            return "A"
         }
     }
 

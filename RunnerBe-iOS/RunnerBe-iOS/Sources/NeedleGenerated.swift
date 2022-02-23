@@ -251,6 +251,9 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
     var loginService: LoginService {
         return appComponent.loginService
     }
+    var loginKeyChainService: LoginKeyChainService {
+        return appComponent.loginKeyChainService
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent

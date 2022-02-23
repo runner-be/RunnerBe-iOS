@@ -8,8 +8,8 @@
 import Foundation
 
 struct PostFilter {
-    let latitude: Float
-    let longitude: Float
+    let latitude: Double
+    let longitude: Double
     let wheterEnd: PostState
     let filter: FilterType
     let distanceFilter: Float
@@ -17,4 +17,6 @@ struct PostFilter {
     let ageMin: Int
     let ageMax: Int
     let runningTag: RunningTag
+    let jobFilter: Job
+    let keywordSearch: String
 }

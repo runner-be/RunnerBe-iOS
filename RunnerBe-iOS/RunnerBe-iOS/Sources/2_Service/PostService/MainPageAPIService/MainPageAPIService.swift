@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum PostingResult {
-    case succeed, fail
+    case succeed, fail, needLogin
 }
 
 protocol MainPageAPIService {

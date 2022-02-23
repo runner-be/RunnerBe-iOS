@@ -11,6 +11,7 @@ import NeedleFoundation
 protocol HomeDependency: Dependency {
     var dateService: DateService { get }
     var loginService: LoginService { get }
+    var loginKeyChainService: LoginKeyChainService { get }
 }
 
 final class HomeComponent: Component<HomeDependency> {
@@ -30,7 +31,7 @@ final class HomeComponent: Component<HomeDependency> {
     }
 
     var mainPageAPIService: MainPageAPIService {
-        return BasicMainPageAPIService()
+        return BasicMainPageAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }
 
     var writingPostComponent: WritingMainPostComponent {

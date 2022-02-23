@@ -49,22 +49,13 @@ class HomeViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        let items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
-        let itemsOb = Observable.of(items)
-        itemsOb.bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, _, cell in
-            cell.postState = .closed
-        }
-        .disposed(by: disposeBags)
-
         // 서버 연결
-        /*
-         viewModel.outputs.posts
-             .bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, post, cell in
-                 let configuration = PostCellConfiguringItem(from: post)
-                 cell.configure(with: configuration)
-             }
-             .disposed(by: disposeBags)
-         */
+        viewModel.outputs.posts
+            .bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, post, cell in
+                let configuration = PostCellConfiguringItem(from: post)
+                cell.configure(with: configuration)
+            }
+            .disposed(by: disposeBags)
     }
 
     private var segmentedControl = SegmentedControl().then { control in

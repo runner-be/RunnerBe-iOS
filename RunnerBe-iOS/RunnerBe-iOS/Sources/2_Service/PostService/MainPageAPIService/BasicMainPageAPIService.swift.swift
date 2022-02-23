@@ -15,8 +15,10 @@ final class BasicMainPageAPIService: MainPageAPIService {
     private var disposableDic: [Int: Disposable] = [:]
 
     let provider: MoyaProvider<MainPageAPI>
+    let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MainPageAPI> = .init(plugins: [VerbosePlugin(verbose: true)])) {
+    init(provider: MoyaProvider<MainPageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
+        loginKeyChain = loginKeyChainService
         self.provider = provider
     }
 
@@ -73,11 +75,62 @@ final class BasicMainPageAPIService: MainPageAPIService {
     }
 
     func posting(form: PostingForm) -> Observable<PostingResult> {
-        let form = form
         #if DEBUG
             print("[\(#line)BasicMainPageAPI:\(#function)]: \(form)")
         #endif
 
-        return .just(.succeed)
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(.needLogin)
+        }
+        let functionResult = ReplaySubject<PostingResult>.create(bufferSize: 1)
+
+        let disposable = provider.rx.request(.posting(form: form, id: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line)MainPageAPIService:\(#function)] posting with form: \(form)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == nil")
+                        functionResult.onNext(.fail)
+                    #endif
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(.fail)
+                    return
+                }
+                print(response.message)
+
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(.succeed)
+                case 2010, 2011, 2012, 2044, 3006: // 유저 로그인 필요
+                    functionResult.onNext(.needLogin)
+                case 4000: // db에러
+                    functionResult.onNext(.fail)
+                default:
+                    functionResult.onNext(.fail)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
     }
 }

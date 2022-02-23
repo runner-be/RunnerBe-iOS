@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/05.
 //
 
+import CoreLocation
 import Foundation
 import RxSwift
 
@@ -20,28 +21,35 @@ final class HomeViewModel: BaseViewModel {
         super.init()
 
         // TODO: 런칭땐 이 좌표값으로 Filter 작성
-        // let currentLocation = locationService.currentPlace
+        let searchLocation: CLLocationCoordinate2D
+        if let currentLocation = locationService.currentPlace {
+            searchLocation = currentLocation
+        } else {
+            searchLocation = CLLocationCoordinate2D(latitude: 36.12312312, longitude: 36.12312312)
+        }
 
         let initialFetchFilter = PostFilter(
-            latitude: 36.123123123, longitude: 36.123123,
+            latitude: searchLocation.latitude, longitude: searchLocation.longitude,
             wheterEnd: .closed,
             filter: .newest,
             distanceFilter: 10000,
             gender: .none,
             ageMin: 20,
             ageMax: 65,
-            runningTag: .beforeWork
+            runningTag: .beforeWork,
+            jobFilter: .none,
+            keywordSearch: ""
         )
 
-//        mainPageAPIService.fetchPosts(with: initialFetchFilter)
-//            .do(onNext: { [weak self] result in
-//                if result == nil {
-//                    self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
-//                }
-//            })
-//            .compactMap { $0 }
-//            .subscribe(outputs.posts)
-//            .disposed(by: disposeBag)
+        mainPageAPIService.fetchPosts(with: initialFetchFilter)
+            .do(onNext: { [weak self] result in
+                if result == nil {
+                    self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
+                }
+            })
+            .compactMap { $0 }
+            .subscribe(outputs.posts)
+            .disposed(by: disposeBag)
 
         inputs.filter
             .bind(to: routes.filter)

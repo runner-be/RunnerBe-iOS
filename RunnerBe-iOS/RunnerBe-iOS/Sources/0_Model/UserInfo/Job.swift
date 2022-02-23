@@ -57,7 +57,7 @@ extension Job {
         case .cus:
             return "CUS"
         case .none:
-            return ""
+            return "N"
         }
     }
 

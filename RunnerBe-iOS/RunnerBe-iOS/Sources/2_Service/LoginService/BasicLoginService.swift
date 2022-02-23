@@ -64,8 +64,9 @@ final class BasicLoginService: LoginService {
                 guard let result = apiResult
                 else { return LoginResult.loginFail }
                 switch result {
-                case let LoginAPIResult.member(_, jwt, _):
+                case let LoginAPIResult.member(id, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
+                    self?.loginKeyChainService.userId = id
                     return .member
                 case let LoginAPIResult.nonMember(uuid, _):
                     return .nonMember(uuid: uuid)

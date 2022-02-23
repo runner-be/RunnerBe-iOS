@@ -15,6 +15,18 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
         self.keychainWrapper = keychainWrapper
     }
 
+    var userId: Int? {
+        get {
+            return keychainWrapper[.userId]
+        }
+        set {
+            keychainWrapper.remove(forKey: .userId)
+            if let id = newValue {
+                keychainWrapper.set(id, forKey: KeychainWrapper.Key.userId.rawValue)
+            }
+        }
+    }
+
     var token: LoginToken? {
         get {
             #if DEBUG
@@ -48,4 +60,5 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
 
 private extension KeychainWrapper.Key {
     static let loginTokenKey: KeychainWrapper.Key = "LoginTokenKey"
+    static let userId: KeychainWrapper.Key = "SignupInfo.uuid"
 }

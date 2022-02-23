@@ -423,7 +423,7 @@ internal enum L10n {
     internal enum Time {
       /// 모임은 최대 5시간까지 가능해요
       internal static let error = L10n.tr("Localizable", "Post.Time.Error")
-      /// 0 시간 20분
+      /// 0 시간 20 분
       internal static let placeHolder = L10n.tr("Localizable", "Post.Time.PlaceHolder")
       /// 소요 시간
       internal static let title = L10n.tr("Localizable", "Post.Time.Title")

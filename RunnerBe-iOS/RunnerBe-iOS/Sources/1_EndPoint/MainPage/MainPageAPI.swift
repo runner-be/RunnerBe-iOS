@@ -39,21 +39,20 @@ extension MainPageAPI: TargetType {
     var task: Task {
         switch self {
         case let .fetch(filter):
-            let body: [String: Any] = [
+            let parameters: [String: Any] = [
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
-            ]
-
-            let query: [String: Any] = [
                 "whetherEnd": filter.wheterEnd.code,
                 "filter": filter.filter.code,
                 "distanceFilter": "\(filter.distanceFilter)",
                 "genderFilter": filter.gender.code,
                 "ageFilterMax": "\(filter.ageMax)",
                 "ageFilterMin": "\(filter.ageMin)",
+                "jobFilter": filter.jobFilter.code,
+                "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
             ]
 
-            return .requestCompositeParameters(bodyParameters: body, bodyEncoding: JSONEncoding.default, urlParameters: query)
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):
             let parameters: [String: Any] = [
                 "title": form.title,

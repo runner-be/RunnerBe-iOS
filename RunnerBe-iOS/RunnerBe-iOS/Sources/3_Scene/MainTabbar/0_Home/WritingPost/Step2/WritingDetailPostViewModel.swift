@@ -32,7 +32,8 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 let runningTag = RunningTag(name: mainPostData.tag)
                 let gender = Gender(idx: data.gender)
                 let curYearGathringDate = dateService.getCurrent(format: .yyyy) + " " + mainPostData.date
-
+                print("게더! \(curYearGathringDate)")
+                print("러닝 시간 ! \(mainPostData.time)")
                 guard runningTag != .error,
                       let gatheringTime = dateService.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss),
                       let runningTime = dateService.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm)
@@ -62,8 +63,13 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 switch result {
                 case .succeed:
                     self?.routes.apply.onNext(())
+                    print("성공!")
                 case .fail:
                     self?.outputs.toast.onNext("다시 시도해주세요!")
+                    print("다시 시도해주세요!")
+                case .needLogin:
+                    self?.outputs.toast.onNext("로그인이 필요합니다")
+                    print("로그인이 필요합니다.")
                 }
             })
             .disposed(by: disposeBag)

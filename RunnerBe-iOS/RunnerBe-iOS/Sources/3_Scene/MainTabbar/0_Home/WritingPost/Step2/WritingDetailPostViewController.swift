@@ -62,6 +62,12 @@ class WritingDetailPostViewController: BaseViewController {
                 self.summaryView.configure(with: data)
             })
             .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBags)
     }
 
     private var summaryView = SummaryMainPostView()
