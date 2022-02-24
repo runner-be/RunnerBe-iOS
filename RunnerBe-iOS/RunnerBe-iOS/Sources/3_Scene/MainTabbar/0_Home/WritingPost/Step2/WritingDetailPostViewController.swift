@@ -7,6 +7,7 @@
 
 import RxCocoa
 import RxGesture
+import RxKeyboard
 import RxSwift
 import SnapKit
 import Then
@@ -20,6 +21,7 @@ class WritingDetailPostViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        viewInput()
     }
 
     init(viewModel: WritingDetailPostViewModel) {
@@ -83,6 +85,13 @@ class WritingDetailPostViewController: BaseViewController {
             self?.selectTextContentView.textField.endEditing(true)
         })
         .disposed(by: disposeBags)
+
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self] keyboardVisibleHeight in
+                self?.scrollView.contentInset.bottom = keyboardVisibleHeight
+                self?.scrollView.contentOffset.y += keyboardVisibleHeight
+            })
+            .disposed(by: disposeBags)
     }
 
     private var summaryView = SummaryMainPostView()

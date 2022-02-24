@@ -23,6 +23,8 @@ target 'RunnerBe-iOS' do
   pod 'RxDataSources', '~> 5.0'
   # RxGesture
   pod 'RxGesture'
+  # RxKeyboard
+  pod 'RxKeyboard'
   # SnapKit
   pod 'SnapKit', '~> 5.0.0'
   # Then

@@ -160,6 +160,9 @@ PODS:
   - RxKakaoSDKUser (2.8.5):
     - KakaoSDKUser (= 2.8.5)
     - RxKakaoSDKAuth (= 2.8.5)
+  - RxKeyboard (2.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
@@ -186,6 +189,7 @@ DEPENDENCIES:
   - RxKakaoSDKAuth
   - RxKakaoSDKCommon
   - RxKakaoSDKUser
+  - RxKeyboard
   - RxSwift (~> 6.5.0)
   - SnapKit (~> 5.0.0)
   - SwiftFormat/CLI
@@ -227,6 +231,7 @@ SPEC REPOS:
     - RxKakaoSDKAuth
     - RxKakaoSDKCommon
     - RxKakaoSDKUser
+    - RxKeyboard
     - RxRelay
     - RxSwift
     - SnapKit
@@ -268,6 +273,7 @@ SPEC CHECKSUMS:
   RxKakaoSDKAuth: ae3b2fb29efa31961b71eb374e9e3243d5a80022
   RxKakaoSDKCommon: c1d64e3ebd6ff2721257684f222599f14cf6acf2
   RxKakaoSDKUser: a8246bf552f86715295607bd62e7ff188f06ced3
+  RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
@@ -278,6 +284,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 5876bd5a0b96c84a48a2d620ccabf45f8f437246
+PODFILE CHECKSUM: 981cb9f4e799fe5955ea7d3de6ab3abb3c95dfb5
 
 COCOAPODS: 1.11.2

@@ -85,6 +85,9 @@ class Slider: UIControl {
         selectedMaxValue.clamped(min: minValue, max: maxValue)
         selectedMinValue.clamped(min: minValue, max: selectedMaxValue)
         sliderType = .range
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
+        addGestureRecognizer(tapGesture)
     }
 
     private var needLayout: Bool = true
@@ -324,11 +327,10 @@ class Slider: UIControl {
         return true
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+    override func endTracking(_ touch: UITouch?, with _: UIEvent?) {
         guard enable else { return }
 
-        if touches.count == 1,
-           let touchPoint = touches.first?.location(in: self),
+        if let touchPoint = touch?.location(in: self),
            sensableAreaContains(point: touchPoint)
         {
             applySelectedValue(at: touchPoint, trackingMode: trackingMode)
@@ -339,6 +341,17 @@ class Slider: UIControl {
         let handle = trackingMode == .left ? leftHandle : rightHandle
         handle.selected(selected: false)
         trackingMode = .none
+    }
+
+    @objc
+    func tapGesture(_ gesture: UITapGestureRecognizer) {
+        let touchPoint = gesture.location(in: self)
+        if sensableAreaContains(point: touchPoint) {
+            let trackingType = trackingModeAt(point: touchPoint)
+            applySelectedValue(at: touchPoint, trackingMode: trackingType)
+            updatePositions()
+            rightHandleFollower?.update()
+        }
     }
 
     private func sensableAreaContains(point: CGPoint) -> Bool {
