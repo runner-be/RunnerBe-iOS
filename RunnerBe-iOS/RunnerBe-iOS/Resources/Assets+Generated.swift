@@ -46,6 +46,7 @@ internal enum Asset {
   internal static let plus = ImageAsset(name: "Plus")
   internal static let profileEmptyIcon = ImageAsset(name: "ProfileEmptyIcon")
   internal static let refresh = ImageAsset(name: "Refresh")
+  internal static let report = ImageAsset(name: "Report")
   internal static let scheduled = ImageAsset(name: "Scheduled")
   internal static let search = ImageAsset(name: "Search")
   internal static let time = ImageAsset(name: "Time")

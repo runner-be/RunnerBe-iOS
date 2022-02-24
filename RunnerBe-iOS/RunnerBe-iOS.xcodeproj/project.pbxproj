@@ -80,6 +80,13 @@
 		C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC627B8B58700775779 /* BasicSignupService.swift */; };
 		C35B832627B91E6600551AC5 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B832527B91E6600551AC5 /* Job.swift */; };
 		C35B832827B91E6E00551AC5 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B832727B91E6E00551AC5 /* Gender.swift */; };
+		C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */; };
+		C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */; };
+		C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */; };
+		C35E34A927C83C980023C0F9 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */; };
+		C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */; };
+		C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34AD27C840220023C0F9 /* DetailInfoView.swift */; };
+		C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34B127C849050023C0F9 /* DetailMapView.swift */; };
 		C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */; };
 		C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */; };
 		C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */; };
@@ -307,6 +314,13 @@
 		C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFL.otf; sourceTree = "<group>"; };
 		C35B832527B91E6600551AC5 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		C35B832727B91E6E00551AC5 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailComponent.swift; sourceTree = "<group>"; };
+		C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailCoordinator.swift; sourceTree = "<group>"; };
+		C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
+		C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
+		C35E34AD27C840220023C0F9 /* DetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoView.swift; sourceTree = "<group>"; };
+		C35E34B127C849050023C0F9 /* DetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapView.swift; sourceTree = "<group>"; };
 		C361B6B827B285E600824ABE /* SelectJobGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupCoordinator.swift; sourceTree = "<group>"; };
 		C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupComponent.swift; sourceTree = "<group>"; };
 		C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupViewController.swift; sourceTree = "<group>"; };
@@ -836,6 +850,28 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
+		C35E34A127C83C610023C0F9 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C35E34AA27C83D520023C0F9 /* View */,
+				C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */,
+				C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */,
+				C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */,
+				C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		C35E34AA27C83D520023C0F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */,
+				C35E34AD27C840220023C0F9 /* DetailInfoView.swift */,
+				C35E34B127C849050023C0F9 /* DetailMapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C361B6C027B285F500824ABE /* 0_Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -976,6 +1012,7 @@
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
 			isa = PBXGroup;
 			children = (
+				C35E34A127C83C610023C0F9 /* Detail */,
 				C3347BF327C2D9CA006FB110 /* SelectViews */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
@@ -1138,18 +1175,18 @@
 		C3A64F8A27C54D360088E387 /* PostService */ = {
 			isa = PBXGroup;
 			children = (
-				C3A64F8B27C54D500088E387 /* MainPageAPIService */,
+				C3A64F8B27C54D500088E387 /* PostAPIService */,
 			);
 			path = PostService;
 			sourceTree = "<group>";
 		};
-		C3A64F8B27C54D500088E387 /* MainPageAPIService */ = {
+		C3A64F8B27C54D500088E387 /* PostAPIService */ = {
 			isa = PBXGroup;
 			children = (
 				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
 				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift.swift */,
 			);
-			path = MainPageAPIService;
+			path = PostAPIService;
 			sourceTree = "<group>";
 		};
 		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
@@ -1734,6 +1771,7 @@
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				C361B6C427B2934800824ABE /* EmailCertificationComponent.swift in Sources */,
+				C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */,
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C3A64F8F27C54DA20088E387 /* Post.swift in Sources */,
 				C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */,
@@ -1744,6 +1782,7 @@
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
+				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
@@ -1788,6 +1827,7 @@
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
+				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
@@ -1798,6 +1838,7 @@
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
+				C35E34A927C83C980023C0F9 /* PostDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
 				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
@@ -1831,6 +1872,7 @@
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
+				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
@@ -1850,6 +1892,7 @@
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
+				C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */,
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
@@ -1864,6 +1907,7 @@
 				C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
+				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,

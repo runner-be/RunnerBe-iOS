@@ -44,44 +44,44 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-//        mainPageAPIService.fetchPostsBookMarked()
-//            .do(onNext: { [weak self] result in
-//                if let result = result {
-//                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
-//                }
-//            })
-//            .flatMap { _ in mainPageAPIService.fetchPosts(with: initialFilter) }
-//            .do(onNext: { [weak self] result in
-//                if result == nil {
-//                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
-//                }
-//            })
-//            .compactMap { $0 }
-//            .map { [bookMarkSet] posts in
-//                posts.reduce(into: [Post]()) {
-//                    var post = $1
-//                    post.bookMarked = bookMarkSet.contains($1.id)
-//                    $0.append($1)
-//                }
-//            }
-//            .subscribe(onNext: { [weak self] posts in
-//                self?.posts = posts
-//                self?.outputs.posts.onNext(posts)
-//            })
-//            .disposed(by: disposeBag)
-
-        mainPageAPIService.fetchPosts(with: filter)
+        mainPageAPIService.fetchPostsBookMarked()
+            .do(onNext: { [weak self] result in
+                if let result = result {
+                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
+                }
+            })
+            .flatMap { _ in mainPageAPIService.fetchPosts(with: initialFilter) }
             .do(onNext: { [weak self] result in
                 if result == nil {
-                    self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
+                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
                 }
             })
             .compactMap { $0 }
+            .map { [bookMarkSet] posts in
+                posts.reduce(into: [Post]()) {
+                    var post = $1
+                    post.bookMarked = bookMarkSet.contains($1.id)
+                    $0.append($1)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
             })
             .disposed(by: disposeBag)
+
+//        mainPageAPIService.fetchPosts(with: filter)
+//            .do(onNext: { [weak self] result in
+//                if result == nil {
+//                    self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
+//                }
+//            })
+//            .compactMap { $0 }
+//            .subscribe(onNext: { [weak self] posts in
+//                self?.posts = posts
+//                self?.outputs.posts.onNext(posts)
+//            })
+//            .disposed(by: disposeBag)
 
         inputs.showDetailFilter
             .map { [weak self] in self?.filter ?? initialFilter }

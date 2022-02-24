@@ -222,10 +222,9 @@ final class BasicPostAPIService: PostAPIService {
                 #endif
                 return try? (response: BasicResponse(json: json), json: json)
             }
-            .map { try? $0?.json["result"]["bookMarkList"].rawData() }
-            .compactMap { $0 }
-            .decode(type: [PostAPIResult].self, decoder: JSONDecoder())
-            .map { $0.reduce(into: [Post]()) {
+            .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
+            .decode(type: [PostAPIResult]?.self, decoder: JSONDecoder())
+            .map { $0?.reduce(into: [Post]()) {
                 $0.append(Post(from: $1))
             }}
             .bind(to: functionResult)
