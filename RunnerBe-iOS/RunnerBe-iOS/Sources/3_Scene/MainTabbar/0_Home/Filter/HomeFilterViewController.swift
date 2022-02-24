@@ -52,6 +52,10 @@ class HomeFilterViewController: BaseViewController {
             }
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .subscribe(viewModel.inputs.reset)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
@@ -66,6 +70,15 @@ class HomeFilterViewController: BaseViewController {
             .take(1)
             .subscribe(onNext: { [weak self] coords in
                 self?.filterPlaceView.setMapBoundary(with: coords)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.reset
+            .subscribe(onNext: { [weak self] in
+                self?.filterAgeView.reset()
+                self?.filterJobView.reset()
+                self?.filterPlaceView.reset()
+                self?.filterGenderView.reset()
             })
             .disposed(by: disposeBags)
     }

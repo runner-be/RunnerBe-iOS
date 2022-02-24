@@ -25,13 +25,13 @@ extension PostFilter: CustomDebugStringConvertible {
     var debugDescription: String {
         """
         PostFilter {
-            runningTag: \(runningTag.name)
+            runningTag: \(runningTag)
             wheterEnd: \(wheterEnd)
             filter: \(filter)
             latitude: \(latitude) longitude: \(longitude)
             distanceFilter: \(distanceFilter)
             ageMin: \(ageMin) ageMax: \(ageMax)
-            jobFilter: \(jobFilter.name)
+            jobFilter: \(jobFilter)
             gender: \(gender.name)
             keywordSearch: \(keywordSearch)
         }

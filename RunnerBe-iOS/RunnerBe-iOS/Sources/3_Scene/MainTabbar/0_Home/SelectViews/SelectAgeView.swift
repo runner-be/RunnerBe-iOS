@@ -23,6 +23,11 @@ class SelectAgeView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func reset() {
+        slider.reset()
+        checkBox.isSelected = false
+    }
+
     private func processingInputs() {
         checkBox.tapCheck
             .map { !$0 }

@@ -9,6 +9,17 @@ import SnapKit
 import UIKit
 
 class Slider: UIControl {
+    func reset() {
+        switch sliderType {
+        case .single:
+            applySelectedValue(minValue, trackingType: .right)
+        case .range:
+            applySelectedValue(maxValue, trackingType: .right)
+            applySelectedValue(minValue, trackingType: .left)
+        }
+        updatePositions()
+    }
+
     init(leftHandle: SliderHandle, rightHandle: SliderHandle) {
         self.leftHandle = leftHandle
         self.rightHandle = rightHandle
@@ -85,10 +96,10 @@ class Slider: UIControl {
         didSet {
             switch sliderType {
             case .single:
-                applySelectedValue(minValue, trackingMode: .right)
+                applySelectedValue(minValue, trackingType: .right)
             case .range:
-                applySelectedValue(minValue, trackingMode: .left)
-                applySelectedValue(maxValue, trackingMode: .right)
+                applySelectedValue(minValue, trackingType: .left)
+                applySelectedValue(maxValue, trackingType: .right)
             }
         }
     }
@@ -359,15 +370,15 @@ class Slider: UIControl {
             }
         }
 
-        applySelectedValue(selectedValue, trackingMode: trackingMode)
+        applySelectedValue(selectedValue, trackingType: trackingMode)
     }
 
-    private func applySelectedValue(_ value: CGFloat, trackingMode _: TrackingMode) {
+    private func applySelectedValue(_ value: CGFloat, trackingType: TrackingMode) {
         let value = value.clamp(min: minValue, max: maxValue)
         let curMin = selectedMinValue
         let curMax = selectedMaxValue
 
-        switch trackingMode {
+        switch trackingType {
         case .left:
             switch sliderType {
             case .single:

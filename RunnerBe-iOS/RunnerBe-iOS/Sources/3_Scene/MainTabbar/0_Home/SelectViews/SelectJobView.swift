@@ -15,7 +15,6 @@ class SelectJobView: SelectBaseView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
-        processingInputs()
         configureCollectionViewItems()
     }
 
@@ -24,7 +23,13 @@ class SelectJobView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {}
+    func reset() {
+        jobLabels.forEach {
+            if $0.isOn {
+                self.jobGroup.toggle(label: $0)
+            }
+        }
+    }
 
     private func configureCollectionViewItems() {
         // TODO: 직군 종류들을 ViewModel로 넘길지 고민해보기

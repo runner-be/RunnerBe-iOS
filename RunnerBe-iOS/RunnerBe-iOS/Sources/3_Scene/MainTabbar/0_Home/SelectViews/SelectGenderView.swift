@@ -15,7 +15,7 @@ class SelectGenderView: SelectBaseView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
-        processingInputs()
+        reset()
     }
 
     @available(*, unavailable)
@@ -23,8 +23,18 @@ class SelectGenderView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func processingInputs() {
-        genderLabelGroup.toggle(label: genderNonLabel)
+    func reset() {
+        if !genderNonLabel.isOn {
+            genderLabelGroup.toggle(label: genderNonLabel)
+        }
+
+        if genderFemaleLabel.isOn {
+            genderLabelGroup.toggle(label: genderFemaleLabel)
+        }
+
+        if genderMaleLabel.isOn {
+            genderLabelGroup.toggle(label: genderMaleLabel)
+        }
     }
 
     var genderNonLabel = OnOffLabel().then { label in

@@ -28,11 +28,11 @@ final class HomeViewModel: BaseViewModel {
             searchLocation = CLLocationCoordinate2D(latitude: 36.12312312, longitude: 36.12312312)
         }
 
-        filter = PostFilter(
+        let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
             wheterEnd: .open,
             filter: .newest,
-            distanceFilter: 5,
+            distanceFilter: 500,
             gender: .none,
             ageMin: 20,
             ageMax: 65,
@@ -40,6 +40,7 @@ final class HomeViewModel: BaseViewModel {
             jobFilter: .none,
             keywordSearch: ""
         )
+        filter = initialFilter
         super.init()
 
         self.mainPageAPIService.fetchPosts(with: filter)
@@ -144,6 +145,17 @@ final class HomeViewModel: BaseViewModel {
 
         // TODO: 필터 아이콘 활성화 비활성화 어떻게 조절할지 생각
         routeInputs.filterChanged
+            .do(onNext: { [weak self] inputFilter in
+                print(inputFilter)
+                print(initialFilter)
+                let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
+                    inputFilter.ageMax == initialFilter.ageMax &&
+                    inputFilter.gender == initialFilter.gender &&
+                    inputFilter.jobFilter == initialFilter.jobFilter &&
+                    inputFilter.distanceFilter == initialFilter.distanceFilter
+
+                self?.outputs.highLightFilter.onNext(!notChanged)
+            })
             .map { [weak self] inputFilter -> PostFilter? in
                 guard var newFilter = self?.filter
                 else { return nil }
@@ -183,6 +195,8 @@ final class HomeViewModel: BaseViewModel {
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var toast = BehaviorSubject<String>(value: "")
+
+        var highLightFilter = PublishSubject<Bool>()
     }
 
     struct Route {

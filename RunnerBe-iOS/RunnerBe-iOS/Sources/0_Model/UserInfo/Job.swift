@@ -74,6 +74,7 @@ extension Job {
     init(idx: Int) {
         if idx >= 0, idx < Job.allCases.count {
             self = Job.allCases[idx]
+            return
         }
         self = .none
     }

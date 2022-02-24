@@ -73,6 +73,12 @@ class HomeViewController: BaseViewController {
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
 
+        viewModel.outputs.highLightFilter
+            .subscribe(onNext: { [weak self] highlight in
+                self?.filterIcon.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
+            })
+            .disposed(by: disposeBags)
+
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)

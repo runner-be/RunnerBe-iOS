@@ -66,15 +66,26 @@ final class HomeFilterViewModel: BaseViewModel {
             }
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
+
+        inputs.reset
+            .subscribe(onNext: { [weak self] in
+                if let location = self?.locationService.currentPlace {
+                    self?.outputs.location.onNext(location)
+                }
+                self?.outputs.reset.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var backward = PublishSubject<InputData?>()
+        var reset = PublishSubject<Void>()
     }
 
     struct Output {
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
+        var reset = PublishSubject<Void>()
     }
 
     struct Route {

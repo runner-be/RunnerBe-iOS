@@ -24,7 +24,6 @@ struct PostAPIResult: Codable {
     let age: String // 20-65 (범위)
     let gender: String // 남성, 여성, 전체
     let DISTANCE: String // 모임 장소와 사용자 간 거리(Km)
-    let bookMarkNumber: Int // 찜 수
     let whetherEnd: String // N Y 마감여부
     let job: String // DEV,EDU (쉼표로 구분)
 
@@ -62,7 +61,6 @@ struct Post {
     let maxAge: Int
     let gender: Gender
     let DISTANCE: Float
-    let bookMarkNumber: Int
     let whetherEnd: PostState
     let job: [Job]
 
@@ -84,7 +82,6 @@ struct Post {
         maxAge = ages.count < 2 ? 65 : (Int(ages[1]) ?? 65)
         gender = Gender(code: apiResult.gender)
         DISTANCE = Float(apiResult.DISTANCE) ?? 1000
-        bookMarkNumber = apiResult.bookMarkNumber
         whetherEnd = PostState(from: apiResult.whetherEnd)
         job = apiResult.job.components(separatedBy: ",").reduce(into: [Job]()) {
             let job = Job(code: $1)
