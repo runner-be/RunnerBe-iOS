@@ -92,6 +92,9 @@ class HomeViewController: BaseViewController {
             }
             .map { [BasicPostSection(items: $0)] }
             .debug()
+            .do(onNext: { [weak self] _ in
+                self?.postCollectionView.collectionViewLayout.invalidateLayout()
+            })
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
 
@@ -164,7 +167,7 @@ class HomeViewController: BaseViewController {
     private lazy var postCollectionView: UICollectionView = {
         let size = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(150)
+            heightDimension: .estimated(100)
         )
         var item = NSCollectionLayoutItem(layoutSize: size)
         item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
@@ -242,7 +245,7 @@ extension HomeViewController {
         }
 
         floatingButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
         }
     }

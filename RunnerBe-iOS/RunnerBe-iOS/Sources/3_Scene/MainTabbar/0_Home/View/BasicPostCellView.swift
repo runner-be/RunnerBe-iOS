@@ -55,12 +55,12 @@ class BasicPostCellView: UICollectionViewCell {
     var blurAlpha: CGFloat = 0.7
 
     var profileLabel = IconLabel().then { view in
-        view.icon.image = Asset.profileEmptyIcon.uiImage
-        view.iconSize = CGSize(width: 14, height: 14)
         view.label.font = .iosCaption11R
         view.label.textColor = .darkG35
         view.spacing = 6
         view.padding = UIEdgeInsets(top: 3, left: 1, bottom: 3, right: 0)
+        view.icon.image = Asset.profileEmptyIcon.uiImage
+        view.iconSize = CGSize(width: 14, height: 14)
         view.label.text = "러너1234"
     }
 
@@ -76,11 +76,11 @@ class BasicPostCellView: UICollectionViewCell {
     }
 
     var dateLabel = IconLabel().then { view in
-        view.icon.image = Asset.scheduled.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG2
         view.label.text = "3/31 (금) AM 6:00"
+        view.icon.image = Asset.scheduled.uiImage
+        view.iconSize = CGSize(width: 19, height: 19)
         view.spacing = 8
     }
 
@@ -94,20 +94,20 @@ class BasicPostCellView: UICollectionViewCell {
     }
 
     var participantLabel = IconLabel().then { view in
-        view.icon.image = Asset.group.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG2
         view.label.text = "여성 · 20-35"
+        view.icon.image = Asset.group.uiImage
+        view.iconSize = CGSize(width: 19, height: 19)
         view.spacing = 8
     }
 
     var placeLabel = IconLabel().then { view in
-        view.icon.image = Asset.place.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG2
         view.label.text = "동작구 사당1동"
+        view.icon.image = Asset.place.uiImage
+        view.iconSize = CGSize(width: 19, height: 19)
         view.spacing = 8
     }
 
