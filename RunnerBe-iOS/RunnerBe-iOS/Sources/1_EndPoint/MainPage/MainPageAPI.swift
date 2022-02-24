@@ -11,6 +11,7 @@ import Moya
 enum MainPageAPI {
     case fetch(filter: PostFilter)
     case posting(form: PostingForm, id: Int, token: LoginToken)
+    case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
 }
 
 extension MainPageAPI: TargetType {
@@ -24,6 +25,8 @@ extension MainPageAPI: TargetType {
             return "/users/main/\(filter.runningTag.code)"
         case let .posting(_, id, _):
             return "/postings/\(id)"
+        case let .bookmarking(_, userId, mark, _):
+            return "/users/\(userId)/bookmarks/\(mark ? "Y" : "N")"
         }
     }
 
@@ -32,6 +35,8 @@ extension MainPageAPI: TargetType {
         case .fetch:
             return Method.get
         case .posting:
+            return Method.post
+        case .bookmarking:
             return Method.post
         }
     }
@@ -70,6 +75,12 @@ extension MainPageAPI: TargetType {
             ]
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+        case let .bookmarking(postId, _, _, _):
+            let query: [String: Any] = [
+                "postId": postId,
+            ]
+
+            return .requestCompositeData(bodyData: Data(), urlParameters: query)
         }
     }
 
@@ -78,6 +89,8 @@ extension MainPageAPI: TargetType {
         case .fetch:
             return nil
         case let .posting(_, _, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .bookmarking(_, _, _, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }

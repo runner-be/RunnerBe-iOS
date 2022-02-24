@@ -98,8 +98,9 @@ final class BasicMainPageAPIService: MainPageAPIService {
                     functionResult.onNext(.fail)
                     return
                 }
-                print(response.message)
-
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed)
@@ -109,6 +110,78 @@ final class BasicMainPageAPIService: MainPageAPIService {
                     functionResult.onNext(.fail)
                 default: // 나머지 에러
                     functionResult.onNext(.fail)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
+
+    func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)> {
+        let functionResult = ReplaySubject<(postId: Int, mark: Bool)>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just((postId: postId, mark: !mark)) }
+
+        let disposable = provider.rx.request(.bookmarking(postId: postId, userId: userId, mark: mark, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] bookmarking postId:\(postId) -> \(mark)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == fail")
+                        functionResult.onNext((postId: postId, mark: !mark))
+                    #endif
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext((postId: postId, mark: !mark))
+                    return
+                }
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext((postId: postId, mark: mark))
+                case 2011: // userId 미입력
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2012: // userId 형식 오류 (숫자입력 X)
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2041: // postId 미입력
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2042: // postId 형식 오류
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2071: // 찜 등록/ 해제 미입력
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2072: // 찜 등록/ 해제 형식 오류 (Y,N)으로 입력
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2073: // 이미 찜 등록중
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 2074: // 이미 찜 해제함
+                    functionResult.onNext((postId: postId, mark: !mark))
+                case 4000: // 데이터베이스 에러
+                    functionResult.onNext((postId: postId, mark: !mark))
+                default:
+                    functionResult.onNext((postId: postId, mark: !mark))
                 }
             })
 

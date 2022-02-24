@@ -836,6 +836,13 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
+		C35E34A027C8207B0023C0F9 /* BookMarkAPIService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookMarkAPIService;
+			sourceTree = "<group>";
+		};
 		C361B6C027B285F500824ABE /* 0_Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,6 +1145,7 @@
 		C3A64F8A27C54D360088E387 /* PostService */ = {
 			isa = PBXGroup;
 			children = (
+				C35E34A027C8207B0023C0F9 /* BookMarkAPIService */,
 				C3A64F8B27C54D500088E387 /* MainPageAPIService */,
 			);
 			path = PostService;

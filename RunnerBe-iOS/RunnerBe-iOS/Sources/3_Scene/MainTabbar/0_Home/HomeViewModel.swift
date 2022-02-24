@@ -142,11 +142,15 @@ final class HomeViewModel: BaseViewModel {
         inputs.tapPostBookMark
             .map { [weak self] idx in (idx: idx, post: self?.posts[idx]) }
             .filter { $0.post != nil }
-            .do(onNext: { [weak self] idxPost in
-                self?.posts[idxPost.idx].bookMarked.toggle()
+            .flatMap { mainPageAPIService.bookmark(postId: $0.post!.id, mark: !$0.post!.bookMarked) }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self,
+                      let index = self.posts.firstIndex(where: { $0.id == result.postId })
+                else { return }
+
+                self.posts[index].bookMarked = result.mark
+                self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
             })
-            .map { (idx: $0.idx, marked: !$0.post!.bookMarked) }
-            .subscribe(outputs.bookMarked)
             .disposed(by: disposeBag)
 
         routeInputs.needUpdate
