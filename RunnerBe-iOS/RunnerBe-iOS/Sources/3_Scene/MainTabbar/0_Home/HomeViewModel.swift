@@ -51,6 +51,7 @@ final class HomeViewModel: BaseViewModel {
             })
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
                 self?.outputs.posts.onNext(posts)
             })
             .disposed(by: disposeBag)
@@ -83,7 +84,10 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+            })
             .disposed(by: disposeBag)
 
         inputs.deadLineChanged
@@ -104,7 +108,10 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(onNext: { [weak self] posts in self?.outputs.posts.onNext(posts) })
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+            })
             .disposed(by: disposeBag)
 
         inputs.filterTypeChanged
@@ -126,7 +133,20 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.tapPostBookMark
+            .map { [weak self] idx in (idx: idx, post: self?.posts[idx]) }
+            .filter { $0.post != nil }
+            .do(onNext: { [weak self] idxPost in
+                self?.posts[idxPost.idx].bookMarked.toggle()
+            })
+            .map { (idx: $0.idx, marked: !$0.post!.bookMarked) }
+            .subscribe(outputs.bookMarked)
             .disposed(by: disposeBag)
 
         routeInputs.needUpdate
@@ -141,7 +161,10 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+            })
             .disposed(by: disposeBag)
 
         // TODO: 필터 아이콘 활성화 비활성화 어떻게 조절할지 생각
@@ -181,7 +204,10 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -191,12 +217,14 @@ final class HomeViewModel: BaseViewModel {
         var deadLineChanged = PublishSubject<Bool>()
         var tagChanged = PublishSubject<Int>()
         var filterTypeChanged = PublishSubject<Int>()
+        var tapPostBookMark = PublishSubject<Int>()
+        var tapPost = PublishSubject<Int>()
     }
 
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var toast = BehaviorSubject<String>(value: "")
-
+        var bookMarked = PublishSubject<(idx: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
     }
 

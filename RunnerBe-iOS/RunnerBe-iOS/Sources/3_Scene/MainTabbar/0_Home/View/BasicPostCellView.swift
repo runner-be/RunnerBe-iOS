@@ -5,6 +5,8 @@
 //  Created by 김신우 on 2022/02/20.
 //
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 import UIKit
@@ -38,7 +40,11 @@ class BasicPostCellView: UICollectionViewCell {
 
     override func prepareForReuse() {
         postState = .open
+        bookMarkIcon.isSelected = false
+        disposeBag = DisposeBag()
     }
+
+    var disposeBag = DisposeBag()
 
     var postState: State = .closed {
         didSet {
@@ -153,7 +159,7 @@ class BasicPostCellView: UICollectionViewCell {
 extension BasicPostCellView {
     private func setup() {
         backgroundColor = .darkG55
-        addSubviews([
+        contentView.addSubviews([
             profileLabel,
             bookMarkIcon,
             titleLabel,

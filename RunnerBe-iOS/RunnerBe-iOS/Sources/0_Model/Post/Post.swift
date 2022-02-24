@@ -26,22 +26,6 @@ struct PostAPIResult: Codable {
     let DISTANCE: String // 모임 장소와 사용자 간 거리(Km)
     let whetherEnd: String // N Y 마감여부
     let job: String // DEV,EDU (쉼표로 구분)
-
-//    init(json: JSON) throws {
-//        let result = json["post"]
-//        guard let
-//    }
-
-    /*
-     static func Member(json: JSON) throws -> LoginAPIResult {
-         let result = json["result"]
-         guard let userId = result["userId"].int,
-               let jwt = result["jwt"].string,
-               let message = result["message"].string
-         else { throw JSONError.decoding }
-         return LoginAPIResult.member(userId: userId, jwt: jwt, message: message)
-     }
-     */
 }
 
 struct Post {
@@ -63,6 +47,7 @@ struct Post {
     let DISTANCE: Float
     let whetherEnd: PostState
     let job: [Job]
+    var bookMarked = false
 
     init(from apiResult: PostAPIResult) {
         id = apiResult.postId

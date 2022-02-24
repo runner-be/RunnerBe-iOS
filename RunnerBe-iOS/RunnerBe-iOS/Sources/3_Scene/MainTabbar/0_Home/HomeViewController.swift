@@ -51,13 +51,35 @@ class HomeViewController: BaseViewController {
         deadlineFilter.tapCheck
             .bind(to: viewModel.inputs.deadLineChanged)
             .disposed(by: disposeBags)
+
+        postCollectionView.rx.itemSelected
+            .map { $0.row }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
         // 서버 연결
-        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> { _, collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
+        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> { [weak self] _, collectionView, indexPath, item in
+            guard let self = self,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
             else { return UICollectionViewCell() }
+
+            self.viewModel.outputs.bookMarked
+                .filter { $0.idx == indexPath.row }
+                .map { $0.marked }
+                .subscribe(onNext: {
+                    cell.bookMarkIcon.isSelected = $0
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.bookMarkIcon.rx.tap
+                .map { indexPath.row }
+                .subscribe(onNext: { [weak self] idx in
+                    self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+                })
+                .disposed(by: cell.disposeBag)
+
             cell.configure(with: item)
             return cell
         }
