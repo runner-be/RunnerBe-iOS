@@ -32,7 +32,7 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
                     print("[WritingDetailPostCoordinator][closeSignal] popViewController")
                 #endif
 
-                self?.navController.popViewController(animated: true)
+                self?.navController.popViewController(animated: false)
             })
             .disposed(by: disposeBag)
 

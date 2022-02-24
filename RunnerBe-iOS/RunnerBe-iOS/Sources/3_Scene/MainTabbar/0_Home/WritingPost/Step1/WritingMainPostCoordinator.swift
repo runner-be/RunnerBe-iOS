@@ -35,7 +35,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 case .backward:
                     self?.navController.popViewController(animated: true)
                 case .toHome:
-                    self?.navController.popViewController(animated: false)
+                    self?.navController.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)
