@@ -101,15 +101,15 @@ internal enum L10n {
       internal enum Age {
         /// 모든연령
         internal static let all = L10n.tr("Localizable", "Home.Filter.Age.all")
-        /// 연령
+        /// 모집 연령
         internal static let title = L10n.tr("Localizable", "Home.Filter.Age.title")
       }
       internal enum Gender {
-        /// 성별
+        /// 모집 성별
         internal static let title = L10n.tr("Localizable", "Home.Filter.Gender.title")
       }
       internal enum Job {
-        /// 직군
+        /// 모집 직군
         internal static let title = L10n.tr("Localizable", "Home.Filter.Job.title")
       }
       internal enum NavBar {
