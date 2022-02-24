@@ -12,9 +12,9 @@ import RxSwift
 final class WritingDetailPostViewModel: BaseViewModel {
     typealias ViewInputData = (gender: Int, ageMin: Int, ageMax: Int, numPerson: Int, textContent: String)
 
-    private var mainPageAPIService: MainPageAPIService
+    private var mainPageAPIService: PostAPIService
 
-    init(mainPostData: PostMainData, mainPageAPIService: MainPageAPIService, dateService: DateService) {
+    init(mainPostData: PostMainData, mainPageAPIService: PostAPIService, dateService: DateService) {
         self.mainPageAPIService = mainPageAPIService
         super.init()
 

@@ -9,7 +9,7 @@ import Foundation
 import NeedleFoundation
 
 protocol WritingDetailPostDependency: Dependency {
-    var mainPageAPIService: MainPageAPIService { get }
+    var mainPageAPIService: PostAPIService { get }
     var dateService: DateService { get }
     var loginService: LoginService { get }
 }

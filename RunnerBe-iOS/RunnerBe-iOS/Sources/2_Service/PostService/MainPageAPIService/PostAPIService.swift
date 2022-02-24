@@ -1,5 +1,5 @@
 //
-//  MainPageAPIService.swift
+//  PostAPIService.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/23.
@@ -12,7 +12,7 @@ enum PostingResult {
     case succeed, fail, needLogin
 }
 
-protocol MainPageAPIService {
+protocol PostAPIService {
     func fetchPosts(with filter: PostFilter) -> Observable<[Post]?>
     func fetchPostsBookMarked() -> Observable<[Post]?>
     func posting(form: PostingForm) -> Observable<PostingResult>

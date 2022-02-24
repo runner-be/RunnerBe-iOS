@@ -8,14 +8,14 @@
 import Foundation
 import Moya
 
-enum MainPageAPI {
+enum PostAPI {
     case fetch(filter: PostFilter)
     case posting(form: PostingForm, id: Int, token: LoginToken)
     case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
     case fetchBookMarked(userId: Int, token: LoginToken)
 }
 
-extension MainPageAPI: TargetType {
+extension PostAPI: TargetType {
     var baseURL: URL {
         return BaseAPI.url
     }

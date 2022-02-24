@@ -30,8 +30,8 @@ final class HomeComponent: Component<HomeDependency> {
         return shared { BasicLocationService() }
     }
 
-    var mainPageAPIService: MainPageAPIService {
-        return BasicMainPageAPIService(loginKeyChainService: dependency.loginKeyChainService)
+    var mainPageAPIService: PostAPIService {
+        return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }
 
     var writingPostComponent: WritingMainPostComponent {

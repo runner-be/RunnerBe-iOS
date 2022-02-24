@@ -158,7 +158,7 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
     }
 }
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
-    var mainPageAPIService: MainPageAPIService {
+    var mainPageAPIService: PostAPIService {
         return homeComponent.mainPageAPIService
     }
     var dateService: DateService {

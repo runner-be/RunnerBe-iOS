@@ -146,14 +146,14 @@
 		C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA727BC71FD00A7D86B /* CGRect+.swift */; };
 		C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */; };
 		C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EAF27BCF3FB00A7D86B /* SelectAgeView.swift */; };
-		C3A64F8227C5487F0088E387 /* MainPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8127C5487F0088E387 /* MainPageAPI.swift */; };
+		C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8127C5487F0088E387 /* PostAPI.swift */; };
 		C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8427C54A6F0088E387 /* RunningTag.swift */; };
 		C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8627C54A7F0088E387 /* PostState.swift */; };
 		C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8827C54A930088E387 /* PostFilter.swift */; };
-		C3A64F8D27C54D650088E387 /* MainPageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8C27C54D650088E387 /* MainPageAPIService.swift */; };
+		C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8C27C54D650088E387 /* PostAPIService.swift */; };
 		C3A64F8F27C54DA20088E387 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F8E27C54DA20088E387 /* Post.swift */; };
 		C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9027C54DBA0088E387 /* FilterType.swift */; };
-		C3A64F9327C5541A0088E387 /* BasicMainPageAPIService.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9227C5541A0088E387 /* BasicMainPageAPIService.swift.swift */; };
+		C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift.swift */; };
 		C3A64F9527C55E7C0088E387 /* PostCellConfiguringItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9427C55E7C0088E387 /* PostCellConfiguringItem.swift */; };
 		C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9627C57F5A0088E387 /* PostingForm.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
@@ -374,14 +374,14 @@
 		C39F2EA727BC71FD00A7D86B /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		C39F2EAF27BCF3FB00A7D86B /* SelectAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeView.swift; sourceTree = "<group>"; };
-		C3A64F8127C5487F0088E387 /* MainPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageAPI.swift; sourceTree = "<group>"; };
+		C3A64F8127C5487F0088E387 /* PostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPI.swift; sourceTree = "<group>"; };
 		C3A64F8427C54A6F0088E387 /* RunningTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTag.swift; sourceTree = "<group>"; };
 		C3A64F8627C54A7F0088E387 /* PostState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostState.swift; sourceTree = "<group>"; };
 		C3A64F8827C54A930088E387 /* PostFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFilter.swift; sourceTree = "<group>"; };
-		C3A64F8C27C54D650088E387 /* MainPageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageAPIService.swift; sourceTree = "<group>"; };
+		C3A64F8C27C54D650088E387 /* PostAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIService.swift; sourceTree = "<group>"; };
 		C3A64F8E27C54DA20088E387 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C3A64F9027C54DBA0088E387 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
-		C3A64F9227C5541A0088E387 /* BasicMainPageAPIService.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMainPageAPIService.swift.swift; sourceTree = "<group>"; };
+		C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostAPIService.swift.swift; sourceTree = "<group>"; };
 		C3A64F9427C55E7C0088E387 /* PostCellConfiguringItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellConfiguringItem.swift; sourceTree = "<group>"; };
 		C3A64F9627C57F5A0088E387 /* PostingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingForm.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -853,7 +853,7 @@
 		C361B6C127B285FC00824ABE /* 1_EndPoint */ = {
 			isa = PBXGroup;
 			children = (
-				C3A64F8027C548700088E387 /* MainPage */,
+				C3A64F8027C548700088E387 /* PostAPI */,
 				C39E926027BACCE800798F3A /* Email */,
 				C3432CAD27B8449900DEFF51 /* SignUp */,
 				C3AD114727B8111100A7044C /* Login */,
@@ -1114,12 +1114,12 @@
 			path = CheckBox;
 			sourceTree = "<group>";
 		};
-		C3A64F8027C548700088E387 /* MainPage */ = {
+		C3A64F8027C548700088E387 /* PostAPI */ = {
 			isa = PBXGroup;
 			children = (
-				C3A64F8127C5487F0088E387 /* MainPageAPI.swift */,
+				C3A64F8127C5487F0088E387 /* PostAPI.swift */,
 			);
-			path = MainPage;
+			path = PostAPI;
 			sourceTree = "<group>";
 		};
 		C3A64F8327C54A670088E387 /* Post */ = {
@@ -1146,8 +1146,8 @@
 		C3A64F8B27C54D500088E387 /* MainPageAPIService */ = {
 			isa = PBXGroup;
 			children = (
-				C3A64F8C27C54D650088E387 /* MainPageAPIService.swift */,
-				C3A64F9227C5541A0088E387 /* BasicMainPageAPIService.swift.swift */,
+				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
+				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift.swift */,
 			);
 			path = MainPageAPIService;
 			sourceTree = "<group>";
@@ -1691,7 +1691,7 @@
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
 				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
-				C3A64F9327C5541A0088E387 /* BasicMainPageAPIService.swift.swift in Sources */,
+				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift.swift in Sources */,
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */,
 				C3BA459A27B405210048CA76 /* BadgeLabel.swift.swift in Sources */,
@@ -1787,7 +1787,7 @@
 				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
-				C3A64F8227C5487F0088E387 /* MainPageAPI.swift in Sources */,
+				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
@@ -1823,7 +1823,7 @@
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
-				C3A64F8D27C54D650088E387 /* MainPageAPIService.swift in Sources */,
+				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
 				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,

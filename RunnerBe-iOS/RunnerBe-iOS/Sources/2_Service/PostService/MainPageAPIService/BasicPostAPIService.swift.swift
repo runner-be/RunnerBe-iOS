@@ -1,5 +1,5 @@
 //
-//  BasicMainPageAPIService.swift.swift
+//  BasicPostAPIService.swift.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/23.
@@ -10,14 +10,14 @@ import Moya
 import RxSwift
 import SwiftyJSON
 
-final class BasicMainPageAPIService: MainPageAPIService {
+final class BasicPostAPIService: PostAPIService {
     private var disposableId: Int = 0
     private var disposableDic: [Int: Disposable] = [:]
 
-    let provider: MoyaProvider<MainPageAPI>
+    let provider: MoyaProvider<PostAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MainPageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
+    init(provider: MoyaProvider<PostAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
     }

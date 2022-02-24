@@ -11,13 +11,13 @@ import RxSwift
 
 final class HomeViewModel: BaseViewModel {
     private var locationService: LocationService
-    private var mainPageAPIService: MainPageAPIService
+    private var mainPageAPIService: PostAPIService
 
     var bookMarkSet = Set<Int>()
     var posts: [Post] = []
     var filter: PostFilter
 
-    init(locationService: LocationService, mainPageAPIService: MainPageAPIService) {
+    init(locationService: LocationService, mainPageAPIService: PostAPIService) {
         self.locationService = locationService
         self.mainPageAPIService = mainPageAPIService
 
