@@ -44,20 +44,9 @@ final class BasicMainPageAPIService: MainPageAPIService {
                 #endif
                 return try? (response: BasicResponse(json: json), json: json)
             }
-            .map {
-                guard let result = $0,
-                      let payload = try? result.json["result"].rawData()
-                else { return nil }
-                return payload
-            }
+            .map { try? $0?.json["result"].rawData() }
             .compactMap { $0 }
             .decode(type: [PostAPIResult].self, decoder: JSONDecoder())
-            .catch { error in
-                print("[\(#line):MainPageAPIService] JSON decode Error: \(error)")
-                functionResult.onNext(nil)
-                return .just([])
-            }
-            .filter { !$0.isEmpty }
             .map { $0.reduce(into: [Post]()) {
                 $0.append(Post(from: $1))
             }}
