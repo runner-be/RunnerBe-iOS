@@ -23,6 +23,10 @@ class SelectAgeView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setValues(minValue: CGFloat, maxValue: CGFloat) {
+        slider.setSelectValue(minValue: minValue, maxValue: maxValue)
+    }
+
     func reset() {
         slider.reset()
         checkBox.isSelected = false

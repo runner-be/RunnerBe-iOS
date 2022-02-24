@@ -35,6 +35,10 @@ class SelectPlaceView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
+    func setDistance(distance: CGFloat) {
+        slider.setSelectValue(minValue: distance, maxValue: distance)
+    }
+
     func reset() {
         slider.reset()
     }

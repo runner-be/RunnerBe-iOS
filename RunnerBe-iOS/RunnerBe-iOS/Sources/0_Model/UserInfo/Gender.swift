@@ -25,6 +25,17 @@ extension Gender {
         }
     }
 
+    var index: Int {
+        var idx = 0
+        for (i, j) in Gender.allCases.enumerated() {
+            idx = i
+            if self == j {
+                return i
+            }
+        }
+        return idx
+    }
+
     init(idx: Int) {
         if idx >= 0, idx < Gender.allCases.count {
             self = Gender.allCases[idx]

@@ -23,6 +23,14 @@ class SelectJobView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func select(idx: Int) {
+        reset()
+
+        if idx >= 0, idx < jobLabels.count {
+            jobGroup.toggle(label: jobLabels[idx])
+        }
+    }
+
     func reset() {
         jobLabels.forEach {
             if $0.isOn {
@@ -102,8 +110,8 @@ class SelectJobView: SelectBaseView {
 
         jobGroupCollectionView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)
-            make.leading.equalTo(contentView.snp.leading).offset(40)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-40)
+            make.leading.equalTo(contentView.snp.leading).offset(38)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-38)
             make.height.equalTo(244)
             make.bottom.equalTo(contentView.snp.bottom)
         }

@@ -23,6 +23,21 @@ class SelectGenderView: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func select(idx: Int) {
+        reset()
+        switch idx {
+        case 0:
+//            genderLabelGroup.toggle(label: genderNonLabel)
+            break
+        case 1:
+            genderLabelGroup.toggle(label: genderFemaleLabel)
+        case 2:
+            genderLabelGroup.toggle(label: genderMaleLabel)
+        default:
+            break
+        }
+    }
+
     func reset() {
         if !genderNonLabel.isOn {
             genderLabelGroup.toggle(label: genderNonLabel)

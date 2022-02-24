@@ -56,6 +56,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.showDetailFilter
+            .map { [weak self] in self?.filter ?? initialFilter }
             .bind(to: routes.filter)
             .disposed(by: disposeBag)
 
@@ -200,7 +201,7 @@ final class HomeViewModel: BaseViewModel {
     }
 
     struct Route {
-        var filter = PublishSubject<Void>()
+        var filter = PublishSubject<PostFilter>()
         var writingPost = PublishSubject<Void>()
     }
 

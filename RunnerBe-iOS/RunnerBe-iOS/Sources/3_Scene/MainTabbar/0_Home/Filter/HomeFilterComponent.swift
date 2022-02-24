@@ -19,6 +19,13 @@ final class HomeFilterComponent: Component<HomeFilterDependency> {
     }
 
     var viewModel: HomeFilterViewModel {
-        return HomeFilterViewModel(locationService: dependency.locationService)
+        return HomeFilterViewModel(inputFilter: inputFilter, locationService: dependency.locationService)
     }
+
+    init(_ parent: Scope, filter: PostFilter) {
+        inputFilter = filter
+        super.init(parent: parent)
+    }
+
+    private var inputFilter: PostFilter
 }

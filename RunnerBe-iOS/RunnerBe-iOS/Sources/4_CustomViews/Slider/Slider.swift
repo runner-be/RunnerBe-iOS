@@ -20,6 +20,24 @@ class Slider: UIControl {
         updatePositions()
     }
 
+    func setSelectValue(minValue: CGFloat?, maxValue: CGFloat?) {
+        if let minValue = minValue {
+            selectedMinValue = min(max(minValue, selectedMinValue), self.maxValue)
+            if selectedMinValue > selectedMaxValue {
+                selectedMaxValue = selectedMinValue
+            }
+        }
+
+        if let maxValue = maxValue {
+            selectedMaxValue = max(min(maxValue, selectedMaxValue), self.minValue)
+            if selectedMaxValue < selectedMinValue {
+                selectedMinValue = selectedMaxValue
+            }
+        }
+
+        updatePositions()
+    }
+
     init(leftHandle: SliderHandle, rightHandle: SliderHandle) {
         self.leftHandle = leftHandle
         self.rightHandle = rightHandle

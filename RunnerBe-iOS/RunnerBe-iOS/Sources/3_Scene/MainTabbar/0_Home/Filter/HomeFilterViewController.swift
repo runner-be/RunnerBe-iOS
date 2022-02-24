@@ -73,6 +73,34 @@ class HomeFilterViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
 
+        viewModel.outputs.gender
+            .take(1)
+            .subscribe(onNext: { [weak self] idx in
+                self?.filterGenderView.select(idx: idx)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.job
+            .take(1)
+            .subscribe(onNext: { [weak self] idx in
+                self?.filterJobView.select(idx: idx)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.age
+            .take(1)
+            .subscribe(onNext: { [weak self] age in
+                self?.filterAgeView.setValues(minValue: CGFloat(age.min), maxValue: CGFloat(age.max))
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.distance
+            .take(1)
+            .subscribe(onNext: { [weak self] distance in
+                self?.filterPlaceView.setDistance(distance: CGFloat(distance))
+            })
+            .disposed(by: disposeBags)
+
         viewModel.outputs.reset
             .subscribe(onNext: { [weak self] in
                 self?.filterAgeView.reset()

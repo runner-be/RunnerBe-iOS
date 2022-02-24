@@ -20,14 +20,21 @@ final class HomeFilterViewModel: BaseViewModel {
 
     private var locationService: LocationService
 
-    init(locationService: LocationService) {
+    init(inputFilter: PostFilter, locationService: LocationService) {
         self.locationService = locationService
         super.init()
 
-        outputs.boundaryLimit.onNext(locationService.allowableBoundary)
-        if let currentLocation = locationService.currentPlace {
-            outputs.location.onNext(currentLocation)
-        }
+//        outputs.boundaryLimit.onNext(locationService.allowableBoundary)
+//        if let currentLocation = locationService.currentPlace {
+//            outputs.location.onNext(currentLocation)
+//        }
+
+        outputs.location.onNext(CLLocationCoordinate2D(latitude: inputFilter.latitude,
+                                                       longitude: inputFilter.longitude))
+        outputs.distance.onNext(inputFilter.distanceFilter)
+        outputs.age.onNext((min: inputFilter.ageMin, max: inputFilter.ageMax))
+        outputs.job.onNext(inputFilter.jobFilter.index)
+        outputs.gender.onNext(inputFilter.gender.index)
 
         inputs.backward
             .map { input in
@@ -84,7 +91,11 @@ final class HomeFilterViewModel: BaseViewModel {
 
     struct Output {
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
+        var distance = ReplaySubject<Float>.create(bufferSize: 1)
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
+        var gender = ReplaySubject<Int>.create(bufferSize: 1)
+        var job = ReplaySubject<Int>.create(bufferSize: 1)
+        var age = ReplaySubject<(min: Int, max: Int)>.create(bufferSize: 1)
         var reset = PublishSubject<Void>()
     }
 

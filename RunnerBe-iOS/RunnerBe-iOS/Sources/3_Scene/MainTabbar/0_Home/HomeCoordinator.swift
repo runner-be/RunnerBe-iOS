@@ -27,9 +27,9 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
         let scene = component.scene
 
         scene.VM.routes.filter
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushHomeFilterScene(vm: vm, animated: true)
+            .map { (vm: scene.VM, filter: $0) }
+            .subscribe(onNext: { [weak self] input in
+                self?.pushHomeFilterScene(vm: input.vm, filter: input.filter, animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -59,8 +59,8 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
         addChildBag(id: coord.id, disposable: disposable)
     }
 
-    private func pushHomeFilterScene(vm: HomeViewModel, animated: Bool) {
-        let comp = component.postFilterComponent
+    private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
+        let comp = component.postFilterComponent(filter: filter)
         let coord = HomeFilterCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)

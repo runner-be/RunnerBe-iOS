@@ -38,7 +38,7 @@ final class HomeComponent: Component<HomeDependency> {
         return WritingMainPostComponent(parent: self)
     }
 
-    var postFilterComponent: HomeFilterComponent {
-        return HomeFilterComponent(parent: self)
+    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
+        return HomeFilterComponent(self, filter: filter)
     }
 }

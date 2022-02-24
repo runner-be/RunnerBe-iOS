@@ -26,6 +26,35 @@ enum Job: CaseIterable {
 }
 
 extension Job {
+    init(code: String) {
+        for job in Job.allCases {
+            if job.code == code {
+                self = job
+                return
+            }
+        }
+        self = .none
+    }
+
+    init(idx: Int) {
+        if idx >= 0, idx < Job.allCases.count {
+            self = Job.allCases[idx]
+            return
+        }
+        self = .none
+    }
+
+    var index: Int {
+        var idx = 0
+        for (i, j) in Job.allCases.enumerated() {
+            idx = i
+            if self == j {
+                return i
+            }
+        }
+        return idx
+    }
+
     var code: String {
         switch self {
         case .psv:
@@ -59,24 +88,6 @@ extension Job {
         case .none:
             return "N"
         }
-    }
-
-    init(code: String) {
-        for job in Job.allCases {
-            if job.code == code {
-                self = job
-                return
-            }
-        }
-        self = .none
-    }
-
-    init(idx: Int) {
-        if idx >= 0, idx < Job.allCases.count {
-            self = Job.allCases[idx]
-            return
-        }
-        self = .none
     }
 
     var name: String {
