@@ -23,7 +23,12 @@ struct PostCellConfiguringItem: Equatable {
         title = post.title
         date = post.gatheringTime
         place = post.locationInfo
-        gender = post.gender.name
+        switch post.gender {
+        case .female, .male:
+            gender = post.gender.name + L10n.Main.Post.Cell.Gender.additional
+        case .none:
+            gender = post.gender.name
+        }
         ageText = "\(post.minAge)-\(post.maxAge)"
         writerName = post.writerName
         closed = post.whetherEnd != .open

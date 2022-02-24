@@ -9,8 +9,8 @@ import Foundation
 
 enum Gender: CaseIterable {
     case none
-    case male
     case female
+    case male
 }
 
 extension Gender {

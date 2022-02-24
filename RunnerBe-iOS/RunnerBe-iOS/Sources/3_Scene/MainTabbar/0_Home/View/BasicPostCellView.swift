@@ -78,6 +78,15 @@ class BasicPostCellView: UICollectionViewCell {
         view.spacing = 8
     }
 
+    var timeLabel = IconLabel().then { view in
+        view.icon.image = Asset.time.uiImage
+        view.iconSize = CGSize(width: 19, height: 19)
+        view.label.font = .iosBody13R
+        view.label.textColor = .darkG2
+        view.label.text = "2시간 20분"
+        view.spacing = 8
+    }
+
     var participantLabel = IconLabel().then { view in
         view.icon.image = Asset.group.uiImage
         view.iconSize = CGSize(width: 19, height: 19)
@@ -149,6 +158,7 @@ extension BasicPostCellView {
             bookMarkIcon,
             titleLabel,
             dateLabel,
+            timeLabel,
             participantLabel,
             placeLabel,
         ])
@@ -185,10 +195,15 @@ extension BasicPostCellView {
             make.top.equalTo(dateLabel.snp.top)
         }
 
-        participantLabel.snp.makeConstraints { make in
+        timeLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(4)
             make.leading.equalTo(profileLabel.snp.leading)
             make.bottom.equalTo(contentView.snp.bottom).offset(-24)
+        }
+
+        participantLabel.snp.makeConstraints { make in
+            make.top.equalTo(timeLabel.snp.top)
+            make.leading.equalTo(placeLabel.snp.leading)
         }
     }
 }

@@ -203,6 +203,17 @@ internal enum L10n {
     }
   }
 
+  internal enum Main {
+    internal enum Post {
+      internal enum Cell {
+        internal enum Gender {
+          /// 만
+          internal static let additional = L10n.tr("Localizable", "Main.Post.Cell.Gender.additional")
+        }
+      }
+    }
+  }
+
   internal enum MainTabbar {
     internal enum Item {
       internal enum BookMark {

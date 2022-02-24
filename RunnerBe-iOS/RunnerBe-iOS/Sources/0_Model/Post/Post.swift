@@ -80,7 +80,7 @@ struct Post {
         let ages = apiResult.age.components(separatedBy: "-")
         minAge = ages.count < 2 ? 20 : (Int(ages[0]) ?? 20)
         maxAge = ages.count < 2 ? 65 : (Int(ages[1]) ?? 65)
-        gender = Gender(code: apiResult.gender)
+        gender = Gender(name: apiResult.gender)
         DISTANCE = Float(apiResult.DISTANCE) ?? 1000
         whetherEnd = PostState(from: apiResult.whetherEnd)
         job = apiResult.job.components(separatedBy: ",").reduce(into: [Job]()) {
