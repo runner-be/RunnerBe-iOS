@@ -14,6 +14,7 @@ enum PostingResult {
 
 protocol MainPageAPIService {
     func fetchPosts(with filter: PostFilter) -> Observable<[Post]?>
+    func fetchPostsBookMarked() -> Observable<[Post]?>
     func posting(form: PostingForm) -> Observable<PostingResult>
     func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)>
 }

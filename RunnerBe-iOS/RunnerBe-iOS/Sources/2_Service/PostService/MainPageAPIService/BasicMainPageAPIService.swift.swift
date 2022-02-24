@@ -17,7 +17,7 @@ final class BasicMainPageAPIService: MainPageAPIService {
     let provider: MoyaProvider<MainPageAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MainPageAPI> = .init(), loginKeyChainService: LoginKeyChainService) {
+    init(provider: MoyaProvider<MainPageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
     }
@@ -184,6 +184,51 @@ final class BasicMainPageAPIService: MainPageAPIService {
                     functionResult.onNext((postId: postId, mark: !mark))
                 }
             })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
+
+    func fetchPostsBookMarked() -> Observable<[Post]?> {
+        let functionResult = ReplaySubject<[Post]?>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(nil) }
+
+        let disposable = provider.rx.request(.fetchBookMarked(userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (response: BasicResponse, json: JSON)? in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] fetchBookMarkList of user: \(userId) token: \(token)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == nil")
+                    #endif
+                    return nil
+                }
+                #if DEBUG
+                    print("result: \n\(json)")
+                #endif
+                return try? (response: BasicResponse(json: json), json: json)
+            }
+            .map { try? $0?.json["result"]["bookMarkList"].rawData() }
+            .compactMap { $0 }
+            .decode(type: [PostAPIResult].self, decoder: JSONDecoder())
+            .map { $0.reduce(into: [Post]()) {
+                $0.append(Post(from: $1))
+            }}
+            .bind(to: functionResult)
 
         let id = disposableId
         disposableId += 1

@@ -12,6 +12,7 @@ enum MainPageAPI {
     case fetch(filter: PostFilter)
     case posting(form: PostingForm, id: Int, token: LoginToken)
     case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
+    case fetchBookMarked(userId: Int, token: LoginToken)
 }
 
 extension MainPageAPI: TargetType {
@@ -27,6 +28,8 @@ extension MainPageAPI: TargetType {
             return "/postings/\(id)"
         case let .bookmarking(_, userId, mark, _):
             return "/users/\(userId)/bookmarks/\(mark ? "Y" : "N")"
+        case let .fetchBookMarked(userId, _):
+            return "/users/\(userId)/bookmarks"
         }
     }
 
@@ -38,6 +41,8 @@ extension MainPageAPI: TargetType {
             return Method.post
         case .bookmarking:
             return Method.post
+        case .fetchBookMarked:
+            return Method.get
         }
     }
 
@@ -79,8 +84,9 @@ extension MainPageAPI: TargetType {
             let query: [String: Any] = [
                 "postId": postId,
             ]
-
             return .requestCompositeData(bodyData: Data(), urlParameters: query)
+        case .fetchBookMarked:
+            return .requestPlain
         }
     }
 
@@ -91,6 +97,8 @@ extension MainPageAPI: TargetType {
         case let .posting(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .bookmarking(_, _, _, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .fetchBookMarked(_, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }
