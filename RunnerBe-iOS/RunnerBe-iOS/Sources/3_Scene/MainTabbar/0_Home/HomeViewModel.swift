@@ -42,14 +42,16 @@ final class HomeViewModel: BaseViewModel {
         )
         super.init()
 
-        mainPageAPIService.fetchPosts(with: filter)
+        self.mainPageAPIService.fetchPosts(with: filter)
             .do(onNext: { [weak self] result in
                 if result == nil {
                     self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in
+                self?.outputs.posts.onNext(posts)
+            })
             .disposed(by: disposeBag)
 
         inputs.showDetailFilter
@@ -100,7 +102,7 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .subscribe(outputs.posts)
+            .subscribe(onNext: { [weak self] posts in self?.outputs.posts.onNext(posts) })
             .disposed(by: disposeBag)
 
         inputs.filterTypeChanged

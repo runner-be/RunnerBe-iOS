@@ -29,7 +29,7 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
             .debug()
             .subscribe(onNext: { [weak self] _ in
                 #if DEBUG
-                    print("[WritingMainPostCoordinator][closeSignal] popViewController")
+                    print("[WritingDetailPostCoordinator][closeSignal] popViewController")
                 #endif
 
                 self?.navController.popViewController(animated: true)

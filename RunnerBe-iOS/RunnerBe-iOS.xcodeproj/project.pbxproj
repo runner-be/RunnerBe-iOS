@@ -194,6 +194,7 @@
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
 		C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */; };
+		C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */; };
 		C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */; };
 		C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937C27BB886A00D47C9C /* String+SHA256.swift */; };
 		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
@@ -421,6 +422,7 @@
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
 		C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewController.swift; sourceTree = "<group>"; };
+		C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostDataSource.swift; sourceTree = "<group>"; };
 		C3D3937927BB469300D47C9C /* RunnerBe-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerBe-iOS.entitlements"; sourceTree = "<group>"; };
 		C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D3937C27BB886A00D47C9C /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
@@ -1023,6 +1025,7 @@
 			children = (
 				C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */,
 				C3A64F9427C55E7C0088E387 /* PostCellConfiguringItem.swift */,
+				C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1831,6 +1834,7 @@
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
+				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift.swift in Sources */,

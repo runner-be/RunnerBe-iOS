@@ -19,6 +19,8 @@ target 'RunnerBe-iOS' do
   # RxSwift & Cocoa
   pod 'RxSwift', '~> 6.5.0'
   pod 'RxCocoa', '~> 6.5.0'
+  # RxDataSource
+  pod 'RxDataSources', '~> 5.0'
   # RxGesture
   pod 'RxGesture'
   # SnapKit

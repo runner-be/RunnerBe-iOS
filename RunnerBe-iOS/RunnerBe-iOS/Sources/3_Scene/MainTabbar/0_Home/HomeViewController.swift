@@ -6,10 +6,12 @@
 //
 
 import RxCocoa
+import RxDataSources
 import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 class HomeViewController: BaseViewController {
@@ -53,11 +55,28 @@ class HomeViewController: BaseViewController {
 
     private func viewModelOutput() {
         // 서버 연결
+        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> { _, collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
+            else { return UICollectionViewCell() }
+            cell.configure(with: item)
+            return cell
+        }
+
         viewModel.outputs.posts
-            .bind(to: postCollectionView.rx.items(cellIdentifier: BasicPostCellView.id, cellType: BasicPostCellView.self)) { _, post, cell in
-                let configuration = PostCellConfiguringItem(from: post)
-                cell.configure(with: configuration)
+            .map {
+                $0.reduce(into: [PostCellConfiguringItem]()) {
+                    $0.append(PostCellConfiguringItem(from: $1))
+                }
             }
+            .map { [BasicPostSection(items: $0)] }
+            .debug()
+            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
             .disposed(by: disposeBags)
     }
 
