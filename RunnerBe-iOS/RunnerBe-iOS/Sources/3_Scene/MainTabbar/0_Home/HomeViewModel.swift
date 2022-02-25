@@ -44,7 +44,7 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-        mainPageAPIService.fetchPostsBookMarked()
+        mainPageAPIService.fetchPostsBookMarked() // 로컬에 초기 북마크 인덱스 저장하지 않고 사용할 방법 찾기
             .do(onNext: { [weak self] result in
                 if let result = result {
                     self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
@@ -163,6 +163,11 @@ final class HomeViewModel: BaseViewModel {
                 else { return }
 
                 self.posts[index].bookMarked = result.mark
+                if result.mark {
+                    self.bookMarkSet.insert(self.posts[index].id)
+                } else {
+                    self.bookMarkSet.remove(self.posts[index].id)
+                }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
             })
             .disposed(by: disposeBag)
