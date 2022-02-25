@@ -36,6 +36,7 @@ class BasicPostCellView: UICollectionViewCell {
         participantLabel.label.text = "\(item.gender) · \(item.ageText)"
         placeLabel.label.text = item.place
         postState = item.closed ? .closed : .open
+        bookMarkIcon.isSelected = item.bookmarked
     }
 
     override func prepareForReuse() {

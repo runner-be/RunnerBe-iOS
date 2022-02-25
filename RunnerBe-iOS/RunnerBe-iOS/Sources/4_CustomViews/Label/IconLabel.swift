@@ -42,12 +42,14 @@ class IconLabel: UIView {
         )
     }()
 
+    private lazy var iconHeightC: NSLayoutConstraint = icon.heightAnchor.constraint(equalToConstant: iconSize.height)
+
+    private lazy var iconWidthC: NSLayoutConstraint = icon.widthAnchor.constraint(equalToConstant: iconSize.width)
+
     var iconSize: CGSize = .init(width: 14, height: 14) {
         didSet {
-            icon.snp.updateConstraints { make in
-                make.width.equalTo(iconSize.width)
-                make.height.equalTo(iconSize.height)
-            }
+            iconHeightC.constant = iconSize.height
+            iconWidthC.constant = iconSize.width
         }
     }
 
@@ -82,9 +84,8 @@ class IconLabel: UIView {
             make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
         }
 
-        icon.snp.makeConstraints { make in
-            make.width.equalTo(iconSize.width)
-            make.height.equalTo(iconSize.height)
-        }
+        iconWidthC.constant = iconSize.width
+        iconHeightC.constant = iconSize.height
+        NSLayoutConstraint.activate([iconWidthC, iconHeightC])
     }
 }

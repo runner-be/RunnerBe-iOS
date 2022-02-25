@@ -48,7 +48,17 @@ class PostDetailViewController: BaseViewController {
         view.backgroundColor = .darkG55
     }
 
-    private var textView = UITextView()
+    private var textView = UITextView().then { view in
+        view.font = .iosBody15R
+        view.textColor = .darkG25
+        view.text = "TEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST"
+
+        view.backgroundColor = .yellow // for test
+    }
+
+    private var hDivider3 = UIView().then { view in
+        view.backgroundColor = .darkG55
+    }
 
     private lazy var vStackView = UIStackView.make(
         with: [
@@ -57,11 +67,22 @@ class PostDetailViewController: BaseViewController {
             infoView,
             hDivider2,
             textView,
+            hDivider3,
         ],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
         spacing: 15
+    )
+
+    private var participantHeader = UserInfoHeader()
+
+    private var participantView = UIStackView.make(
+        with: [UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView()],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 0
     )
 
     private var scrollView = UIScrollView().then { view in
@@ -94,6 +115,8 @@ extension PostDetailViewController {
         scrollView.addSubviews([
             detailMapView,
             vStackView,
+            participantHeader,
+            participantView,
         ])
     }
 
@@ -124,8 +147,6 @@ extension PostDetailViewController {
             make.top.equalTo(detailMapView.snp.bottom).offset(24)
             make.leading.equalTo(scrollView.snp.leading).offset(16)
             make.trailing.equalTo(scrollView.snp.trailing).offset(-16)
-
-            make.bottom.equalTo(scrollView.snp.bottom)
         }
 
         hDivider1.snp.makeConstraints { make in
@@ -139,11 +160,23 @@ extension PostDetailViewController {
             make.height.equalTo(1)
         }
 
-//        hDivider3.snp.makeConstraints { make in
-//            make.leading.equalTo(vStackView.snp.leading)
-//            make.trailing.equalTo(vStackView.snp.trailing)
-//            make.height.equalTo(1)
-//        }
+        hDivider3.snp.makeConstraints { make in
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.height.equalTo(10)
+        }
+
+        participantHeader.snp.makeConstraints { make in
+            make.top.equalTo(vStackView.snp.bottom).offset(20)
+            make.leading.equalTo(vStackView.snp.leading)
+        }
+
+        participantView.snp.makeConstraints { make in
+            make.top.equalTo(participantHeader.snp.bottom).offset(4)
+            make.leading.equalTo(vStackView.snp.leading)
+            make.trailing.equalTo(vStackView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+        }
     }
 
     private func gradientBackground() {

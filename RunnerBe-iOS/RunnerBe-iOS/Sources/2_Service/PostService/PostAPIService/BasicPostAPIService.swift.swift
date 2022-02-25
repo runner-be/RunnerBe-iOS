@@ -48,7 +48,7 @@ final class BasicPostAPIService: PostAPIService {
             .compactMap { $0 }
             .decode(type: [PostAPIResult].self, decoder: JSONDecoder())
             .map { $0.reduce(into: [Post]()) {
-                $0.append(Post(from: $1))
+                $0.append($1.post)
             }}
             .bind(to: functionResult)
 
@@ -224,8 +224,12 @@ final class BasicPostAPIService: PostAPIService {
             }
             .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
             .decode(type: [PostAPIResult]?.self, decoder: JSONDecoder())
+            .catch { error in
+                print(error.localizedDescription)
+                return .just(nil)
+            }
             .map { $0?.reduce(into: [Post]()) {
-                $0.append(Post(from: $1))
+                $0.append($1.post)
             }}
             .bind(to: functionResult)
 

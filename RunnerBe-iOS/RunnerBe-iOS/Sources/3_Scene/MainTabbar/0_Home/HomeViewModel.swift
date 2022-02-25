@@ -57,11 +57,11 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .map { [bookMarkSet] posts in
-                posts.reduce(into: [Post]()) {
-                    var post = $1
-                    post.bookMarked = bookMarkSet.contains($1.id)
-                    $0.append($1)
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
                 }
             }
             .subscribe(onNext: { [weak self] posts in
@@ -69,19 +69,6 @@ final class HomeViewModel: BaseViewModel {
                 self?.outputs.posts.onNext(posts)
             })
             .disposed(by: disposeBag)
-
-//        mainPageAPIService.fetchPosts(with: filter)
-//            .do(onNext: { [weak self] result in
-//                if result == nil {
-//                    self?.outputs.toast.onNext("서버 요청에 실패했습니다.")
-//                }
-//            })
-//            .compactMap { $0 }
-//            .subscribe(onNext: { [weak self] posts in
-//                self?.posts = posts
-//                self?.outputs.posts.onNext(posts)
-//            })
-//            .disposed(by: disposeBag)
 
         inputs.showDetailFilter
             .map { [weak self] in self?.filter ?? initialFilter }

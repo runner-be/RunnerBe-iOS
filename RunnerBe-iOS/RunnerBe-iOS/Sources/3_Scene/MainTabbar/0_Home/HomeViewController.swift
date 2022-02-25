@@ -167,7 +167,7 @@ class HomeViewController: BaseViewController {
     private lazy var postCollectionView: UICollectionView = {
         let size = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(143)
         )
         var item = NSCollectionLayoutItem(layoutSize: size)
         item.edgeSpacing = NSCollectionLayoutEdgeSpacing(

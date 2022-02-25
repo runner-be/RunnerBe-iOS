@@ -13,6 +13,7 @@ enum PostAPI {
     case posting(form: PostingForm, id: Int, token: LoginToken)
     case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
     case fetchBookMarked(userId: Int, token: LoginToken)
+    case detail(postId: Int, userId: Int, token: LoginToken)
 }
 
 extension PostAPI: TargetType {
@@ -30,6 +31,8 @@ extension PostAPI: TargetType {
             return "/users/\(userId)/bookmarks/\(mark ? "Y" : "N")"
         case let .fetchBookMarked(userId, _):
             return "/users/\(userId)/bookmarks"
+        case let .detail(postId, userId, _):
+            return "/posting/\(postId)/\(userId)"
         }
     }
 
@@ -42,6 +45,8 @@ extension PostAPI: TargetType {
         case .bookmarking:
             return Method.post
         case .fetchBookMarked:
+            return Method.get
+        case .detail:
             return Method.get
         }
     }
@@ -87,6 +92,8 @@ extension PostAPI: TargetType {
             return .requestCompositeData(bodyData: Data(), urlParameters: query)
         case .fetchBookMarked:
             return .requestPlain
+        case .detail:
+            return .requestPlain
         }
     }
 
@@ -99,6 +106,8 @@ extension PostAPI: TargetType {
         case let .bookmarking(_, _, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .fetchBookMarked(_, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .detail(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }

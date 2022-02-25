@@ -83,7 +83,6 @@
 		C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */; };
 		C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */; };
 		C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */; };
-		C35E34A927C83C980023C0F9 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */; };
 		C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */; };
 		C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34AD27C840220023C0F9 /* DetailInfoView.swift */; };
 		C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35E34B127C849050023C0F9 /* DetailMapView.swift */; };
@@ -197,6 +196,10 @@
 		C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */; };
 		C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */; };
 		C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */; };
+		C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C327C907AD004954EB /* PostDetailViewController.swift */; };
+		C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C527C908F3004954EB /* UserInfoView.swift */; };
+		C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C727C91140004954EB /* UserInfoHeader.swift */; };
+		C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* PostAPIResult.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -317,7 +320,6 @@
 		C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailComponent.swift; sourceTree = "<group>"; };
 		C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailCoordinator.swift; sourceTree = "<group>"; };
 		C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
-		C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
 		C35E34AD27C840220023C0F9 /* DetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoView.swift; sourceTree = "<group>"; };
 		C35E34B127C849050023C0F9 /* DetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapView.swift; sourceTree = "<group>"; };
@@ -432,6 +434,10 @@
 		C3BA45DE27B621910048CA76 /* OnboardingCompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionCoordinator.swift; sourceTree = "<group>"; };
 		C3BA45E027B6219F0048CA76 /* OnboardingCompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewModel.swift; sourceTree = "<group>"; };
 		C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionViewController.swift; sourceTree = "<group>"; };
+		C3BB13C327C907AD004954EB /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		C3BB13C527C908F3004954EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		C3BB13C727C91140004954EB /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
+		C3BB13C927C922C8004954EB /* PostAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIResult.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -857,7 +863,7 @@
 				C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */,
 				C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */,
 				C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */,
-				C35E34A827C83C980023C0F9 /* PostDetailViewController.swift */,
+				C3BB13C327C907AD004954EB /* PostDetailViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -868,6 +874,8 @@
 				C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */,
 				C35E34AD27C840220023C0F9 /* DetailInfoView.swift */,
 				C35E34B127C849050023C0F9 /* DetailMapView.swift */,
+				C3BB13C527C908F3004954EB /* UserInfoView.swift */,
+				C3BB13C727C91140004954EB /* UserInfoHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1183,6 +1191,7 @@
 		C3A64F8B27C54D500088E387 /* PostAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C3BB13C927C922C8004954EB /* PostAPIResult.swift */,
 				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
 				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift.swift */,
 			);
@@ -1756,10 +1765,12 @@
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
 				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
+				C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
+				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
 				C3BA45DB27B60E320048CA76 /* WaitCertificationViewController.swift in Sources */,
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
@@ -1837,8 +1848,8 @@
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
+				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
-				C35E34A927C83C980023C0F9 /* PostDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
 				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
@@ -1899,6 +1910,7 @@
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
+				C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
