@@ -14,6 +14,9 @@ enum PostAPI {
     case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
     case fetchBookMarked(userId: Int, token: LoginToken)
     case detail(postId: Int, userId: Int, token: LoginToken)
+    
+    case apply(postId: Int, userId: Int, token: LoginToken)
+    case accept(postId: Int, userId: Int, applicantId: Int, accept: Bool, token: LoginToken)
 }
 
 extension PostAPI: TargetType {
@@ -33,6 +36,10 @@ extension PostAPI: TargetType {
             return "/users/\(userId)/bookmarks"
         case let .detail(postId, userId, _):
             return "/postings/\(postId)/\(userId)"
+        case let .apply(postId, _, _):
+            return "/running/request/\(postId)"
+        case let .accept(postId, _, applicantId, accept,_):
+            return "/running/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         }
     }
 
@@ -48,6 +55,10 @@ extension PostAPI: TargetType {
             return Method.get
         case .detail:
             return Method.get
+        case .apply:
+            return Method.post
+        case .accept:
+            return Method.patch
         }
     }
 
@@ -94,6 +105,16 @@ extension PostAPI: TargetType {
             return .requestPlain
         case .detail:
             return .requestPlain
+        case let .apply(_, userId, _):
+            let query: [String: Any] = [
+                "userId": userId
+            ]
+            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+        case let .accept(_, userId, _, _, _):
+            let query: [String: Any] = [
+                "userId": userId
+            ]
+            return .requestCompositeData(bodyData: Data(), urlParameters: query)
         }
     }
 
@@ -108,6 +129,10 @@ extension PostAPI: TargetType {
         case let .fetchBookMarked(_, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .detail(_, _, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .apply(_, _, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .accept(_,_,_,_, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }

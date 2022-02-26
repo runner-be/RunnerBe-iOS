@@ -377,4 +377,153 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+    
+    func apply(postId: Int) -> Observable<Bool> {
+        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(false) }
+
+        let disposable = provider.rx.request(.apply(postId: postId, userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] apply postId:\(postId)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == fail")
+                        functionResult.onNext(false)
+                    #endif
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(false)
+                    return
+                }
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(true)
+                case 2010: // jwt와 userId 불일치
+                    functionResult.onNext(false)
+                case 2011: // userId값 필요
+                    functionResult.onNext(false)
+                case 2012: // userId 형식 오류
+                    functionResult.onNext(false)
+                case 2041: // postId 미입력
+                    functionResult.onNext(false)
+                case 2042: // postId 형식오류
+                    functionResult.onNext(false)
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext(false)
+                case 2064: // 이미 신청한 유저
+                    functionResult.onNext(false)
+                default:
+                    functionResult.onNext(false)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
+    
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<Bool> {
+        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(false) }
+
+        let disposable = provider.rx.request(
+            .accept(
+                postId: postId,
+                userId: userId,
+                applicantId: applicantId,
+                accept: accept,
+                token: token)
+        )
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] accpet postId: \(postId), applicant: \(applicantId)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == fail")
+                        functionResult.onNext(false)
+                    #endif
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(false)
+                    return
+                }
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(true)
+                case 2010: // jwt와 userId 불일치
+                    functionResult.onNext(false)
+                case 2011: // userId값 필요
+                    functionResult.onNext(false)
+                case 2012: // userId 형식 오류
+                    functionResult.onNext(false)
+                case 2041: // postId 미입력
+                    functionResult.onNext(false)
+                case 2042: // postId 형식오류
+                    functionResult.onNext(false)
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext(false)
+                case 2065: // applicantId 미입력
+                    functionResult.onNext(false)
+                case 2066: // applicantId 형식오류
+                    functionResult.onNext(false)
+                case 2067: // 수락 권한 없음
+                    functionResult.onNext(false)
+                case 2068: // accept 여부 미입력
+                    functionResult.onNext(false)
+                case 2069: // accept 형식 오류 "Y" "D"
+                    functionResult.onNext(false)
+                case 2070: // applicant 유저가 모임 대기상태가 아닙니다.
+                    functionResult.onNext(false)
+                default:
+                    functionResult.onNext(false)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

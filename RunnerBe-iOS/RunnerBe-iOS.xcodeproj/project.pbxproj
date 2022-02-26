@@ -866,6 +866,7 @@
 		C35E34A127C83C610023C0F9 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9732B27C9E0A900232251 /* ApplicantListModal */,
 				C3C9732A27C9D3F400232251 /* Config */,
 				C35E34AA27C83D520023C0F9 /* View */,
 				C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */,
@@ -1361,6 +1362,13 @@
 				C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		C3C9732B27C9E0A900232251 /* ApplicantListModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApplicantListModal;
 			sourceTree = "<group>";
 		};
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {

@@ -11,6 +11,7 @@ import RxSwift
 final class PostDetailViewModel: BaseViewModel {
     private let postAPIService: PostAPIService
     private var marked: Bool = false
+    private var applicants: [User] = []
 
     init(postId: Int, postAPIService: PostAPIService) {
         self.postAPIService = postAPIService
@@ -52,11 +53,7 @@ final class PostDetailViewModel: BaseViewModel {
                             }
                         )
                     )
-                    self.outputs.applicants.onNext(
-                        applicant.reduce(into: [PostDetailUserConfig]()) {
-                            $0.append(PostDetailUserConfig(from: $1, owner: false))
-                        }
-                    )
+                    self.applicants = applicant
                     self.marked = marked
                     self.outputs.bookMarked.onNext(marked)
                 default: break
@@ -82,6 +79,24 @@ final class PostDetailViewModel: BaseViewModel {
                 self.outputs.bookMarked.onNext(result.mark)
             })
             .disposed(by: disposeBag)
+        
+        inputs.apply
+            .flatMap{
+                postAPIService.apply(postId: postId)
+            }
+            .subscribe(onNext: { [weak self] success in
+                guard let self = self
+                else { return }
+                let message: String
+                if !success {
+                    message = "신청을 완료했습니다!"
+                } else {
+                    message = "신청에 실패했습니다!"
+                }
+                
+                self.outputs.toast.onNext(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -96,7 +111,6 @@ final class PostDetailViewModel: BaseViewModel {
 
     struct Output {
         var detailData = ReplaySubject<(writer: Bool, running: PostDetailRunningConfig, participants: [PostDetailUserConfig])>.create(bufferSize: 1)
-        var applicants = ReplaySubject<[PostDetailUserConfig]>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()

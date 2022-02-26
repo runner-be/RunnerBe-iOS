@@ -24,4 +24,6 @@ protocol PostAPIService {
     func posting(form: PostingForm) -> Observable<PostingResult>
     func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)>
     func detailInfo(postId: Int) -> Observable<DetailInfoResult>
+    func apply(postId: Int) -> Observable<Bool>
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<Bool>
 }
