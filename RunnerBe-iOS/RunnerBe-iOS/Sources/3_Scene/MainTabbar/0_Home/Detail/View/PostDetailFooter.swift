@@ -5,14 +5,22 @@
 //  Created by 김신우 on 2022/02/26.
 //
 
+import RxSwift
 import Then
 import UIKit
 
 class PostDetailFooter: UIView {
+    var disposeBag = DisposeBag()
+
     func initialLayout() {
         snp.makeConstraints { make in
             make.height.equalTo(56)
         }
+    }
+
+    override func removeFromSuperview() {
+        disposeBag = DisposeBag()
+        super.removeFromSuperview()
     }
 }
 

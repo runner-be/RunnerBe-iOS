@@ -738,6 +738,7 @@
 		C34FDA4D27AD5C82007718F8 /* 3_Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
 				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
 				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
@@ -1048,7 +1049,6 @@
 				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
-				C399FD1127C2833400396DC3 /* View */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
@@ -1089,14 +1089,14 @@
 			path = 6_Base;
 			sourceTree = "<group>";
 		};
-		C399FD1127C2833400396DC3 /* View */ = {
+		C399FD1127C2833400396DC3 /* PostCell */ = {
 			isa = PBXGroup;
 			children = (
 				C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */,
 				C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */,
 				C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */,
 			);
-			path = View;
+			path = PostCell;
 			sourceTree = "<group>";
 		};
 		C39D86B927AEB76100A9C201 /* Fonts */ = {
@@ -1405,6 +1405,14 @@
 				C3BB13C527C908F3004954EB /* UserInfoView.swift */,
 			);
 			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		C3C9733C27CA3ACC00232251 /* CommonSceneViews */ = {
+			isa = PBXGroup;
+			children = (
+				C399FD1127C2833400396DC3 /* PostCell */,
+			);
+			path = CommonSceneViews;
 			sourceTree = "<group>";
 		};
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {

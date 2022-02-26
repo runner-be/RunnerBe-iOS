@@ -72,7 +72,7 @@ class PostDetailViewController: BaseViewController {
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeFooter(writer: data.writer, applied: data.applied)
+                self?.makeFooter(writer: data.writer, applied: data.applied, finished: data.finished)
             })
             .disposed(by: disposeBags)
 
@@ -247,11 +247,18 @@ extension PostDetailViewController {
         .lightContent
     }
 
-    func makeFooter(writer: Bool, applied: Bool) {
+    func makeFooter(writer: Bool, applied: Bool, finished: Bool) {
         footer?.removeFromSuperview()
 
         let footer: PostDetailFooter
-        if writer {
+
+        if finished {
+            let writerFooter = PostWriterFooter()
+
+            writerFooter.finishingBtn.isEnabled = false
+            applicantBtn.isHidden = true
+            footer = writerFooter
+        } else if writer {
             let writerFooter = PostWriterFooter()
 
             writerFooter.finishingBtn.rx.tap
@@ -264,13 +271,13 @@ extension PostDetailViewController {
             applicantBtn.rx.tap
                 .debug()
                 .bind(to: viewModel.inputs.showApplicant)
-                .disposed(by: disposeBags)
+                .disposed(by: writerFooter.disposeBag)
 
             viewModel.outputs.finished
                 .subscribe(onNext: { finished in
                     writerFooter.finishingBtn.isEnabled = !finished
                 })
-                .disposed(by: disposeBags)
+                .disposed(by: writerFooter.disposeBag)
 
             footer = writerFooter
         } else {
@@ -279,23 +286,23 @@ extension PostDetailViewController {
             guestFooter.bookMarkBtn.rx.tap
                 .map { !guestFooter.bookMarkBtn.isSelected }
                 .bind(to: viewModel.inputs.bookMark)
-                .disposed(by: disposeBags)
+                .disposed(by: guestFooter.disposeBag)
 
             guestFooter.applyBtn.rx.tap
                 .bind(to: viewModel.inputs.apply)
-                .disposed(by: disposeBags)
+                .disposed(by: guestFooter.disposeBag)
 
             viewModel.outputs.bookMarked
                 .subscribe(onNext: { marked in
                     guestFooter.bookMarkBtn.isSelected = marked
                 })
-                .disposed(by: disposeBags)
+                .disposed(by: guestFooter.disposeBag)
 
             viewModel.outputs.apply
                 .subscribe(onNext: { applied in
                     guestFooter.applyBtn.isEnabled = !applied
                 })
-                .disposed(by: disposeBags)
+                .disposed(by: guestFooter.disposeBag)
 
             footer = guestFooter
         }

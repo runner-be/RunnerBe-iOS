@@ -34,6 +34,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .guest(post, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
+                            finished: post.whetherEnd == "Y",
                             writer: false, applied: apply,
                             running: PostDetailRunningConfig(from: post),
                             participants: participants.reduce(into: [PostDetailUserConfig]()) {
@@ -47,6 +48,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .writer(post, marked, participants, applicant):
                     self.outputs.detailData.onNext(
                         (
+                            finished: post.whetherEnd == "Y",
                             writer: true, applied: false,
                             running: PostDetailRunningConfig(from: post),
                             participants: participants.reduce(into: [PostDetailUserConfig]()) {
@@ -71,6 +73,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .guest(post, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
+                            finished: post.whetherEnd == "Y",
                             writer: false, applied: apply,
                             running: PostDetailRunningConfig(from: post),
                             participants: participants.reduce(into: [PostDetailUserConfig]()) {
@@ -84,6 +87,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .writer(post, marked, participants, applicant):
                     self.outputs.detailData.onNext(
                         (
+                            finished: post.whetherEnd == "Y",
                             writer: true, applied: false,
                             running: PostDetailRunningConfig(from: post),
                             participants: participants.reduce(into: [PostDetailUserConfig]()) {
@@ -176,7 +180,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [PostDetailUserConfig])>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [PostDetailUserConfig])>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()
