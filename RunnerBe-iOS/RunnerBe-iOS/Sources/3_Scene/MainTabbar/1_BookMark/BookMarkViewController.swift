@@ -73,7 +73,7 @@ class BookMarkViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .aggroLight
-        navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
+        navBar.titleLabel.text = L10n.BookMark.Main.NavBar.title
         navBar.titleLabel.textColor = .primarydark
         navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
         navBar.rightSecondBtnItem.isHidden = true

@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
     var ySpacing: CGFloat = 10
     var xSpacing: CGFloat = 10
@@ -115,43 +113,3 @@ final class JobGroupCollectionViewLayout: UICollectionViewFlowLayout {
         return CGSize(width: contentWidth, height: contentHeight)
     }
 }
-
-//
-// private class CollectionViewRow {
-//    var attributes = [UICollectionViewLayoutAttributes]()
-//    var spacing: CGFloat = 0
-//
-//    init(spacing: CGFloat) {
-//        self.spacing = spacing
-//    }
-//
-//    func add(attribute: UICollectionViewLayoutAttributes) {
-//        attributes.append(attribute)
-//    }
-//
-//    var rowWidth: CGFloat {
-//        return attributes.reduce(0) { result, attribute -> CGFloat in
-//            result + attribute.frame.width
-//        } + CGFloat(attributes.count - 1) * spacing
-//    }
-//
-//    var maxHeight: CGFloat {
-//        return attributes.reduce(0) { maxHeight, attribute in
-//            maxHeight > attribute.frame.height ? maxHeight : attribute.frame.height
-//        }
-//    }
-//
-//    func centerLayout(collectionViewWidth: CGFloat, offsetY: CGFloat) {
-//        let padding = (collectionViewWidth - rowWidth) / 2
-//        var offset = padding
-//        for attribute in attributes {
-//            attribute.frame.origin.x = offset
-//            attribute.frame.origin.y = offsetY
-//            offset += attribute.frame.width + spacing
-//        }
-//    }
-// }
-
-/*
-
- */

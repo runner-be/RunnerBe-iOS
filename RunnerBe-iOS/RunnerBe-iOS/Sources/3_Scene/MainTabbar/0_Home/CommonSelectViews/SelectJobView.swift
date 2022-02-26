@@ -119,7 +119,8 @@ class SelectJobView: SelectBaseView {
 
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
-        let collectionViewSize = jobGroupCollectionView.collectionViewLayout.collectionViewContentSize
+
+        let collectionViewSize = jobGroupCollectionView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         return CGSize(
             width: UIView.noIntrinsicMetric,
             height: size.height + collectionViewSize.height

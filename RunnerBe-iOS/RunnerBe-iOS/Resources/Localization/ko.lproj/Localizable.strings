@@ -209,3 +209,5 @@
 
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";
+// MARK: - BookMark
+"BookMark.Main.NavBar.title" = "찜 목록";

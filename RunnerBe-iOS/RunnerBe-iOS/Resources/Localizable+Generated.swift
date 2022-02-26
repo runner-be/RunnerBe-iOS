@@ -41,6 +41,15 @@ internal enum L10n {
     }
   }
 
+  internal enum BookMark {
+    internal enum Main {
+      internal enum NavBar {
+        /// 찜 목록
+        internal static let title = L10n.tr("Localizable", "BookMark.Main.NavBar.title")
+      }
+    }
+  }
+
   internal enum EmailCertification {
     /// 해당 정보는 러너님이 직장임을 확인하는 용도로만
     internal static let subTitle1 = L10n.tr("Localizable", "EmailCertification.subTitle1")
