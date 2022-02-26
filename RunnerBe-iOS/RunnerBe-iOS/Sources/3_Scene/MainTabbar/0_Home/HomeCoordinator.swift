@@ -24,7 +24,7 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
     var component: HomeComponent
 
     override func start(animated _: Bool = true) {
-        let scene = component.scene
+        let scene = component.sharedScene
 
         scene.VM.routes.filter
             .map { (vm: scene.VM, filter: $0) }

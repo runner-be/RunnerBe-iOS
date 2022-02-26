@@ -16,7 +16,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
     init(component: MainTabComponent, navController: UINavigationController) {
         self.component = component
-        super.init(tabController: component.scene, navController: navController)
+        super.init(tabController: component.sharedScene.VC, navController: navController)
     }
 
     // MARK: Internal
@@ -51,7 +51,13 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
         coordinate(coordinator: coord, animated: false)
 
-        return comp.scene.VC
+        component.sharedScene.VM.routes.home
+            .subscribe(onNext: {
+                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+            })
+            .disposed(by: disposeBag)
+
+        return comp.sharedScene.VC
     }
 
     private func configureAndGetBookMarkScene() -> UIViewController {
@@ -60,7 +66,13 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
         coordinate(coordinator: coord, animated: false)
 
-        return comp.scene.VC
+        component.sharedScene.VM.routes.bookmark
+            .subscribe(onNext: {
+                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+            })
+            .disposed(by: disposeBag)
+
+        return comp.sharedScene.VC
     }
 
     private func configureAndGetMyPageScene() -> UIViewController {
@@ -69,6 +81,6 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
         coordinate(coordinator: coord, animated: false)
 
-        return comp.scene.VC
+        return comp.sharedScene.VC
     }
 }

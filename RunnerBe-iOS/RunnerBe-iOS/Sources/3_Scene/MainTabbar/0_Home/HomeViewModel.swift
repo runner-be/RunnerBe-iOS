@@ -215,6 +215,12 @@ final class HomeViewModel: BaseViewModel {
 
         routeInputs.needUpdate
             .filter { $0 }
+            .flatMap { _ in postAPIService.fetchPostsBookMarked() }
+            .do(onNext: { [weak self] result in
+                if let result = result {
+                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
+                }
+            })
             .compactMap { [weak self] _ in self?.filter }
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)

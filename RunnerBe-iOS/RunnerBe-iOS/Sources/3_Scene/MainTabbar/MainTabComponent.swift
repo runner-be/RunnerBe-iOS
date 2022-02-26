@@ -15,8 +15,18 @@ protocol MainTabDependency: Dependency {
 }
 
 final class MainTabComponent: Component<MainTabDependency> {
-    var scene: UITabBarController {
-        return UITabBarController()
+    var sharedScene: (VC: MainTabViewController, VM: MainTabViewModel) {
+        shared {
+            let viewModel = viewModel
+            return (
+                VC: MainTabViewController(viewModel: viewModel),
+                VM: viewModel
+            )
+        }
+    }
+
+    var viewModel: MainTabViewModel {
+        return MainTabViewModel()
     }
 
     var homeComponent: HomeComponent {

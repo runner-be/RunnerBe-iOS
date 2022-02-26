@@ -37,8 +37,6 @@ class BookMarkViewController: BaseViewController {
     private var viewModel: BookMarkViewModel
 
     private func viewModelInput() {
-        viewModel.routeInputs.needUpdate.onNext(true)
-
         postCollectionView.rx.itemSelected
             .map { $0.row }
             .bind(to: viewModel.inputs.tapPost)

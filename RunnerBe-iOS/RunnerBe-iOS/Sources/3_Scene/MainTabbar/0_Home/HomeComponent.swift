@@ -16,7 +16,7 @@ protocol HomeDependency: Dependency {
 }
 
 final class HomeComponent: Component<HomeDependency> {
-    var scene: (VC: HomeViewController, VM: HomeViewModel) {
+    var sharedScene: (VC: HomeViewController, VM: HomeViewModel) {
         return shared {
             let viewModel = viewModel
             return (VC: HomeViewController(viewModel: viewModel), VM: viewModel)

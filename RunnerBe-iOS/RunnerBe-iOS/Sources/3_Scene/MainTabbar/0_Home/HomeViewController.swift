@@ -38,8 +38,6 @@ class HomeViewController: BaseViewController {
     private var viewModel: HomeViewModel
 
     private func viewModelInput() {
-        
-        
         filterIcon.rx.tapGesture()
             .when(.recognized)
             .map { _ in }

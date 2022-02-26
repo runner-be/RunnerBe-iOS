@@ -210,6 +210,8 @@
 		C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */; };
 		C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */; };
 		C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733A27CA1CC500232251 /* UserInfoAcceptableDataSource.swift */; };
+		C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */; };
+		C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9734327CA5EBA00232251 /* MainTabbarController.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -458,6 +460,8 @@
 		C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAcceptableCell.swift; sourceTree = "<group>"; };
 		C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoWithSingleDivider.swift; sourceTree = "<group>"; };
 		C3C9733A27CA1CC500232251 /* UserInfoAcceptableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAcceptableDataSource.swift; sourceTree = "<group>"; };
+		C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
+		C3C9734327CA5EBA00232251 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -755,6 +759,8 @@
 			children = (
 				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
+				C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */,
+				C3C9734327CA5EBA00232251 /* MainTabbarController.swift */,
 				C38F8F2627AD95FC0050137D /* 0_Home */,
 				C38F8F2727AD960C0050137D /* 1_BookMark */,
 				C38F8F2927AD961D0050137D /* 3_MyPage */,
@@ -1811,6 +1817,7 @@
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
+				C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */,
 				C3EB5CD127B8B6A900775779 /* BasicMailingCertificationService.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
@@ -1915,6 +1922,7 @@
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
+				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,

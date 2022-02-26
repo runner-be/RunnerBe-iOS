@@ -13,7 +13,7 @@ protocol BookMarkDependency: Dependency {
 }
 
 final class BookMarkComponent: Component<BookMarkDependency> {
-    var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) {
+    var sharedScene: (VC: BookMarkViewController, VM: BookMarkViewModel) {
         return shared {
             let viewModel = viewModel
             return (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)

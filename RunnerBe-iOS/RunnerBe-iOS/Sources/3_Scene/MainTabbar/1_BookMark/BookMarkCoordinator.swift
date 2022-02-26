@@ -23,7 +23,7 @@ final class BookMarkCoordinator: TabCoordinator<HomeResult> {
     var component: BookMarkComponent
 
     override func start(animated _: Bool = true) {
-        let scene = component.scene
+        let scene = component.sharedScene
 
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }

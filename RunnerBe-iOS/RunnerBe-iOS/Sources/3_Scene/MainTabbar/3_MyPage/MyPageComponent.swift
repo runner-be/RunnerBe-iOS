@@ -11,7 +11,7 @@ import NeedleFoundation
 protocol MyPageDependency: Dependency {}
 
 final class MyPageComponent: Component<MyPageDependency> {
-    var scene: (VC: MyPageViewController, VM: MyPageViewModel) {
+    var sharedScene: (VC: MyPageViewController, VM: MyPageViewModel) {
         return shared {
             let viewModel = viewModel
             return (VC: MyPageViewController(viewModel: viewModel), VM: viewModel)
