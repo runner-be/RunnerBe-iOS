@@ -553,7 +553,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C3347BF327C2D9CA006FB110 /* SelectViews */ = {
+		C3347BF327C2D9CA006FB110 /* CommonSelectViews */ = {
 			isa = PBXGroup;
 			children = (
 				C39F2E9A27BC536100A7D86B /* SelectBaseView.swift */,
@@ -564,7 +564,7 @@
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 			);
-			path = SelectViews;
+			path = CommonSelectViews;
 			sourceTree = "<group>";
 		};
 		C3432CA227B830CF00DEFF51 /* LoginKeychainService */ = {
@@ -1045,7 +1045,7 @@
 			isa = PBXGroup;
 			children = (
 				C35E34A127C83C610023C0F9 /* Detail */,
-				C3347BF327C2D9CA006FB110 /* SelectViews */,
+				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				C399FD1127C2833400396DC3 /* View */,
