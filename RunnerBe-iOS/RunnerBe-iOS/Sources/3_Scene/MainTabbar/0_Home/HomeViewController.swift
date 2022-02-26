@@ -59,7 +59,10 @@ class HomeViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> { [weak self] _, collectionView, indexPath, item in
+        typealias BasicPostSectionDataSource
+            = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
+
+        let dataSource = BasicPostSectionDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
             else { return UICollectionViewCell() }

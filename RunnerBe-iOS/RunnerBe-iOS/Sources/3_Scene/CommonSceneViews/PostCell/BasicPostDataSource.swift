@@ -10,22 +10,19 @@ import RxDataSources
 
 struct BasicPostSection {
     var items: [PostCellConfig]
-    var uuid = UUID().uuidString
+    var identity: String
 
     init(items: [PostCellConfig]) {
         self.items = items
+        identity = items.map { $0.identity }.joined(separator: ",")
     }
 }
 
-extension BasicPostSection: SectionModelType {
-    init(original: BasicPostSection, items: [PostCellConfig]) {
+extension BasicPostSection: AnimatableSectionModelType {
+    typealias Item = PostCellConfig
+
+    init(original: BasicPostSection, items: [Item]) {
         self = original
         self.items = items
-    }
-}
-
-extension BasicPostSection: Equatable {
-    static func == (lhs: BasicPostSection, rhs: BasicPostSection) -> Bool {
-        lhs.items == rhs.items
     }
 }

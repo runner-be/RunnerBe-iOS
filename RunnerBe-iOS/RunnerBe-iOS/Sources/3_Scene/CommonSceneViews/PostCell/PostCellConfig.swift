@@ -8,7 +8,7 @@
 import RxDataSources
 import UIKit
 
-struct PostCellConfig: Equatable {
+struct PostCellConfig: Equatable, IdentifiableType {
     let id: Int
     let title: String
     let date: String
@@ -40,5 +40,9 @@ struct PostCellConfig: Equatable {
     init(from post: Post, marked: Bool) {
         self.init(from: post)
         bookmarked = marked
+    }
+
+    var identity: String {
+        "\(id)"
     }
 }
