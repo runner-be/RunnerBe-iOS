@@ -26,4 +26,5 @@ protocol PostAPIService {
     func detailInfo(postId: Int) -> Observable<DetailInfoResult>
     func apply(postId: Int) -> Observable<Bool>
     func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, success: Bool)>
+    func close(postId: Int) -> Observable<Bool>
 }

@@ -72,8 +72,7 @@ class PostDetailViewController: BaseViewController {
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeFooter(writer: data.writer)
-//                self?.makeFooter(writer: false)
+                self?.makeFooter(writer: data.writer, applied: data.applied)
             })
             .disposed(by: disposeBags)
 
@@ -248,7 +247,7 @@ extension PostDetailViewController {
         .lightContent
     }
 
-    func makeFooter(writer: Bool) {
+    func makeFooter(writer: Bool, applied: Bool) {
         footer?.removeFromSuperview()
 
         let footer: PostDetailFooter
@@ -267,9 +266,16 @@ extension PostDetailViewController {
                 .bind(to: viewModel.inputs.showApplicant)
                 .disposed(by: disposeBags)
 
+            viewModel.outputs.finished
+                .subscribe(onNext: { finished in
+                    writerFooter.finishingBtn.isEnabled = !finished
+                })
+                .disposed(by: disposeBags)
+
             footer = writerFooter
         } else {
             let guestFooter = PostGuestFooter()
+            guestFooter.applyBtn.isEnabled = !applied
             guestFooter.bookMarkBtn.rx.tap
                 .map { !guestFooter.bookMarkBtn.isSelected }
                 .bind(to: viewModel.inputs.bookMark)
@@ -282,6 +288,12 @@ extension PostDetailViewController {
             viewModel.outputs.bookMarked
                 .subscribe(onNext: { marked in
                     guestFooter.bookMarkBtn.isSelected = marked
+                })
+                .disposed(by: disposeBags)
+
+            viewModel.outputs.apply
+                .subscribe(onNext: { applied in
+                    guestFooter.applyBtn.isEnabled = !applied
                 })
                 .disposed(by: disposeBags)
 

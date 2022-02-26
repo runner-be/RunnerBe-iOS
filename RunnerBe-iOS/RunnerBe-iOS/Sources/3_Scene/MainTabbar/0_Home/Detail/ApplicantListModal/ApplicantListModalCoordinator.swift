@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum ApplicantListModalResult {
-    case backward
+    case backward(needUpdate: Bool)
 }
 
 final class ApplicantListModalCoordinator: BasicCoordinator<ApplicantListModalResult> {
@@ -31,7 +31,7 @@ final class ApplicantListModalCoordinator: BasicCoordinator<ApplicantListModalRe
             .disposed(by: disposeBag)
 
         scene.VM.routes.backward
-            .map { ApplicantListModalResult.backward }
+            .map { ApplicantListModalResult.backward(needUpdate: $0) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

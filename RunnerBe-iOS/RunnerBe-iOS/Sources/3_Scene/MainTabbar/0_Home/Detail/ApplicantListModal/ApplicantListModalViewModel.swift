@@ -10,12 +10,14 @@ import RxSwift
 
 final class ApplicantListModalViewModel: BaseViewModel {
     var applicants: [User]
+    var changed = false
 
     init(postId: Int, applicants: [User], postAPIService: PostAPIService) {
         self.applicants = applicants
         super.init()
 
         inputs.backward
+            .map { [weak self] in self?.changed ?? true }
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
 
@@ -48,6 +50,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
                         $0.append(PostDetailUserConfig(from: $1, owner: false))
                     }
                     self.outputs.participants.onNext(configs)
+                    self.changed = true
                 } else {
                     message = "수락 실패"
                 }
@@ -68,7 +71,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
     }
 
     struct Route {
-        var backward = PublishSubject<Void>()
+        var backward = PublishSubject<Bool>()
     }
 
     private var disposeBag = DisposeBag()

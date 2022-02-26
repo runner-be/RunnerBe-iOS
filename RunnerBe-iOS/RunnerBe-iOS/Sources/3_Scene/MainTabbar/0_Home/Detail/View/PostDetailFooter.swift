@@ -37,6 +37,10 @@ class PostGuestFooter: PostDetailFooter {
         button.setTitle(L10n.Home.PostDetail.Guest.apply, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
+        button.setTitle(L10n.Home.PostDetail.Guest.applied, for: .disabled)
+        button.setTitleColor(UIColor.darkG45, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+
         button.titleLabel?.font = .iosBody15B
 
         button.clipsToBounds = true
@@ -88,6 +92,9 @@ class PostWriterFooter: PostDetailFooter {
         button.setTitle(L10n.Home.PostDetail.Writer.finishing, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
+        button.setTitle(L10n.Home.PostDetail.Writer.finished, for: .disabled)
+        button.setTitleColor(UIColor.darkG45, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
         button.titleLabel?.font = .iosBody15B
 
         button.clipsToBounds = true

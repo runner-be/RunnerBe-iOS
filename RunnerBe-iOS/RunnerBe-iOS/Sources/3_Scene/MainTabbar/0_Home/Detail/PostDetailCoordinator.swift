@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum PostDetailResult {
-    case backward(id: Int, marked: Bool)
+    case backward(id: Int, marked: Bool, needUpdate: Bool)
 }
 
 final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
@@ -31,7 +31,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .disposed(by: disposeBag)
 
         scene.VM.routes.backward
-            .map { PostDetailResult.backward(id: $0.id, marked: $0.marked) }
+            .map { PostDetailResult.backward(id: $0.id, marked: $0.marked, needUpdate: $0.needUpdate) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
@@ -43,13 +43,19 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .disposed(by: disposeBag)
     }
 
-    private func presentApplicantListModal(vm _: PostDetailViewModel, applicants: [User], animated: Bool) {
+    private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
         let comp = component.applicantListModal(applicants: applicants)
         let coord = ApplicantListModalCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(needUpdate):
+                    if needUpdate {
+                        vm.routeInputs.needUpdate.onNext(())
+                    }
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

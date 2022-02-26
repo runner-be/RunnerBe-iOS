@@ -527,4 +527,60 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func close(postId: Int) -> Observable<Bool> {
+        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(false) }
+
+        let disposable = provider.rx.request(.close(postId: postId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] close postId:\(postId) token: \(token.jwt)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == fail")
+                        functionResult.onNext(false)
+                    #endif
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(false)
+                    return
+                }
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(true)
+                case 2043:
+                    functionResult.onNext(false)
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext(false)
+                default:
+                    functionResult.onNext(false)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

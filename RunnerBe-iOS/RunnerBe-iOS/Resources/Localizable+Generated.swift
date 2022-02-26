@@ -138,6 +138,8 @@ internal enum L10n {
     }
     internal enum PostDetail {
       internal enum Guest {
+        /// 신청완료
+        internal static let applied = L10n.tr("Localizable", "Home.PostDetail.Guest.Applied")
         /// 신청하기
         internal static let apply = L10n.tr("Localizable", "Home.PostDetail.Guest.Apply")
       }
@@ -146,6 +148,8 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.PostDetail.Participant.title")
       }
       internal enum Writer {
+        /// 마감된 게시글이에요
+        internal static let finished = L10n.tr("Localizable", "Home.PostDetail.Writer.Finished")
         /// 마감하기
         internal static let finishing = L10n.tr("Localizable", "Home.PostDetail.Writer.Finishing")
         /// 거절하기
