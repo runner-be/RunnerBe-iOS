@@ -197,5 +197,11 @@
 "Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
 "Post.Detail.TextContent.PlaceHolder" = "함께할 러너들에게 하실 말씀이 있나요?";
 
+// MARK: - Home.PostDetail
+"Home.PostDetail.Guest.Apply" = "신청하기";
+"Home.PostDetail.Writer.Yes" = "수락하기";
+"Home.PostDetail.Writer.No" = "거절하기";
+"Home.PostDetail.Writer.Finishing" = "마감하기";
+
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";

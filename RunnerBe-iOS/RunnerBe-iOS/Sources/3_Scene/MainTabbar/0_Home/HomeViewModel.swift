@@ -282,6 +282,22 @@ final class HomeViewModel: BaseViewModel {
                 self?.outputs.posts.onNext(posts)
             })
             .disposed(by: disposeBag)
+
+        routeInputs.detailClosed
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self,
+                      let index = self.posts.firstIndex(where: { $0.id == result.id })
+                else { return }
+
+                self.posts[index].bookMarked = result.marked
+                if result.marked {
+                    self.bookMarkSet.insert(self.posts[index].id)
+                } else {
+                    self.bookMarkSet.remove(self.posts[index].id)
+                }
+                self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -310,6 +326,7 @@ final class HomeViewModel: BaseViewModel {
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
         var filterChanged = PublishSubject<PostFilter>()
+        var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
     }
 
     var disposeBag = DisposeBag()

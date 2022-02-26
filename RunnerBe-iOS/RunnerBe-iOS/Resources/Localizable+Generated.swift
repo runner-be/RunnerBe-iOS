@@ -136,6 +136,20 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.MessageList.NavBar.Title")
       }
     }
+    internal enum PostDetail {
+      internal enum Guest {
+        /// 신청하기
+        internal static let apply = L10n.tr("Localizable", "Home.PostDetail.Guest.Apply")
+      }
+      internal enum Writer {
+        /// 마감하기
+        internal static let finishing = L10n.tr("Localizable", "Home.PostDetail.Writer.Finishing")
+        /// 거절하기
+        internal static let no = L10n.tr("Localizable", "Home.PostDetail.Writer.No")
+        /// 수락하기
+        internal static let yes = L10n.tr("Localizable", "Home.PostDetail.Writer.Yes")
+      }
+    }
     internal enum PostList {
       internal enum Cell {
         internal enum Cover {

@@ -48,14 +48,14 @@ final class DetailTitleView: UIView {
         label.text = "TAGTAG"
     }
 
-    func setup() {
+    private func setup() {
         addSubviews([
             titleLabel,
             tagLabel,
         ])
     }
 
-    func initialLayout() {
+    private func initialLayout() {
         tagLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)

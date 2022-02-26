@@ -201,7 +201,8 @@
 		C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C727C91140004954EB /* UserInfoHeader.swift */; };
 		C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* PostAPIResult.swift */; };
 		C3C9732527C9373900232251 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732427C9373900232251 /* User.swift */; };
-		C3C9732727C9BB0E00232251 /* PostDetailConfigurationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732627C9BB0E00232251 /* PostDetailConfigurationItem.swift */; };
+		C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */; };
+		C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732827C9C26F00232251 /* PostDetailFooter.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -441,7 +442,8 @@
 		C3BB13C727C91140004954EB /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		C3BB13C927C922C8004954EB /* PostAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIResult.swift; sourceTree = "<group>"; };
 		C3C9732427C9373900232251 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C3C9732627C9BB0E00232251 /* PostDetailConfigurationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailConfigurationItem.swift; sourceTree = "<group>"; };
+		C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewConfigItem.swift; sourceTree = "<group>"; };
+		C3C9732827C9C26F00232251 /* PostDetailFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooter.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -864,11 +866,11 @@
 		C35E34A127C83C610023C0F9 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9732A27C9D3F400232251 /* Config */,
 				C35E34AA27C83D520023C0F9 /* View */,
 				C35E34A227C83C7E0023C0F9 /* PostDetailComponent.swift */,
 				C35E34A427C83C860023C0F9 /* PostDetailCoordinator.swift */,
 				C35E34A627C83C8F0023C0F9 /* PostDetailViewModel.swift */,
-				C3C9732627C9BB0E00232251 /* PostDetailConfigurationItem.swift */,
 				C3BB13C327C907AD004954EB /* PostDetailViewController.swift */,
 			);
 			path = Detail;
@@ -882,6 +884,7 @@
 				C35E34B127C849050023C0F9 /* DetailMapView.swift */,
 				C3BB13C527C908F3004954EB /* UserInfoView.swift */,
 				C3BB13C727C91140004954EB /* UserInfoHeader.swift */,
+				C3C9732827C9C26F00232251 /* PostDetailFooter.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1352,6 +1355,14 @@
 			path = SocialLogin;
 			sourceTree = "<group>";
 		};
+		C3C9732A27C9D3F400232251 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1766,7 +1777,7 @@
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */,
-				C3C9732727C9BB0E00232251 /* PostDetailConfigurationItem.swift in Sources */,
+				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
@@ -1903,6 +1914,7 @@
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
+				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,

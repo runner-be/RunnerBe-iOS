@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 class PostDetailViewController: BaseViewController {
@@ -71,6 +72,14 @@ class PostDetailViewController: BaseViewController {
 
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
+//                self?.makeFooter(writer: data.writer)
+                self?.makeFooter(writer: false)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)
     }
@@ -128,6 +137,8 @@ class PostDetailViewController: BaseViewController {
         view.showsVerticalScrollIndicator = false
         view.alwaysBounceVertical = false
     }
+
+    private var footer: PostDetailFooter?
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = "TITLE"
@@ -213,7 +224,7 @@ extension PostDetailViewController {
             make.top.equalTo(participantHeader.snp.bottom).offset(4)
             make.leading.equalTo(vStackView.snp.leading)
             make.trailing.equalTo(vStackView.snp.trailing)
-            make.bottom.equalTo(scrollView.snp.bottom)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-56)
         }
     }
 
@@ -229,5 +240,51 @@ extension PostDetailViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+
+    func makeFooter(writer: Bool) {
+        footer?.removeFromSuperview()
+
+        let footer: PostDetailFooter
+        if writer {
+            let writerFooter = PostWriterFooter()
+
+            writerFooter.finishingBtn.rx.tap
+                .bind(to: viewModel.inputs.finishing)
+                .disposed(by: disposeBags)
+
+            writerFooter.applicantBtn.rx.tap
+                .bind(to: viewModel.inputs.showApplicant)
+                .disposed(by: disposeBags)
+
+            footer = writerFooter
+        } else {
+            let guestFooter = PostGuestFooter()
+            guestFooter.bookMarkBtn.rx.tap
+                .map { !guestFooter.bookMarkBtn.isSelected }
+                .bind(to: viewModel.inputs.bookMark)
+                .disposed(by: disposeBags)
+
+            guestFooter.applyBtn.rx.tap
+                .bind(to: viewModel.inputs.apply)
+                .disposed(by: disposeBags)
+
+            viewModel.outputs.bookMarked
+                .subscribe(onNext: { marked in
+                    guestFooter.bookMarkBtn.isSelected = marked
+                })
+                .disposed(by: disposeBags)
+
+            footer = guestFooter
+        }
+
+        view.addSubviews([footer])
+
+        footer.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        self.footer = footer
     }
 }

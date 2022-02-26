@@ -48,13 +48,17 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
             .disposed(by: disposeBag)
     }
 
-    private func pushDetailPostScene(vm _: HomeViewModel, postId: Int, animated: Bool) {
+    private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(id, marked):
+                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
+                }
             })
 
         addChildBag(id: coord.id, disposable: disposable)
