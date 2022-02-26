@@ -93,6 +93,7 @@ class HomeViewController: BaseViewController {
             .map { [BasicPostSection(items: $0)] }
             .debug()
             .do(onNext: { [weak self] _ in
+                self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
                 self?.postCollectionView.collectionViewLayout.invalidateLayout()
             })
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))

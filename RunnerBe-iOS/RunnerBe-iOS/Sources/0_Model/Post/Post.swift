@@ -20,12 +20,12 @@ struct Post {
     let longitude: Float
     let latitude: Float
     let locationInfo: String
-    let runningTag: RunningTag
+    let runningTag: String
     let minAge: Int
     let maxAge: Int
     let gender: Gender
     let DISTANCE: Float
-    let whetherEnd: PostState
+    let whetherEnd: String
     let job: [Job]
     var bookMarked = false
     var contents: String = ""

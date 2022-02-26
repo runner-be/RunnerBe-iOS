@@ -44,7 +44,7 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-        mainPageAPIService.fetchPostsBookMarked() // 로컬에 초기 북마크 인덱스 저장하지 않고 사용할 방법 찾기
+        mainPageAPIService.fetchPostsBookMarked()
             .do(onNext: { [weak self] result in
                 if let result = result {
                     self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
@@ -98,6 +98,13 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
@@ -122,6 +129,13 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
@@ -147,6 +161,13 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
@@ -199,6 +220,13 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
@@ -242,6 +270,13 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    var post = post
+                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    partialResult.append(post)
+                }
+            }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)

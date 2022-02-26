@@ -31,7 +31,7 @@ struct PostCellConfiguringItem: Equatable {
         }
         ageText = "\(post.minAge)-\(post.maxAge)"
         writerName = post.writerName
-        closed = post.whetherEnd != .open
+        closed = post.whetherEnd == "Y"
         bookmarked = post.bookMarked
     }
 }

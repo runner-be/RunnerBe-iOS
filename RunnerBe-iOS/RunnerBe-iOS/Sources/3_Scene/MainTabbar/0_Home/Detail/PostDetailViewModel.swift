@@ -104,7 +104,7 @@ struct RunningInfo {
 
 extension RunningInfo {
     init(from post: Post) {
-        badge = post.runningTag.name
+        badge = post.runningTag
         title = post.title
         placeInfo = post.locationInfo
         time = post.runningTime
