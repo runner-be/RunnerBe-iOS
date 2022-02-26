@@ -22,5 +22,31 @@ final class BookMarkCoordinator: TabCoordinator<HomeResult> {
 
     var component: BookMarkComponent
 
-    override func start(animated _: Bool = true) {}
+    override func start(animated _: Bool = true) {
+        let scene = component.scene
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] input in
+                self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func pushDetailPostScene(vm: BookMarkViewModel, postId: Int, animated: Bool) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(id, marked, needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
+                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
 }

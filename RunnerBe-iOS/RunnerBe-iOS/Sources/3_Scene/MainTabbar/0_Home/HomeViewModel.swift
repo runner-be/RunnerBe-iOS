@@ -11,15 +11,15 @@ import RxSwift
 
 final class HomeViewModel: BaseViewModel {
     private var locationService: LocationService
-    private var mainPageAPIService: PostAPIService
+    private var postAPIService: PostAPIService
 
     var bookMarkSet = Set<Int>()
     var posts: [Post] = []
     var filter: PostFilter
 
-    init(locationService: LocationService, mainPageAPIService: PostAPIService) {
+    init(locationService: LocationService, postAPIService: PostAPIService) {
         self.locationService = locationService
-        self.mainPageAPIService = mainPageAPIService
+        self.postAPIService = postAPIService
 
         // TODO: 런칭땐 이 좌표값으로 Filter 작성
         let searchLocation: CLLocationCoordinate2D
@@ -44,13 +44,13 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-        mainPageAPIService.fetchPostsBookMarked()
+        postAPIService.fetchPostsBookMarked()
             .do(onNext: { [weak self] result in
                 if let result = result {
                     self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
                 }
             })
-            .flatMap { _ in mainPageAPIService.fetchPosts(with: initialFilter) }
+            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
             .do(onNext: { [weak self] result in
                 if result == nil {
                     self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
@@ -91,7 +91,7 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .compactMap { $0 }
-            .flatMap { filter in mainPageAPIService.fetchPosts(with: filter) }
+            .flatMap { filter in postAPIService.fetchPosts(with: filter) }
             .do(onNext: { [weak self] result in
                 if result == nil {
                     self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
@@ -123,7 +123,7 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .compactMap { $0 }
-            .flatMap { mainPageAPIService.fetchPosts(with: $0) }
+            .flatMap { postAPIService.fetchPosts(with: $0) }
             .do(onNext: { [weak self] result in
                 if result == nil {
                     self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
@@ -156,7 +156,7 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .compactMap { $0 }
-            .flatMap { mainPageAPIService.fetchPosts(with: $0) }
+            .flatMap { postAPIService.fetchPosts(with: $0) }
             .do(onNext: { [weak self] result in
                 if result == nil {
                     self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
@@ -181,7 +181,7 @@ final class HomeViewModel: BaseViewModel {
         inputs.tapPostBookMark
             .map { [weak self] idx in (idx: idx, post: self?.posts[idx]) }
             .filter { $0.post != nil }
-            .flatMap { mainPageAPIService.bookmark(postId: $0.post!.id, mark: !$0.post!.bookMarked) }
+            .flatMap { postAPIService.bookmark(postId: $0.post!.id, mark: !$0.post!.bookMarked) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.id == result.postId })
@@ -217,7 +217,7 @@ final class HomeViewModel: BaseViewModel {
             .filter { $0 }
             .compactMap { [weak self] _ in self?.filter }
             .flatMap { filter in
-                mainPageAPIService.fetchPosts(with: filter)
+                postAPIService.fetchPosts(with: filter)
             }
             .do(onNext: { [weak self] result in
                 if result == nil {
@@ -267,7 +267,7 @@ final class HomeViewModel: BaseViewModel {
             }
             .compactMap { $0 }
             .flatMap { filter in
-                mainPageAPIService.fetchPosts(with: filter)
+                postAPIService.fetchPosts(with: filter)
             }
             .do(onNext: { [weak self] result in
                 if result == nil {

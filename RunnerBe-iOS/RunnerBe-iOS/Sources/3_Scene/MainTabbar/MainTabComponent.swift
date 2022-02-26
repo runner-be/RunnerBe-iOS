@@ -11,6 +11,7 @@ import NeedleFoundation
 protocol MainTabDependency: Dependency {
     var dateService: DateService { get }
     var loginService: LoginService { get }
+    var loginKeyChainService: LoginKeyChainService { get }
 }
 
 final class MainTabComponent: Component<MainTabDependency> {
@@ -28,5 +29,9 @@ final class MainTabComponent: Component<MainTabDependency> {
 
     var myPageComponent: MyPageComponent {
         return MyPageComponent(parent: self)
+    }
+
+    var postAPIService: PostAPIService {
+        return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }
 }

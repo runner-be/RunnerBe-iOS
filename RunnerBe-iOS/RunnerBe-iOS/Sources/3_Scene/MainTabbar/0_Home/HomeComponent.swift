@@ -12,6 +12,7 @@ protocol HomeDependency: Dependency {
     var dateService: DateService { get }
     var loginService: LoginService { get }
     var loginKeyChainService: LoginKeyChainService { get }
+    var postAPIService: PostAPIService { get }
 }
 
 final class HomeComponent: Component<HomeDependency> {
@@ -23,15 +24,11 @@ final class HomeComponent: Component<HomeDependency> {
     }
 
     var viewModel: HomeViewModel {
-        return HomeViewModel(locationService: locationService, mainPageAPIService: postAPIService)
+        return HomeViewModel(locationService: locationService, postAPIService: dependency.postAPIService)
     }
 
     var locationService: LocationService {
         return shared { BasicLocationService() }
-    }
-
-    var postAPIService: PostAPIService {
-        return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {

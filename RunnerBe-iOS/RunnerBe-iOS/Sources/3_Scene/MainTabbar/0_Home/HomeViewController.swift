@@ -38,6 +38,8 @@ class HomeViewController: BaseViewController {
     private var viewModel: HomeViewModel
 
     private func viewModelInput() {
+        
+        
         filterIcon.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
@@ -59,7 +61,6 @@ class HomeViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        // 서버 연결
         let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> { [weak self] _, collectionView, indexPath, item in
             guard let self = self,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView

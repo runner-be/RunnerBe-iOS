@@ -9,6 +9,7 @@ import RxDataSources
 import UIKit
 
 struct PostCellConfig: Equatable {
+    let id: Int
     let title: String
     let date: String
     let place: String
@@ -16,10 +17,11 @@ struct PostCellConfig: Equatable {
     let ageText: String
     var writerAvr: UIImage?
     let writerName: String
-    let bookmarked: Bool
+    var bookmarked: Bool
     let closed: Bool
 
     init(from post: Post) {
+        id = post.id
         title = post.title
         date = post.gatheringTime
         place = post.locationInfo
@@ -33,5 +35,10 @@ struct PostCellConfig: Equatable {
         writerName = post.writerName
         closed = post.whetherEnd == "Y"
         bookmarked = post.bookMarked
+    }
+
+    init(from post: Post, marked: Bool) {
+        self.init(from: post)
+        bookmarked = marked
     }
 }

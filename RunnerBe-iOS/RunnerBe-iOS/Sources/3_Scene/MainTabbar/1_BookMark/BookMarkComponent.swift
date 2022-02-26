@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol BookMarkDependency: Dependency {}
+protocol BookMarkDependency: Dependency {
+    var postAPIService: PostAPIService { get }
+}
 
 final class BookMarkComponent: Component<BookMarkDependency> {
     var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) {
@@ -18,7 +20,11 @@ final class BookMarkComponent: Component<BookMarkDependency> {
         }
     }
 
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(parent: self, postId: postId)
+    }
+
     var viewModel: BookMarkViewModel {
-        return BookMarkViewModel()
+        return BookMarkViewModel(postAPIService: dependency.postAPIService)
     }
 }
