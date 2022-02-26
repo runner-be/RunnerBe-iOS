@@ -13,6 +13,13 @@ internal enum L10n {
   /// Ko-kr
   internal static let locale = L10n.tr("Localizable", "Locale")
 
+  internal enum Additional {
+    internal enum Gender {
+      /// 만
+      internal static let limit = L10n.tr("Localizable", "Additional.Gender.Limit")
+    }
+  }
+
   internal enum Birth {
     /// 정확한 나이는 공개되지 않아요!
     internal static let subTitle1 = L10n.tr("Localizable", "Birth.subTitle1")
@@ -200,17 +207,6 @@ internal enum L10n {
     internal enum NaverBtn {
       /// Login with Naver
       internal static let text = L10n.tr("Localizable", "LoggedOut.NaverBtn.text")
-    }
-  }
-
-  internal enum Main {
-    internal enum Post {
-      internal enum Cell {
-        internal enum Gender {
-          /// 만
-          internal static let additional = L10n.tr("Localizable", "Main.Post.Cell.Gender.additional")
-        }
-      }
     }
   }
 

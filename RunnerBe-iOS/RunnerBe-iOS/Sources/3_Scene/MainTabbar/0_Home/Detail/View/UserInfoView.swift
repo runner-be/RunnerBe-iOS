@@ -21,7 +21,7 @@ final class UserInfoView: UIView {
         initialLayout()
     }
 
-    func setup(userInfo: UserInfo) {
+    func setup(userInfo: PostDetailUserConfig) {
         // TODO: avartarView
         nameLabel.text = userInfo.nickName
         genderLabel.text = userInfo.gender

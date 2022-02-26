@@ -1,5 +1,5 @@
 //
-//  PostCellConfiguringItem.swift
+//  PostCellConfig.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/23.
@@ -8,7 +8,7 @@
 import RxDataSources
 import UIKit
 
-struct PostCellConfiguringItem: Equatable {
+struct PostCellConfig: Equatable {
     let title: String
     let date: String
     let place: String
@@ -25,7 +25,7 @@ struct PostCellConfiguringItem: Equatable {
         place = post.locationInfo
         switch post.gender {
         case .female, .male:
-            gender = post.gender.name + L10n.Main.Post.Cell.Gender.additional
+            gender = post.gender.name + L10n.Additional.Gender.limit
         case .none:
             gender = post.gender.name
         }

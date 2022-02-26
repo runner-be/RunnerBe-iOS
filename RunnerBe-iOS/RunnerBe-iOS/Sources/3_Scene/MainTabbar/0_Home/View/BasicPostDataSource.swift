@@ -9,16 +9,16 @@ import Foundation
 import RxDataSources
 
 struct BasicPostSection {
-    var items: [PostCellConfiguringItem]
+    var items: [PostCellConfig]
     var uuid = UUID().uuidString
 
-    init(items: [PostCellConfiguringItem]) {
+    init(items: [PostCellConfig]) {
         self.items = items
     }
 }
 
 extension BasicPostSection: SectionModelType {
-    init(original: BasicPostSection, items: [PostCellConfiguringItem]) {
+    init(original: BasicPostSection, items: [PostCellConfig]) {
         self = original
         self.items = items
     }

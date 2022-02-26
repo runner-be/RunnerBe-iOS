@@ -29,5 +29,5 @@ struct Post {
     let job: [Job]
     var bookMarked = false
     var contents: String = ""
-    let numParticipantsLimit: Int
+    let numParticipantsLimit: String
 }

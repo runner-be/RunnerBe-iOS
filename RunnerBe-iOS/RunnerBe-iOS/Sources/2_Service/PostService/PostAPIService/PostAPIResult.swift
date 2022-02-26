@@ -45,7 +45,6 @@ extension PostAPIResult {
                 $0.append(job)
             }
         }
-        let numLimit = peopleNum == nil ? 2 : (Int(peopleNum!) ?? 2)
 
         return Post(
             id: postID,
@@ -67,7 +66,7 @@ extension PostAPIResult {
             whetherEnd: whetherEnd ?? "",
             job: jobs,
             contents: contents ?? "",
-            numParticipantsLimit: numLimit
+            numParticipantsLimit: peopleNum ?? "최대 -명"
         )
     }
 }

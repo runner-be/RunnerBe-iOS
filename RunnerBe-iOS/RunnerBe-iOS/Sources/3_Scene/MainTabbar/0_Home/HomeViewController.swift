@@ -86,8 +86,8 @@ class HomeViewController: BaseViewController {
 
         viewModel.outputs.posts
             .map {
-                $0.reduce(into: [PostCellConfiguringItem]()) {
-                    $0.append(PostCellConfiguringItem(from: $1))
+                $0.reduce(into: [PostCellConfig]()) {
+                    $0.append(PostCellConfig(from: $1))
                 }
             }
             .map { [BasicPostSection(items: $0)] }

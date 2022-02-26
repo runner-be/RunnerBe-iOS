@@ -199,5 +199,5 @@
 "Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
 "Post.Detail.TextContent.PlaceHolder" = "함께할 러너들에게 하실 말씀이 있나요?";
 
-// MARK: - Main.Post.Cell
-"Main.Post.Cell.Gender.additional" = "만";
+// MARK: - Additional
+"Additional.Gender.Limit" = "만";

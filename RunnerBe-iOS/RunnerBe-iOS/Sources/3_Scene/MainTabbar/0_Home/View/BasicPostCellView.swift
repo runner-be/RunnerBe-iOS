@@ -28,7 +28,7 @@ class BasicPostCellView: UICollectionViewCell {
         initialLayout()
     }
 
-    func configure(with item: PostCellConfiguringItem) {
+    func configure(with item: PostCellConfig) {
         profileLabel.label.text = item.writerName
         bookMarkIcon.isSelected = item.bookmarked
         titleLabel.text = item.title
