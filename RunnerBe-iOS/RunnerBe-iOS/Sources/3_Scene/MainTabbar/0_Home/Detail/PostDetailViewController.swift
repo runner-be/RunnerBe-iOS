@@ -65,15 +65,15 @@ class PostDetailViewController: BaseViewController {
                 )
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {
-                    let view = UserInfoView()
+                    let view = UserInfoWithSingleDivider()
                     view.setup(userInfo: $1)
                     $0.append(view)
                 }
-
+                self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
-//                self?.makeFooter(writer: data.writer)
-                self?.makeFooter(writer: false)
+                self?.makeFooter(writer: data.writer)
+//                self?.makeFooter(writer: false)
             })
             .disposed(by: disposeBags)
 
@@ -125,7 +125,7 @@ class PostDetailViewController: BaseViewController {
     private var participantHeader = UserInfoHeader()
 
     private var participantView = UIStackView.make(
-        with: [UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView(), UserInfoView()],
+        with: [UserInfoWithSingleDivider()],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
@@ -139,6 +139,11 @@ class PostDetailViewController: BaseViewController {
     }
 
     private var footer: PostDetailFooter?
+
+    var applicantBtn = UIButton().then { button in
+        button.setImage(Asset.applicant.uiImage, for: .normal)
+        button.isHidden = true
+    }
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = "TITLE"
@@ -159,6 +164,7 @@ extension PostDetailViewController {
         view.addSubviews([
             navBar,
             scrollView,
+            applicantBtn,
         ])
 
         scrollView.addSubviews([
@@ -250,10 +256,14 @@ extension PostDetailViewController {
             let writerFooter = PostWriterFooter()
 
             writerFooter.finishingBtn.rx.tap
+                .debug()
                 .bind(to: viewModel.inputs.finishing)
                 .disposed(by: disposeBags)
 
-            writerFooter.applicantBtn.rx.tap
+            applicantBtn.isHidden = false
+
+            applicantBtn.rx.tap
+                .debug()
                 .bind(to: viewModel.inputs.showApplicant)
                 .disposed(by: disposeBags)
 
@@ -284,6 +294,13 @@ extension PostDetailViewController {
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+
+        if writer {
+            applicantBtn.snp.makeConstraints { make in
+                make.trailing.equalTo(view.snp.trailing).offset(-16)
+                make.bottom.equalTo(footer.snp.top).offset(-15)
+            }
         }
         self.footer = footer
     }

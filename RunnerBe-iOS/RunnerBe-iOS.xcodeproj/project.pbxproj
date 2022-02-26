@@ -203,6 +203,12 @@
 		C3C9732527C9373900232251 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732427C9373900232251 /* User.swift */; };
 		C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */; };
 		C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732827C9C26F00232251 /* PostDetailFooter.swift */; };
+		C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732C27C9E0D900232251 /* ApplicantListModalComponent.swift */; };
+		C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732E27C9E0F600232251 /* ApplicantListModalCoordinator.swift */; };
+		C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733027C9E0FD00232251 /* ApplicantListModalViewModel.swift */; };
+		C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733227C9E10500232251 /* ApplicantListModalViewController.swift */; };
+		C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */; };
+		C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -444,6 +450,12 @@
 		C3C9732427C9373900232251 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewConfigItem.swift; sourceTree = "<group>"; };
 		C3C9732827C9C26F00232251 /* PostDetailFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooter.swift; sourceTree = "<group>"; };
+		C3C9732C27C9E0D900232251 /* ApplicantListModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListModalComponent.swift; sourceTree = "<group>"; };
+		C3C9732E27C9E0F600232251 /* ApplicantListModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListModalCoordinator.swift; sourceTree = "<group>"; };
+		C3C9733027C9E0FD00232251 /* ApplicantListModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListModalViewModel.swift; sourceTree = "<group>"; };
+		C3C9733227C9E10500232251 /* ApplicantListModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListModalViewController.swift; sourceTree = "<group>"; };
+		C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAcceptableCell.swift; sourceTree = "<group>"; };
+		C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoWithSingleDivider.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -883,9 +895,9 @@
 				C35E34AB27C83D620023C0F9 /* DetailTitleView.swift */,
 				C35E34AD27C840220023C0F9 /* DetailInfoView.swift */,
 				C35E34B127C849050023C0F9 /* DetailMapView.swift */,
-				C3BB13C527C908F3004954EB /* UserInfoView.swift */,
 				C3BB13C727C91140004954EB /* UserInfoHeader.swift */,
 				C3C9732827C9C26F00232251 /* PostDetailFooter.swift */,
+				C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1367,8 +1379,29 @@
 		C3C9732B27C9E0A900232251 /* ApplicantListModal */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9733427C9E57400232251 /* View */,
+				C3C9732C27C9E0D900232251 /* ApplicantListModalComponent.swift */,
+				C3C9732E27C9E0F600232251 /* ApplicantListModalCoordinator.swift */,
+				C3C9733027C9E0FD00232251 /* ApplicantListModalViewModel.swift */,
+				C3C9733227C9E10500232251 /* ApplicantListModalViewController.swift */,
 			);
 			path = ApplicantListModal;
+			sourceTree = "<group>";
+		};
+		C3C9733427C9E57400232251 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3C9733727C9E7A500232251 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C3BB13C527C908F3004954EB /* UserInfoView.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {
@@ -1446,7 +1479,7 @@
 		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				C3F8D1D727C44F7F0004CAB8 /* CutomOverlay */,
+				C3C9733727C9E7A500232251 /* UserInfo */,
 				C3498F3327C0DE5B003EDD0F /* IconTextButtonGroup */,
 				C3498F2627BF7126003EDD0F /* SegmentedControl */,
 				C39F2EB127BCF45200A7D86B /* CheckBox */,
@@ -1535,13 +1568,6 @@
 			children = (
 			);
 			path = WritingPostService;
-			sourceTree = "<group>";
-		};
-		C3F8D1D727C44F7F0004CAB8 /* CutomOverlay */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CutomOverlay;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -1761,6 +1787,7 @@
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
 				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
+				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
@@ -1847,6 +1874,7 @@
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C3BA45C527B59F7C0048CA76 /* EmailCertificationInitModalViewController.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
+				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
 				C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
@@ -1873,6 +1901,7 @@
 				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
+				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
@@ -1923,6 +1952,7 @@
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
+				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
@@ -1948,6 +1978,7 @@
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
+				C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
@@ -1961,6 +1992,7 @@
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
+				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				C361B6CA27B2939800824ABE /* EmailCertificationViewController.swift in Sources */,

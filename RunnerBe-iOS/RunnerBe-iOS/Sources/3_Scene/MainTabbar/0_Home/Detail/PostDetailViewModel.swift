@@ -79,9 +79,9 @@ final class PostDetailViewModel: BaseViewModel {
                 self.outputs.bookMarked.onNext(result.mark)
             })
             .disposed(by: disposeBag)
-        
+
         inputs.apply
-            .flatMap{
+            .flatMap {
                 postAPIService.apply(postId: postId)
             }
             .subscribe(onNext: { [weak self] success in
@@ -93,9 +93,16 @@ final class PostDetailViewModel: BaseViewModel {
                 } else {
                     message = "신청에 실패했습니다!"
                 }
-                
+
                 self.outputs.toast.onNext(message)
             })
+            .disposed(by: disposeBag)
+
+        inputs.showApplicant
+            .compactMap { [weak self] _ in
+                self?.applicants
+            }
+            .subscribe(routes.applicantsModal)
             .disposed(by: disposeBag)
     }
 
@@ -119,6 +126,7 @@ final class PostDetailViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<(id: Int, marked: Bool)>()
         var report = PublishSubject<Int>()
+        var applicantsModal = PublishSubject<[User]>()
     }
 
     private var disposeBag = DisposeBag()

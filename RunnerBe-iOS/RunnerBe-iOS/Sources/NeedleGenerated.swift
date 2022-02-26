@@ -36,6 +36,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
         return SelectDateModalDependency547a4536ad6f1082ff72Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent") { component in
+        return ApplicantListModalDependency38daf10a5dd5609ffa27Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent") { component in
         return PostDetailDependency0e20bfa0f3e155bd15e3Provider(component: component)
     }
@@ -232,6 +235,21 @@ private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectD
 private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
+    }
+}
+private class ApplicantListModalDependency38daf10a5dd5609ffa27BaseProvider: ApplicantListModalDependency {
+    var postAPIService: PostAPIService {
+        return homeComponent.postAPIService
+    }
+    private let homeComponent: HomeComponent
+    init(homeComponent: HomeComponent) {
+        self.homeComponent = homeComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent
+private class ApplicantListModalDependency38daf10a5dd5609ffa27Provider: ApplicantListModalDependency38daf10a5dd5609ffa27BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(homeComponent: component.parent.parent as! HomeComponent)
     }
 }
 private class PostDetailDependency0e20bfa0f3e155bd15e3BaseProvider: PostDetailDependency {

@@ -34,5 +34,24 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .map { PostDetailResult.backward(id: $0.id, marked: $0.marked) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
+
+        scene.VM.routes.applicantsModal
+            .map { (vm: scene.VM, applicants: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.presentApplicantListModal(vm: result.vm, applicants: result.applicants, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func presentApplicantListModal(vm _: PostDetailViewModel, applicants: [User], animated: Bool) {
+        let comp = component.applicantListModal(applicants: applicants)
+        let coord = ApplicantListModalCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
     }
 }

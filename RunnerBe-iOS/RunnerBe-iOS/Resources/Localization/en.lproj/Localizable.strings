@@ -205,5 +205,7 @@
 "Home.PostDetail.Writer.No" = "거절하기";
 "Home.PostDetail.Writer.Finishing" = "마감하기";
 
+"Home.PostDetail.Participant.title" = "신청한 러너";
+
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";

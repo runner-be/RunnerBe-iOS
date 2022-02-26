@@ -28,4 +28,8 @@ final class PostDetailComponent: Component<PostDetailDependency> {
         self.postId = postId
         super.init(parent: parent)
     }
+
+    func applicantListModal(applicants: [User]) -> ApplicantListModalComponent {
+        return ApplicantListModalComponent(parent: self, postId: postId, applicants: applicants)
+    }
 }

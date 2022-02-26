@@ -93,10 +93,6 @@ class PostWriterFooter: PostDetailFooter {
         button.clipsToBounds = true
     }
 
-    var applicantBtn = UIButton().then { button in
-        button.setImage(Asset.applicant.uiImage, for: .normal)
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -105,7 +101,7 @@ class PostWriterFooter: PostDetailFooter {
 
     private func setup() {
         backgroundColor = .darkG6
-        addSubviews([applicantBtn, finishingBtn])
+        addSubviews([finishingBtn])
     }
 
     override func initialLayout() {
@@ -116,11 +112,6 @@ class PostWriterFooter: PostDetailFooter {
             make.trailing.equalTo(self.snp.trailing).offset(-16)
             make.top.equalTo(self.snp.top).offset(8)
             make.bottom.equalTo(self.snp.bottom).offset(-8)
-        }
-
-        applicantBtn.snp.makeConstraints { make in
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.snp.top).offset(-15)
         }
     }
 }

@@ -141,6 +141,10 @@ internal enum L10n {
         /// 신청하기
         internal static let apply = L10n.tr("Localizable", "Home.PostDetail.Guest.Apply")
       }
+      internal enum Participant {
+        /// 신청한 러너
+        internal static let title = L10n.tr("Localizable", "Home.PostDetail.Participant.title")
+      }
       internal enum Writer {
         /// 마감하기
         internal static let finishing = L10n.tr("Localizable", "Home.PostDetail.Writer.Finishing")

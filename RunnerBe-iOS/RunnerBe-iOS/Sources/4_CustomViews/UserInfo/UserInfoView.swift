@@ -9,7 +9,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class UserInfoView: UIView {
+class UserInfoView: UIView {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -101,9 +101,9 @@ final class UserInfoView: UIView {
         label.text = "TAGTAG"
     }
 
-    private var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG5
-    }
+//    private var hDivider = UIView().then { view in
+//        view.backgroundColor = .darkG5
+//    }
 
     private func setup() {
         addSubviews([
@@ -112,14 +112,15 @@ final class UserInfoView: UIView {
             genderDotAgeStack,
             jobTagLabel,
             ownerMark,
-            hDivider,
+//            hDivider,
         ])
     }
 
     private func initialLayout() {
         avatarView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(20)
+            make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
+            make.bottom.equalTo(self.snp.bottom)
         }
 
         nameLabel.snp.makeConstraints { make in
@@ -142,12 +143,12 @@ final class UserInfoView: UIView {
             make.leading.equalTo(genderDotAgeStack.snp.trailing).offset(8)
         }
 
-        hDivider.snp.makeConstraints { make in
-            make.top.equalTo(avatarView.snp.bottom).offset(20)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom)
-            make.height.equalTo(1)
-        }
+//        hDivider.snp.makeConstraints { make in
+//            make.top.equalTo(avatarView.snp.bottom).offset(20)
+//            make.leading.equalTo(self.snp.leading)
+//            make.trailing.equalTo(self.snp.trailing)
+//            make.bottom.equalTo(self.snp.bottom)
+//            make.height.equalTo(1)
+//        }
     }
 }
