@@ -48,7 +48,7 @@ class SelectPlaceView: SelectBaseView {
     }
 
     func setMapCoord(_ coord: CLLocationCoordinate2D, animated: Bool) {
-        mapView.centerToCoord(coord, regionRadius: slider.selectedMaxValue * 3, animated: animated)
+        mapView.centerToCoord(coord, regionRadius: slider.selectedMinValue * 3, animated: animated)
         updateCircle()
     }
 
