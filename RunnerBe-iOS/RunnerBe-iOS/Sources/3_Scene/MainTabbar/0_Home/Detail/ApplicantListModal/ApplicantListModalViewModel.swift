@@ -9,7 +9,10 @@ import Foundation
 import RxSwift
 
 final class ApplicantListModalViewModel: BaseViewModel {
+    var applicants: [User]
+
     init(postId: Int, applicants: [User], postAPIService: PostAPIService) {
+        self.applicants = applicants
         super.init()
 
         inputs.backward
@@ -22,27 +25,40 @@ final class ApplicantListModalViewModel: BaseViewModel {
                     $0.append(PostDetailUserConfig(from: $1, owner: false))
                 }
             }
-            .bind(to: outputs.participants)
+            .subscribe(onNext: { [weak self] applicants in
+                self?.outputs.participants.onNext(applicants)
+            })
             .disposed(by: disposeBag)
 
         inputs.accept
-            .flatMap { postAPIService.accept(postId: postId, applicantId: applicants[$0].userID, accept: true) }
-            .subscribe(onNext: { [weak self] success in
+            .flatMap {
+                postAPIService.accept(postId: postId,
+                                      applicantId: applicants[$0.idx].userID,
+                                      accept: $0.accept)
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self
+                else { return }
+
                 let message: String
-                if success {
+                if result.success {
                     message = "수락 완료"
+                    self.applicants.removeAll(where: { $0.userID == result.id })
+                    let configs = self.applicants.reduce(into: [PostDetailUserConfig]()) {
+                        $0.append(PostDetailUserConfig(from: $1, owner: false))
+                    }
+                    self.outputs.participants.onNext(configs)
                 } else {
                     message = "수락 실패"
                 }
-                self?.outputs.toast.onNext(message)
+                self.outputs.toast.onNext(message)
             })
             .disposed(by: disposeBag)
     }
 
     struct Input {
         var backward = PublishSubject<Void>()
-        var accept = PublishSubject<Int>()
-        var refuse = PublishSubject<Int>()
+        var accept = PublishSubject<(idx: Int, accept: Bool)>()
         var finishing = PublishSubject<Void>()
     }
 

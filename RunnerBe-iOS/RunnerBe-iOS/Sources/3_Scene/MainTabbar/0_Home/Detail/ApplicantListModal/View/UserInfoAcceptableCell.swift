@@ -16,8 +16,8 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect = .zero) {
+        super.init(frame: frame)
         setup()
         initialLayout()
     }
@@ -41,6 +41,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         button.setBackgroundColor(.primary, for: .normal)
 
         button.titleLabel?.font = .iosBody13B
+        button.clipsToBounds = true
     }
 
     var refusalBtn = UIButton().then { button in
@@ -50,6 +51,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.darkG2.cgColor
         button.titleLabel?.font = .iosBody13B
+        button.clipsToBounds = true
     }
 
     private var hDivider = UIView().then { view in
@@ -59,6 +61,8 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
     private func setup() {
         contentView.addSubviews([
             userInfoView,
+            acceptBtn,
+            refusalBtn,
             hDivider,
         ])
     }

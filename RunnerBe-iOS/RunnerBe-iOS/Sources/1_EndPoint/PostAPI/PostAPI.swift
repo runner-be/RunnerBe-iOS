@@ -37,7 +37,7 @@ extension PostAPI: TargetType {
         case let .detail(postId, userId, _):
             return "/postings/\(postId)/\(userId)"
         case let .apply(postId, _, _):
-            return "/running/request/\(postId)"
+            return "/runnings/request/\(postId)"
         case let .accept(postId, _, applicantId, accept, _):
             return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         }

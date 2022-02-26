@@ -390,7 +390,7 @@ final class BasicPostAPIService: PostAPIService {
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
                 #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] apply postId:\(postId)")
+                    print("[\(#line):MainPageAPIService:\(#function)] apply postId:\(postId) userId: \(userId) token: \(token.jwt)")
                 #endif
                 guard let json = json
                 else {
@@ -444,12 +444,12 @@ final class BasicPostAPIService: PostAPIService {
             })
     }
 
-    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<Bool> {
-        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, success: Bool)> {
+        let functionResult = ReplaySubject<(id: Int, success: Bool)>.create(bufferSize: 1)
 
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(false) }
+        else { return .just((id: applicantId, success: false)) }
 
         let disposable = provider.rx.request(
             .accept(
@@ -470,7 +470,7 @@ final class BasicPostAPIService: PostAPIService {
             else {
                 #if DEBUG
                     print("result == fail")
-                    functionResult.onNext(false)
+                    functionResult.onNext((id: applicantId, success: false))
                 #endif
                 return nil
             }
@@ -479,7 +479,7 @@ final class BasicPostAPIService: PostAPIService {
         }
         .subscribe(onNext: { response in
             guard let response = response else {
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
                 return
             }
             #if DEBUG
@@ -487,33 +487,33 @@ final class BasicPostAPIService: PostAPIService {
             #endif
             switch response.code {
             case 1000: // 성공
-                functionResult.onNext(true)
+                functionResult.onNext((id: applicantId, success: true))
             case 2010: // jwt와 userId 불일치
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2011: // userId값 필요
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2012: // userId 형식 오류
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2041: // postId 미입력
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2042: // postId 형식오류
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2044: // 인증 대기중 회원
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2065: // applicantId 미입력
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2066: // applicantId 형식오류
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2067: // 수락 권한 없음
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2068: // accept 여부 미입력
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2069: // accept 형식 오류 "Y" "D"
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             case 2070: // applicant 유저가 모임 대기상태가 아닙니다.
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             default:
-                functionResult.onNext(false)
+                functionResult.onNext((id: applicantId, success: false))
             }
         })
 

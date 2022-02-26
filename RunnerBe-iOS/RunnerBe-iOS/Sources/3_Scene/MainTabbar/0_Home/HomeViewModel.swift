@@ -67,6 +67,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -108,6 +109,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -139,6 +141,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -171,6 +174,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -190,6 +194,7 @@ final class HomeViewModel: BaseViewModel {
                     self.bookMarkSet.remove(self.posts[index].id)
                 }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
+                self.outputs.posts.onNext(self.posts)
             })
             .disposed(by: disposeBag)
 
@@ -230,6 +235,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -280,6 +286,7 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -296,6 +303,7 @@ final class HomeViewModel: BaseViewModel {
                     self.bookMarkSet.remove(self.posts[index].id)
                 }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
+                self.outputs.posts.onNext(self.posts)
             })
             .disposed(by: disposeBag)
     }
@@ -312,6 +320,7 @@ final class HomeViewModel: BaseViewModel {
 
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
+        var refresh = PublishSubject<Void>()
         var toast = BehaviorSubject<String>(value: "")
         var bookMarked = PublishSubject<(idx: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()

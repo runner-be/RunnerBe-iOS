@@ -209,6 +209,7 @@
 		C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733227C9E10500232251 /* ApplicantListModalViewController.swift */; };
 		C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */; };
 		C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */; };
+		C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9733A27CA1CC500232251 /* UserInfoAcceptableDataSource.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -456,6 +457,7 @@
 		C3C9733227C9E10500232251 /* ApplicantListModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListModalViewController.swift; sourceTree = "<group>"; };
 		C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAcceptableCell.swift; sourceTree = "<group>"; };
 		C3C9733827C9E7C300232251 /* UserInfoWithSingleDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoWithSingleDivider.swift; sourceTree = "<group>"; };
+		C3C9733A27CA1CC500232251 /* UserInfoAcceptableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAcceptableDataSource.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -1392,6 +1394,7 @@
 			isa = PBXGroup;
 			children = (
 				C3C9733527C9E6FE00232251 /* UserInfoAcceptableCell.swift */,
+				C3C9733A27CA1CC500232251 /* UserInfoAcceptableDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1988,6 +1991,7 @@
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
+				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,

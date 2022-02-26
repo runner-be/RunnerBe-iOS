@@ -91,17 +91,19 @@ class HomeViewController: BaseViewController {
                 }
             }
             .map { [BasicPostSection(items: $0)] }
-            .debug()
-            .do(onNext: { [weak self] _ in
-                self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
-                self?.postCollectionView.collectionViewLayout.invalidateLayout()
-            })
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
 
         viewModel.outputs.highLightFilter
             .subscribe(onNext: { [weak self] highlight in
                 self?.filterIcon.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.refresh
+            .subscribe(onNext: { [weak self] in
+                self?.postCollectionView.collectionViewLayout.invalidateLayout()
+                self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
             })
             .disposed(by: disposeBags)
 

@@ -6,6 +6,7 @@
 //
 
 import RxCocoa
+import RxDataSources
 import RxGesture
 import RxSwift
 import SnapKit
@@ -46,24 +47,34 @@ class ApplicantListModalViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.participants
-            .bind(to: collectionView.rx.items(
-                cellIdentifier: UserInfoAcceptableCell.id,
-                cellType: UserInfoAcceptableCell.self
-            )) {
-                [unowned self] row, element, cell in
-                    cell.setup(userInfo: element)
+        typealias UserAcceptableCellDataSource = RxCollectionViewSectionedAnimatedDataSource<UserInfoAcceaptableSection>
 
-                    cell.acceptBtn.rx.tap
-                        .map { row }
-                        .bind(to: self.viewModel.inputs.accept)
-                        .disposed(by: cell.disposeBag)
+        let dataSource = UserAcceptableCellDataSource(
+            configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserInfoAcceptableCell.id, for: indexPath) as? UserInfoAcceptableCell
+                else { return UICollectionViewCell() }
 
-                    cell.refusalBtn.rx.tap
-                        .map { row }
-                        .bind(to: self.viewModel.inputs.refuse)
-                        .disposed(by: cell.disposeBag)
+                cell.setup(userInfo: element)
+
+                cell.acceptBtn.rx.tap
+                    .map { (idx: indexPath.row, accept: true) }
+                    .bind(to: self.viewModel.inputs.accept)
+                    .disposed(by: cell.disposeBag)
+
+                cell.refusalBtn.rx.tap
+                    .map { (idx: indexPath.row, accept: false) }
+                    .bind(to: self.viewModel.inputs.accept)
+                    .disposed(by: cell.disposeBag)
+
+                return cell
             }
+        )
+
+        viewModel.outputs.participants
+            .debug()
+            .map { [UserInfoAcceaptableSection(items: $0)] }
+            .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
 
         viewModel.outputs.toast

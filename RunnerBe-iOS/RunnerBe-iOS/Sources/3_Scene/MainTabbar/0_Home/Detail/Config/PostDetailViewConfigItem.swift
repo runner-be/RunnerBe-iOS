@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxDataSources
 
 struct PostDetailRunningConfig {
     let badge: String
@@ -46,7 +47,7 @@ extension PostDetailRunningConfig {
     }
 }
 
-struct PostDetailUserConfig {
+struct PostDetailUserConfig: Equatable, IdentifiableType {
     let nickName: String
     let age: String
     let gender: String
@@ -56,15 +57,18 @@ struct PostDetailUserConfig {
     init(from user: User, owner: Bool) {
         nickName = user.nickName
         age = user.age
-        let g = Gender(name: user.gender)
-        switch g {
-        case .female, .male:
-            gender = user.gender + L10n.Additional.Gender.limit
-        case .none: fallthrough
-        default:
-            gender = user.gender
-        }
+        gender = user.gender
         job = user.job
         isPostOwner = owner
     }
+
+    init(name: String) {
+        nickName = name
+        age = "~~대 초반"
+        gender = "전체"
+        job = "개발"
+        isPostOwner = false
+    }
+
+    var identity: String { nickName }
 }

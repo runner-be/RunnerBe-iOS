@@ -88,7 +88,7 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self
                 else { return }
                 let message: String
-                if !success {
+                if success {
                     message = "신청을 완료했습니다!"
                 } else {
                     message = "신청에 실패했습니다!"
