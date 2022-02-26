@@ -243,4 +243,138 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func detailInfo(postId: Int) -> Observable<DetailInfoResult> {
+        let functionResult = ReplaySubject<DetailInfoResult>.create(bufferSize: 1)
+
+        typealias MapResult = (
+            bookMarked: Bool,
+            isWriter: Bool,
+            isApplicant: Bool,
+            post: Data,
+            participants: Data,
+            applicant: Data
+        )
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(.error) }
+
+        let disposable = provider.rx.request(.detail(postId: postId, userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (response: BasicResponse, json: JSON)? in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] Post Detail of id: \(postId) user: \(userId) token: \(token)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == nil")
+                    #endif
+                    return nil
+                }
+                #if DEBUG
+                    print("result: \n\(json)")
+                #endif
+                return try? (response: BasicResponse(json: json), json: json)
+            }
+            .map { result -> (MapResult?) in
+
+                let postData = (try? result?.json["result"]["postingInfo"].rawData()) ?? Data()
+                let participantData = (try? result?.json["result"]["runnerInfo"].rawData()) ?? Data()
+                let applicantData = (try? result?.json["result"]["waitingRunnerInfo"].rawData()) ?? Data()
+                #if DEBUG
+                    print("postData : \n\(postData)")
+                    print("participantData : \n\(participantData)")
+                    print("applicantData : \n\(applicantData)")
+                #endif
+
+                var bookMarked = false
+                var writer = false
+                var applicant = false
+
+                if let result = result {
+                    switch result.response.code {
+                    // 성공
+                    case 1015: // 성공, 비작성자, 참여신청O, 찜O
+                        bookMarked = true
+                        applicant = true
+                    case 1016: // 성공, 비작성자, 참여신청O, 찜X
+                        applicant = true
+                    case 1017: // 성공, 비작성자, 참여신청X, 찜O
+                        bookMarked = true
+                    case 1018: // 성공, 비작성자, 참여신청X, 찜X
+                        break
+                    case 1019: // 성공, 작성자, 찜O
+                        writer = true
+                        bookMarked = true
+                    case 1020: // 성공, 작성자, 찜X
+                        writer = true
+                    // 실패
+                    case 2010: // jwt와 userId 불일치
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2011: // userId값 필요
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2012: // userId 형식 오류
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2041: // postId 미입력
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2042: // postId 형식오류
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2044: // 인증X 회원
+                        functionResult.onNext(.error)
+                        return nil
+                    case 4000: // 데이터베이스 에러
+                        functionResult.onNext(.error)
+                        return nil
+                    default:
+                        functionResult.onNext(.error)
+                    }
+                }
+
+                return MapResult(
+                    bookMarked: bookMarked,
+                    isWriter: writer,
+                    isApplicant: applicant,
+                    post: postData,
+                    participants: participantData,
+                    applicant: applicantData
+                )
+            }
+            .compactMap { $0 }
+            .subscribe(onNext: { result in
+                let decoder = JSONDecoder()
+                let posts = try? decoder.decode([PostAPIResult].self, from: result.post)
+                let participants = (try? decoder.decode([User].self, from: result.participants)) ?? []
+                let applicant = (try? decoder.decode([User].self, from: result.applicant)) ?? []
+
+                guard let post = posts?.first
+                else {
+                    functionResult.onNext(.error)
+                    return
+                }
+
+                if result.isWriter {
+                    functionResult.onNext(.writer(post: post.post, marked: result.bookMarked, participants: participants, applicant: applicant))
+                } else {
+                    functionResult.onNext(.guest(post: post.post, marked: result.bookMarked, apply: result.isApplicant, participants: participants))
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

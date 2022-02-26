@@ -39,6 +39,25 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
                 self?.pushWritingPostScene(vm: vm, animated: true)
             })
             .disposed(by: disposeBag)
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] input in
+                self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func pushDetailPostScene(vm _: HomeViewModel, postId: Int, animated: Bool) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {

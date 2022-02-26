@@ -23,6 +23,22 @@ class DetailMapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setup(lat: Float, long: Float, range: Float) {
+        let coord = CLLocationCoordinate2D(latitude: CGFloat(lat), longitude: CGFloat(long))
+        let radius = range * 2
+        mapView.centerToCoord(coord, regionRadius: CLLocationDistance(radius), animated: false)
+
+        if let circle = circleOverlay {
+            mapView.removeOverlay(circle)
+        }
+        let center = mapView.centerCoordinate
+        let circleOverlay = MKCircle(center: center, radius: CLLocationDistance(range / 2))
+        mapView.addOverlay(circleOverlay)
+
+        self.circleOverlay = circleOverlay
+    }
+
+    private var circleOverlay: MKCircle?
     lazy var mapView = MKMapView().then { view in
         view.isZoomEnabled = false
         view.isRotateEnabled = false
@@ -31,16 +47,13 @@ class DetailMapView: UIView {
         view.delegate = self
     }
 
-    var offsetRange: CGFloat = 100
-    private var circleOverlay: MKCircle?
-
-    func setupViews() {
+    private func setupViews() {
         addSubviews([
             mapView,
         ])
     }
 
-    func initialLayout() {
+    private func initialLayout() {
         mapView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)

@@ -21,6 +21,11 @@ final class DetailTitleView: UIView {
         initialLayout()
     }
 
+    func setup(title: String, tag: String) {
+        titleLabel.text = title
+        tagLabel.text = tag
+    }
+
     private var titleLabel = UILabel().then { label in
         label.font = .iosBody17R
         label.textColor = .darkG1

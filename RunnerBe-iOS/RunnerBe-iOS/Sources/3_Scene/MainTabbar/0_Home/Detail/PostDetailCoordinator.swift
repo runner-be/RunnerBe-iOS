@@ -23,5 +23,16 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
     override func start(animated _: Bool) {
         let scene = component.scene
         navController.pushViewController(scene.VC, animated: true)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] _ in
+                self?.navController.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.backward
+            .map { PostDetailResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
     }
 }

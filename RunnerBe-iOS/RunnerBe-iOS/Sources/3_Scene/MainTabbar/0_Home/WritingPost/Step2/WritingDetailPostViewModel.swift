@@ -14,8 +14,8 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     private var mainPageAPIService: PostAPIService
 
-    init(mainPostData: PostMainData, mainPageAPIService: PostAPIService, dateService: DateService) {
-        self.mainPageAPIService = mainPageAPIService
+    init(mainPostData: PostMainData, postAPIService: PostAPIService, dateService: DateService) {
+        mainPageAPIService = postAPIService
         super.init()
 
         outputs.mainPostData.onNext(mainPostData)
@@ -58,7 +58,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 )
             }
             .compactMap { $0 }
-            .flatMap { mainPageAPIService.posting(form: $0) }
+            .flatMap { postAPIService.posting(form: $0) }
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .succeed:

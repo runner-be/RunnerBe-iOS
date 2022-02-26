@@ -8,46 +8,26 @@
 import Foundation
 
 struct PostAPIResult: Codable {
-//    let postId: Int
-//    let postingTime: String // 2022-02-10T09:25:58.000Z
-//    let postUserId: Int
-//    let nickName: String?
-//    let profileImageUrl: String?
-//    let title: String
-//    let runningTime: String // 소요시간
-//    let gatheringTime: String
-//    let gatherLongitude: String
-//    let gatherLatitude: String
-//    let locationInfo: String
-//    let runningTag: String // RunningTag
-//    let age: String // 20-65 (범위)
-//    let gender: String // 남성, 여성, 전체
-//    let DISTANCE: String? // 모임 장소와 사용자 간 거리(Km)
-//    let whetherEnd: String // N Y 마감여부
-//    let job: String // DEV,EDU (쉼표로 구분)
-//    var content: String?
-    let age: String
     let postID: Int
-    let runningTag: String?
-    let postingTime, locationInfo, gender, gatheringTime: String
-    let gatherLongitude: String
-    let nickName: String?
-    let runningTime, title: String
-    let distance: String?
-    let profileImageURL: String?
-    let gatherLatitude: String
+    let postingTime: String
     let postUserID: Int
-    let whetherEnd, job, peopleNum, contents: String?
+    let nickName, profileImageURL: String?
+    let title, runningTime, gatheringTime, gatherLongitude: String
+    let gatherLatitude, locationInfo: String
+    let runningTag: String?
+    let age, gender: String
+    let distance, whetherEnd, job, peopleNum: String?
+    let contents: String?
     let userID: Int?
 
     enum CodingKeys: String, CodingKey {
-        case age
         case postID = "postId"
-        case runningTag, postingTime, locationInfo, gender, gatheringTime, gatherLongitude, nickName, runningTime, title
-        case distance = "DISTANCE"
-        case profileImageURL = "profileImageUrl"
-        case gatherLatitude
+        case postingTime
         case postUserID = "postUserId"
+        case nickName
+        case profileImageURL = "profileImageUrl"
+        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, locationInfo, runningTag, age, gender
+        case distance = "DISTANCE"
         case whetherEnd, job, peopleNum, contents
         case userID = "userId"
     }
@@ -65,6 +45,7 @@ extension PostAPIResult {
                 $0.append(job)
             }
         }
+        let numLimit = peopleNum == nil ? 2 : (Int(peopleNum!) ?? 2)
 
         return Post(
             id: postID,
@@ -85,7 +66,8 @@ extension PostAPIResult {
             DISTANCE: Float(distance) ?? 1000,
             whetherEnd: PostState(from: whetherEnd ?? ""),
             job: jobs,
-            contents: contents ?? ""
+            contents: contents ?? "",
+            numParticipantsLimit: numLimit
         )
     }
 }

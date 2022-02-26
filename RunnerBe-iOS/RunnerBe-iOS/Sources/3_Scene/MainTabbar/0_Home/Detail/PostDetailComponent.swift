@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol PostDetailDependency: Dependency {}
+protocol PostDetailDependency: Dependency {
+    var postAPIService: PostAPIService { get }
+}
 
 final class PostDetailComponent: Component<PostDetailDependency> {
     var scene: (VC: UIViewController, VM: PostDetailViewModel) {
@@ -17,6 +19,13 @@ final class PostDetailComponent: Component<PostDetailDependency> {
     }
 
     var viewModel: PostDetailViewModel {
-        return PostDetailViewModel()
+        return PostDetailViewModel(postId: postId, postAPIService: dependency.postAPIService)
+    }
+
+    let postId: Int
+
+    init(parent: Scope, postId: Int) {
+        self.postId = postId
+        super.init(parent: parent)
     }
 }

@@ -22,7 +22,21 @@ final class DetailInfoView: UIView {
         initialLayout()
     }
 
-    func setup(place _: String, date _: String, time _: String, numLimit _: Int, gender _: String, age _: String) {}
+    func setup(
+        place: String,
+        date: String,
+        time: String,
+        numLimit: String,
+        gender: String,
+        age: String
+    ) {
+        placeLabel.label.text = place
+        dateLabel.label.text = date
+        timeLabel.label.text = time
+        genderLabel.label.text = gender
+        participantLabel.text = numLimit
+        ageLabel.text = age
+    }
 
     private var placeLabel = IconLabel().then { view in
         view.icon.image = Asset.place.uiImage

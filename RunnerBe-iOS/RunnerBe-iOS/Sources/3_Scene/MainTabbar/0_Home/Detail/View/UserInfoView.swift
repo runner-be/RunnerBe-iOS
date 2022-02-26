@@ -21,6 +21,15 @@ final class UserInfoView: UIView {
         initialLayout()
     }
 
+    func setup(userInfo: UserInfo) {
+        // TODO: avartarView
+        nameLabel.text = userInfo.nickName
+        genderLabel.text = userInfo.gender
+        ageLabel.text = userInfo.age
+        ownerMark.isHidden = !userInfo.isPostOwner
+        jobTagLabel.text = userInfo.job
+    }
+
     private var avatarView = UIImageView().then { view in
         view.snp.makeConstraints { make in
             make.width.equalTo(48)

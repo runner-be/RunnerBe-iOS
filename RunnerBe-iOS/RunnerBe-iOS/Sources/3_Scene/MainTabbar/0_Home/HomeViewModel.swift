@@ -172,6 +172,21 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.tapPost
+            .do(onNext: { [weak self] idx in
+                guard let self = self,
+                      idx >= 0, idx <= self.posts.count
+                else {
+                    self?.outputs.toast.onNext("해당 포스트를 찾을 수 없습니다.")
+                    return
+                }
+            })
+            .compactMap { [weak self] idx in self?.posts[idx].id }
+            .subscribe(routes.detailPost)
+            .disposed(by: disposeBag)
+
+        // MARK: - RouteInput
+
         routeInputs.needUpdate
             .filter { $0 }
             .compactMap { [weak self] _ in self?.filter }
@@ -254,6 +269,7 @@ final class HomeViewModel: BaseViewModel {
     struct Route {
         var filter = PublishSubject<PostFilter>()
         var writingPost = PublishSubject<Void>()
+        var detailPost = PublishSubject<Int>()
     }
 
     struct RouteInput {

@@ -23,15 +23,19 @@ final class HomeComponent: Component<HomeDependency> {
     }
 
     var viewModel: HomeViewModel {
-        return HomeViewModel(locationService: locationService, mainPageAPIService: mainPageAPIService)
+        return HomeViewModel(locationService: locationService, mainPageAPIService: postAPIService)
     }
 
     var locationService: LocationService {
         return shared { BasicLocationService() }
     }
 
-    var mainPageAPIService: PostAPIService {
+    var postAPIService: PostAPIService {
         return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
+    }
+
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(parent: self, postId: postId)
     }
 
     var writingPostComponent: WritingMainPostComponent {

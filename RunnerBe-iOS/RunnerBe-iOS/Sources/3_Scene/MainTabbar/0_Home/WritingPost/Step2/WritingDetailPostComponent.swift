@@ -9,7 +9,7 @@ import Foundation
 import NeedleFoundation
 
 protocol WritingDetailPostDependency: Dependency {
-    var mainPageAPIService: PostAPIService { get }
+    var postAPIService: PostAPIService { get }
     var dateService: DateService { get }
     var loginService: LoginService { get }
 }
@@ -21,7 +21,7 @@ final class WritingDetailPostComponent: Component<WritingDetailPostDependency> {
     }
 
     var viewModel: WritingDetailPostViewModel {
-        return WritingDetailPostViewModel(mainPostData: postMainData, mainPageAPIService: dependency.mainPageAPIService, dateService: dependency.dateService)
+        return WritingDetailPostViewModel(mainPostData: postMainData, postAPIService: dependency.postAPIService, dateService: dependency.dateService)
     }
 
     init(parent: Scope, postMainData: PostMainData) {

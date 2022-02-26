@@ -34,8 +34,46 @@ class PostDetailViewController: BaseViewController {
 
     private var viewModel: PostDetailViewModel
 
-    private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.report)
+            .disposed(by: disposeBags)
+    }
+
+    private func viewModelOutput() {
+        viewModel.outputs.detailData
+            .subscribe(onNext: { [weak self] data in
+                self?.titleView.setup(title: data.running.title, tag: data.running.badge)
+                self?.infoView.setup(
+                    place: data.running.placeInfo,
+                    date: data.running.date,
+                    time: data.running.time,
+                    numLimit: data.running.numParticipant,
+                    gender: data.running.gender,
+                    age: data.running.age
+                )
+                self?.textView.text = data.running.contents
+                self?.detailMapView.setup(
+                    lat: data.running.lat,
+                    long: data.running.long,
+                    range: data.running.range
+                )
+
+                let userInfoViews = data.participants.reduce(into: [UIView]()) {
+                    let view = UserInfoView()
+                    view.setup(userInfo: $1)
+                    $0.append(view)
+                }
+
+                self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                self?.participantView.addArrangedSubviews(userInfoViews)
+            })
+            .disposed(by: disposeBags)
+    }
 
     private var detailMapView = DetailMapView()
     private var titleView = DetailTitleView()
@@ -52,8 +90,8 @@ class PostDetailViewController: BaseViewController {
         view.font = .iosBody15R
         view.textColor = .darkG25
         view.text = "TEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST"
-
-        view.backgroundColor = .yellow // for test
+        view.isScrollEnabled = false
+        view.backgroundColor = .clear
     }
 
     private var hDivider3 = UIView().then { view in

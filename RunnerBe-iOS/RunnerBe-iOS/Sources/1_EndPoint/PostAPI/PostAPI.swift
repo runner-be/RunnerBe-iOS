@@ -32,7 +32,7 @@ extension PostAPI: TargetType {
         case let .fetchBookMarked(userId, _):
             return "/users/\(userId)/bookmarks"
         case let .detail(postId, userId, _):
-            return "/posting/\(postId)/\(userId)"
+            return "/postings/\(postId)/\(userId)"
         }
     }
 

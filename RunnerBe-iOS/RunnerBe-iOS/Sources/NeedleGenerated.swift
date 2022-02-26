@@ -36,6 +36,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
         return SelectDateModalDependency547a4536ad6f1082ff72Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent") { component in
+        return PostDetailDependency0e20bfa0f3e155bd15e3Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent") { component in
         return HomeFilterDependency4c2395ae43750f0e6394Provider(component: component)
     }
@@ -158,8 +161,8 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
     }
 }
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
-    var mainPageAPIService: PostAPIService {
-        return homeComponent.mainPageAPIService
+    var postAPIService: PostAPIService {
+        return homeComponent.postAPIService
     }
     var dateService: DateService {
         return appComponent.dateService
@@ -229,6 +232,21 @@ private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectD
 private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
+    }
+}
+private class PostDetailDependency0e20bfa0f3e155bd15e3BaseProvider: PostDetailDependency {
+    var postAPIService: PostAPIService {
+        return homeComponent.postAPIService
+    }
+    private let homeComponent: HomeComponent
+    init(homeComponent: HomeComponent) {
+        self.homeComponent = homeComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent
+private class PostDetailDependency0e20bfa0f3e155bd15e3Provider: PostDetailDependency0e20bfa0f3e155bd15e3BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(homeComponent: component.parent as! HomeComponent)
     }
 }
 private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {
