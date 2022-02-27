@@ -20,6 +20,7 @@ enum PostAPI {
     case close(postId: Int, token: LoginToken)
 
     case myPage(userId: Int, token: LoginToken)
+    case attendance(postId: Int, userId: Int, token: LoginToken)
 }
 
 extension PostAPI: TargetType {
@@ -47,6 +48,8 @@ extension PostAPI: TargetType {
             return "/postings/\(postId)/closing"
         case let .myPage(userId, _):
             return "/users/\(userId)/myPage"
+        case let .attendance(postId, userId, _):
+            return "/runnings/\(postId)/attendees/\(userId)"
         }
     }
 
@@ -70,6 +73,8 @@ extension PostAPI: TargetType {
             return Method.post
         case .myPage:
             return Method.get
+        case .attendance:
+            return Method.patch
         }
     }
 
@@ -130,6 +135,8 @@ extension PostAPI: TargetType {
             return .requestPlain
         case .myPage:
             return .requestPlain
+        case .attendance:
+            return .requestPlain
         }
     }
 
@@ -152,6 +159,8 @@ extension PostAPI: TargetType {
         case let .close(_, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .myPage(_, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .attendance(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }

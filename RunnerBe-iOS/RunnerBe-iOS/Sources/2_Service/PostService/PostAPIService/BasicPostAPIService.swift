@@ -674,4 +674,73 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func attendance(postId: Int) -> Observable<(postId: Int, success: Bool)> {
+        let functionResult = ReplaySubject<(postId: Int, success: Bool)>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just((postId: postId, success: false)) }
+
+        let disposable = provider.rx.request(.attendance(postId: postId, userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId) -> failed")
+                    #endif
+                    functionResult.onNext((postId: postId, success: false))
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext((postId: postId, success: false))
+                    return
+                }
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] response message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    #if DEBUG
+                        print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId) -> success")
+                    #endif
+                    functionResult.onNext((postId: postId, success: true))
+                case 2010: // jwt와 userId 불일치
+                    functionResult.onNext((postId: postId, success: false))
+                case 2011: // userId 미입력
+                    functionResult.onNext((postId: postId, success: false))
+                case 2012: // userId 형식 오류 (숫자입력 X)
+                    functionResult.onNext((postId: postId, success: false))
+                case 2041: // postId 미입력
+                    functionResult.onNext((postId: postId, success: false))
+                case 2042: // postId 형식 오류
+                    functionResult.onNext((postId: postId, success: false))
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext((postId: postId, success: false))
+                case 2077: // 유저가 해당 러닝모임에 속하지 않습니다.
+                    functionResult.onNext((postId: postId, success: false))
+                default:
+                    functionResult.onNext((postId: postId, success: false))
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

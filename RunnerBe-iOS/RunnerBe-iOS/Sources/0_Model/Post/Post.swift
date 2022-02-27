@@ -30,5 +30,5 @@ struct Post {
     var bookMarked = false
     var contents: String = ""
     let numParticipantsLimit: String
-    let attendance: Bool
+    var attendance: Bool
 }

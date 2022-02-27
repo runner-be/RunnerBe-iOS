@@ -10,6 +10,7 @@ import NeedleFoundation
 
 protocol MyPageDependency: Dependency {
     var postAPIService: PostAPIService { get }
+    var dateService: DateService { get }
 }
 
 final class MyPageComponent: Component<MyPageDependency> {
@@ -21,7 +22,7 @@ final class MyPageComponent: Component<MyPageDependency> {
     }
 
     var viewModel: MyPageViewModel {
-        return MyPageViewModel(postAPIService: dependency.postAPIService)
+        return MyPageViewModel(postAPIService: dependency.postAPIService, dateService: dependency.dateService)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {

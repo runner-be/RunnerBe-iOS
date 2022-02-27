@@ -13,27 +13,37 @@ enum PostAttendState {
     case attendable
     case attend
     case absence
+    case error
 }
 
 struct MyPagePostConfig: Equatable, IdentifiableType {
     let cellConfig: PostCellConfig
     let state: PostAttendState
 
-    init(post: Post) {
+    init(post: Post, dateService: DateService) {
         cellConfig = PostCellConfig(from: post)
 
-        // 서버에 상태 반영되면 처리
-        switch post.id % 4 {
-        case 0:
-            state = .beforeAttendable
-        case 1:
-            state = .attendable
-        case 2:
-            state = .absence
-        case 3:
+        if post.attendance {
             state = .attend
-        default:
-            state = .beforeAttendable
+        } else {
+            let currentTime = dateService.currentTimeObject
+            if let runningTime = dateService.getTimeObject(string: post.runningTime, format: .running),
+               let startTime = dateService.getTimeObject(string: post.gatheringTime, format: .gathering)
+            {
+                let currentIntervalFromRef = currentTime.date.timeIntervalSince1970
+                let startIntervalFromRef = startTime.date.timeIntervalSince1970
+                let runningInterval = TimeInterval(runningTime.hour * 60 * 60 + runningTime.minute * 60)
+
+                if currentIntervalFromRef < startIntervalFromRef {
+                    state = .beforeAttendable
+                } else if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) {
+                    state = .attendable
+                } else {
+                    state = .absence
+                }
+            } else {
+                state = .error
+            }
         }
     }
 

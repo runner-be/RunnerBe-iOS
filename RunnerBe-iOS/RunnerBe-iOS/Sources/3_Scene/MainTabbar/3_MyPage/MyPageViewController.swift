@@ -94,25 +94,20 @@ class MyPageViewController: BaseViewController {
                     })
                     .disposed(by: cell.disposeBag)
 
+                self.viewModel.outputs.attend
+                    .filter { $0.type == .attendable }
+                    .filter { $0.idx == indexPath.item }
+                    .subscribe(onNext: { [weak cell] result in
+                        cell?.update(with: result.state)
+                    })
+                    .disposed(by: cell.disposeBag)
+
                 return cell
             case .basic:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
                 else { return UICollectionViewCell() }
                 cell.configure(with: item.cellConfig)
                 cell.postInfoView.bookMarkIcon.isHidden = true
-
-//                cell.postInfoView.bookMarkIcon.rx.tap
-//                    .map { indexPath.item }
-//                    .bind(to: self.viewModel.inputs.bookMark)
-//                    .disposed(by: cell.disposeBag)
-
-//                self.viewModel.outputs.marked
-//                    .filter { $0.type == .basic }
-//                    .filter { $0.idx == indexPath.item }
-//                    .subscribe(onNext: { [weak cell] result in
-//                        cell?.postInfoView.bookMarkIcon.isSelected = result.marked
-//                    })
-//                    .disposed(by: cell.disposeBag)
 
                 return cell
             }

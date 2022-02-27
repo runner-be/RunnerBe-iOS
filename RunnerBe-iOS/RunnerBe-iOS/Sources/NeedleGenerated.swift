@@ -203,15 +203,20 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
     }
+    var dateService: DateService {
+        return appComponent.dateService
+    }
+    private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent
-    init(mainTabComponent: MainTabComponent) {
+    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
+        self.appComponent = appComponent
         self.mainTabComponent = mainTabComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent
 private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a2dbc57f299854a2fBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent as! MainTabComponent)
+        super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
     }
 }
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {

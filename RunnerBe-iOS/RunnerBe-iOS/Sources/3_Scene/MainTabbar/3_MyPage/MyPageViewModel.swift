@@ -17,7 +17,7 @@ final class MyPageViewModel: BaseViewModel {
     var user: User?
     var posts = [PostType: [Post]]()
 
-    init(postAPIService: PostAPIService) {
+    init(postAPIService: PostAPIService, dateService: DateService) {
         self.postAPIService = postAPIService
         super.init()
 
@@ -37,7 +37,7 @@ final class MyPageViewModel: BaseViewModel {
                     let posts = self.outputs.postType == .basic ? posting : joined
                     self.user = info
                     self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0) })
+                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, dateService: dateService) })
                 case .error:
                     self.outputs.toast.onNext("불러오기에 실패했습니다.")
                 }
@@ -53,7 +53,7 @@ final class MyPageViewModel: BaseViewModel {
                 return self.posts[type] ?? []
             }
             .map { posts -> [MyPagePostConfig] in
-                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1)) }
+                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, dateService: dateService)) }
             }
             .subscribe(onNext: { [unowned self] postConfigs in
                 self.outputs.posts.onNext(postConfigs)
@@ -100,6 +100,33 @@ final class MyPageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.attend
+            .compactMap { [weak self] idx -> Post? in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      idx >= 0, idx < posts.count
+                else {
+                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    return nil
+                }
+                return posts[idx]
+            }
+            .flatMap { postAPIService.attendance(postId: $0.id) }
+            .subscribe(onNext: { [weak self] result in
+                guard result.success,
+                      let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      let idx = posts.firstIndex(where: { $0.id == result.postId })
+                else {
+                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    return
+                }
+
+                self.posts[self.outputs.postType]![idx].attendance = true
+                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: PostAttendState.attend))
+            })
+            .disposed(by: disposeBag)
+
         inputs.settings
             .bind(to: routes.settings)
             .disposed(by: disposeBag)
@@ -123,6 +150,7 @@ final class MyPageViewModel: BaseViewModel {
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
+        var attend = PublishSubject<(type: PostType, idx: Int, state: PostAttendState)>()
         var toast = BehaviorSubject<String>(value: "")
     }
 
@@ -143,31 +171,4 @@ final class MyPageViewModel: BaseViewModel {
     var outputs = Output()
     var routes = Route()
     var routeInputs = RouteInput()
-}
-
-private extension Post {
-    init(id: Int) {
-        self.id = id
-        postingTime = "postingTime"
-        writerID = 32
-        writerName = "writerName"
-        profileImageUrl = ""
-        title = "Post TITLE"
-        runningTime = "RunningTime"
-        gatheringTime = "gatheringTime"
-        longitude = 34.134134
-        latitude = 129.000
-        locationInfo = "Location Info"
-        runningTag = "Running Tag"
-        minAge = 20
-        maxAge = 65
-        gender = .none
-        DISTANCE = 1000
-        whetherEnd = "Y"
-        job = []
-        bookMarked = false
-        contents = ""
-        numParticipantsLimit = "8명"
-        attendance = false
-    }
 }

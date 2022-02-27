@@ -121,9 +121,9 @@ extension AttendablePostCell {
         }
     }
 
-    private func update(with state: PostAttendState) {
+    func update(with state: PostAttendState) {
         switch state {
-        case .beforeAttendable:
+        case .beforeAttendable, .error:
             attendButton.isHidden = false
             divider.isHidden = true
             cover.isHidden = true

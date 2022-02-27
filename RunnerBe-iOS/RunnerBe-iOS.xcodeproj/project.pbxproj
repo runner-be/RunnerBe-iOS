@@ -220,6 +220,7 @@
 		C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C527C908F3004954EB /* UserInfoView.swift */; };
 		C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C727C91140004954EB /* UserInfoHeader.swift */; };
 		C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* PostAPIResult.swift */; };
+		C3C43BEA27CC1FF400D36D46 /* TimeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BE927CC1FF400D36D46 /* TimeObject.swift */; };
 		C3C9732527C9373900232251 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732427C9373900232251 /* User.swift */; };
 		C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */; };
 		C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732827C9C26F00232251 /* PostDetailFooter.swift */; };
@@ -506,6 +507,7 @@
 		C3BB13C527C908F3004954EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		C3BB13C727C91140004954EB /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		C3BB13C927C922C8004954EB /* PostAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIResult.swift; sourceTree = "<group>"; };
+		C3C43BE927CC1FF400D36D46 /* TimeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeObject.swift; sourceTree = "<group>"; };
 		C3C9732427C9373900232251 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewConfigItem.swift; sourceTree = "<group>"; };
 		C3C9732827C9C26F00232251 /* PostDetailFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooter.swift; sourceTree = "<group>"; };
@@ -1095,6 +1097,7 @@
 			children = (
 				C365B46527B90C4F00BFFCB8 /* DateService.swift */,
 				C365B46727B90C5700BFFCB8 /* BasicDateService.swift */,
+				C3C43BE927CC1FF400D36D46 /* TimeObject.swift */,
 			);
 			path = DateService;
 			sourceTree = "<group>";
@@ -2082,6 +2085,7 @@
 				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
 				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
+				C3C43BEA27CC1FF400D36D46 /* TimeObject.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,

@@ -24,15 +24,21 @@ final class BasicDateService: DateService {
     }
 
     func changeFormat(_ text: String, from: DateFormat, to: DateFormat) -> String? {
-        print("[BasicDateService:changeFormat][from:\(from.formatString)][to:\(to.formatString)] text: \(text)")
+        #if DEBUG
+            print("[BasicDateService:changeFormat][from:\(from.formatString)][to:\(to.formatString)] text: \(text)")
+        #endif
         dateFormatter.dateFormat = from.formatString
-        print("[BasicDateService:changeFormat][from:\(from.formatString)]date: \(dateFormatter.date(from: text))")
+        #if DEBUG
+            print("[BasicDateService:changeFormat][from:\(from.formatString)]date: \(dateFormatter.date(from: text))")
+        #endif
 
         guard let date = dateFormatter.date(from: text)
         else { return nil }
 
         dateFormatter.dateFormat = to.formatString
-        print("[BasicDateService:changeFormat][to:\(from.formatString)]string: \(dateFormatter.string(from: date))")
+        #if DEBUG
+            print("[BasicDateService:changeFormat][to:\(from.formatString)]string: \(dateFormatter.string(from: date))")
+        #endif
         return dateFormatter.string(from: date)
     }
 
@@ -46,5 +52,13 @@ final class BasicDateService: DateService {
         }
 
         return dateArr
+    }
+
+    func getTimeObject(string: String, format: DateFormat) -> TimeObject? {
+        return TimeObject(string: string, format: format, formatter: dateFormatter)
+    }
+
+    var currentTimeObject: TimeObject {
+        return TimeObject(date: Date(), formatter: dateFormatter)
     }
 }
