@@ -49,7 +49,12 @@ extension PostAPIResult {
             attend = (attendance == 1)
         }
 
-        return Post(
+        var bookmark = false
+        if let mark = bookMark {
+            bookmark = (mark == 1)
+        }
+
+        let post = Post(
             id: postID,
             postingTime: postingTime ?? "",
             writerID: postUserID,
@@ -68,9 +73,12 @@ extension PostAPIResult {
             DISTANCE: Float(distance) ?? 1000,
             whetherEnd: whetherEnd ?? "",
             job: jobs,
+            bookMarked: bookmark,
             contents: contents ?? "",
             numParticipantsLimit: peopleNum ?? "최대 -명",
             attendance: attend
         )
+
+        return post
     }
 }
