@@ -376,6 +376,16 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "MyPage.Settings.NavBar.title")
       }
     }
+    internal enum Tab {
+      internal enum MyParticipant {
+        /// 참여 러닝
+        internal static let title = L10n.tr("Localizable", "MyPage.Tab.MyParticipant.title")
+      }
+      internal enum MyPost {
+        /// 작성한 글
+        internal static let title = L10n.tr("Localizable", "MyPage.Tab.MyPost.title")
+      }
+    }
   }
 
   internal enum NavBar {

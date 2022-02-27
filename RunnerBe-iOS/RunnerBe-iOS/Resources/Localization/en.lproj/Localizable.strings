@@ -251,3 +251,6 @@
 "MyPage.Settings.Modal.NickName.Button.cancel" = "더 고민할래요";
 "MyPage.Settings.Modal.NickName.Button.ok" = "네";
 "MyPage.Settings.Modal.NickName.Content" = "닉네임 변경은 1회만 가능하며 재변경은 불가능해요!\n정말 변경하시겠어요?";
+
+"MyPage.Tab.MyPost.title" = "작성한 글";
+"MyPage.Tab.MyParticipant.title" = "참여 러닝";

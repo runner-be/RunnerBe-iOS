@@ -51,7 +51,7 @@ class BookMarkViewController: BaseViewController {
                       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
                 else { return UICollectionViewCell() }
 
-                cell.bookMarkIcon.rx.tap
+                cell.postInfoView.bookMarkIcon.rx.tap
                     .map { indexPath.row }
                     .subscribe(onNext: { [weak self] idx in
                         self?.viewModel.inputs.tapPostBookMark.onNext(idx)

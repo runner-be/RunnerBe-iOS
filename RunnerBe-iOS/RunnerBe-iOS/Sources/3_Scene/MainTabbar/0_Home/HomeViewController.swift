@@ -71,11 +71,11 @@ class HomeViewController: BaseViewController {
                 .filter { $0.idx == indexPath.row }
                 .map { $0.marked }
                 .subscribe(onNext: {
-                    cell.bookMarkIcon.isSelected = $0
+                    cell.postInfoView.bookMarkIcon.isSelected = $0
                 })
                 .disposed(by: cell.disposeBag)
 
-            cell.bookMarkIcon.rx.tap
+            cell.postInfoView.bookMarkIcon.rx.tap
                 .map { indexPath.row }
                 .subscribe(onNext: { [weak self] idx in
                     self?.viewModel.inputs.tapPostBookMark.onNext(idx)

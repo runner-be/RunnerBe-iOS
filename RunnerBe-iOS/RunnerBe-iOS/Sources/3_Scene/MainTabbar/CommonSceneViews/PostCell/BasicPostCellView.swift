@@ -29,19 +29,13 @@ class BasicPostCellView: UICollectionViewCell {
     }
 
     func configure(with item: PostCellConfig) {
-        profileLabel.label.text = item.writerName
-        bookMarkIcon.isSelected = item.bookmarked
-        titleLabel.text = item.title
-        dateLabel.label.text = item.date
-        participantLabel.label.text = "\(item.gender) · \(item.ageText)"
-        placeLabel.label.text = item.place
+        postInfoView.configure(with: item)
         postState = item.closed ? .closed : .open
-        bookMarkIcon.isSelected = item.bookmarked
     }
 
     override func prepareForReuse() {
         postState = .open
-        bookMarkIcon.isSelected = false
+        postInfoView.bookMarkIcon.isSelected = false
         disposeBag = DisposeBag()
     }
 
@@ -55,62 +49,7 @@ class BasicPostCellView: UICollectionViewCell {
 
     var blurAlpha: CGFloat = 0.7
 
-    var profileLabel = IconLabel().then { view in
-        view.label.font = .iosCaption11R
-        view.label.textColor = .darkG35
-        view.spacing = 6
-        view.padding = UIEdgeInsets(top: 3, left: 1, bottom: 3, right: 0)
-        view.icon.image = Asset.profileEmptyIcon.uiImage
-        view.iconSize = CGSize(width: 14, height: 14)
-        view.label.text = "러너1234"
-    }
-
-    var bookMarkIcon = UIButton().then { button in
-        button.setImage(Asset.bookmarkTabIconNormal.uiImage, for: .normal)
-        button.setImage(Asset.bookmarkTabIconFocused.uiImage, for: .selected)
-    }
-
-    var titleLabel = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .darkG2
-        label.text = "PostTitlePlaceHolder"
-    }
-
-    var dateLabel = IconLabel().then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
-        view.label.text = "3/31 (금) AM 6:00"
-        view.icon.image = Asset.scheduled.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
-        view.spacing = 8
-    }
-
-    var timeLabel = IconLabel().then { view in
-        view.icon.image = Asset.time.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
-        view.label.text = "2시간 20분"
-        view.spacing = 8
-    }
-
-    var participantLabel = IconLabel().then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
-        view.label.text = "여성 · 20-35"
-        view.icon.image = Asset.group.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
-        view.spacing = 8
-    }
-
-    var placeLabel = IconLabel().then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
-        view.label.text = "동작구 사당1동"
-        view.icon.image = Asset.place.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
-        view.spacing = 8
-    }
+    var postInfoView = BasicPostInfoView()
 
     private var cover: UIView?
 
@@ -161,13 +100,7 @@ extension BasicPostCellView {
     private func setup() {
         backgroundColor = .darkG55
         contentView.addSubviews([
-            profileLabel,
-            bookMarkIcon,
-            titleLabel,
-            dateLabel,
-            timeLabel,
-            participantLabel,
-            placeLabel,
+            postInfoView,
         ])
 
         updateCover()
@@ -177,40 +110,11 @@ extension BasicPostCellView {
         layer.cornerRadius = 12
         clipsToBounds = true
 
-        profileLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(20)
-            make.leading.equalTo(contentView.snp.leading).offset(17)
-        }
-
-        bookMarkIcon.snp.makeConstraints { make in
+        postInfoView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(18)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileLabel.snp.bottom).offset(4)
-            make.leading.equalTo(profileLabel.snp.leading)
-        }
-
-        dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.leading.equalTo(profileLabel.snp.leading)
-        }
-
-        placeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(dateLabel.snp.trailing).offset(27)
-            make.top.equalTo(dateLabel.snp.top)
-        }
-
-        timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(4)
-            make.leading.equalTo(profileLabel.snp.leading)
+            make.leading.equalTo(contentView.snp.leading).offset(17)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-17)
             make.bottom.equalTo(contentView.snp.bottom).offset(-24)
-        }
-
-        participantLabel.snp.makeConstraints { make in
-            make.top.equalTo(timeLabel.snp.top)
-            make.leading.equalTo(placeLabel.snp.leading)
         }
     }
 }
