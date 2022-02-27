@@ -20,6 +20,7 @@ class EditInfoViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        viewInputs()
     }
 
     init(viewModel: EditInfoViewModel) {
@@ -60,7 +61,46 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBags)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.currentJob
+            .subscribe(onNext: { [weak self] job in
+                self?.selectJobView.select(idx: job.index)
+            })
+            .disposed(by: disposeBags)
+    }
+
+    private func viewInputs() {
+        selectNickName.nickNameField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.layer.borderWidth = 1
+            })
+            .disposed(by: disposeBags)
+
+        selectNickName.nickNameField.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.layer.borderWidth = 0
+            })
+            .disposed(by: disposeBags)
+
+        view.rx.tapGesture()
+            .when(.recognized)
+            .filter { [weak self] recognizer in
+                guard let self = self else { return false }
+                return !self.selectNickName.nickNameField.frame.contains(recognizer.location(in: self.view))
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.endEditing(true)
+            })
+            .disposed(by: disposeBags)
+
+//        selectNickName.applyButton.rx.tap
+//            .take(1)
+//            .subscribe(onNext: { [weak self] in
+//                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .normal)
+//                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .disabled)
+//            })
+//            .disposed(by: disposeBags)
+    }
 
     private var avatarView = UIImageView().then { view in
         view.image = Asset.profileWithCam.uiImage
@@ -74,6 +114,7 @@ class EditInfoViewController: BaseViewController {
     private var selectNickName = TextFieldWithButton().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.NickName.title
         view.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
+        view.setPlaceHolder(to: L10n.MyPage.EditInfo.NickName.TextField.PlaceHolder.rule)
     }
 
     private var nickNameGuideLabel = UILabel().then { label in

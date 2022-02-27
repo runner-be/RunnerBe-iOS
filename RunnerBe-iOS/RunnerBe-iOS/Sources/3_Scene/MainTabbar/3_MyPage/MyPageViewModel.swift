@@ -29,9 +29,9 @@ final class MyPageViewModel: BaseViewModel {
                 self.posts.removeAll()
 
                 switch result {
-                    // TODO: post 시간 최근순을 기준으로 정렬
+                // TODO: post 시간 최근순을 기준으로 정렬
                 case let .success(info, posting, joined):
-                    
+
                     self.user = info
                     self.posts[.basic] = posting
                     self.posts[.attendable] = joined
@@ -134,6 +134,13 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.editInfo
+            .compactMap { [weak self] _ -> User? in
+                if let user = self?.user {
+                    return user
+                }
+                self?.outputs.toast.onNext("내 정보를 가져오는데 실패했습니다.")
+                return nil
+            }
             .bind(to: routes.editInfo)
             .disposed(by: disposeBag)
     }
@@ -159,7 +166,7 @@ final class MyPageViewModel: BaseViewModel {
     struct Route {
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
-        var editInfo = PublishSubject<Void>()
+        var editInfo = PublishSubject<User>()
         var settings = PublishSubject<Void>()
     }
 

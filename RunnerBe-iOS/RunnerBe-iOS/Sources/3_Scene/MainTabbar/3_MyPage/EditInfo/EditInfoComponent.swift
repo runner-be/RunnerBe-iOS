@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol EditInfoDependency: Dependency {}
+protocol EditInfoDependency: Dependency {
+    var loginKeyChainService: LoginKeyChainService { get }
+}
 
 final class EditInfoComponent: Component<EditInfoDependency> {
     var scene: (VC: UIViewController, VM: EditInfoViewModel) {
@@ -17,6 +19,21 @@ final class EditInfoComponent: Component<EditInfoDependency> {
     }
 
     var viewModel: EditInfoViewModel {
-        return EditInfoViewModel()
+        return EditInfoViewModel(user: user, userAPIService: userAPIService)
     }
+
+    init(parent: Scope, user: User) {
+        self.user = user
+        super.init(parent: parent)
+    }
+
+    var userAPIService: UserAPIService {
+        return BasicUserAPIService(loginKeyChainService: dependency.loginKeyChainService, imageUploadService: imageUploadService)
+    }
+
+    var imageUploadService: ImageUploadService {
+        return BasicImageUploadService()
+    }
+
+    var user: User
 }

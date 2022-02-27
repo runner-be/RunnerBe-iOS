@@ -44,6 +44,16 @@ extension Job {
         self = .none
     }
 
+    init(name: String) {
+        for job in Job.allCases {
+            if job.name == name {
+                self = job
+                return
+            }
+        }
+        self = .none
+    }
+
     var index: Int {
         var idx = 0
         for (i, j) in Job.allCases.enumerated() {

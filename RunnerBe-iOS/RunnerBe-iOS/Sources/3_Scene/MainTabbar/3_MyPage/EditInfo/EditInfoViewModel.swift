@@ -9,9 +9,19 @@ import RxSwift
 
 final class EditInfoViewModel: BaseViewModel {
     var dirty: Bool = false
+    var userAPIService: UserAPIService
 
-    override init() {
+    init(user: User, userAPIService: UserAPIService) {
+        self.userAPIService = userAPIService
         super.init()
+
+        Observable<String>.of(user.job)
+            .map { Job(name: $0) }
+            .filter { $0 != .none }
+            .subscribe(onNext: { [weak self] job in
+                self?.outputs.currentJob.onNext(job)
+            })
+            .disposed(by: disposeBag)
 
         inputs.backward
             .map { [weak self] in self?.dirty ?? true }
@@ -28,6 +38,7 @@ final class EditInfoViewModel: BaseViewModel {
     }
 
     struct Output {
+        var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
         var duplicatedError = PublishSubject<Bool>()
         var ruleError = PublishSubject<Bool>()
     }

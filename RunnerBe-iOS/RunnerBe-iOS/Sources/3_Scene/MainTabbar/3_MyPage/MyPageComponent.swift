@@ -11,6 +11,7 @@ import NeedleFoundation
 protocol MyPageDependency: Dependency {
     var postAPIService: PostAPIService { get }
     var dateService: DateService { get }
+    var loginKeyChainService: LoginKeyChainService { get }
 }
 
 final class MyPageComponent: Component<MyPageDependency> {
@@ -29,8 +30,8 @@ final class MyPageComponent: Component<MyPageDependency> {
         return PostDetailComponent(parent: self, postId: postId)
     }
 
-    var editInfoComponent: EditInfoComponent {
-        return EditInfoComponent(parent: self)
+    func editInfoComponent(user: User) -> EditInfoComponent {
+        return EditInfoComponent(parent: self, user: user)
     }
 
     var settingsComponent: SettingsComponent {

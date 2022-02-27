@@ -26,9 +26,9 @@ final class MyPageCoordinator: TabCoordinator<HomeResult> {
         let scene = component.sharedScene
 
         scene.VM.routes.editInfo
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushEditInfoScene(vm: vm, animated: true)
+            .map { (vm: scene.VM, user: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushEditInfoScene(vm: result.vm, user: result.user, animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -47,8 +47,8 @@ final class MyPageCoordinator: TabCoordinator<HomeResult> {
             .disposed(by: disposeBag)
     }
 
-    func pushEditInfoScene(vm: MyPageViewModel, animated: Bool) {
-        let comp = component.editInfoComponent
+    func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
+        let comp = component.editInfoComponent(user: user)
         let coord = EditInfoCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
