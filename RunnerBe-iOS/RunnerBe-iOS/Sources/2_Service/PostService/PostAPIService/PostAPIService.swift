@@ -18,6 +18,11 @@ enum DetailInfoResult {
     case error
 }
 
+enum MyPageAPIResult {
+    case success(info: User, posting: [Post], joined: [Post])
+    case error
+}
+
 protocol PostAPIService {
     func fetchPosts(with filter: PostFilter) -> Observable<[Post]?>
     func fetchPostsBookMarked() -> Observable<[Post]?>
@@ -27,4 +32,5 @@ protocol PostAPIService {
     func apply(postId: Int) -> Observable<Bool>
     func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, success: Bool)>
     func close(postId: Int) -> Observable<Bool>
+    func myPage() -> Observable<MyPageAPIResult>
 }

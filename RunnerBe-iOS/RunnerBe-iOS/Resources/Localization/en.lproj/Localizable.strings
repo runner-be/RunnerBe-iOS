@@ -243,7 +243,7 @@
 
 "MyPage.Settings.Category.Account.Logout.title" = "로그아웃";
 
-// MARK: - Modal
+// MARK: - MyPage Modal
 "MyPage.Settings.Modal.Logout.Button.cancel" = "아니오";
 "MyPage.Settings.Modal.Logout.Button.ok" = "네";
 "MyPage.Settings.Modal.Logout.Content" = "정말 로그아웃하시겠어요?";
@@ -254,3 +254,8 @@
 
 "MyPage.Tab.MyPost.title" = "작성한 글";
 "MyPage.Tab.MyParticipant.title" = "참여 러닝";
+
+// MARK: - MyPage.Main.Cell
+"MyPage.Main.Cell.Button.Attend.title" = "출석하기";
+"MyPage.Main.Cell.Cover.Attend.Yes" = "출석을 완료했어요 😎";
+"MyPage.Main.Cell.Cover.Attend.No" = "불참했어요 😭";

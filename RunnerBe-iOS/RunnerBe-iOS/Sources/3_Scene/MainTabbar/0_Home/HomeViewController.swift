@@ -64,14 +64,14 @@ class HomeViewController: BaseViewController {
 
         let dataSource = BasicPostSectionDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self,
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
             else { return UICollectionViewCell() }
 
             self.viewModel.outputs.bookMarked
                 .filter { $0.idx == indexPath.row }
                 .map { $0.marked }
-                .subscribe(onNext: {
-                    cell.postInfoView.bookMarkIcon.isSelected = $0
+                .subscribe(onNext: { [weak cell] marked in
+                    cell?.postInfoView.bookMarkIcon.isSelected = marked
                 })
                 .disposed(by: cell.disposeBag)
 
@@ -186,7 +186,7 @@ class HomeViewController: BaseViewController {
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(BasicPostCellView.self, forCellWithReuseIdentifier: BasicPostCellView.id)
+        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
         return collectionView
     }()

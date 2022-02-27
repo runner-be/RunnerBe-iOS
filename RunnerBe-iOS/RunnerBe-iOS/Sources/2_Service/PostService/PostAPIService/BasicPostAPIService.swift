@@ -583,4 +583,95 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func myPage() -> Observable<MyPageAPIResult> {
+        let functionResult = ReplaySubject<MyPageAPIResult>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(.error) }
+
+        typealias RawDatas = (userData: Data, postingData: Data, joinedData: Data)
+
+        let disposable = provider.rx.request(.myPage(userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (response: BasicResponse, json: JSON)? in
+                #if DEBUG
+                    print("[\(#line):MainPageAPIService:\(#function)] MyPage user: \(userId) token: \(token)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == nil")
+                    #endif
+                    return nil
+                }
+                #if DEBUG
+                    print("result: \n\(json)")
+                #endif
+                return try? (response: BasicResponse(json: json), json: json)
+            }
+            .map { result -> RawDatas? in
+
+                let userData = (try? result?.json["result"]["myInfo"].rawData()) ?? Data()
+                let postingData = (try? result?.json["result"]["myPosting"].rawData()) ?? Data()
+                let joinedData = (try? result?.json["result"]["myRunning"].rawData()) ?? Data()
+                #if DEBUG
+                    print("userData : \n\(userData)")
+                    print("postingData : \n\(postingData)")
+                    print("joinedData : \n\(joinedData)")
+                #endif
+
+                if let result = result {
+                    switch result.response.code {
+                    // 성공
+                    case 1000: // 성공, 비작성자, 참여신청O, 찜O
+                        break
+                    case 2010: // jwt와 userId 불일치
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2011: // userId값 필요
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2012: // userId 형식 오류
+                        functionResult.onNext(.error)
+                        return nil
+                    case 2044: // 인증X 회원
+                        functionResult.onNext(.error)
+                        return nil
+                    default:
+                        functionResult.onNext(.error)
+                        return nil
+                    }
+                }
+                return (userData: userData, postingData: postingData, joinedData: joinedData)
+            }
+            .compactMap { $0 }
+            .subscribe(onNext: { result in
+                let decoder = JSONDecoder()
+                let userInfo = try? decoder.decode([User].self, from: result.userData).first
+                let posting = (try? decoder.decode([PostAPIResult].self, from: result.postingData)) ?? []
+                let joined = (try? decoder.decode([PostAPIResult].self, from: result.joinedData)) ?? []
+
+                let userPosting = posting.reduce(into: [Post]()) { $0.append($1.post) }
+                let userJoined = joined.reduce(into: [Post]()) { $0.append($1.post) }
+
+                if let user = userInfo {
+                    functionResult.onNext(.success(info: user, posting: userPosting, joined: userJoined))
+                } else {
+                    functionResult.onNext(.error)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

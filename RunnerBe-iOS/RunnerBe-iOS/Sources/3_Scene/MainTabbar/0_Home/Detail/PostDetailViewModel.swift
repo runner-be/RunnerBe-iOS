@@ -37,8 +37,8 @@ final class PostDetailViewModel: BaseViewModel {
                             finished: post.whetherEnd == "Y",
                             writer: false, applied: apply,
                             running: PostDetailRunningConfig(from: post),
-                            participants: participants.reduce(into: [PostDetailUserConfig]()) {
-                                $0.append(PostDetailUserConfig(from: $1, owner: post.writerID == $1.userID))
+                            participants: participants.reduce(into: [UserConfig]()) {
+                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
                             }
                         )
                     )
@@ -51,8 +51,8 @@ final class PostDetailViewModel: BaseViewModel {
                             finished: post.whetherEnd == "Y",
                             writer: true, applied: false,
                             running: PostDetailRunningConfig(from: post),
-                            participants: participants.reduce(into: [PostDetailUserConfig]()) {
-                                $0.append(PostDetailUserConfig(from: $1, owner: post.writerID == $1.userID))
+                            participants: participants.reduce(into: [UserConfig]()) {
+                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
                             }
                         )
                     )
@@ -76,8 +76,8 @@ final class PostDetailViewModel: BaseViewModel {
                             finished: post.whetherEnd == "Y",
                             writer: false, applied: apply,
                             running: PostDetailRunningConfig(from: post),
-                            participants: participants.reduce(into: [PostDetailUserConfig]()) {
-                                $0.append(PostDetailUserConfig(from: $1, owner: post.writerID == $1.userID))
+                            participants: participants.reduce(into: [UserConfig]()) {
+                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
                             }
                         )
                     )
@@ -90,8 +90,8 @@ final class PostDetailViewModel: BaseViewModel {
                             finished: post.whetherEnd == "Y",
                             writer: true, applied: false,
                             running: PostDetailRunningConfig(from: post),
-                            participants: participants.reduce(into: [PostDetailUserConfig]()) {
-                                $0.append(PostDetailUserConfig(from: $1, owner: post.writerID == $1.userID))
+                            participants: participants.reduce(into: [UserConfig]()) {
+                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
                             }
                         )
                     )
@@ -180,7 +180,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [PostDetailUserConfig])>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig])>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()

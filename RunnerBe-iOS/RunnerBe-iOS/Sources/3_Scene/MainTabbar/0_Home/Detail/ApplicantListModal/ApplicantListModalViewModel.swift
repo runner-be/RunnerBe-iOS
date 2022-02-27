@@ -23,8 +23,8 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
         Observable<[User]>.of(applicants)
             .map {
-                $0.reduce(into: [PostDetailUserConfig]()) {
-                    $0.append(PostDetailUserConfig(from: $1, owner: false))
+                $0.reduce(into: [UserConfig]()) {
+                    $0.append(UserConfig(from: $1, owner: false))
                 }
             }
             .subscribe(onNext: { [weak self] applicants in
@@ -46,8 +46,8 @@ final class ApplicantListModalViewModel: BaseViewModel {
                 if result.success {
                     message = "수락 완료"
                     self.applicants.removeAll(where: { $0.userID == result.id })
-                    let configs = self.applicants.reduce(into: [PostDetailUserConfig]()) {
-                        $0.append(PostDetailUserConfig(from: $1, owner: false))
+                    let configs = self.applicants.reduce(into: [UserConfig]()) {
+                        $0.append(UserConfig(from: $1, owner: false))
                     }
                     self.outputs.participants.onNext(configs)
                     self.changed = true
@@ -66,7 +66,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
     }
 
     struct Output {
-        var participants = ReplaySubject<[PostDetailUserConfig]>.create(bufferSize: 1)
+        var participants = ReplaySubject<[UserConfig]>.create(bufferSize: 1)
         var toast = PublishSubject<String>()
     }
 

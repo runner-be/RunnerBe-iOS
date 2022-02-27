@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol MyPageDependency: Dependency {}
+protocol MyPageDependency: Dependency {
+    var postAPIService: PostAPIService { get }
+}
 
 final class MyPageComponent: Component<MyPageDependency> {
     var sharedScene: (VC: MyPageViewController, VM: MyPageViewModel) {
@@ -19,6 +21,18 @@ final class MyPageComponent: Component<MyPageDependency> {
     }
 
     var viewModel: MyPageViewModel {
-        return MyPageViewModel()
+        return MyPageViewModel(postAPIService: dependency.postAPIService)
+    }
+
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(parent: self, postId: postId)
+    }
+
+    var editInfoComponent: EditInfoComponent {
+        return EditInfoComponent(parent: self)
+    }
+
+    var settingsComponent: SettingsComponent {
+        return SettingsComponent(parent: self)
     }
 }

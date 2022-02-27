@@ -81,6 +81,12 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
 
         coordinate(coordinator: coord, animated: false)
 
+        component.sharedScene.VM.routes.myPage
+            .subscribe(onNext: {
+                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+            })
+            .disposed(by: disposeBag)
+
         return comp.sharedScene.VC
     }
 }

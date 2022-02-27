@@ -28,7 +28,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
 
-    func setup(userInfo: PostDetailUserConfig) {
+    func setup(userInfo: UserConfig) {
         // TODO: avartarView
         userInfoView.setup(userInfo: userInfo)
     }

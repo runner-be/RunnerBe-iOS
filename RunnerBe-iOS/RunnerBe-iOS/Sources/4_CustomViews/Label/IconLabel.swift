@@ -21,71 +21,60 @@ class IconLabel: UIView {
 
     private let iconPosition: IconPosition
 
-    init(iconPosition: IconPosition = .left) {
+    init(iconPosition: IconPosition = .left, iconSize: CGSize = CGSize(width: 14, height: 14), spacing: CGFloat = 6, padding _: UIEdgeInsets = .zero) {
         self.iconPosition = iconPosition
+        self.iconSize = iconSize
+        self.spacing = spacing
         super.init(frame: .zero)
         setup()
-        initialLayout()
+        updateLayout()
     }
 
     var icon = UIImageView()
-
     var label = UILabel()
-
-    private lazy var stackView: UIStackView = {
-        UIStackView.make(
-            with: iconPosition == .left ? [icon, label] : [label, icon],
-            axis: .horizontal,
-            alignment: .center,
-            distribution: .equalSpacing,
-            spacing: spacing
-        )
-    }()
-
-    private lazy var iconHeightC: NSLayoutConstraint = icon.heightAnchor.constraint(equalToConstant: iconSize.height)
-
-    private lazy var iconWidthC: NSLayoutConstraint = icon.widthAnchor.constraint(equalToConstant: iconSize.width)
-
-    var iconSize: CGSize = .init(width: 14, height: 14) {
-        didSet {
-            iconHeightC.constant = iconSize.height
-            iconWidthC.constant = iconSize.width
-        }
-    }
-
-    var spacing: CGFloat = 6 {
-        didSet {
-            stackView.spacing = spacing
-        }
-    }
-
-    var padding: UIEdgeInsets = .zero {
-        didSet {
-            stackView.snp.updateConstraints { make in
-                make.top.equalTo(self.snp.top).offset(padding.top)
-                make.leading.equalTo(self.snp.leading).offset(padding.left)
-                make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
-                make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
-            }
-        }
-    }
+    var iconSize: CGSize
+    var spacing: CGFloat
 
     private func setup() {
+        icon.contentMode = .scaleAspectFit
+
         addSubviews([
-            stackView,
+            icon,
+            label,
         ])
     }
 
-    private func initialLayout() {
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(padding.top)
-            make.leading.equalTo(self.snp.leading).offset(padding.left)
-            make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
-            make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
-        }
+    private func updateLayout() {
+        switch iconPosition {
+        case .left:
+            icon.snp.makeConstraints { make in
+                make.leading.equalTo(self.snp.leading)
+                make.top.equalTo(self.snp.top)
+                make.bottom.equalTo(self.snp.bottom)
+                make.height.equalTo(iconSize.height)
+                make.width.equalTo(icon.snp.height)
+            }
 
-        iconWidthC.constant = iconSize.width
-        iconHeightC.constant = iconSize.height
-        NSLayoutConstraint.activate([iconWidthC, iconHeightC])
+            label.snp.makeConstraints { make in
+                make.leading.equalTo(icon.snp.trailing).offset(spacing)
+                make.trailing.equalTo(self.snp.trailing)
+                make.centerY.equalTo(icon.snp.centerY)
+            }
+
+        case .right:
+            label.snp.makeConstraints { make in
+                make.leading.equalTo(self.snp.leading)
+                make.centerY.equalTo(icon.snp.centerY)
+            }
+
+            icon.snp.makeConstraints { make in
+                make.leading.equalTo(label.snp.trailing).offset(spacing)
+                make.trailing.equalTo(self.snp.trailing)
+                make.top.equalTo(self.snp.top)
+                make.bottom.equalTo(self.snp.bottom)
+                make.height.equalTo(iconSize.height)
+                make.width.equalTo(icon.snp.height)
+            }
+        }
     }
 }

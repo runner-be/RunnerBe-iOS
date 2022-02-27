@@ -18,6 +18,8 @@ enum PostAPI {
     case apply(postId: Int, userId: Int, token: LoginToken)
     case accept(postId: Int, userId: Int, applicantId: Int, accept: Bool, token: LoginToken)
     case close(postId: Int, token: LoginToken)
+
+    case myPage(userId: Int, token: LoginToken)
 }
 
 extension PostAPI: TargetType {
@@ -43,6 +45,8 @@ extension PostAPI: TargetType {
             return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         case let .close(postId, _):
             return "/postings/\(postId)/closing"
+        case let .myPage(userId, _):
+            return "/users/\(userId)/myPage"
         }
     }
 
@@ -64,6 +68,8 @@ extension PostAPI: TargetType {
             return Method.patch
         case .close:
             return Method.post
+        case .myPage:
+            return Method.get
         }
     }
 
@@ -122,6 +128,8 @@ extension PostAPI: TargetType {
             return .requestCompositeData(bodyData: Data(), urlParameters: query)
         case .close:
             return .requestPlain
+        case .myPage:
+            return .requestPlain
         }
     }
 
@@ -142,6 +150,8 @@ extension PostAPI: TargetType {
         case let .accept(_, _, _, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .close(_, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .myPage(_, token):
             return ["x-access-token": "\(token.jwt)"]
         }
     }

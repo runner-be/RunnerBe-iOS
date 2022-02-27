@@ -8,27 +8,26 @@
 import Foundation
 
 struct PostAPIResult: Codable {
-    let postID: Int
-    let postingTime: String
-    let postUserID: Int
-    let nickName, profileImageURL: String?
-    let title, runningTime, gatheringTime, gatherLongitude: String
-    let gatherLatitude, locationInfo: String
+    let postID, postUserID: Int
+    let nickName: String?
+    let profileImageURL: String?
+    let title, runningTime, gatheringTime, locationInfo: String
     let runningTag: String?
     let age, gender: String
-    let distance, whetherEnd, job, peopleNum: String?
-    let contents: String?
+    let whetherEnd, job: String?
+    let bookMark, attendance: Int?
+    let postingTime, gatherLongitude, gatherLatitude, distance: String?
+    let peopleNum, contents: String?
     let userID: Int?
 
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
-        case postingTime
         case postUserID = "postUserId"
         case nickName
         case profileImageURL = "profileImageUrl"
-        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, locationInfo, runningTag, age, gender
+        case title, runningTime, gatheringTime, locationInfo, runningTag, age, gender, whetherEnd, job, bookMark, attendance, postingTime, gatherLongitude, gatherLatitude
         case distance = "DISTANCE"
-        case whetherEnd, job, peopleNum, contents
+        case peopleNum, contents
         case userID = "userId"
     }
 }
@@ -45,18 +44,22 @@ extension PostAPIResult {
                 $0.append(job)
             }
         }
+        var attend = false
+        if let attendance = attendance {
+            attend = (attendance == 1)
+        }
 
         return Post(
             id: postID,
-            postingTime: postingTime,
+            postingTime: postingTime ?? "",
             writerID: postUserID,
             writerName: nickName ?? "",
             profileImageUrl: profileImageURL ?? "",
             title: title,
             runningTime: runningTime,
             gatheringTime: gatheringTime,
-            longitude: Float(gatherLongitude) ?? 0,
-            latitude: Float(gatherLatitude) ?? 0,
+            longitude: Float(gatherLongitude ?? "") ?? 0,
+            latitude: Float(gatherLatitude ?? "") ?? 0,
             locationInfo: locationInfo,
             runningTag: runningTag ?? "",
             minAge: ages.count < 2 ? 20 : (Int(ages[0]) ?? 20),
@@ -66,7 +69,8 @@ extension PostAPIResult {
             whetherEnd: whetherEnd ?? "",
             job: jobs,
             contents: contents ?? "",
-            numParticipantsLimit: peopleNum ?? "최대 -명"
+            numParticipantsLimit: peopleNum ?? "최대 -명",
+            attendance: attend
         )
     }
 }

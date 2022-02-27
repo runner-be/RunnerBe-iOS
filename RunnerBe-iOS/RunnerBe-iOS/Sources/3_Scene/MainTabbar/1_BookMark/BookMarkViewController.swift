@@ -48,7 +48,7 @@ class BookMarkViewController: BaseViewController {
             [weak self] _, collectionView, indexPath, item in
 
                 guard let self = self,
-                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCellView.id, for: indexPath) as? BasicPostCellView
+                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
                 else { return UICollectionViewCell() }
 
                 cell.postInfoView.bookMarkIcon.rx.tap
@@ -123,7 +123,7 @@ class BookMarkViewController: BaseViewController {
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(BasicPostCellView.self, forCellWithReuseIdentifier: BasicPostCellView.id)
+        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
         return collectionView
     }()

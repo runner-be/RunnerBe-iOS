@@ -34,7 +34,32 @@ class EditInfoViewController: BaseViewController {
 
     private var viewModel: EditInfoViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+
+        selectNickName.applyButton.rx.tap
+            .compactMap { [unowned self] in self.selectNickName.nickNameField.text }
+            .bind(to: viewModel.inputs.nickNameApply)
+            .disposed(by: disposeBags)
+
+        selectNickName.nickNameField.rx.text
+            .compactMap { $0 }
+            .bind(to: viewModel.inputs.nickNameText)
+            .disposed(by: disposeBags)
+
+        avatarView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.changePhoto)
+            .disposed(by: disposeBags)
+
+        selectJobView.jobGroup.tap
+            .bind(to: viewModel.inputs.jobSelected)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     private var avatarView = UIImageView().then { view in
@@ -93,7 +118,7 @@ class EditInfoViewController: BaseViewController {
         navBar.titleLabel.textColor = .darkG35
         navBar.titleLabel.font = .iosBody17Sb
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
     }
 }

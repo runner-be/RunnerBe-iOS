@@ -9,17 +9,17 @@ import Foundation
 import RxDataSources
 
 struct UserInfoAcceaptableSection {
-    var items: [PostDetailUserConfig]
+    var items: [UserConfig]
     var identity: String
 
-    init(items: [PostDetailUserConfig]) {
+    init(items: [UserConfig]) {
         self.items = items
         identity = UUID().uuidString
     }
 }
 
 extension UserInfoAcceaptableSection: AnimatableSectionModelType {
-    typealias Item = PostDetailUserConfig
+    typealias Item = UserConfig
 
     init(original: UserInfoAcceaptableSection, items: [Item]) {
         self = original

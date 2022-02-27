@@ -64,10 +64,15 @@ final class SettingsViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        inputs.backward
+            .bind(to: routes.backward)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var tapCell = PublishSubject<(section: Int, item: Int)>()
+        var backward = PublishSubject<Void>()
     }
 
     struct Output {
@@ -75,6 +80,7 @@ final class SettingsViewModel: BaseViewModel {
     }
 
     struct Route {
+        var backward = PublishSubject<Void>()
         var terms = PublishSubject<Void>()
         var privacy = PublishSubject<Void>()
         var license = PublishSubject<Void>()

@@ -9,11 +9,165 @@ import Foundation
 import RxSwift
 
 final class MyPageViewModel: BaseViewModel {
-    struct Input {}
+    enum PostType {
+        case basic, attendable
+    }
 
-    struct Output {}
+    private var postAPIService: PostAPIService
+    var user: User?
+    var posts = [PostType: [Post]]()
 
-    struct route {}
+    init(postAPIService: PostAPIService) {
+        self.postAPIService = postAPIService
+        super.init()
+
+        routeInputs.needUpdate
+            .filter { $0 }
+            .flatMap { _ in postAPIService.myPage() }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                self.posts.removeAll()
+
+                switch result {
+                case let .success(info, posting, joined):
+                    self.user = info
+                    self.posts[.basic] = posting
+                    self.posts[.attendable] = joined
+
+                    let posts = self.outputs.postType == .basic ? posting : joined
+                    self.user = info
+                    self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
+                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0) })
+                case .error:
+                    self.outputs.toast.onNext("불러오기에 실패했습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        inputs.typeChanged
+            .filter { [unowned self] type in
+                type != self.outputs.postType
+            }
+            .map { [unowned self] type -> [Post] in
+                self.outputs.postType = type
+                return self.posts[type] ?? []
+            }
+            .map { posts -> [MyPagePostConfig] in
+                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1)) }
+            }
+            .subscribe(onNext: { [unowned self] postConfigs in
+                self.outputs.posts.onNext(postConfigs)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.tapPost
+            .compactMap { [weak self] idx in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      idx >= 0, idx < posts.count
+                else {
+                    self?.outputs.toast.onNext("해당 포스트를 여는데 실패했습니다.")
+                    return nil
+                }
+                return posts[idx].id
+            }
+            .bind(to: routes.detailPost)
+            .disposed(by: disposeBag)
+
+        inputs.bookMark
+            .compactMap { [weak self] idx -> Post? in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      idx >= 0, idx < posts.count
+                else {
+                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    return nil
+                }
+                return posts[idx]
+            }
+            .flatMap { postAPIService.bookmark(postId: $0.id, mark: !$0.bookMarked) }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      let idx = posts.firstIndex(where: { $0.id == result.postId })
+                else {
+                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    return
+                }
+
+                self.posts[self.outputs.postType]![idx].bookMarked = result.mark
+                self.outputs.marked.onNext((type: self.outputs.postType, idx: idx, marked: result.mark))
+            })
+            .disposed(by: disposeBag)
+
+        inputs.settings
+            .bind(to: routes.settings)
+            .disposed(by: disposeBag)
+
+        inputs.editInfo
+            .bind(to: routes.editInfo)
+            .disposed(by: disposeBag)
+    }
+
+    struct Input {
+        var typeChanged = PublishSubject<PostType>()
+        var settings = PublishSubject<Void>()
+        var editInfo = PublishSubject<Void>()
+        var tapPost = PublishSubject<Int>()
+        var bookMark = PublishSubject<Int>()
+        var attend = PublishSubject<Int>()
+    }
+
+    struct Output {
+        var postType: PostType = .basic
+        var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
+        var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
+        var toast = BehaviorSubject<String>(value: "")
+    }
+
+    struct Route {
+        var detailPost = PublishSubject<Int>()
+        var needUpdates = PublishSubject<Void>()
+        var editInfo = PublishSubject<Void>()
+        var settings = PublishSubject<Void>()
+    }
+
+    struct RouteInput {
+        var needUpdate = PublishSubject<Bool>()
+        var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
+    }
 
     var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+    var routeInputs = RouteInput()
+}
+
+private extension Post {
+    init(id: Int) {
+        self.id = id
+        postingTime = "postingTime"
+        writerID = 32
+        writerName = "writerName"
+        profileImageUrl = ""
+        title = "Post TITLE"
+        runningTime = "RunningTime"
+        gatheringTime = "gatheringTime"
+        longitude = 34.134134
+        latitude = 129.000
+        locationInfo = "Location Info"
+        runningTag = "Running Tag"
+        minAge = 20
+        maxAge = 65
+        gender = .none
+        DISTANCE = 1000
+        whetherEnd = "Y"
+        job = []
+        bookMarked = false
+        contents = ""
+        numParticipantsLimit = "8명"
+        attendance = false
+    }
 }

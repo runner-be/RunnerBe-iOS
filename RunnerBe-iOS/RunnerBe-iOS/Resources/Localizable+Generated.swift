@@ -305,6 +305,24 @@ internal enum L10n {
         }
       }
     }
+    internal enum Main {
+      internal enum Cell {
+        internal enum Button {
+          internal enum Attend {
+            /// 출석하기
+            internal static let title = L10n.tr("Localizable", "MyPage.Main.Cell.Button.Attend.title")
+          }
+        }
+        internal enum Cover {
+          internal enum Attend {
+            /// 불참했어요 😭
+            internal static let no = L10n.tr("Localizable", "MyPage.Main.Cell.Cover.Attend.No")
+            /// 출석을 완료했어요 😎
+            internal static let yes = L10n.tr("Localizable", "MyPage.Main.Cell.Cover.Attend.Yes")
+          }
+        }
+      }
+    }
     internal enum Maker {
       internal enum NavBar {
         /// 만든 사람들

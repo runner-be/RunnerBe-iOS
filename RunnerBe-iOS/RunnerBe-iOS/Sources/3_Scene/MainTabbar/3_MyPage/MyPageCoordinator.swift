@@ -22,5 +22,77 @@ final class MyPageCoordinator: TabCoordinator<HomeResult> {
 
     var component: MyPageComponent
 
-    override func start(animated _: Bool = true) {}
+    override func start(animated _: Bool = true) {
+        let scene = component.sharedScene
+
+        scene.VM.routes.editInfo
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushEditInfoScene(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.settings
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushSettingsScene(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func pushEditInfoScene(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.editInfoComponent
+        let coord = EditInfoCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(id, marked, needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
+                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    func pushSettingsScene(vm _: MyPageViewModel, animated: Bool) {
+        let comp = component.settingsComponent
+        let coord = SettingsCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case .backward:
+                    break
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
 }

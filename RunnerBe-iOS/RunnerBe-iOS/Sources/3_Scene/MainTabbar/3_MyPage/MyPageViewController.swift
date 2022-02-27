@@ -5,10 +5,12 @@
 //  Created by 김신우 on 2022/02/05.
 //
 import RxCocoa
+import RxDataSources
 import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 class MyPageViewController: BaseViewController {
@@ -19,6 +21,7 @@ class MyPageViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        viewInputs()
     }
 
     init(viewModel: MyPageViewModel) {
@@ -34,28 +37,153 @@ class MyPageViewController: BaseViewController {
 
     private var viewModel: MyPageViewModel
 
-    private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelInput() {
+        writtenTab.rx.tap
+            .map { MyPageViewModel.PostType.basic }
+            .bind(to: viewModel.inputs.typeChanged)
+            .disposed(by: disposeBags)
+
+        participantTab.rx.tap
+            .map { MyPageViewModel.PostType.attendable }
+            .bind(to: viewModel.inputs.typeChanged)
+            .disposed(by: disposeBags)
+
+        myInfoWithChevron.chevronBtn.rx.tap
+            .bind(to: viewModel.inputs.editInfo)
+            .disposed(by: disposeBags)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.settings)
+            .disposed(by: disposeBags)
+
+        postCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBags)
+    }
+
+    private func viewModelOutput() {
+        typealias MyPagePostDataSource
+            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
+
+        let dataSource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self
+            else { return UICollectionViewCell() }
+
+            switch self.viewModel.outputs.postType {
+            case .attendable:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AttendablePostCell.id, for: indexPath) as? AttendablePostCell
+                else { return UICollectionViewCell() }
+                cell.configure(with: item)
+
+                cell.attendButton.rx.tap
+                    .map { indexPath.item }
+                    .bind(to: self.viewModel.inputs.attend)
+                    .disposed(by: cell.disposeBag)
+
+                cell.postInfoView.bookMarkIcon.rx.tap
+                    .map { indexPath.item }
+                    .bind(to: self.viewModel.inputs.bookMark)
+                    .disposed(by: cell.disposeBag)
+
+                self.viewModel.outputs.marked
+                    .filter { $0.type == .attendable }
+                    .filter { $0.idx == indexPath.item }
+                    .subscribe(onNext: { [weak cell] result in
+                        cell?.postInfoView.bookMarkIcon.isSelected = result.marked
+                    })
+                    .disposed(by: cell.disposeBag)
+
+                return cell
+            case .basic:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+                else { return UICollectionViewCell() }
+                cell.configure(with: item.cellConfig)
+
+                cell.postInfoView.bookMarkIcon.rx.tap
+                    .map { indexPath.item }
+                    .bind(to: self.viewModel.inputs.bookMark)
+                    .disposed(by: cell.disposeBag)
+
+                self.viewModel.outputs.marked
+                    .filter { $0.type == .basic }
+                    .filter { $0.idx == indexPath.item }
+                    .subscribe(onNext: { [weak cell] result in
+                        cell?.postInfoView.bookMarkIcon.isSelected = result.marked
+                    })
+                    .disposed(by: cell.disposeBag)
+
+                return cell
+            }
+        }
+
+        viewModel.outputs.posts
+            .map { [MyPagePostSection(items: $0)] }
+            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.userInfo
+            .subscribe(onNext: { [weak self] config in
+                self?.myInfoWithChevron.infoView.configure(with: config)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBags)
+    }
+
+    private func viewInputs() {
+        writtenTab.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.writtenTab.isSelected = true
+                self.hMover.snp.removeConstraints()
+                self.hMover.snp.updateConstraints { make in
+                    make.height.equalTo(2)
+                    make.bottom.equalTo(hDivider.snp.bottom)
+                    make.leading.equalTo(writtenTab.snp.leading).offset(16)
+                    make.trailing.equalTo(writtenTab.snp.trailing).offset(-16)
+                }
+                self.participantTab.isSelected = false
+            })
+            .disposed(by: disposeBags)
+
+        participantTab.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.participantTab.isSelected = true
+                self.hMover.snp.removeConstraints()
+                self.hMover.snp.updateConstraints { make in
+                    make.height.equalTo(2)
+                    make.bottom.equalTo(hDivider.snp.bottom)
+                    make.leading.equalTo(participantTab.snp.leading).offset(16)
+                    make.trailing.equalTo(participantTab.snp.trailing).offset(-16)
+                }
+                self.writtenTab.isSelected = false
+            })
+            .disposed(by: disposeBags)
+    }
 
     private var myInfoWithChevron = MyInfoViewWithChevron()
 
     private var writtenTab = UIButton().then { button in
+        button.setTitle(L10n.MyPage.Tab.MyPost.title, for: .selected)
+        button.setTitleColor(.darkG25, for: .selected)
+        button.setBackgroundColor(.clear, for: .selected)
         button.setTitle(L10n.MyPage.Tab.MyPost.title, for: .normal)
-        button.setTitleColor(.darkG25, for: .normal)
+        button.setTitleColor(.darkG45, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.setTitle(L10n.MyPage.Tab.MyPost.title, for: .disabled)
-        button.setTitleColor(.darkG45, for: .disabled)
-        button.setBackgroundColor(.clear, for: .disabled)
         button.titleLabel?.font = .iosBody15R
     }
 
     private var participantTab = UIButton().then { button in
+        button.setTitle(L10n.MyPage.Tab.MyParticipant.title, for: .selected)
+        button.setTitleColor(.darkG25, for: .selected)
+        button.setBackgroundColor(.clear, for: .selected)
         button.setTitle(L10n.MyPage.Tab.MyParticipant.title, for: .normal)
-        button.setTitleColor(.darkG25, for: .normal)
+        button.setTitleColor(.darkG45, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.setTitle(L10n.MyPage.Tab.MyParticipant.title, for: .disabled)
-        button.setTitleColor(.darkG45, for: .disabled)
-        button.setBackgroundColor(.clear, for: .disabled)
         button.titleLabel?.font = .iosBody15R
     }
 
@@ -76,7 +204,7 @@ class MyPageViewController: BaseViewController {
     private lazy var postCollectionView: UICollectionView = {
         let size = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(143)
+            heightDimension: .estimated(190)
         )
         var item = NSCollectionLayoutItem(layoutSize: size)
         item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
@@ -90,7 +218,8 @@ class MyPageViewController: BaseViewController {
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(BasicPostCellView.self, forCellWithReuseIdentifier: BasicPostCellView.id)
+        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
+        collectionView.register(AttendablePostCell.self, forCellWithReuseIdentifier: AttendablePostCell.id)
         collectionView.backgroundColor = .clear
         return collectionView
     }()
@@ -135,14 +264,14 @@ extension MyPageViewController {
 
         writtenTab.snp.makeConstraints { make in
             make.top.equalTo(myInfoWithChevron.snp.bottom).offset(36)
-            make.leading.equalTo(view.snp.leading)
+            make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.centerX)
         }
 
         participantTab.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.top)
             make.leading.equalTo(view.snp.centerX)
-            make.trailing.equalTo(view.snp.trailing)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
         hDivider.snp.makeConstraints { make in
@@ -153,8 +282,8 @@ extension MyPageViewController {
 
         hMover.snp.makeConstraints { make in
             make.bottom.equalTo(hDivider.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.centerX)
+            make.leading.equalTo(writtenTab.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.centerX).offset(-16)
         }
 
         postCollectionView.snp.makeConstraints { make in

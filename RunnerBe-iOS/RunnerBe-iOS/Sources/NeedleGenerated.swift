@@ -21,6 +21,12 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent") { component in
         return BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent") { component in
+        return SettingsDependency70ef32136cd1f498fcc9Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent") { component in
+        return EditInfoDependency226a6a95833dbef9e88dProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
@@ -39,11 +45,17 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         return ApplicantListModalDependency04cfed02b61183a240faProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ApplicantListModalComponent") { component in
+        return ApplicantListModalDependency369da0b8761222e1dadaProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         return ApplicantListModalDependency38daf10a5dd5609ffa27Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent") { component in
         return PostDetailDependencyefc8ed9cd9a796bab512Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent") { component in
+        return PostDetailDependencyfaba91a453a4115aa8d1Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent") { component in
         return PostDetailDependency0e20bfa0f3e155bd15e3Provider(component: component)
@@ -161,17 +173,45 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency
         super.init(mainTabComponent: component.parent as! MainTabComponent)
     }
 }
-private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {
+private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDependency {
 
 
     init() {
 
     }
 }
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent
+private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency70ef32136cd1f498fcc9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class EditInfoDependency226a6a95833dbef9e88dBaseProvider: EditInfoDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent
+private class EditInfoDependency226a6a95833dbef9e88dProvider: EditInfoDependency226a6a95833dbef9e88dBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {
+    var postAPIService: PostAPIService {
+        return mainTabComponent.postAPIService
+    }
+    private let mainTabComponent: MainTabComponent
+    init(mainTabComponent: MainTabComponent) {
+        self.mainTabComponent = mainTabComponent
+    }
+}
 /// ^->AppComponent->MainTabComponent->MyPageComponent
 private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a2dbc57f299854a2fBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(mainTabComponent: component.parent as! MainTabComponent)
     }
 }
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
@@ -263,6 +303,12 @@ private class ApplicantListModalDependency04cfed02b61183a240faProvider: Applican
         super.init(mainTabComponent: component.parent.parent.parent as! MainTabComponent)
     }
 }
+/// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ApplicantListModalComponent
+private class ApplicantListModalDependency369da0b8761222e1dadaProvider: ApplicantListModalDependency04cfed02b61183a240faBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+    }
+}
 /// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent
 private class ApplicantListModalDependency38daf10a5dd5609ffa27Provider: ApplicantListModalDependency04cfed02b61183a240faBaseProvider {
     init(component: NeedleFoundation.Scope) {
@@ -280,6 +326,12 @@ private class PostDetailDependencyefc8ed9cd9a796bab512BaseProvider: PostDetailDe
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent
 private class PostDetailDependencyefc8ed9cd9a796bab512Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent
+private class PostDetailDependencyfaba91a453a4115aa8d1Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
     }

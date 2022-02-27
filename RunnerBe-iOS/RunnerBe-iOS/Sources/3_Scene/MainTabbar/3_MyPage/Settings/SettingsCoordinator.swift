@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum SettingsResult {}
+enum SettingsResult {
+    case backward
+}
 
 final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
     var component: SettingsComponent
@@ -21,5 +23,16 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
     override func start(animated _: Bool) {
         let scene = component.scene
         navController.pushViewController(scene.VC, animated: true)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] _ in
+                self?.navController.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.backward
+            .map { SettingsResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
     }
 }

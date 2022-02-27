@@ -40,6 +40,10 @@ class SettingsViewController: BaseViewController {
             .map { (section: $0.section, item: $0.item) }
             .bind(to: viewModel.inputs.tapCell)
             .disposed(by: disposeBags)
+
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {

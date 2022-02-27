@@ -21,6 +21,14 @@ class MyInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(with config: UserConfig) {
+        nickNameLabel.text = config.nickName
+        genderLabel.text = config.gender
+        ageLabel.text = config.age
+        jobLabel.text = config.job
+        // TODO: PROFILE
+    }
+
     var avatarView = UIImageView().then { view in
         view.image = Asset.profileEmptyIcon.uiImage
 

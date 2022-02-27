@@ -19,7 +19,7 @@ final class UserInfoWithSingleDivider: UIView {
         initialLayout()
     }
 
-    func setup(userInfo: PostDetailUserConfig) {
+    func setup(userInfo: UserConfig) {
         // TODO: avartarView
         userInfoView.setup(userInfo: userInfo)
     }

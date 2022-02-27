@@ -22,9 +22,10 @@ final class MyInfoViewWithChevron: UIView {
     }
 
     var infoView = MyInfoView()
-    var chevronView = UIImageView().then { view in
-        view.image = Asset.chevronRight.uiImage
-        view.snp.makeConstraints { make in
+
+    var chevronBtn = UIButton().then { button in
+        button.setImage(Asset.chevronRight.uiImage, for: .normal)
+        button.imageView?.snp.makeConstraints { make in
             make.width.equalTo(24)
             make.height.equalTo(24)
         }
@@ -33,7 +34,7 @@ final class MyInfoViewWithChevron: UIView {
     func setupViews() {
         addSubviews([
             infoView,
-            chevronView,
+            chevronBtn,
         ])
     }
 
@@ -44,7 +45,7 @@ final class MyInfoViewWithChevron: UIView {
             make.bottom.equalTo(self.snp.bottom)
         }
 
-        chevronView.snp.makeConstraints { make in
+        chevronBtn.snp.makeConstraints { make in
             make.leading.greaterThanOrEqualTo(infoView.snp.trailing).offset(5)
             make.trailing.equalTo(self.snp.trailing)
             make.centerY.equalTo(self.snp.centerY)

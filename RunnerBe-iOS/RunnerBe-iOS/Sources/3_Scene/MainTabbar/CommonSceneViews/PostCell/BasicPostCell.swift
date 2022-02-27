@@ -11,7 +11,7 @@ import SnapKit
 import Then
 import UIKit
 
-class BasicPostCellView: UICollectionViewCell {
+class BasicPostCell: UICollectionViewCell {
     enum State {
         case open
         case closed
@@ -96,7 +96,7 @@ class BasicPostCellView: UICollectionViewCell {
     }
 }
 
-extension BasicPostCellView {
+extension BasicPostCell {
     private func setup() {
         backgroundColor = .darkG55
         contentView.addSubviews([
@@ -119,6 +119,6 @@ extension BasicPostCellView {
     }
 }
 
-extension BasicPostCellView {
-    static let id: String = "\(BasicPostCellView.self)"
+extension BasicPostCell {
+    static let id: String = "\(BasicPostCell.self)"
 }

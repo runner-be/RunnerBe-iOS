@@ -30,9 +30,11 @@
 		C32C028727CB24720011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyInfoView.swift */; };
 		C32C028927CB3A370011419E /* IconBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028827CB3A370011419E /* IconBadgeLabel.swift */; };
 		C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */; };
-		C32C028E27CB45F30011419E /* MyInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028D27CB45F30011419E /* MyInfoConfig.swift */; };
 		C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028F27CB46030011419E /* MyPagePostConfig.swift */; };
 		C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029127CB47470011419E /* BasicPostInfoView.swift */; };
+		C32C029427CB4A5E0011419E /* AttendablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029327CB4A5E0011419E /* AttendablePostCell.swift */; };
+		C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029527CB63270011419E /* MyPagePostDataSource.swift */; };
+		C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029827CB9F8E0011419E /* UserConfig.swift */; };
 		C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3319A5327C517830054B688 /* BubbleLabel.swift */; };
 		C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */; };
 		C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */; };
@@ -148,7 +150,7 @@
 		C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */; };
 		C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */; };
 		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
-		C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */; };
+		C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1227C283DF00396DC3 /* BasicPostCell.swift */; };
 		C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1427C290E700396DC3 /* IconLabel.swift */; };
 		C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */; };
 		C39D86C427AEB78700A9C201 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */; };
@@ -314,9 +316,11 @@
 		C32C028627CB24720011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
 		C32C028827CB3A370011419E /* IconBadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBadgeLabel.swift; sourceTree = "<group>"; };
 		C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewWithChevron.swift; sourceTree = "<group>"; };
-		C32C028D27CB45F30011419E /* MyInfoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoConfig.swift; sourceTree = "<group>"; };
 		C32C028F27CB46030011419E /* MyPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostConfig.swift; sourceTree = "<group>"; };
 		C32C029127CB47470011419E /* BasicPostInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostInfoView.swift; sourceTree = "<group>"; };
+		C32C029327CB4A5E0011419E /* AttendablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendablePostCell.swift; sourceTree = "<group>"; };
+		C32C029527CB63270011419E /* MyPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostDataSource.swift; sourceTree = "<group>"; };
+		C32C029827CB9F8E0011419E /* UserConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		C3319A5327C517830054B688 /* BubbleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleLabel.swift; sourceTree = "<group>"; };
 		C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostComponent.swift; sourceTree = "<group>"; };
 		C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostCoordinator.swift; sourceTree = "<group>"; };
@@ -431,7 +435,7 @@
 		C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
-		C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostCellView.swift; sourceTree = "<group>"; };
+		C399FD1227C283DF00396DC3 /* BasicPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostCell.swift; sourceTree = "<group>"; };
 		C399FD1427C290E700396DC3 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
 		C39D86BB27AEB78600A9C201 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
@@ -614,6 +618,7 @@
 			children = (
 				C32C028627CB24720011419E /* MyInfoView.swift */,
 				C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */,
+				C32C029327CB4A5E0011419E /* AttendablePostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -621,10 +626,18 @@
 		C32C028C27CB45E00011419E /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				C32C028D27CB45F30011419E /* MyInfoConfig.swift */,
 				C32C028F27CB46030011419E /* MyPagePostConfig.swift */,
+				C32C029527CB63270011419E /* MyPagePostDataSource.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		C32C029727CB9F7E0011419E /* CommonConfig */ = {
+			isa = PBXGroup;
+			children = (
+				C32C029827CB9F8E0011419E /* UserConfig.swift */,
+			);
+			path = CommonConfig;
 			sourceTree = "<group>";
 		};
 		C3319A5227C5170E0054B688 /* Bubble */ = {
@@ -843,6 +856,7 @@
 		C34FDA4F27AD5C82007718F8 /* MainTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				C32C029727CB9F7E0011419E /* CommonConfig */,
 				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
@@ -1189,7 +1203,7 @@
 		C399FD1127C2833400396DC3 /* PostCell */ = {
 			isa = PBXGroup;
 			children = (
-				C399FD1227C283DF00396DC3 /* BasicPostCellView.swift */,
+				C399FD1227C283DF00396DC3 /* BasicPostCell.swift */,
 				C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */,
 				C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */,
 				C32C029127CB47470011419E /* BasicPostInfoView.swift */,
@@ -2023,7 +2037,7 @@
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
-				C399FD1327C283DF00396DC3 /* BasicPostCellView.swift in Sources */,
+				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
@@ -2038,6 +2052,7 @@
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
+				C32C029427CB4A5E0011419E /* AttendablePostCell.swift in Sources */,
 				C3BA45DB27B60E320048CA76 /* WaitCertificationViewController.swift in Sources */,
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
@@ -2135,7 +2150,6 @@
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
-				C32C028E27CB45F30011419E /* MyInfoConfig.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
 				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
@@ -2192,6 +2206,7 @@
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
+				C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */,
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
@@ -2226,6 +2241,7 @@
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */,
 				C3BA45D527B60E1A0048CA76 /* WaitCertificationComponent.swift in Sources */,
+				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
