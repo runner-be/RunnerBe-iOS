@@ -211,3 +211,34 @@
 "Additional.Gender.Limit" = "만";
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
+
+// MARK: - MyPage.EditInfo
+"MyPage.EditInfo.NavBar.title" = "내 정보 수정";
+"MyPage.EditInfo.NickName.title" = "닉네임 변경";
+"MyPage.EditInfo.NickName.Button.NickNameChanged.title" = "등록 완료";
+"MyPage.EditInfo.NickName.Button.Apply" = "등록하기";
+"MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자";
+"MyPage.EditInfo.NickName.TextField.PlaceHolder.changed" = "김출근";
+"MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "닉네임 변경이 완료되어 추가 변경은 불가능해요";
+"MyPage.EditInfo.NickName.InfoLabel.caution" = "닉네임은 딱 한 번만 바꿀 수 있어요";
+"MyPage.EditInfo.NickName.ErrorLabel.duplicated" = "중복된 닉네임이에요!";
+"MyPage.EditInfo.NickName.ErrorLabel.form" = "영어 대문자, 특수문자, 띄어쓰기는 사용할 수 없습니다.";
+"MyPage.EditInfo.Job.title" = "나의 직군";
+
+// MARK: - MyPage.Maker
+"MyPage.Maker.NavBar.title" = "만든 사람들";
+
+// MARK: - Settings
+"MyPage.Settings.NavBar.title" = "설정";
+
+// MARK: - Settings
+"MyPage.Settings.NavBar.title" = "설정";
+"MyPage.Settings.Category.Policy.Version.title" = "버전 정보";
+"MyPage.Settings.Category.Policy.Term.title" = "이용 약관";
+"MyPage.Settings.Category.Policy.Privacy.title" = "개인정보 처리방침";
+"MyPage.Settings.Category.Policy.License.title" = " 오픈소스 라이센스";
+
+"MyPage.Settings.Category.AboutRunnerbe.Maker.title" = "만든 사람들";
+"MyPage.Settings.Category.AboutRunnerbe.Instagram.title" = "러너비 인스타그램";
+
+"MyPage.Settings.Category.Account.Logout.title" = "로그아웃";

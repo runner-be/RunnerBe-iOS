@@ -224,6 +224,10 @@
 		C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9735A27CA96A400232251 /* MakerComponent.swift */; };
 		C3C9735D27CA96AD00232251 /* MakerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9735C27CA96AD00232251 /* MakerCoordinator.swift */; };
 		C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9735E27CA96C900232251 /* MakerViewModel.swift */; };
+		C3C9736427CA9A5600232251 /* TextFieldWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */; };
+		C3C9736727CAA67E00232251 /* MakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9736627CAA67E00232251 /* MakerView.swift */; };
+		C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9736927CAF4FA00232251 /* SettingConfigItems.swift */; };
+		C3C9736D27CB084400232251 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9736C27CB084400232251 /* SettingCell.swift */; };
 		C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */; };
 		C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */; };
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
@@ -486,6 +490,10 @@
 		C3C9735A27CA96A400232251 /* MakerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerComponent.swift; sourceTree = "<group>"; };
 		C3C9735C27CA96AD00232251 /* MakerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerCoordinator.swift; sourceTree = "<group>"; };
 		C3C9735E27CA96C900232251 /* MakerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerViewModel.swift; sourceTree = "<group>"; };
+		C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithButton.swift; sourceTree = "<group>"; };
+		C3C9736627CAA67E00232251 /* MakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerView.swift; sourceTree = "<group>"; };
+		C3C9736927CAF4FA00232251 /* SettingConfigItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingConfigItems.swift; sourceTree = "<group>"; };
+		C3C9736C27CB084400232251 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		C3CA2AF227BC4E8800AEF623 /* HomeFilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterComponent.swift; sourceTree = "<group>"; };
 		C3CA2AF427BC4E9200AEF623 /* HomeFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterCoordinator.swift; sourceTree = "<group>"; };
 		C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewModel.swift; sourceTree = "<group>"; };
@@ -591,6 +599,7 @@
 				C343A34627BE4533008E6FA4 /* SelectPlaceView.swift */,
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
+				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -766,7 +775,6 @@
 		C34FDA4D27AD5C82007718F8 /* 3_Scene */ = {
 			isa = PBXGroup;
 			children = (
-				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
 				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
 				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
@@ -781,6 +789,7 @@
 		C34FDA4F27AD5C82007718F8 /* MainTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */,
@@ -1076,7 +1085,6 @@
 			isa = PBXGroup;
 			children = (
 				C35E34A127C83C610023C0F9 /* Detail */,
-				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
@@ -1444,6 +1452,7 @@
 			isa = PBXGroup;
 			children = (
 				C399FD1127C2833400396DC3 /* PostCell */,
+				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 			);
 			path = CommonSceneViews;
 			sourceTree = "<group>";
@@ -1451,6 +1460,9 @@
 		C3C9734527CA95B700232251 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9736B27CB074000232251 /* View */,
+				C3C9736827CAF4E500232251 /* Config */,
+				C3C9736027CA977500232251 /* LoggedOutModal */,
 				C3C9735027CA965F00232251 /* SettingsComponent.swift */,
 				C3C9735227CA966900232251 /* SettingsCoordinator.swift */,
 				C3C9735427CA967000232251 /* SettingsViewModel.swift */,
@@ -1462,10 +1474,11 @@
 		C3C9734627CA95C500232251 /* Maker */ = {
 			isa = PBXGroup;
 			children = (
-				C3C9735827CA968F00232251 /* MakerViewController.swift */,
+				C3C9736527CAA5DE00232251 /* View */,
 				C3C9735A27CA96A400232251 /* MakerComponent.swift */,
 				C3C9735C27CA96AD00232251 /* MakerCoordinator.swift */,
 				C3C9735E27CA96C900232251 /* MakerViewModel.swift */,
+				C3C9735827CA968F00232251 /* MakerViewController.swift */,
 			);
 			path = Maker;
 			sourceTree = "<group>";
@@ -1473,12 +1486,59 @@
 		C3C9734727CA95D800232251 /* EditInfo */ = {
 			isa = PBXGroup;
 			children = (
+				C3C9736227CA979500232251 /* TakePhotoModal */,
+				C3C9736127CA978600232251 /* NickNameChangeModal */,
 				C3C9734827CA962200232251 /* EditInfoComponent.swift */,
 				C3C9734A27CA962A00232251 /* EditInfoCoordinator.swift */,
 				C3C9734C27CA963200232251 /* EditInfoViewModel.swift */,
 				C3C9734E27CA963B00232251 /* EditInfoViewController.swift */,
 			);
 			path = EditInfo;
+			sourceTree = "<group>";
+		};
+		C3C9736027CA977500232251 /* LoggedOutModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoggedOutModal;
+			sourceTree = "<group>";
+		};
+		C3C9736127CA978600232251 /* NickNameChangeModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NickNameChangeModal;
+			sourceTree = "<group>";
+		};
+		C3C9736227CA979500232251 /* TakePhotoModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TakePhotoModal;
+			sourceTree = "<group>";
+		};
+		C3C9736527CAA5DE00232251 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3C9736627CAA67E00232251 /* MakerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3C9736827CAF4E500232251 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				C3C9736927CAF4FA00232251 /* SettingConfigItems.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		C3C9736B27CB074000232251 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3C9736C27CB084400232251 /* SettingCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C3CA2AF027BC4E5300AEF623 /* Filter */ = {
@@ -1925,6 +1985,7 @@
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
+				C3C9736727CAA67E00232251 /* MakerView.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
@@ -1949,6 +2010,7 @@
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
 				C3BA45C127B59F650048CA76 /* EmailCertificationInitModalCoordinator.swift in Sources */,
+				C3C9736427CA9A5600232251 /* TextFieldWithButton.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
@@ -2008,6 +2070,7 @@
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
 				C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
+				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
@@ -2035,6 +2098,7 @@
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift.swift in Sources */,
+				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,

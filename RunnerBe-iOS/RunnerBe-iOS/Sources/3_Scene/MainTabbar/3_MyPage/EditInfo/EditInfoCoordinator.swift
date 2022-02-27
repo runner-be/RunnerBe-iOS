@@ -6,3 +6,20 @@
 //
 
 import Foundation
+import RxSwift
+
+enum EditInfoResult {}
+
+final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
+    var component: EditInfoComponent
+
+    init(component: EditInfoComponent, navController: UINavigationController) {
+        self.component = component
+        super.init(navController: navController)
+    }
+
+    override func start(animated _: Bool) {
+        let scene = component.scene
+        navController.pushViewController(scene.VC, animated: true)
+    }
+}

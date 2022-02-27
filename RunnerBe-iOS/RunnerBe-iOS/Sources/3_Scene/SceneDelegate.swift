@@ -43,19 +43,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window.rootViewController = WritingMainPostViewController(viewModel: WritingMainPostViewModel())
 
 //        window.rootViewController = PostDetailViewController(viewModel: PostDetailViewModel())
-        appComponent.loginService.checkLogin()
-            .subscribe(onNext: { result in
-                switch result {
-                case .member:
-                    appCoordinator.showMain(certificated: true, animated: false)
-                case .memberWaitCertification:
-                    appCoordinator.showMain(certificated: false, animated: false)
-                case .nonMember:
-                    appCoordinator.showLoggedOut(animated: false)
-                }
-            })
-            .disposed(by: disposeBag)
 
+//        window.rootViewController = EditInfoViewController(viewModel: EditInfoViewModel())
+
+//        window.rootViewController = MakerViewController(viewModel: MakerViewModel())
+
+        window.rootViewController = SettingsViewController(viewModel: SettingsViewModel())
+
+//        appComponent.loginService.checkLogin()
+//            .subscribe(onNext: { result in
+//                switch result {
+//                case .member:
+//                    appCoordinator.showMain(certificated: true, animated: false)
+//                case .memberWaitCertification:
+//                    appCoordinator.showMain(certificated: false, animated: false)
+//                case .nonMember:
+//                    appCoordinator.showLoggedOut(animated: false)
+//                }
+//            })
+//            .disposed(by: disposeBag)
+//
         window.makeKeyAndVisible()
 
         self.window = window

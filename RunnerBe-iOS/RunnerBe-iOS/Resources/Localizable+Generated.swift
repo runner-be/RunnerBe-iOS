@@ -262,6 +262,99 @@ internal enum L10n {
     }
   }
 
+  internal enum MyPage {
+    internal enum EditInfo {
+      internal enum Job {
+        /// 나의 직군
+        internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.Job.title")
+      }
+      internal enum NavBar {
+        /// 내 정보 수정
+        internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NavBar.title")
+      }
+      internal enum NickName {
+        /// 닉네임 변경
+        internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NickName.title")
+        internal enum Button {
+          /// 등록하기
+          internal static let apply = L10n.tr("Localizable", "MyPage.EditInfo.NickName.Button.Apply")
+          internal enum NickNameChanged {
+            /// 등록 완료
+            internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NickName.Button.NickNameChanged.title")
+          }
+        }
+        internal enum ErrorLabel {
+          /// 중복된 닉네임이에요!
+          internal static let duplicated = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.duplicated")
+          /// 영어 대문자, 특수문자, 띄어쓰기는 사용할 수 없습니다.
+          internal static let form = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.form")
+        }
+        internal enum InfoLabel {
+          /// 닉네임 변경이 완료되어 추가 변경은 불가능해요
+          internal static let alreadychanged = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.alreadychanged")
+          /// 닉네임은 딱 한 번만 바꿀 수 있어요
+          internal static let caution = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.caution")
+        }
+        internal enum TextField {
+          internal enum PlaceHolder {
+            /// 김출근
+            internal static let changed = L10n.tr("Localizable", "MyPage.EditInfo.NickName.TextField.PlaceHolder.changed")
+            /// 8자 이내(영어 소문자/한글/숫자
+            internal static let rule = L10n.tr("Localizable", "MyPage.EditInfo.NickName.TextField.PlaceHolder.rule")
+          }
+        }
+      }
+    }
+    internal enum Maker {
+      internal enum NavBar {
+        /// 만든 사람들
+        internal static let title = L10n.tr("Localizable", "MyPage.Maker.NavBar.title")
+      }
+    }
+    internal enum Settings {
+      internal enum Category {
+        internal enum AboutRunnerbe {
+          internal enum Instagram {
+            /// 러너비 인스타그램
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.AboutRunnerbe.Instagram.title")
+          }
+          internal enum Maker {
+            /// 만든 사람들
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.AboutRunnerbe.Maker.title")
+          }
+        }
+        internal enum Account {
+          internal enum Logout {
+            /// 로그아웃
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.Logout.title")
+          }
+        }
+        internal enum Policy {
+          internal enum License {
+            ///  오픈소스 라이센스
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.License.title")
+          }
+          internal enum Privacy {
+            /// 개인정보 처리방침
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Privacy.title")
+          }
+          internal enum Term {
+            /// 이용 약관
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Term.title")
+          }
+          internal enum Version {
+            /// 버전 정보
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Version.title")
+          }
+        }
+      }
+      internal enum NavBar {
+        /// 설정
+        internal static let title = L10n.tr("Localizable", "MyPage.Settings.NavBar.title")
+      }
+    }
+  }
+
   internal enum NavBar {
     internal enum Right {
       internal enum First {

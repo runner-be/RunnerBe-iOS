@@ -6,3 +6,17 @@
 //
 
 import Foundation
+import NeedleFoundation
+
+protocol EditInfoDependency: Dependency {}
+
+final class EditInfoComponent: Component<EditInfoDependency> {
+    var scene: (VC: UIViewController, VM: EditInfoViewModel) {
+        let viewModel = self.viewModel
+        return (EditInfoViewController(viewModel: viewModel), viewModel)
+    }
+
+    var viewModel: EditInfoViewModel {
+        return EditInfoViewModel()
+    }
+}
