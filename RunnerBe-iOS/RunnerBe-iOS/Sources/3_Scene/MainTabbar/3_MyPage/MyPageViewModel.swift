@@ -29,7 +29,9 @@ final class MyPageViewModel: BaseViewModel {
                 self.posts.removeAll()
 
                 switch result {
+                    // TODO: post 시간 최근순을 기준으로 정렬
                 case let .success(info, posting, joined):
+                    
                     self.user = info
                     self.posts[.basic] = posting
                     self.posts[.attendable] = joined

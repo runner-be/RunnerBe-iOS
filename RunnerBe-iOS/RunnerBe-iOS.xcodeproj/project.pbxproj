@@ -908,7 +908,7 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
-				C3A64F8A27C54D360088E387 /* PostService */,
+				C3A64F8B27C54D500088E387 /* PostAPIService */,
 				C3F8D1C727C427720004CAB8 /* WritingPostService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 				C39E926327BACFA400798F3A /* MailingAPIService */,
@@ -1317,14 +1317,6 @@
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
 			);
 			path = Post;
-			sourceTree = "<group>";
-		};
-		C3A64F8A27C54D360088E387 /* PostService */ = {
-			isa = PBXGroup;
-			children = (
-				C3A64F8B27C54D500088E387 /* PostAPIService */,
-			);
-			path = PostService;
 			sourceTree = "<group>";
 		};
 		C3A64F8B27C54D500088E387 /* PostAPIService */ = {
