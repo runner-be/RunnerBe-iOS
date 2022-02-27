@@ -187,16 +187,18 @@ private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency
     }
 }
 private class EditInfoDependency226a6a95833dbef9e88dBaseProvider: EditInfoDependency {
-
-
-    init() {
-
+    var loginKeyChainService: LoginKeyChainService {
+        return appComponent.loginKeyChainService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent
 private class EditInfoDependency226a6a95833dbef9e88dProvider: EditInfoDependency226a6a95833dbef9e88dBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(appComponent: component.parent.parent.parent as! AppComponent)
     }
 }
 private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {
@@ -205,6 +207,9 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
     }
     var dateService: DateService {
         return appComponent.dateService
+    }
+    var loginKeyChainService: LoginKeyChainService {
+        return appComponent.loginKeyChainService
     }
     private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent

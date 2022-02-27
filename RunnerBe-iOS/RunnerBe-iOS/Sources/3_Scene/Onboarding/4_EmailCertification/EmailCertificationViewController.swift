@@ -189,6 +189,7 @@ final class EmailCertificationViewController: BaseViewController {
             attributes: [.foregroundColor: UIColor.darkG35]
         )
         field.autocapitalizationType = .none
+        field.autocorrectionType = .no
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 8

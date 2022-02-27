@@ -221,6 +221,9 @@
 		C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C727C91140004954EB /* UserInfoHeader.swift */; };
 		C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* PostAPIResult.swift */; };
 		C3C43BEA27CC1FF400D36D46 /* TimeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BE927CC1FF400D36D46 /* TimeObject.swift */; };
+		C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BEC27CC34A600D36D46 /* UserAPI.swift */; };
+		C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */; };
+		C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */; };
 		C3C9732527C9373900232251 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732427C9373900232251 /* User.swift */; };
 		C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */; };
 		C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C9732827C9C26F00232251 /* PostDetailFooter.swift */; };
@@ -508,6 +511,9 @@
 		C3BB13C727C91140004954EB /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		C3BB13C927C922C8004954EB /* PostAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIResult.swift; sourceTree = "<group>"; };
 		C3C43BE927CC1FF400D36D46 /* TimeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeObject.swift; sourceTree = "<group>"; };
+		C3C43BEC27CC34A600D36D46 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
+		C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserAPIService.swift; sourceTree = "<group>"; };
 		C3C9732427C9373900232251 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3C9732627C9BB0E00232251 /* PostDetailViewConfigItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewConfigItem.swift; sourceTree = "<group>"; };
 		C3C9732827C9C26F00232251 /* PostDetailFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooter.swift; sourceTree = "<group>"; };
@@ -908,6 +914,7 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
 				C3A64F8B27C54D500088E387 /* PostAPIService */,
 				C3F8D1C727C427720004CAB8 /* WritingPostService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
@@ -1031,6 +1038,7 @@
 		C361B6C127B285FC00824ABE /* 1_EndPoint */ = {
 			isa = PBXGroup;
 			children = (
+				C3C43BEB27CC349300D36D46 /* UserAPI */,
 				C3A64F8027C548700088E387 /* PostAPI */,
 				C39E926027BACCE800798F3A /* Email */,
 				C3432CAD27B8449900DEFF51 /* SignUp */,
@@ -1476,6 +1484,23 @@
 				C38F8F1E27AD88700050137D /* SocialLoginResult.swift */,
 			);
 			path = SocialLogin;
+			sourceTree = "<group>";
+		};
+		C3C43BEB27CC349300D36D46 /* UserAPI */ = {
+			isa = PBXGroup;
+			children = (
+				C3C43BEC27CC34A600D36D46 /* UserAPI.swift */,
+			);
+			path = UserAPI;
+			sourceTree = "<group>";
+		};
+		C3C43BEE27CC37A600D36D46 /* UserAPIService */ = {
+			isa = PBXGroup;
+			children = (
+				C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */,
+				C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */,
+			);
+			path = UserAPIService;
 			sourceTree = "<group>";
 		};
 		C3C9732A27C9D3F400232251 /* Config */ = {
@@ -2028,6 +2053,7 @@
 				C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
+				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
@@ -2142,6 +2168,7 @@
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
+				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
@@ -2200,6 +2227,7 @@
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
+				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,
 				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
 				C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */,

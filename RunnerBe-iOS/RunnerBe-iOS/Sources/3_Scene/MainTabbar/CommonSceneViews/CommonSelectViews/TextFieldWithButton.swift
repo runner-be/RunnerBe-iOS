@@ -19,6 +19,13 @@ final class TextFieldWithButton: SelectBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setPlaceHolder(to text: String) {
+        nickNameField.attributedPlaceholder = NSAttributedString(
+            string: text,
+            attributes: [.foregroundColor: UIColor.darkG35]
+        )
+    }
+
     var nickNameField = TextFieldWithPadding().then { field in
         field.textPadding = UIEdgeInsets(top: 12, left: 14, bottom: 14, right: 14)
         field.backgroundColor = .darkG55
@@ -30,6 +37,7 @@ final class TextFieldWithButton: SelectBaseView {
             attributes: [.foregroundColor: UIColor.darkG35]
         )
         field.autocapitalizationType = .none
+        field.autocorrectionType = .no
 
         field.clipsToBounds = true
         field.layer.cornerRadius = 8
