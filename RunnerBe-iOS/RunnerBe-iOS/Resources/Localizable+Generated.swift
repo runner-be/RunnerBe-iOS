@@ -348,6 +348,29 @@ internal enum L10n {
           }
         }
       }
+      internal enum Modal {
+        internal enum Logout {
+          /// 정말 로그아웃하시겠어요?
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Content")
+          internal enum Button {
+            /// 아니오
+            internal static let cancel = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Button.cancel")
+            /// 네
+            internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Button.ok")
+          }
+        }
+        internal enum NickName {
+          /// 닉네임 변경은 1회만 가능하며 재변경은 불가능해요!
+          /// 정말 변경하시겠어요?
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Content")
+          internal enum Button {
+            /// 더 고민할래요
+            internal static let cancel = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Button.cancel")
+            /// 네
+            internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Button.ok")
+          }
+        }
+      }
       internal enum NavBar {
         /// 설정
         internal static let title = L10n.tr("Localizable", "MyPage.Settings.NavBar.title")

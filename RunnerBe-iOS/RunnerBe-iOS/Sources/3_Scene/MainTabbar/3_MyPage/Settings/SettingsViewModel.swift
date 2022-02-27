@@ -31,7 +31,7 @@ final class SettingsViewModel: BaseViewModel {
             partialResult.append(items)
         }
         outputs.menus.onNext(settingItems)
-        
+
         inputs.tapCell
             .subscribe(onNext: { [weak self] indexPath in
                 switch indexPath.section {
@@ -64,7 +64,6 @@ final class SettingsViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
-
     }
 
     struct Input {

@@ -48,7 +48,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = MakerViewController(viewModel: MakerViewModel())
 
-        window.rootViewController = SettingsViewController(viewModel: SettingsViewModel())
+//        window.rootViewController = SettingsViewController(viewModel: SettingsViewModel())
+
+//        window.rootViewController = LogoutModalViewController(viewModel: LogoutModalViewModel())
+
+        window.rootViewController = TakePhotoModalViewController(viewModel: TakePhotoModalViewModel())
+
+//        window.rootViewController = NickNameChangeModalViewController(viewModel: NickNameChangeModalViewModel())
 
 //        appComponent.loginService.checkLogin()
 //            .subscribe(onNext: { result in

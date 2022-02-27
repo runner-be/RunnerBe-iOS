@@ -15,6 +15,18 @@
 		C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
+		C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C026D27CB16DD0011419E /* NickNameChangeModalComponent.swift */; };
+		C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C026F27CB16E50011419E /* NickNameChangeModalCoordinator.swift */; };
+		C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027127CB16EC0011419E /* NickNameChangeModalViewModel.swift */; };
+		C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027327CB16F40011419E /* NickNameChangeModalViewController.swift */; };
+		C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027527CB17060011419E /* TakePhotoModalComponent.swift */; };
+		C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027727CB170F0011419E /* TakePhotoModalCoordinator.swift */; };
+		C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027927CB17160011419E /* TakePhotoModalViewModel.swift */; };
+		C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027B27CB171E0011419E /* TakePhotoModalViewController.swift */; };
+		C32C027E27CB173A0011419E /* LogoutModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027D27CB173A0011419E /* LogoutModalComponent.swift */; };
+		C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */; };
+		C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028127CB174A0011419E /* LogoutModalViewModel.swift */; };
+		C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028327CB17540011419E /* LogoutModalViewController.swift */; };
 		C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3319A5327C517830054B688 /* BubbleLabel.swift */; };
 		C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */; };
 		C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */; };
@@ -281,6 +293,18 @@
 		C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlDelegate.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
+		C32C026D27CB16DD0011419E /* NickNameChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalComponent.swift; sourceTree = "<group>"; };
+		C32C026F27CB16E50011419E /* NickNameChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalCoordinator.swift; sourceTree = "<group>"; };
+		C32C027127CB16EC0011419E /* NickNameChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalViewModel.swift; sourceTree = "<group>"; };
+		C32C027327CB16F40011419E /* NickNameChangeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalViewController.swift; sourceTree = "<group>"; };
+		C32C027527CB17060011419E /* TakePhotoModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoModalComponent.swift; sourceTree = "<group>"; };
+		C32C027727CB170F0011419E /* TakePhotoModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoModalCoordinator.swift; sourceTree = "<group>"; };
+		C32C027927CB17160011419E /* TakePhotoModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoModalViewModel.swift; sourceTree = "<group>"; };
+		C32C027B27CB171E0011419E /* TakePhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoModalViewController.swift; sourceTree = "<group>"; };
+		C32C027D27CB173A0011419E /* LogoutModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalComponent.swift; sourceTree = "<group>"; };
+		C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalCoordinator.swift; sourceTree = "<group>"; };
+		C32C028127CB174A0011419E /* LogoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewModel.swift; sourceTree = "<group>"; };
+		C32C028327CB17540011419E /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
 		C3319A5327C517830054B688 /* BubbleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleLabel.swift; sourceTree = "<group>"; };
 		C3347BE827C2D113006FB110 /* WritingDetailPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostComponent.swift; sourceTree = "<group>"; };
 		C3347BEA27C2D11B006FB110 /* WritingDetailPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDetailPostCoordinator.swift; sourceTree = "<group>"; };
@@ -1462,7 +1486,7 @@
 			children = (
 				C3C9736B27CB074000232251 /* View */,
 				C3C9736827CAF4E500232251 /* Config */,
-				C3C9736027CA977500232251 /* LoggedOutModal */,
+				C3C9736027CA977500232251 /* LogoutModal */,
 				C3C9735027CA965F00232251 /* SettingsComponent.swift */,
 				C3C9735227CA966900232251 /* SettingsCoordinator.swift */,
 				C3C9735427CA967000232251 /* SettingsViewModel.swift */,
@@ -1496,16 +1520,24 @@
 			path = EditInfo;
 			sourceTree = "<group>";
 		};
-		C3C9736027CA977500232251 /* LoggedOutModal */ = {
+		C3C9736027CA977500232251 /* LogoutModal */ = {
 			isa = PBXGroup;
 			children = (
+				C32C027D27CB173A0011419E /* LogoutModalComponent.swift */,
+				C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */,
+				C32C028127CB174A0011419E /* LogoutModalViewModel.swift */,
+				C32C028327CB17540011419E /* LogoutModalViewController.swift */,
 			);
-			path = LoggedOutModal;
+			path = LogoutModal;
 			sourceTree = "<group>";
 		};
 		C3C9736127CA978600232251 /* NickNameChangeModal */ = {
 			isa = PBXGroup;
 			children = (
+				C32C026D27CB16DD0011419E /* NickNameChangeModalComponent.swift */,
+				C32C026F27CB16E50011419E /* NickNameChangeModalCoordinator.swift */,
+				C32C027127CB16EC0011419E /* NickNameChangeModalViewModel.swift */,
+				C32C027327CB16F40011419E /* NickNameChangeModalViewController.swift */,
 			);
 			path = NickNameChangeModal;
 			sourceTree = "<group>";
@@ -1513,6 +1545,10 @@
 		C3C9736227CA979500232251 /* TakePhotoModal */ = {
 			isa = PBXGroup;
 			children = (
+				C32C027527CB17060011419E /* TakePhotoModalComponent.swift */,
+				C32C027727CB170F0011419E /* TakePhotoModalCoordinator.swift */,
+				C32C027927CB17160011419E /* TakePhotoModalViewModel.swift */,
+				C32C027B27CB171E0011419E /* TakePhotoModalViewController.swift */,
 			);
 			path = TakePhotoModal;
 			sourceTree = "<group>";
@@ -1960,6 +1996,7 @@
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
 				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
 				C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */,
+				C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
@@ -1982,6 +2019,7 @@
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
 				C3A64F8F27C54DA20088E387 /* Post.swift in Sources */,
 				C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */,
+				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
@@ -1990,6 +2028,7 @@
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
+				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
 				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
@@ -2001,6 +2040,7 @@
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
 				C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */,
+				C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */,
 				C35B832827B91E6E00551AC5 /* Gender.swift in Sources */,
 				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
@@ -2024,9 +2064,11 @@
 				C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C361B6C627B2937300824ABE /* EmailCertificationCoordinator.swift in Sources */,
+				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
 				C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
 				C3C9735927CA968F00232251 /* MakerViewController.swift in Sources */,
 				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
 				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
@@ -2036,6 +2078,7 @@
 				C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */,
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
+				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
@@ -2044,6 +2087,7 @@
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
+				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
@@ -2060,6 +2104,7 @@
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
+				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
@@ -2075,6 +2120,7 @@
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
+				C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
@@ -2114,6 +2160,7 @@
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
 				C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */,
+				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,
 				C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */,
 				C3C9734927CA962200232251 /* EditInfoComponent.swift in Sources */,
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
@@ -2144,6 +2191,7 @@
 				C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,
+				C32C027E27CB173A0011419E /* LogoutModalComponent.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,

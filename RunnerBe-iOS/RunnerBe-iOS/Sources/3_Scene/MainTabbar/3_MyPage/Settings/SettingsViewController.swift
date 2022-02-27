@@ -41,7 +41,7 @@ class SettingsViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapCell)
             .disposed(by: disposeBags)
     }
-    
+
     private func viewModelOutput() {
         let dataSource = RxTableViewSectionedReloadDataSource<SettingCategorySection> {
             _, tableView, _, item in
