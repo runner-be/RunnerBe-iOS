@@ -72,10 +72,10 @@ class BookMarkViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .aggroLight
+        navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.BookMark.Main.NavBar.title
-        navBar.titleLabel.textColor = .primarydark
-        navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
+        navBar.titleLabel.textColor = .darkG35
+        navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
         navBar.titleSpacing = 8
     }
