@@ -55,7 +55,13 @@ class SelectTimeModalViewController: BaseViewController {
             .disposed(by: disposeBags)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.toast
+            .subscribe(onNext: {[weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBags)
+    }
 
     private var sheet = UIView().then { view in
         view.backgroundColor = .darkG5
