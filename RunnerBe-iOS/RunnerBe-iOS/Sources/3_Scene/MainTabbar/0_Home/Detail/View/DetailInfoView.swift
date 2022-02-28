@@ -38,16 +38,14 @@ final class DetailInfoView: UIView {
         ageLabel.text = age
     }
 
-    private var placeLabel = IconLabel().then { view in
+    private var placeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.place.uiImage
-        view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
         view.label.text = "PLACE INFO"
-        view.spacing = 8
     }
 
-    private var dateLabel = IconLabel().then { view in
+    private var dateLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.scheduled.uiImage
         view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
@@ -56,7 +54,7 @@ final class DetailInfoView: UIView {
         view.spacing = 8
     }
 
-    private var timeLabel = IconLabel().then { view in
+    private var timeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.time.uiImage
         view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
@@ -65,7 +63,7 @@ final class DetailInfoView: UIView {
         view.spacing = 8
     }
 
-    private var genderLabel = IconLabel().then { view in
+    private var genderLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.group.uiImage
         view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R

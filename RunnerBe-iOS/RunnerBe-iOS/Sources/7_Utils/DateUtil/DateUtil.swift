@@ -45,7 +45,7 @@ class DateUtil {
     func formattedString(for date: Date, format: DateFormat, localeId: String = L10n.locale) -> String {
         let oldLocale = dateFormatter.locale
         defer { dateFormatter.locale = oldLocale }
-        
+
         dateFormatter.locale = Locale(identifier: localeId)
         dateFormatter.dateFormat = format.formatString
 

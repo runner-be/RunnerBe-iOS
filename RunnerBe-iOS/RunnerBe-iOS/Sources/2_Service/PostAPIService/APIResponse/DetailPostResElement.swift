@@ -24,6 +24,7 @@ struct DetailPostResElement: Codable {
     let gatherLongitude: String
     let gatherLatitude: String
     let locationInfo: String
+    let whetherEnd: String
 
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
@@ -40,6 +41,7 @@ struct DetailPostResElement: Codable {
         case gatherLongitude
         case gatherLatitude
         case locationInfo
+        case whetherEnd
     }
 }
 
@@ -91,6 +93,10 @@ extension DetailPostResElement {
         return nums[0]
     }
 
+    var open: Bool {
+        return whetherEnd == "N"
+    }
+
     var convertedDetailPost: PostDetail? {
         guard let runningTime = timeRunning,
               let gatherDate = gatherDate,
@@ -122,7 +128,7 @@ extension DetailPostResElement {
             locationInfo: locationInfo,
             coord: coords
         )
-        post.open = false
+        post.open = open
         post.marked = false
         post.attendance = false
 
