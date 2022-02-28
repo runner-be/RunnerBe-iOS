@@ -46,10 +46,8 @@ final class BasicPostAPIService: PostAPIService {
             }
             .map { try? $0?.json["result"].rawData() }
             .compactMap { $0 }
-            .decode(type: [PostAPIResult].self, decoder: JSONDecoder())
-            .map { $0.reduce(into: [Post]()) {
-                $0.append($1.post)
-            }}
+            .decode(type: [MainPostResElement].self, decoder: JSONDecoder())
+            .map { $0.compactMap { $0.convertedPost }}
             .bind(to: functionResult)
 
         let id = disposableId
@@ -223,14 +221,12 @@ final class BasicPostAPIService: PostAPIService {
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
-            .decode(type: [PostAPIResult]?.self, decoder: JSONDecoder())
+            .decode(type: [BookMarkResElement]?.self, decoder: JSONDecoder())
             .catch { error in
                 print(error.localizedDescription)
                 return .just(nil)
             }
-            .map { $0?.reduce(into: [Post]()) {
-                $0.append($1.post)
-            }}
+            .map { $0?.compactMap { $0.convertedPost } }
             .bind(to: functionResult)
 
         let id = disposableId
@@ -350,20 +346,20 @@ final class BasicPostAPIService: PostAPIService {
             .compactMap { $0 }
             .subscribe(onNext: { result in
                 let decoder = JSONDecoder()
-                let posts = try? decoder.decode([PostAPIResult].self, from: result.post)
+                let posts = try? decoder.decode([DetailPostResElement].self, from: result.post)
                 let participants = (try? decoder.decode([User].self, from: result.participants)) ?? []
                 let applicant = (try? decoder.decode([User].self, from: result.applicant)) ?? []
 
-                guard let post = posts?.first
+                guard let postDetail = posts?.first?.convertedDetailPost
                 else {
                     functionResult.onNext(.error)
                     return
                 }
 
                 if result.isWriter {
-                    functionResult.onNext(.writer(post: post.post, marked: result.bookMarked, participants: participants, applicant: applicant))
+                    functionResult.onNext(.writer(post: postDetail, marked: result.bookMarked, participants: participants, applicant: applicant))
                 } else {
-                    functionResult.onNext(.guest(post: post.post, marked: result.bookMarked, apply: result.isApplicant, participants: participants))
+                    functionResult.onNext(.guest(post: postDetail, marked: result.bookMarked, apply: result.isApplicant, participants: participants))
                 }
             })
 
@@ -531,8 +527,7 @@ final class BasicPostAPIService: PostAPIService {
     func close(postId: Int) -> Observable<Bool> {
         let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
 
-        guard let userId = loginKeyChain.userId,
-              let token = loginKeyChain.token
+        guard let token = loginKeyChain.token
         else { return .just(false) }
 
         let disposable = provider.rx.request(.close(postId: postId, token: token))
@@ -651,11 +646,11 @@ final class BasicPostAPIService: PostAPIService {
             .subscribe(onNext: { result in
                 let decoder = JSONDecoder()
                 let userInfo = try? decoder.decode([User].self, from: result.userData).first
-                let posting = (try? decoder.decode([PostAPIResult].self, from: result.postingData)) ?? []
-                let joined = (try? decoder.decode([PostAPIResult].self, from: result.joinedData)) ?? []
+                let posting = (try? decoder.decode([MyPostResElement].self, from: result.postingData)) ?? []
+                let joined = (try? decoder.decode([MyRunResElement].self, from: result.joinedData)) ?? []
 
-                let userPosting = posting.reduce(into: [Post]()) { $0.append($1.post) }
-                let userJoined = joined.reduce(into: [Post]()) { $0.append($1.post) }
+                let userPosting: [Post] = posting.compactMap { $0.convertedPost }
+                let userJoined: [Post] = joined.compactMap { $0.convertedPost }
 
                 if let user = userInfo {
                     functionResult.onNext(.success(info: user, posting: userPosting, joined: userJoined))

@@ -14,7 +14,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     private var mainPageAPIService: PostAPIService
 
-    init(mainPostData: PostMainData, postAPIService: PostAPIService, dateService: DateService) {
+    init(mainPostData: PostMainData, postAPIService: PostAPIService) {
         mainPageAPIService = postAPIService
         super.init()
 
@@ -31,12 +31,10 @@ final class WritingDetailPostViewModel: BaseViewModel {
             .map { [weak self] data in
                 let runningTag = RunningTag(name: mainPostData.tag)
                 let gender = Gender(idx: data.gender)
-                let curYearGathringDate = dateService.getCurrent(format: .yyyy) + " " + mainPostData.date
-                print("게더! \(curYearGathringDate)")
-                print("러닝 시간 ! \(mainPostData.time)")
+                let curYearGathringDate = DateUtil.shared.getCurrent(format: .yyyy) + " " + mainPostData.date
                 guard runningTag != .error,
-                      let gatheringTime = dateService.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss),
-                      let runningTime = dateService.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm)
+                      let gatheringTime = DateUtil.shared.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss),
+                      let runningTime = DateUtil.shared.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm)
                 else {
                     self?.outputs.toast.onNext("날짜를 불러오는데 실패했습니다.")
                     return nil

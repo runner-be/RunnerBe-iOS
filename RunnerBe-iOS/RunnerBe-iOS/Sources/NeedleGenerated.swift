@@ -138,9 +138,6 @@ private class LoggedOutDependency2bcab0d3625f6f252479Provider: LoggedOutDependen
     }
 }
 private class MainTabDependency2826cdb310ed0b17a725BaseProvider: MainTabDependency {
-    var dateService: DateService {
-        return appComponent.dateService
-    }
     var loginService: LoginService {
         return appComponent.loginService
     }
@@ -205,9 +202,6 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
     }
-    var dateService: DateService {
-        return appComponent.dateService
-    }
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
@@ -227,9 +221,6 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
 private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
-    }
-    var dateService: DateService {
-        return appComponent.dateService
     }
     var loginService: LoginService {
         return appComponent.loginService
@@ -264,9 +255,6 @@ private class WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider: Writing
     var locationService: LocationService {
         return homeComponent.locationService
     }
-    var dateService: DateService {
-        return appComponent.dateService
-    }
     var loginService: LoginService {
         return appComponent.loginService
     }
@@ -284,18 +272,16 @@ private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMain
     }
 }
 private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectDateModalDependency {
-    var dateService: DateService {
-        return appComponent.dateService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent
 private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class ApplicantListModalDependency04cfed02b61183a240faBaseProvider: ApplicantListModalDependency {
@@ -368,9 +354,6 @@ private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDepend
     }
 }
 private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
-    var dateService: DateService {
-        return appComponent.dateService
-    }
     var loginService: LoginService {
         return appComponent.loginService
     }

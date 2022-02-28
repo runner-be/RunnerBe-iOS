@@ -22,8 +22,7 @@ final class BirthComponent: Component<BirthDependency> {
     }
 
     private var viewModel: BirthViewModel {
-        return BirthViewModel(signupKeyChainService: dependency.signupKeyChainService,
-                              dateService: dateService)
+        return BirthViewModel(signupKeyChainService: dependency.signupKeyChainService)
     }
 
     var selectGenderComponent: SelectGenderComponent {
@@ -32,9 +31,5 @@ final class BirthComponent: Component<BirthDependency> {
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
         return OnboardingCancelModalComponent(parent: self)
-    }
-
-    var dateService: DateService {
-        return shared { BasicDateService() }
     }
 }

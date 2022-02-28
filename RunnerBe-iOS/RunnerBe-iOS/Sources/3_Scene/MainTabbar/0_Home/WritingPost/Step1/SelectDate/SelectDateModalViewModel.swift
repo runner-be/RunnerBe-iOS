@@ -9,12 +9,10 @@ import Foundation
 import RxSwift
 
 final class SelectDateModalViewModel: BaseViewModel {
-    init(dateService: DateService) {
+    override init() {
         super.init()
 
-        outputs.dateItems = dateService.getRange(format: .MdE, startDate: Date(), dayOffset: 7)
-        // TODO: DateService에서 현재 날짜로부터 일주일 사이의 날들을 계산하여 배열 생성하기
-//        outputs.dateItems = ["3/31 (목)", "4/1 (금)", "4/2 (토)", "4/3 (일)", "4/4 (월)", "4/5 (화)", "4/6 (수)", "4/7 (목)"]
+        outputs.dateItems = DateUtil.shared.getFormattedDateArray(format: .MdE, startDate: Date(), dayOffset: 7)
 
         inputs.tapOK
             .map { [weak self] _ -> (date: Int, ampm: Int, time: Int, minute: Int)? in

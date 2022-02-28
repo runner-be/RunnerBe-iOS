@@ -10,16 +10,14 @@ import RxSwift
 
 final class BirthViewModel: BaseViewModel {
     private var signupKeyChainService: SignupKeyChainService
-    private let dateService: DateService
 
     // MARK: Lifecycle
 
-    init(signupKeyChainService: SignupKeyChainService, dateService: DateService) {
+    init(signupKeyChainService: SignupKeyChainService) {
         self.signupKeyChainService = signupKeyChainService
-        self.dateService = dateService
         super.init()
 
-        let thisYear = Int(dateService.getCurrent(format: .yyyy)) ?? dateService.defaultYear
+        let thisYear = Int(DateUtil.shared.getCurrent(format: .yyyy)) ?? DateUtil.shared.defaultYear
 
         ((thisYear - 80) ... thisYear).reversed()
             .forEach { self.outputs.items.append($0) }

@@ -10,7 +10,6 @@ import NeedleFoundation
 
 protocol WritingMainPostDependency: Dependency {
     var locationService: LocationService { get }
-    var dateService: DateService { get }
     var loginService: LoginService { get }
 }
 

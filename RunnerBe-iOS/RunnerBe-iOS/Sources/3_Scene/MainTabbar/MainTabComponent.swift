@@ -9,7 +9,6 @@ import Foundation
 import NeedleFoundation
 
 protocol MainTabDependency: Dependency {
-    var dateService: DateService { get }
     var loginService: LoginService { get }
     var loginKeyChainService: LoginKeyChainService { get }
 }

@@ -24,25 +24,18 @@ struct PostDetailRunningConfig {
 }
 
 extension PostDetailRunningConfig {
-    init(from post: Post) {
-        badge = post.runningTag
-        title = post.title
-        placeInfo = post.locationInfo
-        time = post.runningTime
-
-        age = "\(post.minAge)-\(post.maxAge)"
-        date = post.gatheringTime
-        numParticipant = String(post.numParticipantsLimit)
-        long = post.longitude
-        lat = post.latitude
+    init(from postDetail: PostDetail) {
+        badge = postDetail.post.tag.name
+        title = postDetail.post.title
+        placeInfo = postDetail.post.locationInfo
+        time = "\(postDetail.post.runningTime.hour)시간 \(postDetail.post.runningTime.minute)분"
+        age = "\(postDetail.post.ageRange.min)-\(postDetail.post.ageRange.max)"
+        date = DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .gathering) // 3/31 (금)  AM 6:00
+        long = postDetail.post.coord!.long
+        lat = postDetail.post.coord!.lat
         range = 1000
-        contents = post.contents
-        switch post.gender {
-        case .female, .male:
-            gender = post.gender.name + L10n.Additional.Gender.limit
-        case .none: fallthrough
-        default:
-            gender = post.gender.name
-        }
+        contents = postDetail.content
+        numParticipant = "최대 \(postDetail.maximumNum)명"
+        gender = postDetail.post.gender == .none ? postDetail.post.gender.name : (postDetail.post.gender.name + "만")
     }
 }

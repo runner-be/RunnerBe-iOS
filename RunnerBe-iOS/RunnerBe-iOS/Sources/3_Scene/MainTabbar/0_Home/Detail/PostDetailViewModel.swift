@@ -31,28 +31,28 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(post, marked, apply, participants):
+                case let .guest(postDetail, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
-                            finished: post.whetherEnd == "Y",
+                            finished: !postDetail.post.open,
                             writer: false, applied: apply,
-                            running: PostDetailRunningConfig(from: post),
+                            running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
+                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
                             }
                         )
                     )
                     self.marked = marked
                     self.outputs.bookMarked.onNext(marked)
                     self.outputs.apply.onNext(apply)
-                case let .writer(post, marked, participants, applicant):
+                case let .writer(postDetail, marked, participants, applicant):
                     self.outputs.detailData.onNext(
                         (
-                            finished: post.whetherEnd == "Y",
+                            finished: !postDetail.post.open,
                             writer: true, applied: false,
-                            running: PostDetailRunningConfig(from: post),
+                            running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
+                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
                             }
                         )
                     )
@@ -70,28 +70,28 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(post, marked, apply, participants):
+                case let .guest(postDetail, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
-                            finished: post.whetherEnd == "Y",
+                            finished: !postDetail.post.open,
                             writer: false, applied: apply,
-                            running: PostDetailRunningConfig(from: post),
+                            running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
+                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
                             }
                         )
                     )
                     self.marked = marked
                     self.outputs.bookMarked.onNext(marked)
                     self.outputs.apply.onNext(apply)
-                case let .writer(post, marked, participants, applicant):
+                case let .writer(postDetail, marked, participants, applicant):
                     self.outputs.detailData.onNext(
                         (
-                            finished: post.whetherEnd == "Y",
+                            finished: !postDetail.post.open,
                             writer: true, applied: false,
-                            running: PostDetailRunningConfig(from: post),
+                            running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: post.writerID == $1.userID))
+                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
                             }
                         )
                     )
@@ -160,6 +160,7 @@ final class PostDetailViewModel: BaseViewModel {
                 self.outputs.finished.onNext(success)
                 self.outputs.toast.onNext(message)
             })
+            .disposed(by: disposeBag)
 
         inputs.showApplicant
             .compactMap { [weak self] _ in

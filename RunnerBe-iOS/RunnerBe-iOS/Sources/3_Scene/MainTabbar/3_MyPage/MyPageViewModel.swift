@@ -17,7 +17,7 @@ final class MyPageViewModel: BaseViewModel {
     var user: User?
     var posts = [PostType: [Post]]()
 
-    init(postAPIService: PostAPIService, dateService: DateService) {
+    init(postAPIService: PostAPIService) {
         self.postAPIService = postAPIService
         super.init()
 
@@ -39,7 +39,7 @@ final class MyPageViewModel: BaseViewModel {
                     let posts = self.outputs.postType == .basic ? posting : joined
                     self.user = info
                     self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, dateService: dateService) })
+                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0) })
                 case .error:
                     self.outputs.toast.onNext("불러오기에 실패했습니다.")
                 }
@@ -55,7 +55,7 @@ final class MyPageViewModel: BaseViewModel {
                 return self.posts[type] ?? []
             }
             .map { posts -> [MyPagePostConfig] in
-                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, dateService: dateService)) }
+                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1)) }
             }
             .subscribe(onNext: { [unowned self] postConfigs in
                 self.outputs.posts.onNext(postConfigs)
@@ -71,7 +71,7 @@ final class MyPageViewModel: BaseViewModel {
                     self?.outputs.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
-                return posts[idx].id
+                return posts[idx].ID
             }
             .bind(to: routes.detailPost)
             .disposed(by: disposeBag)
@@ -87,17 +87,17 @@ final class MyPageViewModel: BaseViewModel {
                 }
                 return posts[idx]
             }
-            .flatMap { postAPIService.bookmark(postId: $0.id, mark: !$0.bookMarked) }
+            .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let posts = self.posts[self.outputs.postType],
-                      let idx = posts.firstIndex(where: { $0.id == result.postId })
+                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
                     self?.outputs.toast.onNext("북마크를 실패했습니다.")
                     return
                 }
 
-                self.posts[self.outputs.postType]![idx].bookMarked = result.mark
+                self.posts[self.outputs.postType]![idx].marked = result.mark
                 self.outputs.marked.onNext((type: self.outputs.postType, idx: idx, marked: result.mark))
             })
             .disposed(by: disposeBag)
@@ -113,12 +113,12 @@ final class MyPageViewModel: BaseViewModel {
                 }
                 return posts[idx]
             }
-            .flatMap { postAPIService.attendance(postId: $0.id) }
+            .flatMap { postAPIService.attendance(postId: $0.ID) }
             .subscribe(onNext: { [weak self] result in
                 guard result.success,
                       let self = self,
                       let posts = self.posts[self.outputs.postType],
-                      let idx = posts.firstIndex(where: { $0.id == result.postId })
+                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
                     self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
                     return

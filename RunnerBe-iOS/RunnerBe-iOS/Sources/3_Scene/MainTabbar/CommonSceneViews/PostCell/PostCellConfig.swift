@@ -21,9 +21,9 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let closed: Bool
 
     init(from post: Post) {
-        id = post.id
+        id = post.ID
         title = post.title
-        date = post.gatheringTime
+        date = DateUtil.shared.formattedString(for: post.gatherDate, format: .gathering)
         place = post.locationInfo
         switch post.gender {
         case .female, .male:
@@ -31,10 +31,10 @@ struct PostCellConfig: Equatable, IdentifiableType {
         case .none:
             gender = post.gender.name
         }
-        ageText = "\(post.minAge)-\(post.maxAge)"
+        ageText = "\(post.ageRange.min)-\(post.ageRange.max)"
         writerName = post.writerName
-        closed = post.whetherEnd == "Y"
-        bookmarked = post.bookMarked
+        closed = !post.open
+        bookmarked = post.marked
     }
 
     init(from post: Post, marked: Bool) {

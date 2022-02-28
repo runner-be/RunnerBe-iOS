@@ -9,7 +9,6 @@ import Foundation
 import NeedleFoundation
 
 protocol HomeDependency: Dependency {
-    var dateService: DateService { get }
     var loginService: LoginService { get }
     var loginKeyChainService: LoginKeyChainService { get }
     var postAPIService: PostAPIService { get }

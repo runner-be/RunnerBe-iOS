@@ -33,9 +33,9 @@ final class BookMarkViewModel: BaseViewModel {
 
                 if let result = result {
                     self.posts = result.reduce(into: [RunningTag: [Post]]()) {
-                        let runningTag = RunningTag(code: $1.runningTag)
+                        let runningTag = $1.tag
                         var post = $1
-                        post.bookMarked = true
+                        post.marked = true
                         $0[runningTag, default: []].append(post)
                     }
 
@@ -66,13 +66,13 @@ final class BookMarkViewModel: BaseViewModel {
                 else { return nil }
                 return posts[idx]
             }
-            .flatMap { postAPIService.bookmark(postId: $0.id, mark: !$0.bookMarked) }
+            .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       var posts = self.posts[self.runningTag]
                 else { return }
 
-                if let idx = posts.firstIndex(where: { $0.id == result.postId }) {
+                if let idx = posts.firstIndex(where: { $0.ID == result.postId }) {
                     if !result.mark {
                         posts.remove(at: idx)
                         self.posts[self.runningTag] = posts
@@ -88,7 +88,7 @@ final class BookMarkViewModel: BaseViewModel {
                       let posts = self.posts[self.runningTag],
                       idx >= 0, idx < posts.count
                 else { return }
-                self.routes.detailPost.onNext(posts[idx].id)
+                self.routes.detailPost.onNext(posts[idx].ID)
             })
             .disposed(by: disposeBag)
 
@@ -99,7 +99,7 @@ final class BookMarkViewModel: BaseViewModel {
                       var posts = self.posts[self.runningTag]
                 else { return }
 
-                if let idx = posts.firstIndex(where: { $0.id == result.id }) {
+                if let idx = posts.firstIndex(where: { $0.ID == result.id }) {
                     if !result.marked {
                         posts.remove(at: idx)
                         self.posts[self.runningTag] = posts

@@ -70,6 +70,12 @@
 		C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */; };
 		C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */; };
 		C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */; };
+		C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6A727CD3FCF003E393A /* DateUtil.swift */; };
+		C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6A927CD409C003E393A /* DateFormat.swift */; };
+		C34BA6AF27CD47AB003E393A /* MainPostResElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6AE27CD47AB003E393A /* MainPostResElement.swift */; };
+		C34BA6B127CD47C9003E393A /* DetailPostResElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6B027CD47C9003E393A /* DetailPostResElement.swift */; };
+		C34BA6B327CD47EB003E393A /* MyPostResElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6B227CD47EB003E393A /* MyPostResElement.swift */; };
+		C34BA6B527CD4805003E393A /* MyRunResElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA6B427CD4805003E393A /* MyRunResElement.swift */; };
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
@@ -125,8 +131,6 @@
 		C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */; };
 		C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */; };
 		C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E427B3461900824ABE /* PhotoModalViewController.swift */; };
-		C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365B46527B90C4F00BFFCB8 /* DateService.swift */; };
-		C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365B46727B90C5700BFFCB8 /* BasicDateService.swift */; };
 		C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */; };
 		C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */; };
 		C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301B27B9FB010076AB85 /* DynamicLinkService.swift */; };
@@ -219,8 +223,7 @@
 		C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C327C907AD004954EB /* PostDetailViewController.swift */; };
 		C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C527C908F3004954EB /* UserInfoView.swift */; };
 		C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C727C91140004954EB /* UserInfoHeader.swift */; };
-		C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* PostAPIResult.swift */; };
-		C3C43BEA27CC1FF400D36D46 /* TimeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BE927CC1FF400D36D46 /* TimeObject.swift */; };
+		C3BB13CA27C922C8004954EB /* BookMarkResElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB13C927C922C8004954EB /* BookMarkResElement.swift */; };
 		C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BEC27CC34A600D36D46 /* UserAPI.swift */; };
 		C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */; };
 		C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */; };
@@ -360,6 +363,12 @@
 		C3498F4227C13D5D003EDD0F /* SelectDateModalCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalCoordinator.swift; sourceTree = "<group>"; };
 		C3498F4327C13D5D003EDD0F /* SelectDateModalComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalComponent.swift; sourceTree = "<group>"; };
 		C3498F4427C13D5D003EDD0F /* SelectDateModalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDateModalViewModel.swift; sourceTree = "<group>"; };
+		C34BA6A727CD3FCF003E393A /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		C34BA6A927CD409C003E393A /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		C34BA6AE27CD47AB003E393A /* MainPostResElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPostResElement.swift; sourceTree = "<group>"; };
+		C34BA6B027CD47C9003E393A /* DetailPostResElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostResElement.swift; sourceTree = "<group>"; };
+		C34BA6B227CD47EB003E393A /* MyPostResElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostResElement.swift; sourceTree = "<group>"; };
+		C34BA6B427CD4805003E393A /* MyRunResElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunResElement.swift; sourceTree = "<group>"; };
 		C34FDA1A27AD5997007718F8 /* RunnerBe-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunnerBe-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34FDA2927AD5999007718F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -414,8 +423,6 @@
 		C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalCoordinator.swift; sourceTree = "<group>"; };
 		C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewModel.swift; sourceTree = "<group>"; };
 		C361B6E427B3461900824ABE /* PhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewController.swift; sourceTree = "<group>"; };
-		C365B46527B90C4F00BFFCB8 /* DateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateService.swift; sourceTree = "<group>"; };
-		C365B46727B90C5700BFFCB8 /* BasicDateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDateService.swift; sourceTree = "<group>"; };
 		C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameGenerator.swift; sourceTree = "<group>"; };
 		C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNickNameGenerator.swift; sourceTree = "<group>"; };
 		C379301B27B9FB010076AB85 /* DynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkService.swift; sourceTree = "<group>"; };
@@ -509,8 +516,7 @@
 		C3BB13C327C907AD004954EB /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		C3BB13C527C908F3004954EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		C3BB13C727C91140004954EB /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
-		C3BB13C927C922C8004954EB /* PostAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAPIResult.swift; sourceTree = "<group>"; };
-		C3C43BE927CC1FF400D36D46 /* TimeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeObject.swift; sourceTree = "<group>"; };
+		C3BB13C927C922C8004954EB /* BookMarkResElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkResElement.swift; sourceTree = "<group>"; };
 		C3C43BEC27CC34A600D36D46 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
 		C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserAPIService.swift; sourceTree = "<group>"; };
@@ -799,6 +805,44 @@
 			path = SelectTime;
 			sourceTree = "<group>";
 		};
+		C34BA6A527CD3F3B003E393A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C34BA6AB27CD40BB003E393A /* DateUtil */ = {
+			isa = PBXGroup;
+			children = (
+				C34BA6A727CD3FCF003E393A /* DateUtil.swift */,
+				C34BA6A927CD409C003E393A /* DateFormat.swift */,
+			);
+			path = DateUtil;
+			sourceTree = "<group>";
+		};
+		C34BA6AC27CD4162003E393A /* CG */ = {
+			isa = PBXGroup;
+			children = (
+				C39F2EA727BC71FD00A7D86B /* CGRect+.swift */,
+				C39F2EA427BC71C300A7D86B /* CGPoint+.swift */,
+				C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */,
+			);
+			path = CG;
+			sourceTree = "<group>";
+		};
+		C34BA6AD27CD479C003E393A /* APIResponse */ = {
+			isa = PBXGroup;
+			children = (
+				C34BA6AE27CD47AB003E393A /* MainPostResElement.swift */,
+				C34BA6B027CD47C9003E393A /* DetailPostResElement.swift */,
+				C3BB13C927C922C8004954EB /* BookMarkResElement.swift */,
+				C34BA6B227CD47EB003E393A /* MyPostResElement.swift */,
+				C34BA6B427CD4805003E393A /* MyRunResElement.swift */,
+			);
+			path = APIResponse;
+			sourceTree = "<group>";
+		};
 		C34FDA1127AD5997007718F8 = {
 			isa = PBXGroup;
 			children = (
@@ -891,6 +935,7 @@
 		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C34BA6AC27CD4162003E393A /* CG */,
 				C3F8D1BF27C3B02B0004CAB8 /* MapView+ */,
 				C379301F27BA01210076AB85 /* String+ */,
 				C34FDA7E27AD5DA1007718F8 /* Asset+ */,
@@ -914,13 +959,13 @@
 		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
 			isa = PBXGroup;
 			children = (
+				C34BA6A527CD3F3B003E393A /* Shared */,
 				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
 				C3A64F8B27C54D500088E387 /* PostAPIService */,
 				C3F8D1C727C427720004CAB8 /* WritingPostService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 				C39E926327BACFA400798F3A /* MailingAPIService */,
 				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
-				C365B46427B90C1B00BFFCB8 /* DateService */,
 				C3EB5CC827B8B62200775779 /* ImageUploadService */,
 				C3432CAC27B8448400DEFF51 /* SignUpService */,
 				C3AD115827B825F500A7044C /* LoginService */,
@@ -1100,16 +1145,6 @@
 			path = PhotoModal;
 			sourceTree = "<group>";
 		};
-		C365B46427B90C1B00BFFCB8 /* DateService */ = {
-			isa = PBXGroup;
-			children = (
-				C365B46527B90C4F00BFFCB8 /* DateService.swift */,
-				C365B46727B90C5700BFFCB8 /* BasicDateService.swift */,
-				C3C43BE927CC1FF400D36D46 /* TimeObject.swift */,
-			);
-			path = DateService;
-			sourceTree = "<group>";
-		};
 		C379301527B9FA920076AB85 /* RendomNickNameGenerator */ = {
 			isa = PBXGroup;
 			children = (
@@ -1252,10 +1287,8 @@
 		C39E925F27BACC9E00798F3A /* 7_Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C34BA6AB27CD40BB003E393A /* DateUtil */,
 				C379302227BA20920076AB85 /* MoyaPlugin */,
-				C39F2EA727BC71FD00A7D86B /* CGRect+.swift */,
-				C39F2EA427BC71C300A7D86B /* CGPoint+.swift */,
-				C39F2EA927BC9AC500A7D86B /* CGFloat+.swift */,
 			);
 			path = 7_Utils;
 			sourceTree = "<group>";
@@ -1330,7 +1363,7 @@
 		C3A64F8B27C54D500088E387 /* PostAPIService */ = {
 			isa = PBXGroup;
 			children = (
-				C3BB13C927C922C8004954EB /* PostAPIResult.swift */,
+				C34BA6AD27CD479C003E393A /* APIResponse */,
 				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
 				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */,
 			);
@@ -2065,11 +2098,12 @@
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
 				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
-				C3BB13CA27C922C8004954EB /* PostAPIResult.swift in Sources */,
+				C3BB13CA27C922C8004954EB /* BookMarkResElement.swift in Sources */,
 				C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
+				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
@@ -2090,7 +2124,6 @@
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
 				C3A64F8F27C54DA20088E387 /* Post.swift in Sources */,
 				C32C028927CB3A370011419E /* IconBadgeLabel.swift in Sources */,
-				C365B46627B90C4F00BFFCB8 /* DateService.swift in Sources */,
 				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
@@ -2103,7 +2136,6 @@
 				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
 				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
-				C3C43BEA27CC1FF400D36D46 /* TimeObject.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
@@ -2112,7 +2144,6 @@
 				C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */,
 				C3F74B6D27B0A846002D5846 /* CheckBoxView.swift in Sources */,
 				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
-				C365B46827B90C5700BFFCB8 /* BasicDateService.swift in Sources */,
 				C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */,
 				C35B832827B91E6E00551AC5 /* Gender.swift in Sources */,
 				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
@@ -2161,6 +2192,7 @@
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
+				C34BA6B527CD4805003E393A /* MyRunResElement.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
@@ -2207,7 +2239,9 @@
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
 				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,
 				C3C9734B27CA962A00232251 /* EditInfoCoordinator.swift in Sources */,
+				C34BA6B127CD47C9003E393A /* DetailPostResElement.swift in Sources */,
 				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
+				C34BA6AF27CD47AB003E393A /* MainPostResElement.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
@@ -2275,7 +2309,9 @@
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
+				C34BA6B327CD47EB003E393A /* MyPostResElement.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
+				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,

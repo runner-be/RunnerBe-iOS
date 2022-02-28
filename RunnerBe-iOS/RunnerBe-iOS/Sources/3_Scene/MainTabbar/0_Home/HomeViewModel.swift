@@ -47,7 +47,7 @@ final class HomeViewModel: BaseViewModel {
         postAPIService.fetchPostsBookMarked()
             .do(onNext: { [weak self] result in
                 if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
+                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
                 }
             })
             .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
@@ -60,7 +60,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -102,7 +102,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -134,7 +134,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -167,7 +167,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -181,17 +181,17 @@ final class HomeViewModel: BaseViewModel {
         inputs.tapPostBookMark
             .map { [weak self] idx in (idx: idx, post: self?.posts[idx]) }
             .filter { $0.post != nil }
-            .flatMap { postAPIService.bookmark(postId: $0.post!.id, mark: !$0.post!.bookMarked) }
+            .flatMap { postAPIService.bookmark(postId: $0.post!.ID, mark: !$0.post!.marked) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
-                      let index = self.posts.firstIndex(where: { $0.id == result.postId })
+                      let index = self.posts.firstIndex(where: { $0.ID == result.postId })
                 else { return }
 
-                self.posts[index].bookMarked = result.mark
+                self.posts[index].marked = result.mark
                 if result.mark {
-                    self.bookMarkSet.insert(self.posts[index].id)
+                    self.bookMarkSet.insert(self.posts[index].ID)
                 } else {
-                    self.bookMarkSet.remove(self.posts[index].id)
+                    self.bookMarkSet.remove(self.posts[index].ID)
                 }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
                 self.outputs.posts.onNext(self.posts)
@@ -207,7 +207,7 @@ final class HomeViewModel: BaseViewModel {
                     return
                 }
             })
-            .compactMap { [weak self] idx in self?.posts[idx].id }
+            .compactMap { [weak self] idx in self?.posts[idx].ID }
             .subscribe(routes.detailPost)
             .disposed(by: disposeBag)
 
@@ -218,7 +218,7 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { _ in postAPIService.fetchPostsBookMarked() }
             .do(onNext: { [weak self] result in
                 if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.id) }
+                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
                 }
             })
             .compactMap { [weak self] _ in self?.filter }
@@ -234,7 +234,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -285,7 +285,7 @@ final class HomeViewModel: BaseViewModel {
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     var post = post
-                    post.bookMarked = self?.bookMarkSet.contains(post.id) ?? false
+                    post.marked = self?.bookMarkSet.contains(post.ID) ?? false
                     partialResult.append(post)
                 }
             }
@@ -299,14 +299,14 @@ final class HomeViewModel: BaseViewModel {
         routeInputs.detailClosed
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
-                      let index = self.posts.firstIndex(where: { $0.id == result.id })
+                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
                 else { return }
 
-                self.posts[index].bookMarked = result.marked
+                self.posts[index].marked = result.marked
                 if result.marked {
-                    self.bookMarkSet.insert(self.posts[index].id)
+                    self.bookMarkSet.insert(self.posts[index].ID)
                 } else {
-                    self.bookMarkSet.remove(self.posts[index].id)
+                    self.bookMarkSet.remove(self.posts[index].ID)
                 }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
                 self.outputs.posts.onNext(self.posts)
