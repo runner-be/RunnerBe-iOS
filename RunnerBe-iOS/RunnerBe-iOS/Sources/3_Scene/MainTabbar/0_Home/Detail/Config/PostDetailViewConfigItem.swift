@@ -30,7 +30,12 @@ extension PostDetailRunningConfig {
         placeInfo = postDetail.post.locationInfo
         time = "\(postDetail.post.runningTime.hour)시간 \(postDetail.post.runningTime.minute)분"
         age = "\(postDetail.post.ageRange.min)-\(postDetail.post.ageRange.max)"
-        date = DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .gathering) // 3/31 (금)  AM 6:00
+        date =
+            DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "M/d(E)"))
+                + " "
+                + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .ampm, localeId: "en_US")
+                + " "
+                + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "H:mm")) // 3/31 (금)  AM 6:00
         long = postDetail.post.coord!.long
         lat = postDetail.post.coord!.lat
         range = 1000

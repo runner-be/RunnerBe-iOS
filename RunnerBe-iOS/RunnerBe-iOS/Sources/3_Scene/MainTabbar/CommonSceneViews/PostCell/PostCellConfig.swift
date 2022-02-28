@@ -23,7 +23,12 @@ struct PostCellConfig: Equatable, IdentifiableType {
     init(from post: Post) {
         id = post.ID
         title = post.title
-        date = DateUtil.shared.formattedString(for: post.gatherDate, format: .gathering)
+        date =
+            DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "M/d(E)"))
+                + " "
+                + DateUtil.shared.formattedString(for: post.gatherDate, format: .ampm, localeId: "en_US")
+                + " "
+                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "H:mm"))
         place = post.locationInfo
         switch post.gender {
         case .female, .male:

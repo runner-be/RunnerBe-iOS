@@ -18,6 +18,8 @@ enum DateFormat {
     case korHmm // ~시간 ~분
     case gathering // 00/00(화) AM00:00
     case running // 약 ~시간 ~분
+    case ampm // am, pm
+    case Hmm // 6:00
     case custom(format: String)
 }
 
@@ -41,7 +43,11 @@ extension DateFormat {
         case .korHmm:
             return "h시간 mm분"
         case .gathering:
-            return "M/d(e) ahh:mm"
+            return "M/d(E) ahh:mm"
+        case .ampm:
+            return "a"
+        case .Hmm:
+            return "H:mm"
         case .running:
             return "약 h시간mm분"
         case let .custom(format):

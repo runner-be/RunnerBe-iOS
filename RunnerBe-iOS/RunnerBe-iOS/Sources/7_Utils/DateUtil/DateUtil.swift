@@ -11,7 +11,6 @@ class DateUtil {
     static let shared = DateUtil()
     private init() {
         dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: L10n.locale)
     }
 
     let dateFormatter: DateFormatter
@@ -43,8 +42,13 @@ class DateUtil {
         return dateArr
     }
 
-    func formattedString(for date: Date, format: DateFormat) -> String {
+    func formattedString(for date: Date, format: DateFormat, localeId: String = L10n.locale) -> String {
+        let oldLocale = dateFormatter.locale
+        defer { dateFormatter.locale = oldLocale }
+        
+        dateFormatter.locale = Locale(identifier: localeId)
         dateFormatter.dateFormat = format.formatString
+
         return dateFormatter.string(from: date)
     }
 }
