@@ -23,6 +23,7 @@ class EditInfoViewController: BaseViewController {
         viewInputs()
     }
 
+    // TODO: 유저 이미지 연결
     init(viewModel: EditInfoViewModel) {
         self.viewModel = viewModel
         super.init()
@@ -46,6 +47,8 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         selectNickName.nickNameField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
             .compactMap { $0 }
             .bind(to: viewModel.inputs.nickNameText)
             .disposed(by: disposeBags)
@@ -75,7 +78,7 @@ class EditInfoViewController: BaseViewController {
                 guard let self = self else { return }
                 let picker = UIImagePickerController()
                 picker.sourceType = sourceType
-                picker.allowsEditing = false
+                picker.allowsEditing = true
                 picker.delegate = self
                 self.present(picker, animated: true)
             })
@@ -92,6 +95,21 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] ok in
                 self?.nickNameRuleErrLabel.isHidden = ok
                 self?.selectNickName.applyButton.isEnabled = ok
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.nickNameAlreadyChanged
+            .filter { $0 }
+            .subscribe(onNext: { [weak self] _ in
+                self?.nickNameGuideLabel.isHidden = false
+                self?.nickNameRuleErrLabel.isHidden = true
+                self?.nickNameDupErrLabel.isHidden = true
+                self?.selectNickName.disableWithPlaceHolder(
+                    fieldText: nil,
+                    // "MyPage.EditInfo.NickName.Button.CANNT" = "변경불가";
+
+                    buttonText: L10n.MyPage.EditInfo.NickName.Button.cant
+                )
             })
             .disposed(by: disposeBags)
 
@@ -121,6 +139,16 @@ class EditInfoViewController: BaseViewController {
                 self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)
+
+        viewModel.outputs.toastActivity
+            .subscribe(onNext: { [weak self] show in
+                if show {
+                    self?.view.makeToastActivity(.center)
+                } else {
+                    self?.view.hideToastActivity()
+                }
+            })
+            .disposed(by: disposeBags)
     }
 
     private func viewInputs() {
@@ -146,14 +174,6 @@ class EditInfoViewController: BaseViewController {
                 self?.selectNickName.nickNameField.endEditing(true)
             })
             .disposed(by: disposeBags)
-
-//        selectNickName.applyButton.rx.tap
-//            .take(1)
-//            .subscribe(onNext: { [weak self] in
-//                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .normal)
-//                self?.certificateButton.setTitle(L10n.EmailCertification.Button.Certificate.resend, for: .disabled)
-//            })
-//            .disposed(by: disposeBags)
     }
 
     private var profileImageView = UIImageView().then { view in
@@ -222,6 +242,7 @@ class EditInfoViewController: BaseViewController {
 
     private var selectJobView = SelectJobView().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.Job.title
+        view.isHidden = true
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -331,7 +352,8 @@ extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationC
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let image = info[.originalImage] as? UIImage
-        viewModel.inputs.photoSelected.onNext(image?.pngData())
+        let editedImage = info[.editedImage] as? UIImage
+        viewModel.inputs.photoSelected.onNext(editedImage?.pngData() ?? image?.pngData())
         picker.dismiss(animated: true)
     }
 }

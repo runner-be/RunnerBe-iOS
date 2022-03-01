@@ -283,6 +283,8 @@ internal enum L10n {
         internal enum Button {
           /// 등록하기
           internal static let apply = L10n.tr("Localizable", "MyPage.EditInfo.NickName.Button.Apply")
+          /// 변경불가
+          internal static let cant = L10n.tr("Localizable", "MyPage.EditInfo.NickName.Button.Cant")
           internal enum NickNameChanged {
             /// 등록 완료
             internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NickName.Button.NickNameChanged.title")

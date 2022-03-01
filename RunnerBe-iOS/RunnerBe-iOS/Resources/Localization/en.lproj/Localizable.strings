@@ -221,6 +221,7 @@
 "MyPage.EditInfo.NickName.title" = "닉네임 변경";
 "MyPage.EditInfo.NickName.Button.NickNameChanged.title" = "등록 완료";
 "MyPage.EditInfo.NickName.Button.Apply" = "등록하기";
+"MyPage.EditInfo.NickName.Button.Cant" = "변경불가";
 "MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자";
 "MyPage.EditInfo.NickName.TextField.PlaceHolder.changed" = "김출근";
 "MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "닉네임 변경이 완료되어 추가 변경은 불가능해요";

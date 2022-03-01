@@ -26,12 +26,18 @@ final class TextFieldWithButton: SelectBaseView {
         )
     }
 
-    func disableWithPlaceHolder(fieldText: String, buttonText: String) {
-        setPlaceHolder(to: fieldText)
-        nickNameField.text = ""
-        nickNameField.isEnabled = false
-        applyButton.setTitle(buttonText, for: .disabled)
+    func disableWithPlaceHolder(fieldText: String?, buttonText: String?) {
         applyButton.isEnabled = false
+        nickNameField.isEnabled = false
+
+        if let field = fieldText {
+            setPlaceHolder(to: field)
+            nickNameField.text = ""
+        }
+
+        if let btnText = buttonText {
+            applyButton.setTitle(buttonText, for: .disabled)
+        }
     }
 
     var nickNameField = TextFieldWithPadding().then { field in

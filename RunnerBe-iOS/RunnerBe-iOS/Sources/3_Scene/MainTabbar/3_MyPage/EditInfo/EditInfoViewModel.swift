@@ -24,6 +24,7 @@ final class EditInfoViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.nickNameText
+
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
@@ -52,12 +53,6 @@ final class EditInfoViewModel: BaseViewModel {
             .subscribe(routes.backward)
             .disposed(by: disposeBag)
 
-        routeInputs.changeJob
-            .subscribe(onNext: { [weak self] _ in
-
-            })
-            .disposed(by: disposeBag)
-
         inputs.nickNameApply
             .map { _ in }
             .bind(to: routes.nickNameModal)
@@ -71,9 +66,12 @@ final class EditInfoViewModel: BaseViewModel {
                 case let .succeed(name):
                     self?.outputs.nickNameChanged.onNext(name)
                     self?.outputs.toast.onNext("닉네임 변경이 완료되었습니다.")
+                case .duplicated:
+                    self?.outputs.nickNameDup.onNext(true)
+                case .alreadyChanged:
+                    self?.outputs.nickNameAlreadyChanged.onNext(true)
                 case .error:
-                    // 중복, 형식 등 처리
-                    break
+                    self?.outputs.toast.onNext("닉네임 변경중 오류가 발생했습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -84,18 +82,25 @@ final class EditInfoViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.photoSelected
+            .do(onNext: { [weak self] _ in
+                self?.outputs.toastActivity.onNext(true)
+            })
             .compactMap { [weak self] data in
-                if data == nil { self?.outputs.toast.onNext("이미지 불러오기에 실패했어요") }
+                if data == nil {
+                    self?.outputs.toastActivity.onNext(false)
+                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
+                }
                 return data
             }
             .flatMap { userAPIService.setProfileImage(to: $0) }
             .subscribe(onNext: { [weak self] result in
                 switch result {
-                case let .success(data):
+                case let .succeed(data):
                     self?.outputs.profileChanged.onNext(data)
                 case .error:
                     self?.outputs.toast.onNext("이미지 등록에 실패했어요")
                 }
+                self?.outputs.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
     }
@@ -114,12 +119,15 @@ final class EditInfoViewModel: BaseViewModel {
         var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
 
         var jobChanged = PublishSubject<Job>()
-        var nickNameChanged = PublishSubject<String>()
         var profileChanged = PublishSubject<Data?>()
 
+        var nickNameChanged = PublishSubject<String>()
         var nickNameDup = PublishSubject<Bool>()
         var nickNameRuleOK = PublishSubject<Bool>()
+        var nickNameAlreadyChanged = PublishSubject<Bool>()
+
         var toast = PublishSubject<String>()
+        var toastActivity = PublishSubject<Bool>()
         var showPicker = PublishSubject<ImagePickerType>()
     }
 

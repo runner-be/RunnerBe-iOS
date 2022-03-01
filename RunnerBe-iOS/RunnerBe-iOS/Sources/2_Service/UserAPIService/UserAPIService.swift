@@ -10,16 +10,18 @@ import RxSwift
 
 enum SetNickNameResult {
     case succeed(name: String)
+    case duplicated
+    case alreadyChanged
     case error
 }
 
 enum SetJobResult {
-    case success
+    case succeed
     case error
 }
 
 enum SetProfileResult {
-    case success(data: Data)
+    case succeed(data: Data)
     case error
 }
 
