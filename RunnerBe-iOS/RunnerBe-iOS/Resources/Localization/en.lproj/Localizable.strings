@@ -13,6 +13,7 @@
  */
 // MARK: - Locale
 "Locale" = "Ko-kr";
+"DateUtil.Timezone" = "UTC";
 
 
 // MARK: - LoggedOut

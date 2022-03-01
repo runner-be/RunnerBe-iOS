@@ -50,7 +50,7 @@ class EditInfoViewController: BaseViewController {
             .bind(to: viewModel.inputs.nickNameText)
             .disposed(by: disposeBags)
 
-        avatarView.rx.tapGesture()
+        profileImageView.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.changePhoto)
@@ -63,8 +63,62 @@ class EditInfoViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.outputs.currentJob
+            .take(1)
             .subscribe(onNext: { [weak self] job in
                 self?.selectJobView.select(idx: job.index)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.showPicker
+            .map { $0.sourceType }
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.sourceType = sourceType
+                picker.allowsEditing = false
+                picker.delegate = self
+                self.present(picker, animated: true)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.nickNameDup
+            .subscribe(onNext: { [weak self] dup in
+                self?.nickNameDupErrLabel.isHidden = !dup
+                self?.selectNickName.applyButton.isEnabled = !dup
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.nickNameRuleOK
+            .subscribe(onNext: { [weak self] ok in
+                self?.nickNameRuleErrLabel.isHidden = ok
+                self?.selectNickName.applyButton.isEnabled = ok
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.nickNameChanged
+            .subscribe(onNext: { [weak self] newName in
+                self?.selectNickName.disableWithPlaceHolder(
+                    fieldText: newName,
+                    buttonText: L10n.MyPage.EditInfo.NickName.Button.NickNameChanged.title
+                )
+                self?.nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.alreadychanged
+                self?.nickNameGuideLabel.isHidden = false
+                self?.nickNameRuleErrLabel.isHidden = true
+                self?.nickNameRuleErrLabel.isHidden = true
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.profileChanged
+            .compactMap { $0 }
+            .subscribe(onNext: { [weak self] data in
+                self?.profileImageView.image = UIImage(data: data)
+                self?.profileCameraIcon.isHidden = true
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)
     }
@@ -102,37 +156,53 @@ class EditInfoViewController: BaseViewController {
 //            .disposed(by: disposeBags)
     }
 
-    private var avatarView = UIImageView().then { view in
-        view.image = Asset.profileWithCam.uiImage
+    private var profileImageView = UIImageView().then { view in
+        view.image = Asset.profileEmptyIcon.uiImage
 
         view.snp.makeConstraints { make in
-            make.width.equalTo(100)
+            make.width.equalTo(78)
             make.height.equalTo(78)
+        }
+
+        view.layer.cornerRadius = 39
+        view.clipsToBounds = true
+    }
+
+    private var profileCameraIcon = UIImageView().then { view in
+        view.image = Asset.camera.uiImage
+
+        view.snp.makeConstraints { make in
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
-    private var selectNickName = TextFieldWithButton().then { view in
+    private lazy var selectNickName = TextFieldWithButton().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.NickName.title
         view.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         view.setPlaceHolder(to: L10n.MyPage.EditInfo.NickName.TextField.PlaceHolder.rule)
+        view.nickNameField.delegate = self
     }
 
     private var nickNameGuideLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .primary
         label.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
+        label.isHidden = true
     }
 
     private var nickNameDupErrLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .errorlight
         label.text = L10n.MyPage.EditInfo.NickName.ErrorLabel.duplicated
+        label.isHidden = true
     }
 
     private var nickNameRuleErrLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .errorlight
         label.text = L10n.MyPage.EditInfo.NickName.ErrorLabel.form
+        label.isHidden = true
     }
 
     private lazy var vStack = UIStackView.make(
@@ -172,7 +242,8 @@ extension EditInfoViewController {
 
         view.addSubviews([
             navBar,
-            avatarView,
+            profileImageView,
+            profileCameraIcon,
             selectNickName,
             vStack,
             hDivider,
@@ -187,13 +258,18 @@ extension EditInfoViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        avatarView.snp.makeConstraints { make in
+        profileImageView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(16)
-            make.centerX.equalTo(view.snp.centerX).offset(12)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+
+        profileCameraIcon.snp.makeConstraints { make in
+            make.bottom.equalTo(profileImageView.snp.bottom)
+            make.centerX.equalTo(profileImageView.snp.trailing)
         }
 
         selectNickName.snp.makeConstraints { make in
-            make.top.equalTo(avatarView.snp.bottom).offset(16)
+            make.top.equalTo(profileImageView.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
@@ -229,5 +305,33 @@ extension EditInfoViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+}
+
+// MARK: - UITextFieldDelegate Delegate
+
+extension EditInfoViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText)
+        else { return false }
+
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 8
+    }
+}
+
+// MARK: - UIImagePickerViewController Delegate
+
+extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let image = info[.originalImage] as? UIImage
+        viewModel.inputs.photoSelected.onNext(image?.pngData())
+        picker.dismiss(animated: true)
     }
 }

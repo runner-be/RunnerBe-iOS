@@ -8,7 +8,8 @@
 import UIKit
 
 enum NickNameChangeModalResult {
-    case backward
+    case cancel
+    case ok
 }
 
 final class NickNameChangeModalCoordinator: BasicCoordinator<NickNameChangeModalResult> {
@@ -32,7 +33,15 @@ final class NickNameChangeModalCoordinator: BasicCoordinator<NickNameChangeModal
 
         scene.VM
             .routes.backward
-            .map { NickNameChangeModalResult.backward }
+            .debug()
+            .map { NickNameChangeModalResult.cancel }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.ok
+            .debug()
+            .map { NickNameChangeModalResult.ok }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

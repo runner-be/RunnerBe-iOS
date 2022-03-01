@@ -26,6 +26,7 @@ internal enum Asset {
   internal static let bigBookmarkSelected = ImageAsset(name: "BigBookmarkSelected")
   internal static let bookmarkTabIconFocused = ImageAsset(name: "BookmarkTabIcon_focused")
   internal static let bookmarkTabIconNormal = ImageAsset(name: "BookmarkTabIcon_normal")
+  internal static let camera = ImageAsset(name: "Camera")
   internal static let checkBoxIconChecked = ImageAsset(name: "CheckBoxIcon_Checked")
   internal static let checkBoxIconEmpty = ImageAsset(name: "CheckBoxIcon_Empty")
   internal static let chevronDown = ImageAsset(name: "Chevron_down")

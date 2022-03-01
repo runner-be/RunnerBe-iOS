@@ -12,6 +12,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let id: Int
     let title: String
     let date: String
+    let time: String
     let place: String
     let gender: String
     let ageText: String
@@ -28,7 +29,9 @@ struct PostCellConfig: Equatable, IdentifiableType {
                 + " "
                 + DateUtil.shared.formattedString(for: post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "
-                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "H:mm"))
+                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "h:mm"))
+        time = "\(post.runningTime.hour)시간 \(post.runningTime.minute)분"
+
         place = post.locationInfo
         switch post.gender {
         case .female, .male:
@@ -36,6 +39,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
         case .none:
             gender = post.gender.name
         }
+
         ageText = "\(post.ageRange.min)-\(post.ageRange.max)"
         writerName = post.writerName
         closed = !post.open

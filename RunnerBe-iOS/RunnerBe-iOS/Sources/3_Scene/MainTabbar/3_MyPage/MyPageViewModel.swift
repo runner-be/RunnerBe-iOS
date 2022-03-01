@@ -31,7 +31,7 @@ final class MyPageViewModel: BaseViewModel {
                 switch result {
                 // TODO: post 시간 최근순을 기준으로 정렬
                 case let .success(info, posting, joined):
-
+                    let now = DateUtil.shared.now
                     self.user = info
                     self.posts[.basic] = posting
                     self.posts[.attendable] = joined
@@ -39,7 +39,7 @@ final class MyPageViewModel: BaseViewModel {
                     let posts = self.outputs.postType == .basic ? posting : joined
                     self.user = info
                     self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0) })
+                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
                 case .error:
                     self.outputs.toast.onNext("불러오기에 실패했습니다.")
                 }
@@ -55,7 +55,8 @@ final class MyPageViewModel: BaseViewModel {
                 return self.posts[type] ?? []
             }
             .map { posts -> [MyPagePostConfig] in
-                posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1)) }
+                let now = DateUtil.shared.now
+                return posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, now: now)) }
             }
             .subscribe(onNext: { [unowned self] postConfigs in
                 self.outputs.posts.onNext(postConfigs)

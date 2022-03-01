@@ -57,7 +57,7 @@ class SelectTimeModalViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.outputs.toast
-            .subscribe(onNext: {[weak self] message in
+            .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)

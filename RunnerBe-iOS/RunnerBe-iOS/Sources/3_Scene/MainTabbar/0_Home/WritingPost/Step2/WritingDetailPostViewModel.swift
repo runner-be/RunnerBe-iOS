@@ -28,17 +28,19 @@ final class WritingDetailPostViewModel: BaseViewModel {
             })
             .compactMap { $0 }
             .filter { $0.ageMin >= 20 && $0.ageMin <= $0.ageMax && $0.ageMax <= 65 && $0.numPerson >= 2 }
-            .map { [weak self] data in
+            .map { [weak self] data -> PostingForm? in
                 let runningTag = RunningTag(name: mainPostData.tag)
                 let gender = Gender(idx: data.gender)
                 let curYearGathringDate = DateUtil.shared.getCurrent(format: .yyyy) + " " + mainPostData.date
                 guard runningTag != .error,
-                      let gatheringTime = DateUtil.shared.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss),
-                      let runningTime = DateUtil.shared.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm)
+                      let gatheringTime = DateUtil.shared.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss), // "\($0.date) \($0.ampm) \($0.time):\($0.minute)"
+                      let runningTime = DateUtil.shared.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm) // "\($0.time)시간 \($0.minute)분"
                 else {
                     self?.outputs.toast.onNext("날짜를 불러오는데 실패했습니다.")
                     return nil
                 }
+
+                print("gathering Time : \(gatheringTime), runningTime: \(runningTime)")
 
                 return PostingForm(
                     title: mainPostData.title,

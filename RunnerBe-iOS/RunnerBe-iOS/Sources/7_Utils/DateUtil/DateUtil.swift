@@ -11,10 +11,28 @@ class DateUtil {
     static let shared = DateUtil()
     private init() {
         dateFormatter = DateFormatter()
+        dateFormatter.locale = defaultLocale
+        dateFormatter.timeZone = defaultTimeZone
     }
 
     let dateFormatter: DateFormatter
+    let defaultLocale = Locale(identifier: L10n.locale)
+    let defaultTimeZone = TimeZone(abbreviation: L10n.DateUtil.timezone)
     var defaultYear = 2022
+
+    var now: Date {
+        dateFormatter.timeZone = defaultTimeZone
+        dateFormatter.locale = defaultLocale
+        dateFormatter.dateFormat = DateFormat.apiDate.formatString
+        let str = dateFormatter.string(from: Date())
+        return dateFormatter.date(from: str)!
+    }
+
+    func getDate(from dateString: String, format: DateFormat) -> Date? {
+        dateFormatter.dateFormat = format.formatString
+
+        return dateFormatter.date(from: dateString)
+    }
 
     func getCurrent(format: DateFormat) -> String {
         dateFormatter.dateFormat = format.formatString

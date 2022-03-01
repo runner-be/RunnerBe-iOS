@@ -8,7 +8,9 @@
 import UIKit
 
 enum TakePhotoModalResult {
-    case backward
+    case cancel
+    case takePhoto
+    case choosePhoto
 }
 
 final class TakePhotoModalCoordinator: BasicCoordinator<TakePhotoModalResult> {
@@ -32,7 +34,19 @@ final class TakePhotoModalCoordinator: BasicCoordinator<TakePhotoModalResult> {
 
         scene.VM
             .routes.backward
-            .map { TakePhotoModalResult.backward }
+            .map { TakePhotoModalResult.cancel }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.choosePhoto
+            .map { TakePhotoModalResult.choosePhoto }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.takePhoto
+            .map { TakePhotoModalResult.takePhoto }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

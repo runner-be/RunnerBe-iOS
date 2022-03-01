@@ -26,6 +26,14 @@ final class TextFieldWithButton: SelectBaseView {
         )
     }
 
+    func disableWithPlaceHolder(fieldText: String, buttonText: String) {
+        setPlaceHolder(to: fieldText)
+        nickNameField.text = ""
+        nickNameField.isEnabled = false
+        applyButton.setTitle(buttonText, for: .disabled)
+        applyButton.isEnabled = false
+    }
+
     var nickNameField = TextFieldWithPadding().then { field in
         field.textPadding = UIEdgeInsets(top: 12, left: 14, bottom: 14, right: 14)
         field.backgroundColor = .darkG55

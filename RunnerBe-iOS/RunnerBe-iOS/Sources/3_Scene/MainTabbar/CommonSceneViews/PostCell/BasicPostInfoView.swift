@@ -31,6 +31,7 @@ class BasicPostInfoView: UIView {
         participantLabel.label.text = "\(item.gender) · \(item.ageText)"
         placeLabel.label.text = item.place
         bookMarkIcon.isSelected = item.bookmarked
+        timeLabel.label.text = item.time
     }
 
     var blurAlpha: CGFloat = 0.7

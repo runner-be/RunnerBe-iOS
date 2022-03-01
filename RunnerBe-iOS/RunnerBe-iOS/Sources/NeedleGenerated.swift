@@ -24,6 +24,12 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent") { component in
         return SettingsDependency70ef32136cd1f498fcc9Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
+        return TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->NickNameChangeModalComponent") { component in
+        return NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent") { component in
         return EditInfoDependency226a6a95833dbef9e88dProvider(component: component)
     }
@@ -179,6 +185,32 @@ private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDepend
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent
 private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency70ef32136cd1f498fcc9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider: TakePhotoModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent
+private class TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider: TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class NickNameChangeModalDependencyb35b5747f04ee5549ecdBaseProvider: NickNameChangeModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->NickNameChangeModalComponent
+private class NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider: NickNameChangeModalDependencyb35b5747f04ee5549ecdBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

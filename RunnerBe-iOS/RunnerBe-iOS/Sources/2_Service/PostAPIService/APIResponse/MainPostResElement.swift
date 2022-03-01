@@ -79,7 +79,9 @@ extension MainPostResElement {
     var gatherDate: Date? { // "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
-        return formatter.date(from: gatheringTime)
+        var date = formatter.date(from: gatheringTime)
+        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        return date
     }
 
     var timeRunning: (hour: Int, minute: Int)? {

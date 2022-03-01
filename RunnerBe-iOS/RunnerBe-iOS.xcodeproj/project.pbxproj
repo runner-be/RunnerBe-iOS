@@ -15,6 +15,7 @@
 		C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
+		C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5427CDBB79009B16DA /* String+regex.swift */; };
 		C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C026D27CB16DD0011419E /* NickNameChangeModalComponent.swift */; };
 		C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C026F27CB16E50011419E /* NickNameChangeModalCoordinator.swift */; };
 		C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027127CB16EC0011419E /* NickNameChangeModalViewModel.swift */; };
@@ -308,6 +309,7 @@
 		C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlDelegate.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
+		C3256B5427CDBB79009B16DA /* String+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+regex.swift"; sourceTree = "<group>"; };
 		C32C026D27CB16DD0011419E /* NickNameChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalComponent.swift; sourceTree = "<group>"; };
 		C32C026F27CB16E50011419E /* NickNameChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		C32C027127CB16EC0011419E /* NickNameChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -1168,6 +1170,7 @@
 			children = (
 				C379302027BA012E0076AB85 /* String+Subscript.swift */,
 				C3D3937C27BB886A00D47C9C /* String+SHA256.swift */,
+				C3256B5427CDBB79009B16DA /* String+regex.swift */,
 			);
 			path = "String+";
 			sourceTree = "<group>";
@@ -2279,6 +2282,7 @@
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
+				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,

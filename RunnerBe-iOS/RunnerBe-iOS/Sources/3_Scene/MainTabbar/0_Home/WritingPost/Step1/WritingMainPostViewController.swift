@@ -105,7 +105,7 @@ class WritingMainPostViewController: BaseViewController {
                 self?.writePlaceView.showPlaceInfo(city: placeInfo.city, name: placeInfo.detail)
             })
             .disposed(by: disposeBags)
-        
+
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)

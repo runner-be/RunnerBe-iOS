@@ -13,7 +13,7 @@ final class NickNameChangeModalViewModel: BaseViewModel {
         super.init()
 
         inputs.tapOK
-            .bind(to: routes.backward)
+            .bind(to: routes.ok)
             .disposed(by: disposeBag)
 
         inputs.backward
@@ -28,6 +28,7 @@ final class NickNameChangeModalViewModel: BaseViewModel {
 
     struct Output {}
     struct Route {
+        var ok = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
     }
 

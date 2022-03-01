@@ -36,4 +36,12 @@ final class EditInfoComponent: Component<EditInfoDependency> {
     }
 
     var user: User
+
+    var nickNameModalComponent: NickNameChangeModalComponent {
+        return NickNameChangeModalComponent(parent: self)
+    }
+
+    var takePhotoModalComponent: TakePhotoModalComponent {
+        return TakePhotoModalComponent(parent: self)
+    }
 }

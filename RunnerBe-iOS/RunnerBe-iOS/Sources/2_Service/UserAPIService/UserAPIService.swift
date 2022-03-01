@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum SetNickNameResult {
-    case success
+    case succeed(name: String)
     case error
 }
 
@@ -19,7 +19,7 @@ enum SetJobResult {
 }
 
 enum SetProfileResult {
-    case success
+    case success(data: Data)
     case error
 }
 

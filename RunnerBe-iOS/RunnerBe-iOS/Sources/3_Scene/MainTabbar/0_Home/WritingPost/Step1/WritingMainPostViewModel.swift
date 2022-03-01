@@ -25,6 +25,15 @@ final class WritingMainPostViewModel: BaseViewModel {
             outputs.location.onNext(currentLocation)
         }
 
+        let curDate = Date()
+        let datePlaceHolder =
+            DateUtil.shared.formattedString(for: curDate, format: .custom(format: "M/d (E)"))
+                + " "
+                + DateUtil.shared.formattedString(for: curDate, format: .ampm, localeId: "en_US")
+                + " "
+                + DateUtil.shared.formattedString(for: curDate, format: .custom(format: "H:mm"))
+        outputs.date.onNext(datePlaceHolder)
+
         inputs.backward
             .debug()
             .bind(to: routes.backward)
@@ -100,8 +109,8 @@ final class WritingMainPostViewModel: BaseViewModel {
     }
 
     struct Output {
-        var date = PublishSubject<String>()
-        var time = PublishSubject<String>()
+        var date = ReplaySubject<String>.create(bufferSize: 1)
+        var time = ReplaySubject<String>.create(bufferSize: 1)
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
         var placeInfo = PublishSubject<(city: String, detail: String)>()
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)

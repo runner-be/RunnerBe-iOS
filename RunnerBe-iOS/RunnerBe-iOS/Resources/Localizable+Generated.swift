@@ -50,6 +50,11 @@ internal enum L10n {
     }
   }
 
+  internal enum DateUtil {
+    /// UTC
+    internal static let timezone = L10n.tr("Localizable", "DateUtil.Timezone")
+  }
+
   internal enum EmailCertification {
     /// 해당 정보는 러너님이 직장임을 확인하는 용도로만
     internal static let subTitle1 = L10n.tr("Localizable", "EmailCertification.subTitle1")

@@ -14,6 +14,7 @@
 
 // MARK: - Locale
 "Locale" = "Ko-kr";
+"Locale.Timezone" = "UTC";
 
 // MARK: - LoggedOut
 "LoggedOut.KakaoBtn.text" = "카카오 로그인";

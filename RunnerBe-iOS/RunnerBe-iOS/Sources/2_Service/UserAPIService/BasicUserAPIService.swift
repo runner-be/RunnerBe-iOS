@@ -24,15 +24,15 @@ final class BasicUserAPIService: UserAPIService {
         self.imageUploadService = imageUploadService
     }
 
-    func setNickName(to _: String) -> Observable<SetNickNameResult> {
-        return .just(.success)
+    func setNickName(to nickName: String) -> Observable<SetNickNameResult> {
+        return .just(.succeed(name: nickName))
     }
 
     func setJob(to _: Job) -> Observable<SetJobResult> {
         return .just(.success)
     }
 
-    func setProfileImage(to _: Data) -> Observable<SetProfileResult> {
-        return .just(.success)
+    func setProfileImage(to data: Data) -> Observable<SetProfileResult> {
+        return .just(.success(data: data))
     }
 }

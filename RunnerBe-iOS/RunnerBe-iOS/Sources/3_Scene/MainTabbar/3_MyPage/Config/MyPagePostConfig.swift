@@ -19,13 +19,13 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
     let cellConfig: PostCellConfig
     let state: PostAttendState
 
-    init(post: Post) {
+    init(post: Post, now: Date) {
         cellConfig = PostCellConfig(from: post)
 
         if post.attendance {
             state = .attend
         } else {
-            let currentIntervalFromRef = Date().timeIntervalSince1970
+            let currentIntervalFromRef = now.timeIntervalSince1970
             let startIntervalFromRef = post.gatherDate.timeIntervalSince1970
             let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute)
 
