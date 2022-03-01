@@ -8,12 +8,6 @@
 import Foundation
 import RxSwift
 
-enum PolicyType {
-    case service
-    case privacy
-    case location
-}
-
 final class PolicyTermViewModel: BaseViewModel {
     // MARK: Lifecycle
 
@@ -36,7 +30,7 @@ final class PolicyTermViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPrivacyDetail
-            .map { PolicyType.privacy }
+            .map { PolicyType.privacy_collect }
             .subscribe(routes.showPolicy)
             .disposed(by: disposeBag)
 

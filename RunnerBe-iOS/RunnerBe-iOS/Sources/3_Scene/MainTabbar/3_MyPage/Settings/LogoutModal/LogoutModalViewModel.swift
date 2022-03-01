@@ -13,7 +13,7 @@ final class LogoutModalViewModel: BaseViewModel {
         super.init()
 
         inputs.tapOK
-            .bind(to: routes.backward)
+            .bind(to: routes.logout)
             .disposed(by: disposeBag)
 
         inputs.backward
@@ -29,6 +29,7 @@ final class LogoutModalViewModel: BaseViewModel {
     struct Output {}
     struct Route {
         var backward = PublishSubject<Void>()
+        var logout = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

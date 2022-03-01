@@ -17,8 +17,19 @@ final class PolicyDetailComponent: Component<PolicyDetailDependency> {
     }
 
     var viewModel: PolicyDetailViewModel {
-        return PolicyDetailViewModel(policyType: policyType)
+        return PolicyDetailViewModel(policyType: policyType, modal: isModal, policyAPIService: policyAPIService)
     }
 
-    var policyType: PolicyType = .service
+    init(parent: Scope, policyType: PolicyType, modal: Bool) {
+        isModal = modal
+        self.policyType = policyType
+        super.init(parent: parent)
+    }
+
+    private(set) var isModal: Bool
+    private var policyType: PolicyType
+
+    var policyAPIService: PolicyAPIService {
+        return BasicPolicyAPIService()
+    }
 }

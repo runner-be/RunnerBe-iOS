@@ -29,7 +29,12 @@ final class MakerViewController: BaseViewController {
 
     private var viewModel: MakerViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBags)
+    }
+
     private func viewModelOutput() {}
 
     private var plan = MakerView().then { view in
@@ -75,7 +80,7 @@ final class MakerViewController: BaseViewController {
         navBar.titleLabel.textColor = .darkG35
         navBar.titleLabel.font = .iosBody17Sb
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
     }
 }

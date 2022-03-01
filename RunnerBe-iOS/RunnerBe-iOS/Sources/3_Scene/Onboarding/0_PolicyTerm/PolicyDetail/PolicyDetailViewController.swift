@@ -38,12 +38,39 @@ class PolicyDetailViewController: BaseViewController {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapClose)
             .disposed(by: disposeBags)
+
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapClose)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
+        viewModel.outputs.modalPresented
+            .take(1)
+            .subscribe(onNext: { [weak self] modal in
+                self?.setupBarStyle(modal: modal)
+            })
+            .disposed(by: disposeBags)
+
         viewModel.outputs.text
+            .take(1)
             .bind(to: textView.rx.text)
             .disposed(by: disposeBags)
+
+        viewModel.outputs.title
+            .take(1)
+            .bind(to: navBar.titleLabel.rx.text)
+            .disposed(by: disposeBags)
+    }
+
+    private func setupBarStyle(modal: Bool) {
+        if modal {
+            navBar.rightBtnItem.isHidden = false
+            navBar.leftBtnItem.isHidden = true
+        } else {
+            navBar.leftBtnItem.isHidden = false
+            navBar.rightBtnItem.isHidden = true
+        }
     }
 
     // MARK: private

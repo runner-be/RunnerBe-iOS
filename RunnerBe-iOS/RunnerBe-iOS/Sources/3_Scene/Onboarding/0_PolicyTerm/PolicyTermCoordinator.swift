@@ -94,8 +94,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
     }
 
     private func presentPolicyDetail(type: PolicyType, animated: Bool) {
-        let comp = component.policyDetailComponent
-        comp.policyType = type
+        let comp = component.policyDetailComponent(type: type, modal: true)
         let coord = PolicyDetailCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)

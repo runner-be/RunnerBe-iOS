@@ -19,4 +19,20 @@ final class SettingsComponent: Component<SettingsDependency> {
     var viewModel: SettingsViewModel {
         return SettingsViewModel()
     }
+
+    var makerComponent: MakerComponent {
+        return MakerComponent(parent: self)
+    }
+
+    var logoutModalComponent: LogoutModalComponent {
+        return LogoutModalComponent(parent: self)
+    }
+
+    var licenseComponent: LicenseComponent {
+        return LicenseComponent(parent: self)
+    }
+
+    func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {
+        return PolicyDetailComponent(parent: self, policyType: type, modal: modal)
+    }
 }

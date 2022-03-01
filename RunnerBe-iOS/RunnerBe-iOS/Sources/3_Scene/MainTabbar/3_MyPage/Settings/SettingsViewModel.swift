@@ -56,7 +56,7 @@ final class SettingsViewModel: BaseViewModel {
                 case 2:
                     switch indexPath.item {
                     case 0:
-                        self?.routes.loggedOut.onNext(())
+                        self?.routes.logout.onNext(())
                     default: break
                     }
                 default:
@@ -86,7 +86,7 @@ final class SettingsViewModel: BaseViewModel {
         var license = PublishSubject<Void>()
         var makers = PublishSubject<Void>()
         var instagram = PublishSubject<Void>()
-        var loggedOut = PublishSubject<Void>()
+        var logout = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

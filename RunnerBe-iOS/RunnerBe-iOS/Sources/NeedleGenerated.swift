@@ -21,8 +21,17 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent") { component in
         return BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LicenseComponent") { component in
+        return LicenseDependency069aaa9d3342e7e55e4dProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LogoutModalComponent") { component in
+        return LogoutModalDependency198c1460728f9b03415bProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent") { component in
         return SettingsDependency70ef32136cd1f498fcc9Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->MakerComponent") { component in
+        return MakerDependency5de256f346c664613971Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
         return TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
@@ -74,6 +83,9 @@ public func registerProviderFactories() {
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
         return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->PolicyDetailComponent") { component in
+        return PolicyDetailDependencyf1b0f14079b572bc52b9Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent") { component in
         return PolicyDetailDependencyab7a37b72bd8b136a461Provider(component: component)
@@ -176,6 +188,32 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency
         super.init(mainTabComponent: component.parent as! MainTabComponent)
     }
 }
+private class LicenseDependency069aaa9d3342e7e55e4dBaseProvider: LicenseDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LicenseComponent
+private class LicenseDependency069aaa9d3342e7e55e4dProvider: LicenseDependency069aaa9d3342e7e55e4dBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class LogoutModalDependency198c1460728f9b03415bBaseProvider: LogoutModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LogoutModalComponent
+private class LogoutModalDependency198c1460728f9b03415bProvider: LogoutModalDependency198c1460728f9b03415bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
 private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDependency {
 
 
@@ -185,6 +223,19 @@ private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDepend
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent
 private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency70ef32136cd1f498fcc9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class MakerDependency5de256f346c664613971BaseProvider: MakerDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->MakerComponent
+private class MakerDependency5de256f346c664613971Provider: MakerDependency5de256f346c664613971BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
@@ -428,15 +479,21 @@ private class PolicyTermDependency28006fce607070d6ca75Provider: PolicyTermDepend
         super.init(appComponent: component.parent.parent as! AppComponent, loggedOutComponent: component.parent as! LoggedOutComponent)
     }
 }
-private class PolicyDetailDependencyab7a37b72bd8b136a461BaseProvider: PolicyDetailDependency {
+private class PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider: PolicyDetailDependency {
 
 
     init() {
 
     }
 }
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->PolicyDetailComponent
+private class PolicyDetailDependencyf1b0f14079b572bc52b9Provider: PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
 /// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent
-private class PolicyDetailDependencyab7a37b72bd8b136a461Provider: PolicyDetailDependencyab7a37b72bd8b136a461BaseProvider {
+private class PolicyDetailDependencyab7a37b72bd8b136a461Provider: PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

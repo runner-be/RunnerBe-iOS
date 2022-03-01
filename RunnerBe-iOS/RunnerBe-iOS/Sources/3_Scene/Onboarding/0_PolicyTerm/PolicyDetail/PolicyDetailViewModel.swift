@@ -10,19 +10,15 @@ import RxRelay
 import RxSwift
 
 final class PolicyDetailViewModel: BaseViewModel {
-    init(policyType: PolicyType) {
-        let text: String
-        switch policyType {
-        case .service:
-            text = "service"
-        case .privacy:
-            text = "privacy"
-        case .location:
-            text = "location"
-        }
-
-        outputs = Output(text: BehaviorSubject<String>(value: text))
+    init(policyType: PolicyType, modal: Bool, policyAPIService: PolicyAPIService) {
         super.init()
+
+        policyAPIService.policy(type: policyType)
+            .subscribe(outputs.text)
+            .disposed(by: disposeBag)
+
+        outputs.modalPresented.onNext(modal)
+        outputs.title.onNext(policyType.title)
 
         inputs.tapClose
             .bind(to: routes.close)
@@ -34,7 +30,9 @@ final class PolicyDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var text: BehaviorSubject<String>
+        var modalPresented = ReplaySubject<Bool>.create(bufferSize: 1)
+        var title = ReplaySubject<String>.create(bufferSize: 1)
+        var text = ReplaySubject<String>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -43,6 +41,6 @@ final class PolicyDetailViewModel: BaseViewModel {
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
-    var outputs: Output
+    var outputs = Output()
     var routes = Route()
 }

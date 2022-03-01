@@ -8,6 +8,7 @@ import UIKit
 
 enum LogoutModalResult {
     case backward
+    case logout
 }
 
 final class LogoutModalCoordinator: BasicCoordinator<LogoutModalResult> {
@@ -32,6 +33,12 @@ final class LogoutModalCoordinator: BasicCoordinator<LogoutModalResult> {
         scene.VM
             .routes.backward
             .map { LogoutModalResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM
+            .routes.logout
+            .map { LogoutModalResult.logout }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }

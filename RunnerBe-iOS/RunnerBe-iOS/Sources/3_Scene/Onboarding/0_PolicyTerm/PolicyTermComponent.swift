@@ -31,7 +31,7 @@ final class PolicyTermComponent: Component<PolicyTermDependency> {
         return OnboardingCancelModalComponent(parent: self)
     }
 
-    var policyDetailComponent: PolicyDetailComponent {
-        return PolicyDetailComponent(parent: self)
+    func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {
+        return PolicyDetailComponent(parent: self, policyType: type, modal: modal)
     }
 }

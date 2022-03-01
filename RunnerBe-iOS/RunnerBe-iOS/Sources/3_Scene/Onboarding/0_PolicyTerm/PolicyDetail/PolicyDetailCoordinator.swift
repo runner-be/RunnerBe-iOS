@@ -22,13 +22,22 @@ final class PolicyDetailCoordinator: BasicCoordinator<PolicyDetailResult> {
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        scene.VC.modalPresentationStyle = .overCurrentContext
-        scene.VC.modalTransitionStyle = .coverVertical
-        navController.present(scene.VC, animated: animated)
+        if component.isModal {
+            scene.VC.modalPresentationStyle = .overCurrentContext
+            scene.VC.modalTransitionStyle = .coverVertical
+            navController.present(scene.VC, animated: animated)
+        } else {
+            navController.pushViewController(scene.VC, animated: animated)
+        }
 
         closeSignal
-            .subscribe(onNext: { _ in
-                scene.VC.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if self.component.isModal {
+                    scene.VC.dismiss(animated: true)
+                } else {
+                    self.navController.popViewController(animated: true)
+                }
             })
             .disposed(by: disposeBag)
 

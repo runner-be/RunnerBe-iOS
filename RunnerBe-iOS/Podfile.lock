@@ -1,4 +1,5 @@
 PODS:
+  - AcknowList (2.1.0)
   - Alamofire (5.5.0)
   - Differentiator (5.0.0)
   - Firebase/Analytics (8.12.1):
@@ -175,6 +176,7 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - AcknowList
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/DynamicLinks
@@ -201,6 +203,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AcknowList
     - Alamofire
     - Differentiator
     - Firebase
@@ -243,6 +246,7 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  AcknowList: bb4f8090d41d1d59302c8159fa31b17b442a4749
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Firebase: 580d09e8edafc3073ebf09c03fd42e4d80d35fe9
@@ -284,6 +288,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 981cb9f4e799fe5955ea7d3de6ab3abb3c95dfb5
+PODFILE CHECKSUM: 6f56d9a177a8e425be2dd962808c6c47f0a7759d
 
 COCOAPODS: 1.11.2
