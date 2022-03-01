@@ -8,9 +8,11 @@
 import Foundation
 import RxSwift
 
-protocol MyPageResult {}
+enum MyPageResult {
+    case logout
+}
 
-final class MyPageCoordinator: TabCoordinator<HomeResult> {
+final class MyPageCoordinator: TabCoordinator<MyPageResult> {
     // MARK: Lifecycle
 
     init(component: MyPageComponent, tabController: UITabBarController, navController: UINavigationController) {
@@ -90,6 +92,8 @@ final class MyPageCoordinator: TabCoordinator<HomeResult> {
                 switch coordResult {
                 case .backward:
                     break
+                case .logout:
+                    self?.closeSignal.onNext(MyPageResult.logout)
                 }
             })
 

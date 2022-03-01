@@ -1655,9 +1655,9 @@
 		C3C9734527CA95B700232251 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C3256B6827CE904E009B16DA /* License */,
 				C3C9736B27CB074000232251 /* View */,
 				C3C9736827CAF4E500232251 /* Config */,
+				C3256B6827CE904E009B16DA /* License */,
 				C3C9734627CA95C500232251 /* Maker */,
 				C3C9736027CA977500232251 /* LogoutModal */,
 				C3C9735027CA965F00232251 /* SettingsComponent.swift */,

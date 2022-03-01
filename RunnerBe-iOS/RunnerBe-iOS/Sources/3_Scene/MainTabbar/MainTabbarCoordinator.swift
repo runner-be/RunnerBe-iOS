@@ -9,7 +9,9 @@ import Foundation
 import RxSwift
 import UIKit
 
-enum MainTabbarResult {}
+enum MainTabbarResult {
+    case logout
+}
 
 final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
     // MARK: Lifecycle
@@ -79,7 +81,15 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
         let comp = component.myPageComponent
         let coord = MyPageCoordinator(component: comp, tabController: tabController, navController: navController)
 
-        coordinate(coordinator: coord, animated: false)
+        let disposable = coordinate(coordinator: coord, animated: false)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case .logout:
+                    self?.closeSignal.onNext(MainTabbarResult.logout)
+                }
+            })
 
         component.sharedScene.VM.routes.myPage
             .subscribe(onNext: {
@@ -87,6 +97,7 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
             })
             .disposed(by: disposeBag)
 
+        addChildBag(id: coord.id, disposable: disposable)
         return comp.sharedScene.VC
     }
 }

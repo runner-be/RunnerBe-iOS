@@ -9,10 +9,15 @@ import RxSwift
 import UIKit
 
 final class AppCoordinator: BasicCoordinator<Void> {
+    var window: UIWindow
+
     // MARK: Lifecycle
 
-    init(component: AppComponent, navController: UINavigationController) {
+    init(component: AppComponent, window: UIWindow) {
         self.component = component
+        self.window = window
+        let navController = UINavigationController()
+        window.rootViewController = navController
         super.init(navController: navController)
     }
 
@@ -20,12 +25,40 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     var component: AppComponent
 
-    override func start(animated _: Bool = true) {}
+    override func start(animated _: Bool = true) {
+        BasicLoginKeyChainService().token = nil
+
+        window.makeKeyAndVisible()
+
+        component.loginService.checkLogin()
+            .subscribe(onNext: { result in
+                switch result {
+                case .member:
+                    self.showMain(certificated: true, animated: false)
+                case .memberWaitCertification:
+                    self.showMain(certificated: false, animated: false)
+                case .nonMember:
+                    self.showLoggedOut(animated: false)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 
     func showMain(certificated _: Bool, animated: Bool) {
-        let mainTabbarCoord = MainTabbarCoordinator(component: component.mainTabComponent, navController: navController)
+        let comp = component.mainTabComponent
+        let coord = MainTabbarCoordinator(component: comp, navController: navController)
 
-        coordinate(coordinator: mainTabbarCoord, animated: animated)
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case .logout:
+                    self?.showLoggedOut(animated: false)
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
     }
 
     func showLoggedOut(animated: Bool) {

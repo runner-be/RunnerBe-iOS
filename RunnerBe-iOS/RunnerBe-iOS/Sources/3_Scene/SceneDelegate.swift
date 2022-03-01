@@ -29,49 +29,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else { return }
         let window = UIWindow(windowScene: windowScene)
 
-        let navController = UINavigationController()
-        window.rootViewController = navController
-
         let appComponent = AppComponent()
-        let appCoordinator = AppCoordinator(component: appComponent, navController: navController)
-
-        // TEST: token 초기화
-        BasicLoginKeyChainService().token = nil
-
-//        window.rootViewController = WritingDetailPostViewController(viewModel: WritingDetailPostViewModel())
-
-//        window.rootViewController = WritingMainPostViewController(viewModel: WritingMainPostViewModel())
-
-//        window.rootViewController = PostDetailViewController(viewModel: PostDetailViewModel())
-
-//        window.rootViewController = EditInfoViewController(viewModel: EditInfoViewModel())
-
-//        window.rootViewController = MakerViewController(viewModel: MakerViewModel())
-
-//        window.rootViewController = SettingsViewController(viewModel: SettingsViewModel())
-
-//        window.rootViewController = LogoutModalViewController(viewModel: LogoutModalViewModel())
-
-//        window.rootViewController = TakePhotoModalViewController(viewModel: TakePhotoModalViewModel())
-
-//        window.rootViewController = MyPageViewController(viewModel: MyPageViewModel())
-
-//        window.rootViewController = NickNameChangeModalViewController(viewModel: NickNameChangeModalViewModel())
-
-        appComponent.loginService.checkLogin()
-            .subscribe(onNext: { result in
-                switch result {
-                case .member:
-                    appCoordinator.showMain(certificated: true, animated: false)
-                case .memberWaitCertification:
-                    appCoordinator.showMain(certificated: false, animated: false)
-                case .nonMember:
-                    appCoordinator.showLoggedOut(animated: false)
-                }
-            })
-            .disposed(by: disposeBag)
-//
-        window.makeKeyAndVisible()
+        let appCoordinator = AppCoordinator(component: appComponent, window: window)
+        appCoordinator.start()
 
         self.window = window
         self.appComponent = appComponent

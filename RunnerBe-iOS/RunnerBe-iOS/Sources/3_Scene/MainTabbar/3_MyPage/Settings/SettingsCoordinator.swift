@@ -10,6 +10,7 @@ import RxSwift
 
 enum SettingsResult {
     case backward
+    case logout
 }
 
 final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
@@ -25,8 +26,13 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
         navController.pushViewController(scene.VC, animated: true)
 
         closeSignal
-            .subscribe(onNext: { [weak self] _ in
-                self?.navController.popViewController(animated: true)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .backward:
+                    self?.navController.popViewController(animated: true)
+                case .logout:
+                    self?.navController.popViewController(animated: false)
+                }
             })
             .disposed(by: disposeBag)
 
@@ -68,6 +74,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
             .subscribe(onNext: { [weak self] vm in
                 self?.pushLicenseScene(vm: vm, animated: true)
             })
+            .disposed(by: disposeBag)
     }
 
     private func pushLicenseScene(vm _: SettingsViewModel, animated: Bool) {
@@ -113,8 +120,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 case .backward:
                     break
                 case .logout:
-                    // TODO: Logout
-                    break
+                    self?.closeSignal.onNext(SettingsResult.logout)
                 }
             })
 
