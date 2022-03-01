@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
+import Kingfisher
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -69,6 +70,15 @@ class EditInfoViewController: BaseViewController {
             .take(1)
             .subscribe(onNext: { [weak self] job in
                 self?.selectJobView.select(idx: job.index)
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.currentProfile
+            .take(1)
+            .compactMap { $0 }
+            .compactMap { URL(string: $0) }
+            .subscribe(onNext: { [weak self] url in
+                self?.profileImageView.kf.setImage(with: url)
             })
             .disposed(by: disposeBags)
 

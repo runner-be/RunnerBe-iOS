@@ -42,7 +42,7 @@ final class LoggedOutViewController: BaseViewController {
 
     private func bindViewModelInput() {
         kakaoButton.rx.tapGesture()
-            .when(.recognized).map { _ in }
+            .when(.ended).map { _ in }
             .bind(to: viewModel.inputs.kakaoLogin)
             .disposed(by: disposeBags)
 
@@ -52,6 +52,7 @@ final class LoggedOutViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         appleButton.rx.tapGesture()
+            .debug()
             .when(.recognized).map { _ in }
             .bind(to: viewModel.inputs.appleLogin)
             .disposed(by: disposeBags)

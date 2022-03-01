@@ -48,6 +48,7 @@ class PostDetailViewController: BaseViewController {
     private func viewModelOutput() {
         viewModel.outputs.detailData
             .subscribe(onNext: { [weak self] data in
+                self?.navBar.titleLabel.text = data.running.badge
                 self?.titleView.setup(title: data.running.title, tag: data.running.badge)
                 self?.infoView.setup(
                     place: data.running.placeInfo,

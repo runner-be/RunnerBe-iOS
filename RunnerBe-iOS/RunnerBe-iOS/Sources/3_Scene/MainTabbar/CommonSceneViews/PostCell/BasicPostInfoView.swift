@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
+import Kingfisher
 import RxCocoa
 import RxSwift
 import SnapKit
@@ -32,16 +33,25 @@ class BasicPostInfoView: UIView {
         placeLabel.label.text = item.place
         bookMarkIcon.isSelected = item.bookmarked
         timeLabel.label.text = item.time
+
+        if let url = item.writerProfileURL,
+           let profileURL = URL(string: url)
+        {
+            profileLabel.icon.kf.setImage(with: profileURL)
+        }
+    }
+
+    func reset() {
+        profileLabel.icon.image = Asset.profileEmptyIcon.uiImage
+        bookMarkIcon.isSelected = false
     }
 
     var blurAlpha: CGFloat = 0.7
 
-    var profileLabel = IconLabel().then { view in
+    var profileLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 14, height: 14), spacing: 6, padding: .zero).then { view in
         view.label.font = .iosCaption11R
         view.label.textColor = .darkG35
-        view.spacing = 6
         view.icon.image = Asset.profileEmptyIcon.uiImage
-        view.iconSize = CGSize(width: 14, height: 14)
         view.label.text = "러너1234"
     }
 

@@ -115,6 +115,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.8.5)
   - KakaoSDKUser (2.8.5):
     - KakaoSDKAuth (= 2.8.5)
+  - Kingfisher (7.2.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -181,6 +182,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/DynamicLinks
   - Firebase/Storage
+  - Kingfisher (~> 7.0)
   - Moya/RxSwift (~> 15.0)
   - naveridlogin-sdk-ios
   - NeedleFoundation
@@ -221,6 +223,7 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Kingfisher
     - Moya
     - nanopb
     - naveridlogin-sdk-ios
@@ -264,6 +267,7 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: a9033bd3fbbb9a8c74dcd0dbd7705f7a2bc50ff1
   KakaoSDKCommon: b98d08cf838effdc9b82aca7dee3e50c048880ca
   KakaoSDKUser: a76667bb06c1d5072178eea5cee4ac9fdba94679
+  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
@@ -288,6 +292,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 6f56d9a177a8e425be2dd962808c6c47f0a7759d
+PODFILE CHECKSUM: 58604787945a092a4b69063d76661bec33418290
 
 COCOAPODS: 1.11.2

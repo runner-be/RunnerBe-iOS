@@ -78,7 +78,7 @@ class WaitCertificationViewController: BaseViewController {
     private var iconView = UILabel().then { label in
         label.font = label.font.withSize(100)
         label.textAlignment = .center
-        label.text = "✅"
+        label.text = "📑"
     }
 
     private var toMainButton = UIButton().then { button in

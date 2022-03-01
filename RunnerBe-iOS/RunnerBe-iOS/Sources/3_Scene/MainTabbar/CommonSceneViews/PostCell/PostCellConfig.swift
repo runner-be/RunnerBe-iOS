@@ -18,6 +18,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let ageText: String
     var writerAvr: UIImage?
     let writerName: String
+    let writerProfileURL: String?
     var bookmarked: Bool
     let closed: Bool
 
@@ -42,6 +43,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
 
         ageText = "\(post.ageRange.min)-\(post.ageRange.max)"
         writerName = post.writerName
+        writerProfileURL = post.writerProfileURL
         closed = !post.open
         bookmarked = post.marked
     }

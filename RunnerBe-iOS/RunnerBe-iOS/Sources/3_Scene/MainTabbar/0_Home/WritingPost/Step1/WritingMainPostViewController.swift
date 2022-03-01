@@ -141,7 +141,7 @@ class WritingMainPostViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = ""
+        navBar.titleLabel.text = L10n.Post.Write.NavBar.title
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
 
         navBar.rightBtnItem.setTitle(L10n.NavBar.Right.First.next, for: .normal)

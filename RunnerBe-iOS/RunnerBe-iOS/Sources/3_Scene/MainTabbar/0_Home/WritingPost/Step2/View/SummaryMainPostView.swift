@@ -37,9 +37,8 @@ class SummaryMainPostView: UIView {
 
     private var mapView = MKMapView()
 
-    private var addressInfoView = IconLabel(iconPosition: .left).then { view in
+    private var addressInfoView = IconLabel(iconPosition: .left, iconSize: CGSize(width: 19, height: 19)).then { view in
         view.icon.image = Asset.place.uiImage
-        view.iconSize = CGSize(width: 19, height: 19)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG3
         view.label.text = "동작구 사당1동"
@@ -69,9 +68,8 @@ class SummaryMainPostView: UIView {
         label.text = "새벽에 달리기 하실분? 새벽에 달리기 하실분?"
     }
 
-    private var dateLabel = IconLabel(iconPosition: .left).then { view in
+    private var dateLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 18, height: 18)).then { view in
         view.icon.image = Asset.scheduled.uiImage
-        view.iconSize = CGSize(width: 18, height: 18)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG3
         view.label.text = "3/31 (금) AM 6:00"
@@ -83,9 +81,8 @@ class SummaryMainPostView: UIView {
         label.text = "·"
     }
 
-    private var timeLabel = IconLabel(iconPosition: .left).then { view in
+    private var timeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 18, height: 18)).then { view in
         view.icon.image = Asset.time.uiImage
-        view.iconSize = CGSize(width: 18, height: 18)
         view.label.font = .iosBody13R
         view.label.textColor = .darkG3
         view.label.text = "20분 소요"

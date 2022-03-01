@@ -14,6 +14,7 @@ struct UserConfig: Equatable, IdentifiableType {
     let gender: String
     let job: String
     let isPostOwner: Bool
+    let profileURL: String?
 
     init(from user: User, owner: Bool) {
         nickName = user.nickName
@@ -21,6 +22,7 @@ struct UserConfig: Equatable, IdentifiableType {
         gender = user.gender
         job = user.job
         isPostOwner = owner
+        profileURL = user.profileImageURL
     }
 
     init(name: String) {
@@ -29,6 +31,7 @@ struct UserConfig: Equatable, IdentifiableType {
         gender = "전체"
         job = "개발"
         isPostOwner = false
+        profileURL = nil
     }
 
     var identity: String { nickName }

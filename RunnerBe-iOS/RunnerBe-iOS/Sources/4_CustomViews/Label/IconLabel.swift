@@ -32,8 +32,8 @@ class IconLabel: UIView {
 
     var icon = UIImageView()
     var label = UILabel()
-    var iconSize: CGSize
-    var spacing: CGFloat
+    private var iconSize: CGSize
+    private var spacing: CGFloat
 
     private func setup() {
         icon.contentMode = .scaleAspectFit
@@ -45,6 +45,9 @@ class IconLabel: UIView {
     }
 
     private func updateLayout() {
+        icon.layer.cornerRadius = iconSize.height / 2.0
+        icon.clipsToBounds = true
+
         switch iconPosition {
         case .left:
             icon.snp.makeConstraints { make in

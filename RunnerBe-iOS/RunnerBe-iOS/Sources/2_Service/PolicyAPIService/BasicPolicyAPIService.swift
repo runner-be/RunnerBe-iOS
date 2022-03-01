@@ -21,7 +21,6 @@ final class BasicPolicyAPIService: PolicyAPIService {
             .asObservable()
             .map { response in
                 let str = String(data: response.data, encoding: .utf8)
-                print(str)
                 return str ?? type.contents
             }
     }

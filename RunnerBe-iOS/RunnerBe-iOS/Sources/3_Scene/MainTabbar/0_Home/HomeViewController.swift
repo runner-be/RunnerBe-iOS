@@ -147,13 +147,11 @@ class HomeViewController: BaseViewController {
         view.isSelected = false
     }
 
-    private var orderFilter = IconLabel(iconPosition: .right).then { view in
+    private var orderFilter = IconLabel(iconPosition: .right, iconSize: CGSize(width: 16, height: 16), spacing: 4).then { view in
         view.icon.image = Asset.chevronDown.uiImage
         view.label.font = .iosBody13R
         view.label.textColor = .darkG4
         view.label.text = L10n.Home.PostList.Filter.Order.distance
-        view.iconSize = CGSize(width: 16, height: 16)
-        view.spacing = 4
     }
 
     private var filterIcon = UIImageView().then { view in

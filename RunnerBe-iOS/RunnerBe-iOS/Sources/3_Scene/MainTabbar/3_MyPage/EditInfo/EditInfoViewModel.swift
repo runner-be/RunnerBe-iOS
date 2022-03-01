@@ -23,8 +23,11 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.nickNameText
+        Observable<String?>.of(user.profileImageURL)
+            .subscribe(outputs.currentProfile)
+            .disposed(by: disposeBag)
 
+        inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
@@ -33,16 +36,16 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.jobSelected
-            .map { Job(idx: $0) }
-            .do(onNext: { [weak self] job in
-                if job == .none {
-                    self?.outputs.toast.onNext("오류가 발생했습니다 다시 시도해주세요")
-                }
-            })
-            .filter { $0 != .none }
-            .bind(to: routes.jobModal)
-            .disposed(by: disposeBag)
+//        inputs.jobSelected
+//            .map { Job(idx: $0) }
+//            .do(onNext: { [weak self] job in
+//                if job == .none {
+//                    self?.outputs.toast.onNext("오류가 발생했습니다 다시 시도해주세요")
+//                }
+//            })
+//            .filter { $0 != .none }
+//            .bind(to: routes.jobModal)
+//            .disposed(by: disposeBag)
 
         inputs.changePhoto
             .bind(to: routes.photoModal)
@@ -66,6 +69,7 @@ final class EditInfoViewModel: BaseViewModel {
                 case let .succeed(name):
                     self?.outputs.nickNameChanged.onNext(name)
                     self?.outputs.toast.onNext("닉네임 변경이 완료되었습니다.")
+                    self?.dirty = true
                 case .duplicated:
                     self?.outputs.nickNameDup.onNext(true)
                 case .alreadyChanged:
@@ -97,6 +101,7 @@ final class EditInfoViewModel: BaseViewModel {
                 switch result {
                 case let .succeed(data):
                     self?.outputs.profileChanged.onNext(data)
+                    self?.dirty = true
                 case .error:
                     self?.outputs.toast.onNext("이미지 등록에 실패했어요")
                 }
@@ -117,6 +122,7 @@ final class EditInfoViewModel: BaseViewModel {
 
     struct Output {
         var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
+        var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
 
         var jobChanged = PublishSubject<Job>()
         var profileChanged = PublishSubject<Data?>()

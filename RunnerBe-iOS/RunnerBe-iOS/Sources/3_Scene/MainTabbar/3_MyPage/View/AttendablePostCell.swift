@@ -29,7 +29,7 @@ class AttendablePostCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        postInfoView.bookMarkIcon.isSelected = false
+        postInfoView.reset()
         disposeBag = DisposeBag()
     }
 

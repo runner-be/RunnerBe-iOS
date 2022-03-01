@@ -26,6 +26,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         disposeBag = DisposeBag()
+        userInfoView.reset()
     }
 
     func setup(userInfo: UserConfig) {

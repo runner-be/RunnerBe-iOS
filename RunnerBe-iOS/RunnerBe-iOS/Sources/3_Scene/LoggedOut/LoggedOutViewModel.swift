@@ -20,6 +20,7 @@ final class LoggedOutViewModel: BaseViewModel {
         super.init()
 
         inputs.kakaoLogin
+            .debug()
             .map { [weak self] in self?.loginService.login(with: .kakao) }
             .compactMap { $0 }
             .flatMap { $0 }

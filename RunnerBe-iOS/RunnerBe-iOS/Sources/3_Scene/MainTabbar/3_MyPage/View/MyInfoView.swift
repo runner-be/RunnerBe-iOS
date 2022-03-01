@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
+import Kingfisher
 import SnapKit
 import Then
 import UIKit
@@ -14,6 +15,7 @@ class MyInfoView: UIView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
+        reset()
     }
 
     @available(*, unavailable)
@@ -27,6 +29,19 @@ class MyInfoView: UIView {
         ageLabel.text = config.age
         jobLabel.text = config.job
         // TODO: PROFILE
+        if let url = config.profileURL,
+           let profileURL = URL(string: url)
+        {
+            avatarView.kf.setImage(with: profileURL)
+        }
+    }
+
+    func reset() {
+        avatarView.image = Asset.profileEmptyIcon.uiImage
+        nickNameLabel.text = "NickName"
+        genderLabel.text = "gender"
+        ageLabel.text = "00대 ~"
+        badgeLabel.label.text = "JOB"
     }
 
     var avatarView = UIImageView().then { view in
@@ -36,6 +51,8 @@ class MyInfoView: UIView {
             make.width.equalTo(78)
             make.height.equalTo(78)
         }
+        view.layer.cornerRadius = 39
+        view.clipsToBounds = true
     }
 
     var nickNameLabel = UILabel().then { label in

@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/25.
 //
 
+import Kingfisher
 import SnapKit
 import Then
 import UIKit
@@ -22,12 +23,21 @@ class UserInfoView: UIView {
     }
 
     func setup(userInfo: UserConfig) {
-        // TODO: avartarView
         nameLabel.text = userInfo.nickName
         genderLabel.text = userInfo.gender
         ageLabel.text = userInfo.age
         ownerMark.isHidden = !userInfo.isPostOwner
         jobTagLabel.text = userInfo.job
+
+        if let url = userInfo.profileURL,
+           let profileURL = URL(string: url)
+        {
+            avatarView.kf.setImage(with: profileURL)
+        }
+    }
+
+    func reset() {
+        avatarView.image = Asset.profileEmptyIcon.uiImage
     }
 
     private var avatarView = UIImageView().then { view in
@@ -35,6 +45,8 @@ class UserInfoView: UIView {
             make.width.equalTo(48)
             make.height.equalTo(48)
         }
+        view.layer.cornerRadius = 24
+        view.clipsToBounds = true
 
         view.image = Asset.profileEmptyIcon.uiImage
     }

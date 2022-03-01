@@ -633,6 +633,12 @@ internal enum L10n {
       /// 휴일
       internal static let dayOff = L10n.tr("Localizable", "Post.WorkTime.DayOff")
     }
+    internal enum Write {
+      internal enum NavBar {
+        /// 게시글 작성
+        internal static let title = L10n.tr("Localizable", "Post.Write.NavBar.title")
+      }
+    }
   }
 
   internal enum SelectGender {

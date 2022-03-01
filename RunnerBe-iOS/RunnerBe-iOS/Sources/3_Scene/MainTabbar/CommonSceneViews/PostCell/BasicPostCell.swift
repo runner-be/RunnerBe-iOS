@@ -35,7 +35,8 @@ class BasicPostCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         postState = .open
-        postInfoView.bookMarkIcon.isSelected = false
+
+        postInfoView.reset()
         disposeBag = DisposeBag()
     }
 

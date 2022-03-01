@@ -40,7 +40,7 @@ final class RunnerbeNavBar: UIView {
     var leftBtnItem = UIButton()
     var rightBtnItem = UIButton()
     var rightSecondBtnItem = UIButton()
-    var titleLabel = UILabel()
+    var titleLabel = UILabel().then { label in label.text = "" }
 }
 
 // MARK: - Layout

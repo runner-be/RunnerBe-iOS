@@ -47,29 +47,23 @@ final class DetailInfoView: UIView {
 
     private var dateLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.scheduled.uiImage
-        view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
         view.label.text = "M/d (E) a h:mm"
-        view.spacing = 8
     }
 
     private var timeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.time.uiImage
-        view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
         view.label.text = "m분"
-        view.spacing = 8
     }
 
     private var genderLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.group.uiImage
-        view.iconSize = CGSize(width: 24, height: 24)
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
         view.label.text = "GENDER"
-        view.spacing = 8
     }
 
     private var dotSeparator1 = UIView().then { view in
