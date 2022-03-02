@@ -33,10 +33,13 @@ final class MyPageViewModel: BaseViewModel {
                 case let .success(info, posting, joined):
                     let now = DateUtil.shared.now
                     self.user = info
-                    self.posts[.basic] = posting
-                    self.posts[.attendable] = joined
+                    let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
+                    let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
 
-                    let posts = self.outputs.postType == .basic ? posting : joined
+                    self.posts[.basic] = postings
+                    self.posts[.attendable] = joins
+
+                    let posts = self.outputs.postType == .basic ? postings : joins
                     self.user = info
                     self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
                     self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
@@ -72,6 +75,7 @@ final class MyPageViewModel: BaseViewModel {
                     self?.outputs.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
+                print("post id: \(posts[idx].ID)")
                 return posts[idx].ID
             }
             .bind(to: routes.detailPost)
