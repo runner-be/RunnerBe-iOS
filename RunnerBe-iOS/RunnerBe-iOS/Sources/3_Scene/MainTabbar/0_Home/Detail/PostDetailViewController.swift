@@ -100,6 +100,7 @@ class PostDetailViewController: BaseViewController {
         view.textColor = .darkG25
         view.text = "TEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST"
         view.isScrollEnabled = false
+        view.isEditable = false
         view.backgroundColor = .clear
     }
 
