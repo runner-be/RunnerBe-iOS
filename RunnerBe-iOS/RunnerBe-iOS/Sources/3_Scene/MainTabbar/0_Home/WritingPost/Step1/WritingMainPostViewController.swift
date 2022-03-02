@@ -142,12 +142,15 @@ class WritingMainPostViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.Post.Write.NavBar.title
+        navBar.titleLabel.font = .iosBody17Sb
+        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-
-        navBar.rightBtnItem.setTitle(L10n.NavBar.Right.First.next, for: .normal)
+        navBar.rightBtnItem.setTitle(L10n.Post.Detail.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
+        navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
         navBar.rightBtnItem.titleLabel?.font = .iosBody17R
-        navBar.rightSecondBtnItem.isHidden = false
+        navBar.rightSecondBtnItem.isHidden = true
+        navBar.titleSpacing = 12
     }
 
     private var segmentedControl = SegmentedControl().then { control in

@@ -1,8 +1,5 @@
-//
-// AcknowListViewController.swift
-//
 // Copyright (c) 2015-2022 Vincent Tourraine (https://www.vtourraine.net)
-//
+
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -25,14 +22,24 @@
     import AcknowList
     import RxCocoa
     import RxSwift
+    import SnapKit
+    import Then
     import UIKit
 
     /// Subclass of `UITableViewController` that displays a list of acknowledgements.
     @available(iOS 9.0.0, tvOS 9.0.0, *)
     @available(iOSApplicationExtension, unavailable)
-    open class LicenseViewController: UITableViewController {
+    class LicenseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
         var disposeBag = DisposeBag()
         var viewModel: LicenseViewModel?
+        var navBar = RunnerbeNavBar().then { navBar in
+            navBar.backgroundColor = .systemBackground
+            navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.label), for: .normal)
+            navBar.rightBtnItem.isHidden = true
+            navBar.rightSecondBtnItem.isHidden = true
+        }
+
+        var tableView: UITableView
 
         /// The represented array of `Acknow`.
         open var acknowledgements: [Acknow]
@@ -65,9 +72,12 @@
          - returns: The new `AcknowListViewController` instance.
          */
         public init() {
+            tableView = UITableView(frame: .zero, style: .grouped)
             acknowledgements = []
+            super.init(nibName: nil, bundle: nil)
 
-            super.init(style: .grouped)
+            tableView.delegate = self
+            tableView.dataSource = self
 
             if let path = AcknowListViewController.defaultAcknowledgementsPlistPath() {
                 load(from: path)
@@ -121,10 +131,13 @@
 
          - returns: The new `AcknowListViewController` instance.
          */
-        public init(acknowledgements: [Acknow], style: UITableView.Style = .grouped) {
+        public init(acknowledgements: [Acknow], style _: UITableView.Style = .grouped) {
             self.acknowledgements = acknowledgements
+            tableView = UITableView(frame: .zero, style: .grouped)
+            super.init(nibName: nil, bundle: nil)
 
-            super.init(style: style)
+            tableView.delegate = self
+            tableView.dataSource = self
 
             title = AcknowLocalization.localizedTitle()
         }
@@ -139,8 +152,11 @@
          */
         public required init?(coder: NSCoder) {
             acknowledgements = []
-
+            tableView = UITableView(frame: .zero, style: .grouped)
             super.init(coder: coder)
+
+            tableView.delegate = self
+            tableView.dataSource = self
 
             title = AcknowLocalization.localizedTitle()
         }
@@ -235,6 +251,9 @@
                     navigationItem.leftBarButtonItem = item
                 }
             }
+
+            setupView()
+            bindViewModel()
         }
 
         /**
@@ -269,10 +288,6 @@
                         "Please take a look at https://github.com/vtourraine/AcknowList for instructions.", terminator: "\n"
                 )
             }
-        }
-
-        override open func viewWillDisappear(_: Bool) {
-            viewModel?.inputs.backward.onNext(())
         }
 
         override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -416,7 +431,7 @@
 
          - returns: The number of sections in `tableView`. The default value is 1.
          */
-        override open func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
             return acknowledgements.count
         }
 
@@ -428,7 +443,7 @@
 
          - returns: An object inheriting from `UITableViewCell` that the table view can use for the specified row. An assertion is raised if you return `nil`.
          */
-        override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let identifier = String(describing: UITableViewCell.self)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 
@@ -450,11 +465,11 @@
          - parameter tableView: A table-view object informing the delegate about the new row selection.
          - parameter indexPath: An index path locating the new selected row in `tableView`.
          */
-        override open func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
             if let acknowledgement = acknowledgements[(indexPath as NSIndexPath).row] as Acknow?,
                let navigationController = navigationController
             {
-                let viewController = AcknowViewController(acknowledgement: acknowledgement)
+                let viewController = LicenseDetailController(acknowledgement: acknowledgement)
                 navigationController.pushViewController(viewController, animated: true)
             }
         }
@@ -467,9 +482,36 @@
 
          - returns: A nonnegative floating-point value that estimates the height (in points) that `row` should be. Return `UITableViewAutomaticDimension` if you have no estimate.
          */
-        override open func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        public func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
             return UITableView.automaticDimension
         }
     }
 
+    extension LicenseViewController {
+        func setupView() {
+            view.backgroundColor = .systemBackground
+            tableView.backgroundColor = .systemBackground
+            view.addSubviews([navBar, tableView])
+
+            navBar.snp.makeConstraints { make in
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                make.leading.equalTo(view.snp.leading)
+                make.trailing.equalTo(view.snp.trailing)
+            }
+
+            tableView.snp.makeConstraints { make in
+                make.top.equalTo(navBar.snp.bottom).offset(8)
+                make.leading.equalTo(view.snp.leading)
+                make.trailing.equalTo(view.snp.trailing)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            }
+        }
+
+        func bindViewModel() {
+            guard let vm = viewModel else { return }
+            navBar.leftBtnItem.rx.tap
+                .bind(to: vm.inputs.backward)
+                .disposed(by: disposeBag)
+        }
+    }
 #endif

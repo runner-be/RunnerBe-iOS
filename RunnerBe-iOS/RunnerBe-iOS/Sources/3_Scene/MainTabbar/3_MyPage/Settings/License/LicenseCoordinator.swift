@@ -4,9 +4,6 @@
 //
 //  Created by 김신우 on 2022/03/02.
 //
-
-import Foundation
-
 import Foundation
 import RxSwift
 
@@ -20,8 +17,6 @@ final class LicenseCoordinator: BasicCoordinator<LicenseResult> {
     init(component: LicenseComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
-
-        navController.setNavigationBarHidden(false, animated: false)
     }
 
     override func start(animated _: Bool) {
@@ -29,7 +24,7 @@ final class LicenseCoordinator: BasicCoordinator<LicenseResult> {
         navController.pushViewController(scene.VC, animated: true)
 
         closeSignal.subscribe(onNext: { [weak self] _ in
-            self?.navController.setNavigationBarHidden(true, animated: false)
+            self?.navController.popViewController(animated: true)
         })
         .disposed(by: disposeBag)
 

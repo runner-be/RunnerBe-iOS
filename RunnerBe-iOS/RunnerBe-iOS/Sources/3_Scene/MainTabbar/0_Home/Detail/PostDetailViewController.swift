@@ -316,6 +316,16 @@ extension PostDetailViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
+        let safeAreaCover = UIView()
+        safeAreaCover.backgroundColor = footer.backgroundColor
+        view.addSubviews([safeAreaCover])
+        safeAreaCover.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.top.equalTo(footer.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+
         if writer {
             applicantBtn.snp.makeConstraints { make in
                 make.trailing.equalTo(view.snp.trailing).offset(-16)
