@@ -10,5 +10,5 @@ import Foundation
 enum SocialLoginType {
     case kakao
     case naver
-    case apple
+    case apple(identifier: String)
 }

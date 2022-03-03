@@ -51,7 +51,7 @@ final class BasicLoginService: LoginService {
         case .kakao:
             socialLoginResult = kakaoLoginService.login()
         case .apple:
-            return .just(.socialLoginFail)
+            socialLoginResult = .just(SocialLoginResult(token: "", loginType: socialType))
         }
 
         return socialLoginResult

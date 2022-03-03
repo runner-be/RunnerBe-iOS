@@ -58,10 +58,27 @@ final class LoggedOutViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.appleLogin.subscribe(onNext: { [weak self] in
-            self?.routes.nonMember.onNext(())
-        })
-        .disposed(by: disposeBag)
+        inputs.appleLogin
+            .map { [weak self] in self?.loginService.login(with: .apple(identifier: $0)) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .member, .succeed:
+                    print("LoginWithApple succeed, member")
+                    self?.routes.loginSuccess.onNext(true)
+                case .memberWaitCertification:
+                    print("LoginWithApple memberWaitCertification")
+                    self?.routes.loginSuccess.onNext(false)
+                case let .nonMember(uuid):
+                    print("LoginWithApple nonMember")
+                    self?.signupKeyChainService.uuid = uuid
+                    self?.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    self?.outputs.toast.onNext("로그인에 실패했습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Internal
@@ -69,7 +86,7 @@ final class LoggedOutViewModel: BaseViewModel {
     struct Input {
         let kakaoLogin = PublishSubject<Void>()
         let naverLogin = PublishSubject<Void>()
-        let appleLogin = PublishSubject<Void>()
+        let appleLogin = PublishSubject<String>()
     }
 
     struct Output {

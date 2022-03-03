@@ -27,7 +27,7 @@ extension LoginAPI: TargetType {
             case .naver:
                 return "users/naver-login"
             case .apple:
-                fatalError("apple login not implemented")
+                return "users/apple-login"
             }
         case .login:
             return "users/auth"
@@ -45,8 +45,13 @@ extension LoginAPI: TargetType {
 
     var task: Task {
         switch self {
-        case let .socialLogin(_, token):
-            return .requestParameters(parameters: ["accessToken": token], encoding: URLEncoding.default)
+        case let .socialLogin(type, token):
+            switch type {
+            case .kakao, .naver:
+                return .requestParameters(parameters: ["accessToken": token], encoding: URLEncoding.default)
+            case let .apple(identifier):
+                return .requestParameters(parameters: ["uuid": identifier], encoding: URLEncoding.default)
+            }
         case .login:
             return .requestPlain
         }

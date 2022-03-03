@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/04.
 //
 
+import AuthenticationServices
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -52,9 +53,15 @@ final class LoggedOutViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         appleButton.rx.tapGesture()
-            .debug()
             .when(.recognized).map { _ in }
-            .bind(to: viewModel.inputs.appleLogin)
+            .subscribe(onNext: { [weak self] in
+                let request = ASAuthorizationAppleIDProvider().createRequest()
+                request.requestedScopes = [.fullName, .email]
+                let controller = ASAuthorizationController(authorizationRequests: [request])
+                controller.delegate = self
+                controller.presentationContextProvider = self as? ASAuthorizationControllerPresentationContextProviding
+                controller.performRequests()
+            })
             .disposed(by: disposeBags)
     }
 
@@ -136,5 +143,18 @@ extension LoggedOutViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+}
+
+extension LoggedOutViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller _: ASAuthorizationController, didCompleteWithError _: Error) {}
+
+    func authorizationController(controller _: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let user = credential.user
+            viewModel.inputs.appleLogin.onNext(user)
+            guard let email = credential.email else { return }
+            print("Email: \(email)")
+        }
     }
 }
