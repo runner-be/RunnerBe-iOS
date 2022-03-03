@@ -62,7 +62,8 @@ class PostDetailViewController: BaseViewController {
                 self?.detailMapView.setup(
                     lat: data.running.lat,
                     long: data.running.long,
-                    range: data.running.range
+                    range: data.participated ? data.running.range / 3 : data.running.range,
+                    showMarker: data.participated
                 )
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {
@@ -145,10 +146,6 @@ class PostDetailViewController: BaseViewController {
     var applicantBtn = UIButton().then { button in
         button.setImage(Asset.applicant.uiImage, for: .normal)
         button.isHidden = true
-        button.snp.makeConstraints { make in
-            make.width.equalTo(56)
-            make.height.equalTo(56)
-        }
     }
 
     var applicantNoti = UIView().then { view in

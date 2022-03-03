@@ -31,11 +31,11 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(postDetail, marked, apply, participants):
+                case let .guest(postDetail, participated, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: false, applied: apply,
+                            writer: false, participated: participated, applied: apply,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -50,7 +50,7 @@ final class PostDetailViewModel: BaseViewModel {
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: true, applied: false,
+                            writer: true, participated: true, applied: false,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -72,11 +72,11 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(postDetail, marked, apply, participants):
+                case let .guest(postDetail, participated, marked, apply, participants):
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: false, applied: apply,
+                            writer: false, participated: participated, applied: apply,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -91,7 +91,7 @@ final class PostDetailViewModel: BaseViewModel {
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: true, applied: false,
+                            writer: true, participated: true, applied: false,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -185,7 +185,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()

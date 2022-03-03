@@ -14,7 +14,7 @@ enum PostingResult {
 
 enum DetailInfoResult {
     case writer(post: PostDetail, marked: Bool, participants: [User], applicant: [User])
-    case guest(post: PostDetail, marked: Bool, apply: Bool, participants: [User])
+    case guest(post: PostDetail, participated: Bool, marked: Bool, apply: Bool, participants: [User])
     case error
 }
 

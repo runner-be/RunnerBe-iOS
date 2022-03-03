@@ -23,22 +23,40 @@ class DetailMapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup(lat: Float, long: Float, range: Float) {
+    func setup(lat: Float, long: Float, range: Float, showMarker: Bool) {
         let coord = CLLocationCoordinate2D(latitude: CGFloat(lat), longitude: CGFloat(long))
         let radius = range * 2
         mapView.centerToCoord(coord, regionRadius: CLLocationDistance(radius), animated: false)
+        mapView.zoomToRadius(regionRadius: CLLocationDistance(radius), animated: false)
 
         if let circle = circleOverlay {
             mapView.removeOverlay(circle)
         }
-        let center = mapView.centerCoordinate
-        let circleOverlay = MKCircle(center: center, radius: CLLocationDistance(range / 2))
-        mapView.addOverlay(circleOverlay)
 
-        self.circleOverlay = circleOverlay
+        if showMarker {
+            marker.isHidden = false
+        } else {
+            marker.isHidden = true
+
+            let center = mapView.centerCoordinate
+            let circleOverlay = MKCircle(center: center, radius: CLLocationDistance(range / 2))
+            mapView.addOverlay(circleOverlay)
+
+            self.circleOverlay = circleOverlay
+        }
     }
 
     private var circleOverlay: MKCircle?
+    private var marker = UIImageView().then { view in
+        view.image = Asset.placeImage.uiImage
+        view.contentMode = .scaleAspectFit
+        view.snp.makeConstraints { make in
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
+        view.isHidden = true
+    }
+
     lazy var mapView = MKMapView().then { view in
         view.isZoomEnabled = false
         view.isRotateEnabled = false
@@ -50,6 +68,7 @@ class DetailMapView: UIView {
     private func setupViews() {
         addSubviews([
             mapView,
+            marker,
         ])
     }
 
@@ -60,17 +79,10 @@ class DetailMapView: UIView {
             make.trailing.equalTo(self.snp.trailing)
             make.bottom.equalTo(self.snp.bottom)
         }
-    }
 
-    private func updateCircle() {
-//        if let circle = circleOverlay {
-//            mapView.removeOverlay(circle)
-//        }
-//        let center = mapView.centerCoordinate
-//        let circleOverlay = MKCircle(center: center, radius: range)
-//        mapView.addOverlay(circleOverlay)
-//
-//        self.circleOverlay = circleOverlay
+        marker.snp.makeConstraints { make in
+            make.center.equalTo(mapView.snp.center)
+        }
     }
 }
 
@@ -81,9 +93,5 @@ extension DetailMapView: MKMapViewDelegate {
         circleRenderer.fillColor = .primary.withAlphaComponent(0.5)
         circleRenderer.lineWidth = 1
         return circleRenderer
-    }
-
-    func mapView(_: MKMapView, regionDidChangeAnimated _: Bool) {
-        updateCircle()
     }
 }

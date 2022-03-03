@@ -357,9 +357,22 @@ final class BasicPostAPIService: PostAPIService {
                 }
 
                 if result.isWriter {
-                    functionResult.onNext(.writer(post: postDetail, marked: result.bookMarked, participants: participants, applicant: applicant))
+                    functionResult.onNext(
+                        .writer(
+                            post: postDetail,
+                            marked: result.bookMarked,
+                            participants: participants,
+                            applicant: applicant
+                        )
+                    )
                 } else {
-                    functionResult.onNext(.guest(post: postDetail, marked: result.bookMarked, apply: result.isApplicant, participants: participants))
+                    functionResult.onNext(
+                        .guest(post: postDetail,
+                               participated: participants.contains(where: { $0.userID == userId }),
+                               marked: result.bookMarked,
+                               apply: result.isApplicant,
+                               participants: participants)
+                    )
                 }
             })
 
