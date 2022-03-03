@@ -336,9 +336,9 @@ extension PhotoCertificationViewController: UIImagePickerControllerDelegate, UIN
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let image = info[.originalImage] as? UIImage
-
-        photoView.image = image
-        viewModel.inputs.photoSelected.onNext(image?.pngData())
+        let resizedImage = image?.resize(newWidth: 300)
+        photoView.image = resizedImage
+        viewModel.inputs.photoSelected.onNext(resizedImage?.pngData())
         picker.dismiss(animated: true)
     }
 }

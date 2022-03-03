@@ -82,7 +82,7 @@ class SettingsViewController: BaseViewController {
         viewModel.routes.instagram
             .subscribe(onNext: { [weak self] in
                 guard let self = self,
-                      let instaURL = URL(string: "https://www.instagram.com/runner._.be/?hl=ko")
+                      let instaURL = URL(string: "https://www.instagram.com/runner_be_/?hl=ko")
                 else { return }
                 let instaSafariView = SFSafariViewController(url: instaURL)
                 self.present(instaSafariView, animated: true, completion: nil)

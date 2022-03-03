@@ -132,7 +132,7 @@ extension MyRunResElement {
 
         post.marked = marked
         post.attendance = attends
-        post.open = open
+        post.open = open && post.gatherDate > Date()
 
         return post
     }

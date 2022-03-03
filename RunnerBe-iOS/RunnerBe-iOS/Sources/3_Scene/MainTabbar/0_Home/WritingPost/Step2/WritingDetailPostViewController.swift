@@ -88,8 +88,13 @@ class WritingDetailPostViewController: BaseViewController {
 
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
-                self?.scrollView.contentInset.bottom = keyboardVisibleHeight
-                self?.scrollView.contentOffset.y += keyboardVisibleHeight
+                guard let self = self else { return }
+                self.scrollView.contentInset.bottom = keyboardVisibleHeight
+                let bottomOffset = CGPoint(
+                    x: 0,
+                    y: self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom
+                )
+                self.scrollView.setContentOffset(bottomOffset, animated: true)
             })
             .disposed(by: disposeBags)
     }

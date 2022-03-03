@@ -130,7 +130,8 @@ extension DetailPostResElement {
             locationInfo: locationInfo,
             coord: coords
         )
-        post.open = open
+
+        post.open = open && post.gatherDate > Date()
         post.marked = false
         post.attendance = false
 

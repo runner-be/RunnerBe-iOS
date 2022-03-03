@@ -125,7 +125,7 @@ extension BookMarkResElement {
             coord: coords
         )
 
-        post.open = open
+        post.open = open && post.gatherDate > Date()
         post.attendance = false
         post.marked = true
         return post

@@ -361,9 +361,11 @@ extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationC
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        let image = info[.originalImage] as? UIImage
+        let originalImage = info[.originalImage] as? UIImage
         let editedImage = info[.editedImage] as? UIImage
-        viewModel.inputs.photoSelected.onNext(editedImage?.pngData() ?? image?.pngData())
+        let editedResizedImage = editedImage?.resize(newWidth: 300)
+        let originalResizedImage = originalImage?.resize(newWidth: 300)
+        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
         picker.dismiss(animated: true)
     }
 }

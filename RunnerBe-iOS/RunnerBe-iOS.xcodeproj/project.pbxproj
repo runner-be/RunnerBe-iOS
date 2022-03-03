@@ -287,6 +287,7 @@
 		C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
+		C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */; };
 		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
 		C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */; };
 		C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */; };
@@ -597,6 +598,7 @@
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift.swift"; sourceTree = "<group>"; };
 		C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderComponent.swift.swift; sourceTree = "<group>"; };
 		C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderCoordinator.swift; sourceTree = "<group>"; };
 		C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewModel.swift.swift; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 				C3F0968927AED7AC00959F9A /* UIButton+.swift */,
 				C3F74B6E27B0B444002D5846 /* UIView+.swift */,
 				C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */,
+				C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -2307,6 +2310,7 @@
 				C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
+				C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,

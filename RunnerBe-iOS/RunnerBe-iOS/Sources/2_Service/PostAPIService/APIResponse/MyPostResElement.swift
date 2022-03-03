@@ -120,7 +120,7 @@ extension MyPostResElement {
 
         post.marked = false
         post.attendance = false
-        post.open = open
+        post.open = open && post.gatherDate > Date()
 
         return post
     }
