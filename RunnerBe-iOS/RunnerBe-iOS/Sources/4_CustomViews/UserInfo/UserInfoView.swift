@@ -28,6 +28,7 @@ class UserInfoView: UIView {
         ageLabel.text = userInfo.age
         ownerMark.isHidden = !userInfo.isPostOwner
         jobTagLabel.text = userInfo.job
+        badgeLabel.label.text = userInfo.diligence
 
         if let url = userInfo.profileURL,
            let profileURL = URL(string: url)
@@ -97,6 +98,8 @@ class UserInfoView: UIView {
         view.image = Asset.postOwner.uiImage
     }
 
+    private var badgeLabel = IconBadgeLabel()
+
     private var jobTagLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(
             font: .iosBody13R,
@@ -122,6 +125,7 @@ class UserInfoView: UIView {
             avatarView,
             nameLabel,
             genderDotAgeStack,
+            badgeLabel,
             jobTagLabel,
             ownerMark,
 //            hDivider,
@@ -145,9 +149,14 @@ class UserInfoView: UIView {
             make.leading.equalTo(nameLabel.snp.trailing).offset(8)
         }
 
-        jobTagLabel.snp.makeConstraints { make in
+        badgeLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.leading)
             make.top.equalTo(nameLabel.snp.bottom).offset(8)
+        }
+
+        jobTagLabel.snp.makeConstraints { make in
+            make.leading.equalTo(badgeLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(badgeLabel.snp.centerY)
         }
 
         ownerMark.snp.makeConstraints { make in

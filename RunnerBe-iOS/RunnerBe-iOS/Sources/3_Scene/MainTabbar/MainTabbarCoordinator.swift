@@ -88,6 +88,8 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
                 switch coordResult {
                 case .logout:
                     self?.closeSignal.onNext(MainTabbarResult.logout)
+                case .toMain:
+                    self?.component.sharedScene.VM.routeInputs.toHome.onNext(())
                 }
             })
 

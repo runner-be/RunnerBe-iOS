@@ -174,7 +174,7 @@ extension BookMarkViewController {
             image: Asset.bookmarkTabIconNormal.uiImage,
             selectedImage: Asset.bookmarkTabIconFocused.uiImage
         )
-        tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
     }
 
     private func gradientBackground() {

@@ -73,10 +73,8 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
                 switch coordResult {
-                case let .toHome(needUpdate):
+                case let .backward(needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
-                case .backward:
-                    break
                 }
             })
 

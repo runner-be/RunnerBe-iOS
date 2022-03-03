@@ -45,14 +45,26 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         return MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->WritingDetailPostComponent") { component in
+        return WritingDetailPostDependencyb2348cad5787e6e17e92Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent") { component in
         return WritingDetailPostDependencybef9fe2df3caa6a55869Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->SelectTimeModalComponent") { component in
+        return SelectTimeModalDependency81aed5a40c91d94b031eProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectTimeModalComponent") { component in
         return SelectTimeModalDependencyd8ded48eb82c59809282Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent") { component in
+        return WritingMainPostDependencya65ab5df0fc9f777cbeaProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent") { component in
         return WritingMainPostDependencyeba8c3d3228ba588faa8Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
+        return SelectDateModalDependency48c6d7ac20300654ff5cProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
         return SelectDateModalDependency547a4536ad6f1082ff72Provider(component: component)
@@ -288,6 +300,12 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
+    var locationService: LocationService {
+        return mainTabComponent.locationService
+    }
+    var loginService: LoginService {
+        return appComponent.loginService
+    }
     private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent
     init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
@@ -301,7 +319,7 @@ private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a
         super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
     }
 }
-private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: WritingDetailPostDependency {
+private class WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider: WritingDetailPostDependency {
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
     }
@@ -315,54 +333,78 @@ private class WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider: Writi
         self.mainTabComponent = mainTabComponent
     }
 }
-/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent
-private class WritingDetailPostDependencybef9fe2df3caa6a55869Provider: WritingDetailPostDependencybef9fe2df3caa6a55869BaseProvider {
+/// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->WritingDetailPostComponent
+private class WritingDetailPostDependencyb2348cad5787e6e17e92Provider: WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent.parent as! MainTabComponent)
     }
 }
-private class SelectTimeModalDependencyd8ded48eb82c59809282BaseProvider: SelectTimeModalDependency {
+/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent
+private class WritingDetailPostDependencybef9fe2df3caa6a55869Provider: WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+    }
+}
+private class SelectTimeModalDependency81aed5a40c91d94b031eBaseProvider: SelectTimeModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectTimeModalComponent
-private class SelectTimeModalDependencyd8ded48eb82c59809282Provider: SelectTimeModalDependencyd8ded48eb82c59809282BaseProvider {
+/// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->SelectTimeModalComponent
+private class SelectTimeModalDependency81aed5a40c91d94b031eProvider: SelectTimeModalDependency81aed5a40c91d94b031eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider: WritingMainPostDependency {
+/// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectTimeModalComponent
+private class SelectTimeModalDependencyd8ded48eb82c59809282Provider: SelectTimeModalDependency81aed5a40c91d94b031eBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider: WritingMainPostDependency {
     var locationService: LocationService {
-        return homeComponent.locationService
+        return mainTabComponent.locationService
     }
     var loginService: LoginService {
         return appComponent.loginService
     }
     private let appComponent: AppComponent
-    private let homeComponent: HomeComponent
-    init(appComponent: AppComponent, homeComponent: HomeComponent) {
+    private let mainTabComponent: MainTabComponent
+    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
         self.appComponent = appComponent
-        self.homeComponent = homeComponent
+        self.mainTabComponent = mainTabComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent
+private class WritingMainPostDependencya65ab5df0fc9f777cbeaProvider: WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent
-private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMainPostDependencyeba8c3d3228ba588faa8BaseProvider {
+private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, homeComponent: component.parent as! HomeComponent)
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
-private class SelectDateModalDependency547a4536ad6f1082ff72BaseProvider: SelectDateModalDependency {
+private class SelectDateModalDependency48c6d7ac20300654ff5cBaseProvider: SelectDateModalDependency {
 
 
     init() {
 
     }
 }
+/// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->SelectDateModalComponent
+private class SelectDateModalDependency48c6d7ac20300654ff5cProvider: SelectDateModalDependency48c6d7ac20300654ff5cBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent
-private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency547a4536ad6f1082ff72BaseProvider {
+private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency48c6d7ac20300654ff5cBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
@@ -423,17 +465,17 @@ private class PostDetailDependency0e20bfa0f3e155bd15e3Provider: PostDetailDepend
 }
 private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {
     var locationService: LocationService {
-        return homeComponent.locationService
+        return mainTabComponent.locationService
     }
-    private let homeComponent: HomeComponent
-    init(homeComponent: HomeComponent) {
-        self.homeComponent = homeComponent
+    private let mainTabComponent: MainTabComponent
+    init(mainTabComponent: MainTabComponent) {
+        self.mainTabComponent = mainTabComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent
 private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDependency4c2395ae43750f0e6394BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(homeComponent: component.parent as! HomeComponent)
+        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
 private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
@@ -445,6 +487,9 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
     }
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
+    }
+    var locationService: LocationService {
+        return mainTabComponent.locationService
     }
     private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent

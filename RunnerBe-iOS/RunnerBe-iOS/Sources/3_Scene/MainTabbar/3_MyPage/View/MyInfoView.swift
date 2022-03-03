@@ -28,6 +28,8 @@ class MyInfoView: UIView {
         genderLabel.text = config.gender
         ageLabel.text = config.age
         jobLabel.text = config.job
+        badgeLabel.label.text = config.diligence
+
         // TODO: PROFILE
         if let url = config.profileURL,
            let profileURL = URL(string: url)
@@ -42,6 +44,7 @@ class MyInfoView: UIView {
         genderLabel.text = "gender"
         ageLabel.text = "00대 ~"
         badgeLabel.label.text = "JOB"
+        badgeLabel.label.text = "~러너"
     }
 
     var avatarView = UIImageView().then { view in

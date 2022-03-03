@@ -158,6 +158,8 @@ internal enum L10n {
         internal static let apply = L10n.tr("Localizable", "Home.PostDetail.Guest.Apply")
       }
       internal enum Participant {
+        /// 신청한 러너가 없어요!
+        internal static let empty = L10n.tr("Localizable", "Home.PostDetail.Participant.empty")
         /// 신청한 러너
         internal static let title = L10n.tr("Localizable", "Home.PostDetail.Participant.title")
       }
@@ -334,6 +336,26 @@ internal enum L10n {
       internal enum NavBar {
         /// 만든 사람들
         internal static let title = L10n.tr("Localizable", "MyPage.Maker.NavBar.title")
+      }
+    }
+    internal enum MyPost {
+      internal enum Empty {
+        /// 아직 러닝에 참여하지 않았어요!
+        internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.title")
+        internal enum Button {
+          /// 참여해볼까요? 👉
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.Button.title")
+        }
+      }
+    }
+    internal enum MyRunning {
+      internal enum Empty {
+        /// 아직 모임을 만들지 않았어요!
+        internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.title")
+        internal enum Button {
+          /// 모임을 만들어볼까요? 👉
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.Button.title")
+        }
       }
     }
     internal enum Settings {

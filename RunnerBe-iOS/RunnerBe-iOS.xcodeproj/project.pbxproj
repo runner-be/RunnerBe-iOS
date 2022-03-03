@@ -2562,7 +2562,10 @@
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Runnerbe-iOS";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use Camera";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 기반으로하여 인근의 러닝 모임을 탐색하는데 사용합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로하여 인근의 러닝 모임을 탐색하는데 사용됩니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -2596,7 +2599,10 @@
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RunnerBe-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Runnerbe-iOS";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use Camera";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 기반으로하여 인근의 러닝 모임을 탐색하는데 사용합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로하여 인근의 러닝 모임을 탐색하는데 사용됩니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -63,13 +63,10 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 switch result {
                 case .succeed:
                     self?.routes.apply.onNext(())
-                    print("성공!")
                 case .fail:
                     self?.outputs.toast.onNext("다시 시도해주세요!")
-                    print("다시 시도해주세요!")
                 case .needLogin:
                     self?.outputs.toast.onNext("로그인이 필요합니다")
-                    print("로그인이 필요합니다.")
                 }
             })
             .disposed(by: disposeBag)

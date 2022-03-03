@@ -18,6 +18,7 @@ class Slider: UIControl {
             applySelectedValue(minValue, trackingType: .left)
         }
         updatePositions()
+        rightHandleFollower?.update()
     }
 
     func setSelectValue(minValue: CGFloat?, maxValue: CGFloat?) {
@@ -36,6 +37,7 @@ class Slider: UIControl {
         }
 
         updatePositions()
+        rightHandleFollower?.update()
     }
 
     init(leftHandle: SliderHandle, rightHandle: SliderHandle) {

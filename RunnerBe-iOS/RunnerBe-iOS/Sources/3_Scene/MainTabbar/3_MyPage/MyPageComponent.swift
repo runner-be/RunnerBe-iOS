@@ -11,6 +11,8 @@ import NeedleFoundation
 protocol MyPageDependency: Dependency {
     var postAPIService: PostAPIService { get }
     var loginKeyChainService: LoginKeyChainService { get }
+    var locationService: LocationService { get }
+    var loginService: LoginService { get }
 }
 
 final class MyPageComponent: Component<MyPageDependency> {
@@ -35,5 +37,9 @@ final class MyPageComponent: Component<MyPageDependency> {
 
     var settingsComponent: SettingsComponent {
         return SettingsComponent(parent: self)
+    }
+
+    var writingPostComponent: WritingMainPostComponent {
+        return WritingMainPostComponent(parent: self)
     }
 }

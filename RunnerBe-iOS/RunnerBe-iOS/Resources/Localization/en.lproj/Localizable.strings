@@ -211,12 +211,20 @@
 "Home.PostDetail.Writer.Finished" = "마감된 게시글이에요";
 
 "Home.PostDetail.Participant.title" = "신청한 러너";
+"Home.PostDetail.Participant.empty" = "신청한 러너가 없어요!";
 
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";
 
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
+
+
+// MARK: - MyPage.Post
+"MyPage.MyPost.Empty.title" = "아직 러닝에 참여하지 않았어요!";
+"MyPage.MyPost.Empty.Button.title" = "참여해볼까요? 👉";
+"MyPage.MyRunning.Empty.title" = "아직 모임을 만들지 않았어요!";
+"MyPage.MyRunning.Empty.Button.title" = "모임을 만들어볼까요? 👉";
 
 // MARK: - MyPage.EditInfo
 "MyPage.EditInfo.NavBar.title" = "내 정보 수정";

@@ -60,6 +60,10 @@ class MyPageViewController: BaseViewController {
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBags)
+
+        emptyButton.rx.tap
+            .bind(to: viewModel.inputs.emptyTap)
+            .disposed(by: disposeBags)
     }
 
     private func viewModelOutput() {
@@ -116,6 +120,26 @@ class MyPageViewController: BaseViewController {
         viewModel.outputs.posts
             .map { [MyPagePostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.posts
+            .map { $0.isEmpty }
+            .subscribe(onNext: { [weak self] empty in
+                guard let self = self else { return }
+                self.emptyLabel.isHidden = !empty
+                self.emptyButton.isHidden = !empty
+                let type = self.viewModel.outputs.postType
+
+                switch type {
+                case .attendable:
+                    self.emptyLabel.text = L10n.MyPage.MyPost.Empty.title
+                    self.emptyButton.setTitle(L10n.MyPage.MyPost.Empty.Button.title, for: .normal)
+                case .basic:
+                    self.emptyLabel.text = L10n.MyPage.MyRunning.Empty.title
+                    self.emptyButton.setTitle(L10n.MyPage.MyRunning.Empty.Button.title, for: .normal)
+                }
+
+            })
             .disposed(by: disposeBags)
 
         viewModel.outputs.userInfo
@@ -220,6 +244,18 @@ class MyPageViewController: BaseViewController {
         return collectionView
     }()
 
+    private var emptyLabel = UILabel().then { label in
+        label.font = .iosTitle19R
+        label.textColor = .darkG45
+    }
+
+    private var emptyButton = UIButton().then { button in
+        button.setTitle(L10n.MyPage.MyPost.Empty.Button.title, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.layer.borderColor = UIColor.primary.cgColor
+        button.layer.borderWidth = 1
+    }
+
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = ""
         navBar.rightBtnItem.setImage(Asset.settings.uiImage, for: .normal)
@@ -241,6 +277,11 @@ extension MyPageViewController {
             hDivider,
             hMover,
             postCollectionView,
+        ])
+
+        postCollectionView.addSubviews([
+            emptyLabel,
+            emptyButton,
         ])
     }
 
@@ -288,6 +329,19 @@ extension MyPageViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+
+        emptyLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(postCollectionView.snp.centerX)
+            make.bottom.equalTo(postCollectionView.snp.centerY).offset(-12)
+        }
+
+        emptyButton.snp.makeConstraints { make in
+            make.centerX.equalTo(postCollectionView.snp.centerX)
+            make.top.equalTo(postCollectionView.snp.centerY).offset(12)
+            make.height.equalTo(40)
+            make.width.equalTo(220)
+        }
+        emptyButton.layer.cornerRadius = 20
     }
 
     private func configureTabItem() {
@@ -296,7 +350,7 @@ extension MyPageViewController {
             image: Asset.myPageTabIconNormal.uiImage,
             selectedImage: Asset.myPageTabIconFocused.uiImage
         )
-        tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
     }
 
     private func gradientBackground() {

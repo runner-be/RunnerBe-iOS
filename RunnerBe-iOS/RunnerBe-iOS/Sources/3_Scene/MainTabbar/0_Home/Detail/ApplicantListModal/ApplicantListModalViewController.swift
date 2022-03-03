@@ -77,6 +77,11 @@ class ApplicantListModalViewController: BaseViewController {
             .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
 
+        viewModel.outputs.participants
+            .map { !$0.isEmpty }
+            .bind(to: emptyLabel.rx.isHidden)
+            .disposed(by: disposeBags)
+
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
@@ -116,6 +121,13 @@ class ApplicantListModalViewController: BaseViewController {
         return collectionView
     }()
 
+    private var emptyLabel = UILabel().then { label in
+        label.font = .iosTitle19R
+        label.text = L10n.Home.PostDetail.Participant.empty
+        label.textColor = .darkG45
+        label.isHidden = true
+    }
+
     private var finishingBtn = UIButton().then { button in
         button.setTitle(L10n.Home.PostDetail.Writer.finishing, for: .normal)
         button.setTitleColor(.darkG6, for: .normal)
@@ -137,6 +149,8 @@ extension ApplicantListModalViewController {
             collectionView,
             finishingBtn,
         ])
+
+        collectionView.addSubviews([emptyLabel])
     }
 
     private func initialLayout() {
@@ -164,6 +178,10 @@ extension ApplicantListModalViewController {
             make.height.equalTo(40)
         }
         finishingBtn.layer.cornerRadius = 20
+
+        emptyLabel.snp.makeConstraints { make in
+            make.center.equalTo(collectionView.snp.center)
+        }
     }
 
     private func gradientBackground() {

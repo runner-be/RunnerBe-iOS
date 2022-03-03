@@ -60,7 +60,7 @@ class HomeFilterViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.outputs.location
-            .take(1)
+//            .take(1)
             .subscribe(onNext: { [weak self] location in
                 self?.filterPlaceView.setMapCoord(location, animated: false)
             })
@@ -126,7 +126,10 @@ class HomeFilterViewController: BaseViewController {
         view.backgroundColor = .darkG6
     }
 
-    private var filterPlaceView = SelectPlaceView()
+    private var filterPlaceView = SelectPlaceView().then { view in
+        // 3/3 Test 반영
+        view.mapView.isZoomEnabled = true
+    }
 
     private lazy var vStackView = UIStackView.make(
         with: [

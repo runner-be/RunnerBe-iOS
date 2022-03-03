@@ -9,8 +9,7 @@ import Foundation
 import RxSwift
 
 enum WritingMainPostResult {
-    case backward
-    case toHome(Bool)
+    case backward(needUpdate: Bool)
 }
 
 final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> {
@@ -34,15 +33,13 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 switch result {
                 case .backward:
                     self?.navController.popViewController(animated: true)
-                case .toHome:
-                    self?.navController.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)
 
         scene.VM.routes.backward
             .debug()
-            .map { WritingMainPostResult.backward }
+            .map { WritingMainPostResult.backward(needUpdate: false) }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
@@ -75,10 +72,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
                 switch coordResult {
-                case let .toHome(needUpdate):
-                    self?.closeSignal.onNext(.toHome(needUpdate))
-                case .backward:
-                    break
+                case let .backward(needUpdate):
+                    self?.closeSignal.onNext(.backward(needUpdate: needUpdate))
                 }
             })
 

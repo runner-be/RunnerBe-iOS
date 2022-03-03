@@ -22,6 +22,10 @@ final class MainTabViewModel: BaseViewModel {
         inputs.myPageSelected
             .bind(to: routes.myPage)
             .disposed(by: disposeBag)
+
+        routeInputs.toHome
+            .bind(to: outputs.home)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -30,7 +34,9 @@ final class MainTabViewModel: BaseViewModel {
         var myPageSelected = PublishSubject<Void>()
     }
 
-    struct Output {}
+    struct Output {
+        var home = PublishSubject<Void>()
+    }
 
     struct Route {
         var home = PublishSubject<Void>()
@@ -38,8 +44,13 @@ final class MainTabViewModel: BaseViewModel {
         var myPage = PublishSubject<Void>()
     }
 
+    struct RouteInput {
+        var toHome = PublishSubject<Void>()
+    }
+
     private var disposeBag = DisposeBag()
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+    var routeInputs = RouteInput()
 }

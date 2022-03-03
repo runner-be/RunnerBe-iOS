@@ -44,7 +44,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
                 let message: String
                 if result.success {
-                    message = "수락 완료"
+                    message = result.accept ? "수락 완료" : "거절 완료"
                     self.applicants.removeAll(where: { $0.userID == result.id })
                     let configs = self.applicants.reduce(into: [UserConfig]()) {
                         $0.append(UserConfig(from: $1, owner: false))

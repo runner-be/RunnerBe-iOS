@@ -30,7 +30,7 @@ protocol PostAPIService {
     func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)>
     func detailInfo(postId: Int) -> Observable<DetailInfoResult>
     func apply(postId: Int) -> Observable<Bool>
-    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, success: Bool)>
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, accept: Bool, success: Bool)>
     func close(postId: Int) -> Observable<Bool>
     func myPage() -> Observable<MyPageAPIResult>
     func attendance(postId: Int) -> Observable<(postId: Int, success: Bool)>

@@ -30,7 +30,7 @@ class IconBadgeLabel: UIView {
     var padding: UIEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 7)
 
     var iconView = UIImageView().then { view in
-        view.image = Asset.profileEmptyIcon.uiImage
+        view.image = Asset.smile.uiImage
         view.snp.makeConstraints { make in
             make.height.equalTo(16)
         }

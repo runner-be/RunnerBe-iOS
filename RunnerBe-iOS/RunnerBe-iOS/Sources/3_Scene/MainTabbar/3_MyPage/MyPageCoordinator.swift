@@ -10,6 +10,7 @@ import RxSwift
 
 enum MyPageResult {
     case logout
+    case toMain
 }
 
 final class MyPageCoordinator: TabCoordinator<MyPageResult> {
@@ -45,6 +46,18 @@ final class MyPageCoordinator: TabCoordinator<MyPageResult> {
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushSettingsScene(vm: vm, animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.toMain
+            .map { MyPageResult.toMain }
+            .subscribe(closeSignal)
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.writePost
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushWritingPostScene(vm: vm, animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -94,6 +107,22 @@ final class MyPageCoordinator: TabCoordinator<MyPageResult> {
                     break
                 case .logout:
                     self?.closeSignal.onNext(MyPageResult.logout)
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    private func pushWritingPostScene(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.writingPostComponent
+        let coord = WritingMainPostCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case let .backward(needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
                 }
             })
 

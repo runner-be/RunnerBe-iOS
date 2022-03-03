@@ -39,7 +39,8 @@ final class PostDetailViewModel: BaseViewModel {
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            }
+                            },
+                            numApplicant: 0
                         )
                     )
                     self.marked = marked
@@ -53,7 +54,8 @@ final class PostDetailViewModel: BaseViewModel {
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            }
+                            },
+                            numApplicant: applicant.count
                         )
                     )
                     self.applicants = applicant
@@ -78,7 +80,8 @@ final class PostDetailViewModel: BaseViewModel {
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            }
+                            },
+                            numApplicant: 0
                         )
                     )
                     self.marked = marked
@@ -92,7 +95,8 @@ final class PostDetailViewModel: BaseViewModel {
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            }
+                            },
+                            numApplicant: applicant.count
                         )
                     )
                     self.applicants = applicant
@@ -181,7 +185,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig])>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(finished: Bool, writer: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()

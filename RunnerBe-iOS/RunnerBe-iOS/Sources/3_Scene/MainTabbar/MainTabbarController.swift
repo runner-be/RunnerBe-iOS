@@ -31,10 +31,18 @@ class MainTabViewController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private var disposeBag = DisposeBag()
     private var viewModel: MainTabViewModel
 
     private func viewModelInput() {}
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.home
+            .subscribe(onNext: { [weak self] in
+                self?.selectedIndex = 0
+                self?.viewModel.inputs.homeSelected.onNext(())
+            })
+            .disposed(by: disposeBag)
+    }
 
     private var currentTabIndex = 0
 }

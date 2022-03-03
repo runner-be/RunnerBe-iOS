@@ -221,7 +221,14 @@ final class HomeViewModel: BaseViewModel {
                     self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
                 }
             })
-            .compactMap { [weak self] _ in self?.filter }
+            .compactMap { [weak self] _ in
+                guard let self = self,
+                      let coord = locationService.currentPlace
+                else { return nil }
+                self.filter.latitude = coord.latitude
+                self.filter.longitude = coord.longitude
+                return self.filter
+            }
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
             }

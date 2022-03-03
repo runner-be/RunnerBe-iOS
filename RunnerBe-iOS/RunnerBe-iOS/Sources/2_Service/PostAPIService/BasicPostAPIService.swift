@@ -440,12 +440,12 @@ final class BasicPostAPIService: PostAPIService {
             })
     }
 
-    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, success: Bool)> {
-        let functionResult = ReplaySubject<(id: Int, success: Bool)>.create(bufferSize: 1)
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, accept: Bool, success: Bool)> {
+        let functionResult = ReplaySubject<(id: Int, accept: Bool, success: Bool)>.create(bufferSize: 1)
 
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just((id: applicantId, success: false)) }
+        else { return .just((id: applicantId, accept: accept, success: false)) }
 
         let disposable = provider.rx.request(
             .accept(
@@ -466,7 +466,7 @@ final class BasicPostAPIService: PostAPIService {
             else {
                 #if DEBUG
                     print("result == fail")
-                    functionResult.onNext((id: applicantId, success: false))
+                    functionResult.onNext((id: applicantId, accept: accept, success: false))
                 #endif
                 return nil
             }
@@ -475,7 +475,7 @@ final class BasicPostAPIService: PostAPIService {
         }
         .subscribe(onNext: { response in
             guard let response = response else {
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
                 return
             }
             #if DEBUG
@@ -483,33 +483,33 @@ final class BasicPostAPIService: PostAPIService {
             #endif
             switch response.code {
             case 1000: // 성공
-                functionResult.onNext((id: applicantId, success: true))
+                functionResult.onNext((id: applicantId, accept: accept, success: true))
             case 2010: // jwt와 userId 불일치
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2011: // userId값 필요
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2012: // userId 형식 오류
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2041: // postId 미입력
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2042: // postId 형식오류
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2044: // 인증 대기중 회원
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2065: // applicantId 미입력
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2066: // applicantId 형식오류
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2067: // 수락 권한 없음
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2068: // accept 여부 미입력
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2069: // accept 형식 오류 "Y" "D"
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             case 2070: // applicant 유저가 모임 대기상태가 아닙니다.
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             default:
-                functionResult.onNext((id: applicantId, success: false))
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
             }
         })
 

@@ -115,6 +115,7 @@ final class SelectJobGroupViewController: BaseViewController {
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
+        label.isHidden = true
     }
 
     private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in

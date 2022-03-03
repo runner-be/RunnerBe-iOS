@@ -27,9 +27,9 @@ final class MyPageViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
+                self.outputs.posts.onNext([])
 
                 switch result {
-                // TODO: post 시간 최근순을 기준으로 정렬
                 case let .success(info, posting, joined):
                     let now = DateUtil.shared.now
                     self.user = info
@@ -148,6 +148,18 @@ final class MyPageViewModel: BaseViewModel {
             }
             .bind(to: routes.editInfo)
             .disposed(by: disposeBag)
+
+        inputs.emptyTap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                switch self.outputs.postType {
+                case .attendable:
+                    self.routes.toMain.onNext(())
+                case .basic:
+                    self.routes.writePost.onNext(())
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -157,6 +169,7 @@ final class MyPageViewModel: BaseViewModel {
         var tapPost = PublishSubject<Int>()
         var bookMark = PublishSubject<Int>()
         var attend = PublishSubject<Int>()
+        var emptyTap = PublishSubject<Void>()
     }
 
     struct Output {
@@ -173,6 +186,8 @@ final class MyPageViewModel: BaseViewModel {
         var needUpdates = PublishSubject<Void>()
         var editInfo = PublishSubject<User>()
         var settings = PublishSubject<Void>()
+        var writePost = PublishSubject<Void>()
+        var toMain = PublishSubject<Void>()
     }
 
     struct RouteInput {

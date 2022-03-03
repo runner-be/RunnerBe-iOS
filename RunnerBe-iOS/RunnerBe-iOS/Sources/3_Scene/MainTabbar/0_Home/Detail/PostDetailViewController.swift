@@ -74,6 +74,7 @@ class PostDetailViewController: BaseViewController {
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
                 self?.makeFooter(writer: data.writer, applied: data.applied, finished: data.finished)
+                self?.applicantNoti.isHidden = data.numApplicant == 0
             })
             .disposed(by: disposeBags)
 
@@ -144,6 +145,20 @@ class PostDetailViewController: BaseViewController {
     var applicantBtn = UIButton().then { button in
         button.setImage(Asset.applicant.uiImage, for: .normal)
         button.isHidden = true
+        button.snp.makeConstraints { make in
+            make.width.equalTo(56)
+            make.height.equalTo(56)
+        }
+    }
+
+    var applicantNoti = UIView().then { view in
+        view.backgroundColor = .error
+        view.clipsToBounds = true
+        view.snp.makeConstraints { make in
+            make.width.equalTo(14)
+            make.height.equalTo(14)
+        }
+        view.layer.cornerRadius = 7
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -174,6 +189,8 @@ extension PostDetailViewController {
             participantHeader,
             participantView,
         ])
+
+        applicantBtn.addSubviews([applicantNoti])
     }
 
     private func initialLayout() {
@@ -232,6 +249,11 @@ extension PostDetailViewController {
             make.leading.equalTo(vStackView.snp.leading)
             make.trailing.equalTo(vStackView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-56)
+        }
+
+        applicantNoti.snp.makeConstraints { make in
+            make.trailing.equalTo(applicantBtn.snp.trailing).offset(-5)
+            make.top.equalTo(applicantBtn.snp.top).offset(5)
         }
     }
 

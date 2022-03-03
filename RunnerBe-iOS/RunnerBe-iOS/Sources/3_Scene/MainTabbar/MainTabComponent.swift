@@ -43,4 +43,8 @@ final class MainTabComponent: Component<MainTabDependency> {
     var postAPIService: PostAPIService {
         return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }
+
+    var locationService: LocationService {
+        return shared { BasicLocationService() }
+    }
 }

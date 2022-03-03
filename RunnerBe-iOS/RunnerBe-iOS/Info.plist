@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FirebaseAutomaticScreenReportingEnabled</key>
-	<false/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치를 기반으로 모임을 탐색합니다</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치를 기반으로 모임을 탐색합니다</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -48,6 +37,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>https://runnerbeios.page.link</string>
@@ -59,6 +50,11 @@
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SBAggroOTFB.otf</string>
