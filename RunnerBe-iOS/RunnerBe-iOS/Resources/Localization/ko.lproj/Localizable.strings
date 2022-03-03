@@ -190,6 +190,7 @@
 "Home.PostList.Filter.Order.NumBookMark" = "찜순";
 "Home.PostList.Filter.Order.Newest" = "최신순";
 "Home.PostList.NavBar.title" = "러너비";
+"Home.PostList.Empty.title" = "아직 진행중인 모임이 없어요";
 
 // MARK: - Post.Detail
 "Post.Detail.NavBar.title" = "게시글 작성";
@@ -228,7 +229,7 @@
 "MyPage.EditInfo.NickName.Button.NickNameChanged.title" = "등록 완료";
 "MyPage.EditInfo.NickName.Button.Apply" = "등록하기";
 "MyPage.EditInfo.NickName.Button.Cant" = "변경불가";
-"MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자";
+"MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자)";
 "MyPage.EditInfo.NickName.TextField.PlaceHolder.changed" = "김출근";
 "MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "닉네임 변경이 완료되어 추가 변경은 불가능해요";
 "MyPage.EditInfo.NickName.InfoLabel.caution" = "닉네임은 딱 한 번만 바꿀 수 있어요";

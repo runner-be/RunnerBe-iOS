@@ -308,7 +308,7 @@ internal enum L10n {
           internal enum PlaceHolder {
             /// 김출근
             internal static let changed = L10n.tr("Localizable", "MyPage.EditInfo.NickName.TextField.PlaceHolder.changed")
-            /// 8자 이내(영어 소문자/한글/숫자
+            /// 8자 이내(영어 소문자/한글/숫자)
             internal static let rule = L10n.tr("Localizable", "MyPage.EditInfo.NickName.TextField.PlaceHolder.rule")
           }
         }

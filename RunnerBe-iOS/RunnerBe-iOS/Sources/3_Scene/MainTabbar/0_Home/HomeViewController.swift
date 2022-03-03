@@ -95,6 +95,11 @@ class HomeViewController: BaseViewController {
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
+        
+        viewModel.outputs.posts
+            .map { !$0.isEmpty }
+            .subscribe(emptyLabel.rx.isHidden)
+            .disposed(by: disposeBags)
 
         viewModel.outputs.highLightFilter
             .subscribe(onNext: { [weak self] highlight in
@@ -152,6 +157,7 @@ class HomeViewController: BaseViewController {
         view.label.font = .iosBody13R
         view.label.textColor = .darkG4
         view.label.text = L10n.Home.PostList.Filter.Order.distance
+        view.isHidden = true
     }
 
     private var filterIcon = UIImageView().then { view in
@@ -164,6 +170,7 @@ class HomeViewController: BaseViewController {
         navBar.titleLabel.textColor = .primarydark
         navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
+        navBar.rightBtnItem.isHidden = true
         navBar.titleSpacing = 8
     }
 
@@ -189,6 +196,13 @@ class HomeViewController: BaseViewController {
         return collectionView
     }()
 
+    private var emptyLabel = UILabel().then { label in
+        label.font = .iosTitle19R
+        label.textColor = .darkG45
+        label.text = L10n.Home.PostList.Empty.title
+        label.isHidden = true
+    }
+    
     private var floatingButton = UIButton().then { button in
         button.setImage(Asset.floatingButton.uiImage, for: .normal)
     }
@@ -203,10 +217,11 @@ extension HomeViewController {
             navBar,
             segmentedControl,
             deadlineFilter,
-            orderFilter,
+//            orderFilter,
             filterIcon,
             postCollectionView,
             floatingButton,
+            emptyLabel
         ])
     }
 
@@ -230,14 +245,14 @@ extension HomeViewController {
             make.height.equalTo(24)
         }
 
-        orderFilter.snp.makeConstraints { make in
-            make.centerY.equalTo(filterIcon.snp.centerY)
-            make.trailing.equalTo(filterIcon.snp.leading).offset(-16)
-        }
+//        orderFilter.snp.makeConstraints { make in
+//            make.centerY.equalTo(filterIcon.snp.centerY)
+//            make.trailing.equalTo(filterIcon.snp.leading).offset(-16)
+//        }
 
         deadlineFilter.snp.makeConstraints { make in
             make.centerY.equalTo(filterIcon.snp.centerY)
-            make.trailing.equalTo(orderFilter.snp.leading).offset(-29)
+            make.trailing.equalTo(filterIcon.snp.leading).offset(-10)
         }
 
         postCollectionView.snp.makeConstraints { make in
@@ -250,6 +265,10 @@ extension HomeViewController {
         floatingButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
+        }
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.center.equalTo(postCollectionView.snp.center)
         }
     }
 

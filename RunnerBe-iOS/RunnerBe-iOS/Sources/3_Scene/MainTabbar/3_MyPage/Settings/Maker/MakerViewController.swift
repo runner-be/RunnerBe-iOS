@@ -37,31 +37,31 @@ final class MakerViewController: BaseViewController {
 
     private func viewModelOutput() {}
 
-    private var plan = MakerView().then { view in
+    private lazy var plan = MakerView().then { view in
         view.roleLabel.text = "PLAN"
         view.nameLabel.text = "김은서"
         view.imageView.image = Asset.runnerBePLAN.uiImage
     }
 
-    private var design = MakerView().then { view in
+    private lazy var design = MakerView().then { view in
         view.roleLabel.text = "DESIGN"
         view.nameLabel.text = "김서정"
         view.imageView.image = Asset.runnerBeDESIGN.uiImage
     }
 
-    private var aos = MakerView().then { view in
+    private lazy var aos = MakerView().then { view in
         view.roleLabel.text = "AOS"
         view.nameLabel.text = "지성빈"
         view.imageView.image = Asset.runnerBeAOS.uiImage
     }
 
-    private var ios = MakerView().then { view in
+    private lazy var ios = MakerView().then { view in
         view.roleLabel.text = "iOS"
         view.nameLabel.text = "김신우"
         view.imageView.image = Asset.runnerBeIOS.uiImage
     }
 
-    private var server = MakerView().then { view in
+    private lazy var server = MakerView().then { view in
         view.roleLabel.text = "SERVER"
         view.nameLabel.text = "박찬호"
         view.imageView.image = Asset.runnerBeServer.uiImage
@@ -72,7 +72,7 @@ final class MakerViewController: BaseViewController {
         axis: .vertical,
         alignment: .center,
         distribution: .equalSpacing,
-        spacing: 40
+        spacing: 20
     )
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -107,6 +107,31 @@ extension MakerViewController {
         vStack.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
+        }
+
+        plan.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.width.equalTo(plan.snp.height)
+        }
+
+        design.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.width.equalTo(design.snp.height)
+        }
+
+        aos.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.width.equalTo(aos.snp.height)
+        }
+
+        ios.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.width.equalTo(ios.snp.height)
+        }
+
+        server.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.width.equalTo(server.snp.height)
         }
     }
 

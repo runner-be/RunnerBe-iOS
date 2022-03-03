@@ -71,6 +71,7 @@ class PostDetailViewController: BaseViewController {
                     view.setup(userInfo: $1)
                     $0.append(view)
                 }
+                self?.navBar.rightBtnItem.isHidden = data.writer
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)

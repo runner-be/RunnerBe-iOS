@@ -27,10 +27,6 @@ class MakerView: UIView {
     var imageView = UIImageView().then { view in
         view.image = Asset.profileEmptyIcon.uiImage
         view.contentMode = .scaleAspectFit
-        view.snp.makeConstraints { make in
-            make.width.equalTo(84)
-            make.height.equalTo(84)
-        }
     }
 
     var roleLabel = UILabel().then { label in
@@ -62,14 +58,12 @@ class MakerView: UIView {
 
         roleLabel.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(16)
-            make.top.equalTo(imageView.snp.top).offset(20)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
+            make.bottom.equalTo(imageView.snp.centerY).offset(-2)
         }
 
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(roleLabel.snp.leading)
-            make.top.equalTo(roleLabel.snp.bottom).offset(4)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
+            make.top.equalTo(imageView.snp.centerY).offset(2)
         }
     }
 }
