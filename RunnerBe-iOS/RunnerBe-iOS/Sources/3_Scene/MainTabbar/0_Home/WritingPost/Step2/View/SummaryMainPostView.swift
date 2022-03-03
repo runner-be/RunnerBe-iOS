@@ -24,7 +24,7 @@ class SummaryMainPostView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with data: PostMainData) {
+    func configure(with data: WritingPostDetailConfigData) {
         badgeLabel.text = data.tag
         titleLabel.text = data.title
         dateLabel.label.text = data.date

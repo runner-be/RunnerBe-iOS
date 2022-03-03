@@ -9,11 +9,16 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-typealias PostMainData = (tag: String, title: String, date: String, time: String, location: CLLocationCoordinate2D, placeInfo: String)
+struct WritingPostMainViewInputData {
+    let tag: Int
+    let title: String
+    let date: String
+    let time: String
+    let location: CLLocationCoordinate2D
+    let placeInfo: String
+}
 
 final class WritingMainPostViewModel: BaseViewModel {
-    typealias ViewInputData = (tag: Int, title: String, date: String, time: String, location: CLLocationCoordinate2D, placeInfo: String)
-
     private var locationService: LocationService
 
     init(locationService: LocationService) {
@@ -40,29 +45,48 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.next
-            .do(onNext: { [weak self] inputData in
+            .compactMap { [weak self] inputData in
                 if inputData == nil {
                     self?.outputs.toast.onNext("데이터 처리에 실패하였습니다.")
-                    return
+                    return nil
                 }
 
                 if inputData!.title.isEmpty {
                     self?.outputs.toast.onNext("제목을 입력해주세요")
+                    return nil
                 }
 
                 if inputData!.date.isEmpty {
                     self?.outputs.toast.onNext("일시를 입력해주세요")
+                    return nil
+                }
+
+                if let date = DateUtil.shared.getDate(from: inputData!.date, format: .mdeahhmmSpacing) {
+                    if Date() > date {
+                        self?.outputs.toast.onNext("이미 지난 날짜 입니다.")
+                        return nil
+                    }
+                } else {
+                    self?.outputs.toast.onNext("날짜 형식이 올바르지 않습니다.")
+                    return nil
                 }
 
                 if inputData!.time.isEmpty {
                     self?.outputs.toast.onNext("소요시간을 입력해주세요")
+                    return nil
                 }
-            })
-            .compactMap { $0 }
-            .filter { RunningTag.isValid($0.tag) && !$0.title.isEmpty && !$0.date.isEmpty && !$0.time.isEmpty }
 
-            .map {
-                (RunningTag.allCases[$0.tag].name, $0.title, $0.date, $0.time, $0.location, $0.placeInfo)
+                return inputData!
+            }
+            .map { (inputData: WritingPostMainViewInputData) -> WritingPostDetailConfigData in
+                WritingPostDetailConfigData(
+                    tag: RunningTag.allCases[inputData.tag].name,
+                    title: inputData.title,
+                    date: inputData.date,
+                    time: inputData.time,
+                    location: inputData.location,
+                    placeInfo: inputData.placeInfo
+                )
             }
             .bind(to: routes.next)
             .disposed(by: disposeBag)
@@ -104,7 +128,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
-        var next = PublishSubject<ViewInputData?>()
+        var next = PublishSubject<WritingPostMainViewInputData?>()
         var locationChanged = PublishSubject<CLLocationCoordinate2D>()
     }
 
@@ -121,7 +145,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
-        var next = PublishSubject<PostMainData>()
+        var next = PublishSubject<WritingPostDetailConfigData>()
     }
 
     struct RouteInput {

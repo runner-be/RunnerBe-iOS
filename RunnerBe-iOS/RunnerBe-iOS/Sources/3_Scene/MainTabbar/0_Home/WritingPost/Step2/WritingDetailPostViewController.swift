@@ -51,7 +51,13 @@ class WritingDetailPostViewController: BaseViewController {
                     self.selectAgeView.slider.maxValue : self.selectAgeView.slider.selectedMaxValue
                 let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
                 let content = self.selectTextContentView.textField.text ?? ""
-                return (genderIdx, Int(ageMin), Int(ageMax), numPerson, content)
+                return WritingPostDetailViewInputData(
+                    gender: genderIdx,
+                    ageMin: Int(ageMin),
+                    ageMax: Int(ageMax),
+                    numPerson: numPerson,
+                    textContent: content
+                )
             }
             .subscribe(viewModel.inputs.posting)
             .disposed(by: disposeBags)

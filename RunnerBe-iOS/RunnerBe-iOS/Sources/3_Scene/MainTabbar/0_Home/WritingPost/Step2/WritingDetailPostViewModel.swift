@@ -9,12 +9,27 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-final class WritingDetailPostViewModel: BaseViewModel {
-    typealias ViewInputData = (gender: Int, ageMin: Int, ageMax: Int, numPerson: Int, textContent: String)
+struct WritingPostDetailConfigData {
+    let tag: String
+    let title: String
+    let date: String
+    let time: String
+    let location: CLLocationCoordinate2D
+    let placeInfo: String
+}
 
+struct WritingPostDetailViewInputData {
+    let gender: Int
+    let ageMin: Int
+    let ageMax: Int
+    let numPerson: Int
+    let textContent: String
+}
+
+final class WritingDetailPostViewModel: BaseViewModel {
     private var mainPageAPIService: PostAPIService
 
-    init(mainPostData: PostMainData, postAPIService: PostAPIService) {
+    init(mainPostData: WritingPostDetailConfigData, postAPIService: PostAPIService) {
         mainPageAPIService = postAPIService
         super.init()
 
@@ -78,11 +93,11 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     struct Input {
         var backward = PublishSubject<Void>()
-        var posting = PublishSubject<ViewInputData?>()
+        var posting = PublishSubject<WritingPostDetailViewInputData?>()
     }
 
     struct Output {
-        var mainPostData = ReplaySubject<PostMainData>.create(bufferSize: 1)
+        var mainPostData = ReplaySubject<WritingPostDetailConfigData>.create(bufferSize: 1)
         var toast = PublishSubject<String>()
     }
 

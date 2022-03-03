@@ -43,7 +43,7 @@ class WritingMainPostViewController: BaseViewController {
             .disposed(by: disposeBags)
 
         navBar.rightBtnItem.rx.tap
-            .map { [weak self] _ -> WritingMainPostViewModel.ViewInputData? in
+            .map { [weak self] _ -> WritingPostMainViewInputData? in
                 guard let self = self else { return nil }
                 let tag = self.segmentedControl.selectedItem
                 let title = self.writeTitleView.textField.text ?? ""
@@ -51,7 +51,14 @@ class WritingMainPostViewController: BaseViewController {
                 let time = self.writeTimeView.iconTextButtonGroup.titleLabel.text ?? ""
                 let coord = self.writePlaceView.mapView.centerCoordinate
                 let placeInfo = self.writePlaceView.placeLabel.text
-                return (tag, title, date, time, coord, placeInfo)
+                return WritingPostMainViewInputData(
+                    tag: tag,
+                    title: title,
+                    date: date,
+                    time: time,
+                    location: coord,
+                    placeInfo: placeInfo
+                )
             }
             .bind(to: viewModel.inputs.next)
             .disposed(by: disposeBags)

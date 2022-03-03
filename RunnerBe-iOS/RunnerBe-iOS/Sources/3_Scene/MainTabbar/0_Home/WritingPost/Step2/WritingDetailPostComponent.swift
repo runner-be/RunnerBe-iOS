@@ -23,10 +23,10 @@ final class WritingDetailPostComponent: Component<WritingDetailPostDependency> {
         return WritingDetailPostViewModel(mainPostData: postMainData, postAPIService: dependency.postAPIService)
     }
 
-    init(parent: Scope, postMainData: PostMainData) {
+    init(parent: Scope, postMainData: WritingPostDetailConfigData) {
         self.postMainData = postMainData
         super.init(parent: parent)
     }
 
-    var postMainData: PostMainData
+    var postMainData: WritingPostDetailConfigData
 }

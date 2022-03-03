@@ -31,7 +31,7 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
         return SelectDateModalComponent(parent: self)
     }
 
-    func BuildWritingDetailPostComponent(with data: PostMainData) -> WritingDetailPostComponent {
+    func BuildWritingDetailPostComponent(with data: WritingPostDetailConfigData) -> WritingDetailPostComponent {
         return WritingDetailPostComponent(parent: self, postMainData: data)
     }
 }

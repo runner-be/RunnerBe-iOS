@@ -64,7 +64,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: disposeBag)
     }
 
-    private func pushWritingDetailPost(data: PostMainData, animated _: Bool) {
+    private func pushWritingDetailPost(data: WritingPostDetailConfigData, animated _: Bool) {
         let comp = component.BuildWritingDetailPostComponent(with: data)
         let coord = WritingDetailPostCoordinator(component: comp, navController: navController)
 
@@ -72,8 +72,10 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
                 switch coordResult {
-                case let .backward(needUpdate):
-                    self?.closeSignal.onNext(.backward(needUpdate: needUpdate))
+                case .backward:
+                    break
+                case let .apply:
+                    self?.closeSignal.onNext(.backward(needUpdate: true))
                 }
             })
 

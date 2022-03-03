@@ -9,7 +9,8 @@ import Foundation
 import RxSwift
 
 enum WritingDetailPostResult {
-    case backward(needUpdate: Bool)
+    case backward
+    case apply
 }
 
 final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResult> {
@@ -36,12 +37,12 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
             .disposed(by: disposeBag)
 
         scene.VM.routes.backward
-            .map { WritingDetailPostResult.backward(needUpdate: false) }
+            .map { WritingDetailPostResult.backward }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
         scene.VM.routes.apply
-            .map { WritingDetailPostResult.backward(needUpdate: true) }
+            .map { WritingDetailPostResult.apply }
             .bind(to: closeSignal)
             .disposed(by: disposeBag)
     }
