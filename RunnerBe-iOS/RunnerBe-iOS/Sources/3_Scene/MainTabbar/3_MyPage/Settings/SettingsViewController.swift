@@ -10,6 +10,7 @@ import RxCocoa
 import RxDataSources
 import RxGesture
 import RxSwift
+import SafariServices
 import SnapKit
 import Then
 import UIKit
@@ -76,6 +77,16 @@ class SettingsViewController: BaseViewController {
                 }
             }
             .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBags)
+
+        viewModel.routes.instagram
+            .subscribe(onNext: { [weak self] in
+                guard let self = self,
+                      let instaURL = URL(string: "https://www.instagram.com/runner._.be/?hl=ko")
+                else { return }
+                let instaSafariView = SFSafariViewController(url: instaURL)
+                self.present(instaSafariView, animated: true, completion: nil)
+            })
             .disposed(by: disposeBags)
     }
 
