@@ -33,8 +33,8 @@
         var disposeBag = DisposeBag()
         var viewModel: LicenseViewModel?
         var navBar = RunnerbeNavBar().then { navBar in
-            navBar.backgroundColor = .systemBackground
-            navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.label), for: .normal)
+            navBar.backgroundColor = .bgTop
+            navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
             navBar.rightBtnItem.isHidden = true
             navBar.rightSecondBtnItem.isHidden = true
         }
@@ -446,7 +446,7 @@
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let identifier = String(describing: UITableViewCell.self)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-
+            cell.backgroundColor = .darkG3
             if let acknowledgement = acknowledgements[(indexPath as NSIndexPath).row] as Acknow?,
                let textLabel = cell.textLabel as UILabel?
             {
@@ -485,12 +485,16 @@
         public func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
             return UITableView.automaticDimension
         }
+
+        override var preferredStatusBarStyle: UIStatusBarStyle {
+            .lightContent
+        }
     }
 
     extension LicenseViewController {
         func setupView() {
-            view.backgroundColor = .systemBackground
-            tableView.backgroundColor = .systemBackground
+            view.backgroundColor = .bgTop
+            tableView.backgroundColor = .bgTop
             view.addSubviews([navBar, tableView])
 
             navBar.snp.makeConstraints { make in
@@ -500,7 +504,7 @@
             }
 
             tableView.snp.makeConstraints { make in
-                make.top.equalTo(navBar.snp.bottom).offset(8)
+                make.top.equalTo(navBar.snp.bottom).offset(5)
                 make.leading.equalTo(view.snp.leading)
                 make.trailing.equalTo(view.snp.trailing)
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)

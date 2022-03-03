@@ -41,8 +41,10 @@
         var textView = UITextView()
 
         var navBar = RunnerbeNavBar().then { navBar in
-            navBar.backgroundColor = .systemBackground
-            navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.label), for: .normal)
+            navBar.backgroundColor = .bgTop
+            navBar.titleLabel.textColor = .darkG35
+            navBar.titleLabel.font = .iosBody17Sb
+            navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
             navBar.rightBtnItem.isHidden = true
             navBar.rightSecondBtnItem.isHidden = true
         }
@@ -54,7 +56,7 @@
 
         public init(acknowledgement: Acknow) {
             super.init(nibName: nil, bundle: nil)
-
+            navBar.titleLabel.text = acknowledgement.title
             title = acknowledgement.title
             self.acknowledgement = acknowledgement
         }
@@ -75,9 +77,12 @@
         /// Called after the controller's view is loaded into memory.
         override open func viewDidLoad() {
             super.viewDidLoad()
-            view.backgroundColor = .systemBackground
+            view.backgroundColor = .bgTop
+            textView.backgroundColor = .darkG55
+            textView.textColor = .darkG3
             view.addSubview(navBar)
             view.addSubview(textView)
+            textView.isEditable = false
 
             navBar.snp.makeConstraints { make in
                 make.top.equalTo(view.safeAreaLayoutGuide
@@ -87,9 +92,9 @@
             }
 
             textView.snp.makeConstraints { make in
-                make.top.equalTo(navBar.snp.bottom)
-                make.leading.equalTo(view.snp.leading).offset(8)
-                make.trailing.equalTo(view.snp.trailing).offset(-8)
+                make.top.equalTo(navBar.snp.bottom).offset(5)
+                make.leading.equalTo(view.snp.leading)
+                make.trailing.equalTo(view.snp.trailing)
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             }
 
@@ -108,6 +113,10 @@
             if let acknowledgement = acknowledgement {
                 textView.text = acknowledgement.text
             }
+        }
+
+        override open var preferredStatusBarStyle: UIStatusBarStyle {
+            .lightContent
         }
     }
 

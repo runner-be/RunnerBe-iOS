@@ -95,7 +95,7 @@ class HomeViewController: BaseViewController {
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBags)
-        
+
         viewModel.outputs.posts
             .map { !$0.isEmpty }
             .subscribe(emptyLabel.rx.isHidden)
@@ -202,7 +202,7 @@ class HomeViewController: BaseViewController {
         label.text = L10n.Home.PostList.Empty.title
         label.isHidden = true
     }
-    
+
     private var floatingButton = UIButton().then { button in
         button.setImage(Asset.floatingButton.uiImage, for: .normal)
     }
@@ -221,7 +221,7 @@ extension HomeViewController {
             filterIcon,
             postCollectionView,
             floatingButton,
-            emptyLabel
+            emptyLabel,
         ])
     }
 
@@ -266,7 +266,7 @@ extension HomeViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
             make.trailing.equalTo(view.snp.trailing).offset(-14)
         }
-        
+
         emptyLabel.snp.makeConstraints { make in
             make.center.equalTo(postCollectionView.snp.center)
         }

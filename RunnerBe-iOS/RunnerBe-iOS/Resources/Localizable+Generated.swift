@@ -181,6 +181,10 @@ internal enum L10n {
           internal static let closed = L10n.tr("Localizable", "Home.PostList.Cell.Cover.Closed")
         }
       }
+      internal enum Empty {
+        /// 아직 진행중인 모임이 없어요
+        internal static let title = L10n.tr("Localizable", "Home.PostList.Empty.title")
+      }
       internal enum Filter {
         internal enum CheckBox {
           /// 마감 포함
