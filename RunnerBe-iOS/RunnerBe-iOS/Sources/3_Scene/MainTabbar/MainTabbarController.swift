@@ -48,21 +48,23 @@ class MainTabViewController: UITabBarController {
 }
 
 extension MainTabViewController: UITabBarControllerDelegate {
-    override func tabBar(_: UITabBar, didSelect item: UITabBarItem) {
-        guard let idx = tabBar.items?.firstIndex(where: { $0 === item })
-        else { return }
-
-        if currentTabIndex != idx {
-            switch idx {
-            case 0:
-                viewModel.inputs.homeSelected.onNext(())
-            case 1:
-                viewModel.inputs.bookMarkSelected.onNext(())
-            case 2:
-                viewModel.inputs.myPageSelected.onNext(())
-            default: break
+    func tabBarController(_ tabBarController: UITabBarController, didSelect _: UIViewController) {
+        let selectedIdx = tabBarController.selectedIndex
+        if viewModel.outputs.certificated {
+            if currentTabIndex != selectedIdx {
+                switch selectedIdx {
+                case 0:
+                    viewModel.inputs.homeSelected.onNext(())
+                case 1:
+                    viewModel.inputs.bookMarkSelected.onNext(())
+                case 2:
+                    viewModel.inputs.myPageSelected.onNext(())
+                default: break
+                }
             }
-            currentTabIndex = idx
+        } else {
+            selectedIndex = 0
+            viewModel.inputs.showOnboardingCover.onNext(())
         }
     }
 }

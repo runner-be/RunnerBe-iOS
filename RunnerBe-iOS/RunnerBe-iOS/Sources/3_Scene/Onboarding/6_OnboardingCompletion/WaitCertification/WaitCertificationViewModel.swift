@@ -13,7 +13,6 @@ final class WaitCertificationViewModel: BaseViewModel {
         super.init()
 
         inputs.tapToMain
-            .map { false }
             .subscribe(routes.toMain)
             .disposed(by: disposeBag)
     }
@@ -24,7 +23,7 @@ final class WaitCertificationViewModel: BaseViewModel {
 
     struct Output {}
     struct Route {
-        let toMain = PublishSubject<Bool>()
+        let toMain = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

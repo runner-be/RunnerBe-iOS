@@ -31,6 +31,7 @@ final class LoggedOutViewModel: BaseViewModel {
                 case .memberWaitCertification:
                     self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
+                    print("KAKAO UUID \(uuid)")
                     self?.signupKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
@@ -50,6 +51,7 @@ final class LoggedOutViewModel: BaseViewModel {
                 case .memberWaitCertification:
                     self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
+                    print("NAVER UUID \(uuid)")
                     self?.signupKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
@@ -72,6 +74,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     print("LoginWithApple nonMember")
+                    print("APPLE UUID \(uuid)")
                     self?.signupKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:

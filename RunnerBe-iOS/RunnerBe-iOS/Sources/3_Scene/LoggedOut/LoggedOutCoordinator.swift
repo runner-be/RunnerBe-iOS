@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum LoggedOutResult {
-    case loginSuccess(isCertificated: Bool)
+    case loginSuccess
 }
 
 final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
@@ -39,48 +39,14 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
             .disposed(by: disposeBag)
 
         scene.VM.routes.nonMember
-            .subscribe(onNext: { [weak self] in
-                self?.pushPolicyTerm(animated: true)
-            })
+            .map { LoggedOutResult.loginSuccess }
+            .bind(to: closeSignal)
             .disposed(by: disposeBag)
 
         scene.VM.routes.loginSuccess
-            .subscribe(onNext: { [weak self] isCertificated in
-                self?.closeSignal.onNext(.loginSuccess(isCertificated: isCertificated))
+            .subscribe(onNext: { [weak self] _ in
+                self?.closeSignal.onNext(.loginSuccess)
             })
             .disposed(by: disposeBag)
-    }
-
-    // MARK: Private
-
-    private func pushPolicyTerm(animated: Bool) {
-        let comp = component.policyTermComponent
-        let coord = PolicyTermCoordinator(component: comp, navController: navController)
-
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
-                switch coordResult {
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.loginSuccess(isCertificated: certificated))
-                case .backward, .cancelOnboarding:
-                    break
-                }
-            })
-
-        addChildBag(id: coord.id, disposable: disposable)
-    }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childs["PolicyTermCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushPolicyTerm(animated: false)
-                childs["PolicyTermCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
     }
 }

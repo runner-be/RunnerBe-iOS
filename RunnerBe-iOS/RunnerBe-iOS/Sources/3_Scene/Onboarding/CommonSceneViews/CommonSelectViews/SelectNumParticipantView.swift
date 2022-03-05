@@ -32,7 +32,7 @@ class SelectNumParticipantView: SelectBaseView {
             .subscribe(onNext: { [weak self] in
                 guard let self = self
                 else { return }
-                var newNum = self.curNum - 1
+                let newNum = self.curNum - 1
                 self.plusBtn.isEnabled = true
                 self.errorLabel.isHidden = newNum > 2
                 self.minusBtn.isEnabled = newNum > 2
@@ -52,7 +52,7 @@ class SelectNumParticipantView: SelectBaseView {
             .subscribe(onNext: { [weak self] in
                 guard let self = self
                 else { return }
-                var newNum = self.curNum + 1
+                let newNum = self.curNum + 1
                 self.minusBtn.isEnabled = true
                 self.errorLabel.isHidden = newNum < self.maxNumber
                 self.plusBtn.isEnabled = newNum < self.maxNumber

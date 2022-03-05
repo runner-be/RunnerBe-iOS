@@ -74,7 +74,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 switch coordResult {
                 case .backward:
                     break
-                case let .apply:
+                case .apply:
                     self?.closeSignal.onNext(.backward(needUpdate: true))
                 }
             })

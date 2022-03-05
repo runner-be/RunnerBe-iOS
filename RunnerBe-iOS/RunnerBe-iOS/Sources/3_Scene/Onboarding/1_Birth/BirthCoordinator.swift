@@ -11,7 +11,7 @@ import RxSwift
 enum BirthResult {
     case cancelOnboarding
     case backward
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class BirthCoordinator: BasicCoordinator<BirthResult> {
@@ -78,8 +78,8 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case .toMain:
+                    self?.closeSignal.onNext(.toMain)
                 case .backward: break
                 }
             })

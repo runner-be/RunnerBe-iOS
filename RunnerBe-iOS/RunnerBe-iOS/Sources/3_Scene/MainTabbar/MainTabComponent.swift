@@ -14,19 +14,12 @@ protocol MainTabDependency: Dependency {
 }
 
 final class MainTabComponent: Component<MainTabDependency> {
-    var sharedScene: (VC: MainTabViewController, VM: MainTabViewModel) {
-        shared {
-            let viewModel = viewModel
-            return (
-                VC: MainTabViewController(viewModel: viewModel),
-                VM: viewModel
-            )
-        }
-    }
+    lazy var scene: (VC: MainTabViewController, VM: MainTabViewModel) = (
+        VC: MainTabViewController(viewModel: viewModel),
+        VM: viewModel
+    )
 
-    var viewModel: MainTabViewModel {
-        return MainTabViewModel()
-    }
+    lazy var viewModel: MainTabViewModel = .init(loginKeyChainService: dependency.loginKeyChainService)
 
     var homeComponent: HomeComponent {
         return HomeComponent(parent: self)
@@ -38,6 +31,10 @@ final class MainTabComponent: Component<MainTabDependency> {
 
     var myPageComponent: MyPageComponent {
         return MyPageComponent(parent: self)
+    }
+
+    var onboardingCoverComponent: OnboardingCoverComponent {
+        return OnboardingCoverComponent(parent: self)
     }
 
     var postAPIService: PostAPIService {

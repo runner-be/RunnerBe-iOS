@@ -13,12 +13,12 @@ enum MainTabbarResult {
     case logout
 }
 
-final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
+final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     // MARK: Lifecycle
 
     init(component: MainTabComponent, navController: UINavigationController) {
         self.component = component
-        super.init(tabController: component.sharedScene.VC, navController: navController)
+        super.init(navController: navController)
     }
 
     // MARK: Internal
@@ -32,74 +32,115 @@ final class MainTabbarCoordinator: TabCoordinator<MainTabbarResult> {
     // MARK: Private
 
     private func startTabbarController() {
+        let scene = component.scene
         UITabBar.appearance().backgroundColor = UIColor.darkG6
-        tabController.setColors(
+        scene.VC.setColors(
             iconNormal: UIColor.darkG35,
             selected: UIColor.primary
         )
 
-        tabController.viewControllers = [
-            configureAndGetHomeScene(),
-            configureAndGetBookMarkScene(),
-            configureAndGetMyPageScene(),
+        scene.VC.viewControllers = [
+            configureAndGetHomeScene(vm: scene.VM),
+            configureAndGetBookMarkScene(vm: scene.VM),
+            configureAndGetMyPageScene(vm: scene.VM),
         ]
 
-        navController.pushViewController(tabController, animated: false)
+        navController.pushViewController(scene.VC, animated: false)
+
+        closeSignal.subscribe(onNext: { [weak self] _ in
+            self?.navController.popViewController(animated: false)
+        })
+        .disposed(by: disposeBag)
+
+        scene.VM.routes.onboardingCover
+            .debug()
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentOnboaradingCover(vm: vm, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
 
-    private func configureAndGetHomeScene() -> UIViewController {
+    private func configureAndGetHomeScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.homeComponent
-        let coord = HomeCoordinator(component: comp, tabController: tabController, navController: navController)
+        let coord = HomeCoordinator(component: comp, navController: navController)
 
         coordinate(coordinator: coord, animated: false)
 
-        component.sharedScene.VM.routes.home
+        vm.routes.home
             .subscribe(onNext: {
-                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+                comp.viewModel.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: disposeBag)
 
-        return comp.sharedScene.VC
+        return comp.scene.VC
     }
 
-    private func configureAndGetBookMarkScene() -> UIViewController {
+    private func configureAndGetBookMarkScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.bookmarkComponent
-        let coord = BookMarkCoordinator(component: comp, tabController: tabController, navController: navController)
+        let coord = BookMarkCoordinator(component: comp, navController: navController)
 
         coordinate(coordinator: coord, animated: false)
 
-        component.sharedScene.VM.routes.bookmark
+        vm.routes.bookmark
             .subscribe(onNext: {
-                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+                comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: disposeBag)
 
-        return comp.sharedScene.VC
+        return comp.scene.VC
     }
 
-    private func configureAndGetMyPageScene() -> UIViewController {
+    private func configureAndGetMyPageScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.myPageComponent
-        let coord = MyPageCoordinator(component: comp, tabController: tabController, navController: navController)
+        let coord = MyPageCoordinator(component: comp, navController: navController)
 
         let disposable = coordinate(coordinator: coord, animated: false)
-            .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
                 switch coordResult {
                 case .logout:
                     self?.closeSignal.onNext(MainTabbarResult.logout)
+                    self?.release()
                 case .toMain:
-                    self?.component.sharedScene.VM.routeInputs.toHome.onNext(())
+                    vm.routeInputs.toHome.onNext(())
                 }
             })
 
-        component.sharedScene.VM.routes.myPage
+        vm.routes.myPage
             .subscribe(onNext: {
-                comp.sharedScene.VM.routeInputs.needUpdate.onNext(true)
+                comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: disposeBag)
 
         addChildBag(id: coord.id, disposable: disposable)
-        return comp.sharedScene.VC
+        return comp.scene.VC
+    }
+
+    private func presentOnboaradingCover(vm: MainTabViewModel, animated: Bool) {
+        let comp = component.onboardingCoverComponent
+        let coord = OnboardingCoverCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case .toMain:
+                    vm.routeInputs.onboardingCoverClosed.onNext(())
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    override func handleDeepLink(type: DeepLinkType) {
+        switch type {
+        case .emailCertification:
+            if let coord = childs["OnboardingCoverCoordinator"] {
+                coord.handleDeepLink(type: type)
+            } else {
+                presentOnboaradingCover(vm: component.scene.VM, animated: false)
+                childs["OnboardingCoverCoordinator"]!.handleDeepLink(type: type)
+            }
+        }
     }
 }

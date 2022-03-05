@@ -56,9 +56,12 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
             }
         }
     }
+
+    var certificated: Bool = false
 }
 
 private extension KeychainWrapper.Key {
     static let loginTokenKey: KeychainWrapper.Key = "LoginTokenKey"
     static let userId: KeychainWrapper.Key = "SignupInfo.uuid"
+    static let certificated: KeychainWrapper.Key = "UserCertificated"
 }

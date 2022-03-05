@@ -477,6 +477,24 @@ internal enum L10n {
     }
   }
 
+  internal enum Onboard {
+    internal enum Cover {
+      /// 나를 더 알려주면
+      /// 모임에 참여할 수 있어요!
+      internal static let title = L10n.tr("Localizable", "Onboard.Cover.Title")
+      internal enum Button {
+        internal enum LookAround {
+          /// 지금은 둘러보기만 할게요
+          internal static let title = L10n.tr("Localizable", "Onboard.Cover.Button.LookAround.title")
+        }
+        internal enum Onboard {
+          /// 나에 대해 알려주기
+          internal static let title = L10n.tr("Localizable", "Onboard.Cover.Button.Onboard.title")
+        }
+      }
+    }
+  }
+
   internal enum Onboarding {
     internal enum Modal {
       internal enum Cancel {

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum WaitCertificationResult {
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class WaitCertificationCoordinator: BasicCoordinator<WaitCertificationResult> {
@@ -37,7 +37,7 @@ final class WaitCertificationCoordinator: BasicCoordinator<WaitCertificationResu
             .disposed(by: disposeBag)
 
         scene.VM.routes.toMain
-            .map { .toMain(certificated: $0) }
+            .map { .toMain }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)
     }

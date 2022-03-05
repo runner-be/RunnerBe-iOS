@@ -13,12 +13,12 @@ enum MyPageResult {
     case toMain
 }
 
-final class MyPageCoordinator: TabCoordinator<MyPageResult> {
+final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     // MARK: Lifecycle
 
-    init(component: MyPageComponent, tabController: UITabBarController, navController: UINavigationController) {
+    init(component: MyPageComponent, navController: UINavigationController) {
         self.component = component
-        super.init(tabController: tabController, navController: navController)
+        super.init(navController: navController)
     }
 
     // MARK: Internal
@@ -26,7 +26,7 @@ final class MyPageCoordinator: TabCoordinator<MyPageResult> {
     var component: MyPageComponent
 
     override func start(animated _: Bool = true) {
-        let scene = component.sharedScene
+        let scene = component.scene
 
         scene.VM.routes.editInfo
             .map { (vm: scene.VM, user: $0) }

@@ -16,16 +16,9 @@ protocol MyPageDependency: Dependency {
 }
 
 final class MyPageComponent: Component<MyPageDependency> {
-    var sharedScene: (VC: MyPageViewController, VM: MyPageViewModel) {
-        return shared {
-            let viewModel = viewModel
-            return (VC: MyPageViewController(viewModel: viewModel), VM: viewModel)
-        }
-    }
+    lazy var scene: (VC: MyPageViewController, VM: MyPageViewModel) = (VC: MyPageViewController(viewModel: viewModel), VM: viewModel)
 
-    var viewModel: MyPageViewModel {
-        return MyPageViewModel(postAPIService: dependency.postAPIService)
-    }
+    lazy var viewModel: MyPageViewModel = .init(postAPIService: dependency.postAPIService)
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(parent: self, postId: postId)

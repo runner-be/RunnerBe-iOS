@@ -9,17 +9,19 @@ import Foundation
 import SwiftyJSON
 
 enum SignupAPIResult {
-    case succeed(token: String)
+    case succeed(token: String, userId: Int)
     case error(Int)
 }
 
 extension SignupAPIResult {
     init(json: JSON, code: Int) {
-        guard let token = json["result"].string
+        let resultJSON = json["result"]
+        guard let token = resultJSON["token"].string,
+              let userID = resultJSON["insertedUserId"].int
         else {
             self = .error(code)
             return
         }
-        self = .succeed(token: token)
+        self = .succeed(token: token, userId: userID)
     }
 }

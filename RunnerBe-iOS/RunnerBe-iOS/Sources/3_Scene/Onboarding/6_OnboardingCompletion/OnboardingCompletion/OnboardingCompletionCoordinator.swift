@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum OnboardingCompletionResult {
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompletionResult> {
@@ -37,7 +37,7 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
             .disposed(by: disposeBag)
 
         scene.VM.routes.toMain
-            .map { .toMain(certificated: $0) }
+            .map { OnboardingCompletionResult.toMain }
             .subscribe(closeSignal)
             .disposed(by: disposeBag)
     }

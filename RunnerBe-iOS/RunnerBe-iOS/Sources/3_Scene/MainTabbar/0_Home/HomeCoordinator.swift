@@ -11,12 +11,12 @@ import UIKit
 
 protocol HomeResult {}
 
-final class HomeCoordinator: TabCoordinator<HomeResult> {
+final class HomeCoordinator: BasicCoordinator<HomeResult> {
     // MARK: Lifecycle
 
-    init(component: HomeComponent, tabController: UITabBarController, navController: UINavigationController) {
+    init(component: HomeComponent, navController: UINavigationController) {
         self.component = component
-        super.init(tabController: tabController, navController: navController)
+        super.init(navController: navController)
     }
 
     // MARK: Internal
@@ -24,7 +24,7 @@ final class HomeCoordinator: TabCoordinator<HomeResult> {
     var component: HomeComponent
 
     override func start(animated _: Bool = true) {
-        let scene = component.sharedScene
+        let scene = component.scene
 
         scene.VM.routes.filter
             .map { (vm: scene.VM, filter: $0) }

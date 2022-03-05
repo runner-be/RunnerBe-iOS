@@ -180,7 +180,6 @@
 		C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926127BACCF300798F3A /* EmailAPI.swift */; };
 		C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926427BACFB100798F3A /* MailingAPIService.swift */; };
 		C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */; };
-		C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39E926B27BB0B1000798F3A /* TabCoordinator.swift */; };
 		C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2E9A27BC536100A7D86B /* SelectBaseView.swift */; };
 		C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2E9C27BC56FC00A7D86B /* SelectGenderView.swift */; };
 		C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F2EA427BC71C300A7D86B /* CGPoint+.swift */; };
@@ -288,9 +287,13 @@
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
 		C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0968927AED7AC00959F9A /* UIButton+.swift */; };
 		C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */; };
-		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */; };
+		C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBB527D13DF600207F35 /* OnboardingCoverComponent.swift */; };
+		C3F1EBB827D13E0700207F35 /* OnboardingCoverCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBB727D13E0700207F35 /* OnboardingCoverCoordinator.swift */; };
+		C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBB927D13E0D00207F35 /* OnboardingCoverViewModel.swift */; };
+		C3F1EBBC27D13E1600207F35 /* OnboardingCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1EBBB27D13E1600207F35 /* OnboardingCoverViewController.swift */; };
+		C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift */; };
 		C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */; };
-		C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */; };
+		C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift */; };
 		C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */; };
 		C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6327B0A3BA002D5846 /* PolicyTermCoordinator.swift */; };
 		C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B6527B0A477002D5846 /* PolicyTermComponent.swift */; };
@@ -486,7 +489,6 @@
 		C39E926127BACCF300798F3A /* EmailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAPI.swift; sourceTree = "<group>"; };
 		C39E926427BACFB100798F3A /* MailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailingAPIService.swift; sourceTree = "<group>"; };
 		C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMailingAPIService.swift; sourceTree = "<group>"; };
-		C39E926B27BB0B1000798F3A /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		C39F2E9A27BC536100A7D86B /* SelectBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaseView.swift; sourceTree = "<group>"; };
 		C39F2E9C27BC56FC00A7D86B /* SelectGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		C39F2EA427BC71C300A7D86B /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
@@ -599,9 +601,13 @@
 		C3F0968827AED12200959F9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C3F0968927AED7AC00959F9A /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift.swift"; sourceTree = "<group>"; };
-		C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderComponent.swift.swift; sourceTree = "<group>"; };
+		C3F1EBB527D13DF600207F35 /* OnboardingCoverComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoverComponent.swift; sourceTree = "<group>"; };
+		C3F1EBB727D13E0700207F35 /* OnboardingCoverCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoverCoordinator.swift; sourceTree = "<group>"; };
+		C3F1EBB927D13E0D00207F35 /* OnboardingCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoverViewModel.swift; sourceTree = "<group>"; };
+		C3F1EBBB27D13E1600207F35 /* OnboardingCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoverViewController.swift; sourceTree = "<group>"; };
+		C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderComponent.swift; sourceTree = "<group>"; };
 		C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderCoordinator.swift; sourceTree = "<group>"; };
-		C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewModel.swift.swift; sourceTree = "<group>"; };
+		C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewModel.swift; sourceTree = "<group>"; };
 		C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewController.swift; sourceTree = "<group>"; };
 		C3F74B6327B0A3BA002D5846 /* PolicyTermCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermCoordinator.swift; sourceTree = "<group>"; };
 		C3F74B6527B0A477002D5846 /* PolicyTermComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyTermComponent.swift; sourceTree = "<group>"; };
@@ -651,13 +657,6 @@
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
 			);
 			path = WritingPost;
-			sourceTree = "<group>";
-		};
-		C3256B5727CE7585009B16DA /* Config */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 		C3256B5A27CE7DF2009B16DA /* PolicyAPI */ = {
@@ -969,7 +968,6 @@
 			isa = PBXGroup;
 			children = (
 				C32C029727CB9F7E0011419E /* CommonConfig */,
-				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */,
@@ -1028,6 +1026,7 @@
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 				C39E926327BACFA400798F3A /* MailingAPIService */,
 				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
+				C3432CAC27B8448400DEFF51 /* SignUpService */,
 				C3EB5CC827B8B62200775779 /* ImageUploadService */,
 				C3AD115827B825F500A7044C /* LoginService */,
 			);
@@ -1220,7 +1219,6 @@
 		C379301A27B9FAEF0076AB85 /* DynamicLinkService */ = {
 			isa = PBXGroup;
 			children = (
-				C3432CAC27B8448400DEFF51 /* SignUpService */,
 				C379301B27B9FB010076AB85 /* DynamicLinkService.swift */,
 				C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */,
 			);
@@ -1248,6 +1246,8 @@
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C3F1EBB427D13DD700207F35 /* OnboardingCover */,
+				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
 				C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */,
 				C3F74B7227B0F362002D5846 /* 1_Birth */,
@@ -1263,13 +1263,13 @@
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
 			isa = PBXGroup;
 			children = (
-				C35E34A127C83C610023C0F9 /* Detail */,
-				C3089AF227BF45C100884987 /* WritingPost */,
-				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
 				C38F8F2A27AD963C0050137D /* HomeViewController.swift */,
+				C35E34A127C83C610023C0F9 /* Detail */,
+				C3089AF227BF45C100884987 /* WritingPost */,
+				C3CA2AF027BC4E5300AEF623 /* Filter */,
 			);
 			path = 0_Home;
 			sourceTree = "<group>";
@@ -1289,13 +1289,13 @@
 			isa = PBXGroup;
 			children = (
 				C32C028C27CB45E00011419E /* Config */,
-				C32C028527CB24640011419E /* View */,
-				C3C9734727CA95D800232251 /* EditInfo */,
-				C3C9734527CA95B700232251 /* Settings */,
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
 				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
+				C32C028527CB24640011419E /* View */,
+				C3C9734727CA95D800232251 /* EditInfo */,
+				C3C9734527CA95B700232251 /* Settings */,
 			);
 			path = 3_MyPage;
 			sourceTree = "<group>";
@@ -1390,7 +1390,6 @@
 			isa = PBXGroup;
 			children = (
 				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
-				C39E926B27BB0B1000798F3A /* TabCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1662,10 +1661,10 @@
 			isa = PBXGroup;
 			children = (
 				C393578627CFAFFE00FCC73A /* License */,
-				C3C9736B27CB074000232251 /* View */,
 				C3C9736827CAF4E500232251 /* Config */,
 				C3C9734627CA95C500232251 /* Maker */,
 				C3C9736027CA977500232251 /* LogoutModal */,
+				C3C9736B27CB074000232251 /* View */,
 				C3C9735027CA965F00232251 /* SettingsComponent.swift */,
 				C3C9735227CA966900232251 /* SettingsCoordinator.swift */,
 				C3C9735427CA967000232251 /* SettingsViewModel.swift */,
@@ -1844,10 +1843,20 @@
 			path = 4_CustomViews;
 			sourceTree = "<group>";
 		};
+		C3F1EBB427D13DD700207F35 /* OnboardingCover */ = {
+			isa = PBXGroup;
+			children = (
+				C3F1EBB527D13DF600207F35 /* OnboardingCoverComponent.swift */,
+				C3F1EBB727D13E0700207F35 /* OnboardingCoverCoordinator.swift */,
+				C3F1EBB927D13E0D00207F35 /* OnboardingCoverViewModel.swift */,
+				C3F1EBBB27D13E1600207F35 /* OnboardingCoverViewController.swift */,
+			);
+			path = OnboardingCover;
+			sourceTree = "<group>";
+		};
 		C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */ = {
 			isa = PBXGroup;
 			children = (
-				C3256B5727CE7585009B16DA /* Config */,
 				C3BA45C827B5FEB40048CA76 /* PolicyDetail */,
 				C3F74B6527B0A477002D5846 /* PolicyTermComponent.swift */,
 				C3F74B6327B0A3BA002D5846 /* PolicyTermCoordinator.swift */,
@@ -1882,9 +1891,9 @@
 		C3F74B7427B0F3DA002D5846 /* 2_Gender */ = {
 			isa = PBXGroup;
 			children = (
-				C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift.swift */,
+				C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift */,
 				C3F3C63427B2016C000A63BC /* SelectGenderCoordinator.swift */,
-				C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift.swift */,
+				C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift */,
 				C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */,
 			);
 			path = 2_Gender;
@@ -2143,6 +2152,7 @@
 				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
+				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
@@ -2171,7 +2181,7 @@
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
-				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift.swift in Sources */,
+				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
@@ -2180,7 +2190,6 @@
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
-				C39E926C27BB0B1000798F3A /* TabCoordinator.swift in Sources */,
 				C3BB13CA27C922C8004954EB /* BookMarkResElement.swift in Sources */,
 				C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
@@ -2196,7 +2205,7 @@
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
-				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift.swift in Sources */,
+				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
@@ -2220,6 +2229,7 @@
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
 				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
 				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
+				C3F1EBBC27D13E1600207F35 /* OnboardingCoverViewController.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
 				C393578E27CFB03800FCC73A /* LicenseViewController.swift in Sources */,
@@ -2307,6 +2317,7 @@
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				C34FDA7427AD5C83007718F8 /* LoggedOutComponent.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
+				C3F1EBB827D13E0700207F35 /* OnboardingCoverCoordinator.swift in Sources */,
 				C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
@@ -2367,6 +2378,7 @@
 				C3C9734927CA962200232251 /* EditInfoComponent.swift in Sources */,
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
+				C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,

@@ -10,4 +10,5 @@ import Foundation
 protocol LoginKeyChainService {
     var token: LoginToken? { get set }
     var userId: Int? { get set }
+    var certificated: Bool { get set }
 }

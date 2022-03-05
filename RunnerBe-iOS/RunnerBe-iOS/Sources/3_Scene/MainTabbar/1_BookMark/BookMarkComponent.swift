@@ -13,18 +13,11 @@ protocol BookMarkDependency: Dependency {
 }
 
 final class BookMarkComponent: Component<BookMarkDependency> {
-    var sharedScene: (VC: BookMarkViewController, VM: BookMarkViewModel) {
-        return shared {
-            let viewModel = viewModel
-            return (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)
-        }
-    }
+    lazy var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) = (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(parent: self, postId: postId)
     }
 
-    var viewModel: BookMarkViewModel {
-        return BookMarkViewModel(postAPIService: dependency.postAPIService)
-    }
+    lazy var viewModel: BookMarkViewModel = .init(postAPIService: dependency.postAPIService)
 }

@@ -10,12 +10,12 @@ import RxSwift
 
 protocol BookMarkResult {}
 
-final class BookMarkCoordinator: TabCoordinator<HomeResult> {
+final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
     // MARK: Lifecycle
 
-    init(component: BookMarkComponent, tabController: UITabBarController, navController: UINavigationController) {
+    init(component: BookMarkComponent, navController: UINavigationController) {
         self.component = component
-        super.init(tabController: tabController, navController: navController)
+        super.init(navController: navController)
     }
 
     // MARK: Internal
@@ -23,7 +23,7 @@ final class BookMarkCoordinator: TabCoordinator<HomeResult> {
     var component: BookMarkComponent
 
     override func start(animated _: Bool = true) {
-        let scene = component.sharedScene
+        let scene = component.scene
 
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }

@@ -44,33 +44,33 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-        postAPIService.fetchPostsBookMarked()
-            .do(onNext: { [weak self] result in
-                if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-                }
-            })
-            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
-                }
-            })
-            .compactMap { $0 }
-            .map { posts in
-                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
-                    guard let self = self else { return }
-                    if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
-                    partialResult.append(post)
-                }
-            }
-            .subscribe(onNext: { [weak self] posts in
-                self?.posts = posts
-                self?.outputs.posts.onNext(posts)
-                self?.outputs.refresh.onNext(())
-            })
-            .disposed(by: disposeBag)
+//        postAPIService.fetchPostsBookMarked()
+//            .do(onNext: { [weak self] result in
+//                if let result = result {
+//                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
+//                }
+//            })
+//            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
+//            .do(onNext: { [weak self] result in
+//                if result == nil {
+//                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
+//                }
+//            })
+//            .compactMap { $0 }
+//            .map { posts in
+//                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+//                    guard let self = self else { return }
+//                    if self.filter.wheterEnd == .open, !post.open { return }
+//                    if self.bookMarkSet.contains(post.ID) { return }
+//                    partialResult.append(post)
+//                }
+//            }
+//            .subscribe(onNext: { [weak self] posts in
+//                self?.posts = posts
+//                self?.outputs.posts.onNext(posts)
+//                self?.outputs.refresh.onNext(())
+//            })
+//            .disposed(by: disposeBag)
 
         inputs.showDetailFilter
             .map { [weak self] in self?.filter ?? initialFilter }

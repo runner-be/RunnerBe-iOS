@@ -35,7 +35,7 @@ final class TextFieldWithButton: SelectBaseView {
             nickNameField.text = ""
         }
 
-        if let btnText = buttonText {
+        if buttonText != nil {
             applyButton.setTitle(buttonText, for: .disabled)
         }
     }

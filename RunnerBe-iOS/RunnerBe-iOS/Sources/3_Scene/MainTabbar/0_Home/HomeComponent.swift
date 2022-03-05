@@ -16,15 +16,12 @@ protocol HomeDependency: Dependency {
 }
 
 final class HomeComponent: Component<HomeDependency> {
-    var sharedScene: (VC: HomeViewController, VM: HomeViewModel) {
-        return shared {
-            let viewModel = viewModel
-            return (VC: HomeViewController(viewModel: viewModel), VM: viewModel)
-        }
-    }
+    lazy var scene: (VC: HomeViewController, VM: HomeViewModel) = (VC: HomeViewController(viewModel: viewModel), VM: viewModel)
 
-    var viewModel: HomeViewModel {
-        return HomeViewModel(locationService: dependency.locationService, postAPIService: dependency.postAPIService)
+    lazy var viewModel: HomeViewModel = .init(locationService: dependency.locationService, postAPIService: dependency.postAPIService)
+
+    override init(parent: Scope) {
+        super.init(parent: parent)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {

@@ -27,16 +27,15 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     override func start(animated _: Bool = true) {
         BasicLoginKeyChainService().token = nil
-
         window.makeKeyAndVisible()
 
         component.loginService.checkLogin()
             .subscribe(onNext: { result in
                 switch result {
                 case .member:
-                    self.showMain(certificated: true, animated: false)
+                    self.showMain(animated: false)
                 case .memberWaitCertification:
-                    self.showMain(certificated: false, animated: false)
+                    self.showMain(animated: false)
                 case .nonMember:
                     self.showLoggedOut(animated: false)
                 }
@@ -44,7 +43,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
             .disposed(by: disposeBag)
     }
 
-    func showMain(certificated _: Bool, animated: Bool) {
+    func showMain(animated: Bool) {
         let comp = component.mainTabComponent
         let coord = MainTabbarCoordinator(component: comp, navController: navController)
 
@@ -70,8 +69,8 @@ final class AppCoordinator: BasicCoordinator<Void> {
                 defer { self?.release(coordinator: coord) }
 
                 switch coordResult {
-                case let .loginSuccess(certificated):
-                    self?.showMain(certificated: certificated, animated: false)
+                case .loginSuccess:
+                    self?.showMain(animated: false)
                 }
             })
 
@@ -81,11 +80,11 @@ final class AppCoordinator: BasicCoordinator<Void> {
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["LoggedOutCoordinator"] {
+            if let coord = childs["MainTabbarCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
-                showLoggedOut(animated: false)
-                childs["LoggedOutCoordinator"]!.handleDeepLink(type: type)
+                showMain(animated: false)
+                childs["MainTabbarCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

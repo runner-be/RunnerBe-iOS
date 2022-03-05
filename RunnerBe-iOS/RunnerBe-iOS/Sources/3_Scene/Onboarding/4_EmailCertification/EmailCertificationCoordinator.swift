@@ -11,7 +11,7 @@ import RxSwift
 enum EmailCertificationResult {
     case cancelOnboarding
     case backward
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationResult> {
@@ -89,8 +89,8 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case .toMain:
+                    self?.closeSignal.onNext(.toMain)
                 case .backward: break
                 }
             })
@@ -128,8 +128,8 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
                 switch coordResult {
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case .toMain:
+                    self?.closeSignal.onNext(.toMain)
                 }
             })
 

@@ -13,7 +13,6 @@ final class OnboardingCompletionViewModel: BaseViewModel {
         super.init()
 
         inputs.tapStart
-            .map { false }
             .subscribe(routes.toMain)
             .disposed(by: disposeBag)
     }
@@ -24,7 +23,7 @@ final class OnboardingCompletionViewModel: BaseViewModel {
 
     struct Output {}
     struct Route {
-        let toMain = PublishSubject<Bool>()
+        let toMain = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

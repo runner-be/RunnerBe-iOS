@@ -11,7 +11,7 @@ import RxSwift
 enum PhotoCertificationResult {
     case cancelOnboarding
     case backward
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 extension PhotoModalResult {
@@ -122,8 +122,8 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.release(coordinator: coord) }
                 switch coordResult {
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case .toMain:
+                    self?.closeSignal.onNext(PhotoCertificationResult.toMain)
                 }
             })
 

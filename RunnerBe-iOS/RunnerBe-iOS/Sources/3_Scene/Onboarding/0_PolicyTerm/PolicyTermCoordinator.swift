@@ -11,7 +11,7 @@ import RxSwift
 enum PolicyTermResult {
     case cancelOnboarding
     case backward
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
@@ -84,8 +84,8 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case .toMain:
+                    self?.closeSignal.onNext(.toMain)
                 case .backward: break
                 }
             })

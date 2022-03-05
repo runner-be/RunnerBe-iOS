@@ -247,6 +247,7 @@ class MyPageViewController: BaseViewController {
     private var emptyLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG45
+        label.isHidden = true
     }
 
     private var emptyButton = UIButton().then { button in
@@ -254,6 +255,7 @@ class MyPageViewController: BaseViewController {
         button.setTitleColor(.primary, for: .normal)
         button.layer.borderColor = UIColor.primary.cgColor
         button.layer.borderWidth = 1
+        button.isHidden = true
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in

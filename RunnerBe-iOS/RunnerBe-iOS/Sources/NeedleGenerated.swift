@@ -93,59 +93,62 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent") { component in
-        return PolicyTermDependency28006fce607070d6ca75Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent") { component in
+        return OnboardingCoverDependency6c57a78c75f1d24e9771Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent") { component in
+        return PolicyTermDependency8a9f3fef79c1be8bd4c0Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->PolicyDetailComponent") { component in
         return PolicyDetailDependencyf1b0f14079b572bc52b9Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent") { component in
-        return PolicyDetailDependencyab7a37b72bd8b136a461Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->PolicyDetailComponent") { component in
+        return PolicyDetailDependencye1217a8d1cdad9937ef3Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent") { component in
-        return WaitCertificationDependencya59e7f4494bb58452d1aProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent") { component in
+        return WaitCertificationDependencyc50e241d2599e9d231eaProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent") { component in
-        return OnboardingCompletionDependencyfab662889368f161b644Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent") { component in
+        return OnboardingCompletionDependencye50160862e7648fe782eProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent") { component in
-        return PhotoCertificationDependency919976e3bbe7c6970accProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent") { component in
+        return PhotoCertificationDependencya54b73b5a246d75dfe8aProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent") { component in
-        return PhotoModalDependency256710ef3f831e315f20Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent") { component in
+        return PhotoModalDependency9e429ac63b6c1295df4cProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent") { component in
-        return EmailCertificationDependencyf5f9a83429ebc20c0ea9Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent") { component in
+        return EmailCertificationDependencyee19ef4f9765e226297aProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->EmailCertificationInitModalComponent") { component in
-        return EmailCertificationInitModalDependencyc0fcd95426abdc2eb784Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->EmailCertificationInitModalComponent") { component in
+        return EmailCertificationInitModalDependency20abe039ae677f4b69bcProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent") { component in
-        return BirthDependencyeacd7a6dc893684c63a8Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent") { component in
+        return BirthDependencyc713361cb899f136292eProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependency163a186c00ad3225b79bProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency3b8e24242190b29ad71eProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependency680f661d1573dc6db5cbProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency49535339dc7a5e045323Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependency41086b612da017603ac7Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency121ca6987144c47106f7Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependencyd5d244529412faa64d91Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependencyb0d82bb064f08221e5feProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependencycb42558bc283046b72a5Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependencyc09dddbe6d1d243f2e4bProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent") { component in
-        return OnboardingCancelModalDependency07be119931b373c0743bProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent") { component in
+        return OnboardingCancelModalDependency6ea49e4ded466cff2a93Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent") { component in
-        return SelectJobGroupDependency2420d5f31bd0022c257fProvider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent") { component in
+        return SelectJobGroupDependencyc9eb1582ec9eed779e29Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent") { component in
-        return SelectGenderDependency1501a6b74f78c8951e52Provider(component: component)
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent") { component in
+        return SelectGenderDependency735326173f42f19f32b1Provider(component: component)
     }
     
 }
@@ -504,24 +507,40 @@ private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ec
         super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
     }
 }
-private class PolicyTermDependency28006fce607070d6ca75BaseProvider: PolicyTermDependency {
+private class OnboardingCoverDependency6c57a78c75f1d24e9771BaseProvider: OnboardingCoverDependency {
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
     var signupKeyChainService: SignupKeyChainService {
-        return loggedOutComponent.signupKeyChainService
+        return appComponent.signupKeyChainService
     }
     private let appComponent: AppComponent
-    private let loggedOutComponent: LoggedOutComponent
-    init(appComponent: AppComponent, loggedOutComponent: LoggedOutComponent) {
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
-        self.loggedOutComponent = loggedOutComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent
-private class PolicyTermDependency28006fce607070d6ca75Provider: PolicyTermDependency28006fce607070d6ca75BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent
+private class OnboardingCoverDependency6c57a78c75f1d24e9771Provider: OnboardingCoverDependency6c57a78c75f1d24e9771BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent as! AppComponent, loggedOutComponent: component.parent as! LoggedOutComponent)
+        super.init(appComponent: component.parent.parent as! AppComponent)
+    }
+}
+private class PolicyTermDependency8a9f3fef79c1be8bd4c0BaseProvider: PolicyTermDependency {
+    var loginKeyChainService: LoginKeyChainService {
+        return appComponent.loginKeyChainService
+    }
+    var signupKeyChainService: SignupKeyChainService {
+        return appComponent.signupKeyChainService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent
+private class PolicyTermDependency8a9f3fef79c1be8bd4c0Provider: PolicyTermDependency8a9f3fef79c1be8bd4c0BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent.parent as! AppComponent)
     }
 }
 private class PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider: PolicyDetailDependency {
@@ -537,39 +556,39 @@ private class PolicyDetailDependencyf1b0f14079b572bc52b9Provider: PolicyDetailDe
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->PolicyDetailComponent
-private class PolicyDetailDependencyab7a37b72bd8b136a461Provider: PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->PolicyDetailComponent
+private class PolicyDetailDependencye1217a8d1cdad9937ef3Provider: PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class WaitCertificationDependencya59e7f4494bb58452d1aBaseProvider: WaitCertificationDependency {
+private class WaitCertificationDependencyc50e241d2599e9d231eaBaseProvider: WaitCertificationDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent
-private class WaitCertificationDependencya59e7f4494bb58452d1aProvider: WaitCertificationDependencya59e7f4494bb58452d1aBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->WaitCertificationComponent
+private class WaitCertificationDependencyc50e241d2599e9d231eaProvider: WaitCertificationDependencyc50e241d2599e9d231eaBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class OnboardingCompletionDependencyfab662889368f161b644BaseProvider: OnboardingCompletionDependency {
+private class OnboardingCompletionDependencye50160862e7648fe782eBaseProvider: OnboardingCompletionDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent
-private class OnboardingCompletionDependencyfab662889368f161b644Provider: OnboardingCompletionDependencyfab662889368f161b644BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCompletionComponent
+private class OnboardingCompletionDependencye50160862e7648fe782eProvider: OnboardingCompletionDependencye50160862e7648fe782eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class PhotoCertificationDependency919976e3bbe7c6970accBaseProvider: PhotoCertificationDependency {
+private class PhotoCertificationDependencya54b73b5a246d75dfe8aBaseProvider: PhotoCertificationDependency {
     var signupService: SignupService {
         return emailCertificationComponent.signupService
     }
@@ -578,158 +597,150 @@ private class PhotoCertificationDependency919976e3bbe7c6970accBaseProvider: Phot
         self.emailCertificationComponent = emailCertificationComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent
-private class PhotoCertificationDependency919976e3bbe7c6970accProvider: PhotoCertificationDependency919976e3bbe7c6970accBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent
+private class PhotoCertificationDependencya54b73b5a246d75dfe8aProvider: PhotoCertificationDependencya54b73b5a246d75dfe8aBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(emailCertificationComponent: component.parent as! EmailCertificationComponent)
     }
 }
-private class PhotoModalDependency256710ef3f831e315f20BaseProvider: PhotoModalDependency {
+private class PhotoModalDependency9e429ac63b6c1295df4cBaseProvider: PhotoModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent
-private class PhotoModalDependency256710ef3f831e315f20Provider: PhotoModalDependency256710ef3f831e315f20BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->PhotoModalComponent
+private class PhotoModalDependency9e429ac63b6c1295df4cProvider: PhotoModalDependency9e429ac63b6c1295df4cBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class EmailCertificationDependencyf5f9a83429ebc20c0ea9BaseProvider: EmailCertificationDependency {
+private class EmailCertificationDependencyee19ef4f9765e226297aBaseProvider: EmailCertificationDependency {
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
     var signupKeyChainService: SignupKeyChainService {
-        return loggedOutComponent.signupKeyChainService
+        return appComponent.signupKeyChainService
     }
     private let appComponent: AppComponent
-    private let loggedOutComponent: LoggedOutComponent
-    init(appComponent: AppComponent, loggedOutComponent: LoggedOutComponent) {
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
-        self.loggedOutComponent = loggedOutComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent
-private class EmailCertificationDependencyf5f9a83429ebc20c0ea9Provider: EmailCertificationDependencyf5f9a83429ebc20c0ea9BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent
+private class EmailCertificationDependencyee19ef4f9765e226297aProvider: EmailCertificationDependencyee19ef4f9765e226297aBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent.parent.parent as! AppComponent, loggedOutComponent: component.parent.parent.parent.parent.parent as! LoggedOutComponent)
+        super.init(appComponent: component.parent.parent.parent.parent.parent.parent.parent as! AppComponent)
     }
 }
-private class EmailCertificationInitModalDependencyc0fcd95426abdc2eb784BaseProvider: EmailCertificationInitModalDependency {
+private class EmailCertificationInitModalDependency20abe039ae677f4b69bcBaseProvider: EmailCertificationInitModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->EmailCertificationInitModalComponent
-private class EmailCertificationInitModalDependencyc0fcd95426abdc2eb784Provider: EmailCertificationInitModalDependencyc0fcd95426abdc2eb784BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->EmailCertificationInitModalComponent
+private class EmailCertificationInitModalDependency20abe039ae677f4b69bcProvider: EmailCertificationInitModalDependency20abe039ae677f4b69bcBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class BirthDependencyeacd7a6dc893684c63a8BaseProvider: BirthDependency {
+private class BirthDependencyc713361cb899f136292eBaseProvider: BirthDependency {
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
     var signupKeyChainService: SignupKeyChainService {
-        return loggedOutComponent.signupKeyChainService
+        return appComponent.signupKeyChainService
     }
     private let appComponent: AppComponent
-    private let loggedOutComponent: LoggedOutComponent
-    init(appComponent: AppComponent, loggedOutComponent: LoggedOutComponent) {
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
-        self.loggedOutComponent = loggedOutComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent
-private class BirthDependencyeacd7a6dc893684c63a8Provider: BirthDependencyeacd7a6dc893684c63a8BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent
+private class BirthDependencyc713361cb899f136292eProvider: BirthDependencyc713361cb899f136292eBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, loggedOutComponent: component.parent.parent as! LoggedOutComponent)
+        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
     }
 }
-private class OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider: OnboardingCancelModalDependency {
+private class OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider: OnboardingCancelModalDependency {
 
 
     init() {
 
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependency163a186c00ad3225b79bProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency3b8e24242190b29ad71eProvider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependency680f661d1573dc6db5cbProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency49535339dc7a5e045323Provider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependency41086b612da017603ac7Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency121ca6987144c47106f7Provider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependencyd5d244529412faa64d91Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependencyb0d82bb064f08221e5feProvider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependencycb42558bc283046b72a5Provider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependencyc09dddbe6d1d243f2e4bProvider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent
-private class OnboardingCancelModalDependency07be119931b373c0743bProvider: OnboardingCancelModalDependency163a186c00ad3225b79bBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->OnboardingCancelModalComponent
+private class OnboardingCancelModalDependency6ea49e4ded466cff2a93Provider: OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
 }
-private class SelectJobGroupDependency2420d5f31bd0022c257fBaseProvider: SelectJobGroupDependency {
+private class SelectJobGroupDependencyc9eb1582ec9eed779e29BaseProvider: SelectJobGroupDependency {
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
     var signupKeyChainService: SignupKeyChainService {
-        return loggedOutComponent.signupKeyChainService
+        return appComponent.signupKeyChainService
     }
     private let appComponent: AppComponent
-    private let loggedOutComponent: LoggedOutComponent
-    init(appComponent: AppComponent, loggedOutComponent: LoggedOutComponent) {
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
-        self.loggedOutComponent = loggedOutComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent
-private class SelectJobGroupDependency2420d5f31bd0022c257fProvider: SelectJobGroupDependency2420d5f31bd0022c257fBaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent
+private class SelectJobGroupDependencyc9eb1582ec9eed779e29Provider: SelectJobGroupDependencyc9eb1582ec9eed779e29BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent.parent as! AppComponent, loggedOutComponent: component.parent.parent.parent.parent as! LoggedOutComponent)
+        super.init(appComponent: component.parent.parent.parent.parent.parent.parent as! AppComponent)
     }
 }
-private class SelectGenderDependency1501a6b74f78c8951e52BaseProvider: SelectGenderDependency {
+private class SelectGenderDependency735326173f42f19f32b1BaseProvider: SelectGenderDependency {
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
     }
     var signupKeyChainService: SignupKeyChainService {
-        return loggedOutComponent.signupKeyChainService
+        return appComponent.signupKeyChainService
     }
     private let appComponent: AppComponent
-    private let loggedOutComponent: LoggedOutComponent
-    init(appComponent: AppComponent, loggedOutComponent: LoggedOutComponent) {
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
-        self.loggedOutComponent = loggedOutComponent
     }
 }
-/// ^->AppComponent->LoggedOutComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent
-private class SelectGenderDependency1501a6b74f78c8951e52Provider: SelectGenderDependency1501a6b74f78c8951e52BaseProvider {
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent
+private class SelectGenderDependency735326173f42f19f32b1Provider: SelectGenderDependency735326173f42f19f32b1BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, loggedOutComponent: component.parent.parent.parent as! LoggedOutComponent)
+        super.init(appComponent: component.parent.parent.parent.parent.parent as! AppComponent)
     }
 }

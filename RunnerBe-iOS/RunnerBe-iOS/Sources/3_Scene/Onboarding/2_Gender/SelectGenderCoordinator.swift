@@ -11,7 +11,7 @@ import RxSwift
 enum SelectGenderResult {
     case cancelOnboarding
     case backward
-    case toMain(certificated: Bool)
+    case toMain
 }
 
 final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
@@ -78,8 +78,8 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
-                case let .toMain(certificated):
-                    self?.closeSignal.onNext(.toMain(certificated: certificated))
+                case let .toMain:
+                    self?.closeSignal.onNext(.toMain)
                 case .backward: break
                 }
             })
