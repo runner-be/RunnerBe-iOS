@@ -57,7 +57,7 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
         }
     }
 
-    var certificated: Bool = false
+    var loginType: LoginType = .nonMember
 }
 
 private extension KeychainWrapper.Key {

@@ -255,7 +255,7 @@ final class BasicSignupService: SignupService {
                 case let .succeed(token, userID):
                     self.loginKeyChainService.token = LoginToken(jwt: token)
                     self.loginKeyChainService.userId = userID
-                    self.loginKeyChainService.certificated = true
+                    self.loginKeyChainService.loginType = .member
                     functionResult.onNext(.success)
                 case let .error(code):
                     if code == 2009 {

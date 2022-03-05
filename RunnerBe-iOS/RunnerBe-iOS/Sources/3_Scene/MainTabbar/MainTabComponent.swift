@@ -37,6 +37,10 @@ final class MainTabComponent: Component<MainTabDependency> {
         return OnboardingCoverComponent(parent: self)
     }
 
+    var onboardingWaitCoverComponent: WaitOnboardingCoverComponent {
+        return WaitOnboardingCoverComponent(parent: self)
+    }
+
     var postAPIService: PostAPIService {
         return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
     }

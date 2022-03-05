@@ -101,7 +101,6 @@
 		C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7627AD5D45007718F8 /* Assets+Generated.swift */; };
 		C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */; };
 		C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */; };
-		C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
 		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
 		C350CC7B27C2C428000DEA15 /* SBAggroOTFM.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */; };
@@ -143,6 +142,12 @@
 		C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */; };
 		C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302027BA012E0076AB85 /* String+Subscript.swift */; };
 		C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302327BA20A30076AB85 /* VerbosePlugin.swift */; };
+		C38ABD8427D31EAD0025929E /* LoginType.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8327D31EAD0025929E /* LoginType.swift.swift */; };
+		C38ABD8827D324600025929E /* WaitOnboardingCoverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */; };
+		C38ABD8A27D324690025929E /* WaitOnboardingCoverCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */; };
+		C38ABD8C27D324730025929E /* WaitOnboardingCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */; };
+		C38ABD8E27D324CC0025929E /* WaitOnboradingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */; };
+		C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9127D332600025929E /* NeedleGenerated.swift */; };
 		C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* SocialLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* SocialLoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -412,7 +417,6 @@
 		C34FDA7627AD5D45007718F8 /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
 		C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 		C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
-		C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
 		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFM.otf; sourceTree = "<group>"; };
@@ -451,6 +455,12 @@
 		C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDynamicLinkService.swift; sourceTree = "<group>"; };
 		C379302027BA012E0076AB85 /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
 		C379302327BA20A30076AB85 /* VerbosePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbosePlugin.swift; sourceTree = "<group>"; };
+		C38ABD8327D31EAD0025929E /* LoginType.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift.swift; sourceTree = "<group>"; };
+		C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverComponent.swift; sourceTree = "<group>"; };
+		C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverCoordinator.swift; sourceTree = "<group>"; };
+		C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverViewModel.swift; sourceTree = "<group>"; };
+		C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboradingViewController.swift; sourceTree = "<group>"; };
+		C38ABD9127D332600025929E /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* SocialLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -1056,7 +1066,7 @@
 				C39E925F27BACC9E00798F3A /* 7_Utils */,
 				C3AD115727B81EF600A7044C /* 8_Error */,
 				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
-				C34FDA7C27AD5D60007718F8 /* NeedleGenerated.swift */,
+				C38ABD9127D332600025929E /* NeedleGenerated.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1260,6 +1270,28 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		C38ABD8527D3243E0025929E /* NeedOnboardingCover */ = {
+			isa = PBXGroup;
+			children = (
+				C3F1EBB527D13DF600207F35 /* OnboardingCoverComponent.swift */,
+				C3F1EBB727D13E0700207F35 /* OnboardingCoverCoordinator.swift */,
+				C3F1EBB927D13E0D00207F35 /* OnboardingCoverViewModel.swift */,
+				C3F1EBBB27D13E1600207F35 /* OnboardingCoverViewController.swift */,
+			);
+			path = NeedOnboardingCover;
+			sourceTree = "<group>";
+		};
+		C38ABD8627D324500025929E /* WaitOnboardingCover */ = {
+			isa = PBXGroup;
+			children = (
+				C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */,
+				C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */,
+				C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */,
+				C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */,
+			);
+			path = WaitOnboardingCover;
+			sourceTree = "<group>";
+		};
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1459,6 +1491,7 @@
 			children = (
 				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
 				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
+				C38ABD8327D31EAD0025929E /* LoginType.swift.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1846,10 +1879,8 @@
 		C3F1EBB427D13DD700207F35 /* OnboardingCover */ = {
 			isa = PBXGroup;
 			children = (
-				C3F1EBB527D13DF600207F35 /* OnboardingCoverComponent.swift */,
-				C3F1EBB727D13E0700207F35 /* OnboardingCoverCoordinator.swift */,
-				C3F1EBB927D13E0D00207F35 /* OnboardingCoverViewModel.swift */,
-				C3F1EBBB27D13E1600207F35 /* OnboardingCoverViewController.swift */,
+				C38ABD8627D324500025929E /* WaitOnboardingCover */,
+				C38ABD8527D3243E0025929E /* NeedOnboardingCover */,
 			);
 			path = OnboardingCover;
 			sourceTree = "<group>";
@@ -2136,6 +2167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
+				C38ABD8C27D324730025929E /* WaitOnboardingCoverViewModel.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				C32C028727CB24720011419E /* MyInfoView.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
@@ -2182,6 +2214,7 @@
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
+				C38ABD8827D324600025929E /* WaitOnboardingCoverComponent.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
@@ -2281,6 +2314,7 @@
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C3BA45C327B59F720048CA76 /* EmailCertificationInitModalViewModel.swift in Sources */,
+				C38ABD8E27D324CC0025929E /* WaitOnboradingViewController.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
@@ -2288,6 +2322,7 @@
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
+				C38ABD8A27D324690025929E /* WaitOnboardingCoverCoordinator.swift in Sources */,
 				C34BA6B527CD4805003E393A /* MyRunResElement.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
 				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
@@ -2339,13 +2374,13 @@
 				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,
 				C3C9734B27CA962A00232251 /* EditInfoCoordinator.swift in Sources */,
 				C34BA6B127CD47C9003E393A /* DetailPostResElement.swift in Sources */,
-				C34FDA7D27AD5D60007718F8 /* NeedleGenerated.swift in Sources */,
 				C34BA6AF27CD47AB003E393A /* MainPostResElement.swift in Sources */,
 				C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
 				C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
+				C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C361B6D027B2B5D700824ABE /* PhotoCertificationComponent.swift in Sources */,
@@ -2415,6 +2450,7 @@
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C34BA6B327CD47EB003E393A /* MyPostResElement.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
+				C38ABD8427D31EAD0025929E /* LoginType.swift.swift in Sources */,
 				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,

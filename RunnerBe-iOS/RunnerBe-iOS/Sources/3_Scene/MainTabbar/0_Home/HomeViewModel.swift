@@ -17,7 +17,7 @@ final class HomeViewModel: BaseViewModel {
     var posts: [Post] = []
     var filter: PostFilter
 
-    init(locationService: LocationService, postAPIService: PostAPIService) {
+    init(locationService: LocationService, postAPIService: PostAPIService, loginKeyChainService: LoginKeyChainService) {
         self.locationService = locationService
         self.postAPIService = postAPIService
 
@@ -44,33 +44,33 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
-//        postAPIService.fetchPostsBookMarked()
-//            .do(onNext: { [weak self] result in
-//                if let result = result {
-//                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-//                }
-//            })
-//            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
-//            .do(onNext: { [weak self] result in
-//                if result == nil {
-//                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
-//                }
-//            })
-//            .compactMap { $0 }
-//            .map { posts in
-//                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
-//                    guard let self = self else { return }
-//                    if self.filter.wheterEnd == .open, !post.open { return }
-//                    if self.bookMarkSet.contains(post.ID) { return }
-//                    partialResult.append(post)
-//                }
-//            }
-//            .subscribe(onNext: { [weak self] posts in
-//                self?.posts = posts
-//                self?.outputs.posts.onNext(posts)
-//                self?.outputs.refresh.onNext(())
-//            })
-//            .disposed(by: disposeBag)
+        postAPIService.fetchPostsBookMarked()
+            .do(onNext: { [weak self] result in
+                if let result = result {
+                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
+                }
+            })
+            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
+            .do(onNext: { [weak self] result in
+                if result == nil {
+                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
+                }
+            })
+            .compactMap { $0 }
+            .map { posts in
+                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
+                    guard let self = self else { return }
+                    if self.filter.wheterEnd == .open, !post.open { return }
+                    if self.bookMarkSet.contains(post.ID) { return }
+                    partialResult.append(post)
+                }
+            }
+            .subscribe(onNext: { [weak self] posts in
+                self?.posts = posts
+                self?.outputs.posts.onNext(posts)
+                self?.outputs.refresh.onNext(())
+            })
+            .disposed(by: disposeBag)
 
         inputs.showDetailFilter
             .map { [weak self] in self?.filter ?? initialFilter }
@@ -78,7 +78,13 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.writingPost
-            .bind(to: routes.writingPost)
+            .subscribe(onNext: { [weak self] in
+                if loginKeyChainService.loginType != .member {
+                    self?.routes.nonMemberCover.onNext(())
+                } else {
+                    self?.routes.writingPost.onNext(())
+                }
+            })
             .disposed(by: disposeBag)
 
         inputs.tagChanged
@@ -188,6 +194,12 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookMark
+            .do(onNext: { [weak self] _ in
+                if loginKeyChainService.loginType != .member {
+                    self?.routes.nonMemberCover.onNext(())
+                }
+            })
+            .filter { _ in loginKeyChainService.loginType == .member }
             .map { [weak self] idx in (idx: idx, post: self?.posts[idx]) }
             .filter { $0.post != nil }
             .flatMap { postAPIService.bookmark(postId: $0.post!.ID, mark: !$0.post!.marked) }
@@ -208,6 +220,12 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPost
+            .do(onNext: { [weak self] _ in
+                if loginKeyChainService.loginType != .member {
+                    self?.routes.nonMemberCover.onNext(())
+                }
+            })
+            .filter { _ in loginKeyChainService.loginType == .member }
             .do(onNext: { [weak self] idx in
                 guard let self = self,
                       idx >= 0, idx <= self.posts.count
@@ -354,6 +372,7 @@ final class HomeViewModel: BaseViewModel {
         var filter = PublishSubject<PostFilter>()
         var writingPost = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
+        var nonMemberCover = PublishSubject<Void>()
     }
 
     struct RouteInput {

@@ -50,7 +50,9 @@ class MainTabViewController: UITabBarController {
 extension MainTabViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect _: UIViewController) {
         let selectedIdx = tabBarController.selectedIndex
-        if viewModel.outputs.certificated {
+
+        switch viewModel.outputs.loginType {
+        case .member:
             if currentTabIndex != selectedIdx {
                 switch selectedIdx {
                 case 0:
@@ -62,9 +64,12 @@ extension MainTabViewController: UITabBarControllerDelegate {
                 default: break
                 }
             }
-        } else {
+        case .nonMember:
             selectedIndex = 0
-            viewModel.inputs.showOnboardingCover.onNext(())
+            viewModel.routeInputs.needCover.onNext(())
+        case .waitCertification:
+            selectedIndex = 0
+            viewModel.routeInputs.needCover.onNext(())
         }
     }
 }

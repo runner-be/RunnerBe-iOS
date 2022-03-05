@@ -9,7 +9,9 @@ import Foundation
 import RxSwift
 import UIKit
 
-protocol HomeResult {}
+enum HomeResult {
+    case needCover
+}
 
 final class HomeCoordinator: BasicCoordinator<HomeResult> {
     // MARK: Lifecycle
@@ -45,6 +47,11 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             .subscribe(onNext: { [weak self] input in
                 self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
             })
+            .disposed(by: disposeBag)
+
+        scene.VM.routes.nonMemberCover
+            .map { .needCover }
+            .subscribe(closeSignal)
             .disposed(by: disposeBag)
     }
 

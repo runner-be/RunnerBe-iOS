@@ -13,14 +13,18 @@ final class MainTabViewModel: BaseViewModel {
     init(loginKeyChainService: LoginKeyChainService) {
         self.loginKeyChainService = loginKeyChainService
         super.init()
-        outputs.certificated = loginKeyChainService.certificated
+        outputs.loginType = loginKeyChainService.loginType
 
-        Observable.of(loginKeyChainService.certificated)
-            .debug()
-            .filter { !$0 }
-            .map { _ in }
-            .subscribe(onNext: { [weak self] in
-                self?.routes.onboardingCover.onNext(())
+        Observable.of(loginKeyChainService.loginType)
+            .subscribe(onNext: { [weak self] loginType in
+                switch loginType {
+                case .nonMember:
+                    self?.routes.onboardingCover.onNext(())
+                case .waitCertification:
+                    self?.routes.waitOnboardingCover.onNext(())
+                case .member:
+                    break
+                }
             })
             .disposed(by: disposeBag)
 
@@ -46,7 +50,24 @@ final class MainTabViewModel: BaseViewModel {
 
         routeInputs.onboardingCoverClosed
             .subscribe(onNext: { [weak self] in
-                self?.outputs.certificated = loginKeyChainService.certificated
+                self?.outputs.loginType = loginKeyChainService.loginType
+            })
+            .disposed(by: disposeBag)
+
+        routeInputs.needCover
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+
+                switch self.outputs.loginType {
+                case .nonMember:
+                    self.routes.onboardingCover.onNext(())
+                case .waitCertification:
+                    self.routes.waitOnboardingCover.onNext(())
+                case .member:
+                    break
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -59,7 +80,7 @@ final class MainTabViewModel: BaseViewModel {
     }
 
     struct Output {
-        var certificated = false
+        var loginType: LoginType = .nonMember
         var home = PublishSubject<Void>()
     }
 
@@ -68,11 +89,13 @@ final class MainTabViewModel: BaseViewModel {
         var bookmark = PublishSubject<Void>()
         var myPage = PublishSubject<Void>()
         var onboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
+        var waitOnboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
     }
 
     struct RouteInput {
         var onboardingCoverClosed = PublishSubject<Void>()
         var toHome = PublishSubject<Void>()
+        var needCover = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

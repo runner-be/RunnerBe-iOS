@@ -59,13 +59,28 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 self?.presentOnboaradingCover(vm: vm, animated: false)
             })
             .disposed(by: disposeBag)
+
+        scene.VM.routes.waitOnboardingCover
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentWaitOnboaradingCover(vm: vm, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func configureAndGetHomeScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.homeComponent
         let coord = HomeCoordinator(component: comp, navController: navController)
 
-        coordinate(coordinator: coord, animated: false)
+        let disposable = coordinate(coordinator: coord, animated: false)
+            .subscribe(onNext: { coordResult in
+                switch coordResult {
+                case .needCover:
+                    vm.routeInputs.needCover.onNext(())
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
 
         vm.routes.home
             .subscribe(onNext: {
@@ -127,6 +142,18 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 case .toMain:
                     vm.routeInputs.onboardingCoverClosed.onNext(())
                 }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    private func presentWaitOnboaradingCover(vm _: MainTabViewModel, animated: Bool) {
+        let comp = component.onboardingWaitCoverComponent
+        let coord = WaitOnboardingCoverCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.release(coordinator: coord) }
             })
 
         addChildBag(id: coord.id, disposable: disposable)

@@ -67,14 +67,14 @@ final class BasicLoginService: LoginService {
                 case let LoginAPIResult.member(id, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
                     self?.loginKeyChainService.userId = id
-                    self?.loginKeyChainService.certificated = true
+                    self?.loginKeyChainService.loginType = .member
                     return .member
                 case let LoginAPIResult.nonMember(uuid, _):
-                    self?.loginKeyChainService.certificated = false
+                    self?.loginKeyChainService.loginType = .nonMember
                     return .nonMember(uuid: uuid)
-                case let LoginAPIResult.memberNotCertificated(_, jwt, _):
+                case let LoginAPIResult.memberWaitCertification(_, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
-                    self?.loginKeyChainService.certificated = false
+                    self?.loginKeyChainService.loginType = .waitCertification
                     return .memberWaitCertification
                 }
             }

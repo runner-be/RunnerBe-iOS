@@ -493,6 +493,15 @@ internal enum L10n {
         }
       }
     }
+    internal enum Wait {
+      /// 내 소개를 확인 중이에요.
+      /// 조금만 기다려주세요!
+      internal static let title = L10n.tr("Localizable", "Onboard.Wait.Title")
+      internal enum Button {
+        /// 메인 화면으로
+        internal static let title = L10n.tr("Localizable", "Onboard.Wait.Button.title")
+      }
+    }
   }
 
   internal enum Onboarding {

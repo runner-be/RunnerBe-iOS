@@ -147,6 +147,10 @@ class PostDetailViewController: BaseViewController {
     var applicantBtn = UIButton().then { button in
         button.setImage(Asset.applicant.uiImage, for: .normal)
         button.isHidden = true
+        button.snp.makeConstraints { make in
+            make.width.equalTo(56)
+            make.height.equalTo(56)
+        }
     }
 
     var applicantNoti = UIView().then { view in
@@ -250,8 +254,8 @@ extension PostDetailViewController {
         }
 
         applicantNoti.snp.makeConstraints { make in
-            make.trailing.equalTo(applicantBtn.snp.trailing).offset(-5)
-            make.top.equalTo(applicantBtn.snp.top).offset(5)
+            make.trailing.equalTo(applicantBtn.snp.trailing)
+            make.top.equalTo(applicantBtn.snp.top)
         }
     }
 

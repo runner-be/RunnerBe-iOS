@@ -85,7 +85,7 @@ class BasicLoginAPIService: LoginAPIService {
                 case let code where code == 1001: // 1001 = 회원 로그인 성공
                     return try? LoginAPIResult.Member(json: result.json)
                 case let code where code == 1007:
-                    return try? LoginAPIResult.MemberNonCertificated(json: result.json)
+                    return try? LoginAPIResult.MemberWaitCertification(json: result.json)
                 case let code where code == 1002: // 1002 = 비회원 로그인 성공
                     return try? LoginAPIResult.NonMember(json: result.json)
                 default:

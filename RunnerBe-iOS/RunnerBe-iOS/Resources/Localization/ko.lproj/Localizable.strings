@@ -276,3 +276,7 @@
 "Onboard.Cover.Title" = "나를 더 알려주면\n모임에 참여할 수 있어요!";
 "Onboard.Cover.Button.Onboard.title" = "나에 대해 알려주기";
 "Onboard.Cover.Button.LookAround.title" = "지금은 둘러보기만 할게요";
+
+// MARK: - Wait.Onboard
+"Onboard.Wait.Title" = "내 소개를 확인 중이에요.\n조금만 기다려주세요!";
+"Onboard.Wait.Button.title" = "메인 화면으로";

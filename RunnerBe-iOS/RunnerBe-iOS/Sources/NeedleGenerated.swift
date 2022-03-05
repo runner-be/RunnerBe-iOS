@@ -93,6 +93,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->WaitOnboardingCoverComponent") { component in
+        return OnboardingCoverDependencyc30b3f7e06b10be88328Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent") { component in
         return OnboardingCoverDependency6c57a78c75f1d24e9771Provider(component: component)
     }
@@ -505,6 +508,24 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ecd6b5263bd0e9BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
+    }
+}
+private class OnboardingCoverDependencyc30b3f7e06b10be88328BaseProvider: OnboardingCoverDependency {
+    var loginKeyChainService: LoginKeyChainService {
+        return appComponent.loginKeyChainService
+    }
+    var signupKeyChainService: SignupKeyChainService {
+        return appComponent.signupKeyChainService
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent->WaitOnboardingCoverComponent
+private class OnboardingCoverDependencyc30b3f7e06b10be88328Provider: OnboardingCoverDependencyc30b3f7e06b10be88328BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent as! AppComponent)
     }
 }
 private class OnboardingCoverDependency6c57a78c75f1d24e9771BaseProvider: OnboardingCoverDependency {
