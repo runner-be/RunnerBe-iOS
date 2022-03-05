@@ -69,6 +69,15 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent") { component in
         return SelectDateModalDependency547a4536ad6f1082ff72Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->ReportModalComponent") { component in
+        return ReportModalDependency626f492cc98b0841b683Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent") { component in
+        return ReportModalDependency7c1d923aae037ccbecd8Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ReportModalComponent") { component in
+        return ReportModalDependencyb9c310c9766e66dc9083Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         return ApplicantListModalDependency04cfed02b61183a240faProvider(component: component)
     }
@@ -411,6 +420,31 @@ private class SelectDateModalDependency48c6d7ac20300654ff5cProvider: SelectDateM
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->SelectDateModalComponent
 private class SelectDateModalDependency547a4536ad6f1082ff72Provider: SelectDateModalDependency48c6d7ac20300654ff5cBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class ReportModalDependency626f492cc98b0841b683BaseProvider: ReportModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->ReportModalComponent
+private class ReportModalDependency626f492cc98b0841b683Provider: ReportModalDependency626f492cc98b0841b683BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent
+private class ReportModalDependency7c1d923aae037ccbecd8Provider: ReportModalDependency626f492cc98b0841b683BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ReportModalComponent
+private class ReportModalDependencyb9c310c9766e66dc9083Provider: ReportModalDependency626f492cc98b0841b683BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

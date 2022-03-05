@@ -41,6 +41,13 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 self?.presentApplicantListModal(vm: result.vm, applicants: result.applicants, animated: true)
             })
             .disposed(by: disposeBag)
+
+        scene.VM.routes.report
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentReportModal(vm: vm, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
@@ -55,6 +62,24 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                     if needUpdate {
                         vm.routeInputs.needUpdate.onNext(())
                     }
+                }
+            })
+
+        addChildBag(id: coord.id, disposable: disposable)
+    }
+
+    private func presentReportModal(vm: PostDetailViewModel, animated: Bool) {
+        let comp = component.reportModalComponent
+        let coord = ReportModalCoordinator(component: comp, navController: navController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.release(coordinator: coord) }
+                switch coordResult {
+                case .ok:
+                    vm.routeInputs.report.onNext(true)
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
                 }
             })
 

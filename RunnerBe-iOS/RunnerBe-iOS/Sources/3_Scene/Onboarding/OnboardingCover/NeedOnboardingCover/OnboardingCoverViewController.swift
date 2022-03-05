@@ -51,7 +51,7 @@ class OnboardingCoverViewController: BaseViewController {
     private func viewModelOutput() {}
 
     private var titleLabel = UILabel().then { label in
-        label.textColor = .primary
+        label.textColor = .darkG1
         label.font = .iosHeader31Sb
         label.text = L10n.Onboard.Cover.title
         label.numberOfLines = 2

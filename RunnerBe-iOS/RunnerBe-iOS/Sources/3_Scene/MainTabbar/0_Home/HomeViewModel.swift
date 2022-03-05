@@ -61,7 +61,8 @@ final class HomeViewModel: BaseViewModel {
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
                 }
             }
@@ -108,15 +109,15 @@ final class HomeViewModel: BaseViewModel {
             .compactMap { $0 }
             .map { posts in
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
-//                    guard let self = self else { return }
-//                    if self.filter.wheterEnd == .open, !post.open { return }
-//                    var post = post
-//                    post.marked = self.bookMarkSet.contains(post.ID)
-//                    partialResult.append(post)
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
+//                    guard let self = self else { return }
+//                    if self.filter.wheterEnd == .open, !post.open { return }
+//                    if self.bookMarkSet.contains(post.ID) { return }
+//                    partialResult.append(post)
                 }
             }
             .subscribe(onNext: { [weak self] posts in
@@ -148,7 +149,8 @@ final class HomeViewModel: BaseViewModel {
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
                 }
             }
@@ -182,7 +184,8 @@ final class HomeViewModel: BaseViewModel {
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
                 }
             }
@@ -207,14 +210,14 @@ final class HomeViewModel: BaseViewModel {
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.postId })
                 else { return }
-                self.posts.remove(at: index)
-//                self.posts[index].marked = result.mark
-//                if result.mark {
-//                    self.bookMarkSet.insert(self.posts[index].ID)
-//                } else {
-//                    self.bookMarkSet.remove(self.posts[index].ID)
-//                }
-//                self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
+//                self.posts.remove(at: index)
+                self.posts[index].marked = result.mark
+                if result.mark {
+                    self.bookMarkSet.insert(self.posts[index].ID)
+                } else {
+                    self.bookMarkSet.remove(self.posts[index].ID)
+                }
+                self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
                 self.outputs.posts.onNext(self.posts)
             })
             .disposed(by: disposeBag)
@@ -241,6 +244,9 @@ final class HomeViewModel: BaseViewModel {
         // MARK: - RouteInput
 
         routeInputs.needUpdate
+            .do(onNext: { [weak self] _ in
+                self?.bookMarkSet.removeAll()
+            })
             .filter { $0 }
             .flatMap { _ in postAPIService.fetchPostsBookMarked() }
             .do(onNext: { [weak self] result in
@@ -269,7 +275,8 @@ final class HomeViewModel: BaseViewModel {
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
                 }
             }
@@ -321,7 +328,8 @@ final class HomeViewModel: BaseViewModel {
                 posts.reduce(into: [Post]()) { [weak self] partialResult, post in
                     guard let self = self else { return }
                     if self.filter.wheterEnd == .open, !post.open { return }
-                    if self.bookMarkSet.contains(post.ID) { return }
+                    var post = post
+                    post.marked = self.bookMarkSet.contains(post.ID)
                     partialResult.append(post)
                 }
             }

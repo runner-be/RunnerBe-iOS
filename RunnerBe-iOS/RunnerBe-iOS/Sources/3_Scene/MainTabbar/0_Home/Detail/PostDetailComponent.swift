@@ -32,4 +32,8 @@ final class PostDetailComponent: Component<PostDetailDependency> {
     func applicantListModal(applicants: [User]) -> ApplicantListModalComponent {
         return ApplicantListModalComponent(parent: self, postId: postId, applicants: applicants)
     }
+
+    var reportModalComponent: ReportModalComponent {
+        return ReportModalComponent(parent: self)
+    }
 }

@@ -172,6 +172,18 @@ final class PostDetailViewModel: BaseViewModel {
             }
             .subscribe(routes.applicantsModal)
             .disposed(by: disposeBag)
+
+        inputs.report
+            .subscribe(routes.report)
+            .disposed(by: disposeBag)
+
+        routeInputs.report
+            .subscribe(onNext: { [weak self] report in
+                if report {
+                    self?.outputs.toast.onNext("신고가 접수되었습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -194,12 +206,13 @@ final class PostDetailViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<(id: Int, marked: Bool, needUpdate: Bool)>()
-        var report = PublishSubject<Int>()
+        var report = PublishSubject<Void>()
         var applicantsModal = PublishSubject<[User]>()
     }
 
     struct RouteInput {
         var needUpdate = PublishSubject<Void>()
+        var report = PublishSubject<Bool>()
     }
 
     private var disposeBag = DisposeBag()

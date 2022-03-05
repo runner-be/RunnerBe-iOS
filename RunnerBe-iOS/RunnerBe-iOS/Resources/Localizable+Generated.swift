@@ -163,6 +163,18 @@ internal enum L10n {
         /// 신청한 러너
         internal static let title = L10n.tr("Localizable", "Home.PostDetail.Participant.title")
       }
+      internal enum Report {
+        /// 부적절한 신고는 수락되지 않으며,
+        /// 활동 제재의 원인이 될 수 있습니다.
+        /// 정말 신고하시겠어요?
+        internal static let content = L10n.tr("Localizable", "Home.PostDetail.Report.content")
+        internal enum Button {
+          /// 아니오
+          internal static let no = L10n.tr("Localizable", "Home.PostDetail.Report.Button.no")
+          /// 예
+          internal static let ok = L10n.tr("Localizable", "Home.PostDetail.Report.Button.ok")
+        }
+      }
       internal enum Writer {
         /// 마감된 게시글이에요
         internal static let finished = L10n.tr("Localizable", "Home.PostDetail.Writer.Finished")

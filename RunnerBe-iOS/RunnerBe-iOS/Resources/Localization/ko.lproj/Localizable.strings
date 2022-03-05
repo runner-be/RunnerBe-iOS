@@ -212,6 +212,11 @@
 "Home.PostDetail.Participant.title" = "신청한 러너";
 "Home.PostDetail.Participant.empty" = "신청한 러너가 없어요!";
 
+// MARK: - Home.PostDetail.Report
+"Home.PostDetail.Report.content" = "부적절한 신고는 수락되지 않으며,\n활동 제재의 원인이 될 수 있습니다.\n정말 신고하시겠어요?";
+"Home.PostDetail.Report.Button.ok" = "예";
+"Home.PostDetail.Report.Button.no" = "아니오";
+
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";
 // MARK: - BookMark

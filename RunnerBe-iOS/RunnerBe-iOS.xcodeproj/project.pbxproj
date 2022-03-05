@@ -148,6 +148,10 @@
 		C38ABD8C27D324730025929E /* WaitOnboardingCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */; };
 		C38ABD8E27D324CC0025929E /* WaitOnboradingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */; };
 		C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9127D332600025929E /* NeedleGenerated.swift */; };
+		C38ABD9527D336010025929E /* ReportModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9427D336010025929E /* ReportModalComponent.swift */; };
+		C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */; };
+		C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9827D336170025929E /* ReportModalViewModel.swift */; };
+		C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9A27D336220025929E /* ReportModalViewController.swift */; };
 		C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* SocialLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* SocialLoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -461,6 +465,10 @@
 		C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverViewModel.swift; sourceTree = "<group>"; };
 		C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboradingViewController.swift; sourceTree = "<group>"; };
 		C38ABD9127D332600025929E /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
+		C38ABD9427D336010025929E /* ReportModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalComponent.swift; sourceTree = "<group>"; };
+		C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalCoordinator.swift; sourceTree = "<group>"; };
+		C38ABD9827D336170025929E /* ReportModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalViewModel.swift; sourceTree = "<group>"; };
+		C38ABD9A27D336220025929E /* ReportModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalViewController.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* SocialLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -1112,6 +1120,7 @@
 		C35E34A127C83C610023C0F9 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				C38ABD9327D335F00025929E /* ReportModal */,
 				C3C9732B27C9E0A900232251 /* ApplicantListModal */,
 				C3C9732A27C9D3F400232251 /* Config */,
 				C35E34AA27C83D520023C0F9 /* View */,
@@ -1290,6 +1299,17 @@
 				C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */,
 			);
 			path = WaitOnboardingCover;
+			sourceTree = "<group>";
+		};
+		C38ABD9327D335F00025929E /* ReportModal */ = {
+			isa = PBXGroup;
+			children = (
+				C38ABD9427D336010025929E /* ReportModalComponent.swift */,
+				C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */,
+				C38ABD9827D336170025929E /* ReportModalViewModel.swift */,
+				C38ABD9A27D336220025929E /* ReportModalViewController.swift */,
+			);
+			path = ReportModal;
 			sourceTree = "<group>";
 		};
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
@@ -2186,6 +2206,7 @@
 				C361B6D227B2B60E00824ABE /* PhotoCertificationCoordinator.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C3BA45D927B60E290048CA76 /* WaitCertificationViewModel.swift in Sources */,
+				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
@@ -2258,6 +2279,7 @@
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
+				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
 				C393578827CFB01700FCC73A /* LicenseComponent.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
 				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
@@ -2302,6 +2324,7 @@
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
+				C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */,
 				C3C9735927CA968F00232251 /* MakerViewController.swift in Sources */,
 				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
 				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
@@ -2414,6 +2437,7 @@
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */,
+				C38ABD9527D336010025929E /* ReportModalComponent.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
