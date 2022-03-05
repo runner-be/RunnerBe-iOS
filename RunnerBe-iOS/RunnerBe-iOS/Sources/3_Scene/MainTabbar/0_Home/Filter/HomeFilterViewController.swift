@@ -59,10 +59,9 @@ class HomeFilterViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.location
-//            .take(1)
-            .subscribe(onNext: { [weak self] location in
-                self?.filterPlaceView.setMapCoord(location, animated: false)
+        viewModel.outputs.locationDistance
+            .subscribe(onNext: { [weak self] locationDistance in
+                self?.filterPlaceView.setMapCoord(locationDistance.location, CGFloat(locationDistance.distance), animated: false)
             })
             .disposed(by: disposeBags)
 
@@ -94,18 +93,10 @@ class HomeFilterViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
 
-        viewModel.outputs.distance
-            .take(1)
-            .subscribe(onNext: { [weak self] distance in
-                self?.filterPlaceView.setDistance(distance: CGFloat(distance))
-            })
-            .disposed(by: disposeBags)
-
         viewModel.outputs.reset
             .subscribe(onNext: { [weak self] in
                 self?.filterAgeView.reset()
                 self?.filterJobView.reset()
-                self?.filterPlaceView.reset()
                 self?.filterGenderView.reset()
             })
             .disposed(by: disposeBags)

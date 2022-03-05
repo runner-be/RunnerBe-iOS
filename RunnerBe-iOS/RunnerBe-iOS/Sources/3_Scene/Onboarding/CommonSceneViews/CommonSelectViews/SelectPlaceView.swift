@@ -35,10 +35,6 @@ class SelectPlaceView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
-    func setDistance(distance: CGFloat) {
-        slider.setSelectValue(minValue: distance, maxValue: distance)
-    }
-
     func reset() {
         slider.reset()
     }
@@ -47,8 +43,9 @@ class SelectPlaceView: SelectBaseView {
 //        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
     }
 
-    func setMapCoord(_ coord: CLLocationCoordinate2D, animated: Bool) {
-        mapView.centerToCoord(coord, regionRadius: slider.selectedMinValue * 3, animated: animated)
+    func setMapCoord(_ coord: CLLocationCoordinate2D, _ range: CGFloat, animated: Bool) {
+        mapView.centerToCoord(coord, regionRadius: range * 3, animated: animated)
+        slider.setSelectValue(minValue: range, maxValue: range)
         updateCircle()
     }
 

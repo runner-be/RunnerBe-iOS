@@ -178,7 +178,7 @@ final class BasicSignupService: SignupService {
             }
             .compactMap { $0 }
             .flatMap { $0 }
-            .subscribe(onNext: { result in
+            .subscribe(onNext: { [weak self] result in
                 guard let result = result
                 else {
                     functionResult.onNext(.imageUploadFail)
@@ -187,6 +187,7 @@ final class BasicSignupService: SignupService {
 
                 switch result {
                 case .succeed:
+                    self?.loginKeyChainService.loginType = .waitCertification
                     functionResult.onNext(.imageUploaded)
                 case let .error(code):
 

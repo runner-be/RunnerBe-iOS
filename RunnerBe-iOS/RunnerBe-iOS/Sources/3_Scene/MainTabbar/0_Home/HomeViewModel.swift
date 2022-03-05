@@ -33,7 +33,7 @@ final class HomeViewModel: BaseViewModel {
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
             wheterEnd: .open,
             filter: .newest,
-            distanceFilter: 500,
+            distanceFilter: 3,
             gender: .none,
             ageMin: 20,
             ageMax: 65,
@@ -309,7 +309,7 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.jobFilter = inputFilter.jobFilter
                 newFilter.latitude = inputFilter.latitude
                 newFilter.longitude = inputFilter.longitude
-                newFilter.distanceFilter = inputFilter.distanceFilter / 1000.00
+                newFilter.distanceFilter = inputFilter.distanceFilter
                 self?.filter = newFilter
                 return newFilter
             }

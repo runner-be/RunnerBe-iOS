@@ -9,6 +9,13 @@ import CoreLocation
 import Foundation
 import RxSwift
 
+struct HomeFilterInputData {
+    let genderIdx: Int
+    let jobIdx: Int?
+    let minAge, maxAge: Int
+    let distance: Float
+}
+
 final class HomeFilterViewModel: BaseViewModel {
     typealias InputData = (
         genderIdx: Int?,
@@ -28,10 +35,16 @@ final class HomeFilterViewModel: BaseViewModel {
 //        if let currentLocation = locationService.currentPlace {
 //            outputs.location.onNext(currentLocation)
 //        }
+        outputs.locationDistance.onNext(
+            (
+                location: CLLocationCoordinate2D(
+                    latitude: inputFilter.latitude,
+                    longitude: inputFilter.longitude
+                ),
+                distance: inputFilter.distanceFilter * 1000
+            )
+        )
 
-        outputs.location.onNext(CLLocationCoordinate2D(latitude: inputFilter.latitude,
-                                                       longitude: inputFilter.longitude))
-        outputs.distance.onNext(inputFilter.distanceFilter)
         outputs.age.onNext((min: inputFilter.ageMin, max: inputFilter.ageMax))
         outputs.job.onNext(inputFilter.jobFilter.index)
         outputs.gender.onNext(inputFilter.gender.index)
@@ -62,7 +75,7 @@ final class HomeFilterViewModel: BaseViewModel {
                     latitude: latitude,
                     longitude: longitude,
                     wheterEnd: .error, filter: .error,
-                    distanceFilter: distance,
+                    distanceFilter: distance / 1000,
                     gender: gender,
                     ageMin: input.minAge,
                     ageMax: input.maxAge,
@@ -77,7 +90,7 @@ final class HomeFilterViewModel: BaseViewModel {
         inputs.reset
             .subscribe(onNext: { [weak self] in
                 if let location = self?.locationService.currentPlace {
-                    self?.outputs.location.onNext(location)
+                    self?.outputs.locationDistance.onNext((location: location, distance: 3000))
                 }
                 self?.outputs.reset.onNext(())
             })
@@ -90,8 +103,7 @@ final class HomeFilterViewModel: BaseViewModel {
     }
 
     struct Output {
-        var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
-        var distance = ReplaySubject<Float>.create(bufferSize: 1)
+        var locationDistance = ReplaySubject<(location: CLLocationCoordinate2D, distance: Float)>.create(bufferSize: 1)
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
         var gender = ReplaySubject<Int>.create(bufferSize: 1)
         var job = ReplaySubject<Int>.create(bufferSize: 1)
