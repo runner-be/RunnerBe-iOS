@@ -29,4 +29,5 @@ protocol UserAPIService {
     func setNickName(to name: String) -> Observable<SetNickNameResult>
     func setJob(to job: Job) -> Observable<SetJobResult>
     func setProfileImage(to image: Data) -> Observable<SetProfileResult>
+    func signout() -> Observable<Bool>
 }

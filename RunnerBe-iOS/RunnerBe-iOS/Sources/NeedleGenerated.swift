@@ -33,6 +33,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->MakerComponent") { component in
         return MakerDependency5de256f346c664613971Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutModalComponent") { component in
+        return SignoutModalDependencyd6110434a325a5a129f2Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
         return TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
     }
@@ -242,16 +245,18 @@ private class LogoutModalDependency198c1460728f9b03415bProvider: LogoutModalDepe
     }
 }
 private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDependency {
-
-
-    init() {
-
+    var userAPIService: UserAPIService {
+        return myPageComponent.userAPIService
+    }
+    private let myPageComponent: MyPageComponent
+    init(myPageComponent: MyPageComponent) {
+        self.myPageComponent = myPageComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent
 private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency70ef32136cd1f498fcc9BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(myPageComponent: component.parent as! MyPageComponent)
     }
 }
 private class MakerDependency5de256f346c664613971BaseProvider: MakerDependency {
@@ -263,6 +268,19 @@ private class MakerDependency5de256f346c664613971BaseProvider: MakerDependency {
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->MakerComponent
 private class MakerDependency5de256f346c664613971Provider: MakerDependency5de256f346c664613971BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class SignoutModalDependencyd6110434a325a5a129f2BaseProvider: SignoutModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutModalComponent
+private class SignoutModalDependencyd6110434a325a5a129f2Provider: SignoutModalDependencyd6110434a325a5a129f2BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
@@ -294,18 +312,18 @@ private class NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider: NickNam
     }
 }
 private class EditInfoDependency226a6a95833dbef9e88dBaseProvider: EditInfoDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
+    var userAPIService: UserAPIService {
+        return myPageComponent.userAPIService
     }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+    private let myPageComponent: MyPageComponent
+    init(myPageComponent: MyPageComponent) {
+        self.myPageComponent = myPageComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent
 private class EditInfoDependency226a6a95833dbef9e88dProvider: EditInfoDependency226a6a95833dbef9e88dBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent)
+        super.init(myPageComponent: component.parent as! MyPageComponent)
     }
 }
 private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {

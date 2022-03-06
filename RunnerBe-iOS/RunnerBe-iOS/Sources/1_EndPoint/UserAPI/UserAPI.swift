@@ -17,6 +17,8 @@ enum UserAPI {
 
     // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=420089353
     case setProfile(profileURL: String, userId: Int, token: LoginToken)
+
+    case signout(userID: Int)
 }
 
 extension UserAPI: TargetType {
@@ -32,6 +34,8 @@ extension UserAPI: TargetType {
             return "/users/\(userId)/job"
         case let .setProfile(_, profileURL, _):
             return "/users/\(profileURL)/profileImage"
+        case let .signout(userID: userID):
+            return "/users/\(userID)"
         }
     }
 
@@ -43,6 +47,8 @@ extension UserAPI: TargetType {
             return Method.patch
         case .setProfile:
             return Method.patch
+        case .signout:
+            return Method.delete
         }
     }
 
@@ -57,6 +63,9 @@ extension UserAPI: TargetType {
         case let .setProfile(profileURL, _, _):
             let parameters = ["profileImageUrl": profileURL]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+        case .signout:
+            let parameters = ["secret_key": AppKeys.runnerbe]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
 
@@ -68,6 +77,8 @@ extension UserAPI: TargetType {
             return ["x-access-token": "\(token.jwt)"]
         case let .setProfile(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
+        case .signout:
+            return nil
         }
     }
 }

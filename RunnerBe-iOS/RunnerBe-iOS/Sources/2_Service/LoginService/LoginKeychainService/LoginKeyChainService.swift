@@ -11,4 +11,5 @@ protocol LoginKeyChainService {
     var token: LoginToken? { get set }
     var userId: Int? { get set }
     var loginType: LoginType { get set }
+    var uuid: String? { get set }
 }

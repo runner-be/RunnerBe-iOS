@@ -35,4 +35,12 @@ final class MyPageComponent: Component<MyPageDependency> {
     var writingPostComponent: WritingMainPostComponent {
         return WritingMainPostComponent(parent: self)
     }
+
+    var userAPIService: UserAPIService {
+        return BasicUserAPIService(loginKeyChainService: dependency.loginKeyChainService, imageUploadService: imageUploadService)
+    }
+
+    var imageUploadService: ImageUploadService {
+        return BasicImageUploadService()
+    }
 }

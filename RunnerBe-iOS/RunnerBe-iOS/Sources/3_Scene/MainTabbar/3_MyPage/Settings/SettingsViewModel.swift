@@ -9,7 +9,10 @@ import Foundation
 import RxSwift
 
 final class SettingsViewModel: BaseViewModel {
-    override init() {
+    private let userAPIService: UserAPIService
+
+    init(userAPIService: UserAPIService) {
+        self.userAPIService = userAPIService
         super.init()
 
         let settingItems: [[SettingCellConfig]] = SettingCategory.allCases.reduce(into: []) { partialResult, category in
@@ -57,6 +60,8 @@ final class SettingsViewModel: BaseViewModel {
                     switch indexPath.item {
                     case 0:
                         self?.routes.logout.onNext(())
+                    case 1:
+                        self?.routes.signout.onNext(())
                     default: break
                     }
                 default:
@@ -68,6 +73,19 @@ final class SettingsViewModel: BaseViewModel {
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
+
+        routeInputs.signout
+            .filter { $0 }
+            .flatMap { _ in userAPIService.signout() }
+            .subscribe(onNext: { [weak self] success in
+                if success {
+                    self?.outputs.toast.onNext("회원탈퇴가 완료되었습니다.")
+                    self?.routes.logout.onNext(())
+                } else {
+                    self?.outputs.toast.onNext("죄송합니다 다시 시도해주세요.")
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -77,6 +95,7 @@ final class SettingsViewModel: BaseViewModel {
 
     struct Output {
         var menus = ReplaySubject<[[SettingCellConfig]]>.create(bufferSize: 1)
+        var toast = PublishSubject<String>()
     }
 
     struct Route {
@@ -87,10 +106,16 @@ final class SettingsViewModel: BaseViewModel {
         var makers = PublishSubject<Void>()
         var instagram = PublishSubject<Void>()
         var logout = PublishSubject<Void>()
+        var signout = PublishSubject<Void>()
+    }
+
+    struct RouteInputs {
+        var signout = PublishSubject<Bool>()
     }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+    var routeInputs = RouteInputs()
 }

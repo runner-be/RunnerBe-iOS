@@ -34,6 +34,9 @@
         var viewModel: LicenseViewModel?
         var navBar = RunnerbeNavBar().then { navBar in
             navBar.backgroundColor = .bgTop
+            navBar.titleLabel.font = .iosBody17Sb
+            navBar.titleLabel.textColor = .darkG3
+            navBar.titleLabel.text = "오픈소스 라이선스"
             navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
             navBar.rightBtnItem.isHidden = true
             navBar.rightSecondBtnItem.isHidden = true

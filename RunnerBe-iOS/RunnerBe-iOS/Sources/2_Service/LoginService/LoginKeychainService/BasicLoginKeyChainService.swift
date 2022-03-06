@@ -57,10 +57,24 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
         }
     }
 
+    var uuid: String? {
+        get {
+            return keychainWrapper[.uuid]
+        }
+
+        set {
+            keychainWrapper.remove(forKey: .uuid)
+            if let uuid = newValue {
+                keychainWrapper.set(uuid, forKey: KeychainWrapper.Key.uuid.rawValue)
+            }
+        }
+    }
+
     var loginType: LoginType = .nonMember
 }
 
 private extension KeychainWrapper.Key {
+    static let uuid: KeychainWrapper.Key = "uuid"
     static let loginTokenKey: KeychainWrapper.Key = "LoginTokenKey"
     static let userId: KeychainWrapper.Key = "SignupInfo.uuid"
     static let certificated: KeychainWrapper.Key = "UserCertificated"

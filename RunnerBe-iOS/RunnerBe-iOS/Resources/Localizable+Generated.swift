@@ -391,6 +391,10 @@ internal enum L10n {
             /// 로그아웃
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.Logout.title")
           }
+          internal enum SignOut {
+            /// 회원탈퇴
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.SignOut.title")
+          }
         }
         internal enum Policy {
           internal enum License {
@@ -432,6 +436,14 @@ internal enum L10n {
             /// 네
             internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Button.ok")
           }
+        }
+        internal enum Signout {
+          /// 탈퇴를 진행하시겠어요?
+          internal static let message = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.message")
+          /// 더 고민할래요
+          internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.no")
+          /// 예
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.ok")
         }
       }
       internal enum NavBar {
@@ -519,17 +531,14 @@ internal enum L10n {
   internal enum Onboarding {
     internal enum Modal {
       internal enum Cancel {
+        /// 정보를 입력하지 않으면
+        /// 둘러보기만 가능해요! 그만할까요?
+        internal static let message = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message")
         internal enum Button {
           /// 아니요
           internal static let no = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Button.no")
           /// 네
           internal static let yes = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Button.yes")
-        }
-        internal enum Message {
-          /// 정보를 입력하지 않으면
-          internal static let _1 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.1")
-          /// 둘러보기만 가능해요! 그만할까요?
-          internal static let _2 = L10n.tr("Localizable", "Onboarding.Modal.Cancel.Message.2")
         }
       }
     }

@@ -70,6 +70,7 @@ final class BasicLoginService: LoginService {
                     self?.loginKeyChainService.loginType = .member
                     return .member
                 case let LoginAPIResult.nonMember(uuid, _):
+                    self?.loginKeyChainService.uuid = uuid
                     self?.loginKeyChainService.loginType = .nonMember
                     return .nonMember(uuid: uuid)
                 case let LoginAPIResult.memberWaitCertification(_, jwt, _):

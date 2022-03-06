@@ -103,8 +103,7 @@
 "PhotoCertification.Modal.Button.2" = "앨범에서 선택하기";
 
 // MARK: - OnboardingCancelModal
-"Onboarding.Modal.Cancel.Message.1" = "정보를 입력하지 않으면";
-"Onboarding.Modal.Cancel.Message.2" = "둘러보기만 가능해요! 그만할까요?";
+"Onboarding.Modal.Cancel.Message" = "정보를 입력하지 않으면\n둘러보기만 가능해요! 그만할까요?";
 "Onboarding.Modal.Cancel.Button.yes" = "네";
 "Onboarding.Modal.Cancel.Button.no" = "아니요";
 
@@ -259,6 +258,7 @@
 "MyPage.Settings.Category.AboutRunnerbe.Instagram.title" = "러너비 인스타그램";
 
 "MyPage.Settings.Category.Account.Logout.title" = "로그아웃";
+"MyPage.Settings.Category.Account.SignOut.title" = "회원탈퇴";
 
 // MARK: - Modal
 "MyPage.Settings.Modal.Logout.Button.cancel" = "아니오";
@@ -268,6 +268,10 @@
 "MyPage.Settings.Modal.NickName.Button.cancel" = "더 고민할래요";
 "MyPage.Settings.Modal.NickName.Button.ok" = "네";
 "MyPage.Settings.Modal.NickName.Content" = "닉네임 변경은 1회만 가능하며 재변경은 불가능해요!\n정말 변경하시겠어요?";
+"MyPage.Settings.Modal.Signout.message" = "탈퇴를 진행하시겠어요?";
+"MyPage.Settings.Modal.Signout.ok" = "예";
+"MyPage.Settings.Modal.Signout.no" = "더 고민할래요";
+
 
 "MyPage.Tab.MyPost.title" = "작성한 글";
 "MyPage.Tab.MyParticipant.title" = "참여 러닝";

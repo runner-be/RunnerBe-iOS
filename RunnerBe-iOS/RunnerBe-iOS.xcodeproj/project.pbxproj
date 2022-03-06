@@ -152,6 +152,10 @@
 		C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */; };
 		C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9827D336170025929E /* ReportModalViewModel.swift */; };
 		C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9A27D336220025929E /* ReportModalViewController.swift */; };
+		C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9D27D4E3DA0025929E /* SignoutModalComponent.swift */; };
+		C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */; };
+		C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */; };
+		C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */; };
 		C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* SocialLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* SocialLoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -469,6 +473,10 @@
 		C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalCoordinator.swift; sourceTree = "<group>"; };
 		C38ABD9827D336170025929E /* ReportModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalViewModel.swift; sourceTree = "<group>"; };
 		C38ABD9A27D336220025929E /* ReportModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalViewController.swift; sourceTree = "<group>"; };
+		C38ABD9D27D4E3DA0025929E /* SignoutModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalComponent.swift; sourceTree = "<group>"; };
+		C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalCoordinator.swift; sourceTree = "<group>"; };
+		C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalViewModel.swift; sourceTree = "<group>"; };
+		C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalViewController.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* SocialLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -1312,6 +1320,17 @@
 			path = ReportModal;
 			sourceTree = "<group>";
 		};
+		C38ABD9C27D4E3BA0025929E /* SignoutModal */ = {
+			isa = PBXGroup;
+			children = (
+				C38ABD9D27D4E3DA0025929E /* SignoutModalComponent.swift */,
+				C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */,
+				C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */,
+				C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */,
+			);
+			path = SignoutModal;
+			sourceTree = "<group>";
+		};
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1713,6 +1732,7 @@
 		C3C9734527CA95B700232251 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C38ABD9C27D4E3BA0025929E /* SignoutModal */,
 				C393578627CFAFFE00FCC73A /* License */,
 				C3C9736827CAF4E500232251 /* Config */,
 				C3C9734627CA95C500232251 /* Maker */,
@@ -2228,6 +2248,7 @@
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				C361B6D427B2B62300824ABE /* PhotoCertificationViewModel.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
+				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				C361B6C827B2938900824ABE /* EmailCertificationViewModel.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
@@ -2331,6 +2352,7 @@
 				C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */,
 				C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
+				C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */,
 				C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */,
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
@@ -2475,7 +2497,9 @@
 				C34BA6B327CD47EB003E393A /* MyPostResElement.swift in Sources */,
 				C3BA45BF27B59F560048CA76 /* EmailCertificationInitModalComponent.swift in Sources */,
 				C38ABD8427D31EAD0025929E /* LoginType.swift.swift in Sources */,
+				C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */,
 				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
+				C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,

@@ -1,8 +1,8 @@
 //
-//  OnboardingCancelModalViewController.swift
+//  SignoutModalViewController.swift
 //  RunnerBe-iOS
 //
-//  Created by 김신우 on 2022/02/11.
+//  Created by 김신우 on 2022/03/06.
 //
 
 import RxCocoa
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class OnboardingCancelModalViewController: BaseViewController {
+class SignoutModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,7 +22,7 @@ class OnboardingCancelModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: OnboardingCancelModalViewModel) {
+    init(viewModel: SignoutModalViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -32,7 +32,7 @@ class OnboardingCancelModalViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: OnboardingCancelModalViewModel
+    private var viewModel: SignoutModalViewModel
 
     private func viewModelInput() {
         sheet.rx.tapGesture(configuration: { _, delegate in
@@ -70,7 +70,7 @@ class OnboardingCancelModalViewController: BaseViewController {
     private var titleLabel = UILabel().then { label in
         label.font = .iosBody17R
         label.textColor = .darkG1
-        label.text = L10n.Onboarding.Modal.Cancel.message
+        label.text = L10n.MyPage.Settings.Modal.Signout.message
         label.numberOfLines = 2
         label.textAlignment = .center
     }
@@ -80,7 +80,7 @@ class OnboardingCancelModalViewController: BaseViewController {
     }
 
     private var buttonOk = UIButton().then { button in
-        button.setTitle(L10n.Onboarding.Modal.Cancel.Button.yes, for: .normal)
+        button.setTitle(L10n.MyPage.Settings.Modal.Signout.ok, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
 
@@ -92,7 +92,7 @@ class OnboardingCancelModalViewController: BaseViewController {
     }
 
     private var buttonNo = UIButton().then { button in
-        button.setTitle(L10n.Onboarding.Modal.Cancel.Button.no, for: .normal)
+        button.setTitle(L10n.MyPage.Settings.Modal.Signout.no, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
 
@@ -102,7 +102,7 @@ class OnboardingCancelModalViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension OnboardingCancelModalViewController {
+extension SignoutModalViewController {
     private func setupViews() {
         view.backgroundColor = .bgSheet
 
@@ -123,7 +123,7 @@ extension OnboardingCancelModalViewController {
         sheet.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
-//            make.width.equalTo(270)
+            make.width.equalTo(270)
         }
 
         titleLabel.snp.makeConstraints { make in

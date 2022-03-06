@@ -46,6 +46,7 @@ enum AboutRunnerbeCategory: CaseIterable {
 
 enum AccountCategory: CaseIterable {
     case loggedOut
+    case signOut
 }
 
 extension PolicyCategory {
@@ -90,6 +91,8 @@ extension AccountCategory {
         switch self {
         case .loggedOut:
             return L10n.MyPage.Settings.Category.Account.Logout.title
+        case .signOut:
+            return L10n.MyPage.Settings.Category.Account.SignOut.title
         }
     }
 

@@ -8,7 +8,9 @@
 import Foundation
 import NeedleFoundation
 
-protocol SettingsDependency: Dependency {}
+protocol SettingsDependency: Dependency {
+    var userAPIService: UserAPIService { get }
+}
 
 final class SettingsComponent: Component<SettingsDependency> {
     var scene: (VC: UIViewController, VM: SettingsViewModel) {
@@ -17,7 +19,7 @@ final class SettingsComponent: Component<SettingsDependency> {
     }
 
     var viewModel: SettingsViewModel {
-        return SettingsViewModel()
+        return SettingsViewModel(userAPIService: dependency.userAPIService)
     }
 
     var makerComponent: MakerComponent {
@@ -30,6 +32,10 @@ final class SettingsComponent: Component<SettingsDependency> {
 
     var licenseComponent: LicenseComponent {
         return LicenseComponent(parent: self)
+    }
+
+    var signoutModalComponent: SignoutModalComponent {
+        return SignoutModalComponent(parent: self)
     }
 
     func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {

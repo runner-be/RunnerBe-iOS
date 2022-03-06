@@ -198,4 +198,73 @@ final class BasicUserAPIService: UserAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func signout() -> Observable<Bool> {
+        guard let userID = loginKeyChainService.userId
+        else {
+            return .just(false)
+        }
+
+        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+        let disposeBag = DisposeBag()
+        #if DEBUG
+            print("[\(#line)BasieUserAPI:\(#function)]: userId: \(userID)")
+        #endif
+
+        provider.rx.request(.signout(userID: userID))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> BasicResponse? in
+                #if DEBUG
+                    print("[\(#line)BasieUserAPI:\(#function)]: userId: \(userID)")
+                #endif
+                guard let json = json
+                else {
+                    #if DEBUG
+                        print("result == nil")
+                    #endif
+                    functionResult.onNext(false)
+                    return nil
+                }
+                #if DEBUG
+                    print("result: \n\(json)")
+                #endif
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(false)
+                    return
+                }
+                #if DEBUG
+                    print("response Message: \(response.message)")
+                #endif
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(true)
+                case 2011: // userId 미입력
+                    functionResult.onNext(false)
+                case 2012: // userID 형식 오류 (숫자)
+                    functionResult.onNext(false)
+                case 2079: // secret key 미입력
+                    functionResult.onNext(false)
+                case 2080: // secret key 유효하지 않음
+                    functionResult.onNext(false)
+                case 4000: // db 오류
+                    functionResult.onNext(false)
+                default:
+                    functionResult.onNext(false)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposeBag
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }
