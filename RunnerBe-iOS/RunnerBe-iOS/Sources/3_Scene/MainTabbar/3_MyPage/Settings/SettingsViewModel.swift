@@ -80,7 +80,7 @@ final class SettingsViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] success in
                 if success {
                     self?.outputs.toast.onNext("회원탈퇴가 완료되었습니다.")
-                    self?.routes.logout.onNext(())
+                    self?.routes.signoutComplete.onNext(())
                 } else {
                     self?.outputs.toast.onNext("죄송합니다 다시 시도해주세요.")
                 }
@@ -107,6 +107,7 @@ final class SettingsViewModel: BaseViewModel {
         var instagram = PublishSubject<Void>()
         var logout = PublishSubject<Void>()
         var signout = PublishSubject<Void>()
+        var signoutComplete = PublishSubject<Void>()
     }
 
     struct RouteInputs {

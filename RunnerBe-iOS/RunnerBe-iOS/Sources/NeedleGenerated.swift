@@ -36,6 +36,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutModalComponent") { component in
         return SignoutModalDependencyd6110434a325a5a129f2Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutCompletionModalComponent") { component in
+        return SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
         return TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
     }
@@ -281,6 +284,19 @@ private class SignoutModalDependencyd6110434a325a5a129f2BaseProvider: SignoutMod
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutModalComponent
 private class SignoutModalDependencyd6110434a325a5a129f2Provider: SignoutModalDependencyd6110434a325a5a129f2BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfBaseProvider: SignoutCompletionModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutCompletionModalComponent
+private class SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider: SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

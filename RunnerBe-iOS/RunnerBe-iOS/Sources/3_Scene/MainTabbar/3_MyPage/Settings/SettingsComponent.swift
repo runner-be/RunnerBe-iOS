@@ -38,6 +38,10 @@ final class SettingsComponent: Component<SettingsDependency> {
         return SignoutModalComponent(parent: self)
     }
 
+    var signoutCompletionModalComponent: SignoutCompletionModalComponent {
+        return SignoutCompletionModalComponent(parent: self)
+    }
+
     func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {
         return PolicyDetailComponent(parent: self, policyType: type, modal: modal)
     }

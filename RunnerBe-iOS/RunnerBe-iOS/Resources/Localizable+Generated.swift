@@ -445,6 +445,13 @@ internal enum L10n {
           /// 예
           internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.ok")
         }
+        internal enum SignoutCompletion {
+          /// 회원탈퇴가 완료되었습니다.
+          /// 로그인페이지로 이동합니다.
+          internal static let message = L10n.tr("Localizable", "MyPage.Settings.Modal.SignoutCompletion.message")
+          /// 이동
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.SignoutCompletion.ok")
+        }
       }
       internal enum NavBar {
         /// 설정

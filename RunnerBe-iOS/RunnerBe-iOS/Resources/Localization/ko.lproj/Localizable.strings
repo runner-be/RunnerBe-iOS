@@ -272,6 +272,8 @@
 "MyPage.Settings.Modal.Signout.ok" = "예";
 "MyPage.Settings.Modal.Signout.no" = "더 고민할래요";
 
+"MyPage.Settings.Modal.SignoutCompletion.message" = "회원탈퇴가 완료되었습니다.\n로그인페이지로 이동합니다.";
+"MyPage.Settings.Modal.SignoutCompletion.ok" = "이동";
 
 "MyPage.Tab.MyPost.title" = "작성한 글";
 "MyPage.Tab.MyParticipant.title" = "참여 러닝";

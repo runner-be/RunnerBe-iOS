@@ -65,7 +65,7 @@ extension UserAPI: TargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .signout:
             let parameters = ["secret_key": AppKeys.runnerbe]
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 

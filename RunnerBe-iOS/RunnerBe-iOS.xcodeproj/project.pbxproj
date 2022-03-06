@@ -156,6 +156,10 @@
 		C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */; };
 		C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */; };
 		C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */; };
+		C38ABDA727D4F2CC0025929E /* SignoutCompletionModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA627D4F2CC0025929E /* SignoutCompletionModalComponent.swift */; };
+		C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDA827D4F2D90025929E /* SignoutCompletionModalCoordinator.swift */; };
+		C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDAA27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift */; };
+		C38ABDAD27D4F2E60025929E /* SignoutCompletionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDAC27D4F2E60025929E /* SignoutCompletionModalViewController.swift */; };
 		C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F1E27AD88700050137D /* SocialLoginResult.swift */; };
 		C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2027AD88970050137D /* SocialLoginType.swift */; };
 		C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */; };
@@ -477,6 +481,10 @@
 		C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalCoordinator.swift; sourceTree = "<group>"; };
 		C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalViewModel.swift; sourceTree = "<group>"; };
 		C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutModalViewController.swift; sourceTree = "<group>"; };
+		C38ABDA627D4F2CC0025929E /* SignoutCompletionModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutCompletionModalComponent.swift; sourceTree = "<group>"; };
+		C38ABDA827D4F2D90025929E /* SignoutCompletionModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutCompletionModalCoordinator.swift; sourceTree = "<group>"; };
+		C38ABDAA27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutCompletionModalViewModel.swift; sourceTree = "<group>"; };
+		C38ABDAC27D4F2E60025929E /* SignoutCompletionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutCompletionModalViewController.swift; sourceTree = "<group>"; };
 		C38F8F1E27AD88700050137D /* SocialLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResult.swift; sourceTree = "<group>"; };
 		C38F8F2027AD88970050137D /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -1323,12 +1331,24 @@
 		C38ABD9C27D4E3BA0025929E /* SignoutModal */ = {
 			isa = PBXGroup;
 			children = (
+				C38ABDA527D4F2B40025929E /* SignoutCompletionModal */,
 				C38ABD9D27D4E3DA0025929E /* SignoutModalComponent.swift */,
 				C38ABD9F27D4E3E00025929E /* SignoutModalCoordinator.swift */,
 				C38ABDA127D4E3E70025929E /* SignoutModalViewModel.swift */,
 				C38ABDA327D4E3F20025929E /* SignoutModalViewController.swift */,
 			);
 			path = SignoutModal;
+			sourceTree = "<group>";
+		};
+		C38ABDA527D4F2B40025929E /* SignoutCompletionModal */ = {
+			isa = PBXGroup;
+			children = (
+				C38ABDA627D4F2CC0025929E /* SignoutCompletionModalComponent.swift */,
+				C38ABDA827D4F2D90025929E /* SignoutCompletionModalCoordinator.swift */,
+				C38ABDAA27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift */,
+				C38ABDAC27D4F2E60025929E /* SignoutCompletionModalViewController.swift */,
+			);
+			path = SignoutCompletionModal;
 			sourceTree = "<group>";
 		};
 		C38F8F2627AD95FC0050137D /* 0_Home */ = {
@@ -2272,6 +2292,7 @@
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
+				C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
 				C32C029427CB4A5E0011419E /* AttendablePostCell.swift in Sources */,
@@ -2343,6 +2364,7 @@
 				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
 				C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
+				C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
 				C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */,
@@ -2456,6 +2478,7 @@
 				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,
 				C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */,
 				C3C9734927CA962200232251 /* EditInfoComponent.swift in Sources */,
+				C38ABDA727D4F2CC0025929E /* SignoutCompletionModalComponent.swift in Sources */,
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */,
@@ -2499,6 +2522,7 @@
 				C38ABD8427D31EAD0025929E /* LoginType.swift.swift in Sources */,
 				C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */,
 				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
+				C38ABDAD27D4F2E60025929E /* SignoutCompletionModalViewController.swift in Sources */,
 				C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,

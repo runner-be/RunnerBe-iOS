@@ -19,7 +19,16 @@ final class BasicMailingCertificationService: MailingCertificationService {
         let mailFrom = MailAddress(email: "sinsdhk@gmail.com", name: "RunnerBe")
         let mailTo = MailAddress(email: address, name: "Runner")
         let subject = "[From: RunnerBe] 인증을 진행해 주세요!"
-        let text = "안녕하세요 러너비입니다.\n\n아래 링크를 통해 회원가입 절차를 완료해 주세요!\n\n\(dynamicLink) "
+        let text = """
+        안녕하세요, Runner-Be 입니다!
+        만약 귀하께서 요청하신 인증 메일이 아니라면 이 메일을 무시하셔도 됩니다.
+
+        하단의 링크를 클릭해 인증을 진행해 주시면 회원님에 대한 모든 소개가 완료됩니다.
+        
+        \(dynamicLink)
+        
+        그럼, 지금부터 러너비에서 힘차게 달려볼까요!
+        """
 
         let mail = Mail(from: mailFrom, to: [mailTo], subject: subject, textPart: text, htmlPart: nil)
 
