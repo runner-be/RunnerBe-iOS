@@ -15,6 +15,7 @@ enum DateFormat {
     case HHmm // HH:mm 서버 전달용
     case yyyyMdEahmm // 년 월/일 (요일) AM/PM 6:00
     case MdE // 월/일 (요일)
+    case posting
     case mdeahhmmSpacing
     case korHmm // ~시간 ~분
     case gathering // 00/00(화) AM00:00
@@ -45,6 +46,8 @@ extension DateFormat {
             return "h시간 mm분"
         case .mdeahhmmSpacing:
             return "M/d (E) a hh:mm"
+        case .posting:
+            return "yyyy M/d (E) a hh:mm"
         case .gathering:
             return "M/d(E) ahh:mm"
         case .ampm:

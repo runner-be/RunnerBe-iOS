@@ -142,6 +142,12 @@ class MyPageViewController: BaseViewController {
             })
             .disposed(by: disposeBags)
 
+        viewModel.outputs.needReload
+            .subscribe(onNext: { [weak self] in
+                self?.postCollectionView.reloadData()
+            })
+            .disposed(by: disposeBags)
+
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
                 self?.myInfoWithChevron.infoView.configure(with: config)

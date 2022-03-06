@@ -63,6 +63,7 @@ final class MyPageViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [unowned self] postConfigs in
                 self.outputs.posts.onNext(postConfigs)
+                self.outputs.needReload.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -176,6 +177,7 @@ final class MyPageViewModel: BaseViewModel {
         var postType: PostType = .basic
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var needReload = PublishSubject<Void>()
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: PostAttendState)>()
         var toast = BehaviorSubject<String>(value: "")

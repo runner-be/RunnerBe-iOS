@@ -60,8 +60,9 @@ final class WritingMainPostViewModel: BaseViewModel {
                     self?.outputs.toast.onNext("일시를 입력해주세요")
                     return nil
                 }
-
-                if let date = DateUtil.shared.getDate(from: inputData!.date, format: .mdeahhmmSpacing) {
+                let selectedDate = DateUtil.shared.getCurrent(format: .yyyy) + " " + inputData!.date
+                // TODO: 12월 ~ 1월 대응해야됨!
+                if let date = DateUtil.shared.getDate(from: selectedDate, format: .posting) {
                     if Date() > date {
                         self?.outputs.toast.onNext("이미 지난 날짜 입니다.")
                         return nil
