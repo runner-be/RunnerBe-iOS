@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol SocialLoginService {
-    func login() -> Observable<SocialLoginResult>
+    func login() -> Observable<SocialLoginResult?>
 }

@@ -20,9 +20,9 @@ final class NaverLoginService: NSObject, SocialLoginService {
 
     // MARK: Internal
 
-    var loginDataStream = PublishSubject<SocialLoginResult>()
+    var loginDataStream = PublishSubject<SocialLoginResult?>()
 
-    func login() -> Observable<SocialLoginResult> {
+    func login() -> Observable<SocialLoginResult?> {
         loginConnection.requestThirdPartyLogin()
         return loginDataStream
     }
@@ -57,6 +57,6 @@ extension NaverLoginService: NaverThirdPartyLoginConnectionDelegate {
     // 모든 에러
     func oauth20Connection(_: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
         print(error.localizedDescription)
-        loginDataStream.onError(error)
+        loginDataStream.onNext(nil)
     }
 }

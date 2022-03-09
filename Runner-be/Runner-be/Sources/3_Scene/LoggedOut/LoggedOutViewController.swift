@@ -44,7 +44,7 @@ final class LoggedOutViewController: BaseViewController {
     private func bindViewModelInput() {
         kakaoButton.rx.tapGesture()
             .debug()
-            .when(.ended).map { _ in }
+            .when(.recognized).map { _ in }
             .bind(to: viewModel.inputs.kakaoLogin)
             .disposed(by: disposeBags)
 

@@ -19,7 +19,7 @@ import RxSwift
 final class KakaoLoginService: SocialLoginService {
     // MARK: Internal
 
-    func login() -> Observable<SocialLoginResult> {
+    func login() -> Observable<SocialLoginResult?> {
         if UserApi.isKakaoTalkLoginAvailable() {
             return loginWithKakaoApp()
         } else {
@@ -29,18 +29,25 @@ final class KakaoLoginService: SocialLoginService {
 
     // MARK: Private
 
-    private func loginWithKakaoApp() -> Observable<SocialLoginResult> {
+    private func loginWithKakaoApp() -> Observable<SocialLoginResult?> {
         return UserApi.shared.rx.loginWithKakaoTalk()
+            .catchAndReturn(OAuthToken())
             .map {
-                return SocialLoginResult(token: $0.accessToken, loginType: .kakao)
+                return $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 
-    private func loginWithKakaoAccount() -> Observable<SocialLoginResult> {
+    private func loginWithKakaoAccount() -> Observable<SocialLoginResult?> {
         return UserApi.shared.rx.loginWithKakaoAccount()
-            .do(onNext: nil, onError: { print($0) })
+            .catchAndReturn(OAuthToken())
             .map {
-                return SocialLoginResult(token: $0.accessToken, loginType: .kakao)
+                return $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
+    }
+}
+
+private extension OAuthToken {
+    init() {
+        self.init(accessToken: "", expiresIn: nil, expiredAt: nil, tokenType: "", refreshToken: "", refreshTokenExpiresIn: nil, refreshTokenExpiredAt: nil, scope: nil, scopes: nil)
     }
 }

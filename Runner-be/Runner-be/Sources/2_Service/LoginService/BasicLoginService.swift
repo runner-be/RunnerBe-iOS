@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 
 final class BasicLoginService: LoginService {
+    private var disposeBag = DisposeBag()
+
     private var loginKeyChainService: LoginKeyChainService
     private let kakaoLoginService: SocialLoginService
     private let naverLoginService: SocialLoginService
@@ -44,7 +46,9 @@ final class BasicLoginService: LoginService {
     }
 
     func login(with socialType: SocialLoginType) -> Observable<LoginResult> {
-        let socialLoginResult: Observable<SocialLoginResult>
+        let functionResult = ReplaySubject<LoginResult>.create(bufferSize: 1)
+
+        let socialLoginResult: Observable<SocialLoginResult?>
         switch socialType {
         case .naver:
             socialLoginResult = naverLoginService.login()
@@ -54,30 +58,44 @@ final class BasicLoginService: LoginService {
             socialLoginResult = .just(SocialLoginResult(token: "", loginType: socialType))
         }
 
-        return socialLoginResult
-            .map { [weak self] result in
-                self?.loginAPIService.login(with: socialType, token: result.token)
+        socialLoginResult
+            .compactMap {
+                if let result = $0 {
+                    return result
+                }
+                functionResult.onNext(.socialLoginFail)
+                return nil
             }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .map { [weak self] apiResult -> LoginResult in
+            .flatMap { [unowned self] (socialLogin: SocialLoginResult) in
+                self.loginAPIService.login(with: socialType, token: socialLogin.token)
+            }
+            .subscribe(onNext: { [weak self] apiResult in
                 guard let result = apiResult
-                else { return LoginResult.loginFail }
+                else {
+                    functionResult.onNext(LoginResult.loginFail)
+                    return
+                }
                 switch result {
                 case let LoginAPIResult.member(id, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
                     self?.loginKeyChainService.userId = id
                     self?.loginKeyChainService.loginType = .member
-                    return .member
+                    functionResult.onNext(.member)
                 case let LoginAPIResult.nonMember(uuid, _):
                     self?.loginKeyChainService.uuid = uuid
                     self?.loginKeyChainService.loginType = .nonMember
-                    return .nonMember(uuid: uuid)
+                    functionResult.onNext(.nonMember(uuid: uuid))
                 case let LoginAPIResult.memberWaitCertification(_, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
                     self?.loginKeyChainService.loginType = .waitCertification
-                    return .memberWaitCertification
+                    functionResult.onNext(.memberWaitCertification)
                 }
-            }
+            })
+            .disposed(by: disposeBag)
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposeBag = DisposeBag()
+            })
     }
 }
