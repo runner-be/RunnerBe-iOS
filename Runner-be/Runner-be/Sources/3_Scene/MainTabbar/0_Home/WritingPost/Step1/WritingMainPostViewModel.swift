@@ -26,9 +26,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         super.init()
 
         outputs.boundaryLimit.onNext(locationService.allowableBoundary)
-        if let currentLocation = locationService.currentPlace {
-            outputs.location.onNext(currentLocation)
-        }
+        outputs.location.onNext(locationService.currentPlace)
 
         let curDate = Date()
         let datePlaceHolder =

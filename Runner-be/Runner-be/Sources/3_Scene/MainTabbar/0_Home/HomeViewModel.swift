@@ -22,12 +22,7 @@ final class HomeViewModel: BaseViewModel {
         self.postAPIService = postAPIService
 
         // TODO: 런칭땐 이 좌표값으로 Filter 작성
-        let searchLocation: CLLocationCoordinate2D
-        if let currentLocation = locationService.currentPlace {
-            searchLocation = currentLocation
-        } else {
-            searchLocation = CLLocationCoordinate2D(latitude: 36.12312312, longitude: 36.12312312)
-        }
+        let searchLocation = locationService.currentPlace
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
@@ -208,9 +203,9 @@ final class HomeViewModel: BaseViewModel {
                 }
             })
             .compactMap { [weak self] _ in
-                guard let self = self,
-                      let coord = locationService.currentPlace
+                guard let self = self
                 else { return nil }
+                let coord = locationService.currentPlace
                 self.filter.latitude = coord.latitude
                 self.filter.longitude = coord.longitude
                 return self.filter
@@ -276,6 +271,12 @@ final class HomeViewModel: BaseViewModel {
                 }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
                 self.outputs.posts.onNext(self.posts)
+            })
+            .disposed(by: disposeBag)
+
+        locationService.locationEnableState
+            .subscribe(onNext: { [weak self] _ in
+                self?.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: disposeBag)
     }

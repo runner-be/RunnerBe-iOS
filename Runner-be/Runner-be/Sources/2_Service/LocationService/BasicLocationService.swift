@@ -12,6 +12,11 @@ import RxSwift
 class BasicLocationService: NSObject, LocationService {
     private var locationManager: CLLocationManager
 
+    var enableStateOb = ReplaySubject<Bool>.create(bufferSize: 1)
+    var locationEnableState: Observable<Bool> {
+        return enableStateOb
+    }
+
     init(locationManager: CLLocationManager = CLLocationManager()) {
         self.locationManager = locationManager
         super.init()
@@ -19,15 +24,30 @@ class BasicLocationService: NSObject, LocationService {
     }
 
     private func setup() {
-//        locationManager.delegate = self
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
     }
 
-    var currentPlace: CLLocationCoordinate2D? {
-        locationManager.location?.coordinate
+    private let defaultPlace = CLLocationCoordinate2D(latitude: 37.5662952, longitude: 126.9735677)
+
+    var currentPlace: CLLocationCoordinate2D {
+        if #available(iOS 14.0, *) {
+            switch locationManager.authorizationStatus {
+            case .authorized, .authorizedAlways, .authorizedWhenInUse:
+                return locationManager.location?.coordinate ?? defaultPlace
+            default:
+                return defaultPlace
+            }
+        } else {
+            if CLLocationManager.locationServicesEnabled() {
+                return locationManager.location?.coordinate ?? defaultPlace
+            } else {
+                return defaultPlace
+            }
+        }
     }
 
     // https://cdn.discordapp.com/attachments/934610661974097980/945003205832622080/unknown.png
@@ -50,5 +70,46 @@ class BasicLocationService: NSObject, LocationService {
         }
 
         return functionResult
+    }
+}
+
+extension BasicLocationService: CLLocationManagerDelegate {
+    @available(iOS 14.0, *)
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let enable: Bool
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            enable = false
+        case .restricted:
+            enable = false
+        case .denied:
+            enable = false
+        case .authorizedAlways:
+            enable = true
+        case .authorizedWhenInUse:
+            enable = true
+        @unknown default:
+            enable = false
+        }
+        enableStateOb.onNext(enable)
+    }
+
+    func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        let enable: Bool
+        switch status {
+        case .notDetermined:
+            enable = false
+        case .restricted:
+            enable = false
+        case .denied:
+            enable = false
+        case .authorizedAlways:
+            enable = true
+        case .authorizedWhenInUse:
+            enable = true
+        @unknown default:
+            enable = false
+        }
+        enableStateOb.onNext(enable)
     }
 }
