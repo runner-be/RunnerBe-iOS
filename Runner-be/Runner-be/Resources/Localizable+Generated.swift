@@ -356,20 +356,20 @@ internal enum L10n {
     }
     internal enum MyPost {
       internal enum Empty {
-        /// 아직 러닝에 참여하지 않았어요!
+        /// 아직 모임을 만들지 않았어요!
         internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.title")
         internal enum Button {
-          /// 참여해볼까요? 👉
+          /// 모임을 만들어볼까요? 👉
           internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.Button.title")
         }
       }
     }
     internal enum MyRunning {
       internal enum Empty {
-        /// 아직 모임을 만들지 않았어요!
+        /// 아직 러닝에 참여하지 않았어요!
         internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.title")
         internal enum Button {
-          /// 모임을 만들어볼까요? 👉
+          /// 참여해볼까요? 👉
           internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.Button.title")
         }
       }
