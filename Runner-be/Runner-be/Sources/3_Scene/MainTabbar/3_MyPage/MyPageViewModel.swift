@@ -63,7 +63,6 @@ final class MyPageViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [unowned self] postConfigs in
                 self.outputs.posts.onNext(postConfigs)
-                self.outputs.needReload.onNext(())
             })
             .disposed(by: disposeBag)
 
@@ -150,16 +149,12 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: routes.editInfo)
             .disposed(by: disposeBag)
 
-        inputs.emptyTap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                switch self.outputs.postType {
-                case .attendable:
-                    self.routes.toMain.onNext(())
-                case .basic:
-                    self.routes.writePost.onNext(())
-                }
-            })
+        inputs.toMain
+            .bind(to: routes.toMain)
+            .disposed(by: disposeBag)
+
+        inputs.writePost
+            .bind(to: routes.writePost)
             .disposed(by: disposeBag)
     }
 
@@ -170,14 +165,14 @@ final class MyPageViewModel: BaseViewModel {
         var tapPost = PublishSubject<Int>()
         var bookMark = PublishSubject<Int>()
         var attend = PublishSubject<Int>()
-        var emptyTap = PublishSubject<Void>()
+        var toMain = PublishSubject<Void>()
+        var writePost = PublishSubject<Void>()
     }
 
     struct Output {
         var postType: PostType = .basic
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
-        var needReload = PublishSubject<Void>()
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: PostAttendState)>()
         var toast = BehaviorSubject<String>(value: "")

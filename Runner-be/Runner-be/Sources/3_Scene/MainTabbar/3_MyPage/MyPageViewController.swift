@@ -56,13 +56,22 @@ class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.settings)
             .disposed(by: disposeBags)
 
-        postCollectionView.rx.itemSelected
+        myPostCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBags)
 
-        emptyButton.rx.tap
-            .bind(to: viewModel.inputs.emptyTap)
+        myRunningCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBags)
+
+        myPostEmptyButton.rx.tap
+            .bind(to: viewModel.inputs.writePost)
+            .disposed(by: disposeBags)
+
+        myRunningEmptyButton.rx.tap
+            .bind(to: viewModel.inputs.toMain)
             .disposed(by: disposeBags)
     }
 
@@ -70,81 +79,86 @@ class MyPageViewController: BaseViewController {
         typealias MyPagePostDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
-        let dataSource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self
+        let myPostDatasource = MyPagePostDataSource { _, collectionView, indexPath, item in
+
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
             else { return UICollectionViewCell() }
+            cell.configure(with: item.cellConfig)
+            cell.postInfoView.bookMarkIcon.isHidden = true
 
-            switch self.viewModel.outputs.postType {
-            case .attendable:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AttendablePostCell.id, for: indexPath) as? AttendablePostCell
-                else { return UICollectionViewCell() }
-                cell.configure(with: item)
-
-                cell.attendButton.rx.tap
-                    .map { indexPath.item }
-                    .bind(to: self.viewModel.inputs.attend)
-                    .disposed(by: cell.disposeBag)
-
-                cell.postInfoView.bookMarkIcon.rx.tap
-                    .map { indexPath.item }
-                    .bind(to: self.viewModel.inputs.bookMark)
-                    .disposed(by: cell.disposeBag)
-
-                self.viewModel.outputs.marked
-                    .filter { $0.type == .attendable }
-                    .filter { $0.idx == indexPath.item }
-                    .subscribe(onNext: { [weak cell] result in
-                        cell?.postInfoView.bookMarkIcon.isSelected = result.marked
-                    })
-                    .disposed(by: cell.disposeBag)
-
-                self.viewModel.outputs.attend
-                    .filter { $0.type == .attendable }
-                    .filter { $0.idx == indexPath.item }
-                    .subscribe(onNext: { [weak cell] result in
-                        cell?.update(with: result.state)
-                    })
-                    .disposed(by: cell.disposeBag)
-
-                return cell
-            case .basic:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-                else { return UICollectionViewCell() }
-                cell.configure(with: item.cellConfig)
-                cell.postInfoView.bookMarkIcon.isHidden = true
-
-                return cell
-            }
+            return cell
         }
 
         viewModel.outputs.posts
+            .filter { [unowned self] _ in self.viewModel.outputs.postType == .basic }
             .map { [MyPagePostSection(items: $0)] }
-            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .bind(to: myPostCollectionView.rx.items(dataSource: myPostDatasource))
+            .disposed(by: disposeBags)
+
+        let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self
+            else { return UICollectionViewCell() }
+
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AttendablePostCell.id, for: indexPath) as? AttendablePostCell
+            else { return UICollectionViewCell() }
+            cell.configure(with: item)
+
+            cell.attendButton.rx.tap
+                .map { indexPath.item }
+                .bind(to: self.viewModel.inputs.attend)
+                .disposed(by: cell.disposeBag)
+
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.item }
+                .bind(to: self.viewModel.inputs.bookMark)
+                .disposed(by: cell.disposeBag)
+
+            self.viewModel.outputs.marked
+                .filter { $0.type == .attendable }
+                .filter { $0.idx == indexPath.item }
+                .subscribe(onNext: { [weak cell] result in
+                    cell?.postInfoView.bookMarkIcon.isSelected = result.marked
+                })
+                .disposed(by: cell.disposeBag)
+
+            self.viewModel.outputs.attend
+                .filter { $0.type == .attendable }
+                .filter { $0.idx == indexPath.item }
+                .subscribe(onNext: { [weak cell] result in
+                    cell?.update(with: result.state)
+                })
+                .disposed(by: cell.disposeBag)
+
+            return cell
+        }
+
+        viewModel.outputs.posts
+            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
+            .map { [MyPagePostSection(items: $0)] }
+            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
             .disposed(by: disposeBags)
 
         viewModel.outputs.posts
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] empty in
                 guard let self = self else { return }
-                self.emptyLabel.isHidden = !empty
-                self.emptyButton.isHidden = !empty
                 let type = self.viewModel.outputs.postType
 
                 switch type {
                 case .attendable:
-                    self.emptyLabel.text = L10n.MyPage.MyPost.Empty.title
-                    self.emptyButton.setTitle(L10n.MyPage.MyPost.Empty.Button.title, for: .normal)
+                    self.myPostCollectionView.isHidden = true
+                    self.myRunningCollectionView.isHidden = false
+
+                    self.myRunningEmptyLabel.isHidden = !empty
+                    self.myRunningEmptyButton.isHidden = !empty
                 case .basic:
-                    self.emptyLabel.text = L10n.MyPage.MyRunning.Empty.title
-                    self.emptyButton.setTitle(L10n.MyPage.MyRunning.Empty.Button.title, for: .normal)
+                    self.myRunningCollectionView.isHidden = true
+                    self.myPostCollectionView.isHidden = false
+
+                    self.myPostEmptyLabel.isHidden = !empty
+                    self.myPostEmptyButton.isHidden = !empty
                 }
 
-            })
-            .disposed(by: disposeBags)
-
-        viewModel.outputs.needReload
-            .subscribe(onNext: { [weak self] in
-                self?.postCollectionView.reloadData()
             })
             .disposed(by: disposeBags)
 
@@ -227,7 +241,29 @@ class MyPageViewController: BaseViewController {
         }
     }
 
-    private lazy var postCollectionView: UICollectionView = {
+    private lazy var myPostCollectionView: UICollectionView = {
+        let size = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(145)
+        )
+        var item = NSCollectionLayoutItem(layoutSize: size)
+        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+            leading: .fixed(0),
+            top: .fixed(12),
+            trailing: .fixed(0),
+            bottom: .fixed(12)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+
+    private lazy var myRunningCollectionView: UICollectionView = {
         let size = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(190)
@@ -244,20 +280,36 @@ class MyPageViewController: BaseViewController {
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.register(AttendablePostCell.self, forCellWithReuseIdentifier: AttendablePostCell.id)
         collectionView.backgroundColor = .clear
+        collectionView.isHidden = true
         return collectionView
     }()
 
-    private var emptyLabel = UILabel().then { label in
+    private var myPostEmptyLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG45
         label.isHidden = true
+        label.text = L10n.MyPage.MyPost.Empty.title
     }
 
-    private var emptyButton = UIButton().then { button in
+    private var myPostEmptyButton = UIButton().then { button in
         button.setTitle(L10n.MyPage.MyPost.Empty.Button.title, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.layer.borderColor = UIColor.primary.cgColor
+        button.layer.borderWidth = 1
+        button.isHidden = true
+    }
+
+    private var myRunningEmptyLabel = UILabel().then { label in
+        label.font = .iosTitle19R
+        label.textColor = .darkG45
+        label.isHidden = true
+        label.text = L10n.MyPage.MyRunning.Empty.title
+    }
+
+    private var myRunningEmptyButton = UIButton().then { button in
+        button.setTitle(L10n.MyPage.MyRunning.Empty.Button.title, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.layer.borderColor = UIColor.primary.cgColor
         button.layer.borderWidth = 1
@@ -284,12 +336,18 @@ extension MyPageViewController {
             participantTab,
             hDivider,
             hMover,
-            postCollectionView,
+            myPostCollectionView,
+            myRunningCollectionView,
         ])
 
-        postCollectionView.addSubviews([
-            emptyLabel,
-            emptyButton,
+        myPostCollectionView.addSubviews([
+            myPostEmptyLabel,
+            myPostEmptyButton,
+        ])
+
+        myRunningCollectionView.addSubviews([
+            myRunningEmptyLabel,
+            myRunningEmptyButton,
         ])
     }
 
@@ -331,25 +389,45 @@ extension MyPageViewController {
             make.trailing.equalTo(view.snp.centerX).offset(-16)
         }
 
-        postCollectionView.snp.makeConstraints { make in
+        myPostCollectionView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        emptyLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(postCollectionView.snp.centerX)
-            make.bottom.equalTo(postCollectionView.snp.centerY).offset(-12)
+        myRunningCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(hDivider.snp.bottom).offset(2)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        emptyButton.snp.makeConstraints { make in
-            make.centerX.equalTo(postCollectionView.snp.centerX)
-            make.top.equalTo(postCollectionView.snp.centerY).offset(12)
+        myPostEmptyLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(myPostCollectionView.snp.centerX)
+            make.bottom.equalTo(myPostCollectionView.snp.centerY).offset(-12)
+        }
+
+        myPostEmptyButton.snp.makeConstraints { make in
+            make.centerX.equalTo(myPostCollectionView.snp.centerX)
+            make.top.equalTo(myPostCollectionView.snp.centerY).offset(12)
             make.height.equalTo(40)
             make.width.equalTo(220)
         }
-        emptyButton.layer.cornerRadius = 20
+        myPostEmptyButton.layer.cornerRadius = 20
+
+        myRunningEmptyLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(myRunningCollectionView.snp.centerX)
+            make.bottom.equalTo(myRunningCollectionView.snp.centerY).offset(-12)
+        }
+
+        myRunningEmptyButton.snp.makeConstraints { make in
+            make.centerX.equalTo(myRunningCollectionView.snp.centerX)
+            make.top.equalTo(myRunningCollectionView.snp.centerY).offset(12)
+            make.height.equalTo(40)
+            make.width.equalTo(220)
+        }
+        myRunningEmptyButton.layer.cornerRadius = 20
     }
 
     private func configureTabItem() {
