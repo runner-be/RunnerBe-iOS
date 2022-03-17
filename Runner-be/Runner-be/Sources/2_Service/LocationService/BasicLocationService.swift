@@ -34,19 +34,11 @@ class BasicLocationService: NSObject, LocationService {
     private let defaultPlace = CLLocationCoordinate2D(latitude: 37.5662952, longitude: 126.9735677)
 
     var currentPlace: CLLocationCoordinate2D {
-        if #available(iOS 14.0, *) {
-            switch locationManager.authorizationStatus {
-            case .authorized, .authorizedAlways, .authorizedWhenInUse:
-                return locationManager.location?.coordinate ?? defaultPlace
-            default:
-                return defaultPlace
-            }
-        } else {
-            if CLLocationManager.locationServicesEnabled() {
-                return locationManager.location?.coordinate ?? defaultPlace
-            } else {
-                return defaultPlace
-            }
+        switch locationManager.authorizationStatus {
+        case .authorized, .authorizedAlways, .authorizedWhenInUse:
+            return locationManager.location?.coordinate ?? defaultPlace
+        default:
+            return defaultPlace
         }
     }
 
@@ -74,29 +66,9 @@ class BasicLocationService: NSObject, LocationService {
 }
 
 extension BasicLocationService: CLLocationManagerDelegate {
-    @available(iOS 14.0, *)
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let enable: Bool
         switch manager.authorizationStatus {
-        case .notDetermined:
-            enable = false
-        case .restricted:
-            enable = false
-        case .denied:
-            enable = false
-        case .authorizedAlways:
-            enable = true
-        case .authorizedWhenInUse:
-            enable = true
-        @unknown default:
-            enable = false
-        }
-        enableStateOb.onNext(enable)
-    }
-
-    func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        let enable: Bool
-        switch status {
         case .notDetermined:
             enable = false
         case .restricted:
