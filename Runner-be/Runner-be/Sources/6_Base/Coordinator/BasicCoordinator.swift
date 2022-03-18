@@ -88,10 +88,4 @@ class BasicCoordinator<ResultType>: Coordinator {
     }
 
     func handleDeepLink(type _: DeepLinkType) {}
-
-    // MARK: Private
-
-    private func store<T>(coordinator: BasicCoordinator<T>) {
-        childs[coordinator.id] = coordinator
-    }
 }
