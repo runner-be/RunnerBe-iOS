@@ -223,8 +223,8 @@ extension SelectJobGroupViewController {
 
         jobGroupCollectionView.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel.snp.bottom).offset(76)
-            make.leading.equalTo(view.snp.leading).offset(56)
-            make.trailing.equalTo(view.snp.trailing).offset(-56)
+            make.leading.equalTo(view.snp.leading).offset(55)
+            make.trailing.equalTo(view.snp.trailing).offset(-55)
             make.height.equalTo(244)
         }
 
