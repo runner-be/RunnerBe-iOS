@@ -21,7 +21,6 @@ final class HomeViewModel: BaseViewModel {
         self.locationService = locationService
         self.postAPIService = postAPIService
 
-        // TODO: 런칭땐 이 좌표값으로 Filter 작성
         let searchLocation = locationService.currentPlace
 
         let initialFilter = PostFilter(
