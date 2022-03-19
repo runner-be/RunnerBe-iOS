@@ -13,6 +13,7 @@ protocol HomeDependency: Dependency {
     var loginKeyChainService: LoginKeyChainService { get }
     var postAPIService: PostAPIService { get }
     var locationService: LocationService { get }
+    var userKeyChainService: UserKeychainService { get }
 }
 
 final class HomeComponent: Component<HomeDependency> {

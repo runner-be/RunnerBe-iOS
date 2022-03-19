@@ -204,6 +204,7 @@
 
 // MARK: - Home.PostDetail
 "Home.PostDetail.Guest.Apply" = "신청하기";
+"Home.PostDetail.Guest.NotSatisfied" = "조건에 맞지 않는 모집글이에요";
 "Home.PostDetail.Guest.Applied" = "신청완료";
 "Home.PostDetail.Writer.Yes" = "수락하기";
 "Home.PostDetail.Writer.No" = "거절하기";

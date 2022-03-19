@@ -10,6 +10,7 @@ import NeedleFoundation
 
 protocol LoggedOutDependency: Dependency {
     var loginService: LoginService { get }
+    var signupKeyChainService: SignupKeyChainService { get }
 }
 
 class LoggedOutComponent: Component<LoggedOutDependency> {
@@ -19,10 +20,6 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
     }
 
     var viewModel: LoggedOutViewModel {
-        return LoggedOutViewModel(loginService: dependency.loginService, signupKeyChainService: signupKeyChainService)
-    }
-
-    var signupKeyChainService: SignupKeyChainService {
-        return shared { BasicSignupKeyChainService() }
+        return LoggedOutViewModel(loginService: dependency.loginService, signupKeyChainService: dependency.signupKeyChainService)
     }
 }

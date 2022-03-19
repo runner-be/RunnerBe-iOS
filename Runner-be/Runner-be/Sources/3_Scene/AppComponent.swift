@@ -38,8 +38,12 @@ final class AppComponent: BootstrapComponent {
         return shared { BasicLoginKeyChainService() }
     }
 
+    var userKeyChainService: UserKeychainService {
+        return shared { BasicUserKeyChainService() }
+    }
+
     var signupKeyChainService: SignupKeyChainService {
-        return BasicSignupKeyChainService()
+        return shared { BasicSignupKeyChainService(userKeyChainService: userKeyChainService) }
     }
 
     var loginAPIService: LoginAPIService {

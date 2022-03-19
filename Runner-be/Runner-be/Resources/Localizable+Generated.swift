@@ -156,6 +156,8 @@ internal enum L10n {
         internal static let applied = L10n.tr("Localizable", "Home.PostDetail.Guest.Applied")
         /// 신청하기
         internal static let apply = L10n.tr("Localizable", "Home.PostDetail.Guest.Apply")
+        /// 조건에 맞지 않는 모집글이에요
+        internal static let notSatisfied = L10n.tr("Localizable", "Home.PostDetail.Guest.NotSatisfied")
       }
       internal enum Participant {
         /// 신청한 러너가 없어요!

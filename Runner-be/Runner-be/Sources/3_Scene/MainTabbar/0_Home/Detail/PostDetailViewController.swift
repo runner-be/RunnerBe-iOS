@@ -75,7 +75,7 @@ class PostDetailViewController: BaseViewController {
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeFooter(writer: data.writer, applied: data.applied, finished: data.finished)
+                self?.makeFooter(writer: data.writer, applied: data.applied, satisfied: data.satisfied, finished: data.finished)
                 self?.applicantNoti.isHidden = data.numApplicant == 0
             })
             .disposed(by: disposeBags)
@@ -273,7 +273,7 @@ extension PostDetailViewController {
         .lightContent
     }
 
-    func makeFooter(writer: Bool, applied: Bool, finished: Bool) {
+    func makeFooter(writer: Bool, applied: Bool, satisfied: Bool, finished: Bool) {
         footer?.removeFromSuperview()
 
         let footer: PostDetailFooter
@@ -309,6 +309,8 @@ extension PostDetailViewController {
         } else {
             let guestFooter = PostGuestFooter()
             guestFooter.applyBtn.isEnabled = !applied
+            guestFooter.applyBtn.setTitle(satisfied ? L10n.Home.PostDetail.Guest.apply : L10n.Home.PostDetail.Guest.notSatisfied, for: .normal)
+
             guestFooter.bookMarkBtn.rx.tap
                 .map { !guestFooter.bookMarkBtn.isSelected }
                 .bind(to: viewModel.inputs.bookMark)

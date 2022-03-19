@@ -9,33 +9,29 @@ import Foundation
 import RxSwift
 
 final class PostDetailViewModel: BaseViewModel {
+    private let userKeyChainService: UserKeychainService
     private let postAPIService: PostAPIService
     private var marked: Bool = false
     private var applicants: [User] = []
     var anyChanged = false
 
-    init(postId: Int, postAPIService: PostAPIService) {
+    init(postId: Int, postAPIService: PostAPIService, userKeyChainService: UserKeychainService) {
+        self.userKeyChainService = userKeyChainService
         self.postAPIService = postAPIService
         super.init()
 
-        postAPIService.detailInfo(postId: postId)
-            .take(1)
-            .do(onNext: {
-                switch $0 {
-                case .error:
-                    // TODO: 에러처리
-                    break
-                default: return
-                }
-            }).subscribe(onNext: { [weak self] result in
+        let postDetailInfoReady = ReplaySubject<DetailInfoResult>.create(bufferSize: 1)
+        postDetailInfoReady
+            .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
 
                 switch result {
                 case let .guest(postDetail, participated, marked, apply, participants):
+                    let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: false, participated: participated, applied: apply,
+                            writer: false, participated: participated, satisfied: satisfied, applied: apply,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -50,7 +46,7 @@ final class PostDetailViewModel: BaseViewModel {
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
-                            writer: true, participated: true, applied: false,
+                            writer: true, participated: true, satisfied: true, applied: false,
                             running: PostDetailRunningConfig(from: postDetail),
                             participants: participants.reduce(into: [UserConfig]()) {
                                 $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
@@ -66,44 +62,17 @@ final class PostDetailViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        postAPIService.detailInfo(postId: postId)
+            .take(1)
+            .subscribe(onNext: {
+                postDetailInfoReady.onNext($0)
+            })
+            .disposed(by: disposeBag)
+
         routeInputs.needUpdate
             .flatMap { postAPIService.detailInfo(postId: postId) }
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
-
-                switch result {
-                case let .guest(postDetail, participated, marked, apply, participants):
-                    self.outputs.detailData.onNext(
-                        (
-                            finished: !postDetail.post.open,
-                            writer: false, participated: participated, applied: apply,
-                            running: PostDetailRunningConfig(from: postDetail),
-                            participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            },
-                            numApplicant: 0
-                        )
-                    )
-                    self.marked = marked
-                    self.outputs.bookMarked.onNext(marked)
-                    self.outputs.apply.onNext(apply)
-                case let .writer(postDetail, marked, participants, applicant):
-                    self.outputs.detailData.onNext(
-                        (
-                            finished: !postDetail.post.open,
-                            writer: true, participated: true, applied: false,
-                            running: PostDetailRunningConfig(from: postDetail),
-                            participants: participants.reduce(into: [UserConfig]()) {
-                                $0.append(UserConfig(from: $1, owner: postDetail.post.writerID == $1.userID))
-                            },
-                            numApplicant: applicant.count
-                        )
-                    )
-                    self.applicants = applicant
-                    self.marked = marked
-                    self.outputs.bookMarked.onNext(marked)
-                default: break
-                }
+            .subscribe(onNext: {
+                postDetailInfoReady.onNext($0)
             })
             .disposed(by: disposeBag)
 
@@ -197,7 +166,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
         var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var toast = PublishSubject<String>()

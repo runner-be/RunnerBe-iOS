@@ -11,6 +11,7 @@ import NeedleFoundation
 protocol MainTabDependency: Dependency {
     var loginService: LoginService { get }
     var loginKeyChainService: LoginKeyChainService { get }
+    var userKeyChainService: UserKeychainService { get }
 }
 
 final class MainTabComponent: Component<MainTabDependency> {

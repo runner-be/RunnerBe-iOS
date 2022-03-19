@@ -177,6 +177,9 @@ private class LoggedOutDependency2bcab0d3625f6f252479BaseProvider: LoggedOutDepe
     var loginService: LoginService {
         return appComponent.loginService
     }
+    var signupKeyChainService: SignupKeyChainService {
+        return appComponent.signupKeyChainService
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -194,6 +197,9 @@ private class MainTabDependency2826cdb310ed0b17a725BaseProvider: MainTabDependen
     }
     var loginKeyChainService: LoginKeyChainService {
         return appComponent.loginKeyChainService
+    }
+    var userKeyChainService: UserKeychainService {
+        return appComponent.userKeyChainService
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -514,27 +520,32 @@ private class PostDetailDependencyefc8ed9cd9a796bab512BaseProvider: PostDetailDe
     var postAPIService: PostAPIService {
         return mainTabComponent.postAPIService
     }
+    var userKeyChainService: UserKeychainService {
+        return appComponent.userKeyChainService
+    }
+    private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent
-    init(mainTabComponent: MainTabComponent) {
+    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
+        self.appComponent = appComponent
         self.mainTabComponent = mainTabComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent
 private class PostDetailDependencyefc8ed9cd9a796bab512Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent
 private class PostDetailDependencyfaba91a453a4115aa8d1Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent
 private class PostDetailDependency0e20bfa0f3e155bd15e3Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
     }
 }
 private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {
@@ -564,6 +575,9 @@ private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
     }
     var locationService: LocationService {
         return mainTabComponent.locationService
+    }
+    var userKeyChainService: UserKeychainService {
+        return appComponent.userKeyChainService
     }
     private let appComponent: AppComponent
     private let mainTabComponent: MainTabComponent

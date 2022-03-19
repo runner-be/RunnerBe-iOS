@@ -10,6 +10,7 @@ import NeedleFoundation
 
 protocol PostDetailDependency: Dependency {
     var postAPIService: PostAPIService { get }
+    var userKeyChainService: UserKeychainService { get }
 }
 
 final class PostDetailComponent: Component<PostDetailDependency> {
@@ -19,7 +20,7 @@ final class PostDetailComponent: Component<PostDetailDependency> {
     }
 
     var viewModel: PostDetailViewModel {
-        return PostDetailViewModel(postId: postId, postAPIService: dependency.postAPIService)
+        return PostDetailViewModel(postId: postId, postAPIService: dependency.postAPIService, userKeyChainService: dependency.userKeyChainService)
     }
 
     let postId: Int
