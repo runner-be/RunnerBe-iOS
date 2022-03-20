@@ -28,6 +28,7 @@ final class PostDetailViewModel: BaseViewModel {
                 switch result {
                 case let .guest(postDetail, participated, marked, apply, participants):
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
+                        && participants.count < postDetail.maximumNum
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
