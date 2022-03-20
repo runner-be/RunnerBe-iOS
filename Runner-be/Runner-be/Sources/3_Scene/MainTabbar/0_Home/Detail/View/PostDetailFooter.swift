@@ -30,9 +30,9 @@ class PostGuestFooter: PostDetailFooter {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init() {
+    init(applied: Bool, satisfied: Bool) {
         super.init(frame: .zero)
-        setup()
+        setup(applied: applied, satisfied: satisfied)
         initialLayout()
     }
 
@@ -60,9 +60,20 @@ class PostGuestFooter: PostDetailFooter {
         applyBtn.layer.cornerRadius = applyBtn.frame.height / 2.0
     }
 
-    private func setup() {
+    private func setup(applied: Bool, satisfied: Bool) {
         backgroundColor = .darkG6
         addSubviews([bookMarkBtn, applyBtn])
+
+        if applied {
+            applyBtn.setTitle(L10n.Home.PostDetail.Guest.applied, for: .disabled)
+            applyBtn.isEnabled = false
+        } else if !satisfied {
+            applyBtn.setTitle(L10n.Home.PostDetail.Guest.notSatisfied, for: .disabled)
+            applyBtn.isEnabled = false
+        } else {
+            applyBtn.isEnabled = true
+            applyBtn.setTitle(L10n.Home.PostDetail.Guest.apply, for: .normal)
+        }
     }
 
     override func initialLayout() {

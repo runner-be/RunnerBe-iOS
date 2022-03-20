@@ -41,7 +41,7 @@ final class PostDetailViewModel: BaseViewModel {
                     )
                     self.marked = marked
                     self.outputs.bookMarked.onNext(marked)
-                    self.outputs.apply.onNext(apply)
+//                    self.outputs.apply.onNext(apply)
                 case let .writer(postDetail, marked, participants, applicant):
                     self.outputs.detailData.onNext(
                         (

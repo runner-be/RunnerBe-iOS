@@ -307,9 +307,7 @@ extension PostDetailViewController {
 
             footer = writerFooter
         } else {
-            let guestFooter = PostGuestFooter()
-            guestFooter.applyBtn.isEnabled = !applied
-            guestFooter.applyBtn.setTitle(satisfied ? L10n.Home.PostDetail.Guest.apply : L10n.Home.PostDetail.Guest.notSatisfied, for: .normal)
+            let guestFooter = PostGuestFooter(applied: applied, satisfied: satisfied)
 
             guestFooter.bookMarkBtn.rx.tap
                 .map { !guestFooter.bookMarkBtn.isSelected }
