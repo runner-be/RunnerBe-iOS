@@ -26,7 +26,7 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
         let scene = component.scene
         newNavController.modalPresentationStyle = .overCurrentContext
         newNavController.pushViewController(scene.VC, animated: false)
-        navController.present(newNavController, animated: animated)
+        navigationController.present(newNavController, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in
@@ -58,7 +58,7 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .toMain:
                     self?.closeSignal.onNext(.toMain)
@@ -67,17 +67,17 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["PolicyTermCoordinator"] {
+            if let coord = childCoordinators["PolicyTermCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 pushPolicyTerm(animated: false)
-                childs["PolicyTermCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["PolicyTermCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

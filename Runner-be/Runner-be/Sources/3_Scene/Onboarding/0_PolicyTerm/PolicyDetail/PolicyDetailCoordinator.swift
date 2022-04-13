@@ -25,9 +25,9 @@ final class PolicyDetailCoordinator: BasicCoordinator<PolicyDetailResult> {
         if component.isModal {
             scene.VC.modalPresentationStyle = .overCurrentContext
             scene.VC.modalTransitionStyle = .coverVertical
-            navController.present(scene.VC, animated: animated)
+            navigationController.present(scene.VC, animated: animated)
         } else {
-            navController.pushViewController(scene.VC, animated: animated)
+            navigationController.pushViewController(scene.VC, animated: animated)
         }
 
         closeSignal
@@ -36,7 +36,7 @@ final class PolicyDetailCoordinator: BasicCoordinator<PolicyDetailResult> {
                 if self.component.isModal {
                     scene.VC.dismiss(animated: true)
                 } else {
-                    self.navController.popViewController(animated: true)
+                    self.navigationController.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)

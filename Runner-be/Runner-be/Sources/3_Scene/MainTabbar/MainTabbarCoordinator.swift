@@ -45,10 +45,10 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             configureAndGetMyPageScene(vm: scene.VM),
         ]
 
-        navController.pushViewController(scene.VC, animated: false)
+        navigationController.pushViewController(scene.VC, animated: false)
 
         closeSignal.subscribe(onNext: { [weak self] _ in
-            self?.navController.popViewController(animated: false)
+            self?.navigationController.popViewController(animated: false)
         })
         .disposed(by: disposeBag)
 
@@ -70,7 +70,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
     private func configureAndGetHomeScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.homeComponent
-        let coord = HomeCoordinator(component: comp, navController: navController)
+        let coord = HomeCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: false)
             .subscribe(onNext: { coordResult in
@@ -80,7 +80,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
 
         vm.routes.home
             .subscribe(onNext: {
@@ -93,7 +93,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
     private func configureAndGetBookMarkScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.bookmarkComponent
-        let coord = BookMarkCoordinator(component: comp, navController: navController)
+        let coord = BookMarkCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: false)
 
@@ -108,7 +108,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
     private func configureAndGetMyPageScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.myPageComponent
-        let coord = MyPageCoordinator(component: comp, navController: navController)
+        let coord = MyPageCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: false)
             .subscribe(onNext: { [weak self] coordResult in
@@ -127,46 +127,46 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             })
             .disposed(by: disposeBag)
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
         return comp.scene.VC
     }
 
     private func presentOnboaradingCover(vm: MainTabViewModel, animated: Bool) {
         let comp = component.onboardingCoverComponent
-        let coord = OnboardingCoverCoordinator(component: comp, navController: navController)
+        let coord = OnboardingCoverCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .toMain:
                     vm.routeInputs.onboardingCoverClosed.onNext(())
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentWaitOnboaradingCover(vm _: MainTabViewModel, animated: Bool) {
         let comp = component.onboardingWaitCoverComponent
-        let coord = WaitOnboardingCoverCoordinator(component: comp, navController: navController)
+        let coord = WaitOnboardingCoverCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] _ in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["OnboardingCoverCoordinator"] {
+            if let coord = childCoordinators["OnboardingCoverCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 presentOnboaradingCover(vm: component.scene.VM, animated: false)
-                childs["OnboardingCoverCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["OnboardingCoverCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

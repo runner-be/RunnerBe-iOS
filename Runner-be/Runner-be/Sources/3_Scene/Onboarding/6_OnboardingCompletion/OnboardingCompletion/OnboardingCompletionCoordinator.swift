@@ -22,7 +22,7 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -31,7 +31,7 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
                 #endif
                 switch result {
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)

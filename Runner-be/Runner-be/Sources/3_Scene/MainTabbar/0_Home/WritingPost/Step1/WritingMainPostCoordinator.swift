@@ -22,7 +22,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
 
     override func start(animated: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .debug()
@@ -32,7 +32,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)
@@ -66,11 +66,11 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
 
     private func pushWritingDetailPost(data: WritingPostDetailConfigData, animated _: Bool) {
         let comp = component.BuildWritingDetailPostComponent(with: data)
-        let coord = WritingDetailPostCoordinator(component: comp, navController: navController)
+        let coord = WritingDetailPostCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
                     break
@@ -79,16 +79,16 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectTimeComponent
-        let coord = SelectTimeModalCoordinator(component: comp, navController: navController)
+        let coord = SelectTimeModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .apply(resultString):
                     vm.routeInputs.editTimeResult.onNext(resultString)
@@ -97,16 +97,16 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSelectDateModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectDateComponent
-        let coord = SelectDateModalCoordinator(component: comp, navController: navController)
+        let coord = SelectDateModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .apply(resultString):
                     vm.routeInputs.editDateResult.onNext(resultString)
@@ -115,6 +115,6 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

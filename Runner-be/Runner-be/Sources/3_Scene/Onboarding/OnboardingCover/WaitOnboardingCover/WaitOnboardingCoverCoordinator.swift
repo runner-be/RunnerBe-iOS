@@ -23,7 +23,7 @@ final class WaitOnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResu
     override func start(animated: Bool) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(scene.VC, animated: animated)
+        navigationController.present(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { _ in

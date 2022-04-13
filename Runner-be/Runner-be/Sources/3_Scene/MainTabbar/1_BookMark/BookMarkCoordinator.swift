@@ -35,11 +35,11 @@ final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
 
     private func pushDetailPostScene(vm: BookMarkViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
-        let coord = PostDetailCoordinator(component: comp, navController: navController)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(id, marked, needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
@@ -47,6 +47,6 @@ final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

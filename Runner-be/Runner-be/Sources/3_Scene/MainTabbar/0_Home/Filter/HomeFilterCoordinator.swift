@@ -22,11 +22,11 @@ final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
 
     override func start(animated: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in
-                self?.navController.popViewController(animated: true)
+                self?.navigationController.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
 

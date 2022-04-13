@@ -23,7 +23,7 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navigationController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .debug()
@@ -32,7 +32,7 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
                     print("[WritingDetailPostCoordinator][closeSignal] popViewController")
                 #endif
 
-                self?.navController.popViewController(animated: false)
+                self?.navigationController.popViewController(animated: false)
             })
             .disposed(by: disposeBag)
 

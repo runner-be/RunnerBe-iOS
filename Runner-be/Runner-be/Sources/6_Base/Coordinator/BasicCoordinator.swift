@@ -9,12 +9,12 @@ import RxSwift
 import UIKit
 
 protocol Coordinator: AnyObject {
-    var id: String { get }
-    var navController: UINavigationController { get set }
-    var childs: [String: Coordinator] { get set }
-    var childBags: [String: [Disposable]] { get set }
+    var identifier: String { get }
+    var navigationController: UINavigationController { get set }
+    var childCoordinators: [String: Coordinator] { get set }
+    var childCloseSignalBags: [String: [Disposable]] { get set }
     func release()
-    func release(coordinator: Coordinator)
+    func releaseChild(coordinator: Coordinator)
 
     func handleDeepLink(type: DeepLinkType)
 }
@@ -26,8 +26,8 @@ class BasicCoordinator<ResultType>: Coordinator {
         #if DEBUG
             print("[init:   Coord]  \(Self.self)")
         #endif
-        self.navController = navController
-        navController.setNavigationBarHidden(true, animated: false)
+        navigationController = navController
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
 
     deinit {
@@ -40,44 +40,44 @@ class BasicCoordinator<ResultType>: Coordinator {
 
     typealias CoordinationResult = ResultType
 
-    var id: String { "\(Self.self)" }
+    var identifier: String { "\(Self.self)" }
     var disposeBag = DisposeBag()
 
-    var navController: UINavigationController
+    var navigationController: UINavigationController
 
-    var childs = [String: Coordinator]()
-    var childBags = [String: [Disposable]]()
+    var childCoordinators = [String: Coordinator]()
+    var childCloseSignalBags = [String: [Disposable]]()
 
     var closeSignal = PublishSubject<CoordinationResult>()
 
     @discardableResult
     func coordinate<T>(coordinator: BasicCoordinator<T>, animated: Bool = true) -> Observable<T> {
-        childs[coordinator.id] = coordinator
+        childCoordinators[coordinator.identifier] = coordinator
         coordinator.start(animated: animated)
         return coordinator.closeSignal
     }
 
     func addChildBag(id: String, disposable: Disposable) {
-        childBags[id, default: []].append(disposable)
+        childCloseSignalBags[id, default: []].append(disposable)
     }
 
-    func release(coordinator: Coordinator) {
+    func releaseChild(coordinator: Coordinator) {
         coordinator.release()
-        let id = coordinator.id
-        childBags[id]?.forEach { $0.dispose() }
-        childs.removeValue(forKey: id)
-        childBags.removeValue(forKey: id)
+        let id = coordinator.identifier
+        childCloseSignalBags[id]?.forEach { $0.dispose() }
+        childCoordinators.removeValue(forKey: id)
+        childCloseSignalBags.removeValue(forKey: id)
     }
 
     func release() {
         #if DEBUG
             print("[release:    Coord]  \(Self.self)")
         #endif
-        childs.forEach { _, coord in coord.release() }
-        childBags.flatMap { $1 }
-            .forEach { $0.dispose() }
-        childs.removeAll()
-        childBags.removeAll()
+        childCoordinators.forEach { _, coord in coord.release() }
+        childCloseSignalBags.flatMap { $1 }.forEach { $0.dispose() }
+        childCoordinators.removeAll()
+        childCloseSignalBags.removeAll()
+
         #if DEBUG
             print("[released:   Coord]   \(Self.self)")
         #endif

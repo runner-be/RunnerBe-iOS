@@ -28,7 +28,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -37,11 +37,11 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .cancelOnboarding:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -69,12 +69,12 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
     private func pushSelectGenderCoord(animated: Bool) {
         let comp = component.selectGenderComponent
 
-        let coord = SelectGenderCoordinator(component: comp, navController: navController)
+        let coord = SelectGenderCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -84,17 +84,17 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
-        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] modalResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch modalResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -103,17 +103,17 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["SelectGenderCoordinator"] {
+            if let coord = childCoordinators["SelectGenderCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 pushSelectGenderCoord(animated: false)
-                childs["SelectGenderCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["SelectGenderCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

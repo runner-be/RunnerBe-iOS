@@ -28,7 +28,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -37,11 +37,11 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .cancelOnboarding:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -68,13 +68,13 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
 
     private func pushEmailCertificationCoord(animated: Bool) {
         let comp = component.emailCertificationComponent
-        let coord = EmailCertificationCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = EmailCertificationCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -88,12 +88,12 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
-        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -108,11 +108,11 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["EmailCertificationCoordinator"] {
+            if let coord = childCoordinators["EmailCertificationCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 pushEmailCertificationCoord(animated: false)
-                childs["EmailCertificationCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["EmailCertificationCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

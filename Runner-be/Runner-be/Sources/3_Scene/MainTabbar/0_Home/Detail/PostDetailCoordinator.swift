@@ -22,11 +22,11 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navigationController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in
-                self?.navController.popViewController(animated: true)
+                self?.navigationController.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -52,11 +52,11 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
         let comp = component.applicantListModal(applicants: applicants)
-        let coord = ApplicantListModalCoordinator(component: comp, navController: navController)
+        let coord = ApplicantListModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(needUpdate):
                     if needUpdate {
@@ -65,16 +65,16 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentReportModal(vm: PostDetailViewModel, animated: Bool) {
         let comp = component.reportModalComponent
-        let coord = ReportModalCoordinator(component: comp, navController: navController)
+        let coord = ReportModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .ok:
                     vm.routeInputs.report.onNext(true)
@@ -83,6 +83,6 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

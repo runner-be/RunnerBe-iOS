@@ -37,7 +37,7 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -46,11 +46,11 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .cancelOnboarding:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -82,26 +82,26 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
 
     private func presentPhotoModal(vm: PhotoCertificationViewModel, animated: Bool) {
         let comp = component.photoModalComponent
-        let coord = PhotoModalCoordinator(component: comp, navController: navController)
+        let coord = PhotoModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .map { $0.imagePickerType }
             .subscribe(onNext: { [weak self] imagePickerType in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 vm.routeInputs.photoModal.onNext(imagePickerType)
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
-        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -110,23 +110,23 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWaitCertificateCoord(animated: Bool) {
         let comp = component.waitCertificationComponent
-        let coord = WaitCertificationCoordinator(component: comp, navController: navController)
+        let coord = WaitCertificationCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .toMain:
                     self?.closeSignal.onNext(PhotoCertificationResult.toMain)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

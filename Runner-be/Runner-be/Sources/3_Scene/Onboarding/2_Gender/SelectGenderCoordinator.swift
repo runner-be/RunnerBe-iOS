@@ -28,7 +28,7 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -37,11 +37,11 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .cancelOnboarding:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -68,13 +68,13 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
     private func pushSelectJobGroupCoord(animated: Bool) {
         let comp = component.selectJobGroupCoord
-        let coord = SelectJobGroupCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = SelectJobGroupCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -89,13 +89,13 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
-        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -110,11 +110,11 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["SelectJobGroupCoordinator"] {
+            if let coord = childCoordinators["SelectJobGroupCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 pushSelectJobGroupCoord(animated: false)
-                childs["SelectJobGroupCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["SelectJobGroupCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

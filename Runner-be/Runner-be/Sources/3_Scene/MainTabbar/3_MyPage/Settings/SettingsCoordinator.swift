@@ -23,15 +23,15 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navigationController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .logout:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -93,43 +93,43 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
 
     private func pushLicenseScene(vm _: SettingsViewModel, animated: Bool) {
         let comp = component.licenseComponent
-        let coord = LicenseCoordinator(component: comp, navController: navController)
+        let coord = LicenseCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
                     break
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushMakerScene(vm _: SettingsViewModel, animated: Bool) {
         let comp = component.makerComponent
-        let coord = MakerCoordinator(component: comp, navController: navController)
+        let coord = MakerCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
                     break
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentLogoutModal(vm _: SettingsViewModel, animated: Bool) {
         let comp = component.logoutModalComponent
-        let coord = LogoutModalCoordinator(component: comp, navController: navController)
+        let coord = LogoutModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
                     break
@@ -138,16 +138,16 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSignoutModal(vm: SettingsViewModel, animated: Bool) {
         let comp = component.signoutModalComponent
-        let coord = SignoutModalCoordinator(component: comp, navController: navController)
+        let coord = SignoutModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .signout:
                     vm.routeInputs.signout.onNext(true)
@@ -156,33 +156,33 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSignoutCompletionModal(vm _: SettingsViewModel, animated: Bool) {
         let comp = component.signoutCompletionModalComponent
-        let coord = SignoutCompletionModalCoordinator(component: comp, navController: navController)
+        let coord = SignoutCompletionModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .toLoginPage:
                     self?.closeSignal.onNext(.logout)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushPolicy(vm _: SettingsViewModel, policyType: PolicyType, animated: Bool) {
         let comp = component.policyDetailComponent(type: policyType, modal: false)
-        let coord = PolicyDetailCoordinator(component: comp, navController: navController)
+        let coord = PolicyDetailCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] _ in
-                self?.release(coordinator: coord)
+                self?.releaseChild(coordinator: coord)
             })
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

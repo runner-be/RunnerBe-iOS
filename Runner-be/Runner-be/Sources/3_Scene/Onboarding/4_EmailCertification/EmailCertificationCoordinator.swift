@@ -28,9 +28,9 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     override func start(animated: Bool = true) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: animated)
+        navigationController.pushViewController(scene.VC, animated: animated)
 
-        navController.rx.didShow
+        navigationController.rx.didShow
             .take(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.presentInitModal(animated: false)
@@ -44,11 +44,11 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 #endif
                 switch result {
                 case .backward:
-                    self?.navController.popViewController(animated: true)
+                    self?.navigationController.popViewController(animated: true)
                 case .cancelOnboarding:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 case .toMain:
-                    self?.navController.popViewController(animated: false)
+                    self?.navigationController.popViewController(animated: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -79,13 +79,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     private func pushPhotoCertificationCoord(animated: Bool) {
         let comp = component.idCardCertificationComponent
-        let coord = PhotoCertificationCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = PhotoCertificationCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -100,13 +100,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
-        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
@@ -120,13 +120,13 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     private func presentOnboardingCompletionCoord(animated: Bool) {
         let comp = component.onboardingCompletionComponent
-        let coord = OnboardingCompletionCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = OnboardingCompletionCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .toMain:
                     self?.closeSignal.onNext(.toMain)
@@ -138,15 +138,15 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
 
     private func presentInitModal(animated: Bool) {
         let comp = component.initModalComponent
-        let coord = EmailCertificationInitModalCoordinator(component: comp, navController: navController)
+        let coord = EmailCertificationInitModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] _ in
-                self?.release(coordinator: coord)
+                self?.releaseChild(coordinator: coord)
             })
 
-        addChildBag(id: id, disposable: disposable)
+        addChildBag(id: identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

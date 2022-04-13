@@ -57,11 +57,11 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 
     private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
-        let coord = PostDetailCoordinator(component: comp, navController: navController)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(id, marked, needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
@@ -69,38 +69,38 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
         let comp = component.writingPostComponent
-        let coord = WritingMainPostCoordinator(component: comp, navController: navController)
+        let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
         let comp = component.postFilterComponent(filter: filter)
-        let coord = HomeFilterCoordinator(component: comp, navController: navController)
+        let coord = HomeFilterCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(filter):
                     vm.routeInputs.filterChanged.onNext(filter)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }

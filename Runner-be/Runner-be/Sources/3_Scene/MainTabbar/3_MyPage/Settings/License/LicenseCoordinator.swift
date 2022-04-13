@@ -21,10 +21,10 @@ final class LicenseCoordinator: BasicCoordinator<LicenseResult> {
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navigationController.pushViewController(scene.VC, animated: true)
 
         closeSignal.subscribe(onNext: { [weak self] _ in
-            self?.navController.popViewController(animated: true)
+            self?.navigationController.popViewController(animated: true)
         })
         .disposed(by: disposeBag)
 

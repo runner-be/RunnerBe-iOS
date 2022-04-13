@@ -22,7 +22,7 @@ final class ApplicantListModalCoordinator: BasicCoordinator<ApplicantListModalRe
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.present(scene.VC, animated: true)
+        navigationController.present(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { _ in

@@ -24,7 +24,7 @@ final class SelectTimeModalCoordinator: BasicCoordinator<SelectTimeModalResult> 
     override func start(animated: Bool = true) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
-        navController.present(scene.VC, animated: animated)
+        navigationController.present(scene.VC, animated: animated)
 
         closeSignal
             .subscribe(onNext: { _ in

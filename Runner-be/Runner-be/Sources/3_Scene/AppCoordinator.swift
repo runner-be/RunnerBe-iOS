@@ -45,28 +45,28 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
     func showMain(animated: Bool) {
         let comp = component.mainTabComponent
-        let coord = MainTabbarCoordinator(component: comp, navController: navController)
+        let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .logout:
                     self?.showLoggedOut(animated: false)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     func showLoggedOut(animated: Bool) {
         let comp = component.loggedOutComponent
-        let coord = LoggedOutCoordinator(component: comp, navController: navController)
+        let coord = LoggedOutCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
 
                 switch coordResult {
                 case .loginSuccess:
@@ -74,17 +74,17 @@ final class AppCoordinator: BasicCoordinator<Void> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case .emailCertification:
-            if let coord = childs["MainTabbarCoordinator"] {
+            if let coord = childCoordinators["MainTabbarCoordinator"] {
                 coord.handleDeepLink(type: type)
             } else {
                 showMain(animated: false)
-                childs["MainTabbarCoordinator"]!.handleDeepLink(type: type)
+                childCoordinators["MainTabbarCoordinator"]!.handleDeepLink(type: type)
             }
         }
     }

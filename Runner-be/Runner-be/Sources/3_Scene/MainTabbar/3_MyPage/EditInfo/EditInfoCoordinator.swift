@@ -22,11 +22,11 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
 
     override func start(animated _: Bool) {
         let scene = component.scene
-        navController.pushViewController(scene.VC, animated: true)
+        navigationController.pushViewController(scene.VC, animated: true)
 
         closeSignal
             .subscribe(onNext: { [weak self] _ in
-                self?.navController.popViewController(animated: true)
+                self?.navigationController.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -52,13 +52,13 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
 
     private func presentNickNameModal(vm: EditInfoViewModel, animated: Bool) {
         let comp = component.nickNameModalComponent
-        let coord = NickNameChangeModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = NickNameChangeModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .ok:
                     vm.routeInputs.changeNickName.onNext(true)
@@ -72,13 +72,13 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
 
     private func presentPhotoModal(vm: EditInfoViewModel, animated: Bool) {
         let comp = component.takePhotoModalComponent
-        let coord = TakePhotoModalCoordinator(component: comp, navController: navController)
-        let uuid = coord.id
+        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .take(1)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .takePhoto:
                     vm.routeInputs.photoTypeSelected.onNext(.camera)

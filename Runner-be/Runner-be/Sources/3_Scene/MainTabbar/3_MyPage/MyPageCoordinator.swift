@@ -64,27 +64,27 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
         let comp = component.editInfoComponent(user: user)
-        let coord = EditInfoCoordinator(component: comp, navController: navController)
+        let coord = EditInfoCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
-        let coord = PostDetailCoordinator(component: comp, navController: navController)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(id, marked, needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
@@ -92,16 +92,16 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     func pushSettingsScene(vm _: MyPageViewModel, animated: Bool) {
         let comp = component.settingsComponent
-        let coord = SettingsCoordinator(component: comp, navController: navController)
+        let coord = SettingsCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
                     break
@@ -110,22 +110,22 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWritingPostScene(vm: MyPageViewModel, animated: Bool) {
         let comp = component.writingPostComponent
-        let coord = WritingMainPostCoordinator(component: comp, navController: navController)
+        let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.release(coordinator: coord) }
+                defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case let .backward(needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
                 }
             })
 
-        addChildBag(id: coord.id, disposable: disposable)
+        addChildBag(id: coord.identifier, disposable: disposable)
     }
 }
