@@ -8,9 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol SettingsDependency: Dependency {
-    var userAPIService: UserAPIService { get }
-}
+protocol SettingsDependency: Dependency {}
 
 final class SettingsComponent: Component<SettingsDependency> {
     var scene: (VC: UIViewController, VM: SettingsViewModel) {
@@ -19,7 +17,7 @@ final class SettingsComponent: Component<SettingsDependency> {
     }
 
     var viewModel: SettingsViewModel {
-        return SettingsViewModel(userAPIService: dependency.userAPIService)
+        return SettingsViewModel()
     }
 
     var makerComponent: MakerComponent {

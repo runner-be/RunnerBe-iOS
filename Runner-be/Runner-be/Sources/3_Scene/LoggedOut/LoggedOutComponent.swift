@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol LoggedOutDependency: Dependency {
-    var loginService: LoginService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol LoggedOutDependency: Dependency {}
 
 class LoggedOutComponent: Component<LoggedOutDependency> {
     var scene: (VC: UIViewController, VM: LoggedOutViewModel) {
@@ -20,6 +17,6 @@ class LoggedOutComponent: Component<LoggedOutDependency> {
     }
 
     var viewModel: LoggedOutViewModel {
-        return LoggedOutViewModel(loginService: dependency.loginService, signupKeyChainService: dependency.signupKeyChainService)
+        return LoggedOutViewModel()
     }
 }

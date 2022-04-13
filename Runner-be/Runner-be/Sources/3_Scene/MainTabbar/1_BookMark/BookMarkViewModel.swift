@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 final class BookMarkViewModel: BaseViewModel {
-    private var postAPIService: PostAPIService
     private var runningTag: RunningTag = .beforeWork
 
     var posts: [RunningTag: [Post]] = [
@@ -19,8 +18,7 @@ final class BookMarkViewModel: BaseViewModel {
         .error: [],
     ]
 
-    init(postAPIService: PostAPIService) {
-        self.postAPIService = postAPIService
+    init(postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
         routeInputs.needUpdate

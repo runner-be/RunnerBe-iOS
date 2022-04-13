@@ -8,11 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol MainTabDependency: Dependency {
-    var loginService: LoginService { get }
-    var loginKeyChainService: LoginKeyChainService { get }
-    var userKeyChainService: UserKeychainService { get }
-}
+protocol MainTabDependency: Dependency {}
 
 final class MainTabComponent: Component<MainTabDependency> {
     lazy var scene: (VC: MainTabViewController, VM: MainTabViewModel) = (
@@ -20,7 +16,7 @@ final class MainTabComponent: Component<MainTabDependency> {
         VM: viewModel
     )
 
-    lazy var viewModel: MainTabViewModel = .init(loginKeyChainService: dependency.loginKeyChainService)
+    lazy var viewModel = MainTabViewModel()
 
     var homeComponent: HomeComponent {
         return HomeComponent(parent: self)
@@ -40,13 +36,5 @@ final class MainTabComponent: Component<MainTabDependency> {
 
     var onboardingWaitCoverComponent: WaitOnboardingCoverComponent {
         return WaitOnboardingCoverComponent(parent: self)
-    }
-
-    var postAPIService: PostAPIService {
-        return BasicPostAPIService(loginKeyChainService: dependency.loginKeyChainService)
-    }
-
-    var locationService: LocationService {
-        return shared { BasicLocationService() }
     }
 }

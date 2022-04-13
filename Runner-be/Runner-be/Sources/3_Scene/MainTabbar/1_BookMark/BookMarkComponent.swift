@@ -8,9 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol BookMarkDependency: Dependency {
-    var postAPIService: PostAPIService { get }
-}
+protocol BookMarkDependency: Dependency {}
 
 final class BookMarkComponent: Component<BookMarkDependency> {
     lazy var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) = (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)
@@ -19,5 +17,5 @@ final class BookMarkComponent: Component<BookMarkDependency> {
         return PostDetailComponent(parent: self, postId: postId)
     }
 
-    lazy var viewModel: BookMarkViewModel = .init(postAPIService: dependency.postAPIService)
+    lazy var viewModel = BookMarkViewModel()
 }

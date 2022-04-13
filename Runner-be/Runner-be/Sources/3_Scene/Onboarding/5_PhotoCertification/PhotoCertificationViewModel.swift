@@ -17,7 +17,7 @@ final class PhotoCertificationViewModel: BaseViewModel {
     private let signupService: SignupService
     private var image: Data?
 
-    init(signupService: SignupService) {
+    init(signupService: SignupService = BasicSignupService()) {
         self.signupService = signupService
         super.init()
 

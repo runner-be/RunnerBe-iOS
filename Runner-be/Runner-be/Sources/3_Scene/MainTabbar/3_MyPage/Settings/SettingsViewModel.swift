@@ -11,7 +11,7 @@ import RxSwift
 final class SettingsViewModel: BaseViewModel {
     private let userAPIService: UserAPIService
 
-    init(userAPIService: UserAPIService) {
+    init(userAPIService: UserAPIService = BasicUserAPIService()) {
         self.userAPIService = userAPIService
         super.init()
 

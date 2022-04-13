@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol WaitOnboardingCoverDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol WaitOnboardingCoverDependency: Dependency {}
 
 final class WaitOnboardingCoverComponent: Component<OnboardingCoverDependency> {
     var scene: (VC: UIViewController, VM: WaitOnboardingCoverViewModel) {

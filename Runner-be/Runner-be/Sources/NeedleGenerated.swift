@@ -174,57 +174,42 @@ public func registerProviderFactories() {
 // MARK: - Providers
 
 private class LoggedOutDependency2bcab0d3625f6f252479BaseProvider: LoggedOutDependency {
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->LoggedOutComponent
 private class LoggedOutDependency2bcab0d3625f6f252479Provider: LoggedOutDependency2bcab0d3625f6f252479BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent as! AppComponent)
+        super.init()
     }
 }
 private class MainTabDependency2826cdb310ed0b17a725BaseProvider: MainTabDependency {
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var userKeyChainService: UserKeychainService {
-        return appComponent.userKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent
 private class MainTabDependency2826cdb310ed0b17a725Provider: MainTabDependency2826cdb310ed0b17a725BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent as! AppComponent)
+        super.init()
     }
 }
 private class BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider: BookMarkDependency {
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    private let mainTabComponent: MainTabComponent
-    init(mainTabComponent: MainTabComponent) {
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent
 private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class LicenseDependency069aaa9d3342e7e55e4dBaseProvider: LicenseDependency {
@@ -254,18 +239,16 @@ private class LogoutModalDependency198c1460728f9b03415bProvider: LogoutModalDepe
     }
 }
 private class SettingsDependency70ef32136cd1f498fcc9BaseProvider: SettingsDependency {
-    var userAPIService: UserAPIService {
-        return myPageComponent.userAPIService
-    }
-    private let myPageComponent: MyPageComponent
-    init(myPageComponent: MyPageComponent) {
-        self.myPageComponent = myPageComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent
 private class SettingsDependency70ef32136cd1f498fcc9Provider: SettingsDependency70ef32136cd1f498fcc9BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(myPageComponent: component.parent as! MyPageComponent)
+        super.init()
     }
 }
 private class MakerDependency5de256f346c664613971BaseProvider: MakerDependency {
@@ -334,70 +317,48 @@ private class NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider: NickNam
     }
 }
 private class EditInfoDependency226a6a95833dbef9e88dBaseProvider: EditInfoDependency {
-    var userAPIService: UserAPIService {
-        return myPageComponent.userAPIService
-    }
-    private let myPageComponent: MyPageComponent
-    init(myPageComponent: MyPageComponent) {
-        self.myPageComponent = myPageComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent
 private class EditInfoDependency226a6a95833dbef9e88dProvider: EditInfoDependency226a6a95833dbef9e88dBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(myPageComponent: component.parent as! MyPageComponent)
+        super.init()
     }
 }
 private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency {
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var locationService: LocationService {
-        return mainTabComponent.locationService
-    }
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    private let appComponent: AppComponent
-    private let mainTabComponent: MainTabComponent
-    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
-        self.appComponent = appComponent
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent
 private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a2dbc57f299854a2fBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider: WritingDetailPostDependency {
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    private let appComponent: AppComponent
-    private let mainTabComponent: MainTabComponent
-    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
-        self.appComponent = appComponent
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent->WritingDetailPostComponent
 private class WritingDetailPostDependencyb2348cad5787e6e17e92Provider: WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent
 private class WritingDetailPostDependencybef9fe2df3caa6a55869Provider: WritingDetailPostDependencyb2348cad5787e6e17e92BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class SelectTimeModalDependency81aed5a40c91d94b031eBaseProvider: SelectTimeModalDependency {
@@ -420,29 +381,22 @@ private class SelectTimeModalDependencyd8ded48eb82c59809282Provider: SelectTimeM
     }
 }
 private class WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider: WritingMainPostDependency {
-    var locationService: LocationService {
-        return mainTabComponent.locationService
-    }
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    private let appComponent: AppComponent
-    private let mainTabComponent: MainTabComponent
-    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
-        self.appComponent = appComponent
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->WritingMainPostComponent
 private class WritingMainPostDependencya65ab5df0fc9f777cbeaProvider: WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent
 private class WritingMainPostDependencyeba8c3d3228ba588faa8Provider: WritingMainPostDependencya65ab5df0fc9f777cbeaBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class SelectDateModalDependency48c6d7ac20300654ff5cBaseProvider: SelectDateModalDependency {
@@ -490,160 +444,118 @@ private class ReportModalDependencyb9c310c9766e66dc9083Provider: ReportModalDepe
     }
 }
 private class ApplicantListModalDependency04cfed02b61183a240faBaseProvider: ApplicantListModalDependency {
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    private let mainTabComponent: MainTabComponent
-    init(mainTabComponent: MainTabComponent) {
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->ApplicantListModalComponent
 private class ApplicantListModalDependency04cfed02b61183a240faProvider: ApplicantListModalDependency04cfed02b61183a240faBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ApplicantListModalComponent
 private class ApplicantListModalDependency369da0b8761222e1dadaProvider: ApplicantListModalDependency04cfed02b61183a240faBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent
 private class ApplicantListModalDependency38daf10a5dd5609ffa27Provider: ApplicantListModalDependency04cfed02b61183a240faBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class PostDetailDependencyefc8ed9cd9a796bab512BaseProvider: PostDetailDependency {
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    var userKeyChainService: UserKeychainService {
-        return appComponent.userKeyChainService
-    }
-    private let appComponent: AppComponent
-    private let mainTabComponent: MainTabComponent
-    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
-        self.appComponent = appComponent
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent
 private class PostDetailDependencyefc8ed9cd9a796bab512Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent
 private class PostDetailDependencyfaba91a453a4115aa8d1Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent
 private class PostDetailDependency0e20bfa0f3e155bd15e3Provider: PostDetailDependencyefc8ed9cd9a796bab512BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent, mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDependency {
-    var locationService: LocationService {
-        return mainTabComponent.locationService
-    }
-    private let mainTabComponent: MainTabComponent
-    init(mainTabComponent: MainTabComponent) {
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent
 private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDependency4c2395ae43750f0e6394BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(mainTabComponent: component.parent.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class HomeDependency69aec7ecd6b5263bd0e9BaseProvider: HomeDependency {
-    var loginService: LoginService {
-        return appComponent.loginService
-    }
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var postAPIService: PostAPIService {
-        return mainTabComponent.postAPIService
-    }
-    var locationService: LocationService {
-        return mainTabComponent.locationService
-    }
-    var userKeyChainService: UserKeychainService {
-        return appComponent.userKeyChainService
-    }
-    private let appComponent: AppComponent
-    private let mainTabComponent: MainTabComponent
-    init(appComponent: AppComponent, mainTabComponent: MainTabComponent) {
-        self.appComponent = appComponent
-        self.mainTabComponent = mainTabComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency69aec7ecd6b5263bd0e9BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent as! AppComponent, mainTabComponent: component.parent as! MainTabComponent)
+        super.init()
     }
 }
 private class OnboardingCoverDependencyc30b3f7e06b10be88328BaseProvider: OnboardingCoverDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->WaitOnboardingCoverComponent
 private class OnboardingCoverDependencyc30b3f7e06b10be88328Provider: OnboardingCoverDependencyc30b3f7e06b10be88328BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class OnboardingCoverDependency6c57a78c75f1d24e9771BaseProvider: OnboardingCoverDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent
 private class OnboardingCoverDependency6c57a78c75f1d24e9771Provider: OnboardingCoverDependency6c57a78c75f1d24e9771BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class PolicyTermDependency8a9f3fef79c1be8bd4c0BaseProvider: PolicyTermDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent
 private class PolicyTermDependency8a9f3fef79c1be8bd4c0Provider: PolicyTermDependency8a9f3fef79c1be8bd4c0BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider: PolicyDetailDependency {
@@ -692,18 +604,16 @@ private class OnboardingCompletionDependencye50160862e7648fe782eProvider: Onboar
     }
 }
 private class PhotoCertificationDependencya54b73b5a246d75dfe8aBaseProvider: PhotoCertificationDependency {
-    var signupService: SignupService {
-        return emailCertificationComponent.signupService
-    }
-    private let emailCertificationComponent: EmailCertificationComponent
-    init(emailCertificationComponent: EmailCertificationComponent) {
-        self.emailCertificationComponent = emailCertificationComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent->PhotoCertificationComponent
 private class PhotoCertificationDependencya54b73b5a246d75dfe8aProvider: PhotoCertificationDependencya54b73b5a246d75dfe8aBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(emailCertificationComponent: component.parent as! EmailCertificationComponent)
+        super.init()
     }
 }
 private class PhotoModalDependency9e429ac63b6c1295df4cBaseProvider: PhotoModalDependency {
@@ -720,21 +630,16 @@ private class PhotoModalDependency9e429ac63b6c1295df4cProvider: PhotoModalDepend
     }
 }
 private class EmailCertificationDependencyee19ef4f9765e226297aBaseProvider: EmailCertificationDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->EmailCertificationComponent
 private class EmailCertificationDependencyee19ef4f9765e226297aProvider: EmailCertificationDependencyee19ef4f9765e226297aBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class EmailCertificationInitModalDependency20abe039ae677f4b69bcBaseProvider: EmailCertificationInitModalDependency {
@@ -751,21 +656,16 @@ private class EmailCertificationInitModalDependency20abe039ae677f4b69bcProvider:
     }
 }
 private class BirthDependencyc713361cb899f136292eBaseProvider: BirthDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent
 private class BirthDependencyc713361cb899f136292eProvider: BirthDependencyc713361cb899f136292eBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class OnboardingCancelModalDependency3b8e24242190b29ad71eBaseProvider: OnboardingCancelModalDependency {
@@ -812,38 +712,28 @@ private class OnboardingCancelModalDependency6ea49e4ded466cff2a93Provider: Onboa
     }
 }
 private class SelectJobGroupDependencyc9eb1582ec9eed779e29BaseProvider: SelectJobGroupDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent
 private class SelectJobGroupDependencyc9eb1582ec9eed779e29Provider: SelectJobGroupDependencyc9eb1582ec9eed779e29BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }
 private class SelectGenderDependency735326173f42f19f32b1BaseProvider: SelectGenderDependency {
-    var loginKeyChainService: LoginKeyChainService {
-        return appComponent.loginKeyChainService
-    }
-    var signupKeyChainService: SignupKeyChainService {
-        return appComponent.signupKeyChainService
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent
 private class SelectGenderDependency735326173f42f19f32b1Provider: SelectGenderDependency735326173f42f19f32b1BaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init(appComponent: component.parent.parent.parent.parent.parent as! AppComponent)
+        super.init()
     }
 }

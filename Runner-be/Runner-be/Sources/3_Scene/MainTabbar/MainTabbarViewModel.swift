@@ -10,7 +10,7 @@ import RxSwift
 final class MainTabViewModel: BaseViewModel {
     var loginKeyChainService: LoginKeyChainService
 
-    init(loginKeyChainService: LoginKeyChainService) {
+    init(loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
         self.loginKeyChainService = loginKeyChainService
         super.init()
         outputs.loginType = loginKeyChainService.loginType

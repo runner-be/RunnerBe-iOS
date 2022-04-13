@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol EmailCertificationDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol EmailCertificationDependency: Dependency {}
 
 final class EmailCertificationComponent: Component<EmailCertificationDependency> {
     var scene: (VC: UIViewController, VM: EmailCertificationViewModel) {
@@ -22,7 +19,7 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
     }
 
     private var viewModel: EmailCertificationViewModel {
-        return EmailCertificationViewModel(signupService: signupService)
+        return EmailCertificationViewModel()
     }
 
     var idCardCertificationComponent: PhotoCertificationComponent {
@@ -39,38 +36,5 @@ final class EmailCertificationComponent: Component<EmailCertificationDependency>
 
     var initModalComponent: EmailCertificationInitModalComponent {
         return EmailCertificationInitModalComponent(parent: self)
-    }
-
-    var signupService: SignupService {
-        return shared { BasicSignupService(
-            loginKeyChainService: dependency.loginKeyChainService,
-            signupKeyChainService: dependency.signupKeyChainService,
-            signupAPIService: signupAPIService,
-            dynamicLinkService: dynamicLinkService,
-            emailCertificationService: emailCertificationService,
-            imageUploadService: imageUploadService,
-            randomNickNameGenerator: randomNickNameGenerator
-        )
-        }
-    }
-
-    private var signupAPIService: SignupAPIService {
-        return shared { BasicSignupAPIService() }
-    }
-
-    private var emailCertificationService: MailingCertificationService {
-        return shared { BasicMailingCertificationService(mailingAPIService: BasicMailingAPIService()) }
-    }
-
-    private var dynamicLinkService: DynamicLinkService {
-        return shared { BasicDynamicLinkService() }
-    }
-
-    private var imageUploadService: ImageUploadService {
-        return shared { BasicImageUploadService() }
-    }
-
-    private var randomNickNameGenerator: RandomNickNameGenerator {
-        return shared { RandomNickNameGenerator() }
     }
 }

@@ -9,10 +9,8 @@ import RxSwift
 
 final class EditInfoViewModel: BaseViewModel {
     var dirty: Bool = false
-    var userAPIService: UserAPIService
 
-    init(user: User, userAPIService: UserAPIService) {
-        self.userAPIService = userAPIService
+    init(user: User, userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
         Observable<String>.of(user.job)

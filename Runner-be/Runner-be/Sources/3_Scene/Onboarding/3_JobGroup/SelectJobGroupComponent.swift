@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol SelectJobGroupDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol SelectJobGroupDependency: Dependency {}
 
 final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
     var scene: (VC: UIViewController, VM: SelectJobGroupViewModel) {
@@ -20,7 +17,7 @@ final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
     }
 
     private var viewModel: SelectJobGroupViewModel {
-        return SelectJobGroupViewModel(signupKeyChainService: dependency.signupKeyChainService)
+        return SelectJobGroupViewModel()
     }
 
     var emailCertificationComponent: EmailCertificationComponent {

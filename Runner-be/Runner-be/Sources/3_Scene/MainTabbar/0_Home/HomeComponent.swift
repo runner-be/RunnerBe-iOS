@@ -8,18 +8,12 @@
 import Foundation
 import NeedleFoundation
 
-protocol HomeDependency: Dependency {
-    var loginService: LoginService { get }
-    var loginKeyChainService: LoginKeyChainService { get }
-    var postAPIService: PostAPIService { get }
-    var locationService: LocationService { get }
-    var userKeyChainService: UserKeychainService { get }
-}
+protocol HomeDependency: Dependency {}
 
 final class HomeComponent: Component<HomeDependency> {
     lazy var scene: (VC: HomeViewController, VM: HomeViewModel) = (VC: HomeViewController(viewModel: viewModel), VM: viewModel)
 
-    lazy var viewModel: HomeViewModel = .init(locationService: dependency.locationService, postAPIService: dependency.postAPIService, loginKeyChainService: dependency.loginKeyChainService)
+    lazy var viewModel: HomeViewModel = .init()
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(parent: self, postId: postId)

@@ -25,16 +25,9 @@ final class HomeFilterViewModel: BaseViewModel {
         distance: Float
     )
 
-    private var locationService: LocationService
-
-    init(inputFilter: PostFilter, locationService: LocationService) {
-        self.locationService = locationService
+    init(inputFilter: PostFilter, locationService: LocationService = BasicLocationService.shared) {
         super.init()
 
-//        outputs.boundaryLimit.onNext(locationService.allowableBoundary)
-//        if let currentLocation = locationService.currentPlace {
-//            outputs.location.onNext(currentLocation)
-//        }
         outputs.locationDistance.onNext(
             (
                 location: CLLocationCoordinate2D(
@@ -89,9 +82,7 @@ final class HomeFilterViewModel: BaseViewModel {
 
         inputs.reset
             .subscribe(onNext: { [weak self] in
-                if let location = self?.locationService.currentPlace {
-                    self?.outputs.locationDistance.onNext((location: location, distance: 3000))
-                }
+                self?.outputs.locationDistance.onNext((location: locationService.currentPlace, distance: 3000))
                 self?.outputs.reset.onNext(())
             })
             .disposed(by: disposeBag)

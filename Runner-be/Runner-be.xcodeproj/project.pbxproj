@@ -132,7 +132,7 @@
 		C361B6D627B2B63600824ABE /* PhotoCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */; };
 		C361B6D927B2BA5100824ABE /* PhotoChoosableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */; };
 		C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */; };
-		C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */; };
+		C361B6DF27B345F600824ABE /* PhotoModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DE27B345F600824ABE /* PhotoModalComponent.swift */; };
 		C361B6E127B3460400824ABE /* PhotoModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */; };
 		C361B6E327B3460E00824ABE /* PhotoModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */; };
 		C361B6E527B3461900824ABE /* PhotoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6E427B3461900824ABE /* PhotoModalViewController.swift */; };
@@ -460,7 +460,7 @@
 		C361B6D527B2B63600824ABE /* PhotoCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCertificationViewController.swift; sourceTree = "<group>"; };
 		C361B6D827B2BA5100824ABE /* PhotoChoosableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChoosableView.swift; sourceTree = "<group>"; };
 		C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Style.swift"; sourceTree = "<group>"; };
-		C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalComponent.swift.swift; sourceTree = "<group>"; };
+		C361B6DE27B345F600824ABE /* PhotoModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalComponent.swift; sourceTree = "<group>"; };
 		C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalCoordinator.swift; sourceTree = "<group>"; };
 		C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewModel.swift; sourceTree = "<group>"; };
 		C361B6E427B3461900824ABE /* PhotoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModalViewController.swift; sourceTree = "<group>"; };
@@ -1230,7 +1230,7 @@
 		C361B6DC27B3458100824ABE /* PhotoModal */ = {
 			isa = PBXGroup;
 			children = (
-				C361B6DE27B345F600824ABE /* PhotoModalComponent.swift.swift */,
+				C361B6DE27B345F600824ABE /* PhotoModalComponent.swift */,
 				C361B6E027B3460400824ABE /* PhotoModalCoordinator.swift */,
 				C361B6E227B3460E00824ABE /* PhotoModalViewModel.swift */,
 				C361B6E427B3461900824ABE /* PhotoModalViewController.swift */,
@@ -2335,7 +2335,7 @@
 				C3BA45D727B60E220048CA76 /* WaitCertificationCoordinator.swift in Sources */,
 				C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */,
 				C35B832827B91E6E00551AC5 /* Gender.swift in Sources */,
-				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift.swift in Sources */,
+				C361B6DF27B345F600824ABE /* PhotoModalComponent.swift in Sources */,
 				C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */,
 				C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,

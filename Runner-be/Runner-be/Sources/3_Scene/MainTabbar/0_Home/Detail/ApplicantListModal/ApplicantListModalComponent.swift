@@ -8,9 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol ApplicantListModalDependency: Dependency {
-    var postAPIService: PostAPIService { get }
-}
+protocol ApplicantListModalDependency: Dependency {}
 
 final class ApplicantListModalComponent: Component<ApplicantListModalDependency> {
     var scene: (VC: UIViewController, VM: ApplicantListModalViewModel) {
@@ -19,7 +17,7 @@ final class ApplicantListModalComponent: Component<ApplicantListModalDependency>
     }
 
     var viewModel: ApplicantListModalViewModel {
-        return ApplicantListModalViewModel(postId: postId, applicants: applicants, postAPIService: dependency.postAPIService)
+        return ApplicantListModalViewModel(postId: postId, applicants: applicants)
     }
 
     let applicants: [User]

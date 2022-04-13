@@ -11,7 +11,7 @@ import RxSwift
 final class BasicMailingCertificationService: MailingCertificationService {
     let mailingAPIService: MailingAPIService
 
-    init(mailingAPIService: MailingAPIService) {
+    init(mailingAPIService: MailingAPIService = BasicMailingAPIService()) {
         self.mailingAPIService = mailingAPIService
     }
 

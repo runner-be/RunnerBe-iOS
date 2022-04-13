@@ -27,10 +27,7 @@ struct WritingPostDetailViewInputData {
 }
 
 final class WritingDetailPostViewModel: BaseViewModel {
-    private var mainPageAPIService: PostAPIService
-
-    init(mainPostData: WritingPostDetailConfigData, postAPIService: PostAPIService) {
-        mainPageAPIService = postAPIService
+    init(mainPostData: WritingPostDetailConfigData, postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
         outputs.mainPostData.onNext(mainPostData)

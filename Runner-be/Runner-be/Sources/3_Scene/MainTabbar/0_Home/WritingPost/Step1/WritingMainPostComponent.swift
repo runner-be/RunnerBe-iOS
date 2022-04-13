@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol WritingMainPostDependency: Dependency {
-    var locationService: LocationService { get }
-    var loginService: LoginService { get }
-}
+protocol WritingMainPostDependency: Dependency {}
 
 final class WritingMainPostComponent: Component<WritingMainPostDependency> {
     var scene: (VC: UIViewController, VM: WritingMainPostViewModel) {
@@ -20,7 +17,7 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
     }
 
     var viewModel: WritingMainPostViewModel {
-        return WritingMainPostViewModel(locationService: dependency.locationService)
+        return WritingMainPostViewModel()
     }
 
     var selectTimeComponent: SelectTimeModalComponent {

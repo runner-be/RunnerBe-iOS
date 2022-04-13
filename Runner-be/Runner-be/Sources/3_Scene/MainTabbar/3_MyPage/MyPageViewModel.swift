@@ -13,12 +13,10 @@ final class MyPageViewModel: BaseViewModel {
         case basic, attendable
     }
 
-    private var postAPIService: PostAPIService
     var user: User?
     var posts = [PostType: [Post]]()
 
-    init(postAPIService: PostAPIService) {
-        self.postAPIService = postAPIService
+    init(postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
         routeInputs.needUpdate

@@ -13,7 +13,7 @@ final class SelectJobGroupViewModel: BaseViewModel {
 
     // MARK: Lifecycle
 
-    init(signupKeyChainService: SignupKeyChainService) {
+    init(signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
         self.signupKeyChainService = signupKeyChainService
         super.init()
 

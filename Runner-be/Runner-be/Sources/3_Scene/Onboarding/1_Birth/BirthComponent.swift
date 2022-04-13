@@ -10,10 +10,7 @@ import Foundation
 import Foundation
 import NeedleFoundation
 
-protocol BirthDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol BirthDependency: Dependency {}
 
 final class BirthComponent: Component<BirthDependency> {
     var scene: (VC: UIViewController, VM: BirthViewModel) {
@@ -22,7 +19,7 @@ final class BirthComponent: Component<BirthDependency> {
     }
 
     private var viewModel: BirthViewModel {
-        return BirthViewModel(signupKeyChainService: dependency.signupKeyChainService)
+        return BirthViewModel()
     }
 
     var selectGenderComponent: SelectGenderComponent {

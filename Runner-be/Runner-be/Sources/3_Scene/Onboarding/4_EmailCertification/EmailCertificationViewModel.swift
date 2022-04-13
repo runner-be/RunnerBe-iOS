@@ -11,7 +11,7 @@ import RxSwift
 final class EmailCertificationViewModel: BaseViewModel {
     private let signupService: SignupService
 
-    init(signupService: SignupService) {
+    init(signupService: SignupService = BasicSignupService()) {
         self.signupService = signupService
         super.init()
 

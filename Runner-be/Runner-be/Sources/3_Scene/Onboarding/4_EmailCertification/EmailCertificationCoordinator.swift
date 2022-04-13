@@ -152,7 +152,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
     override func handleDeepLink(type: DeepLinkType) {
         switch type {
         case let .emailCertification(hashedUUID, email):
-            if component.signupKeyChainService.uuid.sha256 == hashedUUID {
+            if BasicSignupKeyChainService.shared.uuid.sha256 == hashedUUID {
                 component.scene.VM.routeInputs.emailCertifated.onNext(email)
             }
         }

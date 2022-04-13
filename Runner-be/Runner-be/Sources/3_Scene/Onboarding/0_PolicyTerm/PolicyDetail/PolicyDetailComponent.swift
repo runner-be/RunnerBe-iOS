@@ -17,7 +17,7 @@ final class PolicyDetailComponent: Component<PolicyDetailDependency> {
     }
 
     var viewModel: PolicyDetailViewModel {
-        return PolicyDetailViewModel(policyType: policyType, modal: isModal, policyAPIService: policyAPIService)
+        return PolicyDetailViewModel(policyType: policyType, modal: isModal)
     }
 
     init(parent: Scope, policyType: PolicyType, modal: Bool) {
@@ -28,8 +28,4 @@ final class PolicyDetailComponent: Component<PolicyDetailDependency> {
 
     private(set) var isModal: Bool
     private var policyType: PolicyType
-
-    var policyAPIService: PolicyAPIService {
-        return BasicPolicyAPIService()
-    }
 }

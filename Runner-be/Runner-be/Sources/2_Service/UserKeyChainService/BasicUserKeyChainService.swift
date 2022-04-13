@@ -9,11 +9,13 @@ import Foundation
 import SwiftKeychainWrapper
 
 final class BasicUserKeyChainService: UserKeychainService {
-    let keychainWrapper: KeychainWrapper
+    static let shared = BasicUserKeyChainService()
 
-    init(keychainWrapper: KeychainWrapper = .standard) {
+    private init(keychainWrapper: KeychainWrapper = .standard) {
         self.keychainWrapper = keychainWrapper
     }
+
+    let keychainWrapper: KeychainWrapper
 
     var uuid: String {
         get {

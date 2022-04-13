@@ -9,13 +9,15 @@ import Foundation
 import SwiftKeychainWrapper
 
 final class BasicSignupKeyChainService: SignupKeyChainService {
-    let keychainWrapper: KeychainWrapper
-    var userKeyChainService: UserKeychainService
+    static let shared = BasicSignupKeyChainService()
 
-    init(keychainWrapper: KeychainWrapper = .standard, userKeyChainService: UserKeychainService) {
+    private init(keychainWrapper: KeychainWrapper = .standard, userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
         self.keychainWrapper = keychainWrapper
         self.userKeyChainService = userKeyChainService
     }
+
+    let keychainWrapper: KeychainWrapper
+    var userKeyChainService: UserKeychainService
 
     var signupForm: SignupForm {
         get {

@@ -17,7 +17,7 @@ final class BasicPostAPIService: PostAPIService {
     let provider: MoyaProvider<PostAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<PostAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService) {
+    init(provider: MoyaProvider<PostAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
     }

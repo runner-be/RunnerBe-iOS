@@ -10,17 +10,19 @@ import Foundation
 import RxSwift
 
 class BasicLocationService: NSObject, LocationService {
+    static let shared = BasicLocationService()
+
+    private init(locationManager: CLLocationManager = CLLocationManager()) {
+        self.locationManager = locationManager
+        super.init()
+        setup()
+    }
+
     private var locationManager: CLLocationManager
 
     var enableStateOb = ReplaySubject<Bool>.create(bufferSize: 1)
     var locationEnableState: Observable<Bool> {
         return enableStateOb
-    }
-
-    init(locationManager: CLLocationManager = CLLocationManager()) {
-        self.locationManager = locationManager
-        super.init()
-        setup()
     }
 
     private func setup() {

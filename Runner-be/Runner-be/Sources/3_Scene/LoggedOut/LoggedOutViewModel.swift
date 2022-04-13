@@ -14,7 +14,7 @@ final class LoggedOutViewModel: BaseViewModel {
 
     // MARK: Lifecycle
 
-    init(loginService: LoginService, signupKeyChainService: SignupKeyChainService) {
+    init(loginService: LoginService = BasicLoginService(), signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
         self.loginService = loginService
         self.signupKeyChainService = signupKeyChainService
         super.init()

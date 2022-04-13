@@ -10,7 +10,7 @@ import RxRelay
 import RxSwift
 
 final class PolicyDetailViewModel: BaseViewModel {
-    init(policyType: PolicyType, modal: Bool, policyAPIService: PolicyAPIService) {
+    init(policyType: PolicyType, modal: Bool, policyAPIService: PolicyAPIService = BasicPolicyAPIService()) {
         super.init()
 
         policyAPIService.policy(type: policyType)

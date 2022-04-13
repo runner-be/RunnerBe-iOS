@@ -20,8 +20,8 @@ final class BasicUserAPIService: UserAPIService {
 
     init(
         provider: MoyaProvider<UserAPI> = .init(plugins: [VerbosePlugin(verbose: true)]),
-        loginKeyChainService: LoginKeyChainService,
-        imageUploadService: ImageUploadService
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        imageUploadService: ImageUploadService = BasicImageUploadService()
     ) {
         self.provider = provider
         self.loginKeyChainService = loginKeyChainService

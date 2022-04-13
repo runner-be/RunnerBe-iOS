@@ -19,10 +19,7 @@ struct WritingPostMainViewInputData {
 }
 
 final class WritingMainPostViewModel: BaseViewModel {
-    private var locationService: LocationService
-
-    init(locationService: LocationService) {
-        self.locationService = locationService
+    init(locationService: LocationService = BasicLocationService.shared) {
         super.init()
 
         outputs.boundaryLimit.onNext(locationService.allowableBoundary)
@@ -100,7 +97,7 @@ final class WritingMainPostViewModel: BaseViewModel {
 
         inputs.locationChanged
             .map { [weak self] coord in
-                self?.locationService.geoCodeLocation(at: coord)
+                locationService.geoCodeLocation(at: coord)
             }
             .compactMap { $0 }
             .flatMap { $0 }

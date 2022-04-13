@@ -10,17 +10,15 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: BaseViewModel {
-    private var locationService: LocationService
-    private var postAPIService: PostAPIService
-
     var bookMarkSet = Set<Int>()
     var posts: [Post] = []
     var filter: PostFilter
 
-    init(locationService: LocationService, postAPIService: PostAPIService, loginKeyChainService: LoginKeyChainService) {
-        self.locationService = locationService
-        self.postAPIService = postAPIService
-
+    init(
+        postAPIService: PostAPIService = BasicPostAPIService(),
+        locationService: LocationService = BasicLocationService.shared,
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
+    ) {
         let searchLocation = locationService.currentPlace
 
         let initialFilter = PostFilter(

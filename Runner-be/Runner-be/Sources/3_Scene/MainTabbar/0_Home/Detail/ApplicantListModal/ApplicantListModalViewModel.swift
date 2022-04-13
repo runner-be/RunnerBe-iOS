@@ -12,7 +12,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
     var applicants: [User]
     var changed = false
 
-    init(postId: Int, applicants: [User], postAPIService: PostAPIService) {
+    init(postId: Int, applicants: [User], postAPIService: PostAPIService = BasicPostAPIService()) {
         self.applicants = applicants
         super.init()
 

@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol PolicyTermDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol PolicyTermDependency: Dependency {}
 
 final class PolicyTermComponent: Component<PolicyTermDependency> {
     var scene: (VC: UIViewController, VM: PolicyTermViewModel) {

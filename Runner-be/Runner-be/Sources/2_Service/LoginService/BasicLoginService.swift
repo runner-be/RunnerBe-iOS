@@ -17,10 +17,10 @@ final class BasicLoginService: LoginService {
     private let loginAPIService: LoginAPIService
 
     init(
-        loginKeyChainService: LoginKeyChainService,
-        loginAPIService: LoginAPIService,
-        kakaoLoginService: SocialLoginService,
-        naverLoginService: SocialLoginService
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        loginAPIService: LoginAPIService = BasicLoginAPIService(),
+        kakaoLoginService: SocialLoginService = KakaoLoginService(),
+        naverLoginService: SocialLoginService = NaverLoginService()
     ) {
         self.kakaoLoginService = kakaoLoginService
         self.naverLoginService = naverLoginService

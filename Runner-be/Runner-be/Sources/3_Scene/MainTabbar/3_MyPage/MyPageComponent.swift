@@ -8,17 +8,12 @@
 import Foundation
 import NeedleFoundation
 
-protocol MyPageDependency: Dependency {
-    var postAPIService: PostAPIService { get }
-    var loginKeyChainService: LoginKeyChainService { get }
-    var locationService: LocationService { get }
-    var loginService: LoginService { get }
-}
+protocol MyPageDependency: Dependency {}
 
 final class MyPageComponent: Component<MyPageDependency> {
     lazy var scene: (VC: MyPageViewController, VM: MyPageViewModel) = (VC: MyPageViewController(viewModel: viewModel), VM: viewModel)
 
-    lazy var viewModel: MyPageViewModel = .init(postAPIService: dependency.postAPIService)
+    lazy var viewModel = MyPageViewModel()
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(parent: self, postId: postId)
@@ -34,10 +29,6 @@ final class MyPageComponent: Component<MyPageDependency> {
 
     var writingPostComponent: WritingMainPostComponent {
         return WritingMainPostComponent(parent: self)
-    }
-
-    var userAPIService: UserAPIService {
-        return BasicUserAPIService(loginKeyChainService: dependency.loginKeyChainService, imageUploadService: imageUploadService)
     }
 
     var imageUploadService: ImageUploadService {

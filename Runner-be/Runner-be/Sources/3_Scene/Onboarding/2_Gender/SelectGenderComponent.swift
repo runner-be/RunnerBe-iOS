@@ -8,10 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol SelectGenderDependency: Dependency {
-    var loginKeyChainService: LoginKeyChainService { get }
-    var signupKeyChainService: SignupKeyChainService { get }
-}
+protocol SelectGenderDependency: Dependency {}
 
 final class SelectGenderComponent: Component<SelectGenderDependency> {
     var scene: (VC: UIViewController, VM: SelectGenderViewModel) {
@@ -20,7 +17,7 @@ final class SelectGenderComponent: Component<SelectGenderDependency> {
     }
 
     private var viewModel: SelectGenderViewModel {
-        return SelectGenderViewModel(signupKeyChainService: dependency.signupKeyChainService)
+        return SelectGenderViewModel()
     }
 
     var selectJobGroupCoord: SelectJobGroupComponent {

@@ -9,15 +9,11 @@ import Foundation
 import RxSwift
 
 final class PostDetailViewModel: BaseViewModel {
-    private let userKeyChainService: UserKeychainService
-    private let postAPIService: PostAPIService
     private var marked: Bool = false
     private var applicants: [User] = []
     var anyChanged = false
 
-    init(postId: Int, postAPIService: PostAPIService, userKeyChainService: UserKeychainService) {
-        self.userKeyChainService = userKeyChainService
-        self.postAPIService = postAPIService
+    init(postId: Int, postAPIService: PostAPIService = BasicPostAPIService(), userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
         super.init()
 
         let postDetailInfoReady = ReplaySubject<DetailInfoResult>.create(bufferSize: 1)
