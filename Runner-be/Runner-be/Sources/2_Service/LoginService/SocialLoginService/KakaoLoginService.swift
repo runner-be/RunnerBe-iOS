@@ -27,6 +27,10 @@ final class KakaoLoginService: SocialLoginService {
         }
     }
 
+    func logout() {
+        UserApi.shared.logout(completion: { _ in })
+    }
+
     // MARK: Private
 
     private func loginWithKakaoApp() -> Observable<SocialLoginResult?> {

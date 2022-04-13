@@ -10,4 +10,5 @@ import RxSwift
 
 protocol SocialLoginService {
     func login() -> Observable<SocialLoginResult?>
+    func logout()
 }

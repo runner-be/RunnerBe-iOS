@@ -98,4 +98,9 @@ final class BasicLoginService: LoginService {
                 self?.disposeBag = DisposeBag()
             })
     }
+
+    func logout() {
+        naverLoginService.logout()
+        kakaoLoginService.logout()
+    }
 }

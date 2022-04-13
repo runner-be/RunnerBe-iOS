@@ -26,4 +26,5 @@ enum CheckLoginResult {
 protocol LoginService {
     func checkLogin() -> Observable<CheckLoginResult>
     func login(with socialType: SocialLoginType) -> Observable<LoginResult>
+    func logout()
 }

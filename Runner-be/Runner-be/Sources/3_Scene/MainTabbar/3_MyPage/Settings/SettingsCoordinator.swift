@@ -89,6 +89,11 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 self?.presentSignoutCompletionModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.logoutComplete
+            .map { SettingsResult.logout }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushLicenseScene(vm _: SettingsViewModel, animated: Bool) {
@@ -123,7 +128,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
-    private func presentLogoutModal(vm _: SettingsViewModel, animated: Bool) {
+    private func presentLogoutModal(vm: SettingsViewModel, animated: Bool) {
         let comp = component.logoutModalComponent
         let coord = LogoutModalCoordinator(component: comp, navController: navigationController)
 
@@ -132,9 +137,9 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
                 case .backward:
-                    break
+                    vm.routeInputs.logout.onNext(false)
                 case .logout:
-                    self?.closeSignal.onNext(SettingsResult.logout)
+                    vm.routeInputs.logout.onNext(true)
                 }
             })
 

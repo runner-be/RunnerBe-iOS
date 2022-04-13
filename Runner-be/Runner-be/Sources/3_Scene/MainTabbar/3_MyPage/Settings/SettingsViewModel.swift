@@ -10,9 +10,11 @@ import RxSwift
 
 final class SettingsViewModel: BaseViewModel {
     private let userAPIService: UserAPIService
+    private let loginService: LoginService
 
-    init(userAPIService: UserAPIService = BasicUserAPIService()) {
+    init(userAPIService: UserAPIService = BasicUserAPIService(), loginService: LoginService = BasicLoginService()) {
         self.userAPIService = userAPIService
+        self.loginService = loginService
         super.init()
 
         let settingItems: [[SettingCellConfig]] = SettingCategory.allCases.reduce(into: []) { partialResult, category in
@@ -86,6 +88,14 @@ final class SettingsViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        routeInputs.logout
+            .filter { $0 }
+            .subscribe(onNext: { [weak self] _ in
+                self?.loginService.logout()
+                self?.routes.logoutComplete.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -106,11 +116,13 @@ final class SettingsViewModel: BaseViewModel {
         var makers = PublishSubject<Void>()
         var instagram = PublishSubject<Void>()
         var logout = PublishSubject<Void>()
+        var logoutComplete = PublishSubject<Void>()
         var signout = PublishSubject<Void>()
         var signoutComplete = PublishSubject<Void>()
     }
 
     struct RouteInputs {
+        var logout = PublishSubject<Bool>()
         var signout = PublishSubject<Bool>()
     }
 

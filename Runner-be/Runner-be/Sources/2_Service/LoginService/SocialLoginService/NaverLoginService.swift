@@ -27,6 +27,10 @@ final class NaverLoginService: NSObject, SocialLoginService {
         return loginDataStream
     }
 
+    func logout() {
+        loginConnection.requestDeleteToken()
+    }
+
     // MARK: Private
 
     private var loginConnection: NaverThirdPartyLoginConnection
