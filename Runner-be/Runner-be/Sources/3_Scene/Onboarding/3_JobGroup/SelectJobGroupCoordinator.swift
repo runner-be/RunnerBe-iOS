@@ -44,24 +44,24 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushEmailCertificationCoord(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { SelectJobGroupResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     // MARK: Private
@@ -78,7 +78,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 switch coordResult {
                 case .cancelOnboarding:
                     self?.closeSignal.onNext(.cancelOnboarding)
-                case let .toMain:
+                case .toMain:
                     self?.closeSignal.onNext(.toMain)
                 case .backward: break
                 }

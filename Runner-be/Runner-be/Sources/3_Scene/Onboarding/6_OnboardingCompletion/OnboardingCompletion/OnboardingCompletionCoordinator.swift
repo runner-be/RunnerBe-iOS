@@ -34,11 +34,11 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.toMain
             .map { OnboardingCompletionResult.toMain }
             .subscribe(closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

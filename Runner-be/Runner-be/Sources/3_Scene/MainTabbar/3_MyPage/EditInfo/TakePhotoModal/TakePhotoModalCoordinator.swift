@@ -30,24 +30,24 @@ final class TakePhotoModalCoordinator: BasicCoordinator<TakePhotoModalResult> {
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.backward
             .map { TakePhotoModalResult.cancel }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.choosePhoto
             .map { TakePhotoModalResult.choosePhoto }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.takePhoto
             .map { TakePhotoModalResult.takePhoto }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

@@ -36,17 +36,17 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nonMember
             .map { LoggedOutResult.loginSuccess }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.loginSuccess
             .subscribe(onNext: { [weak self] _ in
                 self?.closeSignal.onNext(.loginSuccess)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

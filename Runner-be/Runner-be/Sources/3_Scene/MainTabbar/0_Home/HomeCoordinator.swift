@@ -33,26 +33,26 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             .subscribe(onNext: { [weak self] input in
                 self?.pushHomeFilterScene(vm: input.vm, filter: input.filter, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.writingPost
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushWritingPostScene(vm: vm, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] input in
                 self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nonMemberCover
             .map { .needCover }
             .subscribe(closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {

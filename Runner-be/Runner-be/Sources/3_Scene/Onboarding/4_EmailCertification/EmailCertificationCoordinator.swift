@@ -35,7 +35,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
             .subscribe(onNext: { [weak self] _ in
                 self?.presentInitModal(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
@@ -51,30 +51,30 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.toIDCardCertification
             .subscribe(onNext: { [weak self] in
                 self?.pushPhotoCertificationCoord(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { EmailCertificationResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.signupComplete
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCompletionCoord(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushPhotoCertificationCoord(animated: Bool) {

@@ -28,26 +28,26 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController.popViewController(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { PostDetailResult.backward(id: $0.id, marked: $0.marked, needUpdate: $0.needUpdate) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.applicantsModal
             .map { (vm: scene.VM, applicants: $0) }
             .subscribe(onNext: { [weak self] result in
                 self?.presentApplicantListModal(vm: result.vm, applicants: result.applicants, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.report
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentReportModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {

@@ -28,11 +28,11 @@ final class ApplicantListModalCoordinator: BasicCoordinator<ApplicantListModalRe
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: true, completion: nil)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { ApplicantListModalResult.backward(needUpdate: $0) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

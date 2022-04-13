@@ -32,24 +32,24 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
             .subscribe(onNext: { [weak self] _ in
                 self?.newNavController.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.lookMain
             .map { OnboardingCoverResult.toMain }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.goOnboard
             .map { scene.VM }
             .subscribe(onNext: { [weak self] _ in
                 self?.pushPolicyTerm(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.testCertificated
             .map { OnboardingCoverResult.toMain }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushPolicyTerm(animated: Bool) {

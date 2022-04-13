@@ -30,18 +30,18 @@ final class SelectTimeModalCoordinator: BasicCoordinator<SelectTimeModalResult> 
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.cancel
             .map { SelectTimeModalResult.cancel }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.apply
             .map { SelectTimeModalResult.apply($0) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

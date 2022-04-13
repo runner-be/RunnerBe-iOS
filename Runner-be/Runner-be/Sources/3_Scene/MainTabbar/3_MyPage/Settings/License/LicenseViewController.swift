@@ -30,7 +30,7 @@
     @available(iOS 9.0.0, tvOS 9.0.0, *)
     @available(iOSApplicationExtension, unavailable)
     class LicenseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-        var disposeBag = DisposeBag()
+        var sceneDisposeBag = DisposeBag()
         var viewModel: LicenseViewModel?
         var navBar = RunnerbeNavBar().then { navBar in
             navBar.backgroundColor = .bgTop
@@ -518,7 +518,7 @@
             guard let vm = viewModel else { return }
             navBar.leftBtnItem.rx.tap
                 .bind(to: vm.inputs.backward)
-                .disposed(by: disposeBag)
+                .disposed(by: sceneDisposeBag)
         }
     }
 #endif

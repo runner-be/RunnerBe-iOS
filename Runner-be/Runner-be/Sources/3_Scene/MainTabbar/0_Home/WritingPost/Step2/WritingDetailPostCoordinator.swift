@@ -34,16 +34,16 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
 
                 self?.navigationController.popViewController(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { WritingDetailPostResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.apply
             .map { WritingDetailPostResult.apply }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

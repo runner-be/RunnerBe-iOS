@@ -49,7 +49,7 @@
             navBar.rightSecondBtnItem.isHidden = true
         }
 
-        let disposeBag = DisposeBag()
+        let sceneDisposeBag = DisposeBag()
 
         /// The represented acknowledgement.
         var acknowledgement: Acknow?
@@ -102,7 +102,7 @@
                 .subscribe(onNext: { [weak self] in
                     self?.navigationController?.popViewController(animated: true)
                 })
-                .disposed(by: disposeBag)
+                .disposed(by: sceneDisposeBag)
         }
 
         /// Called to notify the view controller that its view has just laid out its subviews.

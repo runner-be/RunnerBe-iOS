@@ -29,20 +29,20 @@ final class NickNameChangeModalCoordinator: BasicCoordinator<NickNameChangeModal
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.backward
             .debug()
             .map { NickNameChangeModalResult.cancel }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.ok
             .debug()
             .map { NickNameChangeModalResult.ok }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

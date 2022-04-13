@@ -29,20 +29,20 @@ final class ReportModalCoordinator: BasicCoordinator<ReportModalResult> {
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.backward
             .debug()
             .map { ReportModalResult.cancel }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.ok
             .debug()
             .map { ReportModalResult.ok }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

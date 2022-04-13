@@ -33,33 +33,33 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .subscribe(onNext: { [weak self] result in
                 self?.pushEditInfoScene(vm: result.vm, user: result.user, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
                 self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.settings
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushSettingsScene(vm: vm, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.toMain
             .map { MyPageResult.toMain }
             .subscribe(closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.writePost
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushWritingPostScene(vm: vm, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {

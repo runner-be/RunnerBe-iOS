@@ -30,7 +30,7 @@ final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
             .subscribe(onNext: { [weak self] input in
                 self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushDetailPostScene(vm: BookMarkViewModel, postId: Int, animated: Bool) {

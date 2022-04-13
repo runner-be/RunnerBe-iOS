@@ -26,15 +26,15 @@ final class SignoutCompletionModalCoordinator: BasicCoordinator<SignoutCompletio
         navigationController.present(scene.VC, animated: animated)
 
         closeSignal
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.toLoginPage
             .map { SignoutCompletionModalResult.toLoginPage }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

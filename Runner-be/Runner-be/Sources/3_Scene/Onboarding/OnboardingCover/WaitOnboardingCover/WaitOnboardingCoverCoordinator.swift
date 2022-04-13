@@ -29,11 +29,11 @@ final class WaitOnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResu
             .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.toMain
             .map { OnboardingCoverResult.toMain }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

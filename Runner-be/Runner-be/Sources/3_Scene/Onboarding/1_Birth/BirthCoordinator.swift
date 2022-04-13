@@ -44,24 +44,24 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nextProcess
             .subscribe(onNext: { [weak self] in
                 self?.pushSelectGenderCoord(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { BirthResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     // MARK: Private

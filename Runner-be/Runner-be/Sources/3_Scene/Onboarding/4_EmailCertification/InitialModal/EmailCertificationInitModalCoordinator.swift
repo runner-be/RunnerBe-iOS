@@ -29,12 +29,12 @@ final class EmailCertificationInitModalCoordinator: BasicCoordinator<EmailCertif
             .subscribe(onNext: { _ in
                 emailCertificationInitModal.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         emailCertificationInitModal.VM
             .routes.backward
             .map { EmailCertificationInitModalResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

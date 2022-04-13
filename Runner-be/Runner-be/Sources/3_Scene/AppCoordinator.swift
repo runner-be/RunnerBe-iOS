@@ -40,7 +40,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
                     self.showLoggedOut(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     func showMain(animated: Bool) {

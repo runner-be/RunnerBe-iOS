@@ -27,21 +27,21 @@ final class OnboardingCancelModalCoordinator: BasicCoordinator<OnboardingCancelM
         navigationController.present(scene.VC, animated: animated)
 
         closeSignal
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.backward
             .map { OnboardingCancelModalResult.cancelModal }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.cancel
             .map { OnboardingCancelModalResult.cancelOnboarding }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

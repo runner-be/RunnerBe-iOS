@@ -28,26 +28,26 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController.popViewController(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { EditInfoResult.backward(needUpdate: $0) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nickNameModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentNickNameModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.photoModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentPhotoModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentNickNameModal(vm: EditInfoViewModel, animated: Bool) {

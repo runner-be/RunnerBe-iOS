@@ -39,11 +39,11 @@ final class PolicyDetailCoordinator: BasicCoordinator<PolicyDetailResult> {
                     self.navigationController.popViewController(animated: true)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.close
             .map { PolicyDetailResult.close }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

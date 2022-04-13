@@ -387,6 +387,8 @@ extension PhotoCertificationViewController: UIImagePickerControllerDelegate, UIN
             break
         case .limited:
             break
+        @unknown default:
+            break
         }
         return false
     }

@@ -27,21 +27,21 @@ final class SignoutModalCoordinator: BasicCoordinator<SignoutModalResult> {
         navigationController.present(scene.VC, animated: animated)
 
         closeSignal
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { _ in
                 scene.VC.dismiss(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.cancel
             .map { SignoutModalResult.cancel }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.signout
             .map { SignoutModalResult.signout }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

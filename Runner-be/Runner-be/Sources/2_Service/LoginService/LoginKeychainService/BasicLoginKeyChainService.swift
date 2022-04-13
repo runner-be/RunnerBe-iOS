@@ -50,7 +50,7 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
 
         set {
             #if DEBUG
-                print("[BasicLoginKeyChainService][token] set\n\t= \"\(newValue)\"")
+                print("[BasicLoginKeyChainService][token] set\n\t= \"\(String(describing: newValue))\"")
             #endif
             keychainWrapper.remove(forKey: .loginTokenKey)
             if let loginToken = newValue {

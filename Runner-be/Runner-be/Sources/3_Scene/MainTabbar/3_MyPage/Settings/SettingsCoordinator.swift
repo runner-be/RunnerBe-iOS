@@ -34,61 +34,61 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { SettingsResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.makers
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushMakerScene(vm: vm, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.logout
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentLogoutModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.privacy
             .map { (vm: scene.VM, type: PolicyType.privacy_deal) }
             .subscribe(onNext: { [weak self] input in
                 self?.pushPolicy(vm: input.vm, policyType: input.type, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.terms
             .map { (vm: scene.VM, type: PolicyType.service) }
             .subscribe(onNext: { [weak self] input in
                 self?.pushPolicy(vm: input.vm, policyType: input.type, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.license
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushLicenseScene(vm: vm, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.signout
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentSignoutModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.signoutComplete
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentSignoutCompletionModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushLicenseScene(vm _: SettingsViewModel, animated: Bool) {

@@ -96,7 +96,7 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.locationChanged
-            .map { [weak self] coord in
+            .map { coord in
                 locationService.geoCodeLocation(at: coord)
             }
             .compactMap { $0 }

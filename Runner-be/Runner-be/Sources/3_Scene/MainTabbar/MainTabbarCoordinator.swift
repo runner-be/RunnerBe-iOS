@@ -50,7 +50,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         closeSignal.subscribe(onNext: { [weak self] _ in
             self?.navigationController.popViewController(animated: false)
         })
-        .disposed(by: disposeBag)
+        .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.onboardingCover
             .debug()
@@ -58,14 +58,14 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             .subscribe(onNext: { [weak self] vm in
                 self?.presentOnboaradingCover(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.waitOnboardingCover
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentWaitOnboaradingCover(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func configureAndGetHomeScene(vm: MainTabViewModel) -> UIViewController {
@@ -86,7 +86,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             .subscribe(onNext: {
                 comp.viewModel.routeInputs.needUpdate.onNext(true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         return comp.scene.VC
     }
@@ -101,7 +101,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             .subscribe(onNext: {
                 comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         return comp.scene.VC
     }
@@ -125,7 +125,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             .subscribe(onNext: {
                 comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
         return comp.scene.VC

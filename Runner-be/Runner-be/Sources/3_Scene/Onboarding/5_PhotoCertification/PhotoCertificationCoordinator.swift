@@ -53,31 +53,31 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.photoModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentPhotoModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .subscribe(onNext: { [weak self] in
                 self?.presentOnboardingCancelCoord(animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { PhotoCertificationResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.certificate
             .subscribe(onNext: { [weak self] in
                 self?.pushWaitCertificateCoord(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentPhotoModal(vm: PhotoCertificationViewModel, animated: Bool) {

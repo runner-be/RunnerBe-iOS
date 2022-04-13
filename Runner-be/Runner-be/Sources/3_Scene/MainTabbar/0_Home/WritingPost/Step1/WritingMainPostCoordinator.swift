@@ -35,33 +35,33 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                     self?.navigationController.popViewController(animated: true)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .debug()
             .map { WritingMainPostResult.backward(needUpdate: false) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.next
             .subscribe(onNext: { [weak self] in
                 self?.pushWritingDetailPost(data: $0, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.editTime
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentSelectTimeModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.editDate
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentSelectDateModal(vm: vm, animated: false)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushWritingDetailPost(data: WritingPostDetailConfigData, animated _: Bool) {

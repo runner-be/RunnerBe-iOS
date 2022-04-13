@@ -44,7 +44,7 @@ final class BasicSignupKeyChainService: SignupKeyChainService {
 
     var uuid: String {
         get { userKeyChainService.uuid }
-        set { userKeyChainService.uuid }
+        set { userKeyChainService.uuid = newValue }
     }
 
     var nickName: String {
@@ -72,7 +72,7 @@ final class BasicSignupKeyChainService: SignupKeyChainService {
         get {
             let mail: String? = keychainWrapper[.SignupInfo.officeEmail]
             #if DEBUG
-                print("[BasicSignupKeyChainService][officeMail] get\n\t \"\(mail)\"")
+                print("[BasicSignupKeyChainService][officeMail] get\n\t \"\(String(describing: mail))\"")
             #endif
             return mail
         }
@@ -97,7 +97,7 @@ final class BasicSignupKeyChainService: SignupKeyChainService {
         }
         set {
             #if DEBUG
-                print("[BasicSignupKeyChainService][idCardUrl] set\n\t= \"\(newValue)\"")
+                print("[BasicSignupKeyChainService][idCardUrl] set\n\t= \"\(String(describing: newValue))\"")
             #endif
             keychainWrapper.remove(forKey: .SignupInfo.idCardImageUrl)
             if let url = newValue {

@@ -34,11 +34,11 @@ final class WaitCertificationCoordinator: BasicCoordinator<WaitCertificationResu
                     self?.navigationController.popViewController(animated: false)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.toMain
             .map { .toMain }
             .subscribe(closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

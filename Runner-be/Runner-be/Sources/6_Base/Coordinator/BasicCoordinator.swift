@@ -41,7 +41,7 @@ class BasicCoordinator<ResultType>: Coordinator {
     typealias CoordinationResult = ResultType
 
     var identifier: String { "\(Self.self)" }
-    var disposeBag = DisposeBag()
+    var sceneDisposeBag = DisposeBag()
 
     var navigationController: UINavigationController
 

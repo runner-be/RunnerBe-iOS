@@ -28,11 +28,11 @@ final class HomeFilterCoordinator: BasicCoordinator<HomeFilterResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController.popViewController(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { HomeFilterResult.backward(filter: $0) }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

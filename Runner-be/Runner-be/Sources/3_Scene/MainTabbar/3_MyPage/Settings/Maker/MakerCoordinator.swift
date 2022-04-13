@@ -28,11 +28,11 @@ final class MakerCoordinator: BasicCoordinator<MakerResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController.popViewController(animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { MakerResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }

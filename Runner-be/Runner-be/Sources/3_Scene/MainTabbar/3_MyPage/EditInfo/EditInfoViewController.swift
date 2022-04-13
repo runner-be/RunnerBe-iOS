@@ -439,6 +439,8 @@ extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationC
             break
         case .limited:
             break
+        @unknown default:
+            break
         }
         return false
     }

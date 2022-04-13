@@ -26,11 +26,11 @@ final class LicenseCoordinator: BasicCoordinator<LicenseResult> {
         closeSignal.subscribe(onNext: { [weak self] _ in
             self?.navigationController.popViewController(animated: true)
         })
-        .disposed(by: disposeBag)
+        .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
             .map { LicenseResult.backward }
             .bind(to: closeSignal)
-            .disposed(by: disposeBag)
+            .disposed(by: sceneDisposeBag)
     }
 }
