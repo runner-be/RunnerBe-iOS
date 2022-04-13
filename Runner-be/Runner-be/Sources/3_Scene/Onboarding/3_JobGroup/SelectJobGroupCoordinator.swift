@@ -83,7 +83,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 case .backward: break
                 }
             })
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -102,7 +102,7 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

@@ -104,7 +104,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushMakerScene(vm _: SettingsViewModel, animated: Bool) {
@@ -120,7 +120,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentLogoutModal(vm _: SettingsViewModel, animated: Bool) {
@@ -138,7 +138,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSignoutModal(vm: SettingsViewModel, animated: Bool) {
@@ -156,7 +156,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSignoutCompletionModal(vm _: SettingsViewModel, animated: Bool) {
@@ -172,7 +172,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushPolicy(vm _: SettingsViewModel, policyType: PolicyType, animated: Bool) {
@@ -183,6 +183,6 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.releaseChild(coordinator: coord)
             })
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

@@ -69,7 +69,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
@@ -85,7 +85,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
@@ -101,6 +101,6 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

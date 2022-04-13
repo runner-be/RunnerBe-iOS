@@ -95,7 +95,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -115,7 +115,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCompletionCoord(animated: Bool) {
@@ -133,7 +133,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentInitModal(animated: Bool) {
@@ -146,7 +146,7 @@ final class EmailCertificationCoordinator: BasicCoordinator<EmailCertificationRe
                 self?.releaseChild(coordinator: coord)
             })
 
-        addChildBag(id: identifier, disposable: disposable)
+        addChildDisposable(id: identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

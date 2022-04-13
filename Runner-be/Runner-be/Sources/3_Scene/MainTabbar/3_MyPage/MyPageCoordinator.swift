@@ -75,7 +75,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
@@ -92,7 +92,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     func pushSettingsScene(vm _: MyPageViewModel, animated: Bool) {
@@ -110,7 +110,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWritingPostScene(vm: MyPageViewModel, animated: Bool) {
@@ -126,6 +126,6 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

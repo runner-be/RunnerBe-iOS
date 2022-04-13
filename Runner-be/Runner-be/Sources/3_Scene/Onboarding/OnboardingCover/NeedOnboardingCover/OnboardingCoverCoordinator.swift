@@ -67,7 +67,7 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

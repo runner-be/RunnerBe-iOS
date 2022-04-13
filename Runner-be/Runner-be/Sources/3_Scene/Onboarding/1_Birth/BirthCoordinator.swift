@@ -84,7 +84,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -103,7 +103,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

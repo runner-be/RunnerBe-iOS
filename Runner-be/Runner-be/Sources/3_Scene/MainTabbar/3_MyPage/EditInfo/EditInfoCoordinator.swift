@@ -67,7 +67,7 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentPhotoModal(vm: EditInfoViewModel, animated: Bool) {
@@ -89,6 +89,6 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 }

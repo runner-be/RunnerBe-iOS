@@ -80,7 +80,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
 
         vm.routes.home
             .subscribe(onNext: {
@@ -127,7 +127,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             })
             .disposed(by: disposeBag)
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
         return comp.scene.VC
     }
 
@@ -144,7 +144,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentWaitOnboaradingCover(vm _: MainTabViewModel, animated: Bool) {
@@ -156,7 +156,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 defer { self?.releaseChild(coordinator: coord) }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

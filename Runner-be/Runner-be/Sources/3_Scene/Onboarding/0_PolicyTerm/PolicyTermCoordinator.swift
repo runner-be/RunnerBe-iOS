@@ -90,7 +90,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentPolicyDetail(type: PolicyType, animated: Bool) {
@@ -101,7 +101,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             .subscribe(onNext: { [weak self] _ in
                 self?.releaseChild(coordinator: coord)
             })
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -119,7 +119,7 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
                     break
                 }
             })
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

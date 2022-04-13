@@ -47,6 +47,6 @@ final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

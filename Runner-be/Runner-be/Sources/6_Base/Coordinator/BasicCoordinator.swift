@@ -57,7 +57,7 @@ class BasicCoordinator<ResultType>: Coordinator {
         return coordinator.closeSignal
     }
 
-    func addChildBag(id: String, disposable: Disposable) {
+    func addChildDisposable(id: String, disposable: Disposable) {
         childCloseSignalBags[id, default: []].append(disposable)
     }
 

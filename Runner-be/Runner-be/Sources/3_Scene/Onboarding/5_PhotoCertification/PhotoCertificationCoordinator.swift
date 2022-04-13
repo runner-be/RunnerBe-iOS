@@ -91,7 +91,7 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 vm.routeInputs.photoModal.onNext(imagePickerType)
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -110,7 +110,7 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushWaitCertificateCoord(animated: Bool) {
@@ -127,6 +127,6 @@ final class PhotoCertificationCoordinator: BasicCoordinator<PhotoCertificationRe
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

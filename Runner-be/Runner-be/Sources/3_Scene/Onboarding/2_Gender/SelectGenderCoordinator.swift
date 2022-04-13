@@ -84,7 +84,7 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -104,7 +104,7 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
                 }
             })
 
-        addChildBag(id: uuid, disposable: disposable)
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {

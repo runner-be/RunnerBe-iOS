@@ -79,7 +79,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {
@@ -97,7 +97,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentSelectDateModal(vm: WritingMainPostViewModel, animated: Bool) {
@@ -115,6 +115,6 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

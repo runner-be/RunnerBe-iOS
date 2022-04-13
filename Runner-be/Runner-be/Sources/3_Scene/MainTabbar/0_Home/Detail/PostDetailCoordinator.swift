@@ -65,7 +65,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentReportModal(vm: PostDetailViewModel, animated: Bool) {
@@ -83,6 +83,6 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

@@ -57,7 +57,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     func showLoggedOut(animated: Bool) {
@@ -74,7 +74,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
                 }
             })
 
-        addChildBag(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     override func handleDeepLink(type: DeepLinkType) {
