@@ -21,9 +21,6 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent") { component in
         return BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LicenseComponent") { component in
-        return LicenseDependency069aaa9d3342e7e55e4dProvider(component: component)
-    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LogoutModalComponent") { component in
         return LogoutModalDependency198c1460728f9b03415bProvider(component: component)
     }
@@ -208,19 +205,6 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider: BookMarkDepend
 }
 /// ^->AppComponent->MainTabComponent->BookMarkComponent
 private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider {
-    init(component: NeedleFoundation.Scope) {
-        super.init()
-    }
-}
-private class LicenseDependency069aaa9d3342e7e55e4dBaseProvider: LicenseDependency {
-
-
-    init() {
-
-    }
-}
-/// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LicenseComponent
-private class LicenseDependency069aaa9d3342e7e55e4dProvider: LicenseDependency069aaa9d3342e7e55e4dBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

@@ -57,9 +57,6 @@ target 'Runner-be' do
   # Toast
   pod 'Toast-Swift', '~> 5.0.1'
 
-  # AcknowList
-  pod 'AcknowList'
-
   # Kingfisher
   pod 'Kingfisher', '~> 7.0'
 

@@ -177,11 +177,6 @@
 		C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */; };
 		C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */; };
 		C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */; };
-		C393578827CFB01700FCC73A /* LicenseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393578727CFB01700FCC73A /* LicenseComponent.swift */; };
-		C393578A27CFB02300FCC73A /* LicenseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393578927CFB02300FCC73A /* LicenseCoordinator.swift */; };
-		C393578C27CFB02E00FCC73A /* LicenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393578B27CFB02E00FCC73A /* LicenseViewModel.swift */; };
-		C393578E27CFB03800FCC73A /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393578D27CFB03800FCC73A /* LicenseViewController.swift */; };
-		C393579027CFB4B800FCC73A /* LicenseDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C393578F27CFB4B800FCC73A /* LicenseDetailController.swift */; };
 		C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1227C283DF00396DC3 /* BasicPostCell.swift */; };
 		C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399FD1427C290E700396DC3 /* IconLabel.swift */; };
 		C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */; };
@@ -505,11 +500,6 @@
 		C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		C38F8F4B27ADA0B90050137D /* UITabbarController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+.swift"; sourceTree = "<group>"; };
-		C393578727CFB01700FCC73A /* LicenseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseComponent.swift; sourceTree = "<group>"; };
-		C393578927CFB02300FCC73A /* LicenseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCoordinator.swift; sourceTree = "<group>"; };
-		C393578B27CFB02E00FCC73A /* LicenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewModel.swift; sourceTree = "<group>"; };
-		C393578D27CFB03800FCC73A /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
-		C393578F27CFB4B800FCC73A /* LicenseDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseDetailController.swift; sourceTree = "<group>"; };
 		C399FD1227C283DF00396DC3 /* BasicPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostCell.swift; sourceTree = "<group>"; };
 		C399FD1427C290E700396DC3 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		C39D86BA27AEB78500A9C201 /* AppleSDGothicNeoUL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoUL.ttf; sourceTree = "<group>"; };
@@ -1400,11 +1390,6 @@
 		C393578627CFAFFE00FCC73A /* License */ = {
 			isa = PBXGroup;
 			children = (
-				C393578727CFB01700FCC73A /* LicenseComponent.swift */,
-				C393578927CFB02300FCC73A /* LicenseCoordinator.swift */,
-				C393578B27CFB02E00FCC73A /* LicenseViewModel.swift */,
-				C393578D27CFB03800FCC73A /* LicenseViewController.swift */,
-				C393578F27CFB4B800FCC73A /* LicenseDetailController.swift */,
 			);
 			path = License;
 			sourceTree = "<group>";
@@ -2317,14 +2302,12 @@
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
-				C393578827CFB01700FCC73A /* LicenseComponent.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
 				C32C027C27CB171E0011419E /* TakePhotoModalViewController.swift in Sources */,
 				C35E34A727C83C8F0023C0F9 /* PostDetailViewModel.swift in Sources */,
 				C3F1EBBC27D13E1600207F35 /* OnboardingCoverViewController.swift in Sources */,
 				C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */,
 				C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */,
-				C393578E27CFB03800FCC73A /* LicenseViewController.swift in Sources */,
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
@@ -2405,7 +2388,6 @@
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
-				C393578A27CFB02300FCC73A /* LicenseCoordinator.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
@@ -2485,8 +2467,6 @@
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
 				C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */,
-				C393578C27CFB02E00FCC73A /* LicenseViewModel.swift in Sources */,
-				C393579027CFB4B800FCC73A /* LicenseDetailController.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,

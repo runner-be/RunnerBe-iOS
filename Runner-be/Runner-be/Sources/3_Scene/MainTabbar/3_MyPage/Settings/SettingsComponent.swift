@@ -28,9 +28,9 @@ final class SettingsComponent: Component<SettingsDependency> {
         return LogoutModalComponent(parent: self)
     }
 
-    var licenseComponent: LicenseComponent {
-        return LicenseComponent(parent: self)
-    }
+//    var licenseComponent: LicenseComponent {
+//        return LicenseComponent(parent: self)
+//    }
 
     var signoutModalComponent: SignoutModalComponent {
         return SignoutModalComponent(parent: self)
