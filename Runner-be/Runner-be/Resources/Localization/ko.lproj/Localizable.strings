@@ -11,20 +11,20 @@
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
  
  */
-
 // MARK: - Locale
 "Locale" = "Ko-kr";
-"Locale.Timezone" = "UTC";
+"DateUtil.Timezone" = "UTC";
+
 
 // MARK: - LoggedOut
-"LoggedOut.KakaoBtn.text" = "카카오 로그인";
-"LoggedOut.NaverBtn.text" = "네이버 로그인";
-"LoggedOut.AppleBtn.text" = "Apple로 로그인";
+"LoggedOut.KakaoBtn.text" = "Login with Kakao";
+"LoggedOut.NaverBtn.text" = "Login with Naver";
+"LoggedOut.AppleBtn.text" = "Login with Apple";
 
 // MARK: - MainTabbar.Item
-"MainTabbar.Item.Home.title" = "홈";
-"MainTabbar.Item.BookMark.title" = "즐겨찾기";
-"MainTabbar.Item.Message.title" = "쪽지";
+"MainTabbar.Item.Home.title" = "Home";
+"MainTabbar.Item.BookMark.title" = "BookMark";
+"MainTabbar.Item.Message.title" = "Message";
 "MainTabbar.Item.MyPage.title" = "MyPage";
 
 // MARK: - NickName
@@ -38,93 +38,46 @@
 "NickName.error.duplicated" = "중복된 닉네임이에요!";
 
 // MARK: - PolicyTerm
-"PolicyTerm.title1" = "먼저 이용약관을 읽고";
-"PolicyTerm.title2" = "동의해주세요!";
-"PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
-"PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
-"PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
-"PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
-"PolicyTerm.Button.Next.title" = "다음";
+"Onboarding.PolicyTerm.title1" = "먼저 이용약관을 읽고";
+"Onboarding.PolicyTerm.title2" = "동의해주세요!";
+"Onboarding.PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
+"Onboarding.PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
+"Onboarding.PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
+"Onboarding.PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
+"Onboarding.PolicyTerm.Button.Next.title" = "다음";
 
 // MARK: - PolicyDetail
-"PolicyDetail.NavBar.title" = "제목";
+"Onboarding.PolicyDetail.NavBar.title" = "제목";
 
 // MARK: - Birth
-"Birth.NavBar.title" = "TITLE";
-"Birth.title" = "출생년도를 입력해주세요.";
-"Birth.subTitle1" = "정확한 나이는 공개되지 않아요!";
-"Birth.subTitle2" = "20대 초반, 30대 중반 등으로 표기될 거에요.";
-"Birth.error.age" = "19세 미만은 이용할 수 없어요!";
-"Birth.button.next" = "다음";
+"Onboarding.Birth.NavBar.title" = "TITLE";
+"Onboarding.Birth.title" = "출생년도를 입력해주세요.";
+"Onboarding.Birth.subTitle1" = "정확한 나이는 공개되지 않아요!";
+"Onboarding.Birth.subTitle2" = "20대 초반, 30대 중반 등으로 표기될 거에요.";
+"Onboarding.Birth.error.age" = "19세 미만은 이용할 수 없어요!";
+"Onboarding.Birth.button.next" = "다음";
 
 // MARK: - SelectGender
-"SelectGender.NavBar.title" = "TITLE";
-"SelectGender.title" = "성별을 선택해주세요.";
-"SelectGender.Button.Next.title" = "다음";
+"Onboarding.Gender.NavBar.title" = "TITLE";
+"Onboarding.Gender.title" = "성별을 선택해주세요.";
+"Onboarding.Gender.Button.next" = "다음";
 
 // MARK: - SelectJobGroup
-"SelectJobGroup.NavBar.title" = "TITLE";
-"SelectJobGroup.title1" = "어떤 직군에서";
-"SelectJobGroup.title2" = "활동하시나요?";
-"SelectJobGroup.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
-"SelectJobGroup.Button.Next.title" = "다음";
-
-// MARK: - emailCertification
-"EmailCertification.NavBar.title" = "TITLE";
-"EmailCertification.title1" = "회사 이메일로";
-"EmailCertification.title2" = "직장을 인증해주세요";
-"EmailCertification.subTitle1" = "해당 정보는 러너님이 직장임을 확인하는 용도로만";
-"EmailCertification.subTitle2" = "사용되며, 외부에 공개되지 않습니다.";
-"EmailCertification.Button.Certificate.firstSend" = "인증하기";
-"EmailCertification.Button.Certificate.resend" = "재전송";
-"EmailCertification.Button.NotHaveEmail.title" = "회사 이메일이 없어요";
-"EmailCertification.Message.MailSend1" = "인증 링크가 발송되었어요";
-"EmailCertification.Message.MailSend2" = "메일이 오지 않는다면 스팸 메일함도 확인해주세요!";
-"EmailCertification.error.duplicated" = "이미 사용 중인 이메일이에요!";
-"EmailCertification.emailField.placeholder" = "runnerbee@company.com";
-
-// MARK: - PhotoCertification
-"PhotoCertification.NavBar.title" = "TITLE";
-"PhotoCertification.title1" = "사진(ex. 사원증, 명함)으로";
-"PhotoCertification.title2" = "직업을 인증해주세요!";
-"PhotoCertification.subTitle1" = "해당 정보는 러너님이 직장인임을 확인하는 용도로만";
-"PhotoCertification.subTitle2" = "사용되며, 인증 후 안전하게 폐기됩니다.";
-"PhotoCertification.ImageRule.emoji" = "👉";
-"PhotoCertification.ImageRule.no1.highlighted" = "직장명, 직무/직위";
-"PhotoCertification.ImageRule.no1.normal" = "는 꼭 드러나야 해요!";
-"PhotoCertification.ImageRule.no2" = "정보를 식별할 수 있어야 해요";
-"PhotoCertification.ImageRule.no3" = "개인정보 보호를 위해 다른 정보는 가려주세요";
-"PhotoCertification.Button.Certificate.title" = "인증하기";
-
-// MARK: - PhotoModal
-"PhotoCertification.Modal.title1" = "인증 확인까지 최대 6시간 정도가";
-"PhotoCertification.Modal.title2" = "소요될 수 있어요!";
-"PhotoCertification.Modal.Button.1" = "촬영하기";
-"PhotoCertification.Modal.Button.2" = "앨범에서 선택하기";
+"Onboarding.Job.NavBar.title" = "TITLE";
+"Onboarding.Job.title1" = "어떤 직군에서";
+"Onboarding.Job.title2" = "활동하시나요?";
+"Onboarding.Job.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
+"Onboarding.Job.Button.Next.title" = "완료";
 
 // MARK: - OnboardingCancelModal
 "Onboarding.Modal.Cancel.Message" = "정보를 입력하지 않으면\n둘러보기만 가능해요! 그만할까요?";
 "Onboarding.Modal.Cancel.Button.yes" = "네";
 "Onboarding.Modal.Cancel.Button.no" = "아니요";
 
-// MARK: - EmailCertificationInitModal
-"EmailCertification.Modal.Message.1" = "메일 인증은 현재 접속하신";
-"EmailCertification.Modal.Message.2" = "기기 내에서만 가능합니다!";
-"EmailCertification.Modal.Button.yes" = "OK";
-
-// MARK: - WaitCertification
-"WaitCertification.title1" = "제출이 완료되었습니다. 확인 후 알려드릴게요!";
-"WaitCertification.subTitle1.1" = "소요 시간은 ";
-"WaitCertification.subTitle1.2" = "최대 6시간";
-"WaitCertification.subTitle1.3" = " 정도이며, 완료 시 알림을 보내드립니다. 그 전까지는 둘러보기만 가능해요";
-"WaitCertification.Button.toMain" = "메인 화면으로";
-
 // MARK: - OnboardingCompletion
 "OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
 "OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
 "OnboardingCompletion.Button.start" = "Start!";
-
-
 
 // MARK: - Job
 
@@ -147,6 +100,7 @@
 "Gender.male" = "남성";
 "Gender.female" = "여성";
 "Gender.none" = "전체";
+
 
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";
@@ -174,6 +128,7 @@
 
 "Post.Modal.Time.time" = "시간";
 "Post.Modal.Time.minute" = "분";
+
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";
@@ -219,6 +174,7 @@
 
 // MARK: - Additional
 "Additional.Gender.Limit" = "만";
+
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
 
@@ -247,9 +203,6 @@
 
 // MARK: - Settings
 "MyPage.Settings.NavBar.title" = "설정";
-
-// MARK: - Settings
-"MyPage.Settings.NavBar.title" = "설정";
 "MyPage.Settings.Category.Policy.Version.title" = "버전 정보";
 "MyPage.Settings.Category.Policy.Term.title" = "이용 약관";
 "MyPage.Settings.Category.Policy.Privacy.title" = "개인정보 처리방침";
@@ -261,7 +214,7 @@
 "MyPage.Settings.Category.Account.Logout.title" = "로그아웃";
 "MyPage.Settings.Category.Account.SignOut.title" = "회원탈퇴";
 
-// MARK: - Modal
+// MARK: - MyPage Modal
 "MyPage.Settings.Modal.Logout.Button.cancel" = "아니오";
 "MyPage.Settings.Modal.Logout.Button.ok" = "네";
 "MyPage.Settings.Modal.Logout.Content" = "정말 로그아웃하시겠어요?";
@@ -275,6 +228,7 @@
 
 "MyPage.Settings.Modal.SignoutCompletion.message" = "회원탈퇴가 완료되었습니다.\n로그인페이지로 이동합니다.";
 "MyPage.Settings.Modal.SignoutCompletion.ok" = "이동";
+
 
 "MyPage.Tab.MyPost.title" = "작성한 글";
 "MyPage.Tab.MyParticipant.title" = "참여 러닝";
@@ -292,3 +246,15 @@
 // MARK: - Wait.Onboard
 "Onboard.Wait.Title" = "내 소개를 확인 중이에요.\n조금만 기다려주세요!";
 "Onboard.Wait.Button.title" = "메인 화면으로";
+
+// MARK: - SelectTimeModal
+"Modal.SelectTime.Button.ok" = "OK";
+
+// MARK: - SelectDateModal
+"Modal.SelectDate.Button.ok" = "OK";
+
+// MARK: - TakePhotoModal
+"Modal.TakePhoto.Button.photo" = "촬영하기";
+"Modal.TakePhoto.Button.album" = "앨범에서 가져오기";
+
+//

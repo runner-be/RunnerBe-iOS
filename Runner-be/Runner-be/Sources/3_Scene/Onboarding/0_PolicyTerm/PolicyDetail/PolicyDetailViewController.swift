@@ -76,7 +76,7 @@ class PolicyDetailViewController: BaseViewController {
     // MARK: private
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = L10n.PolicyDetail.NavBar.title
+        navBar.titleLabel.text = L10n.Onboarding.PolicyDetail.NavBar.title
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)

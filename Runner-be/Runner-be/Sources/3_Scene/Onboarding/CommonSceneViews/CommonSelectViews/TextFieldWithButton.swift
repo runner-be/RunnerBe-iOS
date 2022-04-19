@@ -47,7 +47,7 @@ final class TextFieldWithButton: SelectBaseView {
         field.textAlignment = .left
         field.textColor = .darkG2
         field.attributedPlaceholder = NSAttributedString(
-            string: L10n.EmailCertification.EmailField.placeholder,
+            string: "NickName",
             attributes: [.foregroundColor: UIColor.darkG35]
         )
         field.autocapitalizationType = .none

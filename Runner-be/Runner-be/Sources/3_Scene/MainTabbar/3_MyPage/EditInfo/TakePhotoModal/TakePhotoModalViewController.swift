@@ -72,14 +72,14 @@ class TakePhotoModalViewController: BaseViewController {
     }
 
     private var takePhotoButton = UIButton().then { button in
-        button.setTitle(L10n.PhotoCertification.Modal.Button._1, for: .normal)
+        button.setTitle(L10n.Modal.TakePhoto.Button.photo, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.titleLabel?.font = .iosBody17R
     }
 
     private var chooseFromAlbumButton = UIButton().then { button in
-        button.setTitle(L10n.PhotoCertification.Modal.Button._2, for: .normal)
+        button.setTitle(L10n.Modal.TakePhoto.Button.album, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.titleLabel?.font = .iosBody17R
