@@ -121,16 +121,4 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
             })
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["BirthCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushBirthCoord(animated: false)
-                childCoordinators["BirthCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
-    }
 }

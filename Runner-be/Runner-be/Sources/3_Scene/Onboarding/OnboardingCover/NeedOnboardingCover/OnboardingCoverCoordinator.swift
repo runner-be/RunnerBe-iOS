@@ -69,16 +69,4 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["PolicyTermCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushPolicyTerm(animated: false)
-                childCoordinators["PolicyTermCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
-    }
 }

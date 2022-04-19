@@ -121,9 +121,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let deepLinkType = DeepLinkType.from(name: name, parameters: parameters)
         else { return }
 
-        switch deepLinkType {
-        case .emailCertification:
-            appCoordinator?.handleDeepLink(type: deepLinkType)
-        }
+//        switch deepLinkType {
+//        case .emailCertification:
+//            appCoordinator?.handleDeepLink(type: deepLinkType)
+//        }
     }
 }

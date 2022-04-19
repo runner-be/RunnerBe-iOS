@@ -106,16 +106,4 @@ final class SelectGenderCoordinator: BasicCoordinator<SelectGenderResult> {
 
         addChildDisposable(id: uuid, disposable: disposable)
     }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["SelectJobGroupCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushSelectJobGroupCoord(animated: false)
-                childCoordinators["SelectJobGroupCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
-    }
 }
