@@ -208,6 +208,7 @@
 		C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */; };
 		C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */; };
 		C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9627C57F5A0088E387 /* PostingForm.swift */; };
+		C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
 		C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114A27B8113000A7044C /* BaseAPI.swift */; };
@@ -283,7 +284,6 @@
 		C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF627BC4E9A00AEF623 /* HomeFilterViewModel.swift */; };
 		C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */; };
 		C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */; };
-		C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */; };
 		C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937C27BB886A00D47C9C /* String+SHA256.swift */; };
 		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
 		C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC927B8B64100775779 /* ImageUploadService.swift */; };
@@ -532,6 +532,7 @@
 		C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostAPIService.swift; sourceTree = "<group>"; };
 		C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellConfig.swift; sourceTree = "<group>"; };
 		C3A64F9627C57F5A0088E387 /* PostingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingForm.swift; sourceTree = "<group>"; };
+		C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		C3AD114A27B8113000A7044C /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -608,7 +609,6 @@
 		C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterViewController.swift; sourceTree = "<group>"; };
 		C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostDataSource.swift; sourceTree = "<group>"; };
 		C3D3937927BB469300D47C9C /* Runner-be.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Runner-be.entitlements"; sourceTree = "<group>"; };
-		C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D3937C27BB886A00D47C9C /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
 		C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkType.swift; sourceTree = "<group>"; };
 		C3EB5CC427B8B57D00775779 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
@@ -950,7 +950,7 @@
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
-				C3D3937A27BB74DC00D47C9C /* GoogleService-Info.plist */,
+				C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */,
 			);
 			path = "Runner-be";
 			sourceTree = "<group>";
@@ -2091,6 +2091,7 @@
 				C39D86C527AEB78700A9C201 /* AppleSDGothicNeoL.ttf in Resources */,
 				C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */,
 				C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */,
+				C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */,
 				C3F0968427AED0F900959F9A /* Localizable.strings in Resources */,
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
 				C350CC7B27C2C428000DEA15 /* SBAggroOTFM.otf in Resources */,
@@ -2098,7 +2099,6 @@
 				C3B865EE27CED7180040D95C /* Pods-Runner-be-acknowledgements.plist in Resources */,
 				C39D86C827AEB78700A9C201 /* AppleSDGothicNeoM.ttf in Resources */,
 				C3256B6427CE8AD0009B16DA /* Settings.bundle in Resources */,
-				C3D3937B27BB74DC00D47C9C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1039334264389-9lqksuuhbb76flvpu21rsf9qpj7eue7h.apps.googleusercontent.com</string>
+	<string>14723660913-d5l315t862kkdvrrojem5pc92uggenau.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1039334264389-9lqksuuhbb76flvpu21rsf9qpj7eue7h</string>
+	<string>com.googleusercontent.apps.14723660913-d5l315t862kkdvrrojem5pc92uggenau</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB8O-ZbxxAk_PIyzGUpfu5LWdSofQhXHJs</string>
+	<string>AIzaSyCK30LvS1_KiBeMJYbnda5Tr7340bQyrFA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1039334264389</string>
+	<string>14723660913</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.shivvv.RunnerBeiOS</string>
 	<key>PROJECT_ID</key>
-	<string>runnerbe-ios</string>
+	<string>runnerbe-f1986</string>
 	<key>STORAGE_BUCKET</key>
-	<string>runnerbe-ios.appspot.com</string>
+	<string>runnerbe-f1986.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1039334264389:ios:df63d5957db4271a889d2c</string>
+	<string>1:14723660913:ios:17f2019341cfdfc3566fd0</string>
 </dict>
 </plist>
