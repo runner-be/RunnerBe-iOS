@@ -42,6 +42,8 @@ target 'Runner-be' do
   pod 'Firebase/DynamicLinks'
   # Firebase 이메일  
   pod 'Firebase/Auth'
+  # Firebase 푸시알림
+  pod 'Firebase/Messaging'
 
   # Kakao Login
   pod 'RxKakaoSDKCommon' # 필수 모듈
