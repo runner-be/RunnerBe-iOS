@@ -9,6 +9,5 @@ import Foundation
 import RxSwift
 
 protocol SignupAPIService {
-    func checkEmailOK(_ email: String) -> Observable<Bool>
     func signup(with signupForm: SignupForm) -> Observable<SignupAPIResult?>
 }

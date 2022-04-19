@@ -120,6 +120,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->PolicyDetailComponent") { component in
         return PolicyDetailDependencye1217a8d1cdad9937ef3Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCompletionComponent") { component in
+        return OnboardingCompletionDependency1de7c4072dce0d49e566Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent") { component in
         return BirthDependencyc713361cb899f136292eProvider(component: component)
     }
@@ -533,6 +536,19 @@ private class PolicyDetailDependencyf1b0f14079b572bc52b9Provider: PolicyDetailDe
 }
 /// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->PolicyDetailComponent
 private class PolicyDetailDependencye1217a8d1cdad9937ef3Provider: PolicyDetailDependencyf1b0f14079b572bc52b9BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class OnboardingCompletionDependency1de7c4072dce0d49e566BaseProvider: OnboardingCompletionDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->OnboardingCoverComponent->PolicyTermComponent->BirthComponent->SelectGenderComponent->SelectJobGroupComponent->OnboardingCompletionComponent
+private class OnboardingCompletionDependency1de7c4072dce0d49e566Provider: OnboardingCompletionDependency1de7c4072dce0d49e566BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

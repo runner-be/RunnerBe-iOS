@@ -13,6 +13,4 @@ struct SignupForm {
     let birthday: Int
     let gender: Gender
     let job: Job
-    var officeEmail: String?
-    var idCardImageUrl: String?
 }

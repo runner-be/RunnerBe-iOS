@@ -9,12 +9,12 @@ import Foundation
 import RxSwift
 
 final class BirthViewModel: BaseViewModel {
-    private var signupKeyChainService: SignupKeyChainService
+    private var userKeyChainService: UserKeychainService
 
     // MARK: Lifecycle
 
-    init(signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
-        self.signupKeyChainService = signupKeyChainService
+    init(userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
+        self.userKeyChainService = userKeyChainService
         super.init()
 
         let thisYear = Int(DateUtil.shared.getCurrent(format: .yyyy)) ?? DateUtil.shared.defaultYear
@@ -33,7 +33,7 @@ final class BirthViewModel: BaseViewModel {
                 guard let self = self else { return }
                 let idx = try! self.inputs.itemSelected.value()
                 let year = self.outputs.items[idx]
-                self.signupKeyChainService.birthDay = year
+                self.userKeyChainService.birthDay = year
             })
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)

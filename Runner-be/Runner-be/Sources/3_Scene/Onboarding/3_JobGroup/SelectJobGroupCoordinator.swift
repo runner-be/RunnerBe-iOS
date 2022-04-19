@@ -46,9 +46,9 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.nextProcess
+        scene.VM.routes.complete
             .subscribe(onNext: { [weak self] in
-                // TODO: 온보딩 마무리
+                self?.pushOnboardingComplete(animated: true)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -65,6 +65,21 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
     }
 
     // MARK: Private
+
+    private func pushOnboardingComplete(animated: Bool) {
+        let comp = component.onboardingCompleteComponent
+        let coord = OnboardingCompletionCoordinator(component: comp, navController: navigationController)
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .toMain:
+                    self?.closeSignal.onNext(.toMain)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent

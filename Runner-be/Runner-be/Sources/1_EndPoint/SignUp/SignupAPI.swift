@@ -47,13 +47,6 @@ extension SignupAPI: TargetType {
                 "job": signUpForm.job.code,
             ]
 
-            if let email = signUpForm.officeEmail {
-                parameters["officeEmail"] = email
-            }
-            if let idCardImageUrl = signUpForm.idCardImageUrl {
-                parameters["idCardImageUrl"] = idCardImageUrl
-            }
-
             return .requestParameters(
                 parameters: parameters,
                 encoding: URLEncoding.default

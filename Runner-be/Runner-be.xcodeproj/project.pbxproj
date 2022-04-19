@@ -123,7 +123,6 @@
 		C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */; };
 		C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */; };
 		C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */; };
-		C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */; };
 		C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */; };
 		C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301B27B9FB010076AB85 /* DynamicLinkService.swift */; };
 		C379301E27B9FB0C0076AB85 /* BasicDynamicLinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */; };
@@ -268,14 +267,10 @@
 		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
 		C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC927B8B64100775779 /* ImageUploadService.swift */; };
 		C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */; };
-		C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCE27B8B69D00775779 /* MailingCertificationService.swift */; };
-		C3EB5CD127B8B6A900775779 /* BasicMailingCertificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD027B8B6A900775779 /* BasicMailingCertificationService.swift */; };
 		C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */; };
 		C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD727B8B70900775779 /* SignupAPI.swift */; };
 		C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CDA27B8B79800775779 /* SignupForm.swift */; };
 		C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CDF27B8BBAC00775779 /* SignupAPIResult.swift */; };
-		C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CE227B8BC6800775779 /* SignupKeyChainService.swift */; };
-		C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */; };
 		C3EE147227E6505600AFC185 /* UserKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EE147127E6505600AFC185 /* UserKeyChainService.swift */; };
 		C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */; };
 		C3F0968427AED0F900959F9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3F0968627AED0F900959F9A /* Localizable.strings */; };
@@ -426,7 +421,6 @@
 		C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectJobGroupViewModel.swift; sourceTree = "<group>"; };
 		C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPadding.swift; sourceTree = "<group>"; };
 		C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Style.swift"; sourceTree = "<group>"; };
-		C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameGenerator.swift; sourceTree = "<group>"; };
 		C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNickNameGenerator.swift; sourceTree = "<group>"; };
 		C379301B27B9FB010076AB85 /* DynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkService.swift; sourceTree = "<group>"; };
 		C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDynamicLinkService.swift; sourceTree = "<group>"; };
@@ -575,15 +569,11 @@
 		C3EB5CC627B8B58700775779 /* BasicSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC927B8B64100775779 /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
 		C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImageUploadService.swift; sourceTree = "<group>"; };
-		C3EB5CCE27B8B69D00775779 /* MailingCertificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailingCertificationService.swift; sourceTree = "<group>"; };
-		C3EB5CD027B8B6A900775779 /* BasicMailingCertificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMailingCertificationService.swift; sourceTree = "<group>"; };
 		C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPIService.swift; sourceTree = "<group>"; };
 		C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupAPIService.swift; sourceTree = "<group>"; };
 		C3EB5CD727B8B70900775779 /* SignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPI.swift; sourceTree = "<group>"; };
 		C3EB5CDA27B8B79800775779 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		C3EB5CDF27B8BBAC00775779 /* SignupAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPIResult.swift; sourceTree = "<group>"; };
-		C3EB5CE227B8BC6800775779 /* SignupKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupKeyChainService.swift; sourceTree = "<group>"; };
-		C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupKeyChainService.swift; sourceTree = "<group>"; };
 		C3EE147127E6505600AFC185 /* UserKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserKeyChainService.swift; sourceTree = "<group>"; };
 		C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserKeyChainService.swift; sourceTree = "<group>"; };
 		C3F0968527AED0F900959F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -743,9 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				C379301527B9FA920076AB85 /* RendomNickNameGenerator */,
-				C3EB5CE127B8BC5900775779 /* SignupKeyChainService */,
 				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
-				C3EB5CCD27B8B68500775779 /* EmailCertificationService */,
 				C3EB5CC427B8B57D00775779 /* SignupService.swift */,
 				C3EB5CC627B8B58700775779 /* BasicSignupService.swift */,
 			);
@@ -1147,7 +1135,6 @@
 		C379301527B9FA920076AB85 /* RendomNickNameGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				C379301627B9FAAA0076AB85 /* NickNameGenerator.swift */,
 				C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */,
 			);
 			path = RendomNickNameGenerator;
@@ -1741,15 +1728,6 @@
 			path = ImageUploadService;
 			sourceTree = "<group>";
 		};
-		C3EB5CCD27B8B68500775779 /* EmailCertificationService */ = {
-			isa = PBXGroup;
-			children = (
-				C3EB5CCE27B8B69D00775779 /* MailingCertificationService.swift */,
-				C3EB5CD027B8B6A900775779 /* BasicMailingCertificationService.swift */,
-			);
-			path = EmailCertificationService;
-			sourceTree = "<group>";
-		};
 		C3EB5CD227B8B6DE00775779 /* SignupAPIService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1774,15 +1752,6 @@
 				C3AD114527B80F7F00A7044C /* BasicResponse.swift */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		C3EB5CE127B8BC5900775779 /* SignupKeyChainService */ = {
-			isa = PBXGroup;
-			children = (
-				C3EB5CE227B8BC6800775779 /* SignupKeyChainService.swift */,
-				C3EB5CE427B8BC7300775779 /* BasicSignupKeyChainService.swift */,
-			);
-			path = SignupKeyChainService;
 			sourceTree = "<group>";
 		};
 		C3EE146F27E6500F00AFC185 /* UserKeyChainService */ = {
@@ -2132,7 +2101,6 @@
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
 				C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */,
-				C3EB5CD127B8B6A900775779 /* BasicMailingCertificationService.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
@@ -2219,10 +2187,8 @@
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
-				C3EB5CCF27B8B69D00775779 /* MailingCertificationService.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
-				C379301727B9FAAA0076AB85 /* NickNameGenerator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
@@ -2230,7 +2196,6 @@
 				C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */,
 				C3C9735927CA968F00232251 /* MakerViewController.swift in Sources */,
 				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
-				C3EB5CE527B8BC7300775779 /* BasicSignupKeyChainService.swift in Sources */,
 				C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */,
@@ -2250,7 +2215,6 @@
 				C38ABD8A27D324690025929E /* WaitOnboardingCoverCoordinator.swift in Sources */,
 				C34BA6B527CD4805003E393A /* MyRunResElement.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
-				C3EB5CE327B8BC6800775779 /* SignupKeyChainService.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,

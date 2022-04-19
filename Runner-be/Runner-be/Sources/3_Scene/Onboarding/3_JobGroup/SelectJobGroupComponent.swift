@@ -23,4 +23,8 @@ final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
         return OnboardingCancelModalComponent(parent: self)
     }
+
+    var onboardingCompleteComponent: OnboardingCompletionComponent {
+        return OnboardingCompletionComponent(parent: self)
+    }
 }
