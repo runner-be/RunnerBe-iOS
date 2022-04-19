@@ -46,9 +46,9 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.nextProcess
+        scene.VM.routes.complete
             .subscribe(onNext: { [weak self] in
-                self?.pushEmailCertificationCoord(animated: true)
+                self?.pushOnboardingComplete(animated: true)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -66,24 +66,19 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
 
     // MARK: Private
 
-    private func pushEmailCertificationCoord(animated: Bool) {
-        let comp = component.emailCertificationComponent
-        let coord = EmailCertificationCoordinator(component: comp, navController: navigationController)
-        let uuid = coord.identifier
-
+    private func pushOnboardingComplete(animated: Bool) {
+        let comp = component.onboardingCompleteComponent
+        let coord = OnboardingCompletionCoordinator(component: comp, navController: navigationController)
         let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
-                case .cancelOnboarding:
-                    self?.closeSignal.onNext(.cancelOnboarding)
                 case .toMain:
                     self?.closeSignal.onNext(.toMain)
-                case .backward: break
                 }
             })
-        addChildDisposable(id: uuid, disposable: disposable)
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
@@ -105,15 +100,15 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
         addChildDisposable(id: uuid, disposable: disposable)
     }
 
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["EmailCertificationCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushEmailCertificationCoord(animated: false)
-                childCoordinators["EmailCertificationCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
+    override func handleDeepLink(type _: DeepLinkType) {
+//        switch type {
+//        case .emailCertification:
+//            if let coord = childCoordinators["EmailCertificationCoordinator"] {
+//                coord.handleDeepLink(type: type)
+//            } else {
+//                pushEmailCertificationCoord(animated: false)
+//                childCoordinators["EmailCertificationCoordinator"]!.handleDeepLink(type: type)
+//            }
+//        }
     }
 }

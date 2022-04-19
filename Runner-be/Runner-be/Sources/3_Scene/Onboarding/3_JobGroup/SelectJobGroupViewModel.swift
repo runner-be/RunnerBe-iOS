@@ -9,12 +9,14 @@ import Foundation
 import RxSwift
 
 final class SelectJobGroupViewModel: BaseViewModel {
-    var signupKeyChainService: SignupKeyChainService
+    var userKeyChainService: UserKeychainService
+    var signupService: SignupService
 
     // MARK: Lifecycle
 
-    init(signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
-        self.signupKeyChainService = signupKeyChainService
+    init(userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared, signupService: SignupService = BasicSignupService()) {
+        self.userKeyChainService = userKeyChainService
+        self.signupService = signupService
         super.init()
 
         inputs.tapCancel
@@ -25,8 +27,18 @@ final class SelectJobGroupViewModel: BaseViewModel {
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
 
-        inputs.tapNext
-            .subscribe(routes.nextProcess)
+        inputs.tapComplete
+            .flatMap { [unowned self] in
+                self.signupService.signup()
+            }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.routes.complete.onNext(())
+                case .fail:
+                    self?.outputs.toast.onNext("추가정보 입력 중 오류가 발생했습니다.")
+                }
+            })
             .disposed(by: disposeBag)
 
         inputs.tapGroup
@@ -37,28 +49,29 @@ final class SelectJobGroupViewModel: BaseViewModel {
                 return Job.allCases[idx]
             }
             .do(onNext: { [weak self] job in
-                self?.signupKeyChainService.job = job
+                self?.userKeyChainService.job = job
             })
             .map { $0 != .none }
-            .bind(to: outputs.enableNext)
+            .bind(to: outputs.enableComplete)
             .disposed(by: disposeBag)
     }
 
     // MARK: Internal
 
     struct Input {
-        var tapNext = PublishSubject<Void>()
+        var tapComplete = PublishSubject<Void>()
         var tapCancel = PublishSubject<Void>()
         var tapBackward = PublishSubject<Void>()
         var tapGroup = PublishSubject<[Int]>()
     }
 
     struct Output {
-        var enableNext = PublishSubject<Bool>()
+        var enableComplete = PublishSubject<Bool>()
+        var toast = PublishSubject<String>()
     }
 
     struct Route {
-        var nextProcess = PublishSubject<Void>()
+        var complete = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var cancel = PublishSubject<Void>()
     }

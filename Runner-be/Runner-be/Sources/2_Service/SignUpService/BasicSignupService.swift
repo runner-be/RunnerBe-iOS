@@ -11,264 +11,77 @@ import RxSwift
 
 final class BasicSignupService: SignupService {
     var loginKeyChainService: LoginKeyChainService
-    var signupKeyChainService: SignupKeyChainService
+    var userKeyChainService: UserKeychainService
     let signupAPIService: SignupAPIService
-    let dynamicLinkService: DynamicLinkService
-    let emailCertificationService: MailingCertificationService
-    let imageUploadService: ImageUploadService
-    let randomNickNameGenerator: RandomNickNameGenerator
 
     var disposeBag = DisposeBag()
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
-        signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared,
-        signupAPIService: SignupAPIService = BasicSignupAPIService(),
-        dynamicLinkService: DynamicLinkService = BasicDynamicLinkService(),
-        emailCertificationService: MailingCertificationService = BasicMailingCertificationService(),
-        imageUploadService: ImageUploadService = BasicImageUploadService(),
-        randomNickNameGenerator: RandomNickNameGenerator = RandomNickNameGenerator()
+        userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared,
+        signupAPIService: SignupAPIService = BasicSignupAPIService()
     ) {
         self.loginKeyChainService = loginKeyChainService
-        self.signupKeyChainService = signupKeyChainService
+        self.userKeyChainService = userKeyChainService
         self.signupAPIService = signupAPIService
-        self.dynamicLinkService = dynamicLinkService
-        self.emailCertificationService = emailCertificationService
-        self.imageUploadService = imageUploadService
-        self.randomNickNameGenerator = randomNickNameGenerator
     }
 
-    func sendEmail(_ email: String) -> Observable<SignupWithEmailResult> {
-        signupKeyChainService.officeMail = email
+    func signup() -> Observable<SignupResult> {
+        let uuid = userKeyChainService.uuid
+        let birth = userKeyChainService.birthDay
+        let gender = userKeyChainService.gender
+        let job = userKeyChainService.job
 
-        let emailCheckOK = ReplaySubject<Void>.create(bufferSize: 1)
-        let uuidReady = ReplaySubject<String>.create(bufferSize: 1)
-        let dynamicLinkReady = ReplaySubject<URL>.create(bufferSize: 1)
-        let functionResult = ReplaySubject<SignupWithEmailResult>.create(bufferSize: 1)
+        guard !uuid.isEmpty,
+              birth != 0,
+              gender != .none,
+              job != .none
+        else {
+            return .just(.fail)
+        }
 
-        signupAPIService.checkEmailOK(email)
-            .debug()
-            .take(1)
-            .subscribe(onNext: {
-                if $0 {
-                    emailCheckOK.onNext(())
-                } else {
-                    functionResult.onNext(.emailDuplicated)
-                }
-            })
-            .disposed(by: disposeBag)
+        let signUpStart = ReplaySubject<Void>.create(bufferSize: 1)
+        let signUpFinished = ReplaySubject<SignupResult>.create(bufferSize: 1)
 
-        emailCheckOK.subscribe(onNext: { [weak self] in
-            guard let signupKeyChain = self?.signupKeyChainService,
-                  !signupKeyChain.uuid.isEmpty
+        signUpStart.map {
+            SignupForm(
+                uuid: uuid,
+                nickName: RandomNickNameGenerator.generate(numOfRandom: 4, prefix: "Runner", suffix: ""),
+                birthday: birth,
+                gender: gender,
+                job: job
+            )
+        }
+        .flatMap { [unowned self] signupForm in
+            self.signupAPIService.signup(with: signupForm)
+        }
+        .subscribe(onNext: { [weak self] apiResult in
+            guard let self = self,
+                  let result = apiResult
             else {
-                functionResult.onNext(.sendEmailFailed)
+                signUpFinished.onNext(.fail)
                 return
             }
-            uuidReady.onNext(signupKeyChain.uuid)
+
+            switch result {
+            case let .succeed(token, userID):
+                self.loginKeyChainService.token = LoginToken(jwt: token)
+                self.loginKeyChainService.userId = userID
+                self.loginKeyChainService.loginType = .member
+                signUpFinished.onNext(.success)
+            case let .error(code):
+                if code == 2009 {
+                    signUpStart.onNext(())
+                } else {
+                    signUpFinished.onNext(.fail)
+                }
+            }
         })
         .disposed(by: disposeBag)
 
-        uuidReady
-            .debug()
-            .map { [weak self] uuid in
-                self?.dynamicLinkService.generateLink(
-                    resultPath: "EmailCertification",
-                    parameters: ["id": uuid.sha256, "email": email]
-                )
-            }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: {
-                guard let url = $0
-                else {
-                    functionResult.onNext(.sendEmailFailed)
-                    return
-                }
-                dynamicLinkReady.onNext(url)
-            })
-            .disposed(by: disposeBag)
+        signUpStart.onNext(())
 
-        dynamicLinkReady
-            .debug()
-            .map { [weak self] url in
-                self?.emailCertificationService.send(address: email, dynamicLink: url.absoluteString)
-            }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { emailResult in
-                switch emailResult {
-                case .success:
-                    functionResult.onNext(.sendEmailCompleted)
-                case .fail:
-                    functionResult.onNext(.sendEmailFailed)
-                }
-            })
-            .disposed(by: disposeBag)
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposeBag = DisposeBag()
-            })
-    }
-
-    func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult> {
-        let uuid = signupKeyChainService.uuid
-        if uuid.isEmpty {
-            return .just(.needUUID)
-        }
-        let path = "IdCardCertification/\(uuid).png"
-
-        let imageUploaded = ReplaySubject<String>.create(bufferSize: 1)
-        let keyChainWithOutNickName = ReplaySubject<Void>.create(bufferSize: 1)
-        let signupFormReady = ReplaySubject<SignupForm>.create(bufferSize: 1)
-        let functionResult = ReplaySubject<SignupWithIdCardResult>.create(bufferSize: 1)
-
-        imageUploadService.uploadImage(data: data, path: path)
-            .debug()
-            .subscribe(onNext: { url in
-                guard let url = url
-                else {
-                    functionResult.onNext(.imageUploadFail)
-                    return
-                }
-                imageUploaded.onNext(url)
-            })
-            .disposed(by: disposeBag)
-
-        imageUploaded
-            .debug()
-            .subscribe(onNext: { [weak self] idCardUrl in
-                guard var keyChain = self?.signupKeyChainService
-                else {
-                    functionResult.onNext(.imageUploadFail)
-                    return
-                }
-
-                keyChain.idCardUrl = idCardUrl
-                keyChain.officeMail = nil
-                keyChainWithOutNickName.onNext(())
-            })
-            .disposed(by: disposeBag)
-
-        keyChainWithOutNickName
-            .debug()
-            .subscribe(onNext: { [weak self] in
-                guard var keyChain = self?.signupKeyChainService,
-                      let nickNameGenerator = self?.randomNickNameGenerator
-                else {
-                    functionResult.onNext(.imageUploadFail)
-                    return
-                }
-
-                keyChain.nickName = nickNameGenerator.generate(
-                    numOfRandom: 4,
-                    prefix: "Runner",
-                    suffix: ""
-                )
-
-                signupFormReady.onNext(keyChain.signupForm)
-            })
-            .disposed(by: disposeBag)
-
-        signupFormReady
-            .debug()
-            .map { [weak self] form in
-                self?.signupAPIService.signup(with: form)
-            }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { [weak self] result in
-                guard let result = result
-                else {
-                    functionResult.onNext(.imageUploadFail)
-                    return
-                }
-
-                switch result {
-                case .succeed:
-                    self?.loginKeyChainService.loginType = .waitCertification
-                    functionResult.onNext(.imageUploaded)
-                case let .error(code):
-
-                    switch code {
-                    case 2009: // 닉네임 중복
-                        keyChainWithOutNickName.onNext(())
-                    case 3001: // uuid 중복
-                        functionResult.onNext(.imageUploadFail)
-                        #if DEBUG
-                            print("[BasicSignupService][Certificate ID card] 중복된 uuid: \"\(uuid)\"")
-                        #endif
-                    default:
-                        functionResult.onNext(.imageUploadFail)
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposeBag = DisposeBag()
-            })
-    }
-
-    func emailCertificated(email: String) -> Observable<EmailCertificatedResult> {
-        let functionResult = ReplaySubject<EmailCertificatedResult>.create(bufferSize: 1)
-        let keyChainWithoutNickName = ReplaySubject<Void>.create(bufferSize: 1)
-        let formReady = ReplaySubject<SignupForm>.create(bufferSize: 1)
-
-        signupKeyChainService.officeMail = email
-        signupKeyChainService.idCardUrl = nil
-        keyChainWithoutNickName.onNext(())
-
-        keyChainWithoutNickName
-            .subscribe(onNext: { [weak self] in
-                guard var keyChain = self?.signupKeyChainService,
-                      let nickNameGenerator = self?.randomNickNameGenerator
-                else {
-                    functionResult.onNext(.fail)
-                    return
-                }
-                keyChain.nickName = nickNameGenerator.generate(
-                    numOfRandom: 4,
-                    prefix: "Runner",
-                    suffix: ""
-                )
-                formReady.onNext(keyChain.signupForm)
-            })
-            .disposed(by: disposeBag)
-
-        formReady
-            .map { [weak self] form in
-                self?.signupAPIService.signup(with: form)
-            }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { [weak self] apiResult in
-                guard let self = self,
-                      let result = apiResult
-                else {
-                    functionResult.onNext(.fail)
-                    return
-                }
-
-                switch result {
-                case let .succeed(token, userID):
-                    self.loginKeyChainService.token = LoginToken(jwt: token)
-                    self.loginKeyChainService.userId = userID
-                    self.loginKeyChainService.loginType = .member
-                    functionResult.onNext(.success)
-                case let .error(code):
-                    if code == 2009 {
-                        keyChainWithoutNickName.onNext(())
-                    } else {
-                        functionResult.onNext(.fail)
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
-
-        return functionResult
+        return signUpFinished
             .do(onNext: { [weak self] _ in
                 self?.disposeBag = DisposeBag()
             })

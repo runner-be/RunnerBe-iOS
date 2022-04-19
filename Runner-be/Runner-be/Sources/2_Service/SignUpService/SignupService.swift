@@ -8,25 +8,11 @@
 import Foundation
 import RxSwift
 
-enum SignupWithEmailResult {
-    case emailDuplicated
-    case sendEmailCompleted
-    case sendEmailFailed
-}
-
-enum EmailCertificatedResult {
+enum SignupResult {
     case success
     case fail
 }
 
-enum SignupWithIdCardResult {
-    case imageUploaded
-    case imageUploadFail
-    case needUUID
-}
-
 protocol SignupService {
-    func sendEmail(_ email: String) -> Observable<SignupWithEmailResult>
-    func emailCertificated(email: String) -> Observable<EmailCertificatedResult>
-    func certificateIdCardImage(_ data: Data) -> Observable<SignupWithIdCardResult>
+    func signup() -> Observable<SignupResult>
 }

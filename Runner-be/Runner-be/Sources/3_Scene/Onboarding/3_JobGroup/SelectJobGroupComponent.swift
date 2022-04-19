@@ -20,11 +20,11 @@ final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
         return SelectJobGroupViewModel()
     }
 
-    var emailCertificationComponent: EmailCertificationComponent {
-        return EmailCertificationComponent(parent: self)
-    }
-
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
         return OnboardingCancelModalComponent(parent: self)
+    }
+
+    var onboardingCompleteComponent: OnboardingCompletionComponent {
+        return OnboardingCompletionComponent(parent: self)
     }
 }

@@ -9,12 +9,12 @@ import Foundation
 import RxSwift
 
 final class SelectGenderViewModel: BaseViewModel {
-    var signupKeyChainService: SignupKeyChainService
+    var userKeyChainService: UserKeychainService
 
     // MARK: Lifecycle
 
-    init(signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
-        self.signupKeyChainService = signupKeyChainService
+    init(userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
+        self.userKeyChainService = userKeyChainService
         super.init()
 
         inputs.tapCancel
@@ -39,7 +39,7 @@ final class SelectGenderViewModel: BaseViewModel {
                 return .none
             }
             .do(onNext: { [weak self] gender in
-                self?.signupKeyChainService.gender = gender
+                self?.userKeyChainService.gender = gender
             })
             .map { $0 != .none }
             .bind(to: outputs.enableNext)

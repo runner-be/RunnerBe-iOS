@@ -7,21 +7,19 @@
 
 import Foundation
 
-enum DeepLinkType {
-    case emailCertification(hashedUUID: String, email: String)
-}
+enum DeepLinkType {}
 
 extension DeepLinkType {
-    static func from(name: String, parameters: [String: String]) -> DeepLinkType? {
-        switch name {
-        case let s where s == "EmailCertification":
-            if let id = parameters["id"],
-               let email = parameters["email"]
-            {
-                return .emailCertification(hashedUUID: id, email: email)
-            }
-        default: break
-        }
+    static func from(name _: String, parameters _: [String: String]) -> DeepLinkType? {
+//        switch name {
+//        case let s where s == "EmailCertification":
+//            if let id = parameters["id"],
+//               let email = parameters["email"]
+//            {
+//                return .emailCertification(hashedUUID: id, email: email)
+//            }
+//        default: break
+//        }
         return nil
     }
 }

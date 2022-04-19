@@ -158,16 +158,4 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["OnboardingCoverCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                presentOnboaradingCover(vm: component.scene.VM, animated: false)
-                childCoordinators["OnboardingCoverCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
-    }
 }

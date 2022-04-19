@@ -17,29 +17,6 @@ final class BasicSignupAPIService: SignupAPIService {
         self.provider = provider
     }
 
-    func checkEmailOK(_ email: String) -> Observable<Bool> {
-        provider.rx.request(.emailDup(email: email))
-            .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> BasicResponse? in
-                #if DEBUG
-                    print("[SignupAPIService] checkEmailDuplicated(email: \(email)")
-                #endif
-                guard let json = json
-                else {
-                    #if DEBUG
-                        print("result: nil")
-                    #endif
-                    return nil
-                }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
-                return try? BasicResponse(json: json)
-            }
-            .map { $0?.isSuccess ?? false }
-    }
-
     func signup(with signupForm: SignupForm) -> Observable<SignupAPIResult?> {
         provider.rx.request(.signup(signupForm))
             .asObservable()

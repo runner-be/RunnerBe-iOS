@@ -5,7 +5,6 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import AcknowList
 import RxCocoa
 import RxDataSources
 import RxGesture

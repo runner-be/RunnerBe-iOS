@@ -110,7 +110,7 @@ class SelectDateModalViewController: BaseViewController {
     }
 
     private var buttonOk = UIButton().then { button in
-        button.setTitle(L10n.EmailCertification.Modal.Button.yes, for: .normal)
+        button.setTitle(L10n.Modal.SelectDate.Button.ok, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
 

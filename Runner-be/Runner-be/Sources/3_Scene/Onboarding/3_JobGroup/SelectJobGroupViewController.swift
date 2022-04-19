@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 final class SelectJobGroupViewController: BaseViewController {
@@ -47,8 +48,8 @@ final class SelectJobGroupViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapCancel)
             .disposed(by: disposeBags)
 
-        nextButton.rx.tap
-            .bind(to: viewModel.inputs.tapNext)
+        completeButton.rx.tap
+            .bind(to: viewModel.inputs.tapComplete)
             .disposed(by: disposeBags)
 
         jobGroup.tap
@@ -72,9 +73,15 @@ final class SelectJobGroupViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.enableNext
+        viewModel.outputs.enableComplete
             .subscribe(onNext: { [weak self] enable in
-                self?.nextButton.isEnabled = enable
+                self?.completeButton.isEnabled = enable
+            })
+            .disposed(by: disposeBags)
+
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
             })
             .disposed(by: disposeBags)
     }
@@ -83,7 +90,6 @@ final class SelectJobGroupViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
-//        navBar.titleLabel.text = L10n.SelectGender.NavBar.title
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
@@ -93,7 +99,7 @@ final class SelectJobGroupViewController: BaseViewController {
     private var titleLabel1 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
-        label.text = L10n.SelectJobGroup.title1
+        label.text = L10n.Onboarding.Job.title1
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -102,7 +108,7 @@ final class SelectJobGroupViewController: BaseViewController {
     private var titleLabel2 = UILabel().then { label in
         label.font = UIFont.iosHeader31Sb
         label.textColor = .primary
-        label.text = L10n.SelectJobGroup.title2
+        label.text = L10n.Onboarding.Job.title2
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -111,7 +117,7 @@ final class SelectJobGroupViewController: BaseViewController {
     private var subTitleLabel = UILabel().then { label in
         label.font = UIFont.iosBody15R
         label.textColor = .darkG25
-        label.text = L10n.SelectJobGroup.subTitle
+        label.text = L10n.Onboarding.Job.subTitle
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -161,16 +167,16 @@ final class SelectJobGroupViewController: BaseViewController {
         return collectionView
     }()
 
-    private var nextButton = UIButton().then { button in
-        button.setTitle(L10n.PolicyTerm.Button.Next.title, for: .normal)
+    private var completeButton = UIButton().then { button in
+        button.setTitle(L10n.Onboarding.Job.Button.Next.title, for: .normal)
         button.setTitleColor(UIColor.darkBlack, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
-        button.setTitle(L10n.PolicyTerm.Button.Next.title, for: .disabled)
+        button.setTitle(L10n.Onboarding.Job.Button.Next.title, for: .disabled)
         button.setTitleColor(UIColor.darkG45, for: .disabled)
         button.setBackgroundColor(UIColor.darkG3, for: .disabled)
 
-        button.titleLabel?.font = .iosBody15R
+        button.titleLabel?.font = .iosBody15B
 
         button.clipsToBounds = true
 
@@ -190,7 +196,7 @@ extension SelectJobGroupViewController {
             titleLabel2,
             subTitleLabel,
             jobGroupCollectionView,
-            nextButton,
+            completeButton,
         ])
 
         jobGroup.append(labels: jobLabels)
@@ -228,13 +234,13 @@ extension SelectJobGroupViewController {
             make.height.equalTo(244)
         }
 
-        nextButton.snp.makeConstraints { make in
+        completeButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-21)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.height.equalTo(48)
         }
-        nextButton.layer.cornerRadius = 24
+        completeButton.layer.cornerRadius = 24
     }
 
     private func gradientBackground() {

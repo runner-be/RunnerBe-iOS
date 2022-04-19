@@ -10,13 +10,13 @@ import RxSwift
 
 final class LoggedOutViewModel: BaseViewModel {
     let loginService: LoginService
-    private var signupKeyChainService: SignupKeyChainService
+    private var userKeyChainService: UserKeychainService
 
     // MARK: Lifecycle
 
-    init(loginService: LoginService = BasicLoginService(), signupKeyChainService: SignupKeyChainService = BasicSignupKeyChainService.shared) {
+    init(loginService: LoginService = BasicLoginService(), userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
         self.loginService = loginService
-        self.signupKeyChainService = signupKeyChainService
+        self.userKeyChainService = userKeyChainService
         super.init()
 
         inputs.kakaoLogin
@@ -32,7 +32,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     print("KAKAO UUID \(uuid)")
-                    self?.signupKeyChainService.uuid = uuid
+                    self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.outputs.toast.onNext("로그인에 실패했습니다")
@@ -52,7 +52,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.loginSuccess.onNext(false)
                 case let .nonMember(uuid):
                     print("NAVER UUID \(uuid)")
-                    self?.signupKeyChainService.uuid = uuid
+                    self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.outputs.toast.onNext("로그인에 실패했습니다")
@@ -75,7 +75,7 @@ final class LoggedOutViewModel: BaseViewModel {
                 case let .nonMember(uuid):
                     print("LoginWithApple nonMember")
                     print("APPLE UUID \(uuid)")
-                    self?.signupKeyChainService.uuid = uuid
+                    self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.outputs.toast.onNext("로그인에 실패했습니다.")

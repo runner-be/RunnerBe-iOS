@@ -105,16 +105,4 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
-
-    override func handleDeepLink(type: DeepLinkType) {
-        switch type {
-        case .emailCertification:
-            if let coord = childCoordinators["SelectGenderCoordinator"] {
-                coord.handleDeepLink(type: type)
-            } else {
-                pushSelectGenderCoord(animated: false)
-                childCoordinators["SelectGenderCoordinator"]!.handleDeepLink(type: type)
-            }
-        }
-    }
 }

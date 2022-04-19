@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class RandomNickNameGenerator: NickNameGenerator {
-    func generate(numOfRandom: Int, prefix: String, suffix: String) -> String {
+final class RandomNickNameGenerator {
+    static func generate(numOfRandom: Int, prefix: String, suffix: String) -> String {
         let words = "0123456789"
 
         let numOfRandom = numOfRandom < 0 ? 0 : numOfRandom
