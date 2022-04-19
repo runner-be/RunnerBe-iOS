@@ -19,6 +19,8 @@ enum UserAPI {
     case setProfile(profileURL: String, userId: Int, token: LoginToken)
 
     case signout(userID: Int)
+
+    case updateFCMToken(userID: Int)
 }
 
 extension UserAPI: TargetType {
@@ -36,6 +38,8 @@ extension UserAPI: TargetType {
             return "/users/\(profileURL)/profileImage"
         case let .signout(userID: userID):
             return "/users/\(userID)"
+        case let .updateFCMToken(userID):
+            return "/users/\(userID)/deviceToken"
         }
     }
 
@@ -49,6 +53,8 @@ extension UserAPI: TargetType {
             return Method.patch
         case .signout:
             return Method.delete
+        case .updateFCMToken:
+            return Method.patch
         }
     }
 
@@ -66,6 +72,9 @@ extension UserAPI: TargetType {
         case .signout:
             let parameters = ["secret_key": AppKeys.runnerbe]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case let .updateFCMToken(userID):
+            let parameters = ["deviceToken": userID]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 
@@ -78,6 +87,8 @@ extension UserAPI: TargetType {
         case let .setProfile(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case .signout:
+            return nil
+        case .updateFCMToken:
             return nil
         }
     }

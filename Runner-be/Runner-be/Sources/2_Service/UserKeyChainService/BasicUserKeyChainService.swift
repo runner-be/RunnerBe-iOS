@@ -22,7 +22,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][uuid] get")
             #endif
-            guard let uuid: String = keychainWrapper[.SignupInfo.uuid]
+            guard let uuid: String = keychainWrapper[.User.uuid]
             else {
                 #if DEBUG
                     print("\t= \"\"")
@@ -39,8 +39,35 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][uuid] set\n\t= \"\(newValue)\"")
             #endif
-            keychainWrapper.remove(forKey: .SignupInfo.uuid)
-            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.SignupInfo.uuid.rawValue)
+            keychainWrapper.remove(forKey: .User.uuid)
+            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.uuid.rawValue)
+        }
+    }
+
+    var deviceToken: String {
+        get {
+            #if DEBUG
+                print("[BasicSignupKeyChainService][deviceToken] get")
+            #endif
+            guard let deviceToken: String = keychainWrapper[.User.deviceToken]
+            else {
+                #if DEBUG
+                    print("\t= \"\"")
+                #endif
+                return ""
+            }
+            #if DEBUG
+                print("\t= \"\(deviceToken)\"")
+            #endif
+            return deviceToken
+        }
+
+        set {
+            #if DEBUG
+                print("[BasicSignupKeyChainService][deviceToken] set\n\t= \"\(newValue)\"")
+            #endif
+            keychainWrapper.remove(forKey: .User.deviceToken)
+            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.deviceToken.rawValue)
         }
     }
 
@@ -49,7 +76,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][nickName] get")
             #endif
-            guard let nickName: String = keychainWrapper[.SignupInfo.nickName]
+            guard let nickName: String = keychainWrapper[.User.nickName]
             else {
                 #if DEBUG
                     print("\t= \"\"")
@@ -65,8 +92,8 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][nickName] set\n\t= \"\(newValue)\"")
             #endif
-            keychainWrapper.remove(forKey: .SignupInfo.nickName)
-            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.SignupInfo.nickName.rawValue)
+            keychainWrapper.remove(forKey: .User.nickName)
+            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.nickName.rawValue)
         }
     }
 
@@ -75,7 +102,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][birthDay] get")
             #endif
-            guard let birthDay: Int = keychainWrapper[.SignupInfo.birthday]
+            guard let birthDay: Int = keychainWrapper[.User.birthday]
             else {
                 #if DEBUG
                     print("\t= \"\"")
@@ -91,8 +118,8 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][birthDay] set\n\t= \"\(newValue)\"")
             #endif
-            keychainWrapper.remove(forKey: .SignupInfo.birthday)
-            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.SignupInfo.birthday.rawValue)
+            keychainWrapper.remove(forKey: .User.birthday)
+            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.birthday.rawValue)
         }
     }
 
@@ -101,7 +128,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][job] get")
             #endif
-            guard let job: String = keychainWrapper[.SignupInfo.job]
+            guard let job: String = keychainWrapper[.User.job]
             else {
                 #if DEBUG
                     print("\t= \"\"")
@@ -118,8 +145,8 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][job] set\n\t= \"\(newValue)\"")
             #endif
-            keychainWrapper.remove(forKey: .SignupInfo.job)
-            keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.SignupInfo.job.rawValue)
+            keychainWrapper.remove(forKey: .User.job)
+            keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.job.rawValue)
         }
     }
 
@@ -128,7 +155,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][gender] get")
             #endif
-            guard let gender: String = keychainWrapper[.SignupInfo.gender]
+            guard let gender: String = keychainWrapper[.User.gender]
             else {
                 #if DEBUG
                     print("\t= \"\"")
@@ -145,15 +172,16 @@ final class BasicUserKeyChainService: UserKeychainService {
             #if DEBUG
                 print("[BasicSignupKeyChainService][gender] set\n\t= \"\(newValue)\"")
             #endif
-            keychainWrapper.remove(forKey: .SignupInfo.gender)
-            keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.SignupInfo.gender.rawValue)
+            keychainWrapper.remove(forKey: .User.gender)
+            keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.gender.rawValue)
         }
     }
 }
 
 private extension KeychainWrapper.Key {
-    enum SignupInfo {
+    enum User {
         static let uuid: KeychainWrapper.Key = "SignupInfo.uuid"
+        static let deviceToken: KeychainWrapper.Key = "User.deviceToken"
         static let nickName: KeychainWrapper.Key = "SingupInfo.NickName"
         static let birthday: KeychainWrapper.Key = "SignupInfo.Birthday"
         static let job: KeychainWrapper.Key = "SignupInfo.Job"

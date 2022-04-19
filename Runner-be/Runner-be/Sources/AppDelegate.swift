@@ -101,6 +101,10 @@ extension AppDelegate: MessagingDelegate {
         #if DEBUG
             print("[AppDelegate:didReceiveRegistrationToken] FCMToken = \(String(describing: fcmToken))")
         #endif
+        if let fcmToken = fcmToken {
+            BasicUserKeyChainService.shared.deviceToken = fcmToken
+            BasicUserAPIService().updateFCMToken(to: fcmToken)
+        }
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     }

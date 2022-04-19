@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserKeychainService {
     var uuid: String { get set }
+    var deviceToken: String { get set }
     var nickName: String { get set }
     var birthDay: Int { get set }
     var job: Job { get set }

@@ -28,11 +28,13 @@ final class BasicSignupService: SignupService {
 
     func signup() -> Observable<SignupResult> {
         let uuid = userKeyChainService.uuid
+        let deviceToken = userKeyChainService.deviceToken
         let birth = userKeyChainService.birthDay
         let gender = userKeyChainService.gender
         let job = userKeyChainService.job
 
         guard !uuid.isEmpty,
+              !deviceToken.isEmpty,
               birth != 0,
               gender != .none,
               job != .none
@@ -46,6 +48,7 @@ final class BasicSignupService: SignupService {
         signUpStart.map {
             SignupForm(
                 uuid: uuid,
+                deviceToken: deviceToken,
                 nickName: RandomNickNameGenerator.generate(numOfRandom: 4, prefix: "Runner", suffix: ""),
                 birthday: birth,
                 gender: gender,

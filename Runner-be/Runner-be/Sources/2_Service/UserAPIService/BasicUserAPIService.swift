@@ -267,4 +267,11 @@ final class BasicUserAPIService: UserAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func updateFCMToken(to _: String) {
+        guard let userID = loginKeyChainService.userId
+        else { return }
+
+        provider.request(.updateFCMToken(userID: userID), completion: { _ in })
+    }
 }
