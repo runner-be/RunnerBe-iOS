@@ -9,6 +9,7 @@ import Foundation
 
 struct SignupForm {
     let uuid: String
+    let deviceToken: String
     let nickName: String
     let birthday: Int
     let gender: Gender

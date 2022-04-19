@@ -21,7 +21,7 @@ extension SignupAPI: TargetType {
     var path: String {
         switch self {
         case .signup:
-            return "users"
+            return "/v2/users"
         case let .emailDup(email):
             return "users/email/check/\(email)"
         }
@@ -41,6 +41,7 @@ extension SignupAPI: TargetType {
         case let .signup(signUpForm):
             var parameters: [String: Any] = [
                 "uuid": signUpForm.uuid,
+                "deviceToken": signUpForm.deviceToken,
                 "nickName": signUpForm.nickName,
                 "birthday": signUpForm.birthday,
                 "gender": signUpForm.gender.code,
