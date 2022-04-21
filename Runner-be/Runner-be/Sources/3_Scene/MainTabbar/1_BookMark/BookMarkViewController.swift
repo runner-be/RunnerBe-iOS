@@ -44,6 +44,8 @@ class BookMarkViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBags)
+
         let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
             [weak self] _, collectionView, indexPath, item in
 
@@ -107,21 +109,9 @@ class BookMarkViewController: BaseViewController {
     }
 
     private lazy var postCollectionView: UICollectionView = {
-        let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(143)
-        )
-        var item = NSCollectionLayoutItem(layoutSize: size)
-        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-            leading: .fixed(0),
-            top: .fixed(12),
-            trailing: .fixed(0),
-            bottom: .fixed(12)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
@@ -162,8 +152,8 @@ extension BookMarkViewController {
 
         postCollectionView.snp.makeConstraints { make in
             make.top.equalTo(numPostLabel.snp.bottom).offset(12)
-            make.leading.equalTo(view.snp.leading).offset(14)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
     }
@@ -197,5 +187,11 @@ extension BookMarkViewController: SegmentedControlDelegate {
         if from != to {
             viewModel.inputs.tagChanged.onNext(to)
         }
+    }
+}
+
+extension BookMarkViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return BasicPostCell.size
     }
 }

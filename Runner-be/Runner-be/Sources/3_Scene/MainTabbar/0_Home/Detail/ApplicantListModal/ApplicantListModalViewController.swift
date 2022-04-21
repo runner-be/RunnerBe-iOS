@@ -47,6 +47,8 @@ class ApplicantListModalViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
+        collectionView.rx.setDelegate(self).disposed(by: disposeBags)
+
         typealias UserAcceptableCellDataSource = RxCollectionViewSectionedAnimatedDataSource<UserInfoAcceaptableSection>
 
         let dataSource = UserAcceptableCellDataSource(
@@ -100,21 +102,9 @@ class ApplicantListModalViewController: BaseViewController {
     }
 
     private lazy var collectionView: UICollectionView = {
-        let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(143)
-        )
-        var item = NSCollectionLayoutItem(layoutSize: size)
-        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-            leading: .fixed(0),
-            top: .fixed(12),
-            trailing: .fixed(0),
-            bottom: .fixed(12)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(UserInfoAcceptableCell.self, forCellWithReuseIdentifier: UserInfoAcceptableCell.id)
         collectionView.backgroundColor = .clear
@@ -166,8 +156,8 @@ extension ApplicantListModalViewController {
 
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         finishingBtn.snp.makeConstraints { make in
@@ -196,5 +186,11 @@ extension ApplicantListModalViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+}
+
+extension ApplicantListModalViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return UserInfoAcceptableCell.size
     }
 }

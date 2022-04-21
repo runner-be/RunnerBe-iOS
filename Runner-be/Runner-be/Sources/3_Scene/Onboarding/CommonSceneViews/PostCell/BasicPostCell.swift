@@ -122,4 +122,11 @@ extension BasicPostCell {
 
 extension BasicPostCell {
     static let id: String = "\(BasicPostCell.self)"
+
+    static let size: CGSize = {
+        let hMargin: CGFloat = 12
+        let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
+        let height: CGFloat = 150
+        return CGSize(width: width, height: height)
+    }()
 }
