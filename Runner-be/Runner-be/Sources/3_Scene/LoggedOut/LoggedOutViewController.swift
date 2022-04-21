@@ -46,13 +46,13 @@ final class LoggedOutViewController: BaseViewController {
             .debug()
             .when(.recognized).map { _ in }
             .bind(to: viewModel.inputs.kakaoLogin)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         naverButton.rx.tapGesture()
             .debug()
             .when(.recognized).map { _ in }
             .bind(to: viewModel.inputs.naverLogin)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         appleButton.rx.tapGesture()
             .debug()
@@ -65,7 +65,7 @@ final class LoggedOutViewController: BaseViewController {
                 controller.presentationContextProvider = self as? ASAuthorizationControllerPresentationContextProviding
                 controller.performRequests()
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func bindViewModelOutput() {
@@ -73,7 +73,7 @@ final class LoggedOutViewController: BaseViewController {
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

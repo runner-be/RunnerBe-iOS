@@ -32,7 +32,7 @@ final class MakerViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

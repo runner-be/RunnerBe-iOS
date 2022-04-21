@@ -35,5 +35,5 @@ class BaseViewController: UIViewController {
 
     // MARK: Internal
 
-    var disposeBags = DisposeBag()
+    var disposeBag = DisposeBag()
 }

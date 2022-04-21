@@ -40,7 +40,7 @@ class WritingMainPostViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .debug()
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .map { [weak self] _ -> WritingPostMainViewInputData? in
@@ -61,7 +61,7 @@ class WritingMainPostViewController: BaseViewController {
                 )
             }
             .bind(to: viewModel.inputs.next)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         writeDateView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
@@ -69,7 +69,7 @@ class WritingMainPostViewController: BaseViewController {
         .when(.recognized)
         .map { _ in }
         .bind(to: viewModel.inputs.editDate)
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         writeTimeView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
@@ -77,47 +77,47 @@ class WritingMainPostViewController: BaseViewController {
         .when(.recognized)
         .map { _ in }
         .bind(to: viewModel.inputs.editTime)
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         writePlaceView.locationChanged
             .bind(to: viewModel.inputs.locationChanged)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         viewModel.outputs.date
             .bind(to: writeDateView.contentText)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.time
             .bind(to: writeTimeView.contentText)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.boundaryLimit
             .take(1)
             .subscribe(onNext: { [weak self] coords in
                 self?.writePlaceView.setMapBoundary(with: coords)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.location
             .take(1)
             .subscribe(onNext: { [weak self] location in
                 self?.writePlaceView.mapView.centerToCoord(location, animated: false)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.placeInfo
             .subscribe(onNext: { [weak self] placeInfo in
                 self?.writePlaceView.showPlaceInfo(city: placeInfo.city, name: placeInfo.detail)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewInputs() {
@@ -125,13 +125,13 @@ class WritingMainPostViewController: BaseViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.writeTitleView.textField.layer.borderWidth = 1
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         writeTitleView.textField.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext: { [weak self] _ in
                 self?.writeTitleView.textField.layer.borderWidth = 0
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         vStackView.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .always
@@ -144,7 +144,7 @@ class WritingMainPostViewController: BaseViewController {
         .subscribe(onNext: { [weak self] _ in
             self?.writeTitleView.textField.endEditing(true)
         })
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in

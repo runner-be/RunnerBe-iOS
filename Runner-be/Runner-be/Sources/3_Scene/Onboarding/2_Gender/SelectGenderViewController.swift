@@ -41,15 +41,15 @@ final class SelectGenderViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         genderLabelGroup.tap
             .compactMap { $0 }
@@ -58,7 +58,7 @@ final class SelectGenderViewController: BaseViewController {
                 return (numSelected != 0) ? self.genderLabelGroup.selected : []
             }
             .bind(to: viewModel.inputs.tapGroup)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -66,7 +66,7 @@ final class SelectGenderViewController: BaseViewController {
             .subscribe(onNext: { [weak self] enable in
                 self?.nextButton.isEnabled = enable
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

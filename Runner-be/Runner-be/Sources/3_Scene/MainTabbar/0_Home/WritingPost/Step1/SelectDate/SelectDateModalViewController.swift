@@ -41,18 +41,18 @@ class SelectDateModalViewController: BaseViewController {
         })
         .when(.recognized)
         .subscribe()
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
         }).when(.recognized)
             .map { _ in }
             .subscribe(viewModel.inputs.tapBackground)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         buttonOk.rx.tap
             .bind(to: viewModel.inputs.tapOK)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

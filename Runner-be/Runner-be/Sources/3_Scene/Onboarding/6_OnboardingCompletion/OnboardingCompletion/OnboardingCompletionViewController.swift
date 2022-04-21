@@ -37,7 +37,7 @@ class OnboardingCompletionViewController: BaseViewController {
     private func viewModelInput() {
         startButton.rx.tap
             .bind(to: viewModel.inputs.tapStart)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

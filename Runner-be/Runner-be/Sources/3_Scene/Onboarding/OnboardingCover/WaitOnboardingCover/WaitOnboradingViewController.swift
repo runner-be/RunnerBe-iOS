@@ -37,7 +37,7 @@ class WaitOnboardingViewController: BaseViewController {
     private func viewModelInput() {
         toMain.rx.tap
             .bind(to: viewModel.inputs.toMain)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

@@ -191,4 +191,11 @@ extension AttendablePostCell {
 
 extension AttendablePostCell {
     static let id: String = "\(AttendablePostCell.self)"
+
+    static let size: CGSize = {
+        let hMargin: CGFloat = 12
+        let width = UIScreen.main.bounds.width - hMargin * 2
+        let height: CGFloat = 190
+        return CGSize(width: width, height: height)
+    }()
 }

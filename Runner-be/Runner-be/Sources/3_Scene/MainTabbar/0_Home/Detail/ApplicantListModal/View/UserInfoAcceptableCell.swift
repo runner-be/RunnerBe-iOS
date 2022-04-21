@@ -76,7 +76,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         }
 
         refusalBtn.snp.makeConstraints { make in
-            make.top.equalTo(userInfoView.snp.bottom).offset(20)
+            make.top.greaterThanOrEqualTo(userInfoView.snp.bottom).offset(10)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.centerX).offset(-6)
             make.height.equalTo(32)
@@ -104,4 +104,10 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
 
 extension UserInfoAcceptableCell {
     static let id = "\(UserInfoAcceptableCell.self)"
+    static let size: CGSize = {
+        let hMargin: CGFloat = 16
+        let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
+        let height: CGFloat = 140
+        return CGSize(width: width, height: height)
+    }()
 }

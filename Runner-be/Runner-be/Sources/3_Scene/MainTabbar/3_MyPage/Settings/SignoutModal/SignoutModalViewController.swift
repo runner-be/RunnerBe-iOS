@@ -40,7 +40,7 @@ class SignoutModalViewController: BaseViewController {
         })
         .when(.recognized)
         .subscribe()
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
@@ -48,15 +48,15 @@ class SignoutModalViewController: BaseViewController {
         .when(.recognized)
         .map { _ in }
         .subscribe(viewModel.inputs.cancel)
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         buttonOk.rx.tap
             .bind(to: viewModel.inputs.ok)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         buttonNo.rx.tap
             .bind(to: viewModel.inputs.cancel)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

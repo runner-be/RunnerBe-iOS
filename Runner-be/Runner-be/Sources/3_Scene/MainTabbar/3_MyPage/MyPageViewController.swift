@@ -41,41 +41,44 @@ class MyPageViewController: BaseViewController {
         writtenTab.rx.tap
             .map { MyPageViewModel.PostType.basic }
             .bind(to: viewModel.inputs.typeChanged)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         participantTab.rx.tap
             .map { MyPageViewModel.PostType.attendable }
             .bind(to: viewModel.inputs.typeChanged)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         myInfoWithChevron.chevronBtn.rx.tap
             .bind(to: viewModel.inputs.editInfo)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.settings)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         myPostCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         myRunningCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         myPostEmptyButton.rx.tap
             .bind(to: viewModel.inputs.writePost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         myRunningEmptyButton.rx.tap
             .bind(to: viewModel.inputs.toMain)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        myPostCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        myRunningCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
         typealias MyPagePostDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
@@ -93,7 +96,7 @@ class MyPageViewController: BaseViewController {
             .filter { [unowned self] _ in self.viewModel.outputs.postType == .basic }
             .map { [MyPagePostSection(items: $0)] }
             .bind(to: myPostCollectionView.rx.items(dataSource: myPostDatasource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self
@@ -136,7 +139,7 @@ class MyPageViewController: BaseViewController {
             .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
             .map { [MyPagePostSection(items: $0)] }
             .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { $0.isEmpty }
@@ -160,19 +163,19 @@ class MyPageViewController: BaseViewController {
                 }
 
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
                 self?.myInfoWithChevron.infoView.configure(with: config)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewInputs() {
@@ -188,7 +191,7 @@ class MyPageViewController: BaseViewController {
                 }
                 self.participantTab.isSelected = false
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         participantTab.rx.tap
             .subscribe(onNext: { [unowned self] in
@@ -202,7 +205,7 @@ class MyPageViewController: BaseViewController {
                 }
                 self.writtenTab.isSelected = false
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var myInfoWithChevron = MyInfoViewWithChevron()
@@ -242,21 +245,9 @@ class MyPageViewController: BaseViewController {
     }
 
     private lazy var myPostCollectionView: UICollectionView = {
-        let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(145)
-        )
-        var item = NSCollectionLayoutItem(layoutSize: size)
-        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-            leading: .fixed(0),
-            top: .fixed(12),
-            trailing: .fixed(0),
-            bottom: .fixed(12)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
@@ -264,21 +255,9 @@ class MyPageViewController: BaseViewController {
     }()
 
     private lazy var myRunningCollectionView: UICollectionView = {
-        let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(190)
-        )
-        var item = NSCollectionLayoutItem(layoutSize: size)
-        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-            leading: .fixed(0),
-            top: .fixed(12),
-            trailing: .fixed(0),
-            bottom: .fixed(12)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(AttendablePostCell.self, forCellWithReuseIdentifier: AttendablePostCell.id)
         collectionView.backgroundColor = .clear
@@ -391,15 +370,15 @@ extension MyPageViewController {
 
         myPostCollectionView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(2)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
         myRunningCollectionView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(2)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
@@ -451,5 +430,18 @@ extension MyPageViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+}
+
+extension MyPageViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        switch collectionView {
+        case let c where c == myRunningCollectionView:
+            return AttendablePostCell.size
+        case let c where c == myPostCollectionView:
+            return BasicPostCell.size
+        default:
+            return .zero
+        }
     }
 }

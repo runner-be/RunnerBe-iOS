@@ -42,23 +42,25 @@ class HomeViewController: BaseViewController {
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.showDetailFilter)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         floatingButton.rx.tap
             .bind(to: viewModel.inputs.writingPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         deadlineFilter.tapCheck
             .bind(to: viewModel.inputs.deadLineChanged)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         postCollectionView.rx.itemSelected
             .map { $0.row }
             .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
         typealias BasicPostSectionDataSource
             = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
 
@@ -94,31 +96,31 @@ class HomeViewController: BaseViewController {
             }
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { !$0.isEmpty }
             .subscribe(emptyLabel.rx.isHidden)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.highLightFilter
             .subscribe(onNext: { [weak self] highlight in
                 self?.filterIcon.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.refresh
             .subscribe(onNext: { [weak self] in
                 self?.postCollectionView.collectionViewLayout.invalidateLayout()
                 self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private lazy var segmentedControl = SegmentedControl().then { control in
@@ -175,21 +177,9 @@ class HomeViewController: BaseViewController {
     }
 
     private lazy var postCollectionView: UICollectionView = {
-        let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(143)
-        )
-        var item = NSCollectionLayoutItem(layoutSize: size)
-        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-            leading: .fixed(0),
-            top: .fixed(12),
-            trailing: .fixed(0),
-            bottom: .fixed(12)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
@@ -257,8 +247,8 @@ extension HomeViewController {
 
         postCollectionView.snp.makeConstraints { make in
             make.top.equalTo(filterIcon.snp.bottom).offset(8)
-            make.leading.equalTo(view.snp.leading).offset(14)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
 
@@ -301,5 +291,11 @@ extension HomeViewController: SegmentedControlDelegate {
         if from != to {
             viewModel.inputs.tagChanged.onNext(to)
         }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return BasicPostCell.size
     }
 }

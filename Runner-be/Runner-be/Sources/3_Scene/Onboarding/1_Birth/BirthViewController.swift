@@ -42,15 +42,15 @@ final class BirthViewController: BaseViewController {
     private func bindViewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func bindViewModelOutput() {
@@ -59,7 +59,7 @@ final class BirthViewController: BaseViewController {
                 self?.nextButton.isEnabled = $0
                 self?.errorLabel.isHidden = $0
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private
