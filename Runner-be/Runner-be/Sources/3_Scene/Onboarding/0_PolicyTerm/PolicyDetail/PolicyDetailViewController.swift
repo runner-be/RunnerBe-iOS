@@ -37,11 +37,11 @@ class PolicyDetailViewController: BaseViewController {
     private func viewModelInput() {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapClose)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapClose)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -50,17 +50,17 @@ class PolicyDetailViewController: BaseViewController {
             .subscribe(onNext: { [weak self] modal in
                 self?.setupBarStyle(modal: modal)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.text
             .take(1)
             .bind(to: textView.rx.text)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.title
             .take(1)
             .bind(to: navBar.titleLabel.rx.text)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func setupBarStyle(modal: Bool) {

@@ -37,15 +37,15 @@ class OnboardingCoverViewController: BaseViewController {
     private func viewModelInput() {
         cancelBtn.rx.tap
             .bind(to: viewModel.inputs.lookMain)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         onboardBtn.rx.tap
             .bind(to: viewModel.inputs.goOnboard)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         testCertificated.rx.tap
             .bind(to: viewModel.inputs.testCertificated)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

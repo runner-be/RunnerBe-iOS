@@ -46,7 +46,7 @@ class OnOffLabelGroup {
 
     var tap = PublishSubject<Int>()
 
-    private var disposeBags = DisposeBag()
+    private var disposeBag = DisposeBag()
     private var labels = [OnOffLabel]()
     private var numberOfOnState = 0
     private var lastSelected: OnOffLabel?
@@ -69,7 +69,7 @@ class OnOffLabelGroup {
             .subscribe(onNext: { [weak self] _ in
                 self?.tap.onNext(self?.numberOfOnState ?? 0)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
         labels.append(label)
     }
 

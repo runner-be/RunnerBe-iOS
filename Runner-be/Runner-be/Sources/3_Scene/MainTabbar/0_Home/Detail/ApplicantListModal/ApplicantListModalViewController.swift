@@ -39,15 +39,15 @@ class ApplicantListModalViewController: BaseViewController {
     private func viewModelInput() {
         closeBtn.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         finishingBtn.rx.tap
             .bind(to: viewModel.inputs.finishing)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-        collectionView.rx.setDelegate(self).disposed(by: disposeBags)
+        collectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         typealias UserAcceptableCellDataSource = RxCollectionViewSectionedAnimatedDataSource<UserInfoAcceaptableSection>
 
@@ -77,18 +77,18 @@ class ApplicantListModalViewController: BaseViewController {
             .debug()
             .map { [UserInfoAcceaptableSection(items: $0)] }
             .bind(to: collectionView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.participants
             .map { !$0.isEmpty }
             .bind(to: emptyLabel.rx.isHidden)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var closeBtn = UIButton().then { button in

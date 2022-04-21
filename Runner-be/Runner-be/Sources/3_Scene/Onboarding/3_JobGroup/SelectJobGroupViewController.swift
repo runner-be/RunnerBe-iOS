@@ -42,15 +42,15 @@ final class SelectJobGroupViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         completeButton.rx.tap
             .bind(to: viewModel.inputs.tapComplete)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         jobGroup.tap
             .compactMap { $0 }
@@ -59,7 +59,7 @@ final class SelectJobGroupViewController: BaseViewController {
                 return (numSelected != 0) ? self.jobGroup.selected : []
             }
             .bind(to: viewModel.inputs.tapGroup)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         // TODO: 직군 종류들을 ViewModel로 넘길지 고민해보기
         let jobGroupLabels = Observable.of(jobLabels)
@@ -69,7 +69,7 @@ final class SelectJobGroupViewController: BaseViewController {
                 cellType: JobGroupCollectionViewCell.self
             )
         ) { _, label, cell in cell.label = label }
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -77,13 +77,13 @@ final class SelectJobGroupViewController: BaseViewController {
             .subscribe(onNext: { [weak self] enable in
                 self?.completeButton.isEnabled = enable
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

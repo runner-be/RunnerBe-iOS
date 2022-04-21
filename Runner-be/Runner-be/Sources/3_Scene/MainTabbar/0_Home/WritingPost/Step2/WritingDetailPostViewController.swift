@@ -39,7 +39,7 @@ class WritingDetailPostViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .map { [weak self] in
@@ -60,7 +60,7 @@ class WritingDetailPostViewController: BaseViewController {
                 )
             }
             .subscribe(viewModel.inputs.posting)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -69,13 +69,13 @@ class WritingDetailPostViewController: BaseViewController {
                 guard let self = self else { return }
                 self.summaryView.configure(with: data)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewInput() {
@@ -90,7 +90,7 @@ class WritingDetailPostViewController: BaseViewController {
         .subscribe(onNext: { [weak self] _ in
             self?.selectTextContentView.textField.endEditing(true)
         })
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
@@ -102,7 +102,7 @@ class WritingDetailPostViewController: BaseViewController {
                 )
                 self.scrollView.setContentOffset(bottomOffset, animated: true)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var summaryView = SummaryMainPostView()

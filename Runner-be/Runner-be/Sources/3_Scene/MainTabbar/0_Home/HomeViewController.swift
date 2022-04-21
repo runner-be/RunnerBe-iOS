@@ -42,24 +42,24 @@ class HomeViewController: BaseViewController {
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.showDetailFilter)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         floatingButton.rx.tap
             .bind(to: viewModel.inputs.writingPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         deadlineFilter.tapCheck
             .bind(to: viewModel.inputs.deadLineChanged)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         postCollectionView.rx.itemSelected
             .map { $0.row }
             .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-        postCollectionView.rx.setDelegate(self).disposed(by: disposeBags)
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         typealias BasicPostSectionDataSource
             = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
@@ -96,31 +96,31 @@ class HomeViewController: BaseViewController {
             }
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { !$0.isEmpty }
             .subscribe(emptyLabel.rx.isHidden)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.highLightFilter
             .subscribe(onNext: { [weak self] highlight in
                 self?.filterIcon.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.refresh
             .subscribe(onNext: { [weak self] in
                 self?.postCollectionView.collectionViewLayout.invalidateLayout()
                 self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private lazy var segmentedControl = SegmentedControl().then { control in

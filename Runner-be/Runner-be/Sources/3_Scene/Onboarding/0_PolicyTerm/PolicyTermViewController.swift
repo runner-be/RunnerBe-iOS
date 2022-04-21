@@ -40,15 +40,15 @@ final class PolicyTermViewController: BaseViewController {
     private func bindViewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapBackward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapCancel)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         nextButton.rx.tap
             .bind(to: viewModel.inputs.tapNext)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         checkAllPolicyView.tapCheck
             .subscribe(onNext: { [weak self] check in
@@ -59,31 +59,31 @@ final class PolicyTermViewController: BaseViewController {
                 self?.viewModel.inputs.tapLocationPolicy.onNext(check)
                 self?.viewModel.inputs.tapServicePolicy.onNext(check)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         servicePolicyView.tapCheck
             .subscribe(viewModel.inputs.tapServicePolicy)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         privacyPolicyView.tapCheck
             .subscribe(viewModel.inputs.tapPrivacyPolicy)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         locationPolicyView.tapCheck
             .subscribe(viewModel.inputs.tapLocationPolicy)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         servicePolicyView.tapDetail
             .subscribe(viewModel.inputs.tapServiceDetail)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         privacyPolicyView.tapDetail
             .subscribe(viewModel.inputs.tapPrivacyDetail)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         locationPolicyView.tapDetail
             .subscribe(viewModel.inputs.tapLocationDetail)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func bindViewModelOutput() {
@@ -91,7 +91,7 @@ final class PolicyTermViewController: BaseViewController {
             .subscribe(onNext: { [weak self] enable in
                 self?.nextButton.isEnabled = enable
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

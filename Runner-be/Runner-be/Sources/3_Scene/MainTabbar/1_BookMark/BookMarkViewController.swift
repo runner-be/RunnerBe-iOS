@@ -40,11 +40,11 @@ class BookMarkViewController: BaseViewController {
         postCollectionView.rx.itemSelected
             .map { $0.row }
             .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-        postCollectionView.rx.setDelegate(self).disposed(by: disposeBags)
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
             [weak self] _, collectionView, indexPath, item in
@@ -70,7 +70,7 @@ class BookMarkViewController: BaseViewController {
             })
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in

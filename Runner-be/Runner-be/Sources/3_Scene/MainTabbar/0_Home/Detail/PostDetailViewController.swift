@@ -38,11 +38,11 @@ class PostDetailViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.report)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -78,13 +78,13 @@ class PostDetailViewController: BaseViewController {
                 self?.makeFooter(writer: data.writer, applied: data.applied, satisfied: data.satisfied, finished: data.finished)
                 self?.applicantNoti.isHidden = data.numApplicant == 0
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var detailMapView = DetailMapView()
@@ -290,7 +290,7 @@ extension PostDetailViewController {
             writerFooter.finishingBtn.rx.tap
                 .debug()
                 .bind(to: viewModel.inputs.finishing)
-                .disposed(by: disposeBags)
+                .disposed(by: disposeBag)
 
             applicantBtn.isHidden = false
 

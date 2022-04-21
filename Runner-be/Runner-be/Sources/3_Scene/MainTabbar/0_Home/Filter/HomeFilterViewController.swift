@@ -51,11 +51,11 @@ class HomeFilterViewController: BaseViewController {
                 return (genderIdx, jobIdx, minAge, maxAge, location, distance)
             }
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
             .subscribe(viewModel.inputs.reset)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -63,35 +63,35 @@ class HomeFilterViewController: BaseViewController {
             .subscribe(onNext: { [weak self] locationDistance in
                 self?.filterPlaceView.setMapCoord(locationDistance.location, CGFloat(locationDistance.distance), animated: false)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.boundaryLimit
             .take(1)
             .subscribe(onNext: { [weak self] coords in
                 self?.filterPlaceView.setMapBoundary(with: coords)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.gender
             .take(1)
             .subscribe(onNext: { [weak self] idx in
                 self?.filterGenderView.select(idx: idx)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.job
             .take(1)
             .subscribe(onNext: { [weak self] idx in
                 self?.filterJobView.select(idx: idx)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.age
             .take(1)
             .subscribe(onNext: { [weak self] age in
                 self?.filterAgeView.setValues(minValue: CGFloat(age.min), maxValue: CGFloat(age.max))
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.reset
             .subscribe(onNext: { [weak self] in
@@ -99,7 +99,7 @@ class HomeFilterViewController: BaseViewController {
                 self?.filterJobView.reset()
                 self?.filterGenderView.reset()
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var filterGenderView = SelectGenderView()

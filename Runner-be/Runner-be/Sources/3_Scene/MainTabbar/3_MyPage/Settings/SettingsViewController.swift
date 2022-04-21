@@ -40,11 +40,11 @@ class SettingsViewController: BaseViewController {
         tableView.rx.itemSelected
             .map { (section: $0.section, item: $0.item) }
             .bind(to: viewModel.inputs.tapCell)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -76,7 +76,7 @@ class SettingsViewController: BaseViewController {
                 }
             }
             .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.routes.instagram
             .subscribe(onNext: { [weak self] in
@@ -86,7 +86,7 @@ class SettingsViewController: BaseViewController {
                 let instaSafariView = SFSafariViewController(url: instaURL)
                 self.present(instaSafariView, animated: true, completion: nil)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private lazy var tableView = UITableView(frame: .zero, style: .plain).then { view in

@@ -41,29 +41,29 @@ class EditInfoViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         selectNickName.applyButton.rx.tap
             .compactMap { [unowned self] in self.selectNickName.nickNameField.text }
             .bind(to: viewModel.inputs.nickNameApply)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         selectNickName.nickNameField.rx.text
             .orEmpty
             .distinctUntilChanged()
             .compactMap { $0 }
             .bind(to: viewModel.inputs.nickNameText)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         profileImageView.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.changePhoto)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         selectJobView.jobGroup.tap
             .bind(to: viewModel.inputs.jobSelected)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -72,7 +72,7 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] job in
                 self?.selectJobView.select(idx: job.index)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.currentProfile
             .take(1)
@@ -81,7 +81,7 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] url in
                 self?.profileImageView.kf.setImage(with: url)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.showPicker
             .map { $0.sourceType }
@@ -142,21 +142,21 @@ class EditInfoViewController: BaseViewController {
 //                    break
 //                }
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameDup
             .subscribe(onNext: { [weak self] dup in
                 self?.nickNameDupErrLabel.isHidden = !dup
                 self?.selectNickName.applyButton.isEnabled = !dup
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameRuleOK
             .subscribe(onNext: { [weak self] ok in
                 self?.nickNameRuleErrLabel.isHidden = ok
                 self?.selectNickName.applyButton.isEnabled = ok
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameAlreadyChanged
             .filter { $0 }
@@ -171,7 +171,7 @@ class EditInfoViewController: BaseViewController {
                     buttonText: L10n.MyPage.EditInfo.NickName.Button.cant
                 )
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameChanged
             .subscribe(onNext: { [weak self] newName in
@@ -184,7 +184,7 @@ class EditInfoViewController: BaseViewController {
                 self?.nickNameRuleErrLabel.isHidden = true
                 self?.nickNameRuleErrLabel.isHidden = true
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.profileChanged
             .compactMap { $0 }
@@ -192,13 +192,13 @@ class EditInfoViewController: BaseViewController {
                 self?.profileImageView.image = UIImage(data: data)
                 self?.profileCameraIcon.isHidden = true
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.toastActivity
             .subscribe(onNext: { [weak self] show in
@@ -208,7 +208,7 @@ class EditInfoViewController: BaseViewController {
                     self?.view.hideToastActivity()
                 }
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewInputs() {
@@ -216,13 +216,13 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.selectNickName.nickNameField.layer.borderWidth = 1
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         selectNickName.nickNameField.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext: { [weak self] _ in
                 self?.selectNickName.nickNameField.layer.borderWidth = 0
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         view.rx.tapGesture()
             .when(.recognized)
@@ -233,7 +233,7 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.selectNickName.nickNameField.endEditing(true)
             })
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private var profileImageView = UIImageView().then { view in

@@ -40,7 +40,7 @@ class TakePhotoModalViewController: BaseViewController {
         })
         .when(.recognized)
         .subscribe()
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         view.rx.tapGesture(configuration: { _, delegate in
             delegate.simultaneousRecognitionPolicy = .never
@@ -48,15 +48,15 @@ class TakePhotoModalViewController: BaseViewController {
         .when(.recognized)
         .map { _ in }
         .subscribe(viewModel.inputs.tapBackward)
-        .disposed(by: disposeBags)
+        .disposed(by: disposeBag)
 
         takePhotoButton.rx.tap
             .subscribe(viewModel.inputs.tapTakePhoto)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
 
         chooseFromAlbumButton.rx.tap
             .subscribe(viewModel.inputs.tapChoosePhoto)
-            .disposed(by: disposeBags)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}
