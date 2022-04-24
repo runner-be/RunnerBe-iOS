@@ -75,7 +75,7 @@
 // MARK: - OnboardingCompletion
 "OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
 "OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
-"OnboardingCompletion.Button.start" = "Start!";
+"OnboardingCompletion.Button.start" = "START!";
 
 // MARK: - Job
 

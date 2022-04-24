@@ -45,10 +45,11 @@ class OnboardingCompletionViewController: BaseViewController {
     // MARK: Private
 
     var titleLabel = UILabel().then { label in
-        label.font = .iosHeader31Sb
+        var font = UIFont.aggroLight.withSize(22)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.OnboardingCompletion.title, with: 35.2)
         label.textColor = .primary
-        label.text = L10n.OnboardingCompletion.title
-
+        label.textAlignment = .center
         label.numberOfLines = 2
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -58,16 +59,14 @@ class OnboardingCompletionViewController: BaseViewController {
         label.font = .iosTitle19R
         label.textColor = .darkG25
         label.text = L10n.OnboardingCompletion.subTitle
-
+        label.textAlignment = .center
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
     }
 
-    var iconLabel = UILabel().then { label in
-        label.font = label.font.withSize(100)
-        label.textAlignment = .center
-        label.text = "🎉"
+    var iconImageView = UIImageView().then { imageView in
+        imageView.image = Asset.onboardingCompletion.uiImage
     }
 
     private var startButton = UIButton().then { button in
@@ -92,27 +91,28 @@ extension OnboardingCompletionViewController {
         view.addSubviews([
             titleLabel,
             subTitleLabel,
-            iconLabel,
+            iconImageView,
             startButton,
         ])
     }
 
     private func initialLayout() {
+        iconImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(178)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(248)
+            make.height.equalTo(216)
+        }
+
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(114)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-70)
+            make.top.equalTo(iconImageView.snp.bottom).offset(32)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(240)
         }
 
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
-            make.leading.equalTo(view.snp.leading).offset(18)
-            make.trailing.equalTo(view.snp.trailing).offset(-105)
-        }
-
-        iconLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.centerX.equalTo(view.snp.centerX)
-            make.centerY.equalTo(view.snp.centerY)
         }
 
         startButton.snp.makeConstraints { make in

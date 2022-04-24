@@ -592,7 +592,7 @@ internal enum L10n {
     /// 나를 충분히 소개했어요. 달릴 준비 완료!
     internal static let title = L10n.tr("Localizable", "OnboardingCompletion.title")
     internal enum Button {
-      /// Start!
+      /// START!
       internal static let start = L10n.tr("Localizable", "OnboardingCompletion.Button.start")
     }
   }

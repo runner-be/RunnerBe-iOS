@@ -46,6 +46,7 @@ internal enum Asset {
   internal static let myPageTabIconFocused = ImageAsset(name: "MyPageTabIcon_focused")
   internal static let myPageTabIconNormal = ImageAsset(name: "MyPageTabIcon_normal")
   internal static let naverLogin = ImageAsset(name: "Naver_login")
+  internal static let onboardingCompletion = ImageAsset(name: "OnboardingCompletion")
   internal static let place = ImageAsset(name: "Place")
   internal static let placeImage = ImageAsset(name: "PlaceImage")
   internal static let plus = ImageAsset(name: "Plus")
