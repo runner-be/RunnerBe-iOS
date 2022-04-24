@@ -559,10 +559,8 @@ internal enum L10n {
       }
     }
     internal enum PolicyTerm {
-      /// 먼저 이용약관을 읽고
-      internal static let title1 = L10n.tr("Localizable", "Onboarding.PolicyTerm.title1")
-      /// 동의해주세요!
-      internal static let title2 = L10n.tr("Localizable", "Onboarding.PolicyTerm.title2")
+      /// 먼저 이용약관을 읽고 동의해주세요!
+      internal static let title = L10n.tr("Localizable", "Onboarding.PolicyTerm.title")
       internal enum Agree {
         internal enum All {
           /// 모든 약관을 읽었으며, 이에 동의해요

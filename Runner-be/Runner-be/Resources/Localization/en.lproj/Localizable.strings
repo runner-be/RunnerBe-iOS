@@ -38,8 +38,7 @@
 "NickName.error.duplicated" = "중복된 닉네임이에요!";
 
 // MARK: - PolicyTerm
-"Onboarding.PolicyTerm.title1" = "먼저 이용약관을 읽고";
-"Onboarding.PolicyTerm.title2" = "동의해주세요!";
+"Onboarding.PolicyTerm.title" = "먼저 이용약관을 읽고 동의해주세요!";
 "Onboarding.PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
 "Onboarding.PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
 "Onboarding.PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
