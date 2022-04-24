@@ -72,18 +72,25 @@ final class SelectGenderViewController: BaseViewController {
     // MARK: Private
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .iosBody17Sb
-//        navBar.titleLabel.text = L10n.SelectGender.NavBar.title
-        navBar.titleLabel.textColor = .darkG35
+        navBar.titleLabel.attributedText = NSMutableAttributedString()
+            .style(to: "3", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.primarydark,
+            ])
+            .style(to: "/4", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.darkG35,
+            ])
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = UIFont.iosHeader31Sb
+        var font = UIFont.aggroLight.withSize(26)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboarding.Gender.title, with: 42)
         label.textColor = .primary
-        label.text = L10n.Onboarding.Gender.title
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -107,7 +114,7 @@ final class SelectGenderViewController: BaseViewController {
             borderColor: .primary,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
         )
 
         group.styleOff = OnOffLabel.Style(
@@ -118,7 +125,7 @@ final class SelectGenderViewController: BaseViewController {
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
         )
 
         group.maxNumberOfOnState = 1
@@ -126,12 +133,12 @@ final class SelectGenderViewController: BaseViewController {
 
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.Onboarding.Gender.Button.next, for: .normal)
-        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
         button.setTitle(L10n.Onboarding.Gender.Button.next, for: .disabled)
-        button.setTitleColor(UIColor.darkG45, for: .disabled)
-        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG5, for: .disabled)
 
         button.titleLabel?.font = .iosBody15B
 
@@ -173,12 +180,12 @@ extension SelectGenderViewController {
         }
 
         femaleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel).offset(76)
+            make.top.equalTo(titleLabel.snp.bottom).offset(106)
             make.trailing.equalTo(view.snp.centerX).offset(-8)
         }
 
         malelabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel).offset(76)
+            make.top.equalTo(titleLabel.snp.bottom).offset(106)
             make.leading.equalTo(view.snp.centerX).offset(8)
         }
 

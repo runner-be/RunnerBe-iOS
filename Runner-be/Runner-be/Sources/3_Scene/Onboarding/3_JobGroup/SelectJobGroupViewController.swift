@@ -89,26 +89,25 @@ final class SelectJobGroupViewController: BaseViewController {
     // MARK: Private
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
+        navBar.titleLabel.attributedText = NSMutableAttributedString()
+            .style(to: "4", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.primarydark,
+            ])
+            .style(to: "/4", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.darkG35,
+            ])
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
     }
 
-    private var titleLabel1 = UILabel().then { label in
-        label.font = UIFont.iosHeader31Sb
+    private var titleLabel = UILabel().then { label in
+        var font = UIFont.aggroLight.withSize(26)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboarding.Job.title, with: 42)
         label.textColor = .primary
-        label.text = L10n.Onboarding.Job.title1
-        label.numberOfLines = 1
-        label.minimumScaleFactor = 0.3
-        label.adjustsFontSizeToFitWidth = true
-    }
-
-    private var titleLabel2 = UILabel().then { label in
-        label.font = UIFont.iosHeader31Sb
-        label.textColor = .primary
-        label.text = L10n.Onboarding.Job.title2
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -121,25 +120,24 @@ final class SelectJobGroupViewController: BaseViewController {
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
-        label.isHidden = true
     }
 
     private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
         if job != .none {
-            partialResult.append(OnOffLabel(text: job.name))
+            partialResult.append(OnOffLabel(text: job.emoji + " " + job.name))
         }
     }
 
     private var jobGroup = OnOffLabelGroup().then { group in
         group.styleOn = OnOffLabel.Style(
-            font: .iosBody15R,
-            backgroundColor: .clear,
-            textColor: .primary,
+            font: .iosBody15B,
+            backgroundColor: .primary,
+            textColor: .darkG6,
             borderWidth: 1,
             borderColor: .primary,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
         )
 
         group.styleOff = OnOffLabel.Style(
@@ -150,7 +148,7 @@ final class SelectJobGroupViewController: BaseViewController {
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
         )
 
         group.maxNumberOfOnState = 1
@@ -169,12 +167,12 @@ final class SelectJobGroupViewController: BaseViewController {
 
     private var completeButton = UIButton().then { button in
         button.setTitle(L10n.Onboarding.Job.Button.Next.title, for: .normal)
-        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
         button.setTitle(L10n.Onboarding.Job.Button.Next.title, for: .disabled)
-        button.setTitleColor(UIColor.darkG45, for: .disabled)
-        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG5, for: .disabled)
 
         button.titleLabel?.font = .iosBody15B
 
@@ -192,8 +190,7 @@ extension SelectJobGroupViewController {
 
         view.addSubviews([
             navBar,
-            titleLabel1,
-            titleLabel2,
+            titleLabel,
             subTitleLabel,
             jobGroupCollectionView,
             completeButton,
@@ -209,29 +206,22 @@ extension SelectJobGroupViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        titleLabel1.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(26)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom).offset(8)
             make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-185)
-        }
-
-        titleLabel2.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel1.snp.bottom).offset(2)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-185)
         }
 
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel2.snp.bottom).offset(12)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalTo(view.snp.leading).offset(18)
             make.trailing.equalTo(view.snp.trailing).offset(-137)
         }
 
         jobGroupCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(76)
-            make.leading.equalTo(view.snp.leading).offset(55)
-            make.trailing.equalTo(view.snp.trailing).offset(-55)
-            make.height.equalTo(244)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(80)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(340)
+            make.height.equalTo(276)
         }
 
         completeButton.snp.makeConstraints { make in

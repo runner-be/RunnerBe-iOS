@@ -524,10 +524,8 @@ internal enum L10n {
     internal enum Job {
       /// 추후 마이페이지에서 수정할 수 있어요!
       internal static let subTitle = L10n.tr("Localizable", "Onboarding.Job.subTitle")
-      /// 어떤 직군에서
-      internal static let title1 = L10n.tr("Localizable", "Onboarding.Job.title1")
-      /// 활동하시나요?
-      internal static let title2 = L10n.tr("Localizable", "Onboarding.Job.title2")
+      /// 어떤 직군에서 활동하시나요?
+      internal static let title = L10n.tr("Localizable", "Onboarding.Job.title")
       internal enum Button {
         internal enum Next {
           /// 완료
@@ -559,10 +557,8 @@ internal enum L10n {
       }
     }
     internal enum PolicyTerm {
-      /// 먼저 이용약관을 읽고
-      internal static let title1 = L10n.tr("Localizable", "Onboarding.PolicyTerm.title1")
-      /// 동의해주세요!
-      internal static let title2 = L10n.tr("Localizable", "Onboarding.PolicyTerm.title2")
+      /// 먼저 이용약관을 읽고 동의해주세요!
+      internal static let title = L10n.tr("Localizable", "Onboarding.PolicyTerm.title")
       internal enum Agree {
         internal enum All {
           /// 모든 약관을 읽었으며, 이에 동의해요
@@ -596,7 +592,7 @@ internal enum L10n {
     /// 나를 충분히 소개했어요. 달릴 준비 완료!
     internal static let title = L10n.tr("Localizable", "OnboardingCompletion.title")
     internal enum Button {
-      /// Start!
+      /// START!
       internal static let start = L10n.tr("Localizable", "OnboardingCompletion.Button.start")
     }
   }

@@ -134,4 +134,39 @@ extension Job {
             return ""
         }
     }
+
+    var emoji: String {
+        switch self {
+        case .psv:
+            return "🏫"
+        case .edu:
+            return "📚"
+        case .psm:
+            return "🖥"
+        case .dev:
+            return "📈"
+        case .mpr:
+            return "🎨"
+        case .des:
+            return "📊"
+        case .ser:
+            return "⚙"
+        case .pro:
+            return "🏭"
+        case .res:
+            return "🔬"
+        case .saf:
+            return "🤝"
+        case .med:
+            return "🏥"
+        case .hur:
+            return "👥"
+        case .acc:
+            return "💰"
+        case .cus:
+            return "🗣"
+        case .none:
+            return ""
+        }
+    }
 }

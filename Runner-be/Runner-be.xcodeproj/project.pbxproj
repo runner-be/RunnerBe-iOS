@@ -15,6 +15,7 @@
 		C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */; };
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
+		C31E632F28153BB500C6B5A0 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */; };
 		C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5427CDBB79009B16DA /* String+regex.swift */; };
 		C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5827CE7599009B16DA /* PolicyType.swift */; };
 		C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */; };
@@ -314,6 +315,7 @@
 		C308AB3627C6E68700CD9198 /* SegmentedControlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlDelegate.swift; sourceTree = "<group>"; };
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
+		C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		C3256B5427CDBB79009B16DA /* String+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+regex.swift"; sourceTree = "<group>"; };
 		C3256B5827CE7599009B16DA /* PolicyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyType.swift; sourceTree = "<group>"; };
 		C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyAPI.swift; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 				C3F74B6E27B0B444002D5846 /* UIView+.swift */,
 				C361B6DA27B2BE4000824ABE /* NSMutableAttributedString+Style.swift */,
 				C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift.swift */,
+				C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -2146,6 +2149,7 @@
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
 				C3A64F8F27C54DA20088E387 /* Post.swift in Sources */,
 				C32C028927CB3A370011419E /* IconBadgeLabel.swift in Sources */,
+				C31E632F28153BB500C6B5A0 /* UILabel+Extension.swift in Sources */,
 				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3256B6027CE801F009B16DA /* PolicyAPIService.swift in Sources */,
