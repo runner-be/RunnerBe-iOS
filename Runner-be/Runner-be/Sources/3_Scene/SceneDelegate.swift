@@ -23,29 +23,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var appComponent: AppComponent?
     var disposeBag = DisposeBag()
 
-    func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions)
+    func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options connectionOptions: UIScene.ConnectionOptions)
     {
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
         let window = UIWindow(windowScene: windowScene)
-//
-//        let appComponent = AppComponent()
-//        let appCoordinator = AppCoordinator(component: appComponent, window: window)
-//        appCoordinator.start()
-//
-//        self.window = window
-//        self.appComponent = appComponent
-//        self.appCoordinator = appCoordinator
-//
-//        if let userActivity = connectionOptions.userActivities.first {
-//            self.scene(scene, continue: userActivity)
-//        }
-        let viewModel = PolicyTermViewModel()
-        let viewController = PolicyTermViewController(viewModel: viewModel)
-        window.rootViewController = viewController
-        window.makeKeyAndVisible()
+
+        let appComponent = AppComponent()
+        let appCoordinator = AppCoordinator(component: appComponent, window: window)
+        appCoordinator.start()
 
         self.window = window
+        self.appComponent = appComponent
+        self.appCoordinator = appCoordinator
+
+        if let userActivity = connectionOptions.userActivities.first {
+            self.scene(scene, continue: userActivity)
+        }
     }
 
     func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

@@ -63,8 +63,7 @@
 
 // MARK: - SelectJobGroup
 "Onboarding.Job.NavBar.title" = "TITLE";
-"Onboarding.Job.title1" = "어떤 직군에서";
-"Onboarding.Job.title2" = "활동하시나요?";
+"Onboarding.Job.title" = "어떤 직군에서 활동하시나요?";
 "Onboarding.Job.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
 "Onboarding.Job.Button.Next.title" = "완료";
 

@@ -524,10 +524,8 @@ internal enum L10n {
     internal enum Job {
       /// 추후 마이페이지에서 수정할 수 있어요!
       internal static let subTitle = L10n.tr("Localizable", "Onboarding.Job.subTitle")
-      /// 어떤 직군에서
-      internal static let title1 = L10n.tr("Localizable", "Onboarding.Job.title1")
-      /// 활동하시나요?
-      internal static let title2 = L10n.tr("Localizable", "Onboarding.Job.title2")
+      /// 어떤 직군에서 활동하시나요?
+      internal static let title = L10n.tr("Localizable", "Onboarding.Job.title")
       internal enum Button {
         internal enum Next {
           /// 완료

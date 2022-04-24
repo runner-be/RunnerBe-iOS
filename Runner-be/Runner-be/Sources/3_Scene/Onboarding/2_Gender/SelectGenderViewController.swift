@@ -133,12 +133,12 @@ final class SelectGenderViewController: BaseViewController {
 
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.Onboarding.Gender.Button.next, for: .normal)
-        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
         button.setTitle(L10n.Onboarding.Gender.Button.next, for: .disabled)
-        button.setTitleColor(UIColor.darkG45, for: .disabled)
-        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG5, for: .disabled)
 
         button.titleLabel?.font = .iosBody15B
 
