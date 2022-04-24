@@ -98,7 +98,6 @@ final class PolicyTermViewController: BaseViewController {
 
     private var titleLabel = UILabel().then { label in
         var font = UIFont.aggroLight.withSize(26)
-
         label.font = font
         label.setTextWithLineHeight(text: L10n.Onboarding.PolicyTerm.title, with: 42)
         label.textColor = UIColor.primary
