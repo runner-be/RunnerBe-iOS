@@ -86,7 +86,7 @@ class OnboardingCompletionViewController: RunnerbeBaseViewController {
 
 extension OnboardingCompletionViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             titleLabel,

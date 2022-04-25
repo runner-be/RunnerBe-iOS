@@ -148,7 +148,7 @@ final class PolicyTermViewController: RunnerbeBaseViewController {
     }
 
     private var policyHDividerView = UIView().then { view in
-        view.backgroundColor = .bgTop
+        view.backgroundColor = .darkG7
     }
 
     private var nextButton = UIButton().then { button in
@@ -186,7 +186,7 @@ final class PolicyTermViewController: RunnerbeBaseViewController {
 
 extension PolicyTermViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             navBar,

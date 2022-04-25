@@ -152,7 +152,7 @@ final class SelectGenderViewController: RunnerbeBaseViewController {
 
 extension SelectGenderViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             navBar,
