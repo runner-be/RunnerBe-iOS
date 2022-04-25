@@ -67,7 +67,7 @@ class OnboardingCoverViewController: RunnerbeBaseViewController {
     }
 
     private func hideContentViewAnimation() {
-        contentViewBottom.constant = 366
+        contentViewBottom.constant = 366 + AppContext.shared.safeAreaInsets.bottom
         UIView.animate(
             withDuration: 0.2,
             delay: 0,
@@ -93,7 +93,7 @@ class OnboardingCoverViewController: RunnerbeBaseViewController {
         view.clipsToBounds = true
     }
 
-    private lazy var contentViewBottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 366)
+    private lazy var contentViewBottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 366 + AppContext.shared.safeAreaInsets.bottom)
 
     private var closeBtn = UIButton().then { button in
         button.setImage(Asset.x.uiImage, for: .normal)
@@ -178,7 +178,7 @@ extension OnboardingCoverViewController {
         }
 
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(366) // close: 0 open: 255
+            make.height.equalTo(366 + AppContext.shared.safeAreaInsets.bottom) // close: 0 open: 255
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
