@@ -20,6 +20,7 @@
 		C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */; };
 		C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */; };
 		C31E633828171D0400C6B5A0 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633728171D0400C6B5A0 /* MessageViewController.swift */; };
+		C31E633B28173B5D00C6B5A0 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633A28173B5D00C6B5A0 /* AppContext.swift */; };
 		C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5427CDBB79009B16DA /* String+regex.swift */; };
 		C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5827CE7599009B16DA /* PolicyType.swift */; };
 		C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */; };
@@ -320,6 +321,7 @@
 		C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCoordinator.swift; sourceTree = "<group>"; };
 		C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		C31E633728171D0400C6B5A0 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		C31E633A28173B5D00C6B5A0 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		C3256B5427CDBB79009B16DA /* String+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+regex.swift"; sourceTree = "<group>"; };
 		C3256B5827CE7599009B16DA /* PolicyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyType.swift; sourceTree = "<group>"; };
 		C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyAPI.swift; sourceTree = "<group>"; };
@@ -936,6 +938,7 @@
 			isa = PBXGroup;
 			children = (
 				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
+				C31E633A28173B5D00C6B5A0 /* AppContext.swift */,
 				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
 				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
 				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
@@ -2202,6 +2205,7 @@
 				C3498F4827C13D5D003EDD0F /* SelectDateModalViewModel.swift in Sources */,
 				C3F74B7A27B1262A002D5846 /* BirthViewModel.swift in Sources */,
 				C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */,
+				C31E633B28173B5D00C6B5A0 /* AppContext.swift in Sources */,
 				C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */,
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
