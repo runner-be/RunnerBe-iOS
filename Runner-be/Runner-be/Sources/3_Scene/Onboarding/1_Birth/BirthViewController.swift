@@ -140,7 +140,7 @@ final class BirthViewController: RunnerbeBaseViewController {
 
 extension BirthViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         pickerView.dataSource = self
         pickerView.delegate = self

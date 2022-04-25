@@ -186,7 +186,7 @@ final class SelectJobGroupViewController: RunnerbeBaseViewController {
 
 extension SelectJobGroupViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             navBar,
