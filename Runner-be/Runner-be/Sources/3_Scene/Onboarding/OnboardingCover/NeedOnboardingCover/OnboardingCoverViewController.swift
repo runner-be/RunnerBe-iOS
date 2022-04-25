@@ -22,6 +22,11 @@ class OnboardingCoverViewController: RunnerbeBaseViewController {
         viewModelOutput()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showContentViewAnimation()
+    }
+
     init(viewModel: OnboardingCoverViewModel) {
         self.viewModel = viewModel
         super.init()
@@ -35,36 +40,86 @@ class OnboardingCoverViewController: RunnerbeBaseViewController {
     private var viewModel: OnboardingCoverViewModel
 
     private func viewModelInput() {
+        closeBtn.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.hideContentViewAnimation()
+            })
+            .disposed(by: disposeBag)
+
         cancelBtn.rx.tap
-            .bind(to: viewModel.inputs.lookMain)
+            .subscribe(onNext: { [weak self] in
+                self?.hideContentViewAnimation()
+            })
             .disposed(by: disposeBag)
 
         onboardBtn.rx.tap
             .bind(to: viewModel.inputs.goOnboard)
             .disposed(by: disposeBag)
-
-        testCertificated.rx.tap
-            .bind(to: viewModel.inputs.testCertificated)
-            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}
 
+    private func showContentViewAnimation() {
+        contentViewBottom.constant = 0
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func hideContentViewAnimation() {
+        contentViewBottom.constant = 366
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: { _ in
+                self.viewModel.inputs.lookMain.onNext(())
+            }
+        )
+    }
+
+    private var dimView = UIView().then { view in
+        view.backgroundColor = .darkBlack.withAlphaComponent(0.7)
+    }
+
+    private var contentView = UIView().then { view in
+        view.backgroundColor = .darkG6
+
+        view.layer.cornerRadius = 10
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+    }
+
+    private lazy var contentViewBottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 366)
+
+    private var closeBtn = UIButton().then { button in
+        button.setImage(Asset.x.uiImage, for: .normal)
+
+        button.snp.makeConstraints { make in
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
+    }
+
     private var titleLabel = UILabel().then { label in
+        var font = UIFont.aggroLight.withSize(22)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboard.Cover.title, with: 35.2)
         label.textColor = .darkG1
-        label.font = .iosHeader31Sb
-        label.text = L10n.Onboard.Cover.title
-        label.numberOfLines = 2
         label.textAlignment = .center
+        label.numberOfLines = 2
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
     }
 
     private var titleIcon = UIImageView().then { view in
-        view.image = Asset.logo.uiImage
+        view.image = Asset.lockLocked.uiImage
         view.snp.makeConstraints { make in
-            make.width.equalTo(136)
-            make.height.equalTo(136)
+            make.width.equalTo(96)
+            make.height.equalTo(96)
         }
     }
 
@@ -94,66 +149,65 @@ class OnboardingCoverViewController: RunnerbeBaseViewController {
         )
         button.setAttributedTitle(attributedString, for: .normal)
     }
-
-    private var testCertificated = UIButton().then { button in
-        button.setTitle("CERTIFICATED", for: .normal)
-        button.setTitleColor(.darkG6, for: .normal)
-        button.setBackgroundColor(UIColor.primary, for: .normal)
-
-        button.titleLabel?.font = .iosBody17R
-
-        button.snp.makeConstraints { make in
-            make.height.equalTo(50)
-        }
-        button.layer.cornerRadius = 25
-        button.clipsToBounds = true
-        button.isHidden = true
-    }
 }
 
 // MARK: - Layout
 
 extension OnboardingCoverViewController {
     private func setupViews() {
-        view.backgroundColor = .darkBlack.withAlphaComponent(0.7)
-
         view.addSubviews([
+            dimView,
+            contentView,
+        ])
+
+        contentView.addSubviews([
+            closeBtn,
             titleLabel,
             titleIcon,
             onboardBtn,
             cancelBtn,
-
-            // TEST
-            testCertificated,
         ])
     }
 
     private func initialLayout() {
-        titleIcon.snp.makeConstraints { make in
-            make.center.equalTo(view.snp.center)
+        dimView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+
+        contentView.snp.makeConstraints { make in
+            make.height.equalTo(366) // close: 0 open: 255
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+        contentViewBottom.isActive = true
+
+        closeBtn.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(titleIcon.snp.top).offset(-28)
-            make.leading.equalTo(view.snp.leading).offset(38)
-            make.trailing.equalTo(view.snp.trailing).offset(-38)
+            make.top.equalTo(contentView.snp.top).offset(40)
+            make.centerX.equalTo(contentView.snp.centerX)
+        }
+
+        titleIcon.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(contentView.snp.centerX)
         }
 
         onboardBtn.snp.makeConstraints { make in
-            make.top.equalTo(titleIcon.snp.bottom).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.top.equalTo(titleIcon.snp.bottom).offset(29)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.width.equalTo(280)
         }
 
         cancelBtn.snp.makeConstraints { make in
-            make.top.equalTo(onboardBtn.snp.bottom).offset(20)
-            make.centerX.equalTo(view.snp.centerX)
-        }
-
-        testCertificated.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(100)
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-20)
+            make.top.equalTo(onboardBtn.snp.bottom).offset(16)
+            make.centerX.equalTo(contentView.snp.centerX)
         }
     }
 }

@@ -38,6 +38,7 @@ internal enum Asset {
   internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
   internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
   internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
+  internal static let lockLocked = ImageAsset(name: "Lock_locked")
   internal static let logo = ImageAsset(name: "Logo")
   internal static let logoSignature = ImageAsset(name: "Logo_signature")
   internal static let messageTabIconFocused = ImageAsset(name: "MessageTabIcon_focused")

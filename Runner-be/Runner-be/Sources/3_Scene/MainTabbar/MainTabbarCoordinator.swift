@@ -60,13 +60,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 self?.presentOnboaradingCover(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
-
-        scene.VM.routes.waitOnboardingCover
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentWaitOnboaradingCover(vm: vm, animated: false)
-            })
-            .disposed(by: sceneDisposeBag)
     }
 
     private func configureAndGetHomeScene(vm: MainTabViewModel) -> UIViewController {
@@ -158,18 +151,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 case .toMain:
                     vm.routeInputs.onboardingCoverClosed.onNext(())
                 }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
-    }
-
-    private func presentWaitOnboaradingCover(vm _: MainTabViewModel, animated: Bool) {
-        let comp = component.onboardingWaitCoverComponent
-        let coord = WaitOnboardingCoverCoordinator(component: comp, navController: navigationController)
-
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
-                defer { self?.releaseChild(coordinator: coord) }
             })
 
         addChildDisposable(id: coord.identifier, disposable: disposable)

@@ -134,10 +134,6 @@
 		C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302027BA012E0076AB85 /* String+Subscript.swift */; };
 		C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302327BA20A30076AB85 /* VerbosePlugin.swift */; };
 		C38ABD8427D31EAD0025929E /* LoginType.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8327D31EAD0025929E /* LoginType.swift.swift */; };
-		C38ABD8827D324600025929E /* WaitOnboardingCoverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */; };
-		C38ABD8A27D324690025929E /* WaitOnboardingCoverCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */; };
-		C38ABD8C27D324730025929E /* WaitOnboardingCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */; };
-		C38ABD8E27D324CC0025929E /* WaitOnboradingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */; };
 		C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9127D332600025929E /* NeedleGenerated.swift */; };
 		C38ABD9527D336010025929E /* ReportModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9427D336010025929E /* ReportModalComponent.swift */; };
 		C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */; };
@@ -437,10 +433,6 @@
 		C379302027BA012E0076AB85 /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
 		C379302327BA20A30076AB85 /* VerbosePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbosePlugin.swift; sourceTree = "<group>"; };
 		C38ABD8327D31EAD0025929E /* LoginType.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift.swift; sourceTree = "<group>"; };
-		C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverComponent.swift; sourceTree = "<group>"; };
-		C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverCoordinator.swift; sourceTree = "<group>"; };
-		C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboardingCoverViewModel.swift; sourceTree = "<group>"; };
-		C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOnboradingViewController.swift; sourceTree = "<group>"; };
 		C38ABD9127D332600025929E /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C38ABD9427D336010025929E /* ReportModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalComponent.swift; sourceTree = "<group>"; };
 		C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalCoordinator.swift; sourceTree = "<group>"; };
@@ -1216,17 +1208,6 @@
 			path = NeedOnboardingCover;
 			sourceTree = "<group>";
 		};
-		C38ABD8627D324500025929E /* WaitOnboardingCover */ = {
-			isa = PBXGroup;
-			children = (
-				C38ABD8727D324600025929E /* WaitOnboardingCoverComponent.swift */,
-				C38ABD8927D324690025929E /* WaitOnboardingCoverCoordinator.swift */,
-				C38ABD8B27D324730025929E /* WaitOnboardingCoverViewModel.swift */,
-				C38ABD8D27D324CC0025929E /* WaitOnboradingViewController.swift */,
-			);
-			path = WaitOnboardingCover;
-			sourceTree = "<group>";
-		};
 		C38ABD9327D335F00025929E /* ReportModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1813,7 +1794,6 @@
 		C3F1EBB427D13DD700207F35 /* OnboardingCover */ = {
 			isa = PBXGroup;
 			children = (
-				C38ABD8627D324500025929E /* WaitOnboardingCover */,
 				C38ABD8527D3243E0025929E /* NeedOnboardingCover */,
 			);
 			path = OnboardingCover;
@@ -2090,7 +2070,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
-				C38ABD8C27D324730025929E /* WaitOnboardingCoverViewModel.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				C32C028727CB24720011419E /* MyInfoView.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
@@ -2135,7 +2114,6 @@
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
-				C38ABD8827D324600025929E /* WaitOnboardingCoverComponent.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* RunnerbeBaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
@@ -2229,7 +2207,6 @@
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
-				C38ABD8E27D324CC0025929E /* WaitOnboradingViewController.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
@@ -2237,7 +2214,6 @@
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
-				C38ABD8A27D324690025929E /* WaitOnboardingCoverCoordinator.swift in Sources */,
 				C34BA6B527CD4805003E393A /* MyRunResElement.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
