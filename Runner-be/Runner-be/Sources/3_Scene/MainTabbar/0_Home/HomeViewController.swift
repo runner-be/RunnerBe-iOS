@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class HomeViewController: BaseViewController {
+class HomeViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -269,20 +269,6 @@ extension HomeViewController {
             selectedImage: Asset.homeTabIconFocused.uiImage
         )
         tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

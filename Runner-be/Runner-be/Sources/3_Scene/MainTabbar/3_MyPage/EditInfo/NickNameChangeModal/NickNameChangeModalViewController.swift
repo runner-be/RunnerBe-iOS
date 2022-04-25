@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class NickNameChangeModalViewController: BaseViewController {
+class NickNameChangeModalViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class PostDetailViewController: BaseViewController {
+class PostDetailViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -257,20 +257,6 @@ extension PostDetailViewController {
             make.trailing.equalTo(applicantBtn.snp.trailing)
             make.top.equalTo(applicantBtn.snp.top)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 
     func makeFooter(writer: Bool, applied: Bool, satisfied: Bool, finished: Bool) {

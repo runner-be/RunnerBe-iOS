@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class BirthViewController: BaseViewController {
+final class BirthViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -201,20 +201,6 @@ extension BirthViewController {
             make.height.equalTo(48)
         }
         nextButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

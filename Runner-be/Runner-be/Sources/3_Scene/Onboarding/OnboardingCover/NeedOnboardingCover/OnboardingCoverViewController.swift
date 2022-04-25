@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class OnboardingCoverViewController: BaseViewController {
+class OnboardingCoverViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

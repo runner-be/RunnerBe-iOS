@@ -90,7 +90,7 @@
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
-		C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */; };
+		C34FDA6727AD5C83007718F8 /* RunnerbeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */; };
 		C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */; };
 		C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */; };
 		C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5827AD5C82007718F8 /* UIStackView+.swift */; };
@@ -396,7 +396,7 @@
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C34FDA3F27AD5BC7007718F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C34FDA4027AD5BC7007718F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerbeBaseViewController.swift; sourceTree = "<group>"; };
 		C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
 		C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
 		C34FDA5827AD5C82007718F8 /* UIStackView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
@@ -1305,7 +1305,7 @@
 			isa = PBXGroup;
 			children = (
 				C39E926827BB0ADA00798F3A /* Coordinator */,
-				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
+				C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */,
 				C3BA45C627B5AEB40048CA76 /* BaseViewModel.swift */,
 			);
 			path = 6_Base;
@@ -2137,7 +2137,7 @@
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C38ABD8827D324600025929E /* WaitOnboardingCoverComponent.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
-				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
+				C34FDA6727AD5C83007718F8 /* RunnerbeBaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,

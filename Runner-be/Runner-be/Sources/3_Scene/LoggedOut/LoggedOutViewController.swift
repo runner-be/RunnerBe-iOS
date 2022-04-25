@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-final class LoggedOutViewController: BaseViewController {
+final class LoggedOutViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     init(viewModel: LoggedOutViewModel) {
@@ -132,20 +132,6 @@ extension LoggedOutViewController {
             make.left.equalTo(view.snp.left).offset(16)
             make.right.equalTo(view.snp.right).offset(-16)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
 }
 

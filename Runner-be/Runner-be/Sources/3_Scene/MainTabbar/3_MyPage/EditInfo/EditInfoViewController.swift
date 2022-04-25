@@ -14,7 +14,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EditInfoViewController: BaseViewController {
+class EditInfoViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -372,20 +372,6 @@ extension EditInfoViewController {
             make.leading.equalTo(selectNickName.snp.leading)
             make.trailing.equalTo(selectNickName.snp.trailing)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 
