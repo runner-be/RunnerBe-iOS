@@ -16,6 +16,10 @@
 		C31C200F27AE678C00960E8A /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C200E27AE678C00960E8A /* Font+.swift */; };
 		C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */; };
 		C31E632F28153BB500C6B5A0 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */; };
+		C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633128171CEE00C6B5A0 /* MessageComponent.swift */; };
+		C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */; };
+		C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */; };
+		C31E633828171D0400C6B5A0 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633728171D0400C6B5A0 /* MessageViewController.swift */; };
 		C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5427CDBB79009B16DA /* String+regex.swift */; };
 		C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5827CE7599009B16DA /* PolicyType.swift */; };
 		C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */; };
@@ -316,6 +320,10 @@
 		C31C200E27AE678C00960E8A /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C31C201027AE6AEE00960E8A /* UIColor+Zeplin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Zeplin.swift"; sourceTree = "<group>"; };
 		C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		C31E633128171CEE00C6B5A0 /* MessageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComponent.swift; sourceTree = "<group>"; };
+		C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCoordinator.swift; sourceTree = "<group>"; };
+		C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		C31E633728171D0400C6B5A0 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		C3256B5427CDBB79009B16DA /* String+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+regex.swift"; sourceTree = "<group>"; };
 		C3256B5827CE7599009B16DA /* PolicyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyType.swift; sourceTree = "<group>"; };
 		C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyAPI.swift; sourceTree = "<group>"; };
@@ -639,6 +647,17 @@
 			path = WritingPost;
 			sourceTree = "<group>";
 		};
+		C31E633028171CC000C6B5A0 /* 2_Message */ = {
+			isa = PBXGroup;
+			children = (
+				C31E633128171CEE00C6B5A0 /* MessageComponent.swift */,
+				C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */,
+				C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */,
+				C31E633728171D0400C6B5A0 /* MessageViewController.swift */,
+			);
+			path = 2_Message;
+			sourceTree = "<group>";
+		};
 		C3256B5A27CE7DF2009B16DA /* PolicyAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -945,6 +964,7 @@
 				C3C9734327CA5EBA00232251 /* MainTabbarController.swift */,
 				C38F8F2627AD95FC0050137D /* 0_Home */,
 				C38F8F2727AD960C0050137D /* 1_BookMark */,
+				C31E633028171CC000C6B5A0 /* 2_Message */,
 				C38F8F2927AD961D0050137D /* 3_MyPage */,
 			);
 			path = MainTabbar;
@@ -2187,6 +2207,7 @@
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
 				C3C9732527C9373900232251 /* User.swift in Sources */,
+				C31E633828171D0400C6B5A0 /* MessageViewController.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
@@ -2256,6 +2277,7 @@
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
+				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
@@ -2308,6 +2330,7 @@
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
+				C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C3AB6B61280EBFCC00D58AEC /* ImagePickerType.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
@@ -2318,6 +2341,7 @@
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
+				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
 				C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */,

@@ -42,6 +42,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         scene.VC.viewControllers = [
             configureAndGetHomeScene(vm: scene.VM),
             configureAndGetBookMarkScene(vm: scene.VM),
+            configureAndGetMessageScene(vm: scene.VM),
             configureAndGetMyPageScene(vm: scene.VM),
         ]
 
@@ -100,6 +101,21 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         vm.routes.bookmark
             .subscribe(onNext: {
                 comp.scene.VM.routeInputs.needUpdate.onNext(true)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        return comp.scene.VC
+    }
+
+    private func configureAndGetMessageScene(vm: MainTabViewModel) -> UIViewController {
+        let comp = component.messageComponent
+        let coord = MessageCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: false)
+
+        vm.routes.message
+            .subscribe(onNext: {
+                comp.scene.VM.routeInputs.needsUpdate.onNext(true)
             })
             .disposed(by: sceneDisposeBag)
 
