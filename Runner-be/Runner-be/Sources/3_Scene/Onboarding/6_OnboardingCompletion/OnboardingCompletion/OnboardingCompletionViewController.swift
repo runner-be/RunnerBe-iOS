@@ -47,7 +47,7 @@ class OnboardingCompletionViewController: RunnerbeBaseViewController {
     var titleLabel = UILabel().then { label in
         var font = UIFont.aggroLight.withSize(22)
         label.font = font
-        label.setTextWithLineHeight(text: L10n.OnboardingCompletion.title, with: 35.2)
+        label.setTextWithLineHeight(text: L10n.Onboarding.Completion.title, with: 35.2)
         label.textColor = .primary
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -58,7 +58,7 @@ class OnboardingCompletionViewController: RunnerbeBaseViewController {
     var subTitleLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG25
-        label.text = L10n.OnboardingCompletion.subTitle
+        label.text = L10n.Onboarding.Completion.subTitle
         label.textAlignment = .center
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
@@ -70,7 +70,7 @@ class OnboardingCompletionViewController: RunnerbeBaseViewController {
     }
 
     private var startButton = UIButton().then { button in
-        button.setTitle(L10n.OnboardingCompletion.Button.start, for: .normal)
+        button.setTitle(L10n.Onboarding.Completion.Button.start, for: .normal)
         button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 

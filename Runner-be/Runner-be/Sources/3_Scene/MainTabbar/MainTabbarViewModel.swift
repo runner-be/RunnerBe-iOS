@@ -21,7 +21,7 @@ final class MainTabViewModel: BaseViewModel {
                 case .nonMember:
                     self?.routes.onboardingCover.onNext(())
                 case .waitCertification:
-                    self?.routes.waitOnboardingCover.onNext(())
+                    self?.routes.onboardingCover.onNext(())
                 case .member:
                     break
                 }
@@ -68,7 +68,7 @@ final class MainTabViewModel: BaseViewModel {
                 case .nonMember:
                     self.routes.onboardingCover.onNext(())
                 case .waitCertification:
-                    self.routes.waitOnboardingCover.onNext(())
+                    self.routes.onboardingCover.onNext(())
                 case .member:
                     break
                 }
@@ -95,7 +95,6 @@ final class MainTabViewModel: BaseViewModel {
         var message = PublishSubject<Void>()
         var myPage = PublishSubject<Void>()
         var onboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
-        var waitOnboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
     }
 
     struct RouteInput {
