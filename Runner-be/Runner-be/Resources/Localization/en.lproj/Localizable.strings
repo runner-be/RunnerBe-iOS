@@ -73,9 +73,9 @@
 "Onboarding.Modal.Cancel.Button.no" = "아니요";
 
 // MARK: - OnboardingCompletion
-"OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
-"OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
-"OnboardingCompletion.Button.start" = "START!";
+"Onboarding.Completion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
+"Onboarding.Completion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
+"Onboarding.Completion.Button.start" = "START!";
 
 // MARK: - Job
 

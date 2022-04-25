@@ -509,6 +509,16 @@ internal enum L10n {
         internal static let age = L10n.tr("Localizable", "Onboarding.Birth.error.age")
       }
     }
+    internal enum Completion {
+      /// 이제 러너비에서 함께 달려볼까요?
+      internal static let subTitle = L10n.tr("Localizable", "Onboarding.Completion.subTitle")
+      /// 나를 충분히 소개했어요. 달릴 준비 완료!
+      internal static let title = L10n.tr("Localizable", "Onboarding.Completion.title")
+      internal enum Button {
+        /// START!
+        internal static let start = L10n.tr("Localizable", "Onboarding.Completion.Button.start")
+      }
+    }
     internal enum Gender {
       /// 성별을 선택해주세요.
       internal static let title = L10n.tr("Localizable", "Onboarding.Gender.title")
@@ -583,17 +593,6 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Onboarding.PolicyTerm.Button.Next.title")
         }
       }
-    }
-  }
-
-  internal enum OnboardingCompletion {
-    /// 이제 러너비에서 함께 달려볼까요?
-    internal static let subTitle = L10n.tr("Localizable", "OnboardingCompletion.subTitle")
-    /// 나를 충분히 소개했어요. 달릴 준비 완료!
-    internal static let title = L10n.tr("Localizable", "OnboardingCompletion.title")
-    internal enum Button {
-      /// START!
-      internal static let start = L10n.tr("Localizable", "OnboardingCompletion.Button.start")
     }
   }
 
