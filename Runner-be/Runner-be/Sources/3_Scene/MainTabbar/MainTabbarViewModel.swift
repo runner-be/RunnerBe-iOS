@@ -36,6 +36,10 @@ final class MainTabViewModel: BaseViewModel {
             .bind(to: routes.bookmark)
             .disposed(by: disposeBag)
 
+        inputs.messageSelected
+            .bind(to: routes.message)
+            .disposed(by: disposeBag)
+
         inputs.myPageSelected
             .bind(to: routes.myPage)
             .disposed(by: disposeBag)
@@ -75,6 +79,7 @@ final class MainTabViewModel: BaseViewModel {
     struct Input {
         var homeSelected = PublishSubject<Void>()
         var bookMarkSelected = PublishSubject<Void>()
+        var messageSelected = PublishSubject<Void>()
         var myPageSelected = PublishSubject<Void>()
         var showOnboardingCover = PublishSubject<Void>()
     }
@@ -87,6 +92,7 @@ final class MainTabViewModel: BaseViewModel {
     struct Route {
         var home = PublishSubject<Void>()
         var bookmark = PublishSubject<Void>()
+        var message = PublishSubject<Void>()
         var myPage = PublishSubject<Void>()
         var onboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
         var waitOnboardingCover = ReplaySubject<Void>.create(bufferSize: 1)

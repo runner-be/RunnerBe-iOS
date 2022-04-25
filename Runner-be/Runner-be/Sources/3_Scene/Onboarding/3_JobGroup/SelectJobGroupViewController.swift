@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-final class SelectJobGroupViewController: BaseViewController {
+final class SelectJobGroupViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -231,19 +231,5 @@ extension SelectJobGroupViewController {
             make.height.equalTo(48)
         }
         completeButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

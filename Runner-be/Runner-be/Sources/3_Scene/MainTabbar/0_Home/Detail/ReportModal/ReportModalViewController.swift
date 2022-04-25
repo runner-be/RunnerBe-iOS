@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class ReportModalViewController: BaseViewController {
+class ReportModalViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

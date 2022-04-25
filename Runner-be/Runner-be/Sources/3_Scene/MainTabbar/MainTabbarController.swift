@@ -60,6 +60,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
                 case 1:
                     viewModel.inputs.bookMarkSelected.onNext(())
                 case 2:
+                    viewModel.inputs.messageSelected.onNext(())
+                case 3:
                     viewModel.inputs.myPageSelected.onNext(())
                 default: break
                 }

@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class HomeFilterViewController: BaseViewController {
+class HomeFilterViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -205,19 +205,5 @@ extension HomeFilterViewController {
             make.trailing.equalTo(vStackView.snp.trailing)
             make.height.equalTo(1)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

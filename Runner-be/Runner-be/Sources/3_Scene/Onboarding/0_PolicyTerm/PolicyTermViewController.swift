@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import UIKit
 
-final class PolicyTermViewController: BaseViewController {
+final class PolicyTermViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -264,19 +264,5 @@ extension PolicyTermViewController {
             make.height.equalTo(48)
         }
         nextButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class WaitOnboardingViewController: BaseViewController {
+class WaitOnboardingViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

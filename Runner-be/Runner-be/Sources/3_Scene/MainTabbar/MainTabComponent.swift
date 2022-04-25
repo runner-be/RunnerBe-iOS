@@ -26,6 +26,10 @@ final class MainTabComponent: Component<MainTabDependency> {
         return BookMarkComponent(parent: self)
     }
 
+    var messageComponent: MessageComponent {
+        return MessageComponent(parent: self)
+    }
+
     var myPageComponent: MyPageComponent {
         return MyPageComponent(parent: self)
     }
