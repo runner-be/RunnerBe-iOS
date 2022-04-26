@@ -29,14 +29,16 @@ final class RunnerbeNavBar: UIView {
     var titleSpacing: CGFloat = 12 {
         didSet {
             titleLabel.snp.updateConstraints { make in
-                make.centerX.equalTo(self.snp.centerX)
-                make.bottom.equalTo(self.snp.bottom).offset(-titleSpacing)
+                make.centerX.equalTo(navContentView.snp.centerX)
+                make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
             }
         }
     }
 
     // MARK: Internal
 
+    var topNotchView = UIView()
+    var navContentView = UIView()
     var leftBtnItem = UIButton()
     var rightBtnItem = UIButton()
     var rightSecondBtnItem = UIButton()
@@ -48,6 +50,11 @@ final class RunnerbeNavBar: UIView {
 extension RunnerbeNavBar {
     private func setupViews() {
         addSubviews([
+            topNotchView,
+            navContentView,
+        ])
+
+        navContentView.addSubviews([
             leftBtnItem,
             rightBtnItem,
             rightSecondBtnItem,
@@ -56,13 +63,28 @@ extension RunnerbeNavBar {
     }
 
     private func initialLayout() {
+        topNotchView.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.top.equalTo(self.snp.top)
+            make.height.equalTo(AppContext.shared.safeAreaInsets.top)
+        }
+
+        navContentView.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.top.equalTo(topNotchView.snp.bottom)
+            make.bottom.equalTo(self.snp.bottom)
+            make.height.equalTo(44)
+        }
+
         leftBtnItem.snp.makeConstraints { make in
-            make.leading.equalTo(self.snp.leading).offset(16)
+            make.leading.equalTo(navContentView.snp.leading).offset(16)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         rightBtnItem.snp.makeConstraints { make in
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.trailing.equalTo(navContentView.snp.trailing).offset(-16)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
@@ -72,12 +94,8 @@ extension RunnerbeNavBar {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.snp.centerX)
-            make.bottom.equalTo(self.snp.bottom).offset(-titleSpacing)
-        }
-
-        snp.makeConstraints { make in
-            make.height.equalTo(44)
+            make.centerX.equalTo(navContentView.snp.centerX)
+            make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
         }
     }
 }

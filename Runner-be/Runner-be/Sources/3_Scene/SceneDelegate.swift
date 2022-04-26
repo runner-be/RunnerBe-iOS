@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else { return }
         let window = UIWindow(windowScene: windowScene)
         AppContext.shared.safeAreaInsets = window.safeAreaInsets
-        
+
         let appComponent = AppComponent()
         let appCoordinator = AppCoordinator(component: appComponent, window: window)
         appCoordinator.start()
