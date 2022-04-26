@@ -27,7 +27,6 @@ class MyPageViewController: RunnerbeBaseViewController {
     init(viewModel: MyPageViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -406,15 +405,6 @@ extension MyPageViewController {
             make.width.equalTo(220)
         }
         myRunningEmptyButton.layer.cornerRadius = 20
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.myPageTabIconNormal.uiImage,
-            selectedImage: Asset.myPageTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
     }
 }
 

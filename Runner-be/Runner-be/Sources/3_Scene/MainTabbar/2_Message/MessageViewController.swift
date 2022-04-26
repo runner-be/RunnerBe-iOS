@@ -25,7 +25,6 @@ class MessageViewController: RunnerbeBaseViewController {
     init(viewModel: MessageViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -47,13 +46,4 @@ extension MessageViewController {
     }
 
     private func initialLayout() {}
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.messageTabIconNormal.uiImage,
-            selectedImage: Asset.messageTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
-    }
 }

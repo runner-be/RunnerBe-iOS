@@ -27,7 +27,6 @@ class HomeViewController: RunnerbeBaseViewController {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -260,15 +259,6 @@ extension HomeViewController {
         emptyLabel.snp.makeConstraints { make in
             make.center.equalTo(postCollectionView.snp.center)
         }
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.homeTabIconNormal.uiImage,
-            selectedImage: Asset.homeTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
     }
 }
 

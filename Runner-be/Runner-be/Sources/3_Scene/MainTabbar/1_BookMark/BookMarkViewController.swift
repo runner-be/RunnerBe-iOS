@@ -26,7 +26,6 @@ class BookMarkViewController: RunnerbeBaseViewController {
     init(viewModel: BookMarkViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -156,15 +155,6 @@ extension BookMarkViewController {
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.bookmarkTabIconNormal.uiImage,
-            selectedImage: Asset.bookmarkTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
     }
 }
 
