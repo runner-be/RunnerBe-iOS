@@ -58,7 +58,7 @@ class MainTabViewController: RunnerbeBaseViewController {
     private func viewModelOutput() {
         viewModel.outputs.selectScene
             .subscribe(onNext: { [weak self] index in
-                self?.tapSelected(at: index)
+                self?.tabSelected(at: index)
                 self?.showSelectedVC(at: index)
             })
             .disposed(by: disposeBag)
@@ -86,7 +86,7 @@ class MainTabViewController: RunnerbeBaseViewController {
         }
     }
 
-    private func tapSelected(at index: Int) {
+    private func tabSelected(at index: Int) {
         guard index < 4 else { return }
 
         homeBtn.isSelected = false
