@@ -34,10 +34,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     private func startTabbarController() {
         let scene = component.scene
         UITabBar.appearance().backgroundColor = UIColor.darkG6
-        scene.VC.setColors(
-            iconNormal: UIColor.darkG35,
-            selected: UIColor.primary
-        )
 
         scene.VC.viewControllers = [
             configureAndGetHomeScene(vm: scene.VM),
