@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class HomeViewController: BaseViewController {
+class HomeViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -27,7 +27,6 @@ class HomeViewController: BaseViewController {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -217,7 +216,7 @@ extension HomeViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -260,29 +259,6 @@ extension HomeViewController {
         emptyLabel.snp.makeConstraints { make in
             make.center.equalTo(postCollectionView.snp.center)
         }
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.homeTabIconNormal.uiImage,
-            selectedImage: Asset.homeTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

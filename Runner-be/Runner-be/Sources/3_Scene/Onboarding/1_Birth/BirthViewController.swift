@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class BirthViewController: BaseViewController {
+final class BirthViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -65,16 +65,24 @@ final class BirthViewController: BaseViewController {
     // MARK: Private
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .iosBody17Sb
-//        navBar.titleLabel.text = L10n.Birth.NavBar.title
-        navBar.titleLabel.textColor = .darkG35
+        navBar.titleLabel.attributedText = NSMutableAttributedString()
+            .style(to: "2", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.primarydark,
+            ])
+            .style(to: "/4", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.darkG35,
+            ])
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosHeader31Sb
+        var font = UIFont.aggroLight.withSize(26)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboarding.PolicyTerm.title, with: 42)
         label.text = L10n.Onboarding.Birth.title
         label.textColor = .primary
         label.numberOfLines = 1
@@ -84,7 +92,7 @@ final class BirthViewController: BaseViewController {
 
     private var subTitleLabel1 = UILabel().then { label in
         label.font = .iosBody15R
-        label.text = L10n.Onboarding.Birth.subTitle1
+        label.setTextWithLineHeight(text: L10n.Onboarding.Birth.subTitle1, with: 22)
         label.textColor = .darkG25
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
@@ -93,7 +101,7 @@ final class BirthViewController: BaseViewController {
 
     private var subTitleLabel2 = UILabel().then { label in
         label.font = .iosBody15R
-        label.text = L10n.Onboarding.Birth.subTitle2
+        label.setTextWithLineHeight(text: L10n.Onboarding.Birth.subTitle2, with: 22)
         label.textColor = .darkG25
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
@@ -106,14 +114,6 @@ final class BirthViewController: BaseViewController {
         picker.backgroundColor = .clear
     }
 
-    private var hDivider1 = UIView().then { view in
-        view.backgroundColor = .darkG5
-    }
-
-    private var hDivider2 = UIView().then { view in
-        view.backgroundColor = .darkG5
-    }
-
     private var errorLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.text = L10n.Onboarding.Birth.Error.age
@@ -122,12 +122,12 @@ final class BirthViewController: BaseViewController {
 
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.Onboarding.Birth.Button.next, for: .normal)
-        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
         button.setTitle(L10n.Onboarding.Birth.Button.next, for: .disabled)
-        button.setTitleColor(UIColor.darkG45, for: .disabled)
-        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG5, for: .disabled)
 
         button.titleLabel?.font = .iosBody15B
 
@@ -140,7 +140,7 @@ final class BirthViewController: BaseViewController {
 
 extension BirthViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         pickerView.dataSource = self
         pickerView.delegate = self
@@ -151,9 +151,7 @@ extension BirthViewController {
             titleLabel,
             subTitleLabel1,
             subTitleLabel2,
-            hDivider1,
             pickerView,
-            hDivider2,
             errorLabel,
             nextButton,
         ])
@@ -161,7 +159,7 @@ extension BirthViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -173,7 +171,7 @@ extension BirthViewController {
         }
 
         subTitleLabel1.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-107)
         }
@@ -184,29 +182,15 @@ extension BirthViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-107)
         }
 
-        hDivider1.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel2.snp.bottom).offset(76)
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-27)
-            make.height.equalTo(1)
-        }
-
         pickerView.snp.makeConstraints { make in
-            make.top.equalTo(hDivider1.snp.bottom)
+            make.top.equalTo(subTitleLabel2.snp.bottom).offset(58)
             make.leading.equalTo(view.snp.leading).offset(20)
             make.trailing.equalTo(view.snp.trailing).offset(-27)
-            make.height.equalTo(180)
-        }
-
-        hDivider2.snp.makeConstraints { make in
-            make.top.equalTo(pickerView.snp.bottom)
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-27)
-            make.height.equalTo(1)
+            make.height.equalTo(184)
         }
 
         errorLabel.snp.makeConstraints { make in
-            make.top.equalTo(hDivider2.snp.bottom).offset(12)
+            make.top.equalTo(pickerView.snp.bottom).offset(12)
             make.leading.equalTo(view.snp.leading).offset(16)
         }
 
@@ -217,20 +201,6 @@ extension BirthViewController {
             make.height.equalTo(48)
         }
         nextButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

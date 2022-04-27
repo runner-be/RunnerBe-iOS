@@ -26,15 +26,15 @@ final class MainTabComponent: Component<MainTabDependency> {
         return BookMarkComponent(parent: self)
     }
 
+    var messageComponent: MessageComponent {
+        return MessageComponent(parent: self)
+    }
+
     var myPageComponent: MyPageComponent {
         return MyPageComponent(parent: self)
     }
 
     var onboardingCoverComponent: OnboardingCoverComponent {
         return OnboardingCoverComponent(parent: self)
-    }
-
-    var onboardingWaitCoverComponent: WaitOnboardingCoverComponent {
-        return WaitOnboardingCoverComponent(parent: self)
     }
 }

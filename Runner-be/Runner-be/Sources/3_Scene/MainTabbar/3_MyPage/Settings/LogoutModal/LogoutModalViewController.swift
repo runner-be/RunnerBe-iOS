@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class LogoutModalViewController: BaseViewController {
+class LogoutModalViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

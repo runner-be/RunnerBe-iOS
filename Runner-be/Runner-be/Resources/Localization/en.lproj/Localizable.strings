@@ -38,8 +38,7 @@
 "NickName.error.duplicated" = "중복된 닉네임이에요!";
 
 // MARK: - PolicyTerm
-"Onboarding.PolicyTerm.title1" = "먼저 이용약관을 읽고";
-"Onboarding.PolicyTerm.title2" = "동의해주세요!";
+"Onboarding.PolicyTerm.title" = "먼저 이용약관을 읽고 동의해주세요!";
 "Onboarding.PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
 "Onboarding.PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
 "Onboarding.PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
@@ -64,8 +63,7 @@
 
 // MARK: - SelectJobGroup
 "Onboarding.Job.NavBar.title" = "TITLE";
-"Onboarding.Job.title1" = "어떤 직군에서";
-"Onboarding.Job.title2" = "활동하시나요?";
+"Onboarding.Job.title" = "어떤 직군에서 활동하시나요?";
 "Onboarding.Job.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
 "Onboarding.Job.Button.Next.title" = "완료";
 
@@ -75,9 +73,9 @@
 "Onboarding.Modal.Cancel.Button.no" = "아니요";
 
 // MARK: - OnboardingCompletion
-"OnboardingCompletion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
-"OnboardingCompletion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
-"OnboardingCompletion.Button.start" = "Start!";
+"Onboarding.Completion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
+"Onboarding.Completion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
+"Onboarding.Completion.Button.start" = "START!";
 
 // MARK: - Job
 

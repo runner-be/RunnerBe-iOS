@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class MyPageViewController: BaseViewController {
+class MyPageViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -27,7 +27,6 @@ class MyPageViewController: BaseViewController {
     init(viewModel: MyPageViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -332,8 +331,7 @@ extension MyPageViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide
-                .snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -407,29 +405,6 @@ extension MyPageViewController {
             make.width.equalTo(220)
         }
         myRunningEmptyButton.layer.cornerRadius = 20
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.myPageTabIconNormal.uiImage,
-            selectedImage: Asset.myPageTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

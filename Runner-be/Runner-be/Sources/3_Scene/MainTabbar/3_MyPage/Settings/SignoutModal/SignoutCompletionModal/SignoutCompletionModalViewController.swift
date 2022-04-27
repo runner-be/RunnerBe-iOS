@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SignoutCompletionModalViewController: BaseViewController {
+class SignoutCompletionModalViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

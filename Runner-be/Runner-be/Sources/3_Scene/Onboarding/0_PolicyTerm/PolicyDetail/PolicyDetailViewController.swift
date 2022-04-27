@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class PolicyDetailViewController: BaseViewController {
+class PolicyDetailViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -108,8 +108,7 @@ extension PolicyDetailViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide
-                .snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -120,19 +119,5 @@ extension PolicyDetailViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.snp.bottom).offset(-50)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class WritingMainPostViewController: BaseViewController {
+class WritingMainPostViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -228,8 +228,7 @@ extension WritingMainPostViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide
-                .snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -267,19 +266,5 @@ extension WritingMainPostViewController {
             make.height.equalTo(1)
             make.width.equalTo(hDivider1)
         }
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

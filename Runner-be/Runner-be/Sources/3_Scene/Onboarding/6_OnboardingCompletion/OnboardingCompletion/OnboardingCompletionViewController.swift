@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class OnboardingCompletionViewController: BaseViewController {
+class OnboardingCompletionViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -45,10 +45,11 @@ class OnboardingCompletionViewController: BaseViewController {
     // MARK: Private
 
     var titleLabel = UILabel().then { label in
-        label.font = .iosHeader31Sb
+        var font = UIFont.aggroLight.withSize(22)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboarding.Completion.title, with: 35.2)
         label.textColor = .primary
-        label.text = L10n.OnboardingCompletion.title
-
+        label.textAlignment = .center
         label.numberOfLines = 2
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
@@ -57,21 +58,19 @@ class OnboardingCompletionViewController: BaseViewController {
     var subTitleLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG25
-        label.text = L10n.OnboardingCompletion.subTitle
-
+        label.text = L10n.Onboarding.Completion.subTitle
+        label.textAlignment = .center
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
     }
 
-    var iconLabel = UILabel().then { label in
-        label.font = label.font.withSize(100)
-        label.textAlignment = .center
-        label.text = "🎉"
+    var iconImageView = UIImageView().then { imageView in
+        imageView.image = Asset.onboardingCompletion.uiImage
     }
 
     private var startButton = UIButton().then { button in
-        button.setTitle(L10n.OnboardingCompletion.Button.start, for: .normal)
+        button.setTitle(L10n.Onboarding.Completion.Button.start, for: .normal)
         button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
@@ -87,32 +86,33 @@ class OnboardingCompletionViewController: BaseViewController {
 
 extension OnboardingCompletionViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             titleLabel,
             subTitleLabel,
-            iconLabel,
+            iconImageView,
             startButton,
         ])
     }
 
     private func initialLayout() {
+        iconImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(178)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(248)
+            make.height.equalTo(216)
+        }
+
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(114)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-70)
+            make.top.equalTo(iconImageView.snp.bottom).offset(32)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(240)
         }
 
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
-            make.leading.equalTo(view.snp.leading).offset(18)
-            make.trailing.equalTo(view.snp.trailing).offset(-105)
-        }
-
-        iconLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.centerX.equalTo(view.snp.centerX)
-            make.centerY.equalTo(view.snp.centerY)
         }
 
         startButton.snp.makeConstraints { make in
@@ -122,19 +122,5 @@ extension OnboardingCompletionViewController {
             make.height.equalTo(48)
         }
         startButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

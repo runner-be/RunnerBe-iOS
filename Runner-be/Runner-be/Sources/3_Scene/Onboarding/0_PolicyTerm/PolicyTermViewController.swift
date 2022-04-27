@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import UIKit
 
-final class PolicyTermViewController: BaseViewController {
+final class PolicyTermViewController: RunnerbeBaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -96,28 +96,18 @@ final class PolicyTermViewController: BaseViewController {
 
     // MARK: Private
 
-    private var titleLabel1 = UILabel().then { label in
-        label.font = UIFont.iosHeader31Sb
-        label.text = L10n.Onboarding.PolicyTerm.title1
+    private var titleLabel = UILabel().then { label in
+        var font = UIFont.aggroLight.withSize(26)
+        label.font = font
+        label.setTextWithLineHeight(text: L10n.Onboarding.PolicyTerm.title, with: 42)
         label.textColor = UIColor.primary
-        label.numberOfLines = 1
-        label.minimumScaleFactor = 0.3
-        label.adjustsFontSizeToFitWidth = true
-    }
-
-    private var titleLabel2 = UILabel().then { label in
-        label.font = UIFont.iosHeader31Sb
-        label.text = L10n.Onboarding.PolicyTerm.title2
-        label.textColor = UIColor.primary
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.minimumScaleFactor = 0.3
         label.adjustsFontSizeToFitWidth = true
     }
 
     private var policyContainerView = UIView().then { view in
-        view.backgroundColor = .clear
-        view.layer.borderColor = UIColor.darkG35.cgColor
-        view.layer.borderWidth = 1
+        view.backgroundColor = .darkG6
         view.layer.cornerRadius = 10
     }
 
@@ -158,17 +148,17 @@ final class PolicyTermViewController: BaseViewController {
     }
 
     private var policyHDividerView = UIView().then { view in
-        view.backgroundColor = .darkG35
+        view.backgroundColor = .darkG7
     }
 
     private var nextButton = UIButton().then { button in
         button.setTitle(L10n.Onboarding.PolicyTerm.Button.Next.title, for: .normal)
-        button.setTitleColor(UIColor.darkBlack, for: .normal)
+        button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
         button.setTitle(L10n.Onboarding.PolicyTerm.Button.Next.title, for: .disabled)
-        button.setTitleColor(UIColor.darkG45, for: .disabled)
-        button.setBackgroundColor(UIColor.darkG3, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(UIColor.darkG5, for: .disabled)
 
         button.titleLabel?.font = .iosBody15B
 
@@ -177,7 +167,15 @@ final class PolicyTermViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = ""
+        navBar.titleLabel.attributedText = NSMutableAttributedString()
+            .style(to: "1", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.primarydark,
+            ])
+            .style(to: "/4", attributes: [
+                .font: UIFont.iosBody17Sb,
+                .foregroundColor: UIColor.darkG35,
+            ])
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
@@ -188,12 +186,11 @@ final class PolicyTermViewController: BaseViewController {
 
 extension PolicyTermViewController {
     private func setupViews() {
-        gradientBackground()
+        view.backgroundColor = .darkG7
 
         view.addSubviews([
             navBar,
-            titleLabel1,
-            titleLabel2,
+            titleLabel,
             policyContainerView,
             nextButton,
         ])
@@ -209,25 +206,20 @@ extension PolicyTermViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide
-                .snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        titleLabel1.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(114)
             make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-104)
-        }
-        titleLabel2.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel1.snp.bottom)
-            make.leading.equalTo(titleLabel1.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-104)
+            make.width.equalTo(228)
+            make.height.equalTo(84)
         }
 
         policyContainerView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel2.snp.bottom).offset(76)
+            make.top.equalTo(titleLabel.snp.bottom).offset(64)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
@@ -271,19 +263,5 @@ extension PolicyTermViewController {
             make.height.equalTo(48)
         }
         nextButton.layer.cornerRadius = 24
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }

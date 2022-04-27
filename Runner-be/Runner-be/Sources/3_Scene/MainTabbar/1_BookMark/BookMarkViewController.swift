@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class BookMarkViewController: BaseViewController {
+class BookMarkViewController: RunnerbeBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -26,7 +26,6 @@ class BookMarkViewController: BaseViewController {
     init(viewModel: BookMarkViewModel) {
         self.viewModel = viewModel
         super.init()
-        configureTabItem()
     }
 
     @available(*, unavailable)
@@ -134,7 +133,7 @@ extension BookMarkViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
@@ -156,29 +155,6 @@ extension BookMarkViewController {
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
-    }
-
-    private func configureTabItem() {
-        tabBarItem = UITabBarItem(
-            title: "",
-            image: Asset.bookmarkTabIconNormal.uiImage,
-            selectedImage: Asset.bookmarkTabIconFocused.uiImage
-        )
-        tabBarItem.imageInsets = UIEdgeInsets(top: -9, left: 0, bottom: 0, right: 0)
-    }
-
-    private func gradientBackground() {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            UIColor.bgBottom.cgColor,
-            UIColor.bgTop.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
 }
 

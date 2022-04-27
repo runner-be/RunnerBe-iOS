@@ -34,14 +34,11 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
     private func startTabbarController() {
         let scene = component.scene
         UITabBar.appearance().backgroundColor = UIColor.darkG6
-        scene.VC.setColors(
-            iconNormal: UIColor.darkG35,
-            selected: UIColor.primary
-        )
 
         scene.VC.viewControllers = [
             configureAndGetHomeScene(vm: scene.VM),
             configureAndGetBookMarkScene(vm: scene.VM),
+            configureAndGetMessageScene(vm: scene.VM),
             configureAndGetMyPageScene(vm: scene.VM),
         ]
 
@@ -57,13 +54,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentOnboaradingCover(vm: vm, animated: false)
-            })
-            .disposed(by: sceneDisposeBag)
-
-        scene.VM.routes.waitOnboardingCover
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentWaitOnboaradingCover(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -106,6 +96,21 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         return comp.scene.VC
     }
 
+    private func configureAndGetMessageScene(vm: MainTabViewModel) -> UIViewController {
+        let comp = component.messageComponent
+        let coord = MessageCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: false)
+
+        vm.routes.message
+            .subscribe(onNext: {
+                comp.scene.VM.routeInputs.needsUpdate.onNext(true)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        return comp.scene.VC
+    }
+
     private func configureAndGetMyPageScene(vm: MainTabViewModel) -> UIViewController {
         let comp = component.myPageComponent
         let coord = MyPageCoordinator(component: comp, navController: navigationController)
@@ -142,18 +147,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
                 case .toMain:
                     vm.routeInputs.onboardingCoverClosed.onNext(())
                 }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
-    }
-
-    private func presentWaitOnboaradingCover(vm _: MainTabViewModel, animated: Bool) {
-        let comp = component.onboardingWaitCoverComponent
-        let coord = WaitOnboardingCoverCoordinator(component: comp, navController: navigationController)
-
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
-                defer { self?.releaseChild(coordinator: coord) }
             })
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
