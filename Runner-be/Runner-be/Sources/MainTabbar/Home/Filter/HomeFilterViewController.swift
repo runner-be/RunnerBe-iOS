@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class HomeFilterViewController: RunnerbeBaseViewController {
+class HomeFilterViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

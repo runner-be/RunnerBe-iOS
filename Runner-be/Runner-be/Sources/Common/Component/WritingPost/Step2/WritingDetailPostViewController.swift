@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class WritingDetailPostViewController: RunnerbeBaseViewController {
+class WritingDetailPostViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-final class LoggedOutViewController: RunnerbeBaseViewController {
+final class LoggedOutViewController: BaseViewController {
     // MARK: Lifecycle
 
     init(viewModel: LoggedOutViewModel) {

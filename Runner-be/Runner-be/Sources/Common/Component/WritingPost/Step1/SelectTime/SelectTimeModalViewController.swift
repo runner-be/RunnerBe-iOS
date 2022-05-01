@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SelectTimeModalViewController: RunnerbeBaseViewController {
+class SelectTimeModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class ApplicantListModalViewController: RunnerbeBaseViewController {
+class ApplicantListModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

@@ -14,7 +14,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EditInfoViewController: RunnerbeBaseViewController {
+class EditInfoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

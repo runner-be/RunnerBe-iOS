@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class OnboardingCancelModalViewController: RunnerbeBaseViewController {
+class OnboardingCancelModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

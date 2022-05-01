@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import UIKit
 
-final class PolicyTermViewController: RunnerbeBaseViewController {
+final class PolicyTermViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {

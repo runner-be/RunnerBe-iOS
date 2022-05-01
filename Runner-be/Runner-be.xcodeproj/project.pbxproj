@@ -91,7 +91,7 @@
 		C34FDA2A27AD5999007718F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */; };
 		C34FDA4427AD5BC7007718F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA3F27AD5BC7007718F8 /* Images.xcassets */; };
 		C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34FDA4027AD5BC7007718F8 /* Assets.xcassets */; };
-		C34FDA6727AD5C83007718F8 /* RunnerbeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */; };
+		C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */; };
 		C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */; };
 		C34FDA6927AD5C83007718F8 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */; };
 		C34FDA6B27AD5C83007718F8 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA5827AD5C82007718F8 /* UIStackView+.swift */; };
@@ -394,7 +394,7 @@
 		C34FDA2B27AD5999007718F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C34FDA3F27AD5BC7007718F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C34FDA4027AD5BC7007718F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerbeBaseViewController.swift; sourceTree = "<group>"; };
+		C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
 		C34FDA5227AD5C82007718F8 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
 		C34FDA5827AD5C82007718F8 /* UIStackView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
@@ -1212,7 +1212,7 @@
 			isa = PBXGroup;
 			children = (
 				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
-				C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */,
+				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
 				C3BA45C627B5AEB40048CA76 /* BaseViewModel.swift */,
 			);
 			path = Base;
@@ -1835,6 +1835,7 @@
 			buildPhases = (
 				2C4BF94423BD5EC8525EF383 /* [CP] Check Pods Manifest.lock */,
 				C34FDA3A27AD5B48007718F8 /* SwiftFormat */,
+				C304C57F281E87CF00C24295 /* Needle */,
 				C34FDA3C27AD5B57007718F8 /* SwiftGen */,
 				C34FDA1627AD5997007718F8 /* Sources */,
 				C34FDA1727AD5997007718F8 /* Frameworks */,
@@ -1954,6 +1955,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C304C57F281E87CF00C24295 /* Needle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Needle;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate Runner-be/Sources/NeedleGenerated.swift Runner-be/Sources/ --header-doc copyright_header.txt\n";
+		};
 		C34FDA3A27AD5B48007718F8 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2043,7 +2062,7 @@
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
-				C34FDA6727AD5C83007718F8 /* RunnerbeBaseViewController.swift in Sources */,
+				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,

@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class PolicyDetailViewController: RunnerbeBaseViewController {
+class PolicyDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

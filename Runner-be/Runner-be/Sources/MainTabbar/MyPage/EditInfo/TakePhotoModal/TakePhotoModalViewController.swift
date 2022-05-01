@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class TakePhotoModalViewController: RunnerbeBaseViewController {
+class TakePhotoModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

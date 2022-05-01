@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MakerViewController: RunnerbeBaseViewController {
+final class MakerViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

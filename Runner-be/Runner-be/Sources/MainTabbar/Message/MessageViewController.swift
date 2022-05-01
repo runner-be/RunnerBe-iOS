@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageViewController: RunnerbeBaseViewController {
+class MessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

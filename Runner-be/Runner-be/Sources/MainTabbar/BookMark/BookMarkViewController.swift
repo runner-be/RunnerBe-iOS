@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class BookMarkViewController: RunnerbeBaseViewController {
+class BookMarkViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

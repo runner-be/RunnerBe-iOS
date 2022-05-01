@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class PostDetailViewController: RunnerbeBaseViewController {
+class PostDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

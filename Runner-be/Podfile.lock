@@ -114,7 +114,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.7.1)
+  - GTMSessionFetcher/Core (1.7.2)
   - KakaoSDKAuth (2.9.1):
     - KakaoSDKCommon (= 2.9.1)
   - KakaoSDKCommon (2.9.1):
@@ -184,7 +184,7 @@ PODS:
   - SwiftGen (6.5.1)
   - SwiftKeychainWrapper (4.0.1)
   - SwiftyJSON (4.3.0)
-  - Then (2.7.0)
+  - Then (3.0.0)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
@@ -274,7 +274,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 4c19f031220c72464d460c9daa1fb5d1acce958e
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   KakaoSDKAuth: 8ec514e64f57f405735e92483fdae1cc2830d351
   KakaoSDKCommon: c4b08131fdba6770a280ffe83916048174f329bf
   KakaoSDKUser: 3b82c8f4b7bdd8584b296cf91d1be4b4a84102fb
@@ -300,9 +300,9 @@ SPEC CHECKSUMS:
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
-  Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
 PODFILE CHECKSUM: 9d94901b3e46353ca4d45c748deeaeda5d24b875
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

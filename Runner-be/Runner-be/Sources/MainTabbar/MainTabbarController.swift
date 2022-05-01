@@ -13,7 +13,7 @@ import SwiftUI
 import Then
 import UIKit
 
-class MainTabViewController: RunnerbeBaseViewController {
+class MainTabViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

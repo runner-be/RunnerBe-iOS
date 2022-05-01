@@ -1,5 +1,5 @@
 //
-//  RunnerbeBaseViewController.swift
+//  BaseViewController.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/04.
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class RunnerbeBaseViewController: UIViewController {
+class BaseViewController: UIViewController {
     // MARK: Lifecycle
 
     init() {
@@ -40,7 +40,7 @@ class RunnerbeBaseViewController: UIViewController {
 
 // MARK: - Base Functions
 
-extension RunnerbeBaseViewController {
+extension BaseViewController {
     func gradientBackground(topColor: UIColor = .bgTop, bottomColor: UIColor = .bgBottom) {
         let backgroundGradientLayer = CAGradientLayer()
         backgroundGradientLayer.colors = [

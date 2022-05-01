@@ -14,7 +14,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SettingsViewController: RunnerbeBaseViewController {
+class SettingsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

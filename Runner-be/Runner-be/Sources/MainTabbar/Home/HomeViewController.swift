@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class HomeViewController: RunnerbeBaseViewController {
+class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

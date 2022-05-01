@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class MyPageViewController: RunnerbeBaseViewController {
+class MyPageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

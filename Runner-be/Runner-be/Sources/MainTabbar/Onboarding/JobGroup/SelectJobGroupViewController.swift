@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-final class SelectJobGroupViewController: RunnerbeBaseViewController {
+final class SelectJobGroupViewController: BaseViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
