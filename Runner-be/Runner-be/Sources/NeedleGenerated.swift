@@ -22,7 +22,7 @@ public func registerProviderFactories() {
         BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent") { component in
-        return MessageDependencyb26316582fc24834a34cProvider(component: component)
+        MessageDependencyb26316582fc24834a34cProvider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LogoutModalComponent") { component in
         LogoutModalDependency198c1460728f9b03415bProvider(component: component)
@@ -185,18 +185,16 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency
 }
 
 private class MessageDependencyb26316582fc24834a34cBaseProvider: MessageDependency {
-
-
-    init() {
-
-    }
+    init() {}
 }
+
 /// ^->AppComponent->MainTabComponent->MessageComponent
 private class MessageDependencyb26316582fc24834a34cProvider: MessageDependencyb26316582fc24834a34cBaseProvider {
-    init(component: NeedleFoundation.Scope) {
+    init(component _: NeedleFoundation.Scope) {
         super.init()
     }
 }
+
 private class LogoutModalDependency198c1460728f9b03415bBaseProvider: LogoutModalDependency {
     init() {}
 }
