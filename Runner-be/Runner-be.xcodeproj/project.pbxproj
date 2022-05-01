@@ -631,6 +631,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C304C57D281E858000C24295 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C304C57E281E863100C24295 /* KeyChain */,
+				DA60482D281E7C7C00A67568 /* API */,
+				C3F8D1C227C421C30004CAB8 /* LocationService */,
+				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
+				C3432CAC27B8448400DEFF51 /* SignUpService */,
+				C3EB5CC827B8B62200775779 /* ImageUploadService */,
+				C3AD115827B825F500A7044C /* LoginService */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C304C57E281E863100C24295 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */,
+				C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */,
+				C3EE147127E6505600AFC185 /* UserKeyChainService.swift */,
+				C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
 		C3089AF227BF45C100884987 /* WritingPost */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +688,7 @@
 		C3256B5E27CE8014009B16DA /* PolicyAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */,
 				C3256B5F27CE801F009B16DA /* PolicyAPIService.swift */,
 				C3256B6127CE8048009B16DA /* BasicPolicyAPIService.swift */,
 			);
@@ -727,20 +753,10 @@
 			path = CommonSelectViews;
 			sourceTree = "<group>";
 		};
-		C3432CA227B830CF00DEFF51 /* LoginKeychainService */ = {
-			isa = PBXGroup;
-			children = (
-				C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */,
-				C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */,
-			);
-			path = LoginKeychainService;
-			sourceTree = "<group>";
-		};
 		C3432CAC27B8448400DEFF51 /* SignUpService */ = {
 			isa = PBXGroup;
 			children = (
 				C379301527B9FA920076AB85 /* RendomNickNameGenerator */,
-				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
 				C3EB5CC427B8B57D00775779 /* SignupService.swift */,
 				C3EB5CC627B8B58700775779 /* BasicSignupService.swift */,
 			);
@@ -1273,6 +1289,7 @@
 		C39E926327BACFA400798F3A /* MailingAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C39E926127BACCF300798F3A /* EmailAPI.swift */,
 				C39E926427BACFB100798F3A /* MailingAPIService.swift */,
 				C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */,
 			);
@@ -1329,8 +1346,6 @@
 		C3AD115827B825F500A7044C /* LoginService */ = {
 			isa = PBXGroup;
 			children = (
-				C3432CA227B830CF00DEFF51 /* LoginKeychainService */,
-				C3AD114327B80F4200A7044C /* LoginAPIService */,
 				C34FDA5C27AD5C83007718F8 /* SocialLoginService */,
 				C3AD115927B8261000A7044C /* LoginService.swift */,
 				C3AD115B27B8262900A7044C /* BasicLoginService.swift */,
@@ -1421,6 +1436,7 @@
 		C3C43BEE27CC37A600D36D46 /* UserAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C3C43BEC27CC34A600D36D46 /* UserAPI.swift */,
 				C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */,
 				C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */,
 			);
@@ -1586,6 +1602,7 @@
 		C3EB5CD227B8B6DE00775779 /* SignupAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C3EB5CD727B8B70900775779 /* SignupAPI.swift */,
 				C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */,
 				C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */,
 			);
@@ -1607,15 +1624,6 @@
 				C3AD114527B80F7F00A7044C /* BasicResponse.swift */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		C3EE146F27E6500F00AFC185 /* UserKeyChainService */ = {
-			isa = PBXGroup;
-			children = (
-				C3EE147127E6505600AFC185 /* UserKeyChainService.swift */,
-				C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */,
-			);
-			path = UserKeyChainService;
 			sourceTree = "<group>";
 		};
 		C3F0968727AED10700959F9A /* Localization */ = {
@@ -1739,9 +1747,9 @@
 		DA604826281E69AC00A67568 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C304C57D281E858000C24295 /* Service */,
 				DA60482B281E7AC600A67568 /* Component */,
 				DA604829281E6B1600A67568 /* Model */,
-				DA60482D281E7C7C00A67568 /* API */,
 				C3F0968B27AEDDCF00959F9A /* CustomViews */,
 			);
 			path = Common;
@@ -1787,8 +1795,13 @@
 		DA60482D281E7C7C00A67568 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				DA604836281E810400A67568 /* Service */,
-				DA604834281E806400A67568 /* EndPoint */,
+				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
+				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
+				DA604835281E80E100A67568 /* PostAPIService */,
+				C3256B5E27CE8014009B16DA /* PolicyAPIService */,
+				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
+				C39E926327BACFA400798F3A /* MailingAPIService */,
+				C3AD114327B80F4200A7044C /* LoginAPIService */,
 				C34BA6AD27CD479C003E393A /* APIResponse */,
 			);
 			path = API;
@@ -1802,43 +1815,14 @@
 			path = EndPoint;
 			sourceTree = "<group>";
 		};
-		DA604834281E806400A67568 /* EndPoint */ = {
-			isa = PBXGroup;
-			children = (
-				C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */,
-				C3C43BEC27CC34A600D36D46 /* UserAPI.swift */,
-				C3A64F8127C5487F0088E387 /* PostAPI.swift */,
-				C39E926127BACCF300798F3A /* EmailAPI.swift */,
-				C3EB5CD727B8B70900775779 /* SignupAPI.swift */,
-				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
-			);
-			path = EndPoint;
-			sourceTree = "<group>";
-		};
 		DA604835281E80E100A67568 /* PostAPIService */ = {
 			isa = PBXGroup;
 			children = (
+				C3A64F8127C5487F0088E387 /* PostAPI.swift */,
 				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
 				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */,
 			);
 			path = PostAPIService;
-			sourceTree = "<group>";
-		};
-		DA604836281E810400A67568 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				DA604835281E80E100A67568 /* PostAPIService */,
-				C3EE146F27E6500F00AFC185 /* UserKeyChainService */,
-				C3256B5E27CE8014009B16DA /* PolicyAPIService */,
-				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
-				C3F8D1C227C421C30004CAB8 /* LocationService */,
-				C39E926327BACFA400798F3A /* MailingAPIService */,
-				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
-				C3432CAC27B8448400DEFF51 /* SignUpService */,
-				C3EB5CC827B8B62200775779 /* ImageUploadService */,
-				C3AD115827B825F500A7044C /* LoginService */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
