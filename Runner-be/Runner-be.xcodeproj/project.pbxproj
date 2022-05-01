@@ -954,6 +954,7 @@
 		C34FDA5027AD5C82007718F8 /* LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
+				DA604837281E86E600A67568 /* Model */,
 				DA604832281E802800A67568 /* EndPoint */,
 				C34FDA6627AD5C83007718F8 /* LoggedOutComponent.swift */,
 				C34FDA6227AD5C83007718F8 /* LoggedOutCoordinator.swift */,
@@ -1004,7 +1005,6 @@
 			children = (
 				C38F8F5127ADB3F60050137D /* Base */,
 				DA604826281E69AC00A67568 /* Common */,
-				C361B6C027B285F500824ABE /* Model */,
 				DA604820281E634F00A67568 /* App */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 				C34FDA5027AD5C82007718F8 /* LoggedOut */,
@@ -1067,20 +1067,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C361B6C027B285F500824ABE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C3256B5D27CE7EA7009B16DA /* Policy */,
-				C39E925A27BACA8400798F3A /* Mail */,
-				C35B832427B91E5B00551AC5 /* UserInfo */,
-				C3EB5CDE27B8BB2E00775779 /* Response */,
-				C3EB5CD927B8B76200775779 /* Signup */,
-				C3AD114427B80F4E00A7044C /* Login */,
-				C3BA45E627B6317A0048CA76 /* SocialLogin */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		C361B6CB27B29FE200824ABE /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1113,7 @@
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				DA604838281E875F00A67568 /* Model */,
 				C3F1EBB427D13DD700207F35 /* OnboardingCover */,
 				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
 				C3F74B6227B0A34D002D5846 /* PolicyTerm */,
@@ -1325,16 +1312,6 @@
 			path = LoginAPIService;
 			sourceTree = "<group>";
 		};
-		C3AD114427B80F4E00A7044C /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
-				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
-				C38ABD8327D31EAD0025929E /* LoginType.swift.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		C3AD115727B81EF600A7044C /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -1422,15 +1399,6 @@
 				C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */,
 			);
 			path = OnboardingCompletion;
-			sourceTree = "<group>";
-		};
-		C3BA45E627B6317A0048CA76 /* SocialLogin */ = {
-			isa = PBXGroup;
-			children = (
-				C38F8F2027AD88970050137D /* SocialLoginType.swift */,
-				C38F8F1E27AD88700050137D /* SocialLoginResult.swift */,
-			);
-			path = SocialLogin;
 			sourceTree = "<group>";
 		};
 		C3C43BEE27CC37A600D36D46 /* UserAPIService */ = {
@@ -1758,6 +1726,10 @@
 		DA604829281E6B1600A67568 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C3256B5D27CE7EA7009B16DA /* Policy */,
+				C39E925A27BACA8400798F3A /* Mail */,
+				C35B832427B91E5B00551AC5 /* UserInfo */,
+				C3EB5CDE27B8BB2E00775779 /* Response */,
 				C3A64F8827C54A930088E387 /* PostFilter.swift */,
 				C3A64F8E27C54DA20088E387 /* Post.swift */,
 				C3A64F8427C54A6F0088E387 /* RunningTag.swift */,
@@ -1823,6 +1795,26 @@
 				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */,
 			);
 			path = PostAPIService;
+			sourceTree = "<group>";
+		};
+		DA604837281E86E600A67568 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2027AD88970050137D /* SocialLoginType.swift */,
+				C38F8F1E27AD88700050137D /* SocialLoginResult.swift */,
+				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
+				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
+				C38ABD8327D31EAD0025929E /* LoginType.swift.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA604838281E875F00A67568 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C3EB5CD927B8B76200775779 /* Signup */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
