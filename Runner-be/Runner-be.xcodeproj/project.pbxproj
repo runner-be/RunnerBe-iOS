@@ -986,13 +986,13 @@
 		C34FDA7527AD5C98007718F8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C38F8F5127ADB3F60050137D /* Base */,
 				DA604826281E69AC00A67568 /* Common */,
 				C361B6C027B285F500824ABE /* Model */,
 				DA604820281E634F00A67568 /* App */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 				C34FDA5027AD5C82007718F8 /* LoggedOut */,
 				C34FDA5627AD5C82007718F8 /* Extensions */,
-				C38F8F5127ADB3F60050137D /* Base */,
 				C39E925F27BACC9E00798F3A /* Utils */,
 				C3AD115727B81EF600A7044C /* Error */,
 				C38ABD9127D332600025929E /* NeedleGenerated.swift */,
@@ -1112,7 +1112,6 @@
 			isa = PBXGroup;
 			children = (
 				C3F1EBB427D13DD700207F35 /* OnboardingCover */,
-				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
 				C3F74B6227B0A34D002D5846 /* PolicyTerm */,
 				C3F74B7227B0F362002D5846 /* Birth */,
@@ -1465,15 +1464,6 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		C3C9733C27CA3ACC00232251 /* CommonSceneViews */ = {
-			isa = PBXGroup;
-			children = (
-				C399FD1127C2833400396DC3 /* PostCell */,
-				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
-			);
-			path = CommonSceneViews;
-			sourceTree = "<group>";
-		};
 		C3C9734527CA95B700232251 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1639,6 +1629,8 @@
 		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C399FD1127C2833400396DC3 /* PostCell */,
+				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 				C3C9733727C9E7A500232251 /* UserInfo */,
 				C3498F3327C0DE5B003EDD0F /* IconTextButtonGroup */,
 				C3498F2627BF7126003EDD0F /* SegmentedControl */,
