@@ -1835,7 +1835,6 @@
 			buildPhases = (
 				2C4BF94423BD5EC8525EF383 /* [CP] Check Pods Manifest.lock */,
 				C34FDA3A27AD5B48007718F8 /* SwiftFormat */,
-				C304C57F281E87CF00C24295 /* Needle */,
 				C34FDA3C27AD5B57007718F8 /* SwiftGen */,
 				C34FDA1627AD5997007718F8 /* Sources */,
 				C34FDA1727AD5997007718F8 /* Frameworks */,
@@ -1954,24 +1953,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C304C57F281E87CF00C24295 /* Needle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Needle;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate Runner-be/Sources/NeedleGenerated.swift Runner-be/Sources/ --header-doc copyright_header.txt\n";
 		};
 		C34FDA3A27AD5B48007718F8 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
