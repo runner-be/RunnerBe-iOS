@@ -641,7 +641,7 @@
 			path = WritingPost;
 			sourceTree = "<group>";
 		};
-		C31E633028171CC000C6B5A0 /* 2_Message */ = {
+		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
 				C31E633128171CEE00C6B5A0 /* MessageComponent.swift */,
@@ -649,7 +649,7 @@
 				C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */,
 				C31E633728171D0400C6B5A0 /* MessageViewController.swift */,
 			);
-			path = 2_Message;
+			path = Message;
 			sourceTree = "<group>";
 		};
 		C3256B5A27CE7DF2009B16DA /* PolicyAPI */ = {
@@ -934,19 +934,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		C34FDA4D27AD5C82007718F8 /* 3_Scene */ = {
+		C34FDA4D27AD5C82007718F8 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
-				C31E633A28173B5D00C6B5A0 /* AppContext.swift */,
-				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
-				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
-				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 				C34FDA5027AD5C82007718F8 /* LoggedOut */,
 				C37E45EC27AE383A00C12CA2 /* Onboarding */,
 			);
-			path = 3_Scene;
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		C34FDA4F27AD5C82007718F8 /* MainTabbar */ = {
@@ -957,10 +952,10 @@
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */,
 				C3C9734327CA5EBA00232251 /* MainTabbarController.swift */,
-				C38F8F2627AD95FC0050137D /* 0_Home */,
-				C38F8F2727AD960C0050137D /* 1_BookMark */,
-				C31E633028171CC000C6B5A0 /* 2_Message */,
-				C38F8F2927AD961D0050137D /* 3_MyPage */,
+				C38F8F2627AD95FC0050137D /* Home */,
+				C38F8F2727AD960C0050137D /* BookMark */,
+				C31E633028171CC000C6B5A0 /* Message */,
+				C38F8F2927AD961D0050137D /* MyPage */,
 			);
 			path = MainTabbar;
 			sourceTree = "<group>";
@@ -976,7 +971,7 @@
 			path = LoggedOut;
 			sourceTree = "<group>";
 		};
-		C34FDA5627AD5C82007718F8 /* 5_Extensions */ = {
+		C34FDA5627AD5C82007718F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				C34BA6AC27CD4162003E393A /* CG */,
@@ -985,7 +980,7 @@
 				C34FDA7E27AD5DA1007718F8 /* Asset+ */,
 				C34FDA5727AD5C82007718F8 /* View+ */,
 			);
-			path = 5_Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C34FDA5727AD5C82007718F8 /* View+ */ = {
@@ -1002,7 +997,7 @@
 			path = "View+";
 			sourceTree = "<group>";
 		};
-		C34FDA5B27AD5C83007718F8 /* 2_Service */ = {
+		C34FDA5B27AD5C83007718F8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				C3EE146F27E6500F00AFC185 /* UserKeyChainService */,
@@ -1016,7 +1011,7 @@
 				C3EB5CC827B8B62200775779 /* ImageUploadService */,
 				C3AD115827B825F500A7044C /* LoginService */,
 			);
-			path = 2_Service;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		C34FDA5C27AD5C83007718F8 /* SocialLoginService */ = {
@@ -1032,16 +1027,20 @@
 		C34FDA7527AD5C98007718F8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C361B6C027B285F500824ABE /* 0_Model */,
-				C361B6C127B285FC00824ABE /* 1_EndPoint */,
-				C34FDA5B27AD5C83007718F8 /* 2_Service */,
-				C34FDA4D27AD5C82007718F8 /* 3_Scene */,
-				C3F0968B27AEDDCF00959F9A /* 4_CustomViews */,
-				C34FDA5627AD5C82007718F8 /* 5_Extensions */,
-				C38F8F5127ADB3F60050137D /* 6_Base */,
-				C39E925F27BACC9E00798F3A /* 7_Utils */,
-				C3AD115727B81EF600A7044C /* 8_Error */,
-				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
+				DA604826281E69AC00A67568 /* Common */,
+				DA604820281E634F00A67568 /* App */,
+				DA604821281E683900A67568 /* Home */,
+				DA604822281E684600A67568 /* Bookmark */,
+				DA604823281E684C00A67568 /* Message */,
+				DA604824281E685000A67568 /* MyPage */,
+				C361B6C027B285F500824ABE /* Model */,
+				C361B6C127B285FC00824ABE /* EndPoint */,
+				C34FDA5B27AD5C83007718F8 /* Service */,
+				C34FDA4D27AD5C82007718F8 /* Scene */,
+				C34FDA5627AD5C82007718F8 /* Extensions */,
+				C38F8F5127ADB3F60050137D /* Base */,
+				C39E925F27BACC9E00798F3A /* Utils */,
+				C3AD115727B81EF600A7044C /* Error */,
 				C38ABD9127D332600025929E /* NeedleGenerated.swift */,
 			);
 			path = Sources;
@@ -1113,7 +1112,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C361B6C027B285F500824ABE /* 0_Model */ = {
+		C361B6C027B285F500824ABE /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				C3256B5D27CE7EA7009B16DA /* Policy */,
@@ -1125,10 +1124,10 @@
 				C3AD114427B80F4E00A7044C /* Login */,
 				C3BA45E627B6317A0048CA76 /* SocialLogin */,
 			);
-			path = 0_Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		C361B6C127B285FC00824ABE /* 1_EndPoint */ = {
+		C361B6C127B285FC00824ABE /* EndPoint */ = {
 			isa = PBXGroup;
 			children = (
 				C3256B5A27CE7DF2009B16DA /* PolicyAPI */,
@@ -1139,7 +1138,7 @@
 				C3AD114727B8111100A7044C /* Login */,
 				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
 			);
-			path = 1_EndPoint;
+			path = EndPoint;
 			sourceTree = "<group>";
 		};
 		C361B6CB27B29FE200824ABE /* TextField */ = {
@@ -1191,11 +1190,11 @@
 				C3F1EBB427D13DD700207F35 /* OnboardingCover */,
 				C3C9733C27CA3ACC00232251 /* CommonSceneViews */,
 				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
-				C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */,
-				C3F74B7227B0F362002D5846 /* 1_Birth */,
-				C3F74B7427B0F3DA002D5846 /* 2_Gender */,
-				C3F74B7327B0F3AD002D5846 /* 3_JobGroup */,
-				C3BA45D127B60C4D0048CA76 /* 6_OnboardingCompletion */,
+				C3F74B6227B0A34D002D5846 /* PolicyTerm */,
+				C3F74B7227B0F362002D5846 /* Birth */,
+				C3F74B7427B0F3DA002D5846 /* Gender */,
+				C3F74B7327B0F3AD002D5846 /* JobGroup */,
+				C3BA45D127B60C4D0048CA76 /* OnboardingCompletion */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1245,7 +1244,7 @@
 			path = SignoutCompletionModal;
 			sourceTree = "<group>";
 		};
-		C38F8F2627AD95FC0050137D /* 0_Home */ = {
+		C38F8F2627AD95FC0050137D /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
@@ -1256,10 +1255,10 @@
 				C3089AF227BF45C100884987 /* WritingPost */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
 			);
-			path = 0_Home;
+			path = Home;
 			sourceTree = "<group>";
 		};
-		C38F8F2727AD960C0050137D /* 1_BookMark */ = {
+		C38F8F2727AD960C0050137D /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
 				C38F8F3D27AD99E50050137D /* BookMarkComponent.swift */,
@@ -1267,10 +1266,10 @@
 				C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */,
 				C38F8F2C27AD96480050137D /* BookMarkViewController.swift */,
 			);
-			path = 1_BookMark;
+			path = BookMark;
 			sourceTree = "<group>";
 		};
-		C38F8F2927AD961D0050137D /* 3_MyPage */ = {
+		C38F8F2927AD961D0050137D /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
 				C32C028C27CB45E00011419E /* Config */,
@@ -1282,17 +1281,17 @@
 				C3C9734727CA95D800232251 /* EditInfo */,
 				C3C9734527CA95B700232251 /* Settings */,
 			);
-			path = 3_MyPage;
+			path = MyPage;
 			sourceTree = "<group>";
 		};
-		C38F8F5127ADB3F60050137D /* 6_Base */ = {
+		C38F8F5127ADB3F60050137D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				C39E926827BB0ADA00798F3A /* Coordinator */,
+				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
 				C34FDA4E27AD5C82007718F8 /* RunnerbeBaseViewController.swift */,
 				C3BA45C627B5AEB40048CA76 /* BaseViewModel.swift */,
 			);
-			path = 6_Base;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		C393578627CFAFFE00FCC73A /* License */ = {
@@ -1340,14 +1339,14 @@
 			path = Mail;
 			sourceTree = "<group>";
 		};
-		C39E925F27BACC9E00798F3A /* 7_Utils */ = {
+		C39E925F27BACC9E00798F3A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				C3AB6B60280EBFCC00D58AEC /* ImagePickerType.swift */,
 				C34BA6AB27CD40BB003E393A /* DateUtil */,
 				C379302227BA20920076AB85 /* MoyaPlugin */,
 			);
-			path = 7_Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		C39E926027BACCE800798F3A /* Email */ = {
@@ -1365,14 +1364,6 @@
 				C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */,
 			);
 			path = MailingAPIService;
-			sourceTree = "<group>";
-		};
-		C39E926827BB0ADA00798F3A /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
-			);
-			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C39F2E9E27BC5E6D00A7D86B /* Slider */ = {
@@ -1408,8 +1399,6 @@
 			children = (
 				C3A64F8427C54A6F0088E387 /* RunningTag.swift */,
 				C3A64F8627C54A7F0088E387 /* PostState.swift */,
-				C3A64F8827C54A930088E387 /* PostFilter.swift */,
-				C3A64F8E27C54DA20088E387 /* Post.swift */,
 				C3A64F9027C54DBA0088E387 /* FilterType.swift */,
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
 			);
@@ -1453,12 +1442,12 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		C3AD115727B81EF600A7044C /* 8_Error */ = {
+		C3AD115727B81EF600A7044C /* Error */ = {
 			isa = PBXGroup;
 			children = (
 				C3AD115527B81D7B00A7044C /* JSONError.swift */,
 			);
-			path = 8_Error;
+			path = Error;
 			sourceTree = "<group>";
 		};
 		C3AD115827B825F500A7044C /* LoginService */ = {
@@ -1525,12 +1514,12 @@
 			path = PolicyDetail;
 			sourceTree = "<group>";
 		};
-		C3BA45D127B60C4D0048CA76 /* 6_OnboardingCompletion */ = {
+		C3BA45D127B60C4D0048CA76 /* OnboardingCompletion */ = {
 			isa = PBXGroup;
 			children = (
 				C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */,
 			);
-			path = 6_OnboardingCompletion;
+			path = OnboardingCompletion;
 			sourceTree = "<group>";
 		};
 		C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */ = {
@@ -1778,7 +1767,7 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		C3F0968B27AEDDCF00959F9A /* 4_CustomViews */ = {
+		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
 				C3C9733727C9E7A500232251 /* UserInfo */,
@@ -1791,7 +1780,7 @@
 				C361B6CB27B29FE200824ABE /* TextField */,
 				C3F74B7D27B126E9002D5846 /* NavigationBar */,
 			);
-			path = 4_CustomViews;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		C3F1EBB427D13DD700207F35 /* OnboardingCover */ = {
@@ -1802,7 +1791,7 @@
 			path = OnboardingCover;
 			sourceTree = "<group>";
 		};
-		C3F74B6227B0A34D002D5846 /* 0_PolicyTerm */ = {
+		C3F74B6227B0A34D002D5846 /* PolicyTerm */ = {
 			isa = PBXGroup;
 			children = (
 				C3BA45C827B5FEB40048CA76 /* PolicyDetail */,
@@ -1811,10 +1800,10 @@
 				C3F74B6727B0A4AA002D5846 /* PolicyTermViewModel.swift */,
 				C3F74B6927B0A4BF002D5846 /* PolicyTermViewController.swift */,
 			);
-			path = 0_PolicyTerm;
+			path = PolicyTerm;
 			sourceTree = "<group>";
 		};
-		C3F74B7227B0F362002D5846 /* 1_Birth */ = {
+		C3F74B7227B0F362002D5846 /* Birth */ = {
 			isa = PBXGroup;
 			children = (
 				C3F74B7527B125F4002D5846 /* BirthComponent.swift */,
@@ -1822,10 +1811,10 @@
 				C3F74B7927B1262A002D5846 /* BirthViewModel.swift */,
 				C3F74B7B27B1263B002D5846 /* BirthViewController.swift */,
 			);
-			path = 1_Birth;
+			path = Birth;
 			sourceTree = "<group>";
 		};
-		C3F74B7327B0F3AD002D5846 /* 3_JobGroup */ = {
+		C3F74B7327B0F3AD002D5846 /* JobGroup */ = {
 			isa = PBXGroup;
 			children = (
 				C361B6B927B285E600824ABE /* SelectJobGroupComponent.swift */,
@@ -1833,10 +1822,10 @@
 				C361B6BB27B285E600824ABE /* SelectJobGroupViewModel.swift */,
 				C361B6BA27B285E600824ABE /* SelectJobGroupViewController.swift */,
 			);
-			path = 3_JobGroup;
+			path = JobGroup;
 			sourceTree = "<group>";
 		};
-		C3F74B7427B0F3DA002D5846 /* 2_Gender */ = {
+		C3F74B7427B0F3DA002D5846 /* Gender */ = {
 			isa = PBXGroup;
 			children = (
 				C3F3C63227B2014C000A63BC /* SelectGenderComponent.swift */,
@@ -1844,7 +1833,7 @@
 				C3F3C63627B20186000A63BC /* SelectGenderViewModel.swift */,
 				C3F3C63827B201CB000A63BC /* SelectGenderViewController.swift */,
 			);
-			path = 2_Gender;
+			path = Gender;
 			sourceTree = "<group>";
 		};
 		C3F74B7D27B126E9002D5846 /* NavigationBar */ = {
@@ -1871,6 +1860,81 @@
 				C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */,
 			);
 			path = LocationService;
+			sourceTree = "<group>";
+		};
+		DA604820281E634F00A67568 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C34FDA5A27AD5C82007718F8 /* AppDelegate.swift */,
+				C34FDA5927AD5C82007718F8 /* SceneDelegate.swift */,
+				C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */,
+				C31E633A28173B5D00C6B5A0 /* AppContext.swift */,
+				C34FDA6527AD5C83007718F8 /* AppComponent.swift */,
+				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DA604821281E683900A67568 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DA604827281E69F900A67568 /* Model */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DA604822281E684600A67568 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		DA604823281E684C00A67568 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		DA604824281E685000A67568 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		DA604826281E69AC00A67568 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DA604828281E6B0E00A67568 /* Post */,
+				C3F0968B27AEDDCF00959F9A /* CustomViews */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		DA604827281E69F900A67568 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C3A64F8827C54A930088E387 /* PostFilter.swift */,
+				C3A64F8E27C54DA20088E387 /* Post.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA604828281E6B0E00A67568 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				DA604829281E6B1600A67568 /* Model */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		DA604829281E6B1600A67568 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -2558,6 +2622,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
