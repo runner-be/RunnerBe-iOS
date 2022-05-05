@@ -237,7 +237,7 @@
 "MyPage.Main.Cell.Cover.Attend.No" = "불참했어요 😭";
 
 // MARK: - Onboard.Cover
-"Onboard.Cover.Title" = "나를 더 알려주면\n모임에 참여할 수 있어요!";
+"Onboard.Cover.Title" = "나를 알려주면 참여할 수 있어요!";
 "Onboard.Cover.Button.Onboard.title" = "나에 대해 알려주기";
 "Onboard.Cover.Button.LookAround.title" = "지금은 둘러보기만 할게요";
 
