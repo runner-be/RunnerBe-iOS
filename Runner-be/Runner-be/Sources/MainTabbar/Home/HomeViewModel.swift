@@ -291,7 +291,7 @@ final class HomeViewModel: BaseViewModel {
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var refresh = PublishSubject<Void>()
-        var toast = BehaviorSubject<String>(value: "")
+        var toast = PublishSubject<String>()
         var bookMarked = PublishSubject<(idx: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
     }

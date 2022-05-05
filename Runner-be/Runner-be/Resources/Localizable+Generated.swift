@@ -463,8 +463,7 @@ internal enum L10n {
 
   internal enum Onboard {
     internal enum Cover {
-      /// 나를 더 알려주면
-      /// 모임에 참여할 수 있어요!
+      /// 나를 알려주면 참여할 수 있어요!
       internal static let title = L10n.tr("Localizable", "Onboard.Cover.Title")
       internal enum Button {
         internal enum LookAround {
