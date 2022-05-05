@@ -67,7 +67,7 @@ class OnboardingCoverViewController: BaseViewController {
     }
 
     private func hideContentViewAnimation() {
-        contentViewBottom.constant = 366 + AppContext.shared.safeAreaInsets.bottom
+        contentViewBottom.constant = 315 + AppContext.shared.safeAreaInsets.bottom
         UIView.animate(
             withDuration: 0.2,
             delay: 0,
@@ -178,7 +178,7 @@ extension OnboardingCoverViewController {
         }
 
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(366 + AppContext.shared.safeAreaInsets.bottom) // close: 0 open: 255
+            make.height.equalTo(315 + AppContext.shared.safeAreaInsets.bottom) // close: 0 open: 255
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
