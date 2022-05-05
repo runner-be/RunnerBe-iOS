@@ -44,6 +44,10 @@ internal enum L10n {
   }
 
   internal enum Home {
+    internal enum BottomSheet {
+      /// 러닝 목록
+      internal static let title = L10n.tr("Localizable", "Home.BottomSheet.title")
+    }
     internal enum Filter {
       internal enum Age {
         /// 모든연령
