@@ -38,9 +38,61 @@ class HomeViewController: BaseViewController {
 
     private var viewModel: HomeViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        bindBottomSheetGesture()
+    }
 
     private func viewModelOutput() {}
+
+    private func bindBottomSheetGesture() {
+        
+        bottomSheet.rx.panGesture()
+            .when(.changed)
+            .asTranslation()
+            .subscribe(onNext: { [unowned self] translation, velocity in
+                let maxHeight = view.frame.height - navBar.frame.height
+                let offset = self.bottomSheetPanGestureOffsetH - translation.y
+                self.bottomSheetHeight.constant = max(
+                    Constants.BottomSheet.heightMin,
+                    min(
+                        maxHeight,
+                        self.bottomSheetHeight.constant + offset
+                    )
+                )
+                self.bottomSheetPanGestureOffsetH = translation.y
+            })
+            .disposed(by: disposeBag)
+
+        bottomSheet.rx.panGesture()
+            .when(.ended)
+            .asTranslation()
+            .subscribe(onNext: { [unowned self] _, _ in
+                let maxHeight = view.frame.height - navBar.frame.height
+                let currentHeight = self.bottomSheet.frame.height
+
+                let targetHeight: CGFloat
+                if currentHeight > Constants.BottomSheet.heightMiddle {
+                    if currentHeight - Constants.BottomSheet.heightMiddle > maxHeight - currentHeight {
+                        targetHeight = maxHeight
+                    } else {
+                        targetHeight = Constants.BottomSheet.heightMiddle
+                    }
+                } else {
+                    if currentHeight - Constants.BottomSheet.heightMin > Constants.BottomSheet.heightMiddle - currentHeight {
+                        targetHeight = Constants.BottomSheet.heightMiddle
+                    } else {
+                        targetHeight = Constants.BottomSheet.heightMin
+                    }
+                }
+                self.bottomSheetHeight.constant = targetHeight
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                    self.view.layoutIfNeeded()
+                }
+
+                self.bottomSheetPanGestureOffsetH = 0
+            })
+            .disposed(by: disposeBag)
+    }
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .aggroLight
@@ -56,6 +108,7 @@ class HomeViewController: BaseViewController {
         enum BottomSheet {
             static let cornerRadius: CGFloat = 12
             static let heightMiddle: CGFloat = 294
+            static let heightMin: CGFloat = 65
 
             enum GreyHandle {
                 static let top: CGFloat = 16
@@ -83,7 +136,8 @@ class HomeViewController: BaseViewController {
         view.clipsToBounds = true
     }
 
-    lazy var bottomSheetHeight = bottomSheet.heightAnchor.constraint(equalToConstant: Constants.BottomSheet.heightMiddle)
+    private lazy var bottomSheetHeight = bottomSheet.heightAnchor.constraint(equalToConstant: Constants.BottomSheet.heightMiddle)
+    var bottomSheetPanGestureOffsetH: CGFloat = 0
 
     private var greyHandle = UIView().then { view in
         view.backgroundColor = Constants.BottomSheet.GreyHandle.color
