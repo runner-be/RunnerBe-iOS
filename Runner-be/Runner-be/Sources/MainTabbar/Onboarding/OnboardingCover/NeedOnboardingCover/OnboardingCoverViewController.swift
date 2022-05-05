@@ -40,7 +40,7 @@ class OnboardingCoverViewController: BaseViewController {
     private var viewModel: OnboardingCoverViewModel
 
     private func viewModelInput() {
-        closeBtn.rx.tap
+        dimBtn.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.hideContentViewAnimation()
             })
@@ -85,6 +85,8 @@ class OnboardingCoverViewController: BaseViewController {
         view.backgroundColor = .darkBlack.withAlphaComponent(0.7)
     }
 
+    private var dimBtn = UIButton()
+
     private var contentView = UIView().then { view in
         view.backgroundColor = .darkG6
 
@@ -94,15 +96,6 @@ class OnboardingCoverViewController: BaseViewController {
     }
 
     private lazy var contentViewBottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 366 + AppContext.shared.safeAreaInsets.bottom)
-
-    private var closeBtn = UIButton().then { button in
-        button.setImage(Asset.x.uiImage, for: .normal)
-
-        button.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
-        }
-    }
 
     private var titleLabel = UILabel().then { label in
         var font = UIFont.aggroLight.withSize(22)
@@ -160,8 +153,9 @@ extension OnboardingCoverViewController {
             contentView,
         ])
 
+        dimView.addSubview(dimBtn)
+
         contentView.addSubviews([
-            closeBtn,
             titleLabel,
             titleIcon,
             onboardBtn,
@@ -177,17 +171,19 @@ extension OnboardingCoverViewController {
             make.bottom.equalTo(view.snp.bottom)
         }
 
+        dimBtn.snp.makeConstraints { make in
+            make.top.equalTo(dimView.snp.top)
+            make.leading.equalTo(dimView.snp.leading)
+            make.trailing.equalTo(dimView.snp.trailing)
+            make.bottom.equalTo(dimView.snp.bottom)
+        }
+
         contentView.snp.makeConstraints { make in
             make.height.equalTo(315 + AppContext.shared.safeAreaInsets.bottom) // close: 0 open: 255
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
         contentViewBottom.isActive = true
-
-        closeBtn.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(16)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-        }
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(40)
