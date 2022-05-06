@@ -48,7 +48,7 @@ extension BaseViewController {
             topColor.cgColor,
         ]
         backgroundGradientLayer.frame = view.bounds
-        view.layer.addSublayer(backgroundGradientLayer)
+        view.layer.insertSublayer(backgroundGradientLayer, at: 0)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
