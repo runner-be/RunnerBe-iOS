@@ -45,21 +45,25 @@ class HomeViewController: BaseViewController {
     private func viewModelOutput() {}
 
     private func bindBottomSheetGesture() {
-        
         bottomSheet.rx.panGesture()
             .when(.changed)
             .asTranslation()
-            .subscribe(onNext: { [unowned self] translation, velocity in
+            .subscribe(onNext: { [unowned self] translation, _ in
+
                 let maxHeight = view.frame.height - navBar.frame.height
-                let offset = self.bottomSheetPanGestureOffsetH - translation.y
-                self.bottomSheetHeight.constant = max(
+                let offset = bottomSheetPanGestureOffsetH - translation.y
+                bottomSheetHeight.constant = max(
                     Constants.BottomSheet.heightMin,
                     min(
                         maxHeight,
-                        self.bottomSheetHeight.constant + offset
+                        bottomSheetHeight.constant + offset
                     )
                 )
-                self.bottomSheetPanGestureOffsetH = translation.y
+                bottomSheetPanGestureOffsetH = translation.y
+
+                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
+                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                }
             })
             .disposed(by: disposeBag)
 
@@ -67,8 +71,9 @@ class HomeViewController: BaseViewController {
             .when(.ended)
             .asTranslation()
             .subscribe(onNext: { [unowned self] _, _ in
+
                 let maxHeight = view.frame.height - navBar.frame.height
-                let currentHeight = self.bottomSheet.frame.height
+                let currentHeight = bottomSheet.frame.height
 
                 let targetHeight: CGFloat
                 if currentHeight > Constants.BottomSheet.heightMiddle {
@@ -84,12 +89,17 @@ class HomeViewController: BaseViewController {
                         targetHeight = Constants.BottomSheet.heightMin
                     }
                 }
-                self.bottomSheetHeight.constant = targetHeight
+                bottomSheetHeight.constant = targetHeight
+
+                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
+                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                }
+
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                     self.view.layoutIfNeeded()
                 }
 
-                self.bottomSheetPanGestureOffsetH = 0
+                bottomSheetPanGestureOffsetH = 0
             })
             .disposed(by: disposeBag)
     }
