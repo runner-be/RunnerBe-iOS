@@ -98,7 +98,7 @@ class PolicyDetailViewController: BaseViewController {
 
 extension PolicyDetailViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

@@ -171,7 +171,7 @@ class WritingDetailPostViewController: BaseViewController {
 
 extension WritingDetailPostViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

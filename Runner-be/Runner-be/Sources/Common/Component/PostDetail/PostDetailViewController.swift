@@ -177,7 +177,7 @@ class PostDetailViewController: BaseViewController {
 
 extension PostDetailViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

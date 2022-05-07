@@ -131,7 +131,7 @@ class ApplicantListModalViewController: BaseViewController {
 
 extension ApplicantListModalViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             titleLabel,

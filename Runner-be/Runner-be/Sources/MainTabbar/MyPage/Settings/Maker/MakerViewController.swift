@@ -89,7 +89,7 @@ final class MakerViewController: BaseViewController {
 
 extension MakerViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

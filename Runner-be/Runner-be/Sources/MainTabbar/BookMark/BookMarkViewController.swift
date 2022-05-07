@@ -122,7 +122,7 @@ class BookMarkViewController: BaseViewController {
 
 extension BookMarkViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
         view.addSubviews([
             navBar,
             segmentedControl,

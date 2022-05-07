@@ -319,7 +319,7 @@ class EditInfoViewController: BaseViewController {
 
 extension EditInfoViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

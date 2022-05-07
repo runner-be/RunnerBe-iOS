@@ -305,7 +305,7 @@ class MyPageViewController: BaseViewController {
 
 extension MyPageViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,
