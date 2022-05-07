@@ -304,6 +304,10 @@
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
+		DA4A1F69282643A300D57331 /* MessageDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F68282643A300D57331 /* MessageDeleteViewController.swift */; };
+		DA4A1F6C2826459100D57331 /* MessageDeleteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */; };
+		DA4A1F6E2826459D00D57331 /* MessageDeleteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6D2826459D00D57331 /* MessageDeleteCoordinator.swift */; };
+		DA4A1F70282645A800D57331 /* MessageDeleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6F282645A800D57331 /* MessageDeleteViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -611,6 +615,10 @@
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		DA4A1F68282643A300D57331 /* MessageDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteViewController.swift; sourceTree = "<group>"; };
+		DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteComponent.swift; sourceTree = "<group>"; };
+		DA4A1F6D2826459D00D57331 /* MessageDeleteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteCoordinator.swift; sourceTree = "<group>"; };
+		DA4A1F6F282645A800D57331 /* MessageDeleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -672,6 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				DA3067642826235A00543D74 /* Cell */,
+				DA4A1F6A2826457F00D57331 /* MessageDelete */,
 				C31E633128171CEE00C6B5A0 /* MessageComponent.swift */,
 				C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */,
 				C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */,
@@ -1710,6 +1719,17 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		DA4A1F6A2826457F00D57331 /* MessageDelete */ = {
+			isa = PBXGroup;
+			children = (
+				DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */,
+				DA4A1F6D2826459D00D57331 /* MessageDeleteCoordinator.swift */,
+				DA4A1F6F282645A800D57331 /* MessageDeleteViewModel.swift */,
+				DA4A1F68282643A300D57331 /* MessageDeleteViewController.swift */,
+			);
+			path = MessageDelete;
+			sourceTree = "<group>";
+		};
 		DA604820281E634F00A67568 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -2014,6 +2034,7 @@
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
+				DA4A1F6E2826459D00D57331 /* MessageDeleteCoordinator.swift in Sources */,
 				C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
@@ -2043,6 +2064,7 @@
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
 				C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
+				DA4A1F69282643A300D57331 /* MessageDeleteViewController.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
@@ -2090,6 +2112,7 @@
 				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3256B6027CE801F009B16DA /* PolicyAPIService.swift in Sources */,
+				DA4A1F70282645A800D57331 /* MessageDeleteViewModel.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				C3C9736727CAA67E00232251 /* MakerView.swift in Sources */,
@@ -2285,6 +2308,7 @@
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
+				DA4A1F6C2826459100D57331 /* MessageDeleteComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

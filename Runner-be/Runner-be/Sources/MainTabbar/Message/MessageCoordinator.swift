@@ -20,5 +20,24 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
 
     override func start(animated _: Bool) {
         let scene = component.scene
+        
+        
+    }
+    
+    private func pushMessageDeleteScene(vm: MessageDeleteViewModel, postId: Int, animated: Bool) {
+//        let comp = component.messageDeleteComponent
+//        let coord = MessageDeleteCoordinator(component: comp, navController: navigationController)
+//
+//        let disposable = coordinate(coordinator: coord, animated: animated)
+//            .subscribe(onNext: { [weak self] coordResult in
+//                defer { self?.releaseChild(coordinator: coord) }
+//                switch coordResult {
+//                case let .backward(id, marked, needUpdate):
+//                    vm.routeInputs.needUpdate.onNext(needUpdate)
+//                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
+//                }
+//            })
+//
+//        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

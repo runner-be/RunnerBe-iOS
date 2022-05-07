@@ -175,6 +175,8 @@
 // MARK: - MessageList
 "MessageList.NavBar.Title" = "쪽지";
 "MessageList.NavBar.RightItem" = "삭제";
+"MessageList.Delete.NavBar.RightItem" = "삭제";
+"MessageList.Delete.NavBar.RightSecondItem" = "전체선택";
 
 // MARK: - MyPage.Post
 "MyPage.MyPost.Empty.title" = "아직 모임을 만들지 않았어요!";

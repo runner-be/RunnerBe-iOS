@@ -162,11 +162,4 @@ extension MessageTableViewCell {
 
 extension MessageTableViewCell {
     static let id: String = "\(MessageTableViewCell.self)"
-
-    static let size: CGSize = {
-        let hMargin: CGFloat = 16
-        let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
-        let height: CGFloat = 76
-        return CGSize(width: width, height: height)
-    }()
 }

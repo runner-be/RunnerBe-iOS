@@ -1,8 +1,8 @@
 //
-//  MessageViewController.swift
+//  MessageDeleteViewController.swift
 //  Runner-be
 //
-//  Created by 김신우 on 2022/04/26.
+//  Created by 이유리 on 2022/05/07.
 //
 
 import RxCocoa
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageViewController: BaseViewController {
+class MessageDeleteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -43,14 +43,15 @@ class MessageViewController: BaseViewController {
     private func viewModelOutput() {}
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = L10n.MessageList.NavBar.title
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
+        navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
-        navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
-        navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
-        navBar.rightSecondBtnItem.isHidden = true
+        navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
+        navBar.rightBtnItem.setTitleColor(.primary, for: .highlighted)
+        navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
+        navBar.rightSecondBtnItem.isHidden = false
+        navBar.rightSecondBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
+        navBar.rightSecondBtnItem.setTitleColor(.darkG3, for: .normal)
+        navBar.rightSecondBtnItem.setTitleColor(.darkG3, for: .highlighted)
         navBar.titleSpacing = 12
     }
 
@@ -59,7 +60,7 @@ class MessageViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension MessageViewController {
+extension MessageDeleteViewController {
     private func setupViews() {
         setBackgroundColor()
 
@@ -87,7 +88,7 @@ extension MessageViewController {
     }
 }
 
-extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
+extension MessageDeleteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return 2
     }
