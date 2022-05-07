@@ -213,7 +213,7 @@ class WritingMainPostViewController: BaseViewController {
 
 extension WritingMainPostViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

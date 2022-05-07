@@ -110,7 +110,7 @@ final class LoggedOutViewController: BaseViewController {
 
 extension LoggedOutViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubview(logoImageView)
         view.addSubview(loginBtnVStackView)

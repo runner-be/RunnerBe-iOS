@@ -158,7 +158,7 @@ class HomeFilterViewController: BaseViewController {
 
 extension HomeFilterViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

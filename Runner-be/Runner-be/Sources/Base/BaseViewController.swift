@@ -41,14 +41,8 @@ class BaseViewController: UIViewController {
 // MARK: - Base Functions
 
 extension BaseViewController {
-    func gradientBackground(topColor: UIColor = .bgTop, bottomColor: UIColor = .bgBottom) {
-        let backgroundGradientLayer = CAGradientLayer()
-        backgroundGradientLayer.colors = [
-            bottomColor.cgColor,
-            topColor.cgColor,
-        ]
-        backgroundGradientLayer.frame = view.bounds
-        view.layer.insertSublayer(backgroundGradientLayer, at: 0)
+    func setBackgroundColor() {
+        view.backgroundColor = .darkG7
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

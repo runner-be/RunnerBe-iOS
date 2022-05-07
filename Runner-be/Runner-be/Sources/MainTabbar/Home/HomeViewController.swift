@@ -201,7 +201,7 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
         view.addSubviews([
             navBar,
             segmentedControl,

@@ -109,7 +109,7 @@ class SettingsViewController: BaseViewController {
 
 extension SettingsViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,

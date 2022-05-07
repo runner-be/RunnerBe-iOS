@@ -42,7 +42,7 @@ class MessageViewController: BaseViewController {
 
 extension MessageViewController {
     private func setupViews() {
-        gradientBackground()
+        setBackgroundColor()
     }
 
     private func initialLayout() {}
