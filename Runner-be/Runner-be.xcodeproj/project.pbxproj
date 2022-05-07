@@ -656,6 +656,13 @@
 			path = KeyChain;
 			sourceTree = "<group>";
 		};
+		C304C5802826B39000C24295 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C3089AF227BF45C100884987 /* WritingPost */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,6 +1180,7 @@
 		C38F8F2627AD95FC0050137D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C304C5802826B39000C24295 /* View */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,

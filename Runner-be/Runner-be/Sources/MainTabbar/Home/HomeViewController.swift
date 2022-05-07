@@ -63,6 +63,8 @@ class HomeViewController: BaseViewController {
 
                 if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
                     bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                } else {
+                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
                 }
             })
             .disposed(by: disposeBag)
@@ -93,6 +95,8 @@ class HomeViewController: BaseViewController {
 
                 if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
                     bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                } else {
+                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
                 }
 
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
@@ -164,6 +168,7 @@ class HomeViewController: BaseViewController {
         label.text = Constants.BottomSheet.Title.text
         label.font = Constants.BottomSheet.Title.font
     }
+    
 }
 
 // MARK: - Layout
