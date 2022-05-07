@@ -131,10 +131,6 @@
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";
 
-// MARK: - Home.MessageList
-"Home.MessageList.NavBar.Title" = "쪽지";
-"Home.MessageList.NavBar.RightItem" = "삭제";
-
 // MARK: - Home.PostList
 "Home.PostList.Cell.Cover.Closed" = "모집을 마감했어요";
 "Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감 포함";
@@ -175,6 +171,10 @@
 
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
+
+// MARK: - MessageList
+"MessageList.NavBar.Title" = "쪽지";
+"MessageList.NavBar.RightItem" = "삭제";
 
 // MARK: - MyPage.Post
 "MyPage.MyPost.Empty.title" = "아직 모임을 만들지 않았어요!";

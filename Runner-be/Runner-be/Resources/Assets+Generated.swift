@@ -68,6 +68,7 @@ internal enum Asset {
   internal static let time = ImageAsset(name: "Time")
   internal static let upload = ImageAsset(name: "Upload")
   internal static let x = ImageAsset(name: "X")
+  internal static let iconsProfile48 = ImageAsset(name: "iconsProfile48")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

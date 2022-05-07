@@ -19,7 +19,6 @@
 		C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633128171CEE00C6B5A0 /* MessageComponent.swift */; };
 		C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */; };
 		C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */; };
-		C31E633828171D0400C6B5A0 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633728171D0400C6B5A0 /* MessageViewController.swift */; };
 		C31E633B28173B5D00C6B5A0 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E633A28173B5D00C6B5A0 /* AppContext.swift */; };
 		C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5427CDBB79009B16DA /* String+regex.swift */; };
 		C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3256B5827CE7599009B16DA /* PolicyType.swift */; };
@@ -303,6 +302,8 @@
 		C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */; };
 		C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
+		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
+		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,7 +321,6 @@
 		C31E633128171CEE00C6B5A0 /* MessageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComponent.swift; sourceTree = "<group>"; };
 		C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCoordinator.swift; sourceTree = "<group>"; };
 		C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
-		C31E633728171D0400C6B5A0 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		C31E633A28173B5D00C6B5A0 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		C3256B5427CDBB79009B16DA /* String+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+regex.swift"; sourceTree = "<group>"; };
 		C3256B5827CE7599009B16DA /* PolicyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyType.swift; sourceTree = "<group>"; };
@@ -609,6 +609,8 @@
 		C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
 		C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDelegate.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
+		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -669,10 +671,11 @@
 		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				DA3067642826235A00543D74 /* Cell */,
 				C31E633128171CEE00C6B5A0 /* MessageComponent.swift */,
 				C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */,
 				C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */,
-				C31E633728171D0400C6B5A0 /* MessageViewController.swift */,
+				DA10361C2824413700F78F72 /* MessageViewController.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1699,6 +1702,14 @@
 			path = LocationService;
 			sourceTree = "<group>";
 		};
+		DA3067642826235A00543D74 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DA3067602826235600543D74 /* MessageTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		DA604820281E634F00A67568 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -2113,7 +2124,6 @@
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
 				C3C9732527C9373900232251 /* User.swift in Sources */,
-				C31E633828171D0400C6B5A0 /* MessageViewController.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
@@ -2152,6 +2162,7 @@
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
+				DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
@@ -2212,6 +2223,7 @@
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
+				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,
 				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
