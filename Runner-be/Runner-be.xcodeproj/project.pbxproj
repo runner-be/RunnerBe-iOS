@@ -40,7 +40,7 @@
 		C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028127CB174A0011419E /* LogoutModalViewModel.swift */; };
 		C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028327CB17540011419E /* LogoutModalViewController.swift */; };
 		C32C028727CB24720011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyInfoView.swift */; };
-		C32C028927CB3A370011419E /* IconBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028827CB3A370011419E /* IconBadgeLabel.swift */; };
+		C32C028927CB3A370011419E /* RunnerBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028827CB3A370011419E /* RunnerBadge.swift */; };
 		C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */; };
 		C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028F27CB46030011419E /* MyPagePostConfig.swift */; };
 		C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029127CB47470011419E /* BasicPostInfoView.swift */; };
@@ -341,7 +341,7 @@
 		C32C028127CB174A0011419E /* LogoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewModel.swift; sourceTree = "<group>"; };
 		C32C028327CB17540011419E /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
 		C32C028627CB24720011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
-		C32C028827CB3A370011419E /* IconBadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBadgeLabel.swift; sourceTree = "<group>"; };
+		C32C028827CB3A370011419E /* RunnerBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBadge.swift; sourceTree = "<group>"; };
 		C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewWithChevron.swift; sourceTree = "<group>"; };
 		C32C028F27CB46030011419E /* MyPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostConfig.swift; sourceTree = "<group>"; };
 		C32C029127CB47470011419E /* BasicPostInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostInfoView.swift; sourceTree = "<group>"; };
@@ -1337,7 +1337,7 @@
 				C3BA45A127B426BE0048CA76 /* OnOff */,
 				C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */,
 				C399FD1427C290E700396DC3 /* IconLabel.swift */,
-				C32C028827CB3A370011419E /* IconBadgeLabel.swift */,
+				C32C028827CB3A370011419E /* RunnerBadge.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -2093,7 +2093,7 @@
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
 				C3A64F8F27C54DA20088E387 /* Post.swift in Sources */,
-				C32C028927CB3A370011419E /* IconBadgeLabel.swift in Sources */,
+				C32C028927CB3A370011419E /* RunnerBadge.swift in Sources */,
 				C31E632F28153BB500C6B5A0 /* UILabel+Extension.swift in Sources */,
 				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,

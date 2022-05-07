@@ -1,5 +1,5 @@
 //
-//  IconBadgeLabel.swift
+//  RunnerBadge.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/27.
@@ -9,7 +9,7 @@ import SnapKit
 import Then
 import UIKit
 
-class IconBadgeLabel: UIView {
+class RunnerBadge: UIView {
     init() {
         super.init(frame: .zero)
         setupViews()
