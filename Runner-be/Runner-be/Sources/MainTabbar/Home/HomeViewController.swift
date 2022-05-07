@@ -104,18 +104,13 @@ class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .aggroLight
-        navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
-        navBar.titleLabel.textColor = .primarydark
-        navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
-        navBar.rightSecondBtnItem.isHidden = true
-        navBar.rightBtnItem.isHidden = true
-        navBar.titleSpacing = 8
-    }
-
     enum Constants {
+        enum NavigationBar {
+            static let backgroundColor: UIColor = .darkG7
+        }
+
         enum BottomSheet {
+            static let backgrouncColor: UIColor = .darkG7
             static let cornerRadius: CGFloat = 12
             static let heightMiddle: CGFloat = 294
             static let heightMin: CGFloat = 65
@@ -136,11 +131,22 @@ class HomeViewController: BaseViewController {
             }
         }
     }
+    
+    private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.titleLabel.font = .aggroLight
+        navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
+        navBar.titleLabel.textColor = .primarydark
+        navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
+        navBar.rightSecondBtnItem.isHidden = true
+        navBar.rightBtnItem.isHidden = true
+        navBar.titleSpacing = 8
+        navBar.backgroundColor = Constants.NavigationBar.backgroundColor
+    }
 
     private var mapView = MKMapView()
 
     private var bottomSheet = UIView().then { view in
-        view.backgroundColor = .darkG7
+        view.backgroundColor = Constants.BottomSheet.backgrouncColor
         view.layer.cornerRadius = Constants.BottomSheet.cornerRadius
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true
@@ -164,7 +170,6 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController {
     private func setupViews() {
-        setBackgroundColor()
         view.addSubviews([
             navBar,
             mapView,
