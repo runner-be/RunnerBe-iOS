@@ -133,9 +133,33 @@ class HomeViewController: BaseViewController {
                 static let font: UIFont = .iosTitle19R
                 static let text: String = L10n.Home.BottomSheet.title
             }
+            
+            enum SelectionLabel {
+                static let onStyle = BadgeLabel.Style(
+                    font: .iosBody13B,
+                    backgroundColor: .primarydark,
+                    textColor: .black,
+                    borderWidth: 0,
+                    borderColor: .primarydarker,
+                    cornerRadiusRatio: 1,
+                    useCornerRadiusAsFactor: true,
+                    padding: UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
+                )
+                
+                static let offStyle = BadgeLabel.Style(
+                    font: .iosBody13R,
+                    backgroundColor: .clear,
+                    textColor: .darkG3,
+                    borderWidth: 1,
+                    borderColor: .darkG3,
+                    cornerRadiusRatio: 1,
+                    useCornerRadiusAsFactor: true,
+                    padding: UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
+                )
+            }
         }
     }
-    
+
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .aggroLight
         navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
