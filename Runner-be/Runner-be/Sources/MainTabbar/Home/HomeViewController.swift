@@ -133,7 +133,7 @@ class HomeViewController: BaseViewController {
                 static let font: UIFont = .iosTitle19R
                 static let text: String = L10n.Home.BottomSheet.title
             }
-            
+
             enum SelectionLabel {
                 static let onStyle = BadgeLabel.Style(
                     font: .iosBody13B,
@@ -145,7 +145,7 @@ class HomeViewController: BaseViewController {
                     useCornerRadiusAsFactor: true,
                     padding: UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
                 )
-                
+
                 static let offStyle = BadgeLabel.Style(
                     font: .iosBody13R,
                     backgroundColor: .clear,
@@ -192,7 +192,6 @@ class HomeViewController: BaseViewController {
         label.text = Constants.BottomSheet.Title.text
         label.font = Constants.BottomSheet.Title.font
     }
-    
 }
 
 // MARK: - Layout
