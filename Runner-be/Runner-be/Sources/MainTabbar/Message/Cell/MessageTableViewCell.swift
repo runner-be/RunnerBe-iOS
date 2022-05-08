@@ -56,6 +56,12 @@ class MessageTableViewCell: UITableViewCell {
         view.backgroundColor = .darkG35
     }
 
+    private var checkBox = UIButton().then { view in
+        view.setImage(UIImage(named: "CheckBoxIcon_Empty"), for: .normal)
+//        view.setImage(UIImage(named:"CheckBoxIcon_Checked"), for: .focused)
+        view.isHidden = true
+    }
+
 //    func configure(with item: PostCellConfig) {
 //        postInfoView.configure(with: item)
 //        postState = item.closed ? .closed : .open
@@ -133,6 +139,7 @@ extension MessageTableViewCell {
             nameLabel,
             postTitle,
             divider,
+            checkBox,
         ])
     }
 
@@ -156,6 +163,11 @@ extension MessageTableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)
+        }
+
+        checkBox.snp.makeConstraints { make in
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.centerY.equalTo(self.contentView)
         }
     }
 }

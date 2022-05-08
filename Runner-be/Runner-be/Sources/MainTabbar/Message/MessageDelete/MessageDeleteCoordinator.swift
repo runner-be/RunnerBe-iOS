@@ -19,6 +19,6 @@ final class MessageDeleteCoordinator: BasicCoordinator<MessageDeleteResult> {
     }
 
     override func start(animated _: Bool) {
-        let scene = component.scene
+//        let scene = component.scene
     }
 }

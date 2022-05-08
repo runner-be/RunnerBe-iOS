@@ -206,6 +206,14 @@ internal enum L10n {
   }
 
   internal enum MessageList {
+    internal enum Delete {
+      internal enum NavBar {
+        /// 삭제
+        internal static let rightItem = L10n.tr("Localizable", "MessageList.Delete.NavBar.RightItem")
+        /// 전체선택
+        internal static let rightSecondItem = L10n.tr("Localizable", "MessageList.Delete.NavBar.RightSecondItem")
+      }
+    }
     internal enum NavBar {
       /// 삭제
       internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")

@@ -17,7 +17,9 @@ final class MessageViewModel: BaseViewModel {
 
     struct Output {}
 
-    struct Route {}
+    struct Route {
+        var detailPost = PublishSubject<Int>()
+    }
 
     struct RouteInput {
         let needsUpdate = PublishSubject<Bool>()

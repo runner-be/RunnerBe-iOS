@@ -69,6 +69,7 @@ extension MessageViewController {
         ])
 
         tableView.backgroundColor = .darkG7
+        tableView.isUserInteractionEnabled = false //선택시 하이라이트 효과 없애기
     }
 
     private func initialLayout() {
