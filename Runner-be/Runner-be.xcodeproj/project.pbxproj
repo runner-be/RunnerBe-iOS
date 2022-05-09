@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
+		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
 		C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */; };
 		C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */; };
@@ -309,6 +310,7 @@
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
+		C304C583282708A100C24295 /* SelectionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionLabel.swift; sourceTree = "<group>"; };
 		C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostComponent.swift; sourceTree = "<group>"; };
 		C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostCoordinator.swift; sourceTree = "<group>"; };
 		C3089AF727BF460500884987 /* WritingMainPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingMainPostViewModel.swift; sourceTree = "<group>"; };
@@ -659,6 +661,7 @@
 		C304C5802826B39000C24295 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C304C583282708A100C24295 /* SelectionLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2249,6 +2252,7 @@
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
+				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
 				C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */,
 				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,
