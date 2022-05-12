@@ -7,31 +7,6 @@
 
 import Foundation
 import SwiftyJSON
-//
-// struct Post {
-//    let id: Int
-//    let postingTime: Date
-//    let writerID: Int
-//    let writerName: String
-//    let profileImageUrl: String
-//    let title: String
-//    let runningTime: Int
-//    let gatheringTime: Date
-//    let longitude: Float
-//    let latitude: Float
-//    let locationInfo: String
-//    let runningTag: String
-//    let minAge: Int
-//    let maxAge: Int
-//    let gender: Gender
-//    let DISTANCE: Float
-//    let whetherEnd: String
-//    let job: [Job]
-//    var bookMarked = false
-//    var contents: String = ""
-//    let numParticipantsLimit: String
-//    var attendance: Bool
-// }
 
 struct Post {
     let ID: Int
@@ -55,6 +30,8 @@ struct Post {
     var open: Bool = false
     var marked: Bool = false
     var attendance: Bool = false
+
+    var attendanceProfiles: [ProfileURL] = []
 }
 
 struct PostDetail {
@@ -62,4 +39,30 @@ struct PostDetail {
 
     let maximumNum: Int
     let content: String
+}
+
+extension Post: CustomStringConvertible {
+    var description: String {
+        let desc = """
+        {
+            id: \(ID),
+            writerId: \(writerID),
+            writerName: \(writerName),
+            writerProfileURL: \(writerProfileURL),
+            title: \(title),
+            tag: \(tag.name),
+            runningTime: hour - \(runningTime.hour), minute - \(runningTime.minute),
+            gatherDate: \(gatherDate),
+            ageRange: \(ageRange.min) ~ \(ageRange.max),
+            gender: \(gender.name),
+            locationInfo: \(locationInfo),
+            coord: lat - \(coord?.lat), long - \(coord?.long),
+            open: \(open),
+            marked: \(marked),
+            attendance: \(attendance),
+            attendanceProfiles: \(attendanceProfiles),
+        }
+        """
+        return desc
+    }
 }

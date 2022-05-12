@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum PostAPI {
-    case fetch(filter: PostFilter)
+    case fetch(userId: Int?, filter: PostFilter)
     case posting(form: PostingForm, id: Int, token: LoginToken)
     case bookmarking(postId: Int, userId: Int, mark: Bool, token: LoginToken)
     case fetchBookMarked(userId: Int, token: LoginToken)
@@ -30,14 +30,14 @@ extension PostAPI: TargetType {
 
     var path: String {
         switch self {
-        case let .fetch(filter):
-            return "/users/main/\(filter.runningTag.code)"
+        case let .fetch(_, filter):
+            return "/users/main/v2/\(filter.runningTag.code)"
         case let .posting(_, id, _):
             return "/postings/\(id)"
         case let .bookmarking(_, userId, mark, _):
             return "/users/\(userId)/bookmarks/\(mark ? "Y" : "N")"
         case let .fetchBookMarked(userId, _):
-            return "/users/\(userId)/bookmarks"
+            return "/users/\(userId)/bookmarks/v2"
         case let .detail(postId, userId, _):
             return "/postings/\(postId)/\(userId)"
         case let .apply(postId, _, _):
@@ -47,7 +47,7 @@ extension PostAPI: TargetType {
         case let .close(postId, _):
             return "/postings/\(postId)/closing"
         case let .myPage(userId, _):
-            return "/users/\(userId)/myPage"
+            return "/users/\(userId)/myPage/v2"
         case let .attendance(postId, userId, _):
             return "/runnings/\(postId)/attendees/\(userId)"
         }
@@ -80,10 +80,8 @@ extension PostAPI: TargetType {
 
     var task: Task {
         switch self {
-        case let .fetch(filter):
-            let parameters: [String: Any] = [
-                "userLongitude": "\(filter.longitude)",
-                "userLatitude": "\(filter.latitude)",
+        case let .fetch(userId, filter):
+            var parameters: [String: Any] = [
                 "whetherEnd": filter.wheterEnd.code,
                 "filter": filter.filter.code,
                 "distanceFilter": "\(filter.distanceFilter)",
@@ -91,8 +89,14 @@ extension PostAPI: TargetType {
                 "ageFilterMax": "\(filter.ageMax)",
                 "ageFilterMin": "\(filter.ageMin)",
                 "jobFilter": filter.jobFilter.code,
+                "userLongitude": "\(filter.longitude)",
+                "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
             ]
+
+            if let userId = userId {
+                parameters["userId"] = userId
+            }
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):
