@@ -90,7 +90,7 @@ class BasicPostInfoView: UIView {
         }
 
         enum InfoLabel {
-            static let size: CGSize = .init(width: 20, height: 20)
+            static let iconSize: CGSize = .init(width: 20, height: 20)
             static let spacing: CGFloat = 8
 
             static let font: UIFont = .iosBody13R
@@ -125,21 +125,21 @@ class BasicPostInfoView: UIView {
 
     var profileFrameView = UIView()
 
-    var dateLabel = IconLabel(iconSize: Constants.InfoLabel.size, spacing: Constants.InfoLabel.spacing).then { view in
+    var dateLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
         view.label.font = Constants.InfoLabel.font
         view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "3/31 (금) AM 6:00"
         view.icon.image = Asset.scheduled.uiImage
     }
 
-    var timeLabel = IconLabel(iconSize: Constants.InfoLabel.size, spacing: Constants.InfoLabel.spacing).then { view in
+    var timeLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
         view.label.font = Constants.InfoLabel.font
         view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "2시간 20분"
         view.icon.image = Asset.time.uiImage
     }
 
-    var participantLabel = IconLabel(iconSize: Constants.InfoLabel.size, spacing: Constants.InfoLabel.spacing).then { view in
+    var participantLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
         view.label.font = Constants.InfoLabel.font
         view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "여성 · 20-35"
@@ -199,12 +199,14 @@ extension BasicPostInfoView {
 
 extension BasicPostInfoView {
     static var height: CGFloat {
+        let infoLabelHeight = IconLabel.Size(iconSize: Constants.InfoLabel.iconSize, text: "abc", font: Constants.InfoLabel.font, spacing: Constants.InfoLabel.spacing).height
+
         return Constants.Title.height
             + Constants.Profile.top
             + Constants.Profile.dimension
             + Constants.InfoLabel.Date.top
-            + Constants.InfoLabel.size.height
+            + infoLabelHeight
             + Constants.InfoLabel.Time.top
-            + Constants.InfoLabel.size.height
+            + infoLabelHeight
     }
 }
