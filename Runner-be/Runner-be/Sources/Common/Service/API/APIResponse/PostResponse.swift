@@ -141,7 +141,6 @@ extension PostResponse {
               let postID = postID,
               let postUserID = postUserID,
               let nickName = nickName,
-              let profileImageURL = profileImageURL,
               let postTitle = title,
               let runningTagType = runningTagType,
               let locationInformation = locationInfo
@@ -150,17 +149,15 @@ extension PostResponse {
         let id = postID
         let writerID = postUserID
         let writerName = nickName
-        let writerProfileURL = profileImageURL
         let title = postTitle
         let tag = runningTagType
         let locationInfo = locationInformation
-        // coords : nil
 
         var post = Post(
             ID: id,
             writerID: writerID,
             writerName: writerName,
-            writerProfileURL: writerProfileURL,
+            writerProfileURL: profileImageURL, // nullable
             title: title,
             tag: tag,
             runningTime: runningTime,
@@ -168,7 +165,7 @@ extension PostResponse {
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
-            coord: coords,
+            coord: coords,  // nullable
             attendanceProfiles: profileURLList ?? []
         )
 
