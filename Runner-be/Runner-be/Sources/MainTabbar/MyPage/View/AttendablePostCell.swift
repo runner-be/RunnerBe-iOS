@@ -33,6 +33,42 @@ class AttendablePostCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
 
+    enum Constants {
+        static let backgroundColor: UIColor = .darkG55
+        static let cornerRadius: CGFloat = 12
+        static let marginX: CGFloat = 12
+
+        enum PostInfo {
+            static let top: CGFloat = 16
+            static let leading: CGFloat = 16
+            static let trailing: CGFloat = -16
+        }
+
+        enum Divider {
+            static let top: CGFloat = 16
+            static let height: CGFloat = 1
+        }
+
+        enum AttendButton {
+            static let top: CGFloat = 16
+            static let leading: CGFloat = 16
+            static let trailing: CGFloat = -16
+            static let height: CGFloat = 30
+            static let cornerRadius: CGFloat = Constants.AttendButton.height / 2.0
+
+            static let bottom: CGFloat = 16 // not AutoLayout
+        }
+
+        enum Cover {
+            static let blur: CGFloat = 0.7
+
+            enum Label {
+                static let font: UIFont = .iosBody15R
+                static let bottom: CGFloat = -10
+            }
+        }
+    }
+
     var disposeBag = DisposeBag()
 
     var postInfoView = BasicPostInfoView()
@@ -55,25 +91,24 @@ class AttendablePostCell: UICollectionViewCell {
     private lazy var cover: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .dark)
         let blurView = UIVisualEffectView(effect: blur)
-        blurView.alpha = 0.7
+        blurView.alpha = Constants.Cover.blur
         return blurView
     }()
 
     private var divider = UIView().then { view in
         view.backgroundColor = .darkG35
-        view.snp.makeConstraints { make in
-            make.height.equalTo(1)
+        view.snp.makeConstraints { _ in
         }
     }
 
     private var coverLabel = UILabel().then { label in
-        label.font = .iosBody15R
+        label.font = Constants.Cover.Label.font
     }
 }
 
 extension AttendablePostCell {
     private func setup() {
-        backgroundColor = .darkG55
+        backgroundColor = Constants.backgroundColor
         contentView.addSubviews([
             postInfoView,
             attendButton,
@@ -84,29 +119,29 @@ extension AttendablePostCell {
     }
 
     private func initialLayout() {
-        layer.cornerRadius = 12
+        layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true
 
         postInfoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(18)
-            make.leading.equalTo(contentView.snp.leading).offset(17)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-17)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-62)
+            make.top.equalTo(contentView.snp.top).offset(Constants.PostInfo.top)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.PostInfo.leading)
+            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
         }
-
-        attendButton.snp.makeConstraints { make in
-            make.bottom.equalTo(contentView.snp.bottom).offset(-16)
-            make.leading.equalTo(contentView.snp.leading).offset(17)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-17)
-            make.height.equalTo(30)
-        }
-        attendButton.layer.cornerRadius = 15
 
         divider.snp.makeConstraints { make in
-            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
+            make.bottom.equalTo(postInfoView.snp.bottom).offset(Constants.Divider.top)
+            make.height.equalTo(Constants.Divider.height)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
         }
+
+        attendButton.snp.makeConstraints { make in
+            make.top.equalTo(postInfoView.snp.bottom).offset(Constants.AttendButton.top)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.AttendButton.leading)
+            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.AttendButton.trailing)
+            make.height.equalTo(Constants.AttendButton.height)
+        }
+        attendButton.layer.cornerRadius = Constants.AttendButton.cornerRadius
 
         cover.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
@@ -116,7 +151,7 @@ extension AttendablePostCell {
         }
 
         coverLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(cover.snp.bottom).offset(-10)
+            make.bottom.equalTo(cover.snp.bottom).offset(Constants.Cover.Label.bottom)
             make.centerX.equalTo(cover.snp.centerX)
         }
     }
@@ -193,9 +228,13 @@ extension AttendablePostCell {
     static let id: String = "\(AttendablePostCell.self)"
 
     static let size: CGSize = {
-        let hMargin: CGFloat = 12
-        let width = UIScreen.main.bounds.width - hMargin * 2
-        let height: CGFloat = 16 + BasicPostInfoView.height + 17 + 30 + 16
+        let width = UIScreen.main.bounds.width - Constants.marginX * 2
+        let height: CGFloat = Constants.PostInfo.top
+            + BasicPostInfoView.height
+            + Constants.AttendButton.top
+            + Constants.AttendButton.height
+            + Constants.AttendButton.bottom
+
         return CGSize(width: width, height: height)
     }()
 }
