@@ -112,10 +112,9 @@ extension BasicPostCell {
         clipsToBounds = true
 
         postInfoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(18)
-            make.leading.equalTo(contentView.snp.leading).offset(17)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-17)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-24)
+            make.top.equalTo(contentView.snp.top).offset(16)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
     }
 }
@@ -126,7 +125,7 @@ extension BasicPostCell {
     static let size: CGSize = {
         let hMargin: CGFloat = 12
         let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
-        let height: CGFloat = 150
+        let height: CGFloat = BasicPostInfoView.height + 32
         return CGSize(width: width, height: height)
     }()
 }

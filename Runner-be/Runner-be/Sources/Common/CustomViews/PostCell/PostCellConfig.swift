@@ -21,6 +21,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let writerProfileURL: String?
     var bookmarked: Bool
     let closed: Bool
+    let attendanceProfiles: [ProfileURL]
 
     init(from post: Post) {
         id = post.ID
@@ -46,6 +47,8 @@ struct PostCellConfig: Equatable, IdentifiableType {
         writerProfileURL = post.writerProfileURL
         closed = !post.open
         bookmarked = post.marked
+
+        attendanceProfiles = post.attendanceProfiles
     }
 
     init(from post: Post, marked: Bool) {
@@ -55,5 +58,9 @@ struct PostCellConfig: Equatable, IdentifiableType {
 
     var identity: String {
         "\(id)"
+    }
+
+    static func == (lhs: PostCellConfig, rhs: PostCellConfig) -> Bool {
+        lhs.id == rhs.id
     }
 }

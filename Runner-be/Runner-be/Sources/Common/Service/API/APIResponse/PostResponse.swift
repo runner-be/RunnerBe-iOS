@@ -165,7 +165,7 @@ extension PostResponse {
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
-            coord: coords,  // nullable
+            coord: coords, // nullable
             attendanceProfiles: profileURLList ?? []
         )
 
