@@ -42,7 +42,44 @@ class HomeViewController: BaseViewController {
         bindBottomSheetGesture()
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        typealias PostSectionDataSource = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
+
+        let dataSource = PostSectionDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+            else { return UICollectionViewCell() }
+
+            self.viewModel.outputs.bookMarked
+                .filter { $0.idx == indexPath.row }
+                .map { $0.marked }
+                .subscribe(onNext: { [weak cell] marked in
+                    cell?.postInfoView.bookMarkIcon.isSelected = marked
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.row }
+                .subscribe(onNext: { [weak self] idx in
+                    self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.configure(with: item)
+            return cell
+        }
+
+        viewModel.outputs.posts
+            .map {
+                $0.reduce(into: [PostCellConfig]()) {
+                    $0.append(PostCellConfig(from: $1))
+                }
+            }
+            .map { [BasicPostSection(items: $0)] }
+            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+    }
 
     private func bindBottomSheetGesture() {
         bottomSheet.rx.panGesture()
@@ -95,8 +132,10 @@ class HomeViewController: BaseViewController {
 
                 if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
                     bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                    postCollectionView.isScrollEnabled = true
                 } else {
                     bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
+                    postCollectionView.isScrollEnabled = false
                 }
 
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
@@ -129,6 +168,7 @@ class HomeViewController: BaseViewController {
             enum Title {
                 static let leading: CGFloat = 16
                 static let top: CGFloat = 24
+                static let height: CGFloat = 29
                 static let color: UIColor = .darkG25
                 static let font: UIFont = .iosTitle21Sb
                 static let text: String = L10n.Home.BottomSheet.title
@@ -160,7 +200,7 @@ class HomeViewController: BaseViewController {
 
                 enum RunningTag {
                     static let leading: CGFloat = 16
-                    static let top: CGFloat = 23
+                    static let top: CGFloat = Title.top + Title.height + 23
                 }
 
                 enum OrderTag {
@@ -171,6 +211,11 @@ class HomeViewController: BaseViewController {
                     static let leading: CGFloat = 12
                     static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
                 }
+            }
+
+            enum PostList {
+                static let top: CGFloat = Title.top + Title.height + 70
+                static let minimumLineSpacing: CGFloat = 12
             }
         }
     }
@@ -253,6 +298,16 @@ class HomeViewController: BaseViewController {
 
         view.label.text = "마감 포함"
     }
+
+    private lazy var postCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = Constants.BottomSheet.PostList.minimumLineSpacing
+        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
 }
 
 // MARK: - Layout
@@ -271,6 +326,7 @@ extension HomeViewController {
             runningTagView,
             orderTagView,
             showClosedPostView,
+            postCollectionView,
         ])
     }
 
@@ -305,10 +361,11 @@ extension HomeViewController {
         sheetTitle.snp.makeConstraints { make in
             make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.Title.top)
             make.leading.equalTo(bottomSheet.snp.leading).offset(Constants.BottomSheet.Title.leading)
+            make.height.equalTo(Constants.BottomSheet.Title.height)
         }
 
         runningTagView.snp.makeConstraints { make in
-            make.top.equalTo(sheetTitle.snp.bottom).offset(Constants.BottomSheet.SelectionLabel.RunningTag.top)
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.SelectionLabel.RunningTag.top)
             make.leading.equalTo(bottomSheet.snp.leading).offset(Constants.BottomSheet.SelectionLabel.RunningTag.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
@@ -324,5 +381,18 @@ extension HomeViewController {
             make.leading.equalTo(orderTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.ShowClosedPost.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
+
+        postCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.PostList.top)
+            make.leading.equalTo(bottomSheet.snp.leading)
+            make.trailing.equalTo(bottomSheet.snp.trailing)
+            make.bottom.equalTo(bottomSheet.snp.bottom)
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return BasicPostCell.size
     }
 }

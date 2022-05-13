@@ -54,7 +54,7 @@ class BasicPostInfoView: UIView {
                 make.width.equalTo(profileDimension)
                 make.height.equalTo(profileDimension)
             }
-
+            imageView.clipsToBounds = true
             imageView.layer.borderColor = backgroundColor.cgColor
             imageView.layer.borderWidth = Constants.Profile.borderWidth
             imageView.layer.cornerRadius = Constants.Profile.cornerRadius
