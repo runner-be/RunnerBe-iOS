@@ -10,9 +10,8 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: BaseViewModel {
-    var bookMarkSet = Set<Int>()
-    var posts: [Post] = []
-    var filter: PostFilter
+    private var posts: [Post] = []
+    private var filter: PostFilter
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
@@ -41,13 +40,11 @@ final class HomeViewModel: BaseViewModel {
         let postReady = ReplaySubject<[Post]?>.create(bufferSize: 1)
         postReady
             .compactMap { $0 }
-            .map { posts in
-                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
-                    guard let self = self else { return }
-                    if self.filter.wheterEnd == .open, !post.open { return }
-                    var post = post
-                    post.marked = self.bookMarkSet.contains(post.ID)
-                    partialResult.append(post)
+            .map { [weak self] posts -> [Post] in
+                if self?.filter.wheterEnd == .open {
+                    return posts.filter { post in post.open }
+                } else {
+                    return posts
                 }
             }
             .subscribe(onNext: { [weak self] posts in
@@ -55,21 +52,6 @@ final class HomeViewModel: BaseViewModel {
                 self?.outputs.posts.onNext(posts)
                 self?.outputs.refresh.onNext(())
             })
-            .disposed(by: disposeBag)
-
-        postAPIService.fetchPostsBookMarked()
-            .do(onNext: { [weak self] result in
-                if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-                }
-            })
-            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
-                }
-            })
-            .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         inputs.tagChanged
@@ -158,11 +140,6 @@ final class HomeViewModel: BaseViewModel {
                       let index = self.posts.firstIndex(where: { $0.ID == result.postId })
                 else { return }
                 self.posts[index].marked = result.mark
-                if result.mark {
-                    self.bookMarkSet.insert(self.posts[index].ID)
-                } else {
-                    self.bookMarkSet.remove(self.posts[index].ID)
-                }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
                 self.outputs.posts.onNext(self.posts)
             })
@@ -189,16 +166,7 @@ final class HomeViewModel: BaseViewModel {
         // MARK: - RouteInput
 
         routeInputs.needUpdate
-            .do(onNext: { [weak self] _ in
-                self?.bookMarkSet.removeAll()
-            })
             .filter { $0 }
-            .flatMap { _ in postAPIService.fetchPostsBookMarked() }
-            .do(onNext: { [weak self] result in
-                if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-                }
-            })
             .compactMap { [weak self] _ in
                 guard let self = self
                 else { return nil }
@@ -259,13 +227,7 @@ final class HomeViewModel: BaseViewModel {
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.id })
                 else { return }
-
                 self.posts[index].marked = result.marked
-                if result.marked {
-                    self.bookMarkSet.insert(self.posts[index].ID)
-                } else {
-                    self.bookMarkSet.remove(self.posts[index].ID)
-                }
                 self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
                 self.outputs.posts.onNext(self.posts)
             })
