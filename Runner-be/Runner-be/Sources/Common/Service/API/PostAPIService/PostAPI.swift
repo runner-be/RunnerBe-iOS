@@ -82,7 +82,7 @@ extension PostAPI: TargetType {
         switch self {
         case let .fetch(userId, filter):
             var parameters: [String: Any] = [
-                "whetherEnd": filter.wheterEnd.code,
+                "whetherEnd": filter.whetherEnd.code,
                 "filter": filter.filter.code,
                 "distanceFilter": "\(filter.distanceFilter)",
                 "genderFilter": filter.gender.code,

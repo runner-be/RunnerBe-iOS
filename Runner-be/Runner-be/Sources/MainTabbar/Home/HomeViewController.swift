@@ -40,6 +40,11 @@ class HomeViewController: BaseViewController {
 
     private func viewModelInput() {
         bindBottomSheetGesture()
+
+        showClosedPostView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapShowClosedPost)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -78,6 +83,12 @@ class HomeViewController: BaseViewController {
             }
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.showClosedPost
+            .subscribe(onNext: { [weak self] show in
+                self?.showClosedPost(show)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -145,6 +156,22 @@ class HomeViewController: BaseViewController {
                 bottomSheetPanGestureOffsetH = 0
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func showClosedPost(_ show: Bool) {
+        if show {
+            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
+            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.HighLighted.textColor
+            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.HighLighted.backgroundColor
+            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.HighLighted.borderWidth
+            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
+        } else {
+            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
+            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
+            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
+            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
+            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
+        }
     }
 
     enum Constants {

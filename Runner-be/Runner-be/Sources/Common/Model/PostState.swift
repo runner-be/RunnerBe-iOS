@@ -32,4 +32,15 @@ extension PostState {
         }
         self = .error
     }
+
+    var toggled: PostState {
+        switch self {
+        case .open:
+            return .closed
+        case .closed:
+            return .open
+        case .error:
+            return .error
+        }
+    }
 }

@@ -22,7 +22,7 @@ final class HomeViewModel: BaseViewModel {
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            wheterEnd: .open,
+            whetherEnd: .open,
             filter: .newest,
             distanceFilter: 3,
             gender: .none,
@@ -41,7 +41,7 @@ final class HomeViewModel: BaseViewModel {
         postReady
             .compactMap { $0 }
             .map { [weak self] posts -> [Post] in
-                if self?.filter.wheterEnd == .open {
+                if self?.filter.whetherEnd == .open {
                     return posts.filter { post in post.open }
                 } else {
                     return posts
@@ -72,22 +72,17 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
-        inputs.deadLineChanged
-            .map { $0 ? PostState.closed : PostState.open }
-            .map { [unowned self] state -> PostFilter in
+        inputs.tapShowClosedPost
+            .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
-                newFilter.wheterEnd = state
+                newFilter.whetherEnd = self.filter.whetherEnd.toggled
                 self.filter = newFilter
-                return newFilter
+                return self.filter.whetherEnd == .closed
             }
-            .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 마감포함 다시 원위치
-                }
+            .subscribe(onNext: { [weak self] showClosedPost in
+                self?.routeInputs.needUpdate.onNext(true)
+                self?.outputs.showClosedPost.onNext(showClosedPost)
             })
-            .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         inputs.filterTypeChanged
@@ -243,7 +238,7 @@ final class HomeViewModel: BaseViewModel {
     struct Input {
         var showDetailFilter = PublishSubject<Void>()
         var writingPost = PublishSubject<Void>()
-        var deadLineChanged = PublishSubject<Bool>()
+        var tapShowClosedPost = PublishSubject<Void>()
         var tagChanged = PublishSubject<Int>()
         var filterTypeChanged = PublishSubject<Int>()
         var tapPostBookMark = PublishSubject<Int>()
@@ -256,6 +251,7 @@ final class HomeViewModel: BaseViewModel {
         var toast = PublishSubject<String>()
         var bookMarked = PublishSubject<(idx: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
+        var showClosedPost = PublishSubject<Bool>()
     }
 
     struct Route {
