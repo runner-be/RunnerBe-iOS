@@ -1,5 +1,5 @@
 //
-//  DetailPostResElement.swift
+//  DetailPostResponse.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/03/01.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK: - DetailPostResElement
+// MARK: - DetailPostResponse
 
-struct DetailPostResElement: Codable {
+struct DetailPostResponse: Codable {
     let postID: Int
     let postingTime: String
     let postUserID: Int
@@ -45,7 +45,7 @@ struct DetailPostResElement: Codable {
     }
 }
 
-extension DetailPostResElement {
+extension DetailPostResponse {
     var coords: (lat: Float, long: Float)? {
         guard let latitude = Float(gatherLatitude),
               let longitude = Float(gatherLongitude)
@@ -128,7 +128,8 @@ extension DetailPostResElement {
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
-            coord: coords
+            coord: coords,
+            attendanceProfiles: []
         )
 
         post.open = open && post.gatherDate > Date()

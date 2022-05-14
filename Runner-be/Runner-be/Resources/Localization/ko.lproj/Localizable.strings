@@ -99,6 +99,8 @@
 "Gender.female" = "여성";
 "Gender.none" = "전체";
 
+// MARK: - Home
+"Home.BottomSheet.title" = "러닝 목록";
 
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";

@@ -14,6 +14,8 @@ import Then
 import Toast_Swift
 import UIKit
 
+import MapKit
+
 class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,33 +39,14 @@ class HomeViewController: BaseViewController {
     private var viewModel: HomeViewModel
 
     private func viewModelInput() {
-        filterIcon.rx.tapGesture()
-            .when(.recognized)
-            .map { _ in }
-            .bind(to: viewModel.inputs.showDetailFilter)
-            .disposed(by: disposeBag)
-
-        floatingButton.rx.tap
-            .bind(to: viewModel.inputs.writingPost)
-            .disposed(by: disposeBag)
-
-        deadlineFilter.tapCheck
-            .bind(to: viewModel.inputs.deadLineChanged)
-            .disposed(by: disposeBag)
-
-        postCollectionView.rx.itemSelected
-            .map { $0.row }
-            .bind(to: viewModel.inputs.tapPost)
-            .disposed(by: disposeBag)
+        bindBottomSheetGesture()
     }
 
     private func viewModelOutput() {
         postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        typealias PostSectionDataSource = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
 
-        typealias BasicPostSectionDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
-
-        let dataSource = BasicPostSectionDataSource { [weak self] _, collectionView, indexPath, item in
+        let dataSource = PostSectionDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
             else { return UICollectionViewCell() }
@@ -96,73 +79,145 @@ class HomeViewController: BaseViewController {
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+    }
 
-        viewModel.outputs.posts
-            .map { !$0.isEmpty }
-            .subscribe(emptyLabel.rx.isHidden)
-            .disposed(by: disposeBag)
+    private func bindBottomSheetGesture() {
+        bottomSheet.rx.panGesture()
+            .when(.changed)
+            .asTranslation()
+            .subscribe(onNext: { [unowned self] translation, _ in
 
-        viewModel.outputs.highLightFilter
-            .subscribe(onNext: { [weak self] highlight in
-                self?.filterIcon.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
+                let maxHeight = view.frame.height - navBar.frame.height
+                let offset = bottomSheetPanGestureOffsetH - translation.y
+                bottomSheetHeight.constant = max(
+                    Constants.BottomSheet.heightMin,
+                    min(
+                        maxHeight,
+                        bottomSheetHeight.constant + offset
+                    )
+                )
+                bottomSheetPanGestureOffsetH = translation.y
+
+                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
+                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                } else {
+                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
+                }
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.refresh
-            .subscribe(onNext: { [weak self] in
-                self?.postCollectionView.collectionViewLayout.invalidateLayout()
-                self?.postCollectionView.bounds.origin = CGPoint(x: 0, y: 0)
-            })
-            .disposed(by: disposeBag)
+        bottomSheet.rx.panGesture()
+            .when(.ended)
+            .asTranslation()
+            .subscribe(onNext: { [unowned self] _, _ in
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+                let maxHeight = view.frame.height - navBar.frame.height
+                let currentHeight = bottomSheet.frame.height
+
+                let targetHeight: CGFloat
+                if currentHeight > Constants.BottomSheet.heightMiddle {
+                    if currentHeight - Constants.BottomSheet.heightMiddle > maxHeight - currentHeight {
+                        targetHeight = maxHeight
+                    } else {
+                        targetHeight = Constants.BottomSheet.heightMiddle
+                    }
+                } else {
+                    if currentHeight - Constants.BottomSheet.heightMin > Constants.BottomSheet.heightMiddle - currentHeight {
+                        targetHeight = Constants.BottomSheet.heightMiddle
+                    } else {
+                        targetHeight = Constants.BottomSheet.heightMin
+                    }
+                }
+                bottomSheetHeight.constant = targetHeight
+
+                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
+                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
+                    postCollectionView.isScrollEnabled = true
+                } else {
+                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
+                    postCollectionView.isScrollEnabled = false
+                }
+
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                    self.view.layoutIfNeeded()
+                }
+
+                bottomSheetPanGestureOffsetH = 0
             })
             .disposed(by: disposeBag)
     }
 
-    private lazy var segmentedControl = SegmentedControl().then { control in
-        control.defaultTextFont = .iosBody15R
-        control.defaultTextColor = .darkG45
-        control.highlightTextFont = .iosBody15B
-        control.highlightTextColor = .darkG5
-        control.fontSize = 15
-        control.boxColors = [.darkG6]
-        control.highlightBoxColors = [.segmentBgTop, .segmentBgBot]
-        control.highlightBoxPadding = .zero
-        control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
-
-        control.items = RunningTag.allCases.reduce(into: [String]()) {
-            if !$1.name.isEmpty {
-                $0.append($1.name)
-            }
+    enum Constants {
+        enum NavigationBar {
+            static let backgroundColor: UIColor = .darkG7
         }
 
-        control.delegate = self
-    }
+        enum BottomSheet {
+            static let backgrouncColor: UIColor = .darkG7
+            static let cornerRadius: CGFloat = 12
+            static let heightMiddle: CGFloat = 294
+            static let heightMin: CGFloat = 65
 
-    var deadlineFilter = CheckBoxView().then { view in
-        view.leftBox = false
-        view.labelText = L10n.Home.PostList.Filter.CheckBox.includeClosedPost
-        view.moreInfoButton.isHidden = true
-        view.checkBoxButton.tintColor = .darkG35
-        view.titleLabel.textColor = .darkG4
-        view.titleLabel.font = .iosBody13R
-        view.spacing = 5
-        view.isSelected = false
-    }
+            enum GreyHandle {
+                static let top: CGFloat = 16
+                static let width: CGFloat = 37
+                static let height: CGFloat = 3
+                static let color: UIColor = .darkG6
+            }
 
-    private var orderFilter = IconLabel(iconPosition: .right, iconSize: CGSize(width: 16, height: 16), spacing: 4).then { view in
-        view.icon.image = Asset.chevronDown.uiImage
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG4
-        view.label.text = L10n.Home.PostList.Filter.Order.distance
-        view.isHidden = true
-    }
+            enum Title {
+                static let leading: CGFloat = 16
+                static let top: CGFloat = 24
+                static let height: CGFloat = 29
+                static let color: UIColor = .darkG25
+                static let font: UIFont = .iosTitle21Sb
+                static let text: String = L10n.Home.BottomSheet.title
+            }
 
-    private var filterIcon = UIImageView().then { view in
-        view.image = Asset.filter.uiImage
+            enum SelectionLabel {
+                static let iconSize: CGSize = .init(width: 16, height: 16)
+                static let height: CGFloat = 27
+                static let cornerRadius: CGFloat = height / 2.0
+                static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 6)
+
+                enum HighLighted {
+                    static let font: UIFont = .iosBody13B
+                    static let backgroundColor: UIColor = .primarydark
+                    static let textColor: UIColor = .darkBlack
+                    static let borderWidth: CGFloat = 0
+                    static let borderColor: CGColor = UIColor.primarydark.cgColor
+                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkBlack)
+                }
+
+                enum Normal {
+                    static let font: UIFont = .iosBody13R
+                    static let backgroundColor: UIColor = .clear
+                    static let textColor: UIColor = .darkG3
+                    static let borderWidth: CGFloat = 1
+                    static let borderColor: CGColor = UIColor.darkG3.cgColor
+                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkG3)
+                }
+
+                enum RunningTag {
+                    static let leading: CGFloat = 16
+                    static let top: CGFloat = Title.top + Title.height + 23
+                }
+
+                enum OrderTag {
+                    static let leading: CGFloat = 12
+                }
+
+                enum ShowClosedPost {
+                    static let leading: CGFloat = 12
+                    static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
+                }
+            }
+
+            enum PostList {
+                static let top: CGFloat = Title.top + Title.height + 70
+                static let minimumLineSpacing: CGFloat = 12
+            }
+        }
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -173,44 +228,105 @@ class HomeViewController: BaseViewController {
         navBar.rightSecondBtnItem.isHidden = true
         navBar.rightBtnItem.isHidden = true
         navBar.titleSpacing = 8
+        navBar.backgroundColor = Constants.NavigationBar.backgroundColor
+    }
+
+    private var mapView = MKMapView()
+
+    private var bottomSheet = UIView().then { view in
+        view.backgroundColor = Constants.BottomSheet.backgrouncColor
+        view.layer.cornerRadius = Constants.BottomSheet.cornerRadius
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+    }
+
+    private lazy var bottomSheetHeight = bottomSheet.heightAnchor.constraint(equalToConstant: Constants.BottomSheet.heightMiddle)
+    var bottomSheetPanGestureOffsetH: CGFloat = 0
+
+    private var greyHandle = UIView().then { view in
+        view.backgroundColor = Constants.BottomSheet.GreyHandle.color
+    }
+
+    private var sheetTitle = UILabel().then { label in
+        label.textColor = Constants.BottomSheet.Title.color
+        label.text = Constants.BottomSheet.Title.text
+        label.font = Constants.BottomSheet.Title.font
+    }
+
+    private var runningTagView = SelectionLabel().then { view in
+
+        view.padding = Constants.BottomSheet.SelectionLabel.padding
+        view.iconSize = Constants.BottomSheet.SelectionLabel.iconSize
+        view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
+
+        view.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.HighLighted.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.HighLighted.backgroundColor
+        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.HighLighted.borderWidth
+        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
+        view.icon.image = Constants.BottomSheet.SelectionLabel.HighLighted.icon
+
+        view.label.text = "출근 전"
+    }
+
+    private var orderTagView = SelectionLabel().then { view in
+
+        view.padding = Constants.BottomSheet.SelectionLabel.padding
+        view.iconSize = Constants.BottomSheet.SelectionLabel.iconSize
+        view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
+
+        view.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
+        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
+        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
+        view.icon.image = Constants.BottomSheet.SelectionLabel.Normal.icon
+
+        view.label.text = "찜 많은 순"
+    }
+
+    private var showClosedPostView = SelectionLabel().then { view in
+
+        view.padding = Constants.BottomSheet.SelectionLabel.ShowClosedPost.padding
+        view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
+
+        view.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
+        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
+        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
+
+        view.label.text = "마감 포함"
     }
 
     private lazy var postCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 12
-        layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = Constants.BottomSheet.PostList.minimumLineSpacing
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
-
-    private var emptyLabel = UILabel().then { label in
-        label.font = .iosTitle19R
-        label.textColor = .darkG45
-        label.text = L10n.Home.PostList.Empty.title
-        label.isHidden = true
-    }
-
-    private var floatingButton = UIButton().then { button in
-        button.setImage(Asset.floatingButton.uiImage, for: .normal)
-    }
 }
 
 // MARK: - Layout
 
 extension HomeViewController {
     private func setupViews() {
-        setBackgroundColor()
         view.addSubviews([
             navBar,
-            segmentedControl,
-            deadlineFilter,
-//            orderFilter,
-            filterIcon,
+            mapView,
+            bottomSheet,
+        ])
+
+        bottomSheet.addSubviews([
+            greyHandle,
+            sheetTitle,
+            runningTagView,
+            orderTagView,
+            showClosedPostView,
             postCollectionView,
-            floatingButton,
-            emptyLabel,
         ])
     }
 
@@ -221,51 +337,56 @@ extension HomeViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        segmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(8)
-            make.leading.equalTo(view.snp.leading).offset(14)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
         }
 
-        filterIcon.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(12)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+        bottomSheet.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        bottomSheetHeight.isActive = true
+
+        greyHandle.snp.makeConstraints { make in
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.GreyHandle.top)
+            make.centerX.equalTo(bottomSheet.snp.centerX)
+            make.height.equalTo(Constants.BottomSheet.GreyHandle.height)
+            make.width.equalTo(Constants.BottomSheet.GreyHandle.width)
         }
 
-//        orderFilter.snp.makeConstraints { make in
-//            make.centerY.equalTo(filterIcon.snp.centerY)
-//            make.trailing.equalTo(filterIcon.snp.leading).offset(-16)
-//        }
+        sheetTitle.snp.makeConstraints { make in
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.Title.top)
+            make.leading.equalTo(bottomSheet.snp.leading).offset(Constants.BottomSheet.Title.leading)
+            make.height.equalTo(Constants.BottomSheet.Title.height)
+        }
 
-        deadlineFilter.snp.makeConstraints { make in
-            make.centerY.equalTo(filterIcon.snp.centerY)
-            make.trailing.equalTo(filterIcon.snp.leading).offset(-10)
+        runningTagView.snp.makeConstraints { make in
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.SelectionLabel.RunningTag.top)
+            make.leading.equalTo(bottomSheet.snp.leading).offset(Constants.BottomSheet.SelectionLabel.RunningTag.leading)
+            make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
+        }
+
+        orderTagView.snp.makeConstraints { make in
+            make.top.equalTo(runningTagView.snp.top)
+            make.leading.equalTo(runningTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.OrderTag.leading)
+            make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
+        }
+
+        showClosedPostView.snp.makeConstraints { make in
+            make.top.equalTo(runningTagView.snp.top)
+            make.leading.equalTo(orderTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.ShowClosedPost.leading)
+            make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 
         postCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(filterIcon.snp.bottom).offset(8)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
-        }
-
-        floatingButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
-        }
-
-        emptyLabel.snp.makeConstraints { make in
-            make.center.equalTo(postCollectionView.snp.center)
-        }
-    }
-}
-
-extension HomeViewController: SegmentedControlDelegate {
-    func didChanged(_: SegmentedControl, from: Int, to: Int) {
-        if from != to {
-            viewModel.inputs.tagChanged.onNext(to)
+            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.PostList.top)
+            make.leading.equalTo(bottomSheet.snp.leading)
+            make.trailing.equalTo(bottomSheet.snp.trailing)
+            make.bottom.equalTo(bottomSheet.snp.bottom)
         }
     }
 }

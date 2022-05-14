@@ -81,3 +81,14 @@ class IconLabel: UIView {
         }
     }
 }
+
+extension IconLabel {
+    static func Size(iconSize: CGSize, text: String, font: UIFont, spacing: CGFloat) -> CGSize {
+        let labelSize = NSString(string: text).size(withAttributes: [.font: font])
+
+        let width = iconSize.width + spacing + labelSize.width
+        let height = max(iconSize.height, labelSize.height)
+
+        return CGSize(width: width, height: height)
+    }
+}

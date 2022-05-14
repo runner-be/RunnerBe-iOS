@@ -44,6 +44,10 @@ internal enum L10n {
   }
 
   internal enum Home {
+    internal enum BottomSheet {
+      /// 러닝 목록
+      internal static let title = L10n.tr("Localizable", "Home.BottomSheet.title")
+    }
     internal enum Filter {
       internal enum Age {
         /// 모든연령
@@ -66,14 +70,6 @@ internal enum L10n {
       internal enum Place {
         /// 모임장소
         internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title")
-      }
-    }
-    internal enum MessageList {
-      internal enum NavBar {
-        /// 삭제
-        internal static let rightItem = L10n.tr("Localizable", "Home.MessageList.NavBar.RightItem")
-        /// 쪽지
-        internal static let title = L10n.tr("Localizable", "Home.MessageList.NavBar.Title")
       }
     }
     internal enum PostDetail {
@@ -210,6 +206,15 @@ internal enum L10n {
         /// MyPage
         internal static let title = L10n.tr("Localizable", "MainTabbar.Item.MyPage.title")
       }
+    }
+  }
+
+  internal enum MessageList {
+    internal enum NavBar {
+      /// 삭제
+      internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")
+      /// 쪽지
+      internal static let title = L10n.tr("Localizable", "MessageList.NavBar.Title")
     }
   }
 
@@ -463,7 +468,8 @@ internal enum L10n {
 
   internal enum Onboard {
     internal enum Cover {
-      /// 나를 알려주면 참여할 수 있어요!
+      /// 나를 더 알려주면
+      /// 모임에 참여할 수 있어요!
       internal static let title = L10n.tr("Localizable", "Onboard.Cover.Title")
       internal enum Button {
         internal enum LookAround {
