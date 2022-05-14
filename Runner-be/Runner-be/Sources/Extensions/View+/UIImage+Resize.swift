@@ -1,5 +1,5 @@
 //
-//  UIImage+Resize.swift.swift
+//  UIImage+Resize.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/03/04.
