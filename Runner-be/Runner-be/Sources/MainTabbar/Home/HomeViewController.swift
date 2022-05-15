@@ -330,7 +330,7 @@ extension HomeViewController {
         bottomSheet.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(UIScreen.main.bounds.height - AppContext.shared.safeAreaInsets.bottom - AppContext.shared.safeAreaInsets.top - AppContext.shared.tabHeight - AppContext.shared.navHeight)
+            make.height.equalTo(UIScreen.main.bounds.height - AppContext.shared.safeAreaInsets.bottom - AppContext.shared.safeAreaInsets.top - AppContext.shared.tabHeight)
         }
         bottomSheetHeight.isActive = true
 
@@ -415,7 +415,7 @@ extension HomeViewController {
 
     private func onPanGestureEnded() {
         let state = bottomSheetState
-        let maxHeight = view.frame.height - navBar.frame.height
+        let maxHeight = bottomSheetMaxheight
 
         switch state {
         case .open:
@@ -436,7 +436,7 @@ extension HomeViewController {
     }
 
     private var bottomSheetState: State.BottomSheet {
-        let maxHeight = view.frame.height - navBar.frame.height
+        let maxHeight = bottomSheetMaxheight
         let currentHeight = -bottomSheetHeight.constant
 
         if currentHeight > Constants.BottomSheet.heightMiddle {
@@ -454,8 +454,12 @@ extension HomeViewController {
         }
     }
 
+    private var bottomSheetMaxheight: CGFloat {
+        return view.frame.height - AppContext.shared.safeAreaInsets.top
+    }
+
     private func updateBottomSheetPosition(with translation: CGPoint) {
-        let maxHeight = view.frame.height - navBar.frame.height
+        let maxHeight = bottomSheetMaxheight
         let offset = bottomSheetPanGestureOffsetH - translation.y
 
         let bottomSheetHeight = max(
@@ -468,7 +472,7 @@ extension HomeViewController {
     }
 
     private func updateBottomSheetCornerRadius() {
-        let maxHeight = view.frame.height - navBar.frame.height
+        let maxHeight = bottomSheetMaxheight
 
         if -bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
             bottomSheet.layer.cornerRadius = maxHeight - (-bottomSheetHeight.constant)
