@@ -95,25 +95,13 @@ class HomeViewController: BaseViewController {
     private func bindBottomSheetGesture() {
         bottomSheet.rx.panGesture()
             .when(.changed)
+            .filter { [unowned self] gesture in
+                let location = gesture.location(in: self.bottomSheet)
+                return isBottomSheetPanGestureEnable(with: location)
+            }
             .asTranslation()
             .subscribe(onNext: { [unowned self] translation, _ in
-
-                let maxHeight = view.frame.height - navBar.frame.height
-                let offset = bottomSheetPanGestureOffsetH - translation.y
-                bottomSheetHeight.constant = max(
-                    Constants.BottomSheet.heightMin,
-                    min(
-                        maxHeight,
-                        bottomSheetHeight.constant + offset
-                    )
-                )
-                bottomSheetPanGestureOffsetH = translation.y
-
-                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
-                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
-                } else {
-                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
-                }
+                self.onPanGesture(translation: translation)
             })
             .disposed(by: disposeBag)
 
@@ -121,43 +109,11 @@ class HomeViewController: BaseViewController {
             .when(.ended)
             .asTranslation()
             .subscribe(onNext: { [unowned self] _, _ in
-
-                let maxHeight = view.frame.height - navBar.frame.height
-                let currentHeight = bottomSheet.frame.height
-
-                let targetHeight: CGFloat
-                if currentHeight > Constants.BottomSheet.heightMiddle {
-                    if currentHeight - Constants.BottomSheet.heightMiddle > maxHeight - currentHeight {
-                        targetHeight = maxHeight
-                    } else {
-                        targetHeight = Constants.BottomSheet.heightMiddle
-                    }
-                } else {
-                    if currentHeight - Constants.BottomSheet.heightMin > Constants.BottomSheet.heightMiddle - currentHeight {
-                        targetHeight = Constants.BottomSheet.heightMiddle
-                    } else {
-                        targetHeight = Constants.BottomSheet.heightMin
-                    }
-                }
-                bottomSheetHeight.constant = targetHeight
-
-                if bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
-                    bottomSheet.layer.cornerRadius = maxHeight - bottomSheetHeight.constant
-                    postCollectionView.isScrollEnabled = true
-                } else {
-                    bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
-                    postCollectionView.isScrollEnabled = false
-                }
-
-                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                    self.view.layoutIfNeeded()
-                }
-
-                bottomSheetPanGestureOffsetH = 0
+                onPanGestureEnded()
             })
             .disposed(by: disposeBag)
     }
-    
+
     private func showClosedPost(_ show: Bool) {
         if show {
             showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
@@ -267,7 +223,8 @@ class HomeViewController: BaseViewController {
         view.clipsToBounds = true
     }
 
-    private lazy var bottomSheetHeight = bottomSheet.heightAnchor.constraint(equalToConstant: Constants.BottomSheet.heightMiddle)
+    // view.bottom 과 bottomSheet.top 이므로 constant를 음수로 설정해야 함
+    private lazy var bottomSheetHeight = bottomSheet.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -Constants.BottomSheet.heightMiddle)
     var bottomSheetPanGestureOffsetH: CGFloat = 0
 
     private var greyHandle = UIView().then { view in
@@ -332,7 +289,6 @@ class HomeViewController: BaseViewController {
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
         return collectionView
     }()
 }
@@ -374,7 +330,7 @@ extension HomeViewController {
         bottomSheet.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
+            make.height.equalTo(UIScreen.main.bounds.height - AppContext.shared.safeAreaInsets.bottom - AppContext.shared.safeAreaInsets.top - AppContext.shared.tabHeight - AppContext.shared.navHeight)
         }
         bottomSheetHeight.isActive = true
 
@@ -418,8 +374,118 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
+// MARK: - UICollectionViewDelegate
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.contentOffset.y = 0
+        }
+    }
+    
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         return BasicPostCell.size
     }
+}
+
+// MARK: - BottomSheet PanGesture
+
+extension HomeViewController {
+    enum State {
+        enum BottomSheet {
+            case open
+            case halfOpen
+            case closed
+        }
+    }
+    
+    private func isBottomSheetPanGestureEnable(with location: CGPoint) -> Bool {
+        let state = bottomSheetState
+        if state == .open, postCollectionView.frame.contains(location) {
+            return postCollectionView.bounds.origin.y <= 0
+        }
+        return true
+    }
+
+    private func onPanGesture(translation: CGPoint) {
+        updateBottomSheetPosition(with: translation)
+        updateBottomSheetCornerRadius()
+        updatePostCollectionView(with: bottomSheetState)
+    }
+
+    private func onPanGestureEnded() {
+        let state = bottomSheetState
+        let maxHeight = view.frame.height - navBar.frame.height
+
+        switch state {
+        case .open:
+            bottomSheetHeight.constant = -maxHeight
+        case .halfOpen:
+            bottomSheetHeight.constant = -Constants.BottomSheet.heightMiddle
+        case .closed:
+            bottomSheetHeight.constant = -Constants.BottomSheet.heightMin
+        }
+
+        updateBottomSheetCornerRadius()
+        updatePostCollectionView(with: state)
+
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            self.view.layoutIfNeeded()
+        }
+        bottomSheetPanGestureOffsetH = 0
+    }
+
+    private var bottomSheetState: State.BottomSheet {
+        let maxHeight = view.frame.height - navBar.frame.height
+        let currentHeight = -bottomSheetHeight.constant
+
+        if currentHeight > Constants.BottomSheet.heightMiddle {
+            if currentHeight - Constants.BottomSheet.heightMiddle > maxHeight - currentHeight {
+                return .open
+            } else {
+                return .halfOpen
+            }
+        } else {
+            if currentHeight - Constants.BottomSheet.heightMin > Constants.BottomSheet.heightMiddle - currentHeight {
+                return .halfOpen
+            } else {
+                return .closed
+            }
+        }
+    }
+
+    private func updateBottomSheetPosition(with translation: CGPoint) {
+        let maxHeight = view.frame.height - navBar.frame.height
+        let offset = bottomSheetPanGestureOffsetH - translation.y
+
+        let bottomSheetHeight = max(
+            -Constants.BottomSheet.heightMin,
+            min(maxHeight, -bottomSheetHeight.constant + offset)
+        )
+        bottomSheetPanGestureOffsetH = translation.y
+
+        self.bottomSheetHeight.constant = -bottomSheetHeight
+    }
+
+    private func updateBottomSheetCornerRadius() {
+        let maxHeight = view.frame.height - navBar.frame.height
+
+        if -bottomSheetHeight.constant > maxHeight - Constants.BottomSheet.cornerRadius {
+            bottomSheet.layer.cornerRadius = maxHeight - (-bottomSheetHeight.constant)
+        } else {
+            bottomSheet.layer.cornerRadius = Constants.BottomSheet.cornerRadius
+        }
+    }
+
+    private func updatePostCollectionView(with state: State.BottomSheet) {
+        switch state {
+        case .open:
+            postCollectionView.isScrollEnabled = true
+        case .halfOpen:
+            postCollectionView.isScrollEnabled = false
+        case .closed:
+            postCollectionView.isScrollEnabled = false
+        }
+    }
+
 }
