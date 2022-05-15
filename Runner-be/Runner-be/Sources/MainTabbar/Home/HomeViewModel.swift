@@ -73,6 +73,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapShowClosedPost
+            .skip(1)
             .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
                 newFilter.postState = self.filter.postState.toggled
