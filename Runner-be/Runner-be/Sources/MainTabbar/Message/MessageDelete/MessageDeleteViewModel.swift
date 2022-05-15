@@ -17,7 +17,9 @@ final class MessageDeleteViewModel: BaseViewModel {
 
     struct Output {}
 
-    struct Route {}
+    struct Route {
+        var backward = PublishSubject<Void>()
+    }
 
     struct RouteInput {
         let needsUpdate = PublishSubject<Bool>()

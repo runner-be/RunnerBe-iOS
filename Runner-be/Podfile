@@ -33,6 +33,8 @@ target 'Runner-be' do
   pod 'SwiftyJSON', '~> 4.0'
   # SwiftKeychainWrapper
   pod 'SwiftKeychainWrapper'
+  # Alamofire
+  pod 'Alamofire'
 
   # Firebase
   pod 'Firebase/Analytics'
@@ -44,6 +46,10 @@ target 'Runner-be' do
   pod 'Firebase/Auth'
   # Firebase 푸시알림
   pod 'Firebase/Messaging'
+  # Firebase 데이터베이스 (채팅)
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
 
   # Kakao Login
   pod 'RxKakaoSDKCommon' # 필수 모듈

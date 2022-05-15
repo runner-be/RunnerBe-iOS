@@ -78,6 +78,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent") { component in
         BookMarkDependency0c4e86716ba3aaf84ee1Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent->MessageDeleteComponent") { component in
+        MessageDeleteDependency83ad38f7e77e2c519f31Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent") { component in
         MessageDependencyb26316582fc24834a34cProvider(component: component)
     }
@@ -345,6 +348,17 @@ private class BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider: BookMarkDepend
 
 /// ^->AppComponent->MainTabComponent->BookMarkComponent
 private class BookMarkDependency0c4e86716ba3aaf84ee1Provider: BookMarkDependency0c4e86716ba3aaf84ee1BaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+private class MessageDeleteDependency83ad38f7e77e2c519f31BaseProvider: MessageDeleteDependency {
+    init() {}
+}
+
+/// ^->AppComponent->MainTabComponent->MessageComponent->MessageDeleteComponent
+private class MessageDeleteDependency83ad38f7e77e2c519f31Provider: MessageDeleteDependency83ad38f7e77e2c519f31BaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }

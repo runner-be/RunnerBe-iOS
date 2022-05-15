@@ -79,5 +79,11 @@ class BadgeLabel: UILabel {
         }
         padding = style.padding
         invalidateIntrinsicContentSize()
+        /*
+         view의 컨텐츠 크기가 바뀌었을때 intrinsicContentSize 프로퍼티를
+         통해 size를 갱신하고 그에 맞게 auto layout이 업데이트 되도록
+         만들어주는 메소드
+
+         */
     }
 }

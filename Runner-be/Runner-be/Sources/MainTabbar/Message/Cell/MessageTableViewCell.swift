@@ -59,7 +59,7 @@ class MessageTableViewCell: UITableViewCell {
     private var checkBox = UIButton().then { view in
         view.setImage(UIImage(named: "CheckBoxIcon_Empty"), for: .normal)
 //        view.setImage(UIImage(named:"CheckBoxIcon_Checked"), for: .focused)
-        view.isHidden = true
+        view.isHidden = true // 쪽지 삭제에서 체크박스 등장할 예정
     }
 
 //    func configure(with item: PostCellConfig) {

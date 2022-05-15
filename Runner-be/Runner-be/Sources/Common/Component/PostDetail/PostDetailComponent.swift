@@ -22,6 +22,7 @@ final class PostDetailComponent: Component<PostDetailDependency> {
 
     let postId: Int
 
+    /* component 생성시 추가 정보가 필요하다면 다음처럼 init을 구현해주시면 됩니다. */
     init(parent: Scope, postId: Int) {
         self.postId = postId
         super.init(parent: parent)

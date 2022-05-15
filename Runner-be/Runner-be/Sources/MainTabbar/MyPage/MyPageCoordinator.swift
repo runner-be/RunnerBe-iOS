@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-enum MyPageResult {
+enum MyPageResult { // mypage에서 발생할 수 있는 모든 result를 enum으로 모아둠
     case logout
     case toMain
 }
@@ -42,7 +42,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.settings
+        scene.VM.routes.settings // 설정으로 화면전환
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushSettingsScene(vm: vm, animated: true)

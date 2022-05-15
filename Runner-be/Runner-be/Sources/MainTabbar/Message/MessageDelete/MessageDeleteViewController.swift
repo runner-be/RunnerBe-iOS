@@ -27,7 +27,7 @@ class MessageDeleteViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: MessageViewModel) {
+    init(viewModel: MessageDeleteViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -37,21 +37,27 @@ class MessageDeleteViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: MessageViewModel
+    private var viewModel: MessageDeleteViewModel
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.routes.backward)
+            .disposed(by: disposeBag)
+    }
+
     private func viewModelOutput() {}
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.setTitle(L10n.MessageList.Delete.NavBar.rightSecondItem, for: .normal)
+        navBar.rightBtnItem.setTitle(L10n.MessageList.Delete.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
+        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightSecondBtnItem.isHidden = false
         navBar.rightSecondBtnItem.setTitle(L10n.MessageList.Delete.NavBar.rightSecondItem, for: .normal)
         navBar.rightSecondBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightSecondBtnItem.setTitleColor(.darkG3, for: .highlighted)
+        navBar.rightSecondBtnItem.titleLabel?.font = .iosBody17R
         navBar.titleSpacing = 12
     }
 

@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-enum MessageDeleteResult {}
+enum MessageDeleteResult {
+    case backward
+}
 
 final class MessageDeleteCoordinator: BasicCoordinator<MessageDeleteResult> {
     var component: MessageDeleteComponent
@@ -18,7 +20,23 @@ final class MessageDeleteCoordinator: BasicCoordinator<MessageDeleteResult> {
         super.init(navController: navController)
     }
 
-    override func start(animated _: Bool) {
-//        let scene = component.scene
+    override func start(animated: Bool) {
+        let scene = component.scene
+
+        navigationController.pushViewController(scene.VC, animated: animated)
+
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .backward:
+                    self?.navigationController.popViewController(animated: true)
+                }
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.backward
+            .map { MessageDeleteResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
     }
 }

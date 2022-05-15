@@ -206,7 +206,7 @@
 		C3AD115A27B8261000A7044C /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD115927B8261000A7044C /* LoginService.swift */; };
 		C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD115B27B8262900A7044C /* BasicLoginService.swift */; };
 		C3B865EE27CED7180040D95C /* Pods-Runner-be-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */; };
-		C3BA459A27B405210048CA76 /* BadgeLabel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */; };
+		C3BA459A27B405210048CA76 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA459927B405210048CA76 /* BadgeLabel.swift */; };
 		C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA459B27B4064E0048CA76 /* OnOffLabel.swift */; };
 		C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */; };
 		C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA45B027B4A76A0048CA76 /* JobGroupCollectionViewLayout.swift */; };
@@ -308,6 +308,12 @@
 		DA4A1F6C2826459100D57331 /* MessageDeleteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */; };
 		DA4A1F6E2826459D00D57331 /* MessageDeleteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6D2826459D00D57331 /* MessageDeleteCoordinator.swift */; };
 		DA4A1F70282645A800D57331 /* MessageDeleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6F282645A800D57331 /* MessageDeleteViewModel.swift */; };
+		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
+		DAB25445282E3F0F005B78B6 /* MessageChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */; };
+		DAC50001282B8F30004CFF64 /* MessageChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */; };
+		DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */; };
+		DAC50003282B8F3A004CFF64 /* MessageChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */; };
+		DAC50004282B8F3C004CFF64 /* MessageChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -512,7 +518,7 @@
 		C3AD115927B8261000A7044C /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		C3AD115B27B8262900A7044C /* BasicLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLoginService.swift; sourceTree = "<group>"; };
 		C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pods-Runner-be-acknowledgements.plist"; sourceTree = "<group>"; };
-		C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift.swift; sourceTree = "<group>"; };
+		C3BA459927B405210048CA76 /* BadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		C3BA459B27B4064E0048CA76 /* OnOffLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabel.swift; sourceTree = "<group>"; };
 		C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelGroup.swift; sourceTree = "<group>"; };
 		C3BA45B027B4A76A0048CA76 /* JobGroupCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobGroupCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -619,6 +625,12 @@
 		DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteComponent.swift; sourceTree = "<group>"; };
 		DA4A1F6D2826459D00D57331 /* MessageDeleteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteCoordinator.swift; sourceTree = "<group>"; };
 		DA4A1F6F282645A800D57331 /* MessageDeleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteViewModel.swift; sourceTree = "<group>"; };
+		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
+		DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatTableViewCell.swift; sourceTree = "<group>"; };
+		DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewModel.swift; sourceTree = "<group>"; };
+		DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewController.swift; sourceTree = "<group>"; };
+		DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatCoordinator.swift; sourceTree = "<group>"; };
+		DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -679,7 +691,9 @@
 		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				DAC50010282B9999004CFF64 /* View */,
 				DA3067642826235A00543D74 /* Cell */,
+				DAC5FFFC282B899A004CFF64 /* MessageChat */,
 				DA4A1F6A2826457F00D57331 /* MessageDelete */,
 				C31E633128171CEE00C6B5A0 /* MessageComponent.swift */,
 				C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */,
@@ -1230,13 +1244,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		C393578627CFAFFE00FCC73A /* License */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = License;
-			sourceTree = "<group>";
-		};
 		C399FD1127C2833400396DC3 /* PostCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,7 +1354,7 @@
 			children = (
 				C3319A5227C5170E0054B688 /* Bubble */,
 				C3BA45A127B426BE0048CA76 /* OnOff */,
-				C3BA459927B405210048CA76 /* BadgeLabel.swift.swift */,
+				C3BA459927B405210048CA76 /* BadgeLabel.swift */,
 				C399FD1427C290E700396DC3 /* IconLabel.swift */,
 				C32C028827CB3A370011419E /* IconBadgeLabel.swift */,
 			);
@@ -1464,7 +1471,6 @@
 			isa = PBXGroup;
 			children = (
 				C38ABD9C27D4E3BA0025929E /* SignoutModal */,
-				C393578627CFAFFE00FCC73A /* License */,
 				C3C9736827CAF4E500232251 /* Config */,
 				C3C9734627CA95C500232251 /* Maker */,
 				C3C9736027CA977500232251 /* LogoutModal */,
@@ -1715,6 +1721,7 @@
 			isa = PBXGroup;
 			children = (
 				DA3067602826235600543D74 /* MessageTableViewCell.swift */,
+				DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1846,6 +1853,25 @@
 				C3EB5CD927B8B76200775779 /* Signup */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DAC50010282B9999004CFF64 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAB25440282E36C5005B78B6 /* MessagePostView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DAC5FFFC282B899A004CFF64 /* MessageChat */ = {
+			isa = PBXGroup;
+			children = (
+				DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */,
+				DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */,
+				DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */,
+				DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */,
+			);
+			path = MessageChat;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -2053,7 +2079,7 @@
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3C9735527CA967000232251 /* SettingsViewModel.swift in Sources */,
 				C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */,
-				C3BA459A27B405210048CA76 /* BadgeLabel.swift.swift in Sources */,
+				C3BA459A27B405210048CA76 /* BadgeLabel.swift in Sources */,
 				C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */,
 				C3347BED27C2D122006FB110 /* WritingDetailPostViewModel.swift in Sources */,
 				C3C9734F27CA963B00232251 /* EditInfoViewController.swift in Sources */,
@@ -2070,6 +2096,7 @@
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
+				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
@@ -2115,6 +2142,7 @@
 				DA4A1F70282645A800D57331 /* MessageDeleteViewModel.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
+				DAC50004282B8F3C004CFF64 /* MessageChatViewModel.swift in Sources */,
 				C3C9736727CAA67E00232251 /* MakerView.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
@@ -2210,12 +2238,14 @@
 				C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
+				DAB25445282E3F0F005B78B6 /* MessageChatTableViewCell.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
 				C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */,
 				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
+				DAC50003282B8F3A004CFF64 /* MessageChatCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
@@ -2281,6 +2311,7 @@
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
+				DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */,
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
@@ -2296,6 +2327,7 @@
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,
 				C32C027E27CB173A0011419E /* LogoutModalComponent.swift in Sources */,
+				DAC50001282B8F30004CFF64 /* MessageChatViewController.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,

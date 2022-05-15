@@ -171,6 +171,8 @@
 
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
+"BookMark.Main.Empty.title.first" = "찜한 ";
+"BookMark.Main.Empty.title.second" = "모임이 없어요!";
 
 // MARK: - MessageList
 "MessageList.NavBar.Title" = "쪽지";
