@@ -106,7 +106,7 @@ class BookMarkViewController: BaseViewController {
         label.textColor = .darkG4
         label.text = "총 0 건"
     }
-    
+
     var emptyLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG4
@@ -134,7 +134,7 @@ extension BookMarkViewController {
             segmentedControl,
             numPostLabel,
             postCollectionView,
-            emptyLabel
+            emptyLabel,
         ])
     }
 
@@ -162,8 +162,7 @@ extension BookMarkViewController {
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
-        emptyLabel.snp.makeConstraints{ make in
-            
+        emptyLabel.snp.makeConstraints { _ in
         }
     }
 }

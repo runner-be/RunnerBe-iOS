@@ -301,6 +301,7 @@
 		C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
+		DA117B1D2830A63800158211 /* GetBookMarkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA117B1C2830A63800158211 /* GetBookMarkResponse.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
 		DA4A1F69282643A300D57331 /* MessageDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F68282643A300D57331 /* MessageDeleteViewController.swift */; };
 		DA4A1F6C2826459100D57331 /* MessageDeleteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */; };
@@ -616,6 +617,7 @@
 		C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDelegate.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		DA117B1C2830A63800158211 /* GetBookMarkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkResponse.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DA4A1F68282643A300D57331 /* MessageDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteViewController.swift; sourceTree = "<group>"; };
 		DA4A1F6B2826459100D57331 /* MessageDeleteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteComponent.swift; sourceTree = "<group>"; };
@@ -1213,6 +1215,7 @@
 		C38F8F2727AD960C0050137D /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
+				DA117B1B2830A24100158211 /* API */,
 				C38F8F3D27AD99E50050137D /* BookMarkComponent.swift */,
 				C38F8F4527AD9E990050137D /* BookMarkCoordinator.swift */,
 				C38F8F3427AD96D90050137D /* BookMarkViewModel.swift */,
@@ -1717,6 +1720,14 @@
 				C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */,
 			);
 			path = LocationService;
+			sourceTree = "<group>";
+		};
+		DA117B1B2830A24100158211 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DA117B1C2830A63800158211 /* GetBookMarkResponse.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		DA3067642826235A00543D74 /* Cell */ = {
@@ -2301,6 +2312,7 @@
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
+				DA117B1D2830A63800158211 /* GetBookMarkResponse.swift in Sources */,
 				C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C3AB6B61280EBFCC00D58AEC /* ImagePickerType.swift in Sources */,

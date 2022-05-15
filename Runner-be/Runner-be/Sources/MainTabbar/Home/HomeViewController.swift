@@ -314,7 +314,6 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController {
     private func setupViews() {
-
         setBackgroundColor()
 
         view.addSubviews([
