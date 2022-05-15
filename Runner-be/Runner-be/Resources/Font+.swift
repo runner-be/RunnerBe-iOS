@@ -13,6 +13,10 @@ extension UIFont {
         return UIFont(font: FontFamily.AppleSDGothicNeoSB00.regular, size: 31.0)!
     }
 
+    class var iosTitle21Sb: UIFont {
+        return UIFont(font: FontFamily.AppleSDGothicNeoSB00.regular, size: 21.0)!
+    }
+
     class var iosHeader31Sb: UIFont {
         return UIFont(font: FontFamily.AppleSDGothicNeoSB00.regular, size: 31.0)!
     }

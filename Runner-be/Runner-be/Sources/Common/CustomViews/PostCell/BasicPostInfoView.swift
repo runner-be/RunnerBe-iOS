@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
+import KakaoSDKCommon
 import Kingfisher
 import RxCocoa
 import RxSwift
@@ -24,36 +25,92 @@ class BasicPostInfoView: UIView {
         initialLayout()
     }
 
-    func configure(with item: PostCellConfig) {
-        profileLabel.label.text = item.writerName
+    func configure(with item: PostCellConfig, backgroundColor: UIColor = .darkG55) {
         bookMarkIcon.isSelected = item.bookmarked
         titleLabel.text = item.title
         dateLabel.label.text = item.date
         participantLabel.label.text = "\(item.gender) · \(item.ageText)"
-        placeLabel.label.text = item.place
         bookMarkIcon.isSelected = item.bookmarked
         timeLabel.label.text = item.time
 
-        if let url = item.writerProfileURL,
-           let profileURL = URL(string: url)
-        {
-            profileLabel.icon.kf.setImage(with: profileURL)
+        let numProfiles = CGFloat(item.attendanceProfiles.count)
+        let profileSpacing = Constants.Profile.spacing
+        let profileDimension = Constants.Profile.dimension
+        var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
+        for profile in item.attendanceProfiles {
+            let imageView = UIImageView()
+            profileFrameView.addSubview(imageView)
+
+            if let profileURL = profile.profileImageURL {
+                imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
+            } else {
+                imageView.image = Asset.profileEmptyIcon.uiImage
+            }
+
+            imageView.snp.makeConstraints { make in
+                make.top.equalTo(profileFrameView.snp.top)
+                make.bottom.equalTo(profileFrameView.snp.bottom)
+                make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
+                make.width.equalTo(profileDimension)
+                make.height.equalTo(profileDimension)
+            }
+            imageView.clipsToBounds = true
+            imageView.layer.borderColor = backgroundColor.cgColor
+            imageView.layer.borderWidth = Constants.Profile.borderWidth
+            imageView.layer.cornerRadius = Constants.Profile.cornerRadius
+
+            offsetLeading -= profileDimension + profileSpacing
+        }
+        profileFrameView.snp.updateConstraints { make in
+            make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
         }
     }
 
     func reset() {
-        profileLabel.icon.image = Asset.profileEmptyIcon.uiImage
         bookMarkIcon.isSelected = false
+        profileFrameView.subviews.forEach { $0.removeFromSuperview() }
+    }
+
+    enum Constants {
+        enum BookMark {}
+
+        enum Title {
+            static let height: CGFloat = 25
+            static let font: UIFont = .iosTitle19R
+            static let textColor: UIColor = .darkG2
+        }
+
+        enum Profile {
+            static let top: CGFloat = 14
+
+            static let dimension: CGFloat = 28
+            static let spacing: CGFloat = -8
+            static let borderWidth: CGFloat = 2
+            static let cornerRadius: CGFloat = dimension / 2.0
+        }
+
+        enum InfoLabel {
+            static let iconSize: CGSize = .init(width: 20, height: 20)
+            static let spacing: CGFloat = 8
+
+            static let font: UIFont = .iosBody13R
+            static let textColor: UIColor = .darkG2
+
+            enum Date {
+                static let top: CGFloat = 16
+            }
+
+            enum Participant {
+                static let leading: CGFloat = 40
+            }
+
+            enum Time {
+                static let top: CGFloat = 4
+            }
+        }
     }
 
     var blurAlpha: CGFloat = 0.7
-
-    var profileLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 14, height: 14), spacing: 6, padding: .zero).then { view in
-        view.label.font = .iosCaption11R
-        view.label.textColor = .darkG35
-        view.icon.image = Asset.profileEmptyIcon.uiImage
-        view.label.text = "러너1234"
-    }
 
     var bookMarkIcon = UIButton().then { button in
         button.setImage(Asset.bookmarkTabIconNormal.uiImage, for: .normal)
@@ -61,37 +118,32 @@ class BasicPostInfoView: UIView {
     }
 
     var titleLabel = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .darkG2
+        label.font = Constants.Title.font
+        label.textColor = Constants.Title.textColor
         label.text = "PostTitlePlaceHolder"
     }
 
-    var dateLabel = IconLabel(iconSize: CGSize(width: 20, height: 20), spacing: 8).then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
+    var profileFrameView = UIView()
+
+    var dateLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
+        view.label.font = Constants.InfoLabel.font
+        view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "3/31 (금) AM 6:00"
         view.icon.image = Asset.scheduled.uiImage
     }
 
-    var timeLabel = IconLabel(iconSize: CGSize(width: 20, height: 20), spacing: 8).then { view in
-        view.icon.image = Asset.time.uiImage
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
+    var timeLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
+        view.label.font = Constants.InfoLabel.font
+        view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "2시간 20분"
+        view.icon.image = Asset.time.uiImage
     }
 
-    var participantLabel = IconLabel(iconSize: CGSize(width: 20, height: 20), spacing: 8).then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
+    var participantLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
+        view.label.font = Constants.InfoLabel.font
+        view.label.textColor = Constants.InfoLabel.textColor
         view.label.text = "여성 · 20-35"
         view.icon.image = Asset.group.uiImage
-    }
-
-    var placeLabel = IconLabel(iconSize: CGSize(width: 20, height: 20), spacing: 8).then { view in
-        view.label.font = .iosBody13R
-        view.label.textColor = .darkG2
-        view.label.text = "동작구 사당1동"
-        view.icon.image = Asset.place.uiImage
     }
 }
 
@@ -99,53 +151,62 @@ extension BasicPostInfoView {
     private func setup() {
         backgroundColor = .clear
         addSubviews([
-            profileLabel,
             bookMarkIcon,
+            profileFrameView,
             titleLabel,
             dateLabel,
             timeLabel,
             participantLabel,
-            placeLabel,
         ])
     }
 
     private func initialLayout() {
-        profileLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
+            make.height.equalTo(Constants.Title.height)
         }
 
         bookMarkIcon.snp.makeConstraints { make in
-            make.top.equalTo(profileLabel.snp.top)
+            make.top.equalTo(titleLabel.snp.top)
             make.trailing.equalTo(self.snp.trailing)
         }
 
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileLabel.snp.bottom).offset(8)
-            make.leading.equalTo(profileLabel.snp.leading)
+        profileFrameView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(Constants.Profile.top)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.width.equalTo(0) // update dynamically
         }
 
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.leading.equalTo(profileLabel.snp.leading)
+            make.top.equalTo(profileFrameView.snp.bottom).offset(Constants.InfoLabel.Date.top)
+            make.leading.equalTo(titleLabel.snp.leading)
         }
 
-        placeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(dateLabel.snp.trailing).offset(27)
+        participantLabel.snp.makeConstraints { make in
+            make.leading.equalTo(dateLabel.snp.trailing).offset(Constants.InfoLabel.Participant.leading)
             make.trailing.lessThanOrEqualTo(self.snp.trailing)
             make.top.equalTo(dateLabel.snp.top)
         }
 
         timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(8)
-            make.leading.equalTo(profileLabel.snp.leading)
+            make.top.equalTo(dateLabel.snp.bottom).offset(Constants.InfoLabel.Time.top)
+            make.leading.equalTo(titleLabel.snp.leading)
             make.bottom.equalTo(self.snp.bottom)
         }
+    }
+}
 
-        participantLabel.snp.makeConstraints { make in
-            make.top.equalTo(timeLabel.snp.top)
-            make.leading.equalTo(placeLabel.snp.leading)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
-        }
+extension BasicPostInfoView {
+    static var height: CGFloat {
+        let infoLabelHeight = IconLabel.Size(iconSize: Constants.InfoLabel.iconSize, text: "abc", font: Constants.InfoLabel.font, spacing: Constants.InfoLabel.spacing).height
+
+        return Constants.Title.height
+            + Constants.Profile.top
+            + Constants.Profile.dimension
+            + Constants.InfoLabel.Date.top
+            + infoLabelHeight
+            + Constants.InfoLabel.Time.top
+            + infoLabelHeight
     }
 }

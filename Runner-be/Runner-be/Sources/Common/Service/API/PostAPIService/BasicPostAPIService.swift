@@ -25,7 +25,7 @@ final class BasicPostAPIService: PostAPIService {
     func fetchPosts(with filter: PostFilter) -> Observable<[Post]?> {
         let functionResult = ReplaySubject<[Post]?>.create(bufferSize: 1)
 
-        let disposable = provider.rx.request(.fetch(filter: filter))
+        let disposable = provider.rx.request(.fetch(userId: loginKeyChain.userId, filter: filter))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
@@ -46,8 +46,13 @@ final class BasicPostAPIService: PostAPIService {
             }
             .map { try? $0?.json["result"].rawData() }
             .compactMap { $0 }
-            .decode(type: [MainPostResElement].self, decoder: JSONDecoder())
+            .decode(type: [PostResponse].self, decoder: JSONDecoder())
             .map { $0.compactMap { $0.convertedPost }}
+            .do(onNext: { result in
+                #if DEBUG
+                    print("[\(#line)BasicMainPageAPI::\(#function): \(result)")
+                #endif
+            })
             .bind(to: functionResult)
 
         let id = disposableId
@@ -221,7 +226,7 @@ final class BasicPostAPIService: PostAPIService {
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
-            .decode(type: [BookMarkResElement]?.self, decoder: JSONDecoder())
+            .decode(type: [PostResponse]?.self, decoder: JSONDecoder())
             .catch { error in
                 print(error.localizedDescription)
                 return .just(nil)
@@ -346,7 +351,7 @@ final class BasicPostAPIService: PostAPIService {
             .compactMap { $0 }
             .subscribe(onNext: { result in
                 let decoder = JSONDecoder()
-                let posts = try? decoder.decode([DetailPostResElement].self, from: result.post)
+                let posts = try? decoder.decode([DetailPostResponse].self, from: result.post)
                 let participants = (try? decoder.decode([User].self, from: result.participants)) ?? []
                 let applicant = (try? decoder.decode([User].self, from: result.applicant)) ?? []
 
@@ -659,8 +664,8 @@ final class BasicPostAPIService: PostAPIService {
             .subscribe(onNext: { result in
                 let decoder = JSONDecoder()
                 let userInfo = try? decoder.decode([User].self, from: result.userData).first
-                let posting = (try? decoder.decode([MyPostResElement].self, from: result.postingData)) ?? []
-                let joined = (try? decoder.decode([MyRunResElement].self, from: result.joinedData)) ?? []
+                let posting = (try? decoder.decode([PostResponse].self, from: result.postingData)) ?? []
+                let joined = (try? decoder.decode([PostResponse].self, from: result.joinedData)) ?? []
 
                 let userPosting: [Post] = posting.compactMap { $0.convertedPost }
                 let userJoined: [Post] = joined.compactMap { $0.convertedPost }

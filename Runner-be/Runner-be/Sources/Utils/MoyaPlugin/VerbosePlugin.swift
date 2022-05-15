@@ -13,10 +13,12 @@ struct VerbosePlugin: PluginType {
 
     func prepare(_ request: URLRequest, target _: TargetType) -> URLRequest {
         #if DEBUG
-            if let body = request.httpBody,
+            if let urlString = request.url?.absoluteString,
+               let body = request.httpBody,
                let str = String(data: body, encoding: .utf8)
             {
                 if verbose {
+                    print("[MOYA VerbosePlugin] url: \(urlString)")
                     print("[MOYA VerbosePlugin] request to send: \(str)")
                 }
             }

@@ -52,6 +52,10 @@ internal enum L10n {
   }
 
   internal enum Home {
+    internal enum BottomSheet {
+      /// 러닝 목록
+      internal static let title = L10n.tr("Localizable", "Home.BottomSheet.title")
+    }
     internal enum Filter {
       internal enum Age {
         /// 모든연령
@@ -214,6 +218,7 @@ internal enum L10n {
   }
 
   internal enum MessageList {
+
     internal enum Delete {
       internal enum NavBar {
         /// 삭제
@@ -222,6 +227,7 @@ internal enum L10n {
         internal static let rightSecondItem = L10n.tr("Localizable", "MessageList.Delete.NavBar.RightSecondItem")
       }
     }
+
     internal enum NavBar {
       /// 삭제
       internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")

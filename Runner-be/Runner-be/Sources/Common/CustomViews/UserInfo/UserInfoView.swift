@@ -98,7 +98,7 @@ class UserInfoView: UIView {
         view.image = Asset.postOwner.uiImage
     }
 
-    private var badgeLabel = IconBadgeLabel()
+    private var badgeLabel = RunnerBadge()
 
     private var jobTagLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(

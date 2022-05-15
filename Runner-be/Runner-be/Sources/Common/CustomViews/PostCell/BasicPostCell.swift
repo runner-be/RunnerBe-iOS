@@ -48,7 +48,7 @@ class BasicPostCell: UICollectionViewCell {
         }
     }
 
-    var blurAlpha: CGFloat = 0.7
+    var blurAlpha: CGFloat = Constants.Cover.blur
 
     var postInfoView = BasicPostInfoView()
 
@@ -95,11 +95,28 @@ class BasicPostCell: UICollectionViewCell {
 
         self.cover = cover
     }
+
+    enum Constants {
+        static let MarginX: CGFloat = 12
+        static let backgroundColor: UIColor = .darkG55
+        static let cornerRadius: CGFloat = 12
+
+        enum PostInfo {
+            static let top: CGFloat = 16
+            static let leading: CGFloat = 16
+            static let trailing: CGFloat = -16
+            static let bottom: CGFloat = 16 // Auto Layout으로 조정 X
+        }
+
+        enum Cover {
+            static let blur: CGFloat = 0.7
+        }
+    }
 }
 
 extension BasicPostCell {
     private func setup() {
-        backgroundColor = .darkG55
+        backgroundColor = Constants.backgroundColor
         contentView.addSubviews([
             postInfoView,
         ])
@@ -108,14 +125,13 @@ extension BasicPostCell {
     }
 
     private func initialLayout() {
-        layer.cornerRadius = 12
+        layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true
 
         postInfoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(18)
-            make.leading.equalTo(contentView.snp.leading).offset(17)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-17)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-24)
+            make.top.equalTo(contentView.snp.top).offset(Constants.PostInfo.top)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.PostInfo.leading)
+            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
         }
     }
 }
@@ -124,9 +140,10 @@ extension BasicPostCell {
     static let id: String = "\(BasicPostCell.self)"
 
     static let size: CGSize = {
-        let hMargin: CGFloat = 12
-        let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
-        let height: CGFloat = 150
+        let width: CGFloat = UIScreen.main.bounds.width - Constants.MarginX * 2
+        let height: CGFloat = Constants.PostInfo.top
+            + BasicPostInfoView.height
+            + Constants.PostInfo.bottom
         return CGSize(width: width, height: height)
     }()
 }

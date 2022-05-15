@@ -86,7 +86,7 @@ class MyInfoView: UIView {
         label.text = "00대 후반"
     }
 
-    var badgeLabel = IconBadgeLabel()
+    var badgeLabel = RunnerBadge()
 
     var jobLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(
