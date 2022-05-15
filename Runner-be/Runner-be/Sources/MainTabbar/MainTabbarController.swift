@@ -189,7 +189,7 @@ extension MainTabViewController {
             make.leading.equalTo(mainContentView.snp.leading)
             make.trailing.equalTo(mainContentView.snp.trailing)
             make.bottom.equalTo(view.snp.bottom)
-            make.height.equalTo(52 + AppContext.shared.safeAreaInsets.bottom)
+            make.height.equalTo(AppContext.shared.tabHeight + AppContext.shared.safeAreaInsets.bottom)
         }
 
         bottomContentHStack.snp.makeConstraints { make in
