@@ -12,6 +12,6 @@ class AppContext {
     private init() {}
 
     var safeAreaInsets: UIEdgeInsets = .zero
-    var tabHeight: CGFloat = 52
-    var navHeight: CGFloat = 44
+    let tabHeight: CGFloat = 52
+    let navHeight: CGFloat = 44
 }
