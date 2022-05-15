@@ -382,7 +382,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             scrollView.contentOffset.y = 0
         }
     }
-    
+
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         return BasicPostCell.size
     }
@@ -398,7 +398,7 @@ extension HomeViewController {
             case closed
         }
     }
-    
+
     private func isBottomSheetPanGestureEnable(with location: CGPoint) -> Bool {
         let state = bottomSheetState
         if state == .open, postCollectionView.frame.contains(location) {
@@ -487,5 +487,4 @@ extension HomeViewController {
             postCollectionView.isScrollEnabled = false
         }
     }
-
 }
