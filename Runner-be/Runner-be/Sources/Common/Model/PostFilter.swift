@@ -10,7 +10,7 @@ import Foundation
 struct PostFilter {
     var latitude: Double
     var longitude: Double
-    var whetherEnd: PostState
+    var postState: PostState
     var filter: FilterType
     var distanceFilter: Float
     var gender: Gender
@@ -26,7 +26,7 @@ extension PostFilter: CustomDebugStringConvertible {
         """
         PostFilter {
             runningTag: \(runningTag)
-            wheterEnd: \(whetherEnd)
+            postState: \(postState)
             filter: \(filter)
             latitude: \(latitude) longitude: \(longitude)
             distanceFilter: \(distanceFilter)

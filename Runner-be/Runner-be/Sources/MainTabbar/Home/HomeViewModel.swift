@@ -22,7 +22,7 @@ final class HomeViewModel: BaseViewModel {
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            whetherEnd: .open,
+            postState: .open,
             filter: .newest,
             distanceFilter: 3,
             gender: .none,
@@ -41,7 +41,7 @@ final class HomeViewModel: BaseViewModel {
         postReady
             .compactMap { $0 }
             .map { [weak self] posts -> [Post] in
-                if self?.filter.whetherEnd == .open {
+                if self?.filter.postState == .open {
                     return posts.filter { post in post.open }
                 } else {
                     return posts
@@ -75,9 +75,9 @@ final class HomeViewModel: BaseViewModel {
         inputs.tapShowClosedPost
             .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
-                newFilter.whetherEnd = self.filter.whetherEnd.toggled
+                newFilter.postState = self.filter.postState.toggled
                 self.filter = newFilter
-                return self.filter.whetherEnd == .closed
+                return self.filter.postState == .closed
             }
             .subscribe(onNext: { [weak self] showClosedPost in
                 self?.routeInputs.needUpdate.onNext(true)
