@@ -45,6 +45,11 @@ class HomeViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.tapShowClosedPost)
             .disposed(by: disposeBag)
+
+        postCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
