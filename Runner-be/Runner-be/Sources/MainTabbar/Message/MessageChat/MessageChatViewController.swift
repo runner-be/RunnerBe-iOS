@@ -5,6 +5,7 @@
 //  Created by 김신우 on 2022/04/26.
 //
 
+import FirebaseFirestore
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -13,6 +14,9 @@ import Then
 import UIKit
 
 class MessageChatViewController: BaseViewController {
+    let db = Firestore.firestore()
+    var messages: [Message] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -41,7 +45,8 @@ class MessageChatViewController: BaseViewController {
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
     }
 
-    private func viewModelOutput() {} // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+    private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+    }
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
@@ -120,7 +125,7 @@ extension MessageChatViewController {
 
 extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 10
+        return messages.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {

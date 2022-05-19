@@ -110,7 +110,8 @@ class BookMarkViewController: BaseViewController {
     var emptyLabel = UILabel().then { label in
         label.font = .iosTitle19R
         label.textColor = .darkG4
-//        label.text = "\(L10n.BookMark.Main.Empty.Title.first)
+        label.text = "hi"
+        label.isHidden = true
     }
 
     private lazy var postCollectionView: UICollectionView = {
@@ -162,8 +163,11 @@ extension BookMarkViewController {
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
-        emptyLabel.snp.makeConstraints { _ in
-        }
+//        emptyLabel.snp.makeConstraints { make in
+//            make.top.equalTo(segmentedControl.snp.bottom).offset(0)
+//            make.centerX.equalTo(self.view.snp.centerX)
+        ////            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//        }
     }
 }
 

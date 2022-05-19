@@ -23,7 +23,7 @@ final class BookMarkViewModel: BaseViewModel {
 
         routeInputs.needUpdate
             .flatMap { _ in
-                postAPIService.fetchPostsBookMarked()
+                postAPIService.fetchPostsBookMarked() // flatMap : Observable을 벗겨냄
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }

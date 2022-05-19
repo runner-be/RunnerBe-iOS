@@ -40,7 +40,7 @@ class MyPageViewController: BaseViewController {
         writtenTab.rx.tap
             .map { MyPageViewModel.PostType.basic }
             .bind(to: viewModel.inputs.typeChanged)
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag) // disposebag에 여러개의 구독을 담아두고, disposebag이 해제되면 모두 해제됨
 
         participantTab.rx.tap
             .map { MyPageViewModel.PostType.attendable }

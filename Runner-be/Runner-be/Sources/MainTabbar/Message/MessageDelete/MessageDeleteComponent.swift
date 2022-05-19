@@ -14,4 +14,8 @@ final class MessageDeleteComponent: Component<MessageDeleteDependency> {
     lazy var scene: (VC: MessageDeleteViewController, VM: MessageDeleteViewModel) = (VC: MessageDeleteViewController(viewModel: viewModel), VM: viewModel)
 
     lazy var viewModel: MessageDeleteViewModel = .init()
+
+    var reportModalComponent: ReportModalComponent {
+        return ReportModalComponent(parent: self)
+    }
 }

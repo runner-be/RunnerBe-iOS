@@ -15,7 +15,7 @@ final class MessageComponent: Component<MessageDependency> {
 
     lazy var viewModel: MessageViewModel = .init()
 
-    // Message 화면에서 이동할 수 있는 모든 화면에 대한 컴포넌트 정의
+    // Message 화면에서 이동할 수 있는 모든 자식화면에 대한 컴포넌트 정의
     var messageDeleteComponent: MessageDeleteComponent {
         return MessageDeleteComponent(parent: self)
     }
