@@ -29,30 +29,17 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[MainPageAPIService] fetchPosts with filter: \n\(filter)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { try? $0?.json["result"].rawData() }
             .compactMap { $0 }
             .decode(type: [PostResponse].self, decoder: JSONDecoder())
             .map { $0.compactMap { $0.convertedPost }}
-            .do(onNext: { result in
-                #if DEBUG
-                    print("[\(#line)BasicMainPageAPI::\(#function): \(result)")
-                #endif
-            })
             .bind(to: functionResult)
 
         let id = disposableId
@@ -67,10 +54,6 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func posting(form: PostingForm) -> Observable<PostingResult> {
-        #if DEBUG
-            print("[\(#line)BasicMainPageAPI:\(#function)]: \(form)")
-        #endif
-
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
@@ -82,15 +65,10 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
-                #if DEBUG
-                    print("[\(#line)MainPageAPIService:\(#function)] posting with form: \n\(form)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                        functionResult.onNext(.fail)
-                    #endif
+                    Log.d(tag: .network, "result: fail")
+                    functionResult.onNext(.fail)
                     return nil
                 }
 
@@ -98,12 +76,12 @@ final class BasicPostAPIService: PostAPIService {
             }
             .subscribe(onNext: { response in
                 guard let response = response else {
+                    Log.d(tag: .network, "result: fail")
                     functionResult.onNext(.fail)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
+                Log.d(tag: .network, "response message: \(response.message)")
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed)
@@ -138,15 +116,10 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] bookmarking postId:\(postId) -> \(mark)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == fail")
-                        functionResult.onNext((postId: postId, mark: !mark))
-                    #endif
+                    Log.d(tag: .network, "result = fail")
+                    functionResult.onNext((postId: postId, mark: !mark))
                     return nil
                 }
 
@@ -154,12 +127,12 @@ final class BasicPostAPIService: PostAPIService {
             }
             .subscribe(onNext: { response in
                 guard let response = response else {
+                    Log.d(tag: .network, "res")
                     functionResult.onNext((postId: postId, mark: !mark))
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
+                Log.d(tag: .network, "response message: \(response.message)")
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext((postId: postId, mark: mark))
@@ -210,25 +183,19 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] fetchBookMarkList of user: \(userId) token: \(token)")
-                #endif
+
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
             .decode(type: [PostResponse]?.self, decoder: JSONDecoder())
             .catch { error in
-                print(error.localizedDescription)
+                Log.e("\(error.localizedDescription)")
                 return .just(nil)
             }
             .map { $0?.compactMap { $0.convertedPost } }
@@ -265,19 +232,12 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] Post Detail of id: \(postId) user: \(userId) token: \(token)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { result -> (MapResult?) in
@@ -285,11 +245,15 @@ final class BasicPostAPIService: PostAPIService {
                 let postData = (try? result?.json["result"]["postingInfo"].rawData()) ?? Data()
                 let participantData = (try? result?.json["result"]["runnerInfo"].rawData()) ?? Data()
                 let applicantData = (try? result?.json["result"]["waitingRunnerInfo"].rawData()) ?? Data()
-                #if DEBUG
-                    print("postData : \n\(postData)")
-                    print("participantData : \n\(participantData)")
-                    print("applicantData : \n\(applicantData)")
-                #endif
+
+                Log.d(tag: .info, """
+                postData :
+                \(postData)
+                participantData :
+                \(participantData)
+                applicantData :
+                \(applicantData)
+                """)
 
                 var bookMarked = false
                 var writer = false
@@ -403,15 +367,10 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] apply postId:\(postId) userId: \(userId) token: \(token.jwt)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == fail")
-                        functionResult.onNext(false)
-                    #endif
+                    Log.d(tag: .network, "result: fail")
+                    functionResult.onNext(false)
                     return nil
                 }
 
@@ -422,9 +381,7 @@ final class BasicPostAPIService: PostAPIService {
                     functionResult.onNext(false)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(true)
@@ -477,15 +434,10 @@ final class BasicPostAPIService: PostAPIService {
         .asObservable()
         .map { try? JSON(data: $0.data) }
         .map { json -> (BasicResponse?) in
-            #if DEBUG
-                print("[\(#line):MainPageAPIService:\(#function)] accpet postId: \(postId), applicant: \(applicantId)")
-            #endif
             guard let json = json
             else {
-                #if DEBUG
-                    print("result == fail")
-                    functionResult.onNext((id: applicantId, accept: accept, success: false))
-                #endif
+                Log.d(tag: .network, "result: fail")
+                functionResult.onNext((id: applicantId, accept: accept, success: false))
                 return nil
             }
 
@@ -496,9 +448,7 @@ final class BasicPostAPIService: PostAPIService {
                 functionResult.onNext((id: applicantId, accept: accept, success: false))
                 return
             }
-            #if DEBUG
-                print("response Message: \(response.message)")
-            #endif
+
             switch response.code {
             case 1000: // 성공
                 functionResult.onNext((id: applicantId, accept: accept, success: true))
@@ -552,15 +502,10 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] close postId:\(postId) token: \(token.jwt)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == fail")
-                        functionResult.onNext(false)
-                    #endif
+                    Log.d(tag: .network, "result: fail")
+                    functionResult.onNext(false)
                     return nil
                 }
 
@@ -571,9 +516,7 @@ final class BasicPostAPIService: PostAPIService {
                     functionResult.onNext(false)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(true)
@@ -610,19 +553,12 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] MyPage user: \(userId) token: \(token)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map { result -> RawDatas? in
@@ -630,11 +566,15 @@ final class BasicPostAPIService: PostAPIService {
                 let userData = (try? result?.json["result"]["myInfo"].rawData()) ?? Data()
                 let postingData = (try? result?.json["result"]["myPosting"].rawData()) ?? Data()
                 let joinedData = (try? result?.json["result"]["myRunning"].rawData()) ?? Data()
-                #if DEBUG
-                    print("userData : \n\(userData)")
-                    print("postingData : \n\(postingData)")
-                    print("joinedData : \n\(joinedData)")
-                #endif
+
+                Log.d(tag: .info, """
+                userData:
+                \(userData)
+                postingData:
+                \(postingData)
+                joinedData:
+                \(joinedData)
+                """)
 
                 if let result = result {
                     switch result.response.code {
@@ -699,14 +639,9 @@ final class BasicPostAPIService: PostAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (BasicResponse?) in
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId) -> failed")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     functionResult.onNext((postId: postId, success: false))
                     return nil
                 }
@@ -718,14 +653,9 @@ final class BasicPostAPIService: PostAPIService {
                     functionResult.onNext((postId: postId, success: false))
                     return
                 }
-                #if DEBUG
-                    print("[\(#line):MainPageAPIService:\(#function)] response message: \(response.message)")
-                #endif
+
                 switch response.code {
                 case 1000: // 성공
-                    #if DEBUG
-                        print("[\(#line):MainPageAPIService:\(#function)] attending postId:\(postId) -> success")
-                    #endif
                     functionResult.onNext((postId: postId, success: true))
                 case 2010: // jwt와 userId 불일치
                     functionResult.onNext((postId: postId, success: false))

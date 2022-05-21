@@ -13,11 +13,10 @@ class BaseViewModel {
         #if DEBUG
             print("[init:   ViewModel]  \(Self.self) ")
         #endif
+        Log.d(tag: .lifeCycle, "VM Initialized")
     }
 
     deinit {
-        #if DEBUG
-            print("[deinit: ViewModel]  \(Self.self)")
-        #endif
+        Log.d(tag: .lifeCycle, "VM Deinitailized")
     }
 }

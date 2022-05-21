@@ -22,35 +22,21 @@ class BasicLoginAPIService: LoginAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json in
-                #if DEBUG
-                    print("[LoginAPIService] login(with: token: \(token.jwt))")
-                #endif
+
                 guard let json = json,
                       let response = try? BasicResponse(json: json)
                 else {
-                    #if DEBUG
-                        print("result: (\(#line)) return .noneMember")
-                    #endif
                     return .nonMember
                 }
 
                 if !response.isSuccess {
-                    #if DEBUG
-                        print("result: (\(#line)) isSuccess = false return .noneMember")
-                    #endif
                     return .nonMember
                 }
 
                 switch response.code {
                 case let code where code == 1001: // 인증 된 회원
-                    #if DEBUG
-                        print("result: (\(#line)) code = 1001(인증 된 회원) return .member")
-                    #endif
                     return .member
                 case let code where code == 1007: // 인증 대기
-                    #if DEBUG
-                        print("result: (\(#line)) code = 1007(인증 대기 회원) return .waitCertification")
-                    #endif
                     return .waitCertification
                 default:
                     return .nonMember
@@ -63,19 +49,11 @@ class BasicLoginAPIService: LoginAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[LoginAPIService] login(with: \(social), token: \(token))")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result: nil")
-                    #endif
                     return nil
                 }
-                #if DEBUG
-                    print("result:\n\(json)")
-                #endif
+
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map {

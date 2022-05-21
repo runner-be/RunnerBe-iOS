@@ -31,27 +31,18 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
 
     var token: LoginToken? {
         get {
-            #if DEBUG
-                print("[BasicLoginKeyChainService][token] get")
-            #endif
             guard let token: String = keychainWrapper[.loginTokenKey]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get token: nil")
                 return nil
             }
             let loginToken = LoginToken(jwt: token)
-            #if DEBUG
-                print("\t= \"\(loginToken)\"")
-            #endif
+            Log.d(tag: .info, "get token: \(loginToken)")
             return loginToken
         }
 
         set {
-            #if DEBUG
-                print("[BasicLoginKeyChainService][token] set\n\t= \"\(String(describing: newValue))\"")
-            #endif
+            Log.d(tag: .info, "set token: \(newValue)")
             keychainWrapper.remove(forKey: .loginTokenKey)
             if let loginToken = newValue {
                 keychainWrapper.set(loginToken.jwt, forKey: KeychainWrapper.Key.loginTokenKey.rawValue)

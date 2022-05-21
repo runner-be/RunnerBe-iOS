@@ -64,14 +64,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_: UIScene, continue userActivity: NSUserActivity) {
         if let incomingURL = userActivity.webpageURL {
             let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL, completion: { dynamicLink, error in
-                #if DEBUG
-                    print("[SceneDelegate][continue userActivity][\(#line)] dynamicLinks: \(String(describing: dynamicLink)) incomingURL: \(incomingURL)")
-                #endif
-                guard error == nil
-                else {
-                    #if DEBUG
-                        print("[SceneDelegate][continue userActivity][\(#line)] error \(error!.localizedDescription)")
-                    #endif
+                Log.d(tag: .lifeCycle, "dynamicLinks: \(String(describing: dynamicLink)) incomingURL: \(incomingURL)")
+                if let error = error {
+                    Log.e("error: \(error.localizedDescription)")
                     return
                 }
 
@@ -80,36 +75,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             })
 
-            if linkHandled {
-                #if DEBUG
-                    print("[SceneDelegate][continue userActivity][\(#line)] link handled")
-                #endif
-            } else {
-                #if DEBUG
-                    print("[SceneDelegate][continue userActivity][\(#line)] no link handled")
-                #endif
-            }
+            Log.d(tag: .lifeCycle, "linked handled: \(linkHandled)")
         }
     }
 
     func handleDynamicLink(dynamicLink: DynamicLink) {
         guard let url = dynamicLink.url else { return }
-        #if DEBUG
-            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link parameter is \(url.absoluteString)")
-        #endif
+        Log.d(tag: .lifeCycle, "imcoming link url: \(url.absoluteString)")
 
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         else { return }
-        #if DEBUG
-            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link path : \"\(String(describing: urlComponents.path))\"")
-
-            print("[SceneDelegate][handleIncomingDynamicLink] imcoming link queryItems :")
-            urlComponents.queryItems?.forEach {
-                if let value = $0.value {
-                    print("\"\($0.name)\": \"\(value)\"")
-                }
-            }
-        #endif
+        Log.d(tag: .lifeCycle, "incoming link urlComponent: \(String(describing: urlComponents))")
 
         let paths = urlComponents.path.components(separatedBy: "/")
             .filter { !$0.isEmpty }

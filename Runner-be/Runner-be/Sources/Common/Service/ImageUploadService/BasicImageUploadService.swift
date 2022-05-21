@@ -25,9 +25,7 @@ final class BasicImageUploadService: ImageUploadService {
         return Observable<String?>.create { observer in
             storageRef.putData(data, metadata: metaData) { _, error in
                 if let error = error {
-                    #if DEBUG
-                        print("[BasicImageUploadService][\(#line)]\n\(error)")
-                    #endif
+                    Log.e("error: \(error)")
                     observer.onNext(nil)
                     return
                 }
@@ -36,11 +34,9 @@ final class BasicImageUploadService: ImageUploadService {
                     if let url = url {
                         observer.onNext(url.absoluteString)
                     } else {
-                        #if DEBUG
-                            if let error = error {
-                                print("[BasicImageUploadService][\(#line)]\n\(error)")
-                            }
-                        #endif
+                        if let error = error {
+                            Log.e("error: \(error)")
+                        }
                         observer.onNext(nil)
                     }
                 }

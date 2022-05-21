@@ -22,19 +22,13 @@ final class BasicSignupAPIService: SignupAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
-                #if DEBUG
-                    print("[SignupAPIService] signup(with: \(signupForm))")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result: nil")
-                    #endif
+                    Log.d(tag: .network, "result: nil")
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
+                Log.d(tag: .network, "result: \n\(json)")
                 return try? (response: BasicResponse(json: json), json: json)
             }
             .map {

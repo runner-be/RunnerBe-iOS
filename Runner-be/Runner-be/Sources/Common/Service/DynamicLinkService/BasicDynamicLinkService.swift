@@ -42,17 +42,12 @@ final class BasicDynamicLinkService: DynamicLinkService {
 
             if let warnings = warnings {
                 for warning in warnings {
-                    #if DEBUG
-                        print("[BasicDynamicLinkService][shorten][\(#line)] Warning: \(warning)")
-                    #endif
+                    Log.d(tag: .warning, "Warning: \(warning)")
                 }
             }
 
             guard let url = url else { return }
             urlSubject.onNext(url)
-            #if DEBUG
-                print("[BasicDynamicLinkService][shorten][\(#line)] shorten url: \(url.absoluteString)")
-            #endif
         }
 
         return urlSubject.take(1)

@@ -33,9 +33,8 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
-                #if DEBUG
-                    print("[PolicyTermCoordinator][closeSignal] popViewController")
-                #endif
+                Log.d(tag: .lifeCycle, "VC poped")
+
                 switch result {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)

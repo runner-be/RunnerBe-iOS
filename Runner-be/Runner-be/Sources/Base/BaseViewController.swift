@@ -16,9 +16,7 @@ class BaseViewController: UIViewController {
     // MARK: Lifecycle
 
     init() {
-        #if DEBUG
-            print("[init:   VC] \(Self.self)")
-        #endif
+        Log.d(tag: .lifeCycle, "VC Initialized")
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -28,9 +26,7 @@ class BaseViewController: UIViewController {
     }
 
     deinit {
-        #if DEBUG
-            print("[deinit: VC] \(Self.self)")
-        #endif
+        Log.d(tag: .lifeCycle, "VC Deinitialized")
     }
 
     // MARK: Internal
