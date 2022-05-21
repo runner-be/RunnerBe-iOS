@@ -59,7 +59,7 @@ struct VerbosePlugin: PluginType {
                     responseBody = String(data: response.data, encoding: .utf8) ?? "-"
                 }
 
-                print("""
+                let message = """
                 [Moya VerbosePlugin] Response
                 ------------------------
                 Request:
@@ -73,13 +73,15 @@ struct VerbosePlugin: PluginType {
                 body:
                 \(responseBody)
                 ------------------------
-                """)
+                """
+                Log.d(tag: .network, message)
 
             case let .failure(err):
-                print("""
+                let message = """
                 [Moya VerbosePlugin] Response:
                 Error: \(err)
-                """)
+                """
+                Log.d(tag: .network, message)
             }
 
         #endif
