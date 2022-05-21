@@ -12,36 +12,76 @@ struct VerbosePlugin: PluginType {
     let verbose: Bool
 
     func prepare(_ request: URLRequest, target _: TargetType) -> URLRequest {
+        if !verbose {
+            return request
+        }
         #if DEBUG
-            if let urlString = request.url?.absoluteString,
-               let body = request.httpBody,
-               let str = String(data: body, encoding: .utf8)
-            {
-                if verbose {
-                    print("[MOYA VerbosePlugin] url: \(urlString)")
-                    print("[MOYA VerbosePlugin] request to send: \(str)")
-                }
-            }
         #endif
         return request
     }
 
     func didReceive(_ result: Result<Response, MoyaError>, target _: TargetType) {
+        if !verbose { return }
         #if DEBUG
+
             switch result {
-            case let .success(body):
-                if verbose {
-                    print("[MOYA VerbosePlugin] Response:")
-                    if let json = try? JSONSerialization.jsonObject(with: body.data, options: .mutableContainers) {
-                        print(json)
-                    } else {
-                        let response = String(data: body.data, encoding: .utf8)!.removingPercentEncoding!
-                        print(response)
+            case let .success(response):
+                var requestURLString = "-"
+                var requestBody = "-"
+                var responseStatusCode = "-"
+                var responseBody = "-"
+
+                if let request = response.request {
+                    if let url = request.url?.absoluteString {
+                        requestURLString = url
+                    }
+
+                    if let body = request.httpBody {
+                        if let object = try? JSONSerialization.jsonObject(with: body, options: []),
+                           let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+                           let prettyPrintedString = String(data: data, encoding: .utf8)
+                        {
+                            requestBody = prettyPrintedString
+                        } else {
+                            requestBody = String(data: body, encoding: .utf8) ?? "-"
+                        }
                     }
                 }
-            case .failure:
-                break
+
+                responseStatusCode = String(response.statusCode)
+
+                if let object = try? JSONSerialization.jsonObject(with: response.data, options: []),
+                   let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+                   let prettyPrintedString = String(data: data, encoding: .utf8)
+                {
+                    responseBody = prettyPrintedString
+                } else {
+                    responseBody = String(data: response.data, encoding: .utf8) ?? "-"
+                }
+
+                print("""
+                [Moya VerbosePlugin] Response
+                ------------------------
+                Request:
+                url: \(requestURLString)
+                body:
+                \(requestBody)
+                ------------------------
+                ------------------------
+                Response:
+                status: \(responseStatusCode)
+                body:
+                \(responseBody)
+                ------------------------
+                """)
+
+            case let .failure(err):
+                print("""
+                [Moya VerbosePlugin] Response:
+                Error: \(err)
+                """)
             }
+
         #endif
     }
 }

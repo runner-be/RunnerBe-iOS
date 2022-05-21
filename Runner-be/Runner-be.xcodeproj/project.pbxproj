@@ -265,6 +265,7 @@
 		C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CF9B7527C6F2B70042B65D /* BasicPostDataSource.swift */; };
 		C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937C27BB886A00D47C9C /* String+SHA256.swift */; };
 		C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */; };
+		C3E0CEB42838E725007A0443 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0CEB32838E725007A0443 /* Log.swift */; };
 		C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CC927B8B64100775779 /* ImageUploadService.swift */; };
 		C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */; };
 		C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */; };
@@ -565,6 +566,7 @@
 		C3D3937927BB469300D47C9C /* Runner-be.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Runner-be.entitlements"; sourceTree = "<group>"; };
 		C3D3937C27BB886A00D47C9C /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
 		C3D3937E27BBAE6A00D47C9C /* DeepLinkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkType.swift; sourceTree = "<group>"; };
+		C3E0CEB32838E725007A0443 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		C3EB5CC427B8B57D00775779 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC627B8B58700775779 /* BasicSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSignupService.swift; sourceTree = "<group>"; };
 		C3EB5CC927B8B64100775779 /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
@@ -1268,6 +1270,7 @@
 		C39E925F27BACC9E00798F3A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C3E0CEB22838E6DA007A0443 /* Log */,
 				C3AB6B60280EBFCC00D58AEC /* ImagePickerType.swift */,
 				C34BA6AB27CD40BB003E393A /* DateUtil */,
 				C379302227BA20920076AB85 /* MoyaPlugin */,
@@ -1558,6 +1561,14 @@
 				C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		C3E0CEB22838E6DA007A0443 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				C3E0CEB32838E725007A0443 /* Log.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		C3EB5CC827B8B62200775779 /* ImageUploadService */ = {
@@ -2075,6 +2086,7 @@
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
+				C3E0CEB42838E725007A0443 /* Log.swift in Sources */,
 				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */,

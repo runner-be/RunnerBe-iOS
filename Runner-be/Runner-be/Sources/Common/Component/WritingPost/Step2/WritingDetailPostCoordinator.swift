@@ -28,10 +28,7 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
         closeSignal
             .debug()
             .subscribe(onNext: { [weak self] _ in
-                #if DEBUG
-                    print("[WritingDetailPostCoordinator][closeSignal] popViewController")
-                #endif
-
+                Log.d(tag: .lifeCycle, "VC poped")
                 self?.navigationController.popViewController(animated: false)
             })
             .disposed(by: sceneDisposeBag)

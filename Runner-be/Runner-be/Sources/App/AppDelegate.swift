@@ -98,9 +98,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        #if DEBUG
-            print("[AppDelegate:didReceiveRegistrationToken] FCMToken = \(String(describing: fcmToken))")
-        #endif
+        Log.d(tag: .info, "FCMToken : \(fcmToken ?? "-")")
         if let fcmToken = fcmToken {
             BasicUserKeyChainService.shared.deviceToken = fcmToken
             BasicUserAPIService().updateFCMToken(to: fcmToken)

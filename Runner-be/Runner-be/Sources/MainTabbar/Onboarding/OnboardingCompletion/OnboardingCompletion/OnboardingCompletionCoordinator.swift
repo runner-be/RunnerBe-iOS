@@ -26,9 +26,8 @@ final class OnboardingCompletionCoordinator: BasicCoordinator<OnboardingCompleti
 
         closeSignal
             .subscribe(onNext: { [weak self] result in
-                #if DEBUG
-                    print("[WaitCertificationCoordinator][closeSignal] popViewController")
-                #endif
+                Log.d(tag: .lifeCycle, "VC poped")
+
                 switch result {
                 case .toMain:
                     self?.navigationController.popViewController(animated: false)

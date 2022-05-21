@@ -31,9 +31,6 @@ final class BasicUserAPIService: UserAPIService {
     func setNickName(to nickName: String) -> Observable<SetNickNameResult> {
         let functionResult = ReplaySubject<SetNickNameResult>.create(bufferSize: 1)
         let disposeBag = DisposeBag()
-        #if DEBUG
-            print("[\(#line)BasieUserAPI:\(#function)]: nickName: \(nickName)")
-        #endif
 
         guard let userId = loginKeyChainService.userId,
               let token = loginKeyChainService.token
@@ -45,20 +42,14 @@ final class BasicUserAPIService: UserAPIService {
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> BasicResponse? in
-                #if DEBUG
-                    print("[\(#line)BasieUserAPI:\(#function)]: nickName: \(nickName)")
-                #endif
+
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     functionResult.onNext(.error)
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
                 return try? BasicResponse(json: json)
             }
             .subscribe(onNext: { response in
@@ -66,9 +57,7 @@ final class BasicUserAPIService: UserAPIService {
                     functionResult.onNext(.error)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed(name: nickName))
@@ -128,7 +117,6 @@ final class BasicUserAPIService: UserAPIService {
                     functionResult.onNext(.error)
                     return
                 }
-                print("[\(#line)BasieUserAPI:\(#function)]: imageURL: \(url)")
                 imageUploaded.onNext(url)
             })
             .disposed(by: disposeBag)
@@ -146,20 +134,12 @@ final class BasicUserAPIService: UserAPIService {
             .flatMap { $0 }
             .map { try? JSON(data: $0.data) }
             .map { json -> BasicResponse? in
-                #if DEBUG
-                    print("[\(#line)BasieUserAPI:\(#function)]: userID: \(userId)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     functionResult.onNext(.error)
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
                 return try? BasicResponse(json: json)
             }
             .subscribe(onNext: { response in
@@ -167,9 +147,6 @@ final class BasicUserAPIService: UserAPIService {
                     functionResult.onNext(.error)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed(data: data))
@@ -207,28 +184,18 @@ final class BasicUserAPIService: UserAPIService {
 
         let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
         let disposeBag = DisposeBag()
-        #if DEBUG
-            print("[\(#line)BasieUserAPI:\(#function)]: userId: \(userID)")
-        #endif
 
         provider.rx.request(.signout(userID: userID))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> BasicResponse? in
-                #if DEBUG
-                    print("[\(#line)BasieUserAPI:\(#function)]: userId: \(userID)")
-                #endif
                 guard let json = json
                 else {
-                    #if DEBUG
-                        print("result == nil")
-                    #endif
+                    Log.d(tag: .network, "result: fail")
                     functionResult.onNext(false)
                     return nil
                 }
-                #if DEBUG
-                    print("result: \n\(json)")
-                #endif
+
                 return try? BasicResponse(json: json)
             }
             .subscribe(onNext: { response in
@@ -236,9 +203,7 @@ final class BasicUserAPIService: UserAPIService {
                     functionResult.onNext(false)
                     return
                 }
-                #if DEBUG
-                    print("response Message: \(response.message)")
-                #endif
+
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(true)
