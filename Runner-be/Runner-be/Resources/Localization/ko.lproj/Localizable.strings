@@ -173,8 +173,9 @@
 
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
-"BookMark.Main.Empty.title.first" = "찜한 ";
-"BookMark.Main.Empty.title.second" = "모임이 없어요!";
+"BookMark.Main.Empty.before.title" = "찜한 출근 전 모임이 없어요!";
+"BookMark.Main.Empty.after.title" = "찜한 퇴근 후 모임이 없어요!";
+"BookMark.Main.Empty.holiday.title" = "찜한 휴일 모임이 없어요!";
 
 // MARK: - MessageList
 "MessageList.NavBar.Title" = "쪽지";

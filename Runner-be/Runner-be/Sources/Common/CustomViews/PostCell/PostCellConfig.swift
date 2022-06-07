@@ -21,6 +21,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let writerProfileURL: String?
     var bookmarked: Bool
     let closed: Bool
+    var runningTag: String
     let attendanceProfiles: [ProfileURL]
 
     init(from post: Post) {
@@ -47,6 +48,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
         writerProfileURL = post.writerProfileURL
         closed = !post.open
         bookmarked = post.marked
+        runningTag = post.tag.code
 
         attendanceProfiles = post.attendanceProfiles
     }

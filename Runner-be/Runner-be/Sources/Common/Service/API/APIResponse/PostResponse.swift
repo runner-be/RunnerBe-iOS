@@ -25,7 +25,7 @@ struct PostResponse: Decodable {
     let runningTag: String?
     let age: String?
     let gender: String?
-    let whetherEnd: String? //마감여부
+    let whetherEnd: String? // 마감여부
     let job: String?
     let peopleNum: Int?
     let contents: String?

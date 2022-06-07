@@ -23,11 +23,17 @@ internal enum L10n {
   internal enum BookMark {
     internal enum Main {
       internal enum Empty {
-        internal enum Title {
-          /// 찜한 
-          internal static let first = L10n.tr("Localizable", "BookMark.Main.Empty.title.first")
-          /// 모임이 없어요!
-          internal static let second = L10n.tr("Localizable", "BookMark.Main.Empty.title.second")
+        internal enum After {
+          /// 찜한 퇴근 후 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.after.title")
+        }
+        internal enum Before {
+          /// 찜한 출근 전 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.before.title")
+        }
+        internal enum Holiday {
+          /// 찜한 휴일 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.holiday.title")
         }
       }
       internal enum NavBar {
