@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		439259D928564174003DABFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439259D828564174003DABFE /* Keys.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
 		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
@@ -107,7 +108,6 @@
 		C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */; };
 		C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */; };
 		C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA7F27AD5DB1007718F8 /* Assets+.swift */; };
-		C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34FDA8827AD5FFB007718F8 /* Keys.swift */; };
 		C350CC7B27C2C428000DEA15 /* SBAggroOTFM.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */; };
 		C350CC7C27C2C428000DEA15 /* SBAggroOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7927C2C19F000DEA15 /* SBAggroOTFB.otf */; };
 		C350CC7D27C2C428000DEA15 /* SBAggroOTFL.otf in Resources */ = {isa = PBXBuildFile; fileRef = C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */; };
@@ -305,6 +305,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		439259D828564174003DABFE /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
@@ -409,7 +410,6 @@
 		C34FDA7727AD5D45007718F8 /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 		C34FDA7827AD5D45007718F8 /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
 		C34FDA7F27AD5DB1007718F8 /* Assets+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+.swift"; sourceTree = "<group>"; };
-		C34FDA8827AD5FFB007718F8 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		C350CC7827C2C19F000DEA15 /* SBAggroOTFM.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFM.otf; sourceTree = "<group>"; };
 		C350CC7927C2C19F000DEA15 /* SBAggroOTFB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFB.otf; sourceTree = "<group>"; };
 		C350CC7A27C2C19F000DEA15 /* SBAggroOTFL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SBAggroOTFL.otf; sourceTree = "<group>"; };
@@ -621,6 +621,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		439259D728564166003DABFE /* Ignore */ = {
+			isa = PBXGroup;
+			children = (
+				439259D828564174003DABFE /* Keys.swift */,
+			);
+			path = Ignore;
+			sourceTree = "<group>";
+		};
 		7DFA2EC107AA65E58D6F6BC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,7 +919,7 @@
 			children = (
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
-				C34FDA8727AD5FCF007718F8 /* Ignore */,
+				439259D728564166003DABFE /* Ignore */,
 				C34FDA7527AD5C98007718F8 /* Sources */,
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
@@ -1025,14 +1033,6 @@
 				C34FDA7F27AD5DB1007718F8 /* Assets+.swift */,
 			);
 			path = "Asset+";
-			sourceTree = "<group>";
-		};
-		C34FDA8727AD5FCF007718F8 /* Ignore */ = {
-			isa = PBXGroup;
-			children = (
-				C34FDA8827AD5FFB007718F8 /* Keys.swift */,
-			);
-			path = Ignore;
 			sourceTree = "<group>";
 		};
 		C350CC7E27C2CC91000DEA15 /* Step2 */ = {
@@ -1984,7 +1984,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate Runner-be/Sources/NeedleGenerated.swift Runner-be/Sources/ --header-doc copyright_header.txt\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nexport SOURCEKIT_LOGGING=0 && needle generate Runner-be/Sources/NeedleGenerated.swift Runner-be/Sources/ --header-doc copyright_header.txt\n";
 		};
 		C34FDA3A27AD5B48007718F8 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2211,7 +2211,6 @@
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
 				C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */,
-				C34FDA8927AD5FFB007718F8 /* Keys.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
@@ -2254,6 +2253,7 @@
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,
+				439259D928564174003DABFE /* Keys.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
 				C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */,
 				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,
