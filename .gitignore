@@ -117,3 +117,4 @@ Thumbs.db
 # API Key 파일
 RunnerBe-iOS/RunnerBe-iOS/GoogleService-Info.plist
 Runner-be/Runner-be/Ignore
+Runner-be/Runner-be/Ignore/Keys.swift
