@@ -14,7 +14,7 @@ import Then
 import UIKit
 
 class BookMarkViewController: BaseViewController {
-//    var runningTagInt = 1
+    var runningTagInt = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +23,6 @@ class BookMarkViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-//        postCollectionView.delegate = self
-//        postCollectionView.dataSource = self
     }
 
     init(viewModel: BookMarkViewModel) {
@@ -71,6 +69,18 @@ class BookMarkViewController: BaseViewController {
         viewModel.outputs.posts
             .do(onNext: { [weak self] configs in
                 self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
+
+                if configs.isEmpty {
+                    self?.emptyLabel.isHidden = false
+                    switch self?.runningTagInt {
+                    case 1:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
+                    case 2:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
+                    default:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
+                    }
+                }
             })
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
@@ -143,9 +153,9 @@ extension BookMarkViewController {
             navBar,
             segmentedControl,
             numPostLabel,
-            postCollectionView,
             emptyLabel,
             emptyLabelView,
+            postCollectionView,
         ])
     }
 
@@ -192,7 +202,7 @@ extension BookMarkViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from: Int, to: Int) {
         if from != to {
             viewModel.inputs.tagChanged.onNext(to) // 출근 전, 퇴근 후, 휴일 태그가 바꼈을 시
-//            runningTagInt = to
+            runningTagInt = to
         }
     }
 }
