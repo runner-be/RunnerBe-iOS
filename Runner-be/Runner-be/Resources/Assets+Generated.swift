@@ -33,6 +33,7 @@ internal enum Asset {
   internal static let checkBoxIconEmpty = ImageAsset(name: "CheckBoxIcon_Empty")
   internal static let chevronDown = ImageAsset(name: "Chevron_down")
   internal static let chevronRight = ImageAsset(name: "Chevron_right")
+  internal static let chevronRightXs = ImageAsset(name: "Chevron_right_Xs")
   internal static let filter = ImageAsset(name: "Filter")
   internal static let filterHighlighted = ImageAsset(name: "FilterHighlighted")
   internal static let floatingButton = ImageAsset(name: "FloatingButton")

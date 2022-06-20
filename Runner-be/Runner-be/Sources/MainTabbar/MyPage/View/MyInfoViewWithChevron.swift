@@ -24,7 +24,7 @@ final class MyInfoViewWithChevron: UIView {
     var infoView = MyInfoView()
 
     var chevronBtn = UIButton().then { button in
-        button.setImage(Asset.chevronRight.uiImage, for: .normal)
+        button.setImage(Asset.chevronRightXs.uiImage, for: .normal)
         button.imageView?.snp.makeConstraints { make in
             make.width.equalTo(24)
             make.height.equalTo(24)

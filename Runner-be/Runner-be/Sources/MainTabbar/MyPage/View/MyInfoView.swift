@@ -51,16 +51,16 @@ class MyInfoView: UIView {
         view.image = Asset.profileEmptyIcon.uiImage
 
         view.snp.makeConstraints { make in
-            make.width.equalTo(78)
-            make.height.equalTo(78)
+            make.width.equalTo(88)
+            make.height.equalTo(88)
         }
         view.layer.cornerRadius = 39
         view.clipsToBounds = true
     }
 
     var nickNameLabel = UILabel().then { label in
-        label.font = .iosBody17Sb
-        label.textColor = .darkG25
+        label.font = .iosTitle21Sb
+        label.textColor = .darkG1
         label.text = "NICKNAME"
     }
 
@@ -130,23 +130,23 @@ class MyInfoView: UIView {
         }
 
         genderLabel.snp.makeConstraints { make in
-            make.top.equalTo(nickNameLabel.snp.bottom).offset(2)
+            make.top.equalTo(nickNameLabel.snp.bottom).offset(4)
             make.leading.equalTo(nickNameLabel.snp.leading)
         }
 
         dot.snp.makeConstraints { make in
             make.centerY.equalTo(genderLabel.snp.centerY)
-            make.leading.equalTo(genderLabel.snp.trailing).offset(2)
+            make.leading.equalTo(genderLabel.snp.trailing).offset(4)
         }
 
         ageLabel.snp.makeConstraints { make in
             make.centerY.equalTo(genderLabel.snp.centerY)
-            make.leading.equalTo(dot.snp.trailing).offset(2)
+            make.leading.equalTo(dot.snp.trailing).offset(4)
             make.trailing.lessThanOrEqualTo(self.snp.trailing)
         }
 
         badgeLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderLabel.snp.bottom).offset(8)
+            make.top.equalTo(genderLabel.snp.bottom).offset(12)
             make.leading.equalTo(genderLabel.snp.leading)
         }
 

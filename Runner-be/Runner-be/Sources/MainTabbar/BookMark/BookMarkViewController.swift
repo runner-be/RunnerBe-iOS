@@ -14,7 +14,7 @@ import Then
 import UIKit
 
 class BookMarkViewController: BaseViewController {
-    var runningTagInt = 1
+    var runningTagInt = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +73,9 @@ class BookMarkViewController: BaseViewController {
                 if configs.isEmpty {
                     self?.emptyLabel.isHidden = false
                     switch self?.runningTagInt {
-                    case 1:
+                    case 0:
                         self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
-                    case 2:
+                    case 1:
                         self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
                     default:
                         self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
@@ -201,8 +201,9 @@ extension BookMarkViewController {
 extension BookMarkViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from: Int, to: Int) {
         if from != to {
-            viewModel.inputs.tagChanged.onNext(to) // 출근 전, 퇴근 후, 휴일 태그가 바꼈을 시
+            print("hello " + String(to))
             runningTagInt = to
+            viewModel.inputs.tagChanged.onNext(to) // 출근 전, 퇴근 후, 휴일 태그가 바꼈을 시
         }
     }
 }
