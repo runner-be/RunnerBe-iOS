@@ -128,7 +128,7 @@ final class MyPageViewModel: BaseViewModel {
                 }
 
                 self.posts[self.outputs.postType]![idx].attendance = true
-                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: PostAttendState.attend))
+                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
             })
             .disposed(by: disposeBag)
 
@@ -172,7 +172,7 @@ final class MyPageViewModel: BaseViewModel {
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1) // n개의 이벤트를 저장하고 subscribe 되는 시점과 상관없이 저장된 모든 이벤트 전달
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
-        var attend = PublishSubject<(type: PostType, idx: Int, state: PostAttendState)>()
+        var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
         var toast = BehaviorSubject<String>(value: "") // PublishSubject와 다르지않으나 초기값을 가진 subject
     }
 

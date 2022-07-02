@@ -44,7 +44,6 @@
 		C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */; };
 		C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028F27CB46030011419E /* MyPagePostConfig.swift */; };
 		C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029127CB47470011419E /* BasicPostInfoView.swift */; };
-		C32C029427CB4A5E0011419E /* AttendablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029327CB4A5E0011419E /* AttendablePostCell.swift */; };
 		C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029527CB63270011419E /* MyPagePostDataSource.swift */; };
 		C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029827CB9F8E0011419E /* UserConfig.swift */; };
 		C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3319A5327C517830054B688 /* BubbleLabel.swift */; };
@@ -313,6 +312,10 @@
 		DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */; };
 		DAC50003282B8F3A004CFF64 /* MessageChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */; };
 		DAC50004282B8F3C004CFF64 /* MessageChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */; };
+		DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF932870790300E98E56 /* MyPagePostCell.swift */; };
+		DAF6BF9628708DF800E98E56 /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */; };
+		DAF6BF9828708E1C00E98E56 /* MyPageParticipatePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */; };
+		DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -355,7 +358,6 @@
 		C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewWithChevron.swift; sourceTree = "<group>"; };
 		C32C028F27CB46030011419E /* MyPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostConfig.swift; sourceTree = "<group>"; };
 		C32C029127CB47470011419E /* BasicPostInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostInfoView.swift; sourceTree = "<group>"; };
-		C32C029327CB4A5E0011419E /* AttendablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendablePostCell.swift; sourceTree = "<group>"; };
 		C32C029527CB63270011419E /* MyPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostDataSource.swift; sourceTree = "<group>"; };
 		C32C029827CB9F8E0011419E /* UserConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		C3319A5327C517830054B688 /* BubbleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleLabel.swift; sourceTree = "<group>"; };
@@ -629,6 +631,10 @@
 		DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewController.swift; sourceTree = "<group>"; };
 		DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatCoordinator.swift; sourceTree = "<group>"; };
 		DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatComponent.swift; sourceTree = "<group>"; };
+		DAF6BF932870790300E98E56 /* MyPagePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostCell.swift; sourceTree = "<group>"; };
+		DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
+		DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostDataSource.swift; sourceTree = "<group>"; };
+		DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipateCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -733,7 +739,8 @@
 			children = (
 				C32C028627CB24720011419E /* MyInfoView.swift */,
 				C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */,
-				C32C029327CB4A5E0011419E /* AttendablePostCell.swift */,
+				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
+				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -743,6 +750,8 @@
 			children = (
 				C32C028F27CB46030011419E /* MyPagePostConfig.swift */,
 				C32C029527CB63270011419E /* MyPagePostDataSource.swift */,
+				DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */,
+				DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -2075,6 +2084,7 @@
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
 				DA4A1F6E2826459D00D57331 /* MessageDeleteCoordinator.swift in Sources */,
 				C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */,
+				DAF6BF9828708E1C00E98E56 /* MyPageParticipatePostDataSource.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
@@ -2086,6 +2096,7 @@
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
+				DAF6BF9628708DF800E98E56 /* MyPageParticipatePostConfig.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
@@ -2132,7 +2143,6 @@
 				C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
-				C32C029427CB4A5E0011419E /* AttendablePostCell.swift in Sources */,
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
@@ -2279,6 +2289,7 @@
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
+				DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */,
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift in Sources */,
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
@@ -2317,6 +2328,7 @@
 				C3AB6B61280EBFCC00D58AEC /* ImagePickerType.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
 				C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */,
+				DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,

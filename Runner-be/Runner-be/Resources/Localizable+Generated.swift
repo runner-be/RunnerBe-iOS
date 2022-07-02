@@ -341,6 +341,28 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.Button.title")
         }
       }
+      internal enum Manage {
+        internal enum Absent {
+          /// 결석
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Absent.title")
+        }
+        internal enum After {
+          /// 출석 관리하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.After.title")
+        }
+        internal enum Attend {
+          /// 출석
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Attend.title")
+        }
+        internal enum Before {
+          /// 러닝 후에 출석을 관리해주세요
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Before.title")
+        }
+        internal enum Finished {
+          /// 출석 확인하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Finished.title")
+        }
+      }
     }
     internal enum MyRunning {
       internal enum Empty {
@@ -365,6 +387,10 @@ internal enum L10n {
           }
         }
         internal enum Account {
+          internal enum EditPassword {
+            /// 비밀번호 변경
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.EditPassword.title")
+          }
           internal enum Logout {
             /// 로그아웃
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.Logout.title")
@@ -375,16 +401,12 @@ internal enum L10n {
           }
         }
         internal enum Policy {
-          internal enum License {
-            ///  오픈소스 라이센스
-            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.License.title")
-          }
           internal enum Privacy {
             /// 개인정보 처리방침
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Privacy.title")
           }
           internal enum Term {
-            /// 이용 약관
+            /// 이용약관
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Term.title")
           }
           internal enum Version {
@@ -436,6 +458,10 @@ internal enum L10n {
       internal enum NavBar {
         /// 설정
         internal static let title = L10n.tr("Localizable", "MyPage.Settings.NavBar.title")
+      }
+      internal enum Push {
+        /// 푸시 알림
+        internal static let title = L10n.tr("Localizable", "MyPage.Settings.Push.title")
       }
     }
     internal enum Tab {

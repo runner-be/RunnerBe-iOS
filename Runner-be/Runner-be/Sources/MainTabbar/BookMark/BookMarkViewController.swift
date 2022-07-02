@@ -178,7 +178,7 @@ extension BookMarkViewController {
         }
 
         postCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(numPostLabel.snp.bottom).offset(12)
+            make.top.equalTo(numPostLabel.snp.bottom).offset(8)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)

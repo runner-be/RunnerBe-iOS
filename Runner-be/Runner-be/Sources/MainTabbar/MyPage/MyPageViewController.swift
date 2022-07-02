@@ -83,9 +83,9 @@ class MyPageViewController: BaseViewController {
 
         let myPostDatasource = MyPagePostDataSource { _, collectionView, indexPath, item in
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPagePostCell.id, for: indexPath) as? MyPagePostCell
             else { return UICollectionViewCell() }
-            cell.configure(with: item.cellConfig)
+            cell.configure(with: item)
             cell.postInfoView.bookMarkIcon.isHidden = true
 
             return cell
@@ -97,48 +97,48 @@ class MyPageViewController: BaseViewController {
             .bind(to: myPostCollectionView.rx.items(dataSource: myPostDatasource))
             .disposed(by: disposeBag)
 
-        let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self
-            else { return UICollectionViewCell() }
+//        let myRunningDatasource = MyPageParticipatePostDataSource { _, collectionView, indexPath, item in
+//            guard let self = self
+//            else { return UICollectionViewCell() }
+//
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
+//            else { return UICollectionViewCell() }
+//            cell.configure(with: item)
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AttendablePostCell.id, for: indexPath) as? AttendablePostCell
-            else { return UICollectionViewCell() }
-            cell.configure(with: item)
+//            cell.attendButton.rx.tap
+//                .map { indexPath.item }
+//                .bind(to: self.viewModel.inputs.attend)
+//                .disposed(by: cell.disposeBag)
 
-            cell.attendButton.rx.tap
-                .map { indexPath.item }
-                .bind(to: self.viewModel.inputs.attend)
-                .disposed(by: cell.disposeBag)
+//            cell.postInfoView.bookMarkIcon.rx.tap
+//                .map { indexPath.item }
+//                .bind(to: self.viewModel.inputs.bookMark)
+//                .disposed(by: cell.disposeBag)
+//
+//            self.viewModel.outputs.marked
+//                .filter { $0.type == .attendable }
+//                .filter { $0.idx == indexPath.item }
+//                .subscribe(onNext: { [weak cell] result in
+//                    cell?.postInfoView.bookMarkIcon.isSelected = result.marked
+//                })
+//                .disposed(by: cell.disposeBag)
+//
+//            self.viewModel.outputs.attend
+//                .filter { $0.type == .attendable }
+//                .filter { $0.idx == indexPath.item }
+//                .subscribe(onNext: { [weak cell] result in
+        ////                    cell?.update(with: result.state)
+//                })
+//                .disposed(by: cell.disposeBag)
+//
+//            return cell
+//        }
 
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.item }
-                .bind(to: self.viewModel.inputs.bookMark)
-                .disposed(by: cell.disposeBag)
-
-            self.viewModel.outputs.marked
-                .filter { $0.type == .attendable }
-                .filter { $0.idx == indexPath.item }
-                .subscribe(onNext: { [weak cell] result in
-                    cell?.postInfoView.bookMarkIcon.isSelected = result.marked
-                })
-                .disposed(by: cell.disposeBag)
-
-            self.viewModel.outputs.attend
-                .filter { $0.type == .attendable }
-                .filter { $0.idx == indexPath.item }
-                .subscribe(onNext: { [weak cell] result in
-                    cell?.update(with: result.state)
-                })
-                .disposed(by: cell.disposeBag)
-
-            return cell
-        }
-
-        viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-            .map { [MyPagePostSection(items: $0)] }
-            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-            .disposed(by: disposeBag)
+//        viewModel.outputs.posts
+//            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
+//            .map { [MyPagePostSection(items: $0)] }
+//            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { $0.isEmpty }
@@ -181,12 +181,12 @@ class MyPageViewController: BaseViewController {
         writtenTab.rx.tap
             .subscribe(onNext: { [unowned self] in
                 self.writtenTab.isSelected = true
-                self.hMover.snp.removeConstraints()
-                self.hMover.snp.updateConstraints { make in
+                self.tabMover.snp.removeConstraints()
+                self.tabMover.snp.updateConstraints { make in
                     make.height.equalTo(2)
-                    make.bottom.equalTo(hDivider.snp.bottom)
-                    make.leading.equalTo(writtenTab.snp.leading).offset(16)
-                    make.trailing.equalTo(writtenTab.snp.trailing).offset(-16)
+                    make.bottom.equalTo(tabDivider.snp.bottom)
+                    make.leading.equalTo(writtenTab.snp.leading)
+                    make.trailing.equalTo(writtenTab.snp.trailing)
                 }
                 self.participantTab.isSelected = false
             })
@@ -195,12 +195,12 @@ class MyPageViewController: BaseViewController {
         participantTab.rx.tap
             .subscribe(onNext: { [unowned self] in
                 self.participantTab.isSelected = true
-                self.hMover.snp.removeConstraints()
-                self.hMover.snp.updateConstraints { make in
+                self.tabMover.snp.removeConstraints()
+                self.tabMover.snp.updateConstraints { make in
                     make.height.equalTo(2)
-                    make.bottom.equalTo(hDivider.snp.bottom)
-                    make.leading.equalTo(participantTab.snp.leading).offset(16)
-                    make.trailing.equalTo(participantTab.snp.trailing).offset(-16)
+                    make.bottom.equalTo(tabDivider.snp.bottom)
+                    make.leading.equalTo(participantTab.snp.leading)
+                    make.trailing.equalTo(participantTab.snp.trailing)
                 }
                 self.writtenTab.isSelected = false
             })
@@ -209,34 +209,41 @@ class MyPageViewController: BaseViewController {
 
     private var myInfoWithChevron = MyInfoViewWithChevron()
 
+    private var hDivider = UIView().then { view in
+        view.backgroundColor = .black
+        view.snp.makeConstraints { make in
+            make.height.equalTo(14)
+        }
+    }
+
     private var writtenTab = UIButton().then { button in
         button.setTitle(L10n.MyPage.Tab.MyPost.title, for: .selected)
-        button.setTitleColor(.darkG25, for: .selected)
+        button.setTitleColor(.darkG2, for: .selected)
         button.setBackgroundColor(.clear, for: .selected)
         button.setTitle(L10n.MyPage.Tab.MyPost.title, for: .normal)
         button.setTitleColor(.darkG45, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.titleLabel?.font = .iosBody15R
+        button.titleLabel?.font = .iosBody17Sb
     }
 
     private var participantTab = UIButton().then { button in
         button.setTitle(L10n.MyPage.Tab.MyParticipant.title, for: .selected)
-        button.setTitleColor(.darkG25, for: .selected)
+        button.setTitleColor(.darkG2, for: .selected)
         button.setBackgroundColor(.clear, for: .selected)
         button.setTitle(L10n.MyPage.Tab.MyParticipant.title, for: .normal)
         button.setTitleColor(.darkG45, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.titleLabel?.font = .iosBody15R
+        button.titleLabel?.font = .iosBody17Sb
     }
 
-    private var hDivider = UIView().then { view in
+    private var tabDivider = UIView().then { view in
         view.backgroundColor = .darkG55
         view.snp.makeConstraints { make in
             make.height.equalTo(1)
         }
     }
 
-    private var hMover = UIView().then { view in
+    private var tabMover = UIView().then { view in
         view.backgroundColor = .darkG25
         view.snp.makeConstraints { make in
             make.height.equalTo(2)
@@ -248,7 +255,7 @@ class MyPageViewController: BaseViewController {
         layout.minimumLineSpacing = 12
         layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(BasicPostCell.self, forCellWithReuseIdentifier: BasicPostCell.id)
+        collectionView.register(MyPagePostCell.self, forCellWithReuseIdentifier: MyPagePostCell.id)
         collectionView.backgroundColor = .clear
         return collectionView
     }()
@@ -258,7 +265,7 @@ class MyPageViewController: BaseViewController {
         layout.minimumLineSpacing = 12
         layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(AttendablePostCell.self, forCellWithReuseIdentifier: AttendablePostCell.id)
+        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = true
         return collectionView
@@ -310,10 +317,11 @@ extension MyPageViewController {
         view.addSubviews([
             navBar,
             myInfoWithChevron,
+            hDivider,
             writtenTab,
             participantTab,
-            hDivider,
-            hMover,
+            tabDivider,
+            tabMover,
             myPostCollectionView,
             myRunningCollectionView,
         ])
@@ -342,8 +350,14 @@ extension MyPageViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
+        hDivider.snp.makeConstraints { make in
+            make.top.equalTo(myInfoWithChevron.snp.bottom).offset(26)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+
         writtenTab.snp.makeConstraints { make in
-            make.top.equalTo(myInfoWithChevron.snp.bottom).offset(36)
+            make.top.equalTo(hDivider.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.centerX)
         }
@@ -354,27 +368,27 @@ extension MyPageViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
-        hDivider.snp.makeConstraints { make in
+        tabDivider.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        hMover.snp.makeConstraints { make in
-            make.bottom.equalTo(hDivider.snp.bottom)
-            make.leading.equalTo(writtenTab.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.centerX).offset(-16)
+        tabMover.snp.makeConstraints { make in
+            make.bottom.equalTo(tabDivider.snp.bottom)
+            make.leading.equalTo(writtenTab.snp.leading)
+            make.trailing.equalTo(view.snp.centerX)
         }
 
         myPostCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom).offset(2)
+            make.top.equalTo(tabDivider.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
         myRunningCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom).offset(2)
+            make.top.equalTo(tabDivider.snp.bottom).offset(2)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -389,7 +403,7 @@ extension MyPageViewController {
             make.centerX.equalTo(myPostCollectionView.snp.centerX)
             make.top.equalTo(myPostCollectionView.snp.centerY).offset(12)
             make.height.equalTo(40)
-            make.width.equalTo(220)
+            make.width.equalTo(182)
         }
         myPostEmptyButton.layer.cornerRadius = 20
 
@@ -402,9 +416,10 @@ extension MyPageViewController {
             make.centerX.equalTo(myRunningCollectionView.snp.centerX)
             make.top.equalTo(myRunningCollectionView.snp.centerY).offset(12)
             make.height.equalTo(40)
-            make.width.equalTo(220)
+            make.width.equalTo(141)
         }
         myRunningEmptyButton.layer.cornerRadius = 20
+        writtenTab.isSelected = true
     }
 }
 
@@ -412,9 +427,9 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {
         case let c where c == myRunningCollectionView:
-            return AttendablePostCell.size
+            return MyPageParticipateCell.size
         case let c where c == myPostCollectionView:
-            return BasicPostCell.size
+            return MyPagePostCell.size
         default:
             return .zero
         }

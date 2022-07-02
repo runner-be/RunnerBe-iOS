@@ -58,6 +58,15 @@ class MyInfoView: UIView {
         view.clipsToBounds = true
     }
 
+    var cameraIcon = UIImageView().then { view in
+        view.image = Asset.camera.uiImage
+
+        view.snp.makeConstraints { make in
+            make.width.equalTo(32)
+            make.height.equalTo(32)
+        }
+    }
+
     var nickNameLabel = UILabel().then { label in
         label.font = .iosTitle21Sb
         label.textColor = .darkG1
@@ -107,6 +116,7 @@ class MyInfoView: UIView {
     func setupViews() {
         addSubviews([
             avatarView,
+            cameraIcon,
             nickNameLabel,
             genderLabel,
             dot,
@@ -123,9 +133,14 @@ class MyInfoView: UIView {
             make.bottom.equalTo(self.snp.bottom)
         }
 
+        cameraIcon.snp.makeConstraints { make in
+            make.bottom.equalTo(self.avatarView.snp.bottom)
+            make.trailing.equalTo(self.avatarView.snp.trailing).offset(8)
+        }
+
         nickNameLabel.snp.makeConstraints { make in
             make.top.equalTo(avatarView.snp.top).offset(2)
-            make.leading.equalTo(avatarView.snp.trailing).offset(16)
+            make.leading.equalTo(avatarView.snp.trailing).offset(18)
             make.trailing.lessThanOrEqualTo(self.snp.trailing)
         }
 

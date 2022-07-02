@@ -190,6 +190,11 @@
 "MyPage.MyPost.Empty.Button.title" = "모임을 만들어볼까요? 👉";
 "MyPage.MyRunning.Empty.title" = "아직 러닝에 참여하지 않았어요!";
 "MyPage.MyRunning.Empty.Button.title" = "참여해볼까요? 👉";
+"MyPage.MyPost.Manage.Before.title" = "러닝 후에 출석을 관리해주세요";
+"MyPage.MyPost.Manage.After.title" = "출석 관리하기";
+"MyPage.MyPost.Manage.Finished.title" = "출석 확인하기";
+"MyPage.MyPost.Manage.Attend.title" = "출석";
+"MyPage.MyPost.Manage.Absent.title" = "결석";
 
 // MARK: - MyPage.EditInfo
 "MyPage.EditInfo.NavBar.title" = "내 정보 수정";
@@ -210,14 +215,17 @@
 
 // MARK: - Settings
 "MyPage.Settings.NavBar.title" = "설정";
+
+"MyPage.Settings.Push.title" = "푸시 알림";
+
 "MyPage.Settings.Category.Policy.Version.title" = "버전 정보";
-"MyPage.Settings.Category.Policy.Term.title" = "이용 약관";
+"MyPage.Settings.Category.Policy.Term.title" = "이용약관";
 "MyPage.Settings.Category.Policy.Privacy.title" = "개인정보 처리방침";
-"MyPage.Settings.Category.Policy.License.title" = " 오픈소스 라이센스";
 
 "MyPage.Settings.Category.AboutRunnerbe.Maker.title" = "만든 사람들";
 "MyPage.Settings.Category.AboutRunnerbe.Instagram.title" = "러너비 인스타그램";
 
+"MyPage.Settings.Category.Account.EditPassword.title" = "비밀번호 변경";
 "MyPage.Settings.Category.Account.Logout.title" = "로그아웃";
 "MyPage.Settings.Category.Account.SignOut.title" = "회원탈퇴";
 
