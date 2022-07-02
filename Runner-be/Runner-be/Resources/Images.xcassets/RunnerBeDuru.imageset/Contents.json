@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "scale" : "1x",
-      "filename" : "18048.png",
-      "idiom" : "universal"
+      "filename" : "RunnerBeDuru.png",
+      "idiom" : "universal",
+      "scale" : "1x"
     },
     {
       "scale" : "2x",
       "idiom" : "universal",
-      "filename" : "18048@2x.png"
+      "filename" : "RunnerBeDuru@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "18048@3x.png"
+      "filename" : "RunnerBeDuru@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

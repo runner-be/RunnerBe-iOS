@@ -30,13 +30,13 @@ class MakerView: UIView {
     }
 
     var roleLabel = UILabel().then { label in
-        label.font = .iosBody13R
+        label.font = .iosBody13B
         label.textColor = .primary
         label.text = "ROLE"
     }
 
     var nameLabel = UILabel().then { label in
-        label.font = .iosBody15B
+        label.font = .iosBody13R
         label.textColor = .darkG1
         label.text = "NAME"
     }
@@ -51,19 +51,20 @@ class MakerView: UIView {
 
     func initialLayout() {
         imageView.snp.makeConstraints { make in
+            make.width.equalTo(85)
+            make.height.equalTo(90)
             make.leading.equalTo(self.snp.leading)
             make.top.equalTo(self.snp.top)
-            make.bottom.equalTo(self.snp.bottom)
         }
 
         roleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.trailing).offset(16)
-            make.bottom.equalTo(imageView.snp.centerY).offset(-2)
+            make.leading.equalTo(imageView.snp.leading).offset(10)
+            make.top.equalTo(imageView.snp.bottom).offset(5)
         }
 
         nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(roleLabel.snp.leading)
-            make.top.equalTo(imageView.snp.centerY).offset(2)
+            make.leading.equalTo(roleLabel.snp.trailing).offset(6)
+            make.centerY.equalTo(roleLabel.snp.centerY)
         }
     }
 }
