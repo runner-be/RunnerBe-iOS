@@ -27,9 +27,9 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
 
         if currentIntervalFromRef < startIntervalFromRef { // 시작안했음
             state = .beforeManagable
-        } else if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) {
+        } else if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 시작 ~ 3시간 전
             state = .managable
-        } else {
+        } else { // 3시간 뒤
             state = .afterManage
         }
     }

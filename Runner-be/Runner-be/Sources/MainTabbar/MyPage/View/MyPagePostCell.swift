@@ -61,12 +61,12 @@ class MyPagePostCell: UICollectionViewCell {
 
     var manageButton = UIButton().then { button in
 //        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .normal)
-//        button.setTitleColor(UIColor.darkG6, for: .normal)
-//        button.setBackgroundColor(UIColor.primary, for: .normal)
-//
+        button.setTitleColor(UIColor.darkG6, for: .normal)
+        button.setBackgroundColor(UIColor.primary, for: .normal)
+
 //        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .disabled)
-//        button.setTitleColor(UIColor.darkG4, for: .disabled)
-//        button.setBackgroundColor(.clear, for: .disabled)
+        button.setTitleColor(UIColor.darkG4, for: .disabled)
+        button.setBackgroundColor(.darkG5, for: .disabled)
         button.layer.borderWidth = 0
 //        button.layer.borderColor = UIColor.darkG4.cgColor
 
@@ -106,20 +106,20 @@ extension MyPagePostCell {
     func update(with state: PostAttendState) { // 상황에 따라 뷰 업데이트하는 부분
         switch state {
         case .beforeManagable:
-            manageButton.backgroundColor = .darkG5
+//            manageButton.backgroundColor = .darkG5
             manageButton.isEnabled = false
-            manageButton.setTitleColor(.darkG4, for: .disabled)
+//            manageButton.setTitleColor(.darkG4, for: .disabled)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.Before.title, for: .disabled)
         case .managable:
-            manageButton.backgroundColor = .primary
+//            manageButton.backgroundColor = .primary
             manageButton.isEnabled = true
-            manageButton.setTitleColor(.darkG6, for: .normal)
+//            manageButton.setTitleColor(.darkG6, for: .normal)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.After.title, for: .normal)
         case .afterManage:
-            manageButton.backgroundColor = .primary
+//            manageButton.backgroundColor = .primary
             manageButton.isEnabled = true
-            manageButton.setTitleColor(.darkG6, for: .normal)
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .disabled)
+//            manageButton.setTitleColor(.darkG6, for: .normal)
+            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
         }
     }
 }

@@ -4,6 +4,7 @@
 //
 //  Created by 김신우 on 2022/02/05.
 //
+import Photos
 import RxCocoa
 import RxDataSources
 import RxGesture
@@ -423,6 +424,75 @@ extension MyPageViewController {
     }
 }
 
+// MARK: - UIImagePickerViewController Delegate
+
+// extension MyPageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+//        let originalImage = info[.originalImage] as? UIImage
+//        let editedImage = info[.editedImage] as? UIImage
+//        let editedResizedImage = editedImage?.resize(newWidth: 300)
+//        let originalResizedImage = originalImage?.resize(newWidth: 300)
+//        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
+//        picker.dismiss(animated: true)
+//    }
+//
+//    func photoAuth() -> Bool {
+//        let authorizationState = PHPhotoLibrary.authorizationStatus()
+//        var isAuth = false
+//
+//        switch authorizationState {
+//        case .authorized:
+//            return true
+//        case .notDetermined:
+//            PHPhotoLibrary.requestAuthorization { state in
+//                if state == .authorized {
+//                    isAuth = true
+//                }
+//            }
+//            return isAuth
+//        case .restricted:
+//            break
+//        case .denied:
+//            break
+//        case .limited:
+//            break
+//        @unknown default:
+//            break
+//        }
+//        return false
+//    }
+//
+//    func cameraAuth() -> Bool {
+//        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+//    }
+//
+//    func authSettingOpen(authString: String) {
+//        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+//            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+//            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+//
+//            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+//                alert.dismiss(animated: true, completion: nil)
+//                print("\(String(describing: action.title)) 클릭")
+//            }
+//
+//            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+//                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+//            }
+//
+//            alert.addAction(cancel)
+//            alert.addAction(confirm)
+//
+//            present(alert, animated: true, completion: nil)
+//        }
+//    }
+// }
+//
+//
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {
