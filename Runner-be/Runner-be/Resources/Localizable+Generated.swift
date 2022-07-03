@@ -157,33 +157,33 @@ internal enum L10n {
   }
 
   internal enum Job {
-    /// 재무/회계
+    /// 💰 재무/회계
     internal static let acc = L10n.tr("Localizable", "Job.ACC")
-    /// CS
+    /// 🗣 CS
     internal static let cus = L10n.tr("Localizable", "Job.CUS")
-    /// 디자인
+    /// 🎨 디자인
     internal static let des = L10n.tr("Localizable", "Job.DES")
-    /// 개발
+    /// 🖥 개발
     internal static let dev = L10n.tr("Localizable", "Job.DEV")
-    /// 교육
+    /// 📚 교육
     internal static let edu = L10n.tr("Localizable", "Job.EDU")
-    /// 인사
+    /// 👥 인사
     internal static let hur = L10n.tr("Localizable", "Job.HUR")
-    /// 의료
+    /// 🏥 의료
     internal static let med = L10n.tr("Localizable", "Job.MED")
-    /// 마케팅/PR
+    /// 📊 마케팅/PR
     internal static let mpr = L10n.tr("Localizable", "Job.MPR")
-    /// 생산
+    /// 🏭 생산
     internal static let pro = L10n.tr("Localizable", "Job.PRO")
-    /// 기획/전략/경영
+    /// 📈 기획/전략/경영
     internal static let psm = L10n.tr("Localizable", "Job.PSM")
-    /// 공무원
+    /// 🏫 공무원
     internal static let psv = L10n.tr("Localizable", "Job.PSV")
-    /// 연구
+    /// 🔬 연구
     internal static let res = L10n.tr("Localizable", "Job.RES")
-    /// 영업/제휴
+    /// 🤝 영업/제휴
     internal static let saf = L10n.tr("Localizable", "Job.SAF")
-    /// 서비스
+    /// ⚙️ 서비스
     internal static let ser = L10n.tr("Localizable", "Job.SER")
   }
 
@@ -257,6 +257,8 @@ internal enum L10n {
       internal enum Button {
         /// 앨범에서 가져오기
         internal static let album = L10n.tr("Localizable", "Modal.TakePhoto.Button.album")
+        /// 기본 이미지로 변경하기
+        internal static let `default` = L10n.tr("Localizable", "Modal.TakePhoto.Button.default")
         /// 촬영하기
         internal static let photo = L10n.tr("Localizable", "Modal.TakePhoto.Button.photo")
       }
@@ -268,13 +270,17 @@ internal enum L10n {
       internal enum Job {
         /// 나의 직군
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.Job.title")
+        internal enum ErrorLabel {
+          /// * 직군은 3개월에 한 번 변경할 수 있어요!
+          internal static let cannotIn3Month = L10n.tr("Localizable", "MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month")
+        }
       }
       internal enum NavBar {
         /// 내 정보 수정
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NavBar.title")
       }
       internal enum NickName {
-        /// 닉네임 변경
+        /// 닉네임
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NickName.title")
         internal enum Button {
           /// 등록하기
@@ -289,13 +295,13 @@ internal enum L10n {
         internal enum ErrorLabel {
           /// 중복된 닉네임이에요!
           internal static let duplicated = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.duplicated")
-          /// 영어 대문자, 특수문자, 띄어쓰기는 사용할 수 없습니다.
+          /// 영어 대문자, 특수문자, 띄어쓰기는 쓸 수 없어요!
           internal static let form = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.form")
         }
         internal enum InfoLabel {
-          /// 닉네임 변경이 완료되어 추가 변경은 불가능해요
+          /// * 닉네임 변경이 완료되어 추가 변경은 불가능해요!
           internal static let alreadychanged = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.alreadychanged")
-          /// 닉네임은 딱 한 번만 바꿀 수 있어요
+          /// * 딱 한 번만 바꿀 수 있어요!
           internal static let caution = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.caution")
         }
         internal enum TextField {

@@ -55,11 +55,11 @@ class EditInfoViewController: BaseViewController {
             .bind(to: viewModel.inputs.nickNameText)
             .disposed(by: disposeBag)
 
-        profileImageView.rx.tapGesture()
-            .when(.recognized)
-            .map { _ in }
-            .bind(to: viewModel.inputs.changePhoto)
-            .disposed(by: disposeBag)
+//        profileImageView.rx.tapGesture()
+//            .when(.recognized)
+//            .map { _ in }
+//            .bind(to: viewModel.inputs.changePhoto)
+//            .disposed(by: disposeBag)
 
         selectJobView.jobGroup.tap
             .bind(to: viewModel.inputs.jobSelected)
@@ -74,14 +74,14 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.currentProfile
-            .take(1)
-            .compactMap { $0 }
-            .compactMap { URL(string: $0) }
-            .subscribe(onNext: { [weak self] url in
-                self?.profileImageView.kf.setImage(with: url)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.outputs.currentProfile
+//            .take(1)
+//            .compactMap { $0 }
+//            .compactMap { URL(string: $0) }
+//            .subscribe(onNext: { [weak self] url in
+//                self?.profileImageView.kf.setImage(with: url)
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.showPicker
             .map { $0.sourceType }
@@ -155,6 +155,7 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] ok in
                 self?.nickNameRuleErrLabel.isHidden = ok
                 self?.selectNickName.applyButton.isEnabled = ok
+//                print("hello \(self?.selectNickName.applyButton.isEnabled)")
             })
             .disposed(by: disposeBag)
 
@@ -186,13 +187,13 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.profileChanged
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] data in
-                self?.profileImageView.image = UIImage(data: data)
-                self?.profileCameraIcon.isHidden = true
-            })
-            .disposed(by: disposeBag)
+//        viewModel.outputs.profileChanged
+//            .compactMap { $0 }
+//            .subscribe(onNext: { [weak self] data in
+//                self?.profileImageView.image = UIImage(data: data)
+//                self?.profileCameraIcon.isHidden = true
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
@@ -236,27 +237,6 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var profileImageView = UIImageView().then { view in
-        view.image = Asset.profileEmptyIcon.uiImage
-
-        view.snp.makeConstraints { make in
-            make.width.equalTo(78)
-            make.height.equalTo(78)
-        }
-
-        view.layer.cornerRadius = 39
-        view.clipsToBounds = true
-    }
-
-    private var profileCameraIcon = UIImageView().then { view in
-        view.image = Asset.camera.uiImage
-
-        view.snp.makeConstraints { make in
-            make.width.equalTo(36)
-            make.height.equalTo(36)
-        }
-    }
-
     private lazy var selectNickName = TextFieldWithButton().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.NickName.title
         view.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
@@ -268,7 +248,7 @@ class EditInfoViewController: BaseViewController {
         label.font = .iosBody13R
         label.textColor = .primary
         label.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
-        label.isHidden = true
+        label.isHidden = false
     }
 
     private var nickNameDupErrLabel = UILabel().then { label in
@@ -290,19 +270,26 @@ class EditInfoViewController: BaseViewController {
         axis: .vertical,
         alignment: .leading,
         distribution: .equalSpacing,
-        spacing: 1
+        spacing: 4
     )
 
     private var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG55
+        view.backgroundColor = .black
         view.snp.makeConstraints { make in
-            make.height.equalTo(1)
+            make.height.equalTo(14)
         }
     }
 
     private var selectJobView = SelectJobView().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.Job.title
-        view.isHidden = true
+        view.isHidden = false
+    }
+
+    private var selectJobGuideLabel = UILabel().then { label in
+        label.font = .iosBody13R
+        label.textColor = .primary
+        label.text = L10n.MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month
+        label.isHidden = false
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -323,12 +310,11 @@ extension EditInfoViewController {
 
         view.addSubviews([
             navBar,
-            profileImageView,
-            profileCameraIcon,
             selectNickName,
             vStack,
             hDivider,
             selectJobView,
+            selectJobGuideLabel,
         ])
     }
 
@@ -339,18 +325,8 @@ extension EditInfoViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(16)
-            make.centerX.equalTo(view.snp.centerX)
-        }
-
-        profileCameraIcon.snp.makeConstraints { make in
-            make.bottom.equalTo(profileImageView.snp.bottom)
-            make.centerX.equalTo(profileImageView.snp.trailing)
-        }
-
         selectNickName.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(16)
+            make.top.equalTo(navBar.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
@@ -363,14 +339,19 @@ extension EditInfoViewController {
 
         hDivider.snp.makeConstraints { make in
             make.top.equalTo(vStack.snp.bottom).offset(27)
-            make.leading.equalTo(selectNickName.snp.leading)
-            make.trailing.equalTo(selectNickName.snp.trailing)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         selectJobView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(24)
             make.leading.equalTo(selectNickName.snp.leading)
             make.trailing.equalTo(selectNickName.snp.trailing)
+        }
+
+        selectJobGuideLabel.snp.makeConstraints { make in
+            make.top.equalTo(selectJobView.snp.bottom).offset(24)
+            make.leading.equalTo(selectJobView.snp.leading)
         }
     }
 }

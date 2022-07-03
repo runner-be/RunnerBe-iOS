@@ -64,7 +64,6 @@ internal enum Asset {
   internal static let runnerBeDESIGN = ImageAsset(name: "RunnerBe_DESIGN")
   internal static let runnerBePLAN = ImageAsset(name: "RunnerBe_PLAN")
   internal static let runnerBeServer = ImageAsset(name: "RunnerBe_Server")
-  internal static let runnerBeIOS = ImageAsset(name: "RunnerBe_iOS")
   internal static let scheduled = ImageAsset(name: "Scheduled")
   internal static let search = ImageAsset(name: "Search")
   internal static let settings = ImageAsset(name: "Settings")

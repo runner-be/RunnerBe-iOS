@@ -45,9 +45,9 @@ final class EditInfoViewModel: BaseViewModel {
 //            .bind(to: routes.jobModal)
 //            .disposed(by: disposeBag)
 
-        inputs.changePhoto
-            .bind(to: routes.photoModal)
-            .disposed(by: disposeBag)
+//        inputs.changePhoto
+//            .bind(to: routes.photoModal)
+//            .disposed(by: disposeBag)
 
         inputs.backward
             .map { [weak self] in self?.dirty ?? true }

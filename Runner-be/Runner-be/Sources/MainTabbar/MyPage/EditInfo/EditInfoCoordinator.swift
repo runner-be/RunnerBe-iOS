@@ -42,12 +42,12 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.photoModal
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentPhotoModal(vm: vm, animated: false)
-            })
-            .disposed(by: sceneDisposeBag)
+//        scene.VM.routes.photoModal
+//            .map { scene.VM }
+//            .subscribe(onNext: { [weak self] vm in
+//                self?.presentPhotoModal(vm: vm, animated: false)
+//            })
+//            .disposed(by: sceneDisposeBag)
     }
 
     private func presentNickNameModal(vm: EditInfoViewModel, animated: Bool) {
@@ -85,6 +85,8 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
                 case .choosePhoto:
                     vm.routeInputs.photoTypeSelected.onNext(.library)
                 case .cancel:
+                    break
+                case .chooseDefault:
                     break
                 }
             })

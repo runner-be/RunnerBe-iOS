@@ -79,20 +79,20 @@
 
 // MARK: - Job
 
-"Job.PSV" = "공무원";
-"Job.EDU" = "교육";
-"Job.DEV" = "개발";
-"Job.PSM" = "기획/전략/경영";
-"Job.DES" = "디자인";
-"Job.MPR" = "마케팅/PR";
-"Job.SER" = "서비스";
-"Job.PRO" = "생산";
-"Job.RES" = "연구";
-"Job.SAF" = "영업/제휴";
-"Job.MED" = "의료";
-"Job.HUR" = "인사";
-"Job.ACC" = "재무/회계";
-"Job.CUS" = "CS";
+"Job.PSV" = "🏫 공무원";
+"Job.EDU" = "📚 교육";
+"Job.DEV" = "🖥 개발";
+"Job.PSM" = "📈 기획/전략/경영";
+"Job.DES" = "🎨 디자인";
+"Job.MPR" = "📊 마케팅/PR";
+"Job.SER" = "⚙️ 서비스";
+"Job.PRO" = "🏭 생산";
+"Job.RES" = "🔬 연구";
+"Job.SAF" = "🤝 영업/제휴";
+"Job.MED" = "🏥 의료";
+"Job.HUR" = "👥 인사";
+"Job.ACC" = "💰 재무/회계";
+"Job.CUS" = "🗣 CS";
 
 // MARK: - Gender
 "Gender.male" = "남성";
@@ -196,19 +196,21 @@
 "MyPage.MyPost.Manage.Attend.title" = "출석";
 "MyPage.MyPost.Manage.Absent.title" = "결석";
 
+
 // MARK: - MyPage.EditInfo
 "MyPage.EditInfo.NavBar.title" = "내 정보 수정";
-"MyPage.EditInfo.NickName.title" = "닉네임 변경";
+"MyPage.EditInfo.NickName.title" = "닉네임";
 "MyPage.EditInfo.NickName.Button.NickNameChanged.title" = "등록 완료";
 "MyPage.EditInfo.NickName.Button.Apply" = "등록하기";
 "MyPage.EditInfo.NickName.Button.Cant" = "변경불가";
 "MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자)";
 "MyPage.EditInfo.NickName.TextField.PlaceHolder.changed" = "김출근";
-"MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "닉네임 변경이 완료되어 추가 변경은 불가능해요";
-"MyPage.EditInfo.NickName.InfoLabel.caution" = "닉네임은 딱 한 번만 바꿀 수 있어요";
+"MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "* 닉네임 변경이 완료되어 추가 변경은 불가능해요!";
+"MyPage.EditInfo.NickName.InfoLabel.caution" = "* 딱 한 번만 바꿀 수 있어요!";
 "MyPage.EditInfo.NickName.ErrorLabel.duplicated" = "중복된 닉네임이에요!";
-"MyPage.EditInfo.NickName.ErrorLabel.form" = "영어 대문자, 특수문자, 띄어쓰기는 사용할 수 없습니다.";
+"MyPage.EditInfo.NickName.ErrorLabel.form" = "영어 대문자, 특수문자, 띄어쓰기는 쓸 수 없어요!";
 "MyPage.EditInfo.Job.title" = "나의 직군";
+"MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month" = "* 직군은 3개월에 한 번 변경할 수 있어요!";
 
 // MARK: - MyPage.Maker
 "MyPage.Maker.NavBar.title" = "만든 사람들";
@@ -271,5 +273,7 @@
 // MARK: - TakePhotoModal
 "Modal.TakePhoto.Button.photo" = "촬영하기";
 "Modal.TakePhoto.Button.album" = "앨범에서 가져오기";
+"Modal.TakePhoto.Button.default" = "기본 이미지로 변경하기";
+
 
 //

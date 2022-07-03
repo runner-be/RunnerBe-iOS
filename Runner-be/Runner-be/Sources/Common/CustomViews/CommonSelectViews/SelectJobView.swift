@@ -86,7 +86,7 @@ class SelectJobView: SelectBaseView {
     var jobGroupCollectionView: UICollectionView = {
         var layout = JobGroupCollectionViewLayout()
         layout.xSpacing = 12
-        layout.ySpacing = 16
+        layout.ySpacing = 24
         layout.estimatedItemSize = CGSize(width: 140, height: 40)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(JobGroupCollectionViewCell.self, forCellWithReuseIdentifier: JobGroupCollectionViewCell.id)
@@ -110,9 +110,9 @@ class SelectJobView: SelectBaseView {
 
         jobGroupCollectionView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)
-            make.leading.equalTo(contentView.snp.leading).offset(38)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-38)
-            make.height.equalTo(244)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.height.equalTo(276)
             make.bottom.equalTo(contentView.snp.bottom)
         }
     }
