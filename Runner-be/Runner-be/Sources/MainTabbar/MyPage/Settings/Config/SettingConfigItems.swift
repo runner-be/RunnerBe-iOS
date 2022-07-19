@@ -27,16 +27,20 @@ struct SettingCellConfig {
 }
 
 enum SettingCategory: CaseIterable {
+    case pushCategory
     case policyCategory
     case aboutRunnerbeCategory
     case accountCategory
+}
+
+enum PushCategory: CaseIterable {
+    case push
 }
 
 enum PolicyCategory: CaseIterable {
     case version
     case term
     case privacy
-    case license
 }
 
 enum AboutRunnerbeCategory: CaseIterable {
@@ -49,6 +53,14 @@ enum AccountCategory: CaseIterable {
     case signOut
 }
 
+extension PushCategory {
+    var title: String {
+        return L10n.MyPage.Settings.Push.title
+    }
+
+    var detail: String { "" }
+}
+
 extension PolicyCategory {
     var title: String {
         switch self {
@@ -58,8 +70,6 @@ extension PolicyCategory {
             return L10n.MyPage.Settings.Category.Policy.Term.title
         case .privacy:
             return L10n.MyPage.Settings.Category.Policy.Privacy.title
-        case .license:
-            return L10n.MyPage.Settings.Category.Policy.License.title
         }
     }
 

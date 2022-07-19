@@ -20,6 +20,10 @@ final class SettingsViewModel: BaseViewModel {
         let settingItems: [[SettingCellConfig]] = SettingCategory.allCases.reduce(into: []) { partialResult, category in
             let items: [SettingCellConfig]
             switch category {
+            case .pushCategory:
+                items = PushCategory.allCases.reduce(into: []) {
+                    $0.append(SettingCellConfig(title: $1.title, details: $1.detail))
+                }
             case .policyCategory:
                 items = PolicyCategory.allCases.reduce(into: []) {
                     $0.append(SettingCellConfig(title: $1.title, details: $1.detail))
@@ -40,17 +44,15 @@ final class SettingsViewModel: BaseViewModel {
         inputs.tapCell
             .subscribe(onNext: { [weak self] indexPath in
                 switch indexPath.section {
-                case 0:
+                case 1:
                     switch indexPath.item {
                     case 1:
                         self?.routes.terms.onNext(())
                     case 2:
                         self?.routes.privacy.onNext(())
-                    case 3:
-                        self?.routes.license.onNext(())
                     default: break
                     }
-                case 1:
+                case 2:
                     switch indexPath.item {
                     case 0:
                         self?.routes.makers.onNext(())
@@ -58,11 +60,11 @@ final class SettingsViewModel: BaseViewModel {
                         self?.routes.instagram.onNext(())
                     default: break
                     }
-                case 2:
+                case 3:
                     switch indexPath.item {
-                    case 0:
-                        self?.routes.logout.onNext(())
                     case 1:
+                        self?.routes.logout.onNext(())
+                    case 2:
                         self?.routes.signout.onNext(())
                     default: break
                     }
