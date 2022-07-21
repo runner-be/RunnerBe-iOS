@@ -2,9 +2,10 @@
 //  MessageViewController.swift
 //  Runner-be
 //
-//  Created by 김신우 on 2022/04/26.
+//  Created by 이유리 on 2022/04/26.
 //
 
+import Kingfisher
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -13,6 +14,9 @@ import Then
 import UIKit
 
 class MessageViewController: BaseViewController {
+    lazy var myDataManager = MessageDataManager()
+    var messageList = [GetMessageListResult]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,6 +26,8 @@ class MessageViewController: BaseViewController {
         tableView.dataSource = self
 
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.id)
+
+        myDataManager.getMessageList(viewController: self)
 
         viewInputs()
         viewModelInput()
@@ -44,9 +50,9 @@ class MessageViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-        navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.routes.messageDelete)
-            .disposed(by: disposeBag)
+//        navBar.rightBtnItem.rx.tap
+//            .bind(to: viewModel.routes.messageDelete)
+//            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {} // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -59,6 +65,7 @@ class MessageViewController: BaseViewController {
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
         navBar.rightBtnItem.titleLabel?.font = .iosBody17R
+        navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
         navBar.titleSpacing = 12
     }
@@ -78,7 +85,6 @@ extension MessageViewController {
         ])
 
         tableView.backgroundColor = .darkG7
-        // 선택시 하이라이트 효과 없애야함
     }
 
     private func initialLayout() {
@@ -99,16 +105,42 @@ extension MessageViewController {
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 2
+        return messageList.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.id) as? MessageTableViewCell else { return .init() }
+        cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
+        if !messageList.isEmpty {
+            if messageList[indexPath.row].profileImageURL == nil {
+                cell.messageProfile.image = UIImage(systemName: "iconsProfile48")
+            } else {
+                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageURL!), placeholder: UIImage(systemName: "photo"), options: .none)
+            }
+            cell.postTitle.text = messageList[indexPath.row].title
+            cell.nameLabel.text = messageList[indexPath.row].repUserName
 
+            if messageList[indexPath.row].recentMessage == "N" {
+                cell.backgroundColor = .primarydark
+            } else {
+                cell.backgroundColor = .black
+            }
+        }
         return cell
     }
 
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 76
+    }
+}
+
+extension MessageViewController {
+    func didSucessGetMessageList(_ result: [GetMessageListResult]) {
+        messageList.append(contentsOf: result)
+        tableView.reloadData()
+    }
+
+    func failedToRequest(message: String) {
+        print(message)
     }
 }

@@ -24,6 +24,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent") { component in
         ReportModalDependency7c1d923aae037ccbecd8Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent->MessageDeleteComponent->ReportModalComponent") { component in
+        ReportModalDependency5ac108656fee30f19f48Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         ApplicantListModalDependency38daf10a5dd5609ffa27Provider(component: component)
     }
@@ -99,9 +102,6 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutCompletionModalComponent") { component in
         SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider(component: component)
     }
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
-        TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
-    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->NickNameChangeModalComponent") { component in
         NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider(component: component)
     }
@@ -110,6 +110,12 @@ public func registerProviderFactories() {
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent") { component in
         MyPageDependencyed3a2dbc57f299854a2fProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent") { component in
+        TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->TakePhotoModalComponent") { component in
+        TakePhotoModalDependency5e33043fb398e1a3f039Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->OnboardingCoverComponent") { component in
         OnboardingCoverDependency6c57a78c75f1d24e9771Provider(component: component)
@@ -182,6 +188,13 @@ private class ReportModalDependency626f492cc98b0841b683Provider: ReportModalDepe
 
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent
 private class ReportModalDependency7c1d923aae037ccbecd8Provider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+/// ^->AppComponent->MainTabComponent->MessageComponent->MessageDeleteComponent->ReportModalComponent
+private class ReportModalDependency5ac108656fee30f19f48Provider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }
@@ -430,17 +443,6 @@ private class SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider: Sign
     }
 }
 
-private class TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider: TakePhotoModalDependency {
-    init() {}
-}
-
-/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent
-private class TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider: TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider {
-    init(component _: NeedleFoundation.Scope) {
-        super.init()
-    }
-}
-
 private class NickNameChangeModalDependencyb35b5747f04ee5549ecdBaseProvider: NickNameChangeModalDependency {
     init() {}
 }
@@ -469,6 +471,24 @@ private class MyPageDependencyed3a2dbc57f299854a2fBaseProvider: MyPageDependency
 
 /// ^->AppComponent->MainTabComponent->MyPageComponent
 private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependencyed3a2dbc57f299854a2fBaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+private class TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider: TakePhotoModalDependency {
+    init() {}
+}
+
+/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->TakePhotoModalComponent
+private class TakePhotoModalDependency2ab17d3ee2a92e0abadfProvider: TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+/// ^->AppComponent->MainTabComponent->MyPageComponent->TakePhotoModalComponent
+private class TakePhotoModalDependency5e33043fb398e1a3f039Provider: TakePhotoModalDependency2ab17d3ee2a92e0abadfBaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }

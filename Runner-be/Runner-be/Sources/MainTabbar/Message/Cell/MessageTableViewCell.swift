@@ -28,7 +28,7 @@ class MessageTableViewCell: UITableViewCell {
         initialLayout() // cell 레이아웃 설정
     }
 
-    private var messageProfile = UIImageView().then { view in
+    var messageProfile = UIImageView().then { view in
         view.snp.makeConstraints { profile in
             profile.width.equalTo(48)
             profile.height.equalTo(48)
@@ -37,24 +37,24 @@ class MessageTableViewCell: UITableViewCell {
         view.image = UIImage(named: "iconsProfile48")
     }
 
-    private var nameLabel = UILabel().then { label in
-        label.font = .iosBody15B
-        label.textColor = .darkG2
-        label.text = "닉네임"
-    }
-
-    private var postTitle = UILabel().then { label in
+    var nameLabel = UILabel().then { label in
         label.font = .iosBody13R
-        label.textColor = .darkG35
-        label.text = "게시글 제목"
+        label.textColor = .darkG3
+        label.text = "글쓴이"
     }
 
-    private var divider = UIView().then { view in
-        view.snp.makeConstraints { divider in
-            divider.height.equalTo(1)
-        }
-        view.backgroundColor = .darkG35
+    var postTitle = UILabel().then { label in
+        label.font = .iosBody17Sb
+        label.textColor = .darkG1
+        label.text = "제목"
     }
+
+//    private var divider = UIView().then { view in
+//        view.snp.makeConstraints { divider in
+//            divider.height.equalTo(1)
+//        }
+//        view.backgroundColor = .darkG35
+//    }
 
     private var checkBox = UIButton().then { view in
         view.setImage(UIImage(named: "CheckBoxIcon_Empty"), for: .normal)
@@ -138,36 +138,29 @@ extension MessageTableViewCell {
             messageProfile,
             nameLabel,
             postTitle,
-            divider,
             checkBox,
         ])
     }
 
     private func initialLayout() {
+        contentView.snp.makeConstraints { make in
+            make.height.equalTo(72)
+        }
+
         messageProfile.snp.makeConstraints { make in
             make.centerY.equalTo(self.contentView)
             make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.centerY.equalTo(contentView.snp.centerY)
         }
 
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(messageProfile.snp.top)
-            make.leading.equalTo(messageProfile.snp.trailing).offset(12)
+            make.top.equalTo(postTitle.snp.bottom).offset(2)
+            make.leading.equalTo(postTitle.snp.leading)
         }
 
         postTitle.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.leading.equalTo(nameLabel.snp.leading)
-        }
-
-        divider.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom)
-        }
-
-        checkBox.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.trailing)
-            make.centerY.equalTo(self.contentView)
+            make.top.equalTo(messageProfile.snp.top)
+            make.leading.equalTo(messageProfile.snp.trailing).offset(12)
         }
     }
 }

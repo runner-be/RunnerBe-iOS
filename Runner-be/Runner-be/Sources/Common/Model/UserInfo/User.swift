@@ -10,12 +10,14 @@ import Foundation
 struct User: Codable {
     let userID: Int
     let nickName, gender, age, diligence: String
+    let pushOn: String
     let job: String
     let profileImageURL: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case nickName, gender, age, diligence, job
+        case pushOn
         case profileImageURL = "profileImageUrl"
     }
 }
