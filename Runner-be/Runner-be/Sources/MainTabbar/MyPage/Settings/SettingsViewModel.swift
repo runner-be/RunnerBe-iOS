@@ -62,9 +62,9 @@ final class SettingsViewModel: BaseViewModel {
                     }
                 case 3:
                     switch indexPath.item {
-                    case 1:
+                    case 0:
                         self?.routes.logout.onNext(())
-                    case 2:
+                    case 1:
                         self?.routes.signout.onNext(())
                     default: break
                     }
