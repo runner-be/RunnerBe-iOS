@@ -21,16 +21,17 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        Observable<String?>.of(user.profileImageURL)
-            .subscribe(outputs.currentProfile)
-            .disposed(by: disposeBag)
+//        Observable<String?>.of(user.profileImageURL)
+//            .subscribe(outputs.currentProfile)
+//            .disposed(by: disposeBag)
 
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
+//                print(ruleOK)
                 self?.outputs.nickNameRuleOK.onNext(ruleOK)
-                self?.outputs.nickNameDup.onNext(false)
+//                self?.outputs.nickNameDup.onNext(false)    //버튼을 눌렀을 때 중복확인을 해야하므로 여기서 처리X
             })
             .disposed(by: disposeBag)
 
@@ -78,34 +79,34 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        routeInputs.photoTypeSelected
-            .compactMap { $0 }
-            .bind(to: outputs.showPicker)
-            .disposed(by: disposeBag)
-
-        inputs.photoSelected
-            .do(onNext: { [weak self] _ in
-                self?.outputs.toastActivity.onNext(true)
-            })
-            .compactMap { [weak self] data in
-                if data == nil {
-                    self?.outputs.toastActivity.onNext(false)
-                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
-                }
-                return data
-            }
-            .flatMap { userAPIService.setProfileImage(to: $0) }
-            .subscribe(onNext: { [weak self] result in
-                switch result {
-                case let .succeed(data):
-                    self?.outputs.profileChanged.onNext(data)
-                    self?.dirty = true
-                case .error:
-                    self?.outputs.toast.onNext("이미지 등록에 실패했어요")
-                }
-                self?.outputs.toastActivity.onNext(false)
-            })
-            .disposed(by: disposeBag)
+//        routeInputs.photoTypeSelected
+//            .compactMap { $0 }
+//            .bind(to: outputs.showPicker)
+//            .disposed(by: disposeBag)
+//
+//        inputs.photoSelected
+//            .do(onNext: { [weak self] _ in
+//                self?.outputs.toastActivity.onNext(true)
+//            })
+//            .compactMap { [weak self] data in
+//                if data == nil {
+//                    self?.outputs.toastActivity.onNext(false)
+//                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
+//                }
+//                return data
+//            }
+//            .flatMap { userAPIService.setProfileImage(to: $0) }
+//            .subscribe(onNext: { [weak self] result in
+//                switch result {
+//                case let .succeed(data):
+//                    self?.outputs.profileChanged.onNext(data)
+//                    self?.dirty = true
+//                case .error:
+//                    self?.outputs.toast.onNext("이미지 등록에 실패했어요")
+//                }
+//                self?.outputs.toastActivity.onNext(false)
+//            })
+//            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -132,7 +133,7 @@ final class EditInfoViewModel: BaseViewModel {
 
         var toast = PublishSubject<String>()
         var toastActivity = PublishSubject<Bool>()
-        var showPicker = PublishSubject<ImagePickerType>()
+        var showPicker = PublishSubject<EditProfileType>()
     }
 
     struct Route {
@@ -145,7 +146,7 @@ final class EditInfoViewModel: BaseViewModel {
     struct RouteInput {
         var changeJob = PublishSubject<Bool>()
         var changeNickName = PublishSubject<Bool>()
-        var photoTypeSelected = PublishSubject<ImagePickerType?>()
+        var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 
     private var disposeBag = DisposeBag()
