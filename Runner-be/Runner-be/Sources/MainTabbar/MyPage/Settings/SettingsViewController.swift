@@ -15,6 +15,9 @@ import Then
 import UIKit
 
 class SettingsViewController: BaseViewController {
+    lazy var myDataManager = SettinsDataManager()
+    var isPushOn = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,6 +25,9 @@ class SettingsViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+
+        myDataManager.getMyPage(viewController: self)
+        pushSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
     }
 
     init(viewModel: SettingsViewModel) {
@@ -32,6 +38,17 @@ class SettingsViewController: BaseViewController {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func switchChanged(sender pushSwtich: UISwitch) {
+        print(pushSwtich.isOn)
+        if !pushSwtich.isOn {
+            myDataManager.patchPushOn(viewController: self, pushOn: "N")
+            isPushOn = false
+        } else {
+            myDataManager.patchPushOn(viewController: self, pushOn: "Y")
+            isPushOn = true
+        }
     }
 
     private var viewModel: SettingsViewModel
@@ -112,9 +129,9 @@ class SettingsViewController: BaseViewController {
     }
 
     private var pushSwitch = UISwitch().then { view in
-        view.onTintColor = .darkG2
-        view.tintColor = .primary
-        view.backgroundColor = .primary
+        view.onTintColor = .primary
+        view.tintColor = .darkG2
+        view.backgroundColor = .darkG2
         view.layer.cornerRadius = view.frame.height / 2
         view.clipsToBounds = true
     }
@@ -162,5 +179,19 @@ extension SettingsViewController: UITableViewDelegate {
         }
 
         return nil
+    }
+}
+
+extension SettingsViewController {
+    func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
+        if result.myInfo![0].pushOn == "N" {
+            pushSwitch.isOn = false
+        } else {
+            pushSwitch.isOn = true
+        }
+    }
+
+    func failedToRequest(message: String) {
+        print(message)
     }
 }
