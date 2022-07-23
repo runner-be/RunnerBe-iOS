@@ -6,7 +6,6 @@
 //
 
 import Kingfisher
-// import Photos
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -59,12 +58,6 @@ class EditInfoViewController: BaseViewController {
             .bind(to: viewModel.inputs.nickNameText)
             .disposed(by: disposeBag)
 
-//        profileImageView.rx.tapGesture()
-//            .when(.recognized)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.changePhoto)
-//            .disposed(by: disposeBag)
-
         selectJobView.jobGroup.tap
             .bind(to: viewModel.inputs.jobSelected)
             .disposed(by: disposeBag)
@@ -77,76 +70,6 @@ class EditInfoViewController: BaseViewController {
                 self?.selectJobView.select(idx: job.index)
             })
             .disposed(by: disposeBag)
-
-//        viewModel.outputs.currentProfile
-//            .take(1)
-//            .compactMap { $0 }
-//            .compactMap { URL(string: $0) }
-//            .subscribe(onNext: { [weak self] url in
-//                self?.profileImageView.kf.setImage(with: url)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.showPicker
-//            .map { $0.sourceType }
-//            .subscribe(onNext: { [weak self] sourceType in
-//                guard let self = self else { return }
-//                let picker = UIImagePickerController()
-//                picker.sourceType = sourceType
-//                picker.allowsEditing = true
-//                picker.delegate = self
-//                switch sourceType {
-//                case .photoLibrary:
-//                    PHPhotoLibrary.requestAuthorization { [weak self] status in
-//                        DispatchQueue.main.async {
-//                            switch status {
-//                            case .authorized:
-//                                self?.present(picker, animated: true)
-//                            default:
-//                                self?.view.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
-//                            }
-//                        }
-//                    }
-//                case .camera:
-//                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-//                        DispatchQueue.main.async {
-//                            if ok {
-//                                self?.present(picker, animated: true)
-//                            } else {
-//                                self?.view.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
-//                            }
-//                        }
-//                    })
-//                default:
-//                    break
-//                }
-//        //                switch sourceType {
-//        //                case .photoLibrary:
-//        //                    if self.photoAuth() {
-//        //                        self.present(picker, animated: true)
-//        //                    } else {
-//        //                        self.authSettingOpen(authString: "앨범 권한 설정")
-//        //                    }
-//        //                case .camera:
-//                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-//                ////                        DispatchQueue.main.async {
-//                ////                            if ok {
-//                ////                                self?.present(picker, animated: true)
-//                ////                            } else {
-//                ////                                self?.view.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
-//                ////                            }
-//                ////                        }
-//                ////                    })
-//        //                    if self.cameraAuth() {
-//        //                        self.present(picker, animated: true)
-//        //                    } else {
-//        //                        self.authSettingOpen(authString: "카메라 권한 설정")
-//        //                    }
-//        //                default:
-//        //                    break
-//        //                }
-//            })
-//            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameDup // 닉네임 중복처리
             .subscribe(onNext: { [weak self] dup in
@@ -191,14 +114,6 @@ class EditInfoViewController: BaseViewController {
                 self?.nickNameRuleErrLabel.isHidden = true
             })
             .disposed(by: disposeBag)
-
-//        viewModel.outputs.profileChanged
-//            .compactMap { $0 }
-//            .subscribe(onNext: { [weak self] data in
-//                self?.profileImageView.image = UIImage(data: data)
-//                self?.profileCameraIcon.isHidden = true
-//            })
-//            .disposed(by: disposeBag)
 
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
@@ -375,74 +290,6 @@ extension EditInfoViewController: UITextFieldDelegate {
     }
 }
 
-//// MARK: - UIImagePickerViewController Delegate
-//
-// extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//        let originalImage = info[.originalImage] as? UIImage
-//        let editedImage = info[.editedImage] as? UIImage
-//        let editedResizedImage = editedImage?.resize(newWidth: 300)
-//        let originalResizedImage = originalImage?.resize(newWidth: 300)
-//        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
-//        picker.dismiss(animated: true)
-//    }
-//
-//    func photoAuth() -> Bool {
-//        let authorizationState = PHPhotoLibrary.authorizationStatus()
-//        var isAuth = false
-//
-//        switch authorizationState {
-//        case .authorized:
-//            return true
-//        case .notDetermined:
-//            PHPhotoLibrary.requestAuthorization { state in
-//                if state == .authorized {
-//                    isAuth = true
-//                }
-//            }
-//            return isAuth
-//        case .restricted:
-//            break
-//        case .denied:
-//            break
-//        case .limited:
-//            break
-//        @unknown default:
-//            break
-//        }
-//        return false
-//    }
-//
-//    func cameraAuth() -> Bool {
-//        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
-//    }
-//
-//    func authSettingOpen(authString: String) {
-//        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
-//            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
-//            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
-//
-//            let cancel = UIAlertAction(title: "취소", style: .default) { action in
-//                alert.dismiss(animated: true, completion: nil)
-//                print("\(String(describing: action.title)) 클릭")
-//            }
-//
-//            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-//                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-//            }
-//
-//            alert.addAction(cancel)
-//            alert.addAction(confirm)
-//
-//            present(alert, animated: true, completion: nil)
-//        }
-//    }
-// }
-
 extension EditInfoViewController {
     func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
         if result.myInfo?[0].nameChanged == "Y" {
@@ -455,6 +302,10 @@ extension EditInfoViewController {
 //            selectNickName.applyButton.isEnabled = true
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         }
+    }
+    
+    func didSuccessPatchJob(_ response:BaseResponse) {
+
     }
 
     func failedToRequest(message: String) {
