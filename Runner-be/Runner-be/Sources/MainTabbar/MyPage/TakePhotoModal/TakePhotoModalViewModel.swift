@@ -23,12 +23,17 @@ final class TakePhotoModalViewModel: BaseViewModel {
         inputs.tapChoosePhoto
             .subscribe(routes.choosePhoto)
             .disposed(by: disposeBag)
+
+        inputs.tapChooseDefault
+            .subscribe(routes.chooseDefault)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var tapBackward = PublishSubject<Void>()
         var tapTakePhoto = PublishSubject<Void>()
         var tapChoosePhoto = PublishSubject<Void>()
+        var tapChooseDefault = PublishSubject<Void>()
     }
 
     struct Output {}
@@ -36,6 +41,7 @@ final class TakePhotoModalViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var takePhoto = PublishSubject<Void>()
         var choosePhoto = PublishSubject<Void>()
+        var chooseDefault = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

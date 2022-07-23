@@ -11,6 +11,7 @@ enum TakePhotoModalResult {
     case cancel
     case takePhoto
     case choosePhoto
+    case chooseDefault
 }
 
 final class TakePhotoModalCoordinator: BasicCoordinator<TakePhotoModalResult> {
@@ -47,6 +48,12 @@ final class TakePhotoModalCoordinator: BasicCoordinator<TakePhotoModalResult> {
         scene.VM
             .routes.takePhoto
             .map { TakePhotoModalResult.takePhoto }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM
+            .routes.chooseDefault
+            .map { TakePhotoModalResult.chooseDefault }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
     }

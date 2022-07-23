@@ -51,8 +51,8 @@ class MessageChatViewController: BaseViewController {
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.textColor = .darkG35
-        navBar.rightBtnItem.setImage(UIImage(named: "Report"), for: .normal)
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
         navBar.titleSpacing = 12
     }

@@ -56,6 +56,12 @@ class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.settings)
             .disposed(by: disposeBag)
 
+        myInfoWithChevron.infoView.avatarView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.changePhoto)
+            .disposed(by: disposeBag)
+
         myPostCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
@@ -82,6 +88,7 @@ class MyPageViewController: BaseViewController {
         typealias MyPagePostDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
+        // 작성한 글 탭
         let myPostDatasource = MyPagePostDataSource { _, collectionView, indexPath, item in
 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPagePostCell.id, for: indexPath) as? MyPagePostCell
@@ -98,48 +105,25 @@ class MyPageViewController: BaseViewController {
             .bind(to: myPostCollectionView.rx.items(dataSource: myPostDatasource))
             .disposed(by: disposeBag)
 
-//        let myRunningDatasource = MyPageParticipatePostDataSource { _, collectionView, indexPath, item in
-//            guard let self = self
-//            else { return UICollectionViewCell() }
-//
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
-//            else { return UICollectionViewCell() }
-//            cell.configure(with: item)
+        let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self
+            else { return UICollectionViewCell() }
 
-//            cell.attendButton.rx.tap
-//                .map { indexPath.item }
-//                .bind(to: self.viewModel.inputs.attend)
-//                .disposed(by: cell.disposeBag)
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
+            else { return UICollectionViewCell() }
 
-//            cell.postInfoView.bookMarkIcon.rx.tap
-//                .map { indexPath.item }
-//                .bind(to: self.viewModel.inputs.bookMark)
-//                .disposed(by: cell.disposeBag)
-//
-//            self.viewModel.outputs.marked
-//                .filter { $0.type == .attendable }
-//                .filter { $0.idx == indexPath.item }
-//                .subscribe(onNext: { [weak cell] result in
-//                    cell?.postInfoView.bookMarkIcon.isSelected = result.marked
-//                })
-//                .disposed(by: cell.disposeBag)
-//
-//            self.viewModel.outputs.attend
-//                .filter { $0.type == .attendable }
-//                .filter { $0.idx == indexPath.item }
-//                .subscribe(onNext: { [weak cell] result in
-        ////                    cell?.update(with: result.state)
-//                })
-//                .disposed(by: cell.disposeBag)
-//
-//            return cell
-//        }
+            cell.configure(with: item)
 
-//        viewModel.outputs.posts
-//            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-//            .map { [MyPagePostSection(items: $0)] }
-//            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-//            .disposed(by: disposeBag)
+            cell.postInfoView.bookMarkIcon.isHidden = true
+
+            return cell
+        }
+
+        viewModel.outputs.posts
+            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
+            .map { [MyPagePostSection(items: $0)] }
+            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { $0.isEmpty }
@@ -174,6 +158,86 @@ class MyPageViewController: BaseViewController {
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.currentProfile
+            .take(1)
+            .compactMap { $0 }
+            .compactMap { URL(string: $0) }
+            .subscribe(onNext: { [weak self] _ in
+//                self?.kf.setImage(with: url)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.showPicker
+            .map { $0.sourceType }
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.allowsEditing = true
+                picker.delegate = self
+                switch sourceType {
+                case "library": // 갤러리
+                    picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                    PHPhotoLibrary.requestAuthorization { [weak self] status in
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .authorized:
+                                self?.present(picker, animated: true)
+                            default:
+                                self?.view.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                            }
+                        }
+                    }
+                case "camera": // 카메라
+                    picker.sourceType = UIImagePickerController.SourceType.camera
+                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
+                        DispatchQueue.main.async {
+                            if ok {
+                                self?.present(picker, animated: true)
+                            } else {
+                                self?.view.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
+                            }
+                        }
+                    })
+                default: // 기본 이미지로 변경
+                    self.myInfoWithChevron.infoView.avatarView.image = Asset.iconsProfile48.uiImage
+                    print("hello")
+                }
+                //                switch sourceType {
+                //                case .photoLibrary:
+                //                    if self.photoAuth() {
+                //                        self.present(picker, animated: true)
+                //                    } else {
+                //                        self.authSettingOpen(authString: "앨범 권한 설정")
+                //                    }
+                //                case .camera:
+                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
+                ////                        DispatchQueue.main.async {
+                ////                            if ok {
+                ////                                self?.present(picker, animated: true)
+                ////                            } else {
+                ////                                self?.view.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
+                ////                            }
+                ////                        }
+                ////                    })
+                //                    if self.cameraAuth() {
+                //                        self.present(picker, animated: true)
+                //                    } else {
+                //                        self.authSettingOpen(authString: "카메라 권한 설정")
+                //                    }
+                //                default:
+                //                    break
+                //                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.profileChanged
+            .compactMap { $0 }
+            .subscribe(onNext: { [weak self] data in
+                self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
+//                self?.myInfoWithChevron.infoView.cameraIcon.isHidden = true
             })
             .disposed(by: disposeBag)
     }
@@ -251,7 +315,7 @@ class MyPageViewController: BaseViewController {
         }
     }
 
-    private lazy var myPostCollectionView: UICollectionView = {
+    private lazy var myPostCollectionView: UICollectionView = { // 작성 글 탭
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
         layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
@@ -261,7 +325,7 @@ class MyPageViewController: BaseViewController {
         return collectionView
     }()
 
-    private lazy var myRunningCollectionView: UICollectionView = {
+    private lazy var myRunningCollectionView: UICollectionView = { // 참여 러닝 탭
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
         layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
@@ -426,73 +490,72 @@ extension MyPageViewController {
 
 // MARK: - UIImagePickerViewController Delegate
 
-// extension MyPageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//        let originalImage = info[.originalImage] as? UIImage
-//        let editedImage = info[.editedImage] as? UIImage
-//        let editedResizedImage = editedImage?.resize(newWidth: 300)
-//        let originalResizedImage = originalImage?.resize(newWidth: 300)
-//        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
-//        picker.dismiss(animated: true)
-//    }
-//
-//    func photoAuth() -> Bool {
-//        let authorizationState = PHPhotoLibrary.authorizationStatus()
-//        var isAuth = false
-//
-//        switch authorizationState {
-//        case .authorized:
-//            return true
-//        case .notDetermined:
-//            PHPhotoLibrary.requestAuthorization { state in
-//                if state == .authorized {
-//                    isAuth = true
-//                }
-//            }
-//            return isAuth
-//        case .restricted:
-//            break
-//        case .denied:
-//            break
-//        case .limited:
-//            break
-//        @unknown default:
-//            break
-//        }
-//        return false
-//    }
-//
-//    func cameraAuth() -> Bool {
-//        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
-//    }
-//
-//    func authSettingOpen(authString: String) {
-//        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
-//            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
-//            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
-//
-//            let cancel = UIAlertAction(title: "취소", style: .default) { action in
-//                alert.dismiss(animated: true, completion: nil)
-//                print("\(String(describing: action.title)) 클릭")
-//            }
-//
-//            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-//                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-//            }
-//
-//            alert.addAction(cancel)
-//            alert.addAction(confirm)
-//
-//            present(alert, animated: true, completion: nil)
-//        }
-//    }
-// }
-//
-//
+extension MyPageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let originalImage = info[.originalImage] as? UIImage
+        let editedImage = info[.editedImage] as? UIImage
+        let editedResizedImage = editedImage?.resize(newWidth: 300)
+        let originalResizedImage = originalImage?.resize(newWidth: 300)
+        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
+        picker.dismiss(animated: true)
+    }
+
+    func photoAuth() -> Bool {
+        let authorizationState = PHPhotoLibrary.authorizationStatus()
+        var isAuth = false
+
+        switch authorizationState {
+        case .authorized:
+            return true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { state in
+                if state == .authorized {
+                    isAuth = true
+                }
+            }
+            return isAuth
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+        return false
+    }
+
+    func cameraAuth() -> Bool {
+        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    }
+
+    func authSettingOpen(authString: String) {
+        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+                alert.dismiss(animated: true, completion: nil)
+                print("\(String(describing: action.title)) 클릭")
+            }
+
+            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+
+            present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {

@@ -235,7 +235,7 @@ internal enum L10n {
     internal enum NavBar {
       /// 삭제
       internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")
-      /// 쪽지
+      /// 러닝톡
       internal static let title = L10n.tr("Localizable", "MessageList.NavBar.Title")
     }
   }
@@ -371,6 +371,24 @@ internal enum L10n {
       }
     }
     internal enum MyRunning {
+      internal enum Attendance {
+        internal enum Absence {
+          /// 불참했어요 😭
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Absence.title")
+        }
+        internal enum Attendance {
+          /// 출석을 완료했어요 😎
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Attendance.title")
+        }
+        internal enum Before {
+          /// 리더의 체크를 기다리고 있어요
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Before.title")
+        }
+        internal enum NotCheck {
+          /// 리더가 출석을 체크하지 않았어요😂
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.NotCheck.title")
+        }
+      }
       internal enum Empty {
         /// 아직 러닝에 참여하지 않았어요!
         internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.title")
@@ -422,8 +440,13 @@ internal enum L10n {
         }
       }
       internal enum Modal {
+        internal enum Job {
+          /// 직군 변경은 3개월에 1회 가능해요.
+          /// 변경하시겠어요?
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.Content")
+        }
         internal enum Logout {
-          /// 정말 로그아웃하시겠어요?
+          /// 로그아웃 하시겠어요?
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Content")
           internal enum Button {
             /// 아니오
@@ -432,8 +455,15 @@ internal enum L10n {
             internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Button.ok")
           }
         }
+        internal enum Manage {
+          /// 출석 관리 시간이 만료되었어요!
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Manage.Content")
+          /// 마이페이지로 이동
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Manage.ok")
+        }
         internal enum NickName {
-          /// 닉네임 변경은 1회만 가능하며 재변경은 불가능해요!
+          /// 닉네임 변경은 1회만 가능하며
+          /// 재변경은 불가능해요!
           /// 정말 변경하시겠어요?
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Content")
           internal enum Button {
@@ -444,11 +474,10 @@ internal enum L10n {
           }
         }
         internal enum Signout {
-          /// 탈퇴를 진행하시겠어요?
-          /// 탈퇴시 계정은 삭제되며,
-          /// 데이터는 복구되지 않습니다.
+          /// 탈퇴하면 모든 러너 정보가 삭제돼요.
+          /// 정말 탈퇴하시겠어요?
           internal static let message = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.message")
-          /// 더 고민할래요
+          /// 아니오
           internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.no")
           /// 예
           internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.ok")

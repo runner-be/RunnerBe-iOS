@@ -179,10 +179,8 @@
 "BookMark.Main.Empty.holiday.title" = "찜한 휴일 모임이 없어요!";
 
 // MARK: - MessageList
-"MessageList.NavBar.Title" = "쪽지";
+"MessageList.NavBar.Title" = "러닝톡";
 "MessageList.NavBar.RightItem" = "삭제";
-
-// MARK: - Message.Delete
 "MessageList.Delete.NavBar.RightItem" = "삭제";
 "MessageList.Delete.NavBar.RightSecondItem" = "전체선택";
 // MARK: - MyPage.Post
@@ -195,7 +193,10 @@
 "MyPage.MyPost.Manage.Finished.title" = "출석 확인하기";
 "MyPage.MyPost.Manage.Attend.title" = "출석";
 "MyPage.MyPost.Manage.Absent.title" = "결석";
-
+"MyPage.MyRunning.Attendance.Before.title" = "리더의 체크를 기다리고 있어요";
+"MyPage.MyRunning.Attendance.Attendance.title" = "출석을 완료했어요 😎";
+"MyPage.MyRunning.Attendance.Absence.title" = "불참했어요 😭";
+"MyPage.MyRunning.Attendance.NotCheck.title" = "리더가 출석을 체크하지 않았어요😂";
 
 // MARK: - MyPage.EditInfo
 "MyPage.EditInfo.NavBar.title" = "내 정보 수정";
@@ -234,14 +235,19 @@
 // MARK: - MyPage Modal
 "MyPage.Settings.Modal.Logout.Button.cancel" = "아니오";
 "MyPage.Settings.Modal.Logout.Button.ok" = "네";
-"MyPage.Settings.Modal.Logout.Content" = "정말 로그아웃하시겠어요?";
+"MyPage.Settings.Modal.Logout.Content" = "로그아웃 하시겠어요?";
 
 "MyPage.Settings.Modal.NickName.Button.cancel" = "더 고민할래요";
 "MyPage.Settings.Modal.NickName.Button.ok" = "네";
-"MyPage.Settings.Modal.NickName.Content" = "닉네임 변경은 1회만 가능하며 재변경은 불가능해요!\n정말 변경하시겠어요?";
-"MyPage.Settings.Modal.Signout.message" = "탈퇴를 진행하시겠어요?\n탈퇴시 계정은 삭제되며,\n데이터는 복구되지 않습니다.";
+"MyPage.Settings.Modal.NickName.Content" = "닉네임 변경은 1회만 가능하며\n재변경은 불가능해요!\n정말 변경하시겠어요?";
+"MyPage.Settings.Modal.Signout.message" = "탈퇴하면 모든 러너 정보가 삭제돼요.\n정말 탈퇴하시겠어요?";
 "MyPage.Settings.Modal.Signout.ok" = "예";
-"MyPage.Settings.Modal.Signout.no" = "더 고민할래요";
+"MyPage.Settings.Modal.Signout.no" = "아니오";
+
+"MyPage.Settings.Modal.Job.Content" = "직군 변경은 3개월에 1회 가능해요.\n변경하시겠어요?";
+
+"MyPage.Settings.Modal.Manage.Content" = "출석 관리 시간이 만료되었어요!";
+"MyPage.Settings.Modal.Manage.ok" = "마이페이지로 이동";
 
 "MyPage.Settings.Modal.SignoutCompletion.message" = "회원탈퇴가 완료되었습니다.\n로그인페이지로 이동합니다.";
 "MyPage.Settings.Modal.SignoutCompletion.ok" = "이동";

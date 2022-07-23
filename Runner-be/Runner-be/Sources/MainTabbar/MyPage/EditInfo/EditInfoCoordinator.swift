@@ -70,27 +70,27 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
         addChildDisposable(id: uuid, disposable: disposable)
     }
 
-    private func presentPhotoModal(vm: EditInfoViewModel, animated: Bool) {
-        let comp = component.takePhotoModalComponent
-        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
-        let uuid = coord.identifier
-
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .takePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.camera)
-                case .choosePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.library)
-                case .cancel:
-                    break
-                case .chooseDefault:
-                    break
-                }
-            })
-
-        addChildDisposable(id: uuid, disposable: disposable)
-    }
+//    private func presentPhotoModal(vm: EditInfoViewModel, animated: Bool) {
+//        let comp = component.takePhotoModalComponent
+//        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+//        let uuid = coord.identifier
+//
+//        let disposable = coordinate(coordinator: coord, animated: animated)
+//            .take(1)
+//            .subscribe(onNext: { [weak self] coordResult in
+//                defer { self?.releaseChild(coordinator: coord) }
+//                switch coordResult {
+//                case .takePhoto:
+//                    vm.routeInputs.photoTypeSelected.onNext(.camera)
+//                case .choosePhoto:
+//                    vm.routeInputs.photoTypeSelected.onNext(.library)
+//                case .cancel:
+//                    break
+//                case .chooseDefault:
+//                    break
+//                }
+//            })
+//
+//        addChildDisposable(id: uuid, disposable: disposable)
+//    }
 }

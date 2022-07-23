@@ -16,22 +16,18 @@ enum ParticipateAttendState {
 
 struct MyPageParticipatePostConfig: Equatable, IdentifiableType {
     let cellConfig: PostCellConfig
-//    let state: ParticipateAttendState
+    let state: ParticipateAttendState
 
-    init(post: Post, now _: Date) {
+    init(post: Post) {
         cellConfig = PostCellConfig(from: post)
 
-//        let currentIntervalFromRef = now.timeIntervalSince1970
-//        let startIntervalFromRef = post.gatherDate.timeIntervalSince1970
-//        let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute)
-//
-//        if currentIntervalFromRef < startIntervalFromRef { // 시작안했음
-//            state = .beforeManagable
-//        } else if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) {
-//            state = .managable
-//        } else {
-//            state = .afterManage
-//        }
+        if post.whetherCheck == "N" { // 리더의 출석을 기다리는중
+            state = .beforeManage
+        } else if post.whetherCheck == "Y", post.attendance == true { // 참석
+            state = .attendance
+        } else { // 불참
+            state = .absence
+        }
     }
 
     var identity: String {

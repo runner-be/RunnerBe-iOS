@@ -13,6 +13,8 @@ import Then
 import UIKit
 
 class TakePhotoModalViewController: BaseViewController {
+    lazy var dataManager = SettinsDataManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -20,6 +22,8 @@ class TakePhotoModalViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+
+        chooseDefault.addTarget(self, action: #selector(selectDefault), for: UIControl.Event.touchUpInside)
     }
 
     init(viewModel: TakePhotoModalViewModel) {
@@ -30,6 +34,10 @@ class TakePhotoModalViewController: BaseViewController {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func selectDefault(sender _: UIButton) {
+        dataManager.patchProfileImageToDefault(viewController: self)
     }
 
     private var viewModel: TakePhotoModalViewModel
@@ -57,6 +65,10 @@ class TakePhotoModalViewController: BaseViewController {
         chooseFromAlbumButton.rx.tap
             .subscribe(viewModel.inputs.tapChoosePhoto)
             .disposed(by: disposeBag)
+
+        chooseDefault.rx.tap
+            .subscribe(viewModel.inputs.tapChooseDefault)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}
@@ -67,7 +79,11 @@ class TakePhotoModalViewController: BaseViewController {
         view.layer.cornerRadius = 12
     }
 
-    private var hDivider = UIView().then { view in
+    private var hDivider1 = UIView().then { view in
+        view.backgroundColor = .darkG45
+    }
+
+    private var hDivider2 = UIView().then { view in
         view.backgroundColor = .darkG45
     }
 
@@ -80,6 +96,13 @@ class TakePhotoModalViewController: BaseViewController {
 
     private var chooseFromAlbumButton = UIButton().then { button in
         button.setTitle(L10n.Modal.TakePhoto.Button.album, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.setBackgroundColor(.clear, for: .normal)
+        button.titleLabel?.font = .iosBody17R
+    }
+
+    private var chooseDefault = UIButton().then { button in
+        button.setTitle(L10n.Modal.TakePhoto.Button.default, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.titleLabel?.font = .iosBody17R
@@ -98,8 +121,10 @@ extension TakePhotoModalViewController {
 
         sheet.addSubviews([
             takePhotoButton,
-            hDivider,
+            hDivider1,
             chooseFromAlbumButton,
+            hDivider2,
+            chooseDefault,
         ])
     }
 
@@ -108,7 +133,7 @@ extension TakePhotoModalViewController {
             make.centerY.equalTo(view.snp.centerY)
             make.centerX.equalTo(view.snp.centerX)
             make.width.equalTo(270)
-            make.height.equalTo(110)
+            make.height.equalTo(158)
         }
 
         takePhotoButton.snp.makeConstraints { make in
@@ -118,7 +143,7 @@ extension TakePhotoModalViewController {
             make.height.equalTo(52)
         }
 
-        hDivider.snp.makeConstraints { make in
+        hDivider1.snp.makeConstraints { make in
             make.top.equalTo(takePhotoButton.snp.bottom)
             make.height.equalTo(1)
             make.leading.equalTo(sheet.snp.leading)
@@ -126,10 +151,34 @@ extension TakePhotoModalViewController {
         }
 
         chooseFromAlbumButton.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom)
+            make.top.equalTo(hDivider1.snp.bottom)
+            make.leading.equalTo(sheet.snp.leading)
+            make.trailing.equalTo(sheet.snp.trailing)
+            make.height.equalTo(52)
+        }
+
+        hDivider2.snp.makeConstraints { make in
+            make.top.equalTo(chooseFromAlbumButton.snp.bottom)
+            make.height.equalTo(1)
+            make.leading.equalTo(sheet.snp.leading)
+            make.trailing.equalTo(sheet.snp.trailing)
+        }
+
+        chooseDefault.snp.makeConstraints { make in
+            make.top.equalTo(hDivider2.snp.bottom)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
             make.bottom.equalTo(sheet.snp.bottom)
         }
+    }
+}
+
+extension TakePhotoModalViewController {
+    func didSucessPatchProfile(_: BaseResponse) {
+        dismiss(animated: true)
+    }
+
+    func failedToRequest(message: String) {
+        print(message)
     }
 }

@@ -86,7 +86,7 @@ class EditInfoViewController: BaseViewController {
 //                self?.profileImageView.kf.setImage(with: url)
 //            })
 //            .disposed(by: disposeBag)
-
+//
 //        viewModel.outputs.showPicker
 //            .map { $0.sourceType }
 //            .subscribe(onNext: { [weak self] sourceType in
@@ -120,14 +120,14 @@ class EditInfoViewController: BaseViewController {
 //                default:
 //                    break
 //                }
-        ////                switch sourceType {
-        ////                case .photoLibrary:
-        ////                    if self.photoAuth() {
-        ////                        self.present(picker, animated: true)
-        ////                    } else {
-        ////                        self.authSettingOpen(authString: "앨범 권한 설정")
-        ////                    }
-        ////                case .camera:
+//        //                switch sourceType {
+//        //                case .photoLibrary:
+//        //                    if self.photoAuth() {
+//        //                        self.present(picker, animated: true)
+//        //                    } else {
+//        //                        self.authSettingOpen(authString: "앨범 권한 설정")
+//        //                    }
+//        //                case .camera:
 //                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
 //                ////                        DispatchQueue.main.async {
 //                ////                            if ok {
@@ -137,14 +137,14 @@ class EditInfoViewController: BaseViewController {
 //                ////                            }
 //                ////                        }
 //                ////                    })
-        ////                    if self.cameraAuth() {
-        ////                        self.present(picker, animated: true)
-        ////                    } else {
-        ////                        self.authSettingOpen(authString: "카메라 권한 설정")
-        ////                    }
-        ////                default:
-        ////                    break
-        ////                }
+//        //                    if self.cameraAuth() {
+//        //                        self.present(picker, animated: true)
+//        //                    } else {
+//        //                        self.authSettingOpen(authString: "카메라 권한 설정")
+//        //                    }
+//        //                default:
+//        //                    break
+//        //                }
 //            })
 //            .disposed(by: disposeBag)
 

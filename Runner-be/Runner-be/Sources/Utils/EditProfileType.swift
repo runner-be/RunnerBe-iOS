@@ -8,18 +8,21 @@
 import Photos
 import UIKit
 
-enum ImagePickerType {
+enum EditProfileType {
     case library
     case camera
+    case basic
 }
 
-extension ImagePickerType {
-    var sourceType: UIImagePickerController.SourceType {
+extension EditProfileType {
+    var sourceType: String {
         switch self {
         case .camera:
-            return .camera
+            return "camera"
         case .library:
-            return .photoLibrary
+            return "library"
+        case .basic:
+            return "basic"
         }
     }
 }

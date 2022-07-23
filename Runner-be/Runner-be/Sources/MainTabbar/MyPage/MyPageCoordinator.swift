@@ -60,6 +60,13 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self?.pushWritingPostScene(vm: vm, animated: true)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.photoModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentPhotoModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
@@ -127,5 +134,31 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presentPhotoModal(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.takePhotoModalComponent
+        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .takePhoto:
+                    vm.routeInputs.photoTypeSelected.onNext(.camera)
+                case .choosePhoto:
+                    vm.routeInputs.photoTypeSelected.onNext(.library)
+                case .cancel:
+                    break
+//                case .chooseDefault:
+//                    vm.routeInputs.photoTypeSelected.onNext(.basic)
+                case .chooseDefault:
+                    vm.routeInputs.photoTypeSelected.onNext(.basic)
+                }
+            })
+
+        addChildDisposable(id: uuid, disposable: disposable)
     }
 }
