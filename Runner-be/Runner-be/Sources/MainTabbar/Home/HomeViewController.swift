@@ -219,7 +219,7 @@ class HomeViewController: BaseViewController {
         navBar.backgroundColor = Constants.NavigationBar.backgroundColor
     }
 
-    private var mapView = MKMapView()
+    private var mapView = RunnerBeMapView()
 
     private var bottomSheet = UIView().then { view in
         view.backgroundColor = Constants.BottomSheet.backgrouncColor
