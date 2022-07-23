@@ -71,7 +71,7 @@ class SignoutModalViewController: BaseViewController {
         label.font = .iosBody17R
         label.textColor = .darkG1
         label.text = L10n.MyPage.Settings.Modal.Signout.message
-        label.numberOfLines = 3
+        label.numberOfLines = 2
         label.textAlignment = .center
     }
 

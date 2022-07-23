@@ -23,9 +23,9 @@ class MyPageParticipateCell: UICollectionViewCell {
         initialLayout()
     }
 
-    func configure(with item: MyPageParticipatePostConfig) { // 작성한 글 cell 내용 구성하는 부분
+    func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-//        update(with: item.state)
+        update(with: item.state)
     }
 
     override func prepareForReuse() {
@@ -44,14 +44,15 @@ class MyPageParticipateCell: UICollectionViewCell {
             static let trailing: CGFloat = -16
         }
 
-        enum ManageButton { // 출석 관리/확인 버튼
-            static let top: CGFloat = 20
+        enum hDivider {
+            static let top: CGFloat = 16
             static let leading: CGFloat = 16
             static let trailing: CGFloat = -16
-            static let height: CGFloat = 28
-            static let cornerRadius: CGFloat = Constants.ManageButton.height / 2.0
+        }
 
-            static let bottom: CGFloat = -12 // not AutoLayout
+        enum statusLabel {
+            static let top: CGFloat = 12
+            static let bottom: CGFloat = 12
         }
     }
 
@@ -59,19 +60,14 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     var postInfoView = BasicPostInfoView()
 
-    var manageButton = UIButton().then { button in
-//        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .normal)
-//        button.setTitleColor(UIColor.darkG6, for: .normal)
-//        button.setBackgroundColor(UIColor.primary, for: .normal)
-//
-//        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .disabled)
-//        button.setTitleColor(UIColor.darkG4, for: .disabled)
-//        button.setBackgroundColor(.clear, for: .disabled)
-        button.layer.borderWidth = 0
-//        button.layer.borderColor = UIColor.darkG4.cgColor
+    var hDivider = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
 
-        button.titleLabel?.font = .iosBody13B
-        button.clipsToBounds = true
+    var statusLabel = UILabel().then { make in
+        make.font = .iosBody15R
+//        make.text = "hi"
+        make.textColor = .darkG35
     }
 }
 
@@ -80,7 +76,8 @@ extension MyPageParticipateCell {
         backgroundColor = Constants.backgroundColor
         contentView.addSubviews([
             postInfoView,
-            manageButton,
+            hDivider,
+            statusLabel,
         ])
     }
 
@@ -94,28 +91,35 @@ extension MyPageParticipateCell {
             make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
         }
 
-        manageButton.snp.makeConstraints { make in
-            make.top.equalTo(postInfoView.snp.bottom).offset(Constants.ManageButton.top)
-            make.leading.equalTo(contentView.snp.leading).offset(Constants.ManageButton.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.ManageButton.trailing)
-            make.height.equalTo(Constants.ManageButton.height)
+        hDivider.snp.makeConstraints { make in
+            make.top.equalTo(postInfoView.snp.bottom).offset(Constants.hDivider.top)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.hDivider.leading)
+            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.hDivider.trailing)
+            make.height.equalTo(1)
         }
-        manageButton.layer.cornerRadius = Constants.ManageButton.cornerRadius
+
+        statusLabel.snp.makeConstraints { make in
+            make.top.equalTo(hDivider.snp.bottom).offset(Constants.statusLabel.top)
+            make.centerX.equalTo(hDivider.snp.centerX)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-12)
+        }
     }
 
-//    func update(with state: ParticipateAttendState) { // 상황에 따라 뷰 업데이트하는 부분
-//        switch state {
-//        case .beforeManagable:
-//            manageButton.backgroundColor = .darkG5
-    ////            manageButton.setTitle(L10n.MyPage.MyPost.
-//        case .managable:
-//            manageButton.backgroundColor = .primary
-//
-//        case .afterManager:
-//            manageButton.backgroundColor = .primary
-    ////            manageButton.setTitle(<#T##title: String?##String?#>, for: <#T##UIControl.State#>)
-//        }
-//    }
+    func update(with state: PostAttendState) { // 상황에 따라 뷰 업데이트하는 부분
+        switch state {
+        case .beforeManagable: break
+        case .managable: break
+        case .afterManage: break
+        case .beforeManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Before.title
+        case .attendance:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Attendance.title
+        case .absence:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Absence.title
+        case .notManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.NotCheck.title
+        }
+    }
 }
 
 extension MyPageParticipateCell {
@@ -125,9 +129,11 @@ extension MyPageParticipateCell {
         let width = UIScreen.main.bounds.width - Constants.marginX * 2
         let height: CGFloat = Constants.PostInfo.top
             + BasicPostInfoView.height
-            + Constants.ManageButton.top
-            + Constants.ManageButton.height
-            + Constants.ManageButton.bottom
+            + Constants.hDivider.top
+            + Constants.statusLabel.top
+            + Constants.statusLabel.bottom
+            + 15 // 폰트크기
+            + 1
 
         return CGSize(width: width, height: height)
     }()

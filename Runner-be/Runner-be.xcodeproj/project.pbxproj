@@ -312,6 +312,8 @@
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
 		DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */; };
 		DA7E971C288BE1D10001BBDC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */; };
+		DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */; };
+		DA7E9721288C12AF0001BBDC /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
 		DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */; };
@@ -326,8 +328,6 @@
 		DADD85FD28870BEE00B11041 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FC28870BEE00B11041 /* Constants.swift */; };
 		DADD85FF2887195300B11041 /* MessageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FE2887195300B11041 /* MessageDataManager.swift */; };
 		DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF932870790300E98E56 /* MyPagePostCell.swift */; };
-		DAF6BF9628708DF800E98E56 /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */; };
-		DAF6BF9828708E1C00E98E56 /* MyPageParticipatePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */; };
 		DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -644,6 +644,8 @@
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
 		DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewController.swift; sourceTree = "<group>"; };
 		DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
+		DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchJobRequest.swift; sourceTree = "<group>"; };
+		DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPageParticipatePostConfig.swift; path = ../../../../../../../../Downloads/MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoDataManager.swift; sourceTree = "<group>"; };
@@ -658,8 +660,6 @@
 		DADD85FC28870BEE00B11041 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DADD85FE2887195300B11041 /* MessageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataManager.swift; sourceTree = "<group>"; };
 		DAF6BF932870790300E98E56 /* MyPagePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostCell.swift; sourceTree = "<group>"; };
-		DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
-		DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostDataSource.swift; sourceTree = "<group>"; };
 		DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipateCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -774,10 +774,9 @@
 		C32C028C27CB45E00011419E /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */,
 				C32C028F27CB46030011419E /* MyPagePostConfig.swift */,
 				C32C029527CB63270011419E /* MyPagePostDataSource.swift */,
-				DAF6BF9528708DF800E98E56 /* MyPageParticipatePostConfig.swift */,
-				DAF6BF9728708E1C00E98E56 /* MyPageParticipatePostDataSource.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1787,6 +1786,7 @@
 			children = (
 				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
 				DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */,
+				DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2155,7 +2155,6 @@
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
 				DA6278A328770EAE008255C6 /* ManageAttendanceView.swift in Sources */,
 				C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */,
-				DAF6BF9828708E1C00E98E56 /* MyPageParticipatePostDataSource.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
@@ -2167,7 +2166,6 @@
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
-				DAF6BF9628708DF800E98E56 /* MyPageParticipatePostConfig.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
@@ -2212,6 +2210,7 @@
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
+				DA7E9721288C12AF0001BBDC /* MyPageParticipatePostConfig.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
@@ -2336,6 +2335,7 @@
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
 				C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift in Sources */,
+				DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				DAB25445282E3F0F005B78B6 /* MessageChatTableViewCell.swift in Sources */,

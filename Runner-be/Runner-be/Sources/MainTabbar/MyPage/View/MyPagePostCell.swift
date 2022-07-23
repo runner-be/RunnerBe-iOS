@@ -120,6 +120,14 @@ extension MyPagePostCell {
             manageButton.isEnabled = true
 //            manageButton.setTitleColor(.darkG6, for: .normal)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
+        case .beforeManage:
+            manageButton.isHidden = true
+        case .attendance:
+            manageButton.isHidden = true
+        case .absence:
+            manageButton.isHidden = true
+        case .notManage:
+            manageButton.isHidden = true
         }
     }
 }
