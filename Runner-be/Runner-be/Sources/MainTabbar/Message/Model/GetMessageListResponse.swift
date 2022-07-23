@@ -21,13 +21,13 @@ struct GetMessageListResponse: Codable {
 struct GetMessageListResult: Codable {
     let roomID: Int?
     let title, repUserName: String?
-    let profileImageURL: String?
+    let profileImageUrl: String?
     let recentMessage: String?
 
     enum CodingKeys: String, CodingKey {
         case roomID
         case title, repUserName
-        case profileImageURL
+        case profileImageUrl
         case recentMessage
     }
 }

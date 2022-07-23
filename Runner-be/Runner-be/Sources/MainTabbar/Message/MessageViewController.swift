@@ -109,18 +109,18 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.id) as? MessageTableViewCell else { return .init() }
         cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
         if !messageList.isEmpty {
-            if messageList[indexPath.row].profileImageURL == nil {
-                cell.messageProfile.image = UIImage(systemName: "iconsProfile48")
+            if messageList[indexPath.row].profileImageUrl != nil {
+                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
             } else {
-                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageURL!), placeholder: UIImage(systemName: "photo"), options: .none)
+                cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
             }
             cell.postTitle.text = messageList[indexPath.row].title
             cell.nameLabel.text = messageList[indexPath.row].repUserName
 
-            if messageList[indexPath.row].recentMessage == "N" {
-                cell.backgroundColor = .primarydark
+            if messageList[indexPath.row].recentMessage == "N" { // 읽은 메시지가 아니면
+                cell.backgroundColor = .primaryBestDark
             } else {
-                cell.backgroundColor = .black
+                cell.backgroundColor = .clear
             }
         }
         return cell
