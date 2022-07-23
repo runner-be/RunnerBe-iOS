@@ -50,9 +50,6 @@ class MessageViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-//        navBar.rightBtnItem.rx.tap
-//            .bind(to: viewModel.routes.messageDelete)
-//            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {} // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
