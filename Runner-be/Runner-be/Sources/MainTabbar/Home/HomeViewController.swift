@@ -114,6 +114,15 @@ class HomeViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+        viewModel.outputs.posts
+            .map { $0.count }
+            .subscribe(onNext: { [unowned self] count in
+                let hideEmptyGuide = count != 0
+                self.postEmptyGuideLabel.isHidden = hideEmptyGuide
+                self.adviseWritingPostView.isHidden = hideEmptyGuide
+            })
+            .disposed(by: disposeBag)
+
         viewModel.outputs.changeRegion
             .subscribe(onNext: { [weak self] region in
                 self?.mapView.setRegion(to: region.location, radius: region.distance)
@@ -451,6 +460,30 @@ class HomeViewController: BaseViewController {
         return collectionView
     }()
 
+    private var postEmptyGuideLabel = UILabel().then { label in
+        label.text = "조건에 맞는 결과가 없어요"
+        label.textColor = .darkG4
+        label.font = .iosTitle19R
+    }
+
+    private var adviseWritingPostView = UIImageView().then { view in
+        view.image = Asset.postEmptyGuideBackground.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(136)
+            make.height.equalTo(28)
+        }
+        let label = UILabel()
+        label.text = "첫 주자가 되어볼까요?"
+        label.textColor = .primary
+        label.font = .iosBody13R
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.centerY.equalTo(view.snp.centerY)
+            make.leading.equalTo(view.snp.leading).offset(9)
+            make.trailing.equalTo(view.snp.trailing).offset(-12)
+        }
+    }
+
     private var writePostButton = UIImageView().then { view in
         view.snp.makeConstraints { make in
             make.width.equalTo(72)
@@ -481,6 +514,8 @@ extension HomeViewController {
             showClosedPostView,
             postCollectionView,
             selectedPostCollectionView,
+            postEmptyGuideLabel,
+            adviseWritingPostView,
         ])
     }
 
@@ -569,6 +604,17 @@ extension HomeViewController {
         writePostButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.snp.trailing).offset(-12)
             make.bottom.equalTo(view.snp.bottom).offset(-24)
+        }
+
+        postEmptyGuideLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(bottomSheet.snp.centerX)
+            make.top.equalTo(runningTagView.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+
+        adviseWritingPostView.snp.makeConstraints { make in
+            make.centerY.equalTo(writePostButton.snp.centerY)
+            make.trailing.equalTo(writePostButton.snp.leading).offset(-4)
         }
     }
 }

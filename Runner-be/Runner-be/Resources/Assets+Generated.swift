@@ -56,6 +56,7 @@ internal enum Asset {
   internal static let placeInactive = ImageAsset(name: "Place_Inactive")
   internal static let placeInactiveSelected = ImageAsset(name: "Place_Inactive_Selected")
   internal static let plus = ImageAsset(name: "Plus")
+  internal static let postEmptyGuideBackground = ImageAsset(name: "PostEmptyGuideBackground")
   internal static let postOwner = ImageAsset(name: "PostOwner")
   internal static let profileEmptyIcon = ImageAsset(name: "ProfileEmptyIcon")
   internal static let profileWithCam = ImageAsset(name: "ProfileWithCam")
