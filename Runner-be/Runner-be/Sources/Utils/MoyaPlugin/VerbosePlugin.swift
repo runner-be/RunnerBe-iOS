@@ -16,6 +16,43 @@ struct VerbosePlugin: PluginType {
             return request
         }
         #if DEBUG
+            var requestURLString = "-"
+            var requestHeader = "-"
+            var requestBody = "-"
+
+            if let url = request.url?.absoluteString {
+                requestURLString = url
+            }
+
+            requestHeader = request.headers.map { header in
+                "\(header.name): \(header.value)"
+            }.joined(separator: "\n")
+
+            if let body = request.httpBody {
+                if let object = try? JSONSerialization.jsonObject(with: body, options: []),
+                   let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+                   let prettyPrintedString = String(data: data, encoding: .utf8)
+                {
+                    requestBody = prettyPrintedString
+                } else {
+                    requestBody = String(data: body, encoding: .utf8) ?? "-"
+                }
+            }
+
+            let message = """
+            [Moya VerbosePlugin] Request
+            ------------------------
+            Request:
+            URL: \(requestURLString)
+            HEADER!:
+            {
+            \(requestHeader)
+            }
+            BODY!:
+            \(requestBody)
+            ------------------------
+            """
+            Log.d(tag: .network, message)
         #endif
         return request
     }
@@ -28,6 +65,7 @@ struct VerbosePlugin: PluginType {
             case let .success(response):
                 var requestURLString = "-"
                 var requestBody = "-"
+                var requestHeader = "-"
                 var responseStatusCode = "-"
                 var responseBody = "-"
 
@@ -35,6 +73,10 @@ struct VerbosePlugin: PluginType {
                     if let url = request.url?.absoluteString {
                         requestURLString = url
                     }
+
+                    requestHeader = request.headers.map { header in
+                        "\(header.name): \(header.value)"
+                    }.joined(separator: "\n")
 
                     if let body = request.httpBody {
                         if let object = try? JSONSerialization.jsonObject(with: body, options: []),
@@ -63,8 +105,12 @@ struct VerbosePlugin: PluginType {
                 [Moya VerbosePlugin] Response
                 ------------------------
                 Request:
-                url: \(requestURLString)
-                body:
+                URL: \(requestURLString)
+                HEADER!:
+                {
+                \(requestHeader)
+                }
+                BODY:
                 \(requestBody)
                 ------------------------
                 ------------------------

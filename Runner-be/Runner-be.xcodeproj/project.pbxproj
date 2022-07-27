@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
 		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
+		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
 		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
@@ -308,6 +309,7 @@
 /* Begin PBXFileReference section */
 		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
+		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */,
+				4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -2197,6 +2200,7 @@
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
+				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,

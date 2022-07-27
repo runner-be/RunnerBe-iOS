@@ -258,8 +258,8 @@ final class BasicPostAPIService: PostAPIService {
                 var bookMarked = false
                 var writer = false
                 var applicant = false
-
                 if let result = result {
+                    Log.d(tag: .network, "detailInfo(postId:\(postId)) resultCode: \(result.response.code)")
                     switch result.response.code {
                     // 성공
                     case 1015: // 성공, 비작성자, 참여신청O, 찜O
@@ -301,6 +301,8 @@ final class BasicPostAPIService: PostAPIService {
                     default:
                         functionResult.onNext(.error)
                     }
+                } else {
+                    Log.d(tag: .network, "detailInfo(postId:\(postId)) network Error no Response")
                 }
 
                 return MapResult(

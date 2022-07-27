@@ -37,4 +37,19 @@ extension MKMapView {
         )
         setRegion(region, animated: animated)
     }
+
+    var currentFrameRadius: CLLocationDistance {
+        let center = centerCoordinate
+        let centerLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
+
+        let topCenterCoord = getTopCenterCoord()
+        let topCenterLocation = CLLocation(latitude: topCenterCoord.latitude, longitude: topCenterCoord.longitude)
+
+        let radius = centerLocation.distance(from: topCenterLocation)
+        return radius
+    }
+
+    func getTopCenterCoord() -> CLLocationCoordinate2D {
+        convert(CGPoint(x: frame.size.width / 2.0, y: 0), toCoordinateFrom: self)
+    }
 }
