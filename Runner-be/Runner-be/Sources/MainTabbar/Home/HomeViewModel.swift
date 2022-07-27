@@ -319,19 +319,7 @@ final class HomeViewModel: BaseViewModel {
                         )
                         return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
                     case .latest:
-                        let current = Date().timeIntervalSinceReferenceDate
-                        let pLeftDiff = pLeft.gatherDate.timeIntervalSinceReferenceDate - current
-                        let pRightDiff = pRight.gatherDate.timeIntervalSinceReferenceDate - current
-
-                        if pLeftDiff > 0, pRightDiff > 0 {
-                            return pLeftDiff < pRightDiff
-                        } else if pLeftDiff < 0, pRightDiff > 0 {
-                            return false
-                        } else if pLeftDiff > 0, pRightDiff < 0 {
-                            return true
-                        } else {
-                            return pLeftDiff > pRightDiff
-                        }
+                        return pLeft.postingTime < pRight.postingTime
                     }
                 })
                 self.outputs.posts.onNext(self.posts)
