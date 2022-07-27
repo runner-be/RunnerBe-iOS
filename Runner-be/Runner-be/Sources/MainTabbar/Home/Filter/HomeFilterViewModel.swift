@@ -20,9 +20,7 @@ final class HomeFilterViewModel: BaseViewModel {
     typealias InputData = (
         genderIdx: Int?,
         jobIdx: Int?,
-        minAge: Int, maxAge: Int,
-        location: CLLocationCoordinate2D,
-        distance: Float
+        minAge: Int, maxAge: Int
     )
 
     init(inputFilter: PostFilter, locationService: LocationService = BasicLocationService.shared) {
@@ -61,14 +59,11 @@ final class HomeFilterViewModel: BaseViewModel {
                 }
                 let gender = Gender(idx: input.genderIdx ?? -1)
                 let job = Job(idx: input.jobIdx ?? -1)
-                let latitude = input.location.latitude
-                let longitude = input.location.longitude
-                let distance = input.distance
                 return PostFilter(
-                    latitude: latitude,
-                    longitude: longitude,
+                    latitude: 0,
+                    longitude: 0,
                     postState: .error, filter: .error,
-                    distanceFilter: distance / 1000,
+                    distanceFilter: 0,
                     gender: gender,
                     ageMin: input.minAge,
                     ageMax: input.maxAge,

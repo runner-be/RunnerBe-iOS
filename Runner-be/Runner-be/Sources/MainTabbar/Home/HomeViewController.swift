@@ -82,6 +82,11 @@ class HomeViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.writingPost)
             .disposed(by: disposeBag)
+
+        filterIconView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.showDetailFilter)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -161,6 +166,12 @@ class HomeViewController: BaseViewController {
                 if post != nil {
                     self.setBottomSheetState(to: .halfOpen)
                 }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.highLightFilter
+            .subscribe(onNext: { [unowned self] highlight in
+                self.filterIconView.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
             })
             .disposed(by: disposeBag)
     }
@@ -441,6 +452,14 @@ class HomeViewController: BaseViewController {
         view.label.text = "마감 포함"
     }
 
+    private var filterIconView = UIImageView().then { view in
+        view.image = Asset.filter.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
+    }
+
     private lazy var postCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = Constants.BottomSheet.PostList.minimumLineSpacing
@@ -511,6 +530,7 @@ extension HomeViewController {
             sheetTitle,
             runningTagView,
             orderTagView,
+            filterIconView,
             showClosedPostView,
             postCollectionView,
             selectedPostCollectionView,
@@ -579,6 +599,11 @@ extension HomeViewController {
             make.top.equalTo(runningTagView.snp.top)
             make.leading.equalTo(runningTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.OrderTag.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
+        }
+
+        filterIconView.snp.makeConstraints { make in
+            make.centerY.equalTo(runningTagView.snp.centerY)
+            make.trailing.equalTo(bottomSheet.snp.trailing).offset(-16)
         }
 
         showClosedPostView.snp.makeConstraints { make in

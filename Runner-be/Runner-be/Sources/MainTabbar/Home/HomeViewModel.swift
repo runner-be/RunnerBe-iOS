@@ -116,6 +116,7 @@ final class HomeViewModel: BaseViewModel {
         // MARK: View Inputs
 
         inputs.showDetailFilter
+            .skip(1)
             .map { [unowned self] in self.filter }
             .bind(to: routes.filter)
             .disposed(by: disposeBag)
@@ -197,8 +198,7 @@ final class HomeViewModel: BaseViewModel {
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
-                    inputFilter.jobFilter == initialFilter.jobFilter &&
-                    inputFilter.distanceFilter == initialFilter.distanceFilter
+                    inputFilter.jobFilter == initialFilter.jobFilter
 
                 self?.outputs.highLightFilter.onNext(!notChanged)
             })
@@ -209,9 +209,6 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMax = inputFilter.ageMax
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
-                newFilter.latitude = inputFilter.latitude
-                newFilter.longitude = inputFilter.longitude
-                newFilter.distanceFilter = inputFilter.distanceFilter
                 self?.filter = newFilter
                 return newFilter
             }
