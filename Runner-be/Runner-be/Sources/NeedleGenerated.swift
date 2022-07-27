@@ -69,6 +69,12 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent") { component in
         return HomeFilterDependency4c2395ae43750f0e6394Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostOrderModalComponent") { component in
+        return PostOrderModalDependency16fd4319a207713ee2b6Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->RunningTagModalComponent") { component in
+        return RunningTagModalDependency49e678f43974a1b1864aProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent") { component in
         return HomeDependency69aec7ecd6b5263bd0e9Provider(component: component)
     }
@@ -322,6 +328,32 @@ private class HomeFilterDependency4c2395ae43750f0e6394BaseProvider: HomeFilterDe
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent->HomeFilterComponent
 private class HomeFilterDependency4c2395ae43750f0e6394Provider: HomeFilterDependency4c2395ae43750f0e6394BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class PostOrderModalDependency16fd4319a207713ee2b6BaseProvider: PostOrderModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostOrderModalComponent
+private class PostOrderModalDependency16fd4319a207713ee2b6Provider: PostOrderModalDependency16fd4319a207713ee2b6BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class RunningTagModalDependency49e678f43974a1b1864aBaseProvider: RunningTagModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->RunningTagModalComponent
+private class RunningTagModalDependency49e678f43974a1b1864aProvider: RunningTagModalDependency49e678f43974a1b1864aBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

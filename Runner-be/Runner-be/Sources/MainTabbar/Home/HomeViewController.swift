@@ -87,6 +87,16 @@ class HomeViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.showDetailFilter)
             .disposed(by: disposeBag)
+
+        orderTagView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapPostListOrder)
+            .disposed(by: disposeBag)
+
+        runningTagView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapRunningTag)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -172,6 +182,18 @@ class HomeViewController: BaseViewController {
         viewModel.outputs.highLightFilter
             .subscribe(onNext: { [unowned self] highlight in
                 self.filterIconView.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.postListOrderChanged
+            .subscribe(onNext: { [unowned self] listOrder in
+                self.orderTagView.label.text = listOrder.text
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.runningTagChanged
+            .subscribe(onNext: { [unowned self] tag in
+                self.runningTagView.label.text = tag.name
             })
             .disposed(by: disposeBag)
     }
@@ -435,7 +457,7 @@ class HomeViewController: BaseViewController {
         view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
         view.icon.image = Constants.BottomSheet.SelectionLabel.Normal.icon
 
-        view.label.text = "찜 많은 순"
+        view.label.text = PostListOrder.distance.text
     }
 
     private var showClosedPostView = SelectionLabel().then { view in

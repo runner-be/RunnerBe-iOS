@@ -289,6 +289,67 @@ final class HomeViewModel: BaseViewModel {
             .compactMap { [weak self] _ in self?.posts.firstIndex(where: { $0.ID == self?.selectedPostID }) }
             .bind(to: inputs.tapPost)
             .disposed(by: disposeBag)
+
+        // post list option
+        inputs.tapPostListOrder
+            .skip(1)
+            .bind(to: routes.postListOrder)
+            .disposed(by: disposeBag)
+
+        routeInputs.postListOrderChanged
+            .subscribe(onNext: { [unowned self] postListOrder in
+                let currentCenterLocation = CLLocation(
+                    latitude: self.filter.latitude,
+                    longitude: self.filter.longitude
+                )
+                self.posts = self.posts.sorted(by: { pLeft, pRight in
+                    switch postListOrder {
+                    case .distance:
+                        guard let leftCoord = pLeft.coord,
+                              let rightCoord = pRight.coord
+                        else { return true }
+
+                        let pLeftLocation = CLLocation(
+                            latitude: Double(leftCoord.lat),
+                            longitude: Double(leftCoord.long)
+                        )
+                        let pRightLocation = CLLocation(
+                            latitude: Double(rightCoord.lat),
+                            longitude: Double(rightCoord.long)
+                        )
+                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
+                    case .latest:
+                        let current = Date().timeIntervalSinceReferenceDate
+                        let pLeftDiff = pLeft.gatherDate.timeIntervalSinceReferenceDate - current
+                        let pRightDiff = pRight.gatherDate.timeIntervalSinceReferenceDate - current
+
+                        if pLeftDiff > 0, pRightDiff > 0 {
+                            return pLeftDiff < pRightDiff
+                        } else if pLeftDiff < 0, pRightDiff > 0 {
+                            return false
+                        } else if pLeftDiff > 0, pRightDiff < 0 {
+                            return true
+                        } else {
+                            return pLeftDiff > pRightDiff
+                        }
+                    }
+                })
+                self.outputs.posts.onNext(self.posts)
+                self.outputs.postListOrderChanged.onNext(postListOrder)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.tapRunningTag
+            .skip(1)
+            .bind(to: routes.runningTag)
+            .disposed(by: disposeBag)
+
+        routeInputs.runningTagChanged
+            .subscribe(onNext: { [unowned self] tag in
+                self.inputs.tagChanged.onNext(tag.idx)
+                self.outputs.runningTagChanged.onNext(tag)
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -306,6 +367,8 @@ final class HomeViewModel: BaseViewModel {
         var needUpdate = PublishSubject<Bool>()
         var toHomeLocation = PublishSubject<Void>()
         var tapPostPin = PublishSubject<Int?>()
+        var tapPostListOrder = PublishSubject<Void>()
+        var tapRunningTag = PublishSubject<Void>()
     }
 
     struct Output {
@@ -318,6 +381,8 @@ final class HomeViewModel: BaseViewModel {
         var showRefreshRegion = PublishSubject<Bool>()
         var changeRegion = ReplaySubject<(location: CLLocationCoordinate2D, distance: CLLocationDistance)>.create(bufferSize: 1)
         var focusSelectedPost = PublishSubject<Post?>()
+        var postListOrderChanged = PublishSubject<PostListOrder>()
+        var runningTagChanged = PublishSubject<RunningTag>()
     }
 
     struct Route {
@@ -325,12 +390,16 @@ final class HomeViewModel: BaseViewModel {
         var writingPost = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
         var nonMemberCover = PublishSubject<Void>()
+        var postListOrder = PublishSubject<Void>()
+        var runningTag = PublishSubject<Void>()
     }
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
         var filterChanged = PublishSubject<PostFilter>()
         var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
+        var postListOrderChanged = PublishSubject<PostListOrder>()
+        var runningTagChanged = PublishSubject<RunningTag>()
     }
 
     var disposeBag = DisposeBag()
