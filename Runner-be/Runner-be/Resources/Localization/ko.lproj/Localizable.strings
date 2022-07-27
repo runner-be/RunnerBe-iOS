@@ -101,6 +101,7 @@
 
 // MARK: - Home
 "Home.BottomSheet.title" = "러닝 목록";
+"Home.Map.RefreshButton.title" = "이 지역 재검색";
 
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";

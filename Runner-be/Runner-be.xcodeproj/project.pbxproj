@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		439259D928564174003DABFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439259D828564174003DABFE /* Keys.swift */; };
+		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
+		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
+		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
 		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
@@ -305,7 +307,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		439259D828564174003DABFE /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
+		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
+		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
@@ -621,12 +625,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		439259D728564166003DABFE /* Ignore */ = {
+		434782E828564D07009A139D /* Ignore */ = {
 			isa = PBXGroup;
 			children = (
-				439259D828564174003DABFE /* Keys.swift */,
+				434782E628564CBD009A139D /* Keys.swift */,
 			);
 			path = Ignore;
+			sourceTree = "<group>";
+		};
+		434ED1FA286007DA00F6EF69 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */,
+				4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		7DFA2EC107AA65E58D6F6BC9 /* Frameworks */ = {
@@ -919,7 +932,7 @@
 			children = (
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
-				439259D728564166003DABFE /* Ignore */,
+				434782E828564D07009A139D /* Ignore */,
 				C34FDA7527AD5C98007718F8 /* Sources */,
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
@@ -1618,6 +1631,7 @@
 		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				434ED1FA286007DA00F6EF69 /* Map */,
 				C399FD1127C2833400396DC3 /* PostCell */,
 				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
 				C3C9733727C9E7A500232251 /* UserInfo */,
@@ -2102,6 +2116,7 @@
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				C3C9735327CA966900232251 /* SettingsCoordinator.swift in Sources */,
+				434782E728564CBD009A139D /* Keys.swift in Sources */,
 				C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */,
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
@@ -2170,6 +2185,7 @@
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
+				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
@@ -2184,6 +2200,7 @@
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
+				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
@@ -2253,7 +2270,6 @@
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,
-				439259D928564174003DABFE /* Keys.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
 				C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */,
 				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,

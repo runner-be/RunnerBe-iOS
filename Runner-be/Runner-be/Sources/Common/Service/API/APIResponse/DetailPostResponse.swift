@@ -9,45 +9,50 @@ import Foundation
 
 // MARK: - DetailPostResponse
 
-struct DetailPostResponse: Codable {
-    let postID: Int
-    let postingTime: String
-    let postUserID: Int
-    let runningTag: String
-    let title: String
-    let gatheringTime: String
-    let runningTime: String
-    let gender: String
-    let age: String
-    let peopleNum: String
-    let contents: String
-    let gatherLongitude: String
-    let gatherLatitude: String
-    let locationInfo: String
-    let whetherEnd: String
+struct DetailPostResponse: Decodable {
+    let whetherEnd: String?
+    let profileURLList: [ProfileURL]?
+    let nickName: String?
+    let title: String?
+    let gatherLongitude: String?
+    let gatherLatitude: String?
+    let runningTag: String?
+    let postID: Int?
+    let contents: String?
+    let gatheringTime: String?
+    let runningTime: String?
+    let age: String?
+    let postingTime: String?
+    let postUserID: Int?
+    let gender: String?
+    let peopleNum: Int?
+    let locationInfo: String?
 
     enum CodingKeys: String, CodingKey {
-        case postID = "postId"
-        case postingTime
-        case postUserID = "postUserId"
-        case runningTag
-        case title
-        case gatheringTime
-        case runningTime
-        case gender
-        case age
-        case peopleNum
-        case contents
-        case gatherLongitude
-        case gatherLatitude
-        case locationInfo
         case whetherEnd
+        case profileURLList = "profileUrlList"
+        case nickName
+        case title
+        case gatherLatitude
+        case runningTag
+        case postID = "postId"
+        case gatheringTime
+        case contents
+        case gender
+        case locationInfo
+        case peopleNum
+        case postUserID = "postUserId"
+        case runningTime
+        case age
+        case gatherLongitude
+        case postingTime
     }
 }
 
 extension DetailPostResponse {
     var coords: (lat: Float, long: Float)? {
-        guard let latitude = Float(gatherLatitude),
+        guard let gatherLatitude = gatherLatitude, let gatherLongitude = gatherLongitude,
+              let latitude = Float(gatherLatitude),
               let longitude = Float(gatherLongitude)
         else {
             return nil
@@ -56,8 +61,9 @@ extension DetailPostResponse {
     }
 
     var ageRange: (min: Int, max: Int)? {
-        let components = age.components(separatedBy: "-")
-        guard components.count >= 2,
+        let components = age?.components(separatedBy: "-")
+        guard let components = components,
+              components.count >= 2,
               let min = Int(components[0]),
               let max = Int(components[1])
         else { return nil }
@@ -65,6 +71,7 @@ extension DetailPostResponse {
     }
 
     var gatherDate: Date? { // "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        guard let gatheringTime = gatheringTime else { return nil }
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
         var date = formatter.date(from: gatheringTime)
@@ -73,8 +80,9 @@ extension DetailPostResponse {
     }
 
     var timeRunning: (hour: Int, minute: Int)? {
-        let hms = runningTime.components(separatedBy: ":") // hour miniute seconds
-        guard hms.count > 2,
+        let hms = runningTime?.components(separatedBy: ":") // hour miniute seconds
+        guard let hms = hms,
+              hms.count > 2,
               let hour = Int(hms[0]),
               let minute = Int(hms[1])
         else { return nil }
@@ -82,17 +90,11 @@ extension DetailPostResponse {
     }
 
     var genderType: Gender {
-        return Gender(name: gender)
+        return Gender(name: gender ?? "")
     }
 
     var runningTagType: RunningTag {
-        return RunningTag(name: runningTag)
-    }
-
-    var maxNumPeople: Int? {
-        let nums = peopleNum.filter { $0.isNumber }.compactMap { Int(String($0)) }
-        if nums.count != 1 { return nil }
-        return nums[0]
+        return RunningTag(name: runningTag ?? "")
     }
 
     var open: Bool {
@@ -100,21 +102,21 @@ extension DetailPostResponse {
     }
 
     var convertedDetailPost: PostDetail? {
-        guard let runningTime = timeRunning,
+        guard let id = postID,
+              let writerID = postUserID,
+              let title = title,
+              let locationInfo = locationInfo,
+              let runningTime = timeRunning,
               let gatherDate = gatherDate,
               let ageRange = ageRange,
               let coords = coords,
-              let maximumNum = maxNumPeople
+              let maximumNum = peopleNum,
+              let content = contents
         else { return nil }
 
-        let id = postID
-        let writerID = postUserID
         let writerName = ""
         // profileURL: nil
-        let title = title
         let tag = runningTagType
-        let locationInfo = locationInfo
-        let content = contents
 
         var post = Post(
             ID: id,

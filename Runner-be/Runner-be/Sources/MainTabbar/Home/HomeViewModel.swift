@@ -10,8 +10,8 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: BaseViewModel {
-    var bookMarkSet = Set<Int>()
-    var posts: [Post] = []
+    private var posts: [Post] = []
+    private var selectedPostID: Int?
     var filter: PostFilter
 
     init(
@@ -23,7 +23,7 @@ final class HomeViewModel: BaseViewModel {
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            wheterEnd: .open,
+            postState: .open,
             filter: .newest,
             distanceFilter: 3,
             gender: .none,
@@ -36,40 +36,30 @@ final class HomeViewModel: BaseViewModel {
         filter = initialFilter
         super.init()
 
+        outputs.changeRegion.onNext((
+            CLLocationCoordinate2D(latitude: filter.latitude, longitude: filter.longitude),
+            Double(filter.distanceFilter * 1000)
+        ))
+
         // MARK: Fetch Posts
 
         let postReady = ReplaySubject<[Post]?>.create(bufferSize: 1)
         postReady
             .compactMap { $0 }
-            .map { posts in
-                posts.reduce(into: [Post]()) { [weak self] partialResult, post in
-                    guard let self = self else { return }
-                    if self.filter.wheterEnd == .open, !post.open { return }
-                    var post = post
-                    post.marked = self.bookMarkSet.contains(post.ID)
-                    partialResult.append(post)
+            .map { [weak self] posts -> [Post] in
+                if self?.filter.postState == .open {
+                    return posts.filter { post in post.open }
+                } else {
+                    return posts
                 }
             }
             .subscribe(onNext: { [weak self] posts in
                 self?.posts = posts
                 self?.outputs.posts.onNext(posts)
+                self?.outputs.focusSelectedPost.onNext(nil)
                 self?.outputs.refresh.onNext(())
+                self?.outputs.showRefreshRegion.onNext(false)
             })
-            .disposed(by: disposeBag)
-
-        postAPIService.fetchPostsBookMarked()
-            .do(onNext: { [weak self] result in
-                if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-                }
-            })
-            .flatMap { _ in postAPIService.fetchPosts(with: initialFilter) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("게시글 불러오기에 실패했습니다.")
-                }
-            })
-            .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         inputs.tagChanged
@@ -90,22 +80,18 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
-        inputs.deadLineChanged
-            .map { $0 ? PostState.closed : PostState.open }
-            .map { [unowned self] state -> PostFilter in
+        inputs.tapShowClosedPost
+            .skip(1)
+            .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
-                newFilter.wheterEnd = state
+                newFilter.postState = self.filter.postState.toggled
                 self.filter = newFilter
-                return newFilter
+                return self.filter.postState == .closed
             }
-            .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 마감포함 다시 원위치
-                }
+            .subscribe(onNext: { [weak self] showClosedPost in
+                self?.routeInputs.needUpdate.onNext(true)
+                self?.outputs.showClosedPost.onNext(showClosedPost)
             })
-            .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         inputs.filterTypeChanged
@@ -135,6 +121,8 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.writingPost
+            // TODO: 시작시 이벤트가 바로 들어오는 현상이 있음 그래서 skip 1 해결방안 찾으면 수정할 것
+            .skip(1)
             .subscribe(onNext: { [unowned self] in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
@@ -144,27 +132,27 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.tapPostBookMark
+        inputs.tapPostBookmark
             .do(onNext: { [unowned self] _ in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
                 }
             })
             .filter { _ in loginKeyChainService.loginType == .member }
-            .map { [unowned self] idx in (idx: idx, post: self.posts[idx]) }
+            .compactMap { [unowned self] id -> (idx: Int, post: Post)? in
+                if let idx = self.posts.firstIndex(where: { $0.ID == id }) {
+                    return (idx: idx, post: self.posts[idx])
+                } else {
+                    return nil
+                }
+            }
             .flatMap { postAPIService.bookmark(postId: $0.post.ID, mark: !$0.post.marked) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.postId })
                 else { return }
                 self.posts[index].marked = result.mark
-                if result.mark {
-                    self.bookMarkSet.insert(self.posts[index].ID)
-                } else {
-                    self.bookMarkSet.remove(self.posts[index].ID)
-                }
-                self.outputs.bookMarked.onNext((idx: index, marked: result.mark))
-                self.outputs.posts.onNext(self.posts)
+                self.outputs.bookMarked.onNext((id: result.postId, marked: result.mark))
             })
             .disposed(by: disposeBag)
 
@@ -189,23 +177,9 @@ final class HomeViewModel: BaseViewModel {
         // MARK: - RouteInput
 
         routeInputs.needUpdate
-            .do(onNext: { [weak self] _ in
-                self?.bookMarkSet.removeAll()
-            })
             .filter { $0 }
-            .flatMap { _ in postAPIService.fetchPostsBookMarked() }
-            .do(onNext: { [weak self] result in
-                if let result = result {
-                    self?.bookMarkSet = result.reduce(into: Set<Int>()) { $0.insert($1.ID) }
-                }
-            })
             .compactMap { [weak self] _ in
-                guard let self = self
-                else { return nil }
-                let coord = locationService.currentPlace
-                self.filter.latitude = coord.latitude
-                self.filter.longitude = coord.longitude
-                return self.filter
+                self?.filter
             }
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
@@ -259,15 +233,10 @@ final class HomeViewModel: BaseViewModel {
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.id })
                 else { return }
-
                 self.posts[index].marked = result.marked
-                if result.marked {
-                    self.bookMarkSet.insert(self.posts[index].ID)
-                } else {
-                    self.bookMarkSet.remove(self.posts[index].ID)
-                }
-                self.outputs.bookMarked.onNext((idx: index, marked: result.marked))
+                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
                 self.outputs.posts.onNext(self.posts)
+                self.outputs.focusSelectedPost.onNext(nil)
             })
             .disposed(by: disposeBag)
 
@@ -276,24 +245,82 @@ final class HomeViewModel: BaseViewModel {
                 self?.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: disposeBag)
+
+        // mapview
+        inputs.regionChanged
+            .subscribe(onNext: { [weak self] region in
+                self?.filter.latitude = region.location.latitude
+                self?.filter.longitude = region.location.longitude
+                self?.filter.distanceFilter = Float(region.radius / 1000)
+                self?.outputs.showRefreshRegion.onNext(true)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.moveRegion
+            .subscribe(onNext: { [weak self] in
+                self?.outputs.showRefreshRegion.onNext(false)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.needUpdate
+            .bind(to: routeInputs.needUpdate)
+            .disposed(by: disposeBag)
+
+        inputs.toHomeLocation
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let currentPlace = locationService.currentPlace
+                self.filter.latitude = currentPlace.latitude
+                self.filter.longitude = currentPlace.longitude
+                self.filter.distanceFilter = 3
+                self.outputs.changeRegion.onNext((
+                    locationService.currentPlace,
+                    Double(self.filter.distanceFilter * 1000)
+                ))
+            })
+            .disposed(by: disposeBag)
+
+        inputs.tapPostPin
+            .subscribe(onNext: { [weak self] id in
+                let post = self?.posts.first(where: { $0.ID == id })
+                self?.selectedPostID = id
+                self?.outputs.focusSelectedPost.onNext(post)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.tapSelectedPost
+            .compactMap { [weak self] _ in self?.posts.firstIndex(where: { $0.ID == self?.selectedPostID }) }
+            .bind(to: inputs.tapPost)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var showDetailFilter = PublishSubject<Void>()
         var writingPost = PublishSubject<Void>()
-        var deadLineChanged = PublishSubject<Bool>()
+        var tapShowClosedPost = PublishSubject<Void>()
         var tagChanged = PublishSubject<Int>()
         var filterTypeChanged = PublishSubject<Int>()
-        var tapPostBookMark = PublishSubject<Int>()
+        var tapPostBookmark = PublishSubject<Int>()
+        var tapPostBookMarkWithId = PublishSubject<Int>()
         var tapPost = PublishSubject<Int>()
+        var tapSelectedPost = PublishSubject<Void>()
+        var regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
+        var moveRegion = PublishSubject<Void>()
+        var needUpdate = PublishSubject<Bool>()
+        var toHomeLocation = PublishSubject<Void>()
+        var tapPostPin = PublishSubject<Int?>()
     }
 
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var refresh = PublishSubject<Void>()
         var toast = PublishSubject<String>()
-        var bookMarked = PublishSubject<(idx: Int, marked: Bool)>()
+        var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
+        var showClosedPost = PublishSubject<Bool>()
+        var showRefreshRegion = PublishSubject<Bool>()
+        var changeRegion = ReplaySubject<(location: CLLocationCoordinate2D, distance: CLLocationDistance)>.create(bufferSize: 1)
+        var focusSelectedPost = PublishSubject<Post?>()
     }
 
     struct Route {
