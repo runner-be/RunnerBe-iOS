@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		434635CA28910476007D8C10 /* PostOrderModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635C928910476007D8C10 /* PostOrderModalComponent.swift */; };
+		434635CC28910491007D8C10 /* PostOrderModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */; };
+		434635CE28910497007D8C10 /* PostOrderModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */; };
+		434635D0289104A0007D8C10 /* PostOrderModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635CF289104A0007D8C10 /* PostOrderModalViewController.swift */; };
+		434635D22891073E007D8C10 /* PostListOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D12891073E007D8C10 /* PostListOrder.swift */; };
+		434635D528910F09007D8C10 /* RunningTagModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D428910F09007D8C10 /* RunningTagModalComponent.swift */; };
+		434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D628910F13007D8C10 /* RunningTagModalCoordinator.swift */; };
+		434635D928910F19007D8C10 /* RunningTagModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D828910F19007D8C10 /* RunningTagModalViewModel.swift */; };
+		434635DB28910F21007D8C10 /* RunningTagModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */; };
 		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
 		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
 		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
@@ -307,6 +316,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		434635C928910476007D8C10 /* PostOrderModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalComponent.swift; sourceTree = "<group>"; };
+		434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalCoordinator.swift; sourceTree = "<group>"; };
+		434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalViewModel.swift; sourceTree = "<group>"; };
+		434635CF289104A0007D8C10 /* PostOrderModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalViewController.swift; sourceTree = "<group>"; };
+		434635D12891073E007D8C10 /* PostListOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListOrder.swift; sourceTree = "<group>"; };
+		434635D428910F09007D8C10 /* RunningTagModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalComponent.swift; sourceTree = "<group>"; };
+		434635D628910F13007D8C10 /* RunningTagModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalCoordinator.swift; sourceTree = "<group>"; };
+		434635D828910F19007D8C10 /* RunningTagModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalViewModel.swift; sourceTree = "<group>"; };
+		434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalViewController.swift; sourceTree = "<group>"; };
 		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
 		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
@@ -625,6 +643,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		434635C728910435007D8C10 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				434635D328910EF7007D8C10 /* RunningTag */,
+				434635C828910453007D8C10 /* PostOrder */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		434635C828910453007D8C10 /* PostOrder */ = {
+			isa = PBXGroup;
+			children = (
+				434635C928910476007D8C10 /* PostOrderModalComponent.swift */,
+				434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */,
+				434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */,
+				434635CF289104A0007D8C10 /* PostOrderModalViewController.swift */,
+				434635D12891073E007D8C10 /* PostListOrder.swift */,
+			);
+			path = PostOrder;
+			sourceTree = "<group>";
+		};
+		434635D328910EF7007D8C10 /* RunningTag */ = {
+			isa = PBXGroup;
+			children = (
+				434635D428910F09007D8C10 /* RunningTagModalComponent.swift */,
+				434635D628910F13007D8C10 /* RunningTagModalCoordinator.swift */,
+				434635D828910F19007D8C10 /* RunningTagModalViewModel.swift */,
+				434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */,
+			);
+			path = RunningTag;
+			sourceTree = "<group>";
+		};
 		434782E828564D07009A139D /* Ignore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1189,6 +1239,7 @@
 		C38F8F2627AD95FC0050137D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				434635C728910435007D8C10 /* Modal */,
 				C304C5802826B39000C24295 /* View */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
@@ -2067,6 +2118,7 @@
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3C9735527CA967000232251 /* SettingsViewModel.swift in Sources */,
 				C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */,
+				434635CA28910476007D8C10 /* PostOrderModalComponent.swift in Sources */,
 				C3BA459A27B405210048CA76 /* BadgeLabel.swift in Sources */,
 				C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */,
 				C3347BED27C2D122006FB110 /* WritingDetailPostViewModel.swift in Sources */,
@@ -2082,6 +2134,7 @@
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
+				434635D528910F09007D8C10 /* RunningTagModalComponent.swift in Sources */,
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
@@ -2187,18 +2240,21 @@
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
+				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
 				C38F8F3E27AD99E50050137D /* BookMarkComponent.swift in Sources */,
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
+				434635CC28910491007D8C10 /* PostOrderModalCoordinator.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
 				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
+				434635D22891073E007D8C10 /* PostListOrder.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
@@ -2241,6 +2297,7 @@
 				C3C9734B27CA962A00232251 /* EditInfoCoordinator.swift in Sources */,
 				C34BA6B127CD47C9003E393A /* DetailPostResponse.swift in Sources */,
 				C3F74B6A27B0A4BF002D5846 /* PolicyTermViewController.swift in Sources */,
+				434635D928910F19007D8C10 /* RunningTagModalViewModel.swift in Sources */,
 				C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
@@ -2266,6 +2323,7 @@
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
+				434635D0289104A0007D8C10 /* PostOrderModalViewController.swift in Sources */,
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
@@ -2276,6 +2334,8 @@
 				C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */,
 				C3C9734927CA962200232251 /* EditInfoComponent.swift in Sources */,
 				C38ABDA727D4F2CC0025929E /* SignoutCompletionModalComponent.swift in Sources */,
+				434635CE28910497007D8C10 /* PostOrderModalViewModel.swift in Sources */,
+				434635DB28910F21007D8C10 /* RunningTagModalViewController.swift in Sources */,
 				C3A64F8927C54A930088E387 /* PostFilter.swift in Sources */,
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */,

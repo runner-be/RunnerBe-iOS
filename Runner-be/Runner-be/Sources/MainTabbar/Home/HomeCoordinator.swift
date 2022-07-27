@@ -53,6 +53,20 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             .map { .needCover }
             .subscribe(closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.postListOrder
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.showPostListOrderModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.runningTag
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.showRunningTagModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
@@ -98,6 +112,40 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 switch coordResult {
                 case let .backward(filter):
                     vm.routeInputs.filterChanged.onNext(filter)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
+        let comp = component.postListOrderModal()
+        let coord = PostOrderModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case let .ok(order: order):
+                    vm.routeInputs.postListOrderChanged.onNext(order)
+                case .cancel: break
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func showRunningTagModal(vm: HomeViewModel, animated: Bool) {
+        let comp = component.runningTagModal()
+        let coord = RunningTagModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case let .ok(tag: tag):
+                    vm.routeInputs.runningTagChanged.onNext(tag)
+                case .cancel: break
                 }
             })
 

@@ -82,6 +82,21 @@ class HomeViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.writingPost)
             .disposed(by: disposeBag)
+
+        filterIconView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.showDetailFilter)
+            .disposed(by: disposeBag)
+
+        orderTagView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapPostListOrder)
+            .disposed(by: disposeBag)
+
+        runningTagView.rx.tapGesture(configuration: nil)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapRunningTag)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -111,6 +126,15 @@ class HomeViewController: BaseViewController {
         viewModel.outputs.posts
             .subscribe(onNext: { [unowned self] posts in
                 self.mapView.update(with: posts)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.posts
+            .map { $0.count }
+            .subscribe(onNext: { [unowned self] count in
+                let hideEmptyGuide = count != 0
+                self.postEmptyGuideLabel.isHidden = hideEmptyGuide
+                self.adviseWritingPostView.isHidden = hideEmptyGuide
             })
             .disposed(by: disposeBag)
 
@@ -152,6 +176,24 @@ class HomeViewController: BaseViewController {
                 if post != nil {
                     self.setBottomSheetState(to: .halfOpen)
                 }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.highLightFilter
+            .subscribe(onNext: { [unowned self] highlight in
+                self.filterIconView.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.postListOrderChanged
+            .subscribe(onNext: { [unowned self] listOrder in
+                self.orderTagView.label.text = listOrder.text
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.runningTagChanged
+            .subscribe(onNext: { [unowned self] tag in
+                self.runningTagView.label.text = tag.name
             })
             .disposed(by: disposeBag)
     }
@@ -415,7 +457,7 @@ class HomeViewController: BaseViewController {
         view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
         view.icon.image = Constants.BottomSheet.SelectionLabel.Normal.icon
 
-        view.label.text = "찜 많은 순"
+        view.label.text = PostListOrder.distance.text
     }
 
     private var showClosedPostView = SelectionLabel().then { view in
@@ -430,6 +472,14 @@ class HomeViewController: BaseViewController {
         view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
 
         view.label.text = "마감 포함"
+    }
+
+    private var filterIconView = UIImageView().then { view in
+        view.image = Asset.filter.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        }
     }
 
     private lazy var postCollectionView: UICollectionView = {
@@ -450,6 +500,30 @@ class HomeViewController: BaseViewController {
         collectionView.isHidden = true
         return collectionView
     }()
+
+    private var postEmptyGuideLabel = UILabel().then { label in
+        label.text = "조건에 맞는 결과가 없어요"
+        label.textColor = .darkG4
+        label.font = .iosTitle19R
+    }
+
+    private var adviseWritingPostView = UIImageView().then { view in
+        view.image = Asset.postEmptyGuideBackground.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(136)
+            make.height.equalTo(28)
+        }
+        let label = UILabel()
+        label.text = "첫 주자가 되어볼까요?"
+        label.textColor = .primary
+        label.font = .iosBody13R
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.centerY.equalTo(view.snp.centerY)
+            make.leading.equalTo(view.snp.leading).offset(9)
+            make.trailing.equalTo(view.snp.trailing).offset(-12)
+        }
+    }
 
     private var writePostButton = UIImageView().then { view in
         view.snp.makeConstraints { make in
@@ -478,9 +552,12 @@ extension HomeViewController {
             sheetTitle,
             runningTagView,
             orderTagView,
+            filterIconView,
             showClosedPostView,
             postCollectionView,
             selectedPostCollectionView,
+            postEmptyGuideLabel,
+            adviseWritingPostView,
         ])
     }
 
@@ -546,6 +623,11 @@ extension HomeViewController {
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 
+        filterIconView.snp.makeConstraints { make in
+            make.centerY.equalTo(runningTagView.snp.centerY)
+            make.trailing.equalTo(bottomSheet.snp.trailing).offset(-16)
+        }
+
         showClosedPostView.snp.makeConstraints { make in
             make.top.equalTo(runningTagView.snp.top)
             make.leading.equalTo(orderTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.ShowClosedPost.leading)
@@ -569,6 +651,17 @@ extension HomeViewController {
         writePostButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.snp.trailing).offset(-12)
             make.bottom.equalTo(view.snp.bottom).offset(-24)
+        }
+
+        postEmptyGuideLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(bottomSheet.snp.centerX)
+            make.top.equalTo(runningTagView.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+
+        adviseWritingPostView.snp.makeConstraints { make in
+            make.centerY.equalTo(writePostButton.snp.centerY)
+            make.trailing.equalTo(writePostButton.snp.leading).offset(-4)
         }
     }
 }
