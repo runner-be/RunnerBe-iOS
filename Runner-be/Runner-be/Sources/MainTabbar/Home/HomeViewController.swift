@@ -545,6 +545,7 @@ extension HomeViewController {
             homeLocationButton,
             bottomSheet,
             writePostButton,
+            adviseWritingPostView,
         ])
 
         bottomSheet.addSubviews([
@@ -557,7 +558,6 @@ extension HomeViewController {
             postCollectionView,
             selectedPostCollectionView,
             postEmptyGuideLabel,
-            adviseWritingPostView,
         ])
     }
 
