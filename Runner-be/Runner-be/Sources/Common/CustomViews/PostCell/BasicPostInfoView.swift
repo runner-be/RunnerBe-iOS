@@ -33,45 +33,47 @@ class BasicPostInfoView: UIView {
         bookMarkIcon.isSelected = item.bookmarked
         timeLabel.label.text = item.time
 
-        let numProfiles = min(4, CGFloat(item.attendanceProfiles.count))
-        let profileSpacing = Constants.Profile.spacing
-        let profileDimension = Constants.Profile.dimension
-        var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
-        for idx in 1 ... Int(numProfiles) {
-            let reverseIdx = Int(numProfiles) - idx
-            let imageView = UIImageView()
-            profileFrameView.addSubview(imageView)
+        if !item.attendanceProfiles.isEmpty {
+            let numProfiles = min(4, CGFloat(item.attendanceProfiles.count))
+            let profileSpacing = Constants.Profile.spacing
+            let profileDimension = Constants.Profile.dimension
+            var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
+            for idx in 1 ... Int(numProfiles) {
+                let reverseIdx = Int(numProfiles) - idx
+                let imageView = UIImageView()
+                profileFrameView.addSubview(imageView)
 
-            if let profileURL = item.attendanceProfiles[reverseIdx].profileImageURL {
-                imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
+                if let profileURL = item.attendanceProfiles[reverseIdx].profileImageURL {
+                    imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
+                } else {
+                    imageView.image = Asset.profileEmptyIcon.uiImage
+                }
+
+                imageView.snp.makeConstraints { make in
+                    make.top.equalTo(profileFrameView.snp.top)
+                    make.bottom.equalTo(profileFrameView.snp.bottom)
+                    make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
+                    make.width.equalTo(profileDimension)
+                    make.height.equalTo(profileDimension)
+                }
+                imageView.clipsToBounds = true
+                imageView.layer.borderColor = backgroundColor.cgColor
+                imageView.layer.borderWidth = Constants.Profile.borderWidth
+                imageView.layer.cornerRadius = Constants.Profile.cornerRadius
+
+                offsetLeading -= profileDimension + profileSpacing
+            }
+
+            profileFrameView.snp.updateConstraints { make in
+                make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
+            }
+
+            if numProfiles > 4 {
+                profileExtraLabel.text = "외 \(Int(numProfiles) - 4)명"
+                profileExtraLabel.isHidden = false
             } else {
-                imageView.image = Asset.profileEmptyIcon.uiImage
+                profileExtraLabel.isHidden = true
             }
-
-            imageView.snp.makeConstraints { make in
-                make.top.equalTo(profileFrameView.snp.top)
-                make.bottom.equalTo(profileFrameView.snp.bottom)
-                make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
-                make.width.equalTo(profileDimension)
-                make.height.equalTo(profileDimension)
-            }
-            imageView.clipsToBounds = true
-            imageView.layer.borderColor = backgroundColor.cgColor
-            imageView.layer.borderWidth = Constants.Profile.borderWidth
-            imageView.layer.cornerRadius = Constants.Profile.cornerRadius
-
-            offsetLeading -= profileDimension + profileSpacing
-        }
-
-        profileFrameView.snp.updateConstraints { make in
-            make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
-        }
-
-        if numProfiles > 4 {
-            profileExtraLabel.text = "외 \(Int(numProfiles) - 4)명"
-            profileExtraLabel.isHidden = false
-        } else {
-            profileExtraLabel.isHidden = true
         }
 
         recruitFinishView.isHidden = !item.closed
