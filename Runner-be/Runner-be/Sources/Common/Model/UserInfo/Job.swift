@@ -146,9 +146,9 @@ extension Job {
         case .dev:
             return "📈"
         case .mpr:
-            return "🎨"
-        case .des:
             return "📊"
+        case .des:
+            return "🎨"
         case .ser:
             return "⚙"
         case .pro:

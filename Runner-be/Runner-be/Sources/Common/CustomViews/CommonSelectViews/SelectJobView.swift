@@ -53,7 +53,7 @@ class SelectJobView: SelectBaseView {
 
     private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
         if job != .none {
-            partialResult.append(OnOffLabel(text: job.name))
+            partialResult.append(OnOffLabel(text: job.emoji + " " + job.name))
         }
     }
 
@@ -110,8 +110,8 @@ class SelectJobView: SelectBaseView {
 
         jobGroupCollectionView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)
-            make.leading.equalTo(contentView.snp.leading).offset(38)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-38)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.width.equalTo(340)
             make.height.equalTo(244)
             make.bottom.equalTo(contentView.snp.bottom)
         }
