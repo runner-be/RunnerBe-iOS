@@ -196,6 +196,22 @@ class HomeViewController: BaseViewController {
                 self.runningTagView.label.text = tag.name
             })
             .disposed(by: disposeBag)
+
+        viewModel.outputs.titleLocationChanged
+            .subscribe(onNext: { [unowned self] title in
+                if let title = title {
+                    navBar.titleLabel.font = .iosBody17R
+                    navBar.titleLabel.text = title
+                    navBar.titleLabel.textColor = .darkG35
+                    navBar.titleSpacing = 12
+                } else {
+                    navBar.titleLabel.font = .aggroLight
+                    navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
+                    navBar.titleLabel.textColor = .primarydark
+                    navBar.titleSpacing = 8
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func bindBottomSheetGesture() {

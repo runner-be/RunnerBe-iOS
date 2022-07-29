@@ -13,6 +13,7 @@ final class HomeViewModel: BaseViewModel {
     private var posts: [Post] = []
     private var selectedPostID: Int?
     var filter: PostFilter
+    var listOrderType: PostListOrder = .distance
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
@@ -41,6 +42,19 @@ final class HomeViewModel: BaseViewModel {
             Double(filter.distanceFilter * 1000)
         ))
 
+        locationService.geoCodeLocation(at: searchLocation)
+            .take(1)
+            .subscribe(onNext: { [weak self] geoCode in
+                if let city = geoCode?.administrativeArea,
+                   let locality = geoCode?.locality
+                {
+                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                } else {
+                    self?.outputs.titleLocationChanged.onNext(nil)
+                }
+            })
+            .disposed(by: disposeBag)
+
         // MARK: Fetch Posts
 
         let postReady = ReplaySubject<[Post]?>.create(bufferSize: 1)
@@ -53,12 +67,32 @@ final class HomeViewModel: BaseViewModel {
                     return posts
                 }
             }
-            .subscribe(onNext: { [weak self] posts in
-                self?.posts = posts
-                self?.outputs.posts.onNext(posts)
-                self?.outputs.focusSelectedPost.onNext(nil)
-                self?.outputs.refresh.onNext(())
-                self?.outputs.showRefreshRegion.onNext(false)
+            .subscribe(onNext: { [unowned self] posts in
+                let currentCenterLocation = CLLocation(latitude: self.filter.latitude, longitude: self.filter.longitude)
+                self.posts = posts.sorted(by: { pLeft, pRight in
+                    switch self.listOrderType {
+                    case .distance:
+                        guard let leftCoord = pLeft.coord,
+                              let rightCoord = pRight.coord
+                        else { return true }
+
+                        let pLeftLocation = CLLocation(
+                            latitude: Double(leftCoord.lat),
+                            longitude: Double(leftCoord.long)
+                        )
+                        let pRightLocation = CLLocation(
+                            latitude: Double(rightCoord.lat),
+                            longitude: Double(rightCoord.long)
+                        )
+                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
+                    case .latest:
+                        return pLeft.postingTime < pRight.postingTime
+                    }
+                })
+                self.outputs.posts.onNext(posts)
+                self.outputs.focusSelectedPost.onNext(nil)
+                self.outputs.refresh.onNext(())
+                self.outputs.showRefreshRegion.onNext(false)
             })
             .disposed(by: disposeBag)
 
@@ -253,6 +287,21 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.regionChanged
+            .flatMap { region in
+                locationService.geoCodeLocation(at: region.location)
+            }
+            .subscribe(onNext: { [weak self] geoCode in
+                if let city = geoCode?.administrativeArea,
+                   let locality = geoCode?.locality
+                {
+                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                } else {
+                    self?.outputs.titleLocationChanged.onNext(nil)
+                }
+            })
+            .disposed(by: disposeBag)
+
         inputs.moveRegion
             .subscribe(onNext: { [weak self] in
                 self?.outputs.showRefreshRegion.onNext(false)
@@ -298,12 +347,13 @@ final class HomeViewModel: BaseViewModel {
 
         routeInputs.postListOrderChanged
             .subscribe(onNext: { [unowned self] postListOrder in
+                self.listOrderType = postListOrder
                 let currentCenterLocation = CLLocation(
                     latitude: self.filter.latitude,
                     longitude: self.filter.longitude
                 )
                 self.posts = self.posts.sorted(by: { pLeft, pRight in
-                    switch postListOrder {
+                    switch self.listOrderType {
                     case .distance:
                         guard let leftCoord = pLeft.coord,
                               let rightCoord = pRight.coord
@@ -371,6 +421,7 @@ final class HomeViewModel: BaseViewModel {
         var focusSelectedPost = PublishSubject<Post?>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
+        var titleLocationChanged = PublishSubject<String?>()
     }
 
     struct Route {
