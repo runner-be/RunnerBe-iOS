@@ -80,6 +80,8 @@ class BookMarkViewController: BaseViewController {
                     default:
                         self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
                     }
+                } else {
+                    self?.emptyLabel.isHidden = true
                 }
             })
             .map { [BasicPostSection(items: $0)] }
@@ -201,7 +203,6 @@ extension BookMarkViewController {
 extension BookMarkViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from: Int, to: Int) {
         if from != to {
-            print("hello " + String(to))
             runningTagInt = to
             viewModel.inputs.tagChanged.onNext(to) // 출근 전, 퇴근 후, 휴일 태그가 바꼈을 시
         }

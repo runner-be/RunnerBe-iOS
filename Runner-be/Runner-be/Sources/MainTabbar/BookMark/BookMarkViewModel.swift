@@ -39,6 +39,8 @@ final class BookMarkViewModel: BaseViewModel {
 
                     if let posts = self.posts[self.runningTag] {
                         self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
+                    } else {
+                        self.outputs.posts.onNext([])
                     }
                 }
             })
