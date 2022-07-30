@@ -35,14 +35,24 @@ class SummaryMainPostView: UIView {
 
     private func processingInputs() {}
 
-    private var mapView = MKMapView()
+    private var mapView = MKMapView().then { view in
+        view.isUserInteractionEnabled = false
+    }
 
-    private var addressInfoView = IconLabel(iconPosition: .left, iconSize: CGSize(width: 19, height: 19)).then { view in
+    private var markerImageView = UIImageView().then { view in
+        view.image = Asset.placeImage.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(16)
+            make.height.equalTo(16)
+        }
+    }
+
+    private var addressInfoView = IconLabel(iconPosition: .left, iconSize: CGSize(width: 18, height: 18)).then { view in
         view.icon.image = Asset.place.uiImage
         view.label.font = .iosBody13R
         view.label.textColor = .darkG3
         view.label.text = "동작구 사당1동"
-        view.backgroundColor = .darkG55.withAlphaComponent(0.8)
+        view.backgroundColor = .darkG55
     }
 
     private var badgeLabel = BadgeLabel().then { label in
@@ -63,8 +73,8 @@ class SummaryMainPostView: UIView {
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .primarydarker
+        label.font = .iosTitle19R
+        label.textColor = .darkG25
         label.text = "새벽에 달리기 하실분? 새벽에 달리기 하실분?"
     }
 
@@ -91,6 +101,7 @@ class SummaryMainPostView: UIView {
     private func setupViews() {
         addSubviews([
             mapView,
+            markerImageView,
             badgeLabel,
             titleLabel,
             dateLabel,
@@ -105,12 +116,17 @@ class SummaryMainPostView: UIView {
         mapView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
-            make.height.equalTo(68)
+            make.height.equalTo(88)
             make.width.equalTo(110)
             make.bottom.equalTo(self.snp.bottom)
         }
         mapView.clipsToBounds = true
         mapView.layer.cornerRadius = 5
+
+        markerImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(mapView.snp.centerX)
+            make.bottom.equalTo(mapView.snp.centerY)
+        }
 
         addressInfoView.snp.makeConstraints { make in
             make.leading.equalTo(mapView.snp.leading)
@@ -131,13 +147,12 @@ class SummaryMainPostView: UIView {
 
         dateLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
         }
 
         timeLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(dateLabel.snp.centerY)
-            make.leading.equalTo(dateLabel.snp.trailing).offset(6)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.top.equalTo(dateLabel.snp.bottom).offset(4)
         }
     }
 }
