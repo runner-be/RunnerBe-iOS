@@ -28,16 +28,28 @@ class SelectTextContentView: SelectBaseView {
     private func processingInputs() {
         textField.rx.text
             .subscribe(onNext: { [weak self] text in
-                if let wordMax = self?.wordMax,
-                   let count = text?.count
-                {
-                    self?.numberWordsLabel.text = "\(count)/500"
-                    if count >= wordMax {
-                        self?.numberWordsLabel.textColor = .errorlight
-                    } else {
-                        self?.numberWordsLabel.textColor = .darkG4
-                    }
+                guard let self = self,
+                      let count = text?.count
+                else { return }
+
+                self.numberWordsLabel.text = "\(count)/500"
+                if count >= self.wordMax {
+                    self.numberWordsLabel.textColor = .errorlight
+                } else {
+                    self.numberWordsLabel.textColor = .darkG4
                 }
+            })
+            .disposed(by: disposeBag)
+
+        textField.rx.didBeginEditing
+            .subscribe(onNext: { [weak self] in
+                self?.placeHolder.isHidden = true
+            })
+            .disposed(by: disposeBag)
+
+        textField.rx.didEndEditing
+            .subscribe(onNext: { [weak self] in
+                self?.placeHolder.isHidden = self?.textField.text.isEmpty == false
             })
             .disposed(by: disposeBag)
     }
@@ -50,13 +62,19 @@ class SelectTextContentView: SelectBaseView {
 
     lazy var textField = UITextView().then { field in
         field.isEditable = true
-        field.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 16, right: 12)
+        field.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 20, right: 16)
         field.backgroundColor = .darkG55
         field.font = .iosBody17R
         field.textColor = .darkG1
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.delegate = self
+    }
+
+    var placeHolder = UILabel().then { label in
+        label.font = .iosBody17R
+        label.textColor = .darkG35
+        label.text = "함께할 러너들에게 하실 말씀이 있나요?"
     }
 
     override func setupViews() {
@@ -67,6 +85,7 @@ class SelectTextContentView: SelectBaseView {
 
         contentView.addSubviews([
             textField,
+            placeHolder,
         ])
     }
 
@@ -87,6 +106,13 @@ class SelectTextContentView: SelectBaseView {
         }
         textField.clipsToBounds = true
         textField.layer.cornerRadius = 8
+
+        placeHolder.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.top).offset(16)
+            make.leading.equalTo(textField.snp.leading).offset(16)
+            make.trailing.equalTo(textField.snp.trailing).offset(-16)
+            make.bottom.lessThanOrEqualTo(textField.snp.bottom).offset(-20)
+        }
     }
 }
 
