@@ -27,9 +27,14 @@ final class WritingDetailPostCoordinator: BasicCoordinator<WritingDetailPostResu
 
         closeSignal
             .debug()
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] coordResult in
                 Log.d(tag: .lifeCycle, "VC poped")
-                self?.navigationController.popViewController(animated: false)
+                switch coordResult {
+                case .backward:
+                    self?.navigationController.popViewController(animated: true)
+                case .apply:
+                    self?.navigationController.popViewController(animated: false)
+                }
             })
             .disposed(by: sceneDisposeBag)
 
