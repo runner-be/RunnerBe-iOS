@@ -112,7 +112,6 @@ class PostWriterFooter: PostDetailFooter {
         super.setup()
         applyBtn.setTitle(L10n.Home.PostDetail.Writer.finishing, for: .normal)
         applyBtn.setTitle(L10n.Home.PostDetail.Writer.finished, for: .disabled)
-        applyBtn.isSelected = true
         toMessageButton.isEnabled = true
     }
 }
