@@ -162,12 +162,11 @@ final class PostDetailViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
-        
+
         inputs.toMessage
             .map { postId }
-            .bind(to: routes.message )
+            .bind(to: routes.message)
             .disposed(by: disposeBag)
-        
     }
 
     struct Input {

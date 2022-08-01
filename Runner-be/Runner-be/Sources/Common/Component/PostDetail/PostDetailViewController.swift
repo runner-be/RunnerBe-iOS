@@ -49,7 +49,7 @@ class PostDetailViewController: BaseViewController {
         viewModel.outputs.detailData
             .subscribe(onNext: { [weak self] data in
                 self?.navBar.titleLabel.text = data.running.badge
-                self?.titleView.setup(title: data.running.title, tag: data.running.badge)
+                self?.titleView.setup(title: data.running.title, tag: data.running.badge, finished: data.finished)
                 self?.infoView.setup(
                     place: data.running.placeInfo,
                     date: data.running.date,
@@ -326,7 +326,7 @@ extension PostDetailViewController {
 
             footer = guestFooter
         }
-        
+
         footer.toMessageButton.rx.tap
             .bind(to: viewModel.inputs.toMessage)
             .disposed(by: disposeBag)
