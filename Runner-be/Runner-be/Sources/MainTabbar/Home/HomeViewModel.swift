@@ -45,10 +45,10 @@ final class HomeViewModel: BaseViewModel {
         locationService.geoCodeLocation(at: searchLocation)
             .take(1)
             .subscribe(onNext: { [weak self] geoCode in
-                if let city = geoCode?.administrativeArea,
-                   let locality = geoCode?.locality
+                if let locality = geoCode?.locality,
+                   let subLocality = geoCode?.subLocality
                 {
-                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                    self?.outputs.titleLocationChanged.onNext(locality + " " + subLocality)
                 } else {
                     self?.outputs.titleLocationChanged.onNext(nil)
                 }
@@ -292,10 +292,10 @@ final class HomeViewModel: BaseViewModel {
                 locationService.geoCodeLocation(at: region.location)
             }
             .subscribe(onNext: { [weak self] geoCode in
-                if let city = geoCode?.administrativeArea,
-                   let locality = geoCode?.locality
+                if let locality = geoCode?.locality,
+                   let subLocality = geoCode?.subLocality
                 {
-                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                    self?.outputs.titleLocationChanged.onNext(locality + " " + subLocality)
                 } else {
                     self?.outputs.titleLocationChanged.onNext(nil)
                 }
