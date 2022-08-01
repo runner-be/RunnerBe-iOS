@@ -40,8 +40,8 @@ extension PostAPI: TargetType {
             return "/users/\(userId)/bookmarks/v2"
         case let .detail(postId, userId, _):
             return "/postings/v2/\(postId)/\(userId)"
-        case let .apply(postId, _, _):
-            return "/runnings/request/\(postId)"
+        case let .apply(postId, userId, _):
+            return "/runnings/request/\(postId)/\(userId)"
         case let .accept(postId, _, applicantId, accept, _):
             return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         case let .close(postId, _):
@@ -126,10 +126,7 @@ extension PostAPI: TargetType {
         case .detail:
             return .requestPlain
         case let .apply(_, userId, _):
-            let query: [String: Any] = [
-                "userId": userId,
-            ]
-            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+            return .requestPlain
         case let .accept(_, userId, _, _, _):
             let query: [String: Any] = [
                 "userId": userId,
