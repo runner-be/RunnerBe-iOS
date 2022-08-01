@@ -86,10 +86,10 @@ final class HomeViewModel: BaseViewModel {
                         )
                         return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
                     case .latest:
-                        return pLeft.postingTime < pRight.postingTime
+                        return pLeft.postingTime > pRight.postingTime
                     }
                 })
-                self.outputs.posts.onNext(posts)
+                self.outputs.posts.onNext(self.posts)
                 self.outputs.focusSelectedPost.onNext(nil)
                 self.outputs.refresh.onNext(())
                 self.outputs.showRefreshRegion.onNext(false)
@@ -369,7 +369,7 @@ final class HomeViewModel: BaseViewModel {
                         )
                         return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
                     case .latest:
-                        return pLeft.postingTime < pRight.postingTime
+                        return pLeft.postingTime > pRight.postingTime
                     }
                 })
                 self.outputs.posts.onNext(self.posts)
