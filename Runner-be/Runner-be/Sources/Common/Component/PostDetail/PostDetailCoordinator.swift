@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum PostDetailResult {
-    case backward(id: Int, marked: Bool, needUpdate: Bool)
+    case backward(id: Int, needUpdate: Bool)
 }
 
 final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
@@ -31,7 +31,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
-            .map { PostDetailResult.backward(id: $0.id, marked: $0.marked, needUpdate: $0.needUpdate) }
+            .map { PostDetailResult.backward(id: $0.id, needUpdate: $0.needUpdate) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 

@@ -42,6 +42,8 @@ internal enum Asset {
   internal static let lockLocked = ImageAsset(name: "Lock_locked")
   internal static let logo = ImageAsset(name: "Logo")
   internal static let logoSignature = ImageAsset(name: "Logo_signature")
+  internal static let messageActive = ImageAsset(name: "MessageActive")
+  internal static let messageInactive = ImageAsset(name: "MessageInactive")
   internal static let messageTabIconFocused = ImageAsset(name: "MessageTabIcon_focused")
   internal static let messageTabIconNormal = ImageAsset(name: "MessageTabIcon_normal")
   internal static let minus = ImageAsset(name: "Minus")

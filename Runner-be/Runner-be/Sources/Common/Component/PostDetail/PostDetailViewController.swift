@@ -75,7 +75,13 @@ class PostDetailViewController: BaseViewController {
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeFooter(writer: data.writer, applied: data.applied, satisfied: data.satisfied, finished: data.finished)
+                self?.makeFooter(
+                    writer: data.writer,
+                    participated: data.participated,
+                    applied: data.applied,
+                    satisfied: data.satisfied,
+                    finished: data.finished
+                )
                 self?.applicantNoti.isHidden = data.numApplicant == 0
             })
             .disposed(by: disposeBag)
@@ -258,7 +264,7 @@ extension PostDetailViewController {
         }
     }
 
-    func makeFooter(writer: Bool, applied: Bool, satisfied: Bool, finished: Bool) {
+    func makeFooter(writer: Bool, participated: Bool, applied: Bool, satisfied: Bool, finished: Bool) {
         footer?.removeFromSuperview()
 
         let footer: PostDetailFooter
@@ -266,13 +272,15 @@ extension PostDetailViewController {
         if finished {
             let writerFooter = PostWriterFooter()
 
-            writerFooter.finishingBtn.isEnabled = false
+            writerFooter.applyBtn.isEnabled = false
+            writerFooter.toMessageButton.isEnabled = participated
             applicantBtn.isHidden = true
             footer = writerFooter
         } else if writer {
             let writerFooter = PostWriterFooter()
+            writerFooter.toMessageButton.isEnabled = participated
 
-            writerFooter.finishingBtn.rx.tap
+            writerFooter.applyBtn.rx.tap
                 .debug()
                 .bind(to: viewModel.inputs.finishing)
                 .disposed(by: disposeBag)
@@ -286,28 +294,29 @@ extension PostDetailViewController {
 
             viewModel.outputs.finished
                 .subscribe(onNext: { finished in
-                    writerFooter.finishingBtn.isEnabled = !finished
+                    writerFooter.applyBtn.isEnabled = !finished
                 })
                 .disposed(by: writerFooter.disposeBag)
 
             footer = writerFooter
         } else {
             let guestFooter = PostGuestFooter(applied: applied, satisfied: satisfied)
+            guestFooter.toMessageButton.isEnabled = participated
 
-            guestFooter.bookMarkBtn.rx.tap
-                .map { !guestFooter.bookMarkBtn.isSelected }
-                .bind(to: viewModel.inputs.bookMark)
-                .disposed(by: guestFooter.disposeBag)
+//            guestFooter.bookMarkBtn.rx.tap
+//                .map { !guestFooter.bookMarkBtn.isSelected }
+//                .bind(to: viewModel.inputs.bookMark)
+//                .disposed(by: guestFooter.disposeBag)
 
             guestFooter.applyBtn.rx.tap
                 .bind(to: viewModel.inputs.apply)
                 .disposed(by: guestFooter.disposeBag)
 
-            viewModel.outputs.bookMarked
-                .subscribe(onNext: { marked in
-                    guestFooter.bookMarkBtn.isSelected = marked
-                })
-                .disposed(by: guestFooter.disposeBag)
+//            viewModel.outputs.bookMarked
+//                .subscribe(onNext: { marked in
+//                    guestFooter.bookMarkBtn.isSelected = marked
+//                })
+//                .disposed(by: guestFooter.disposeBag)
 
             viewModel.outputs.apply
                 .subscribe(onNext: { applied in
@@ -317,6 +326,10 @@ extension PostDetailViewController {
 
             footer = guestFooter
         }
+        
+        footer.toMessageButton.rx.tap
+            .bind(to: viewModel.inputs.toMessage)
+            .disposed(by: disposeBag)
 
         view.addSubviews([footer])
 

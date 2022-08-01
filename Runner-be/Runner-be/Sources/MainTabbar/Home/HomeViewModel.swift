@@ -259,17 +259,17 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
-        routeInputs.detailClosed
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self,
-                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
-                else { return }
-                self.posts[index].marked = result.marked
-                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
-                self.outputs.posts.onNext(self.posts)
-                self.outputs.focusSelectedPost.onNext(nil)
-            })
-            .disposed(by: disposeBag)
+//        routeInputs.detailClosed
+//            .subscribe(onNext: { [weak self] result in
+//                guard let self = self,
+//                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
+//                else { return }
+//                self.posts[index].marked = result.marked
+//                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
+//                self.outputs.posts.onNext(self.posts)
+//                self.outputs.focusSelectedPost.onNext(nil)
+//            })
+//            .disposed(by: disposeBag)
 
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in
@@ -436,7 +436,7 @@ final class HomeViewModel: BaseViewModel {
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
         var filterChanged = PublishSubject<PostFilter>()
-        var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
+        var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
     }
