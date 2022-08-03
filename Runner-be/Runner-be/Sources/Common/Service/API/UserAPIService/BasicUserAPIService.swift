@@ -233,10 +233,10 @@ final class BasicUserAPIService: UserAPIService {
             })
     }
 
-    func updateFCMToken(to _: String) {
+    func updateFCMToken(to fcmToken: String) {
         guard let userID = loginKeyChainService.userId
         else { return }
 
-        provider.request(.updateFCMToken(userID: userID), completion: { _ in })
+        provider.request(.updateFCMToken(userID: userID, fcmToken: fcmToken), completion: { _ in })
     }
 }
