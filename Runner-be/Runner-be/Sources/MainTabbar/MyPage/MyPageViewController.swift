@@ -347,7 +347,9 @@ class MyPageViewController: BaseViewController {
     }
 
     private var myPostEmptyButton = UIButton().then { button in
+        button.sizeToFit()
         button.setTitle(L10n.MyPage.MyPost.Empty.Button.title, for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 10, right: 20)
         button.setTitleColor(.primary, for: .normal)
         button.layer.borderColor = UIColor.primary.cgColor
         button.layer.borderWidth = 1
@@ -362,7 +364,9 @@ class MyPageViewController: BaseViewController {
     }
 
     private var myRunningEmptyButton = UIButton().then { button in
+        button.sizeToFit()
         button.setTitle(L10n.MyPage.MyRunning.Empty.Button.title, for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 10, right: 20)
         button.setTitleColor(.primary, for: .normal)
         button.layer.borderColor = UIColor.primary.cgColor
         button.layer.borderWidth = 1
@@ -471,7 +475,6 @@ extension MyPageViewController {
             make.centerX.equalTo(myPostCollectionView.snp.centerX)
             make.top.equalTo(myPostCollectionView.snp.centerY).offset(12)
             make.height.equalTo(40)
-            make.width.equalTo(182)
         }
         myPostEmptyButton.layer.cornerRadius = 20
 
@@ -484,7 +487,6 @@ extension MyPageViewController {
             make.centerX.equalTo(myRunningCollectionView.snp.centerX)
             make.top.equalTo(myRunningCollectionView.snp.centerY).offset(12)
             make.height.equalTo(40)
-            make.width.equalTo(141)
         }
         myRunningEmptyButton.layer.cornerRadius = 20
         writtenTab.isSelected = true

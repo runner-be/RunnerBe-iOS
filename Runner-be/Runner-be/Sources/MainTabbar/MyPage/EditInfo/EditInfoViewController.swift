@@ -15,6 +15,7 @@ import UIKit
 
 class EditInfoViewController: BaseViewController {
     lazy var editInfoDataManager = EditInfoDataManager()
+
     var jobindex = -1
     var jobCode = ""
 

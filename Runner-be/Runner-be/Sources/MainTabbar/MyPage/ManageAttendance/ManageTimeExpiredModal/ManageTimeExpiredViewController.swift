@@ -90,6 +90,14 @@ class ManagedTimeExpiredViewController: BaseViewController {
     private var vDivider = UIView().then { view in
         view.backgroundColor = .darkG45
     }
+
+    private var buttonNo = UIButton().then { button in
+        button.setTitle(L10n.MyPage.Settings.Modal.NickName.Button.cancel, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.setBackgroundColor(.clear, for: .normal)
+
+        button.titleLabel?.font = .iosBody17R
+    }
 }
 
 // MARK: - Layout
