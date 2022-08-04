@@ -11,7 +11,5 @@ import Alamofire
 struct Constant {
     static let BASE_URL = "https://www.runnerbe2.shop/"
 
-    static var token: String? = UserDefaults.standard.string(forKey: "jwt")
-
-    static var HEADERS: HTTPHeaders = ["x-access-token": token!]
+    static var HEADERS: HTTPHeaders = ["x-access-token": JwtToken.token!]
 }

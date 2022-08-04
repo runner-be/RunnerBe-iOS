@@ -30,7 +30,7 @@ struct MyInfo: Codable {
     let userID: Int?
     let nickName, gender, age, diligence: String?
     let job: String?
-    let profileImageURL: JSONNull?
+    let profileImageURL: String?
     let pushOn, nameChanged: String?
 
     enum CodingKeys: String, CodingKey {
@@ -48,14 +48,15 @@ struct MyPosting: Codable {
     let postingTime: String?
     let postUserID: Int?
     let nickName: String?
-    let profileImageURL: JSONNull?
+    let profileImageURL: String?
     let title, runningTime, gatheringTime, gatherLongitude: String?
     let gatherLatitude, locationInfo, runningTag, age: String?
     let gender, whetherEnd, job: String?
     let peopleNum: Int?
     let contents: String?
     let userID, bookMark: Int?
-    let distance, attendance: JSONNull?
+    let distance: String?
+    let attendance: Int?
     let profileURLList: [ProfileURLList]?
     let runnerList: [RunnerList]?
 
@@ -93,7 +94,7 @@ struct RunnerList: Codable {
     let userID: Int?
     let nickName, gender, age, diligence: String?
     let job: String?
-    let profileImageURL: JSONNull?
+    let profileImageURL: String?
     let whetherCheck: String?
     let attendance: Int?
     let whetherPostUser: String?
@@ -121,7 +122,7 @@ struct MyRunning: Codable {
     let contents: String?
     let userID, bookMark, attendance: Int?
     let whetherCheck: String?
-    let distance: JSONNull?
+    let distance: Int?
     let profileURLList: [ProfileURLList]?
 
     enum CodingKeys: String, CodingKey {

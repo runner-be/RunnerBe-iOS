@@ -130,7 +130,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         return 76
     }
 
-
     func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
 }
 
