@@ -180,9 +180,8 @@
 
 // MARK: - MessageList
 "MessageList.NavBar.Title" = "러닝톡";
-"MessageList.NavBar.RightItem" = "삭제";
-"MessageList.Delete.NavBar.RightItem" = "삭제";
-"MessageList.Delete.NavBar.RightSecondItem" = "전체선택";
+"MessageList.NavBar.RightItem" = "신고";
+"MessageList.Chat.NavBar.Title" = "신고하기";
 // MARK: - MyPage.Post
 "MyPage.MyPost.Empty.title" = "아직 모임을 만들지 않았어요!";
 "MyPage.MyPost.Empty.Button.title" = "모임을 만들어볼까요? 👉";
@@ -193,6 +192,9 @@
 "MyPage.MyPost.Manage.Finished.title" = "출석 확인하기";
 "MyPage.MyPost.Manage.Attend.title" = "출석";
 "MyPage.MyPost.Manage.Absent.title" = "결석";
+"MyPage.MyPost.Manage.SaveButton.title" = "제출하기";
+"MyPage.MyPost.Manage.Modal.content" = "출석 관리 시간이 만료되었어요!";
+"MyPage.MyPost.Manage.Modal.button.title" = "마이페이지로 이동";
 "MyPage.MyRunning.Attendance.Before.title" = "리더의 체크를 기다리고 있어요";
 "MyPage.MyRunning.Attendance.Attendance.title" = "출석을 완료했어요 😎";
 "MyPage.MyRunning.Attendance.Absence.title" = "불참했어요 😭";
@@ -245,6 +247,8 @@
 "MyPage.Settings.Modal.Signout.no" = "아니오";
 
 "MyPage.Settings.Modal.Job.Content" = "직군 변경은 3개월에 1회 가능해요.\n변경하시겠어요?";
+"MyPage.Settings.Modal.Job.ok" = "예";
+"MyPage.Settings.Modal.Job.no" = "아니오";
 
 "MyPage.Settings.Modal.Manage.Content" = "출석 관리 시간이 만료되었어요!";
 "MyPage.Settings.Modal.Manage.ok" = "마이페이지로 이동";

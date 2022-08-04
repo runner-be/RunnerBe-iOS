@@ -51,7 +51,7 @@ class SelectJobView: SelectBaseView {
             .disposed(by: disposeBag)
     }
 
-    private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
+    var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
         if job != .none {
             partialResult.append(OnOffLabel(text: job.name))
         }

@@ -224,16 +224,14 @@ internal enum L10n {
   }
 
   internal enum MessageList {
-    internal enum Delete {
+    internal enum Chat {
       internal enum NavBar {
-        /// 삭제
-        internal static let rightItem = L10n.tr("Localizable", "MessageList.Delete.NavBar.RightItem")
-        /// 전체선택
-        internal static let rightSecondItem = L10n.tr("Localizable", "MessageList.Delete.NavBar.RightSecondItem")
+        /// 신고하기
+        internal static let title = L10n.tr("Localizable", "MessageList.Chat.NavBar.Title")
       }
     }
     internal enum NavBar {
-      /// 삭제
+      /// 신고
       internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")
       /// 러닝톡
       internal static let title = L10n.tr("Localizable", "MessageList.NavBar.Title")
@@ -368,6 +366,18 @@ internal enum L10n {
           /// 출석 확인하기
           internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Finished.title")
         }
+        internal enum Modal {
+          /// 출석 관리 시간이 만료되었어요!
+          internal static let content = L10n.tr("Localizable", "MyPage.MyPost.Manage.Modal.content")
+          internal enum Button {
+            /// 마이페이지로 이동
+            internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Modal.button.title")
+          }
+        }
+        internal enum SaveButton {
+          /// 제출하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.SaveButton.title")
+        }
       }
     }
     internal enum MyRunning {
@@ -444,6 +454,10 @@ internal enum L10n {
           /// 직군 변경은 3개월에 1회 가능해요.
           /// 변경하시겠어요?
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.Content")
+          /// 아니오
+          internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.no")
+          /// 예
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.ok")
         }
         internal enum Logout {
           /// 로그아웃 하시겠어요?

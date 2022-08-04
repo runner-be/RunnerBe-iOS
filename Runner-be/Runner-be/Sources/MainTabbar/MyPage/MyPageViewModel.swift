@@ -156,6 +156,10 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: routes.writePost)
             .disposed(by: disposeBag)
 
+        inputs.manageAttendance
+            .bind(to: routes.manageAttendance)
+            .disposed(by: disposeBag)
+
         Observable<String?>.of(user?.profileImageURL)
             .subscribe(outputs.currentProfile)
             .disposed(by: disposeBag)
@@ -205,6 +209,7 @@ final class MyPageViewModel: BaseViewModel {
         var writePost = PublishSubject<Void>()
         var changePhoto = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
+        var manageAttendance = PublishSubject<Void>()
     }
 
     struct Output {
@@ -228,6 +233,7 @@ final class MyPageViewModel: BaseViewModel {
         var writePost = PublishSubject<Void>()
         var toMain = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
+        var manageAttendance = PublishSubject<Void>()
     }
 
     struct RouteInput {

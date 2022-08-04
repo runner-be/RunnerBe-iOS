@@ -67,6 +67,13 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self?.presentPhotoModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.manageAttendance
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushManageAttendanceScene(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
@@ -160,5 +167,22 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
 
         addChildDisposable(id: uuid, disposable: disposable)
+    }
+
+    func pushManageAttendanceScene(vm _: MyPageViewModel, animated: Bool) {
+        let comp = component.manageAttendanceComponent
+        let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .backward:
+                    break
+                }
+            }
+            )
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 }

@@ -14,7 +14,7 @@ final class MessageViewModel: BaseViewModel {
     }
 
     struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
-        var messageDelete = PublishSubject<Void>()
+        var messageChat = PublishSubject<Void>()
         var tapMessage = PublishSubject<Void>()
     }
 
@@ -22,7 +22,7 @@ final class MessageViewModel: BaseViewModel {
     }
 
     struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
-        var messageDelete = PublishSubject<Void>()
+        var messageChat = PublishSubject<Void>()
         var tapMessage = PublishSubject<Void>()
     }
 

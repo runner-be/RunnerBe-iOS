@@ -301,9 +301,10 @@
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
 		DA117B20283150A300158211 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA117B1F283150A300158211 /* Message.swift */; };
+		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
-		DA4183EE287270240008C0B6 /* ManageAttendanceCordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCordinator.swift */; };
+		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
 		DA6278A328770EAE008255C6 /* ManageAttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */; };
@@ -314,12 +315,18 @@
 		DA7E971C288BE1D10001BBDC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */; };
 		DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */; };
 		DA7E9721288C12AF0001BBDC /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */; };
+		DA7E9724288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */; };
+		DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */; };
+		DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */; };
+		DA7E972A288C363B0001BBDC /* ManageTimeExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9729288C363B0001BBDC /* ManageTimeExpiredViewController.swift */; };
+		DA7E972E288C36A50001BBDC /* ManageAttendanceButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E972D288C36A50001BBDC /* ManageAttendanceButtonGroup.swift */; };
+		DA7E9730288C36BF0001BBDC /* ManageAttendanceResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E972F288C36BF0001BBDC /* ManageAttendanceResultView.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
 		DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
 		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
-		DAB25445282E3F0F005B78B6 /* MessageChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */; };
+		DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */; };
 		DAC50001282B8F30004CFF64 /* MessageChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */; };
 		DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */; };
 		DAC50003282B8F3A004CFF64 /* MessageChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */; };
@@ -329,6 +336,7 @@
 		DADD85FF2887195300B11041 /* MessageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FE2887195300B11041 /* MessageDataManager.swift */; };
 		DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF932870790300E98E56 /* MyPagePostCell.swift */; };
 		DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */; };
+		DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -633,9 +641,10 @@
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		DA117B1F283150A300158211 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
-		DA4183ED287270240008C0B6 /* ManageAttendanceCordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCordinator.swift; sourceTree = "<group>"; };
+		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
 		DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceView.swift; sourceTree = "<group>"; };
@@ -646,12 +655,18 @@
 		DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
 		DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchJobRequest.swift; sourceTree = "<group>"; };
 		DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPageParticipatePostConfig.swift; path = ../../../../../../../../Downloads/MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
+		DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalComponent.swift; sourceTree = "<group>"; };
+		DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalCoordinator.swift; sourceTree = "<group>"; };
+		DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalViewModel.swift; sourceTree = "<group>"; };
+		DA7E9729288C363B0001BBDC /* ManageTimeExpiredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredViewController.swift; sourceTree = "<group>"; };
+		DA7E972D288C36A50001BBDC /* ManageAttendanceButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceButtonGroup.swift; sourceTree = "<group>"; };
+		DA7E972F288C36BF0001BBDC /* ManageAttendanceResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceResultView.swift; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoDataManager.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
 		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
-		DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatTableViewCell.swift; sourceTree = "<group>"; };
+		DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatLeftCell.swift; sourceTree = "<group>"; };
 		DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewModel.swift; sourceTree = "<group>"; };
 		DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewController.swift; sourceTree = "<group>"; };
 		DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatCoordinator.swift; sourceTree = "<group>"; };
@@ -661,6 +676,7 @@
 		DADD85FE2887195300B11041 /* MessageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataManager.swift; sourceTree = "<group>"; };
 		DAF6BF932870790300E98E56 /* MyPagePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostCell.swift; sourceTree = "<group>"; };
 		DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipateCell.swift; sourceTree = "<group>"; };
+		DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatRightCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1262,15 +1278,15 @@
 		C38F8F2927AD961D0050137D /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				C32C028527CB24640011419E /* View */,
 				DA5D5EF2288856A10038529B /* Model */,
-				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				C3C9736227CA979500232251 /* TakePhotoModal */,
 				C32C028C27CB45E00011419E /* Config */,
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
 				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
-				C32C028527CB24640011419E /* View */,
+				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				C3C9734727CA95D800232251 /* EditInfo */,
 				C3C9734527CA95B700232251 /* Settings */,
 			);
@@ -1776,7 +1792,8 @@
 			isa = PBXGroup;
 			children = (
 				DA3067602826235600543D74 /* MessageTableViewCell.swift */,
-				DAB25444282E3F0F005B78B6 /* MessageChatTableViewCell.swift */,
+				DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */,
+				DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1912,6 +1929,7 @@
 		DA6278A028770E5A008255C6 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1920,6 +1938,8 @@
 			isa = PBXGroup;
 			children = (
 				DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */,
+				DA7E972D288C36A50001BBDC /* ManageAttendanceButtonGroup.swift */,
+				DA7E972F288C36BF0001BBDC /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1935,15 +1955,27 @@
 			path = JobChangeModal;
 			sourceTree = "<group>";
 		};
+		DA7E9722288C35F70001BBDC /* ManageTimeExpiredModal */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */,
+				DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */,
+				DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */,
+				DA7E9729288C363B0001BBDC /* ManageTimeExpiredViewController.swift */,
+			);
+			path = ManageTimeExpiredModal;
+			sourceTree = "<group>";
+		};
 		DAA252C8287204EC0087FCA9 /* ManageAttendance */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E9722288C35F70001BBDC /* ManageTimeExpiredModal */,
 				DA6278A128770EA1008255C6 /* View */,
 				DA6278A028770E5A008255C6 /* Cell */,
-				DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */,
 				DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */,
-				DA4183ED287270240008C0B6 /* ManageAttendanceCordinator.swift */,
+				DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */,
 				DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */,
+				DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */,
 			);
 			path = ManageAttendance;
 			sourceTree = "<group>";
@@ -2160,6 +2192,8 @@
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
+				DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */,
+				DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C3347BF127C2D283006FB110 /* SummaryMainPostView.swift in Sources */,
 				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
@@ -2192,6 +2226,7 @@
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
+				DA7E972E288C36A50001BBDC /* ManageAttendanceButtonGroup.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
@@ -2221,7 +2256,7 @@
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				C3C9735327CA966900232251 /* SettingsCoordinator.swift in Sources */,
-				DA4183EE287270240008C0B6 /* ManageAttendanceCordinator.swift in Sources */,
+				DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */,
 				C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */,
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
 				C3C9735727CA967800232251 /* SettingsViewController.swift in Sources */,
@@ -2239,6 +2274,7 @@
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
+				DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */,
 				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
 				DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
@@ -2289,6 +2325,7 @@
 				C38ABDA427D4E3F20025929E /* SignoutModalViewController.swift in Sources */,
 				C31E633B28173B5D00C6B5A0 /* AppContext.swift in Sources */,
 				C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */,
+				DA7E972A288C363B0001BBDC /* ManageTimeExpiredViewController.swift in Sources */,
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
@@ -2304,6 +2341,7 @@
 				C38F8F3327AD96CD0050137D /* HomeViewModel.swift in Sources */,
 				C32C027A27CB17160011419E /* TakePhotoModalViewModel.swift in Sources */,
 				C34FDA7027AD5C83007718F8 /* AppCoordinator.swift in Sources */,
+				DA7E9724288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift in Sources */,
 				C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */,
 				C3AD114D27B813D000A7044C /* BasicLoginAPIService.swift in Sources */,
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
@@ -2338,7 +2376,7 @@
 				DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
-				DAB25445282E3F0F005B78B6 /* MessageChatTableViewCell.swift in Sources */,
+				DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */,
 				C3BA45CA27B5FEC80048CA76 /* PolicyDetailComponent.swift in Sources */,
 				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
 				C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */,
@@ -2384,6 +2422,7 @@
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,
 				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
+				DA7E9730288C36BF0001BBDC /* ManageAttendanceResultView.swift in Sources */,
 				C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */,
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
@@ -2416,6 +2455,7 @@
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
+				DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */,
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
@@ -2659,7 +2699,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -129,6 +129,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 76
     }
+
+    func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
 }
 
 extension MessageViewController {

@@ -21,7 +21,6 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
@@ -77,18 +76,13 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var nickNameText = PublishSubject<String>()
         var nickNameApply = PublishSubject<String>()
-        var changePhoto = PublishSubject<Void>()
         var jobSelected = PublishSubject<Int>()
-
-        var photoSelected = PublishSubject<Data?>()
     }
 
     struct Output {
         var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
-        var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
 
         var jobChanged = PublishSubject<Job>()
-        var profileChanged = PublishSubject<Data?>()
 
         var nickNameChanged = PublishSubject<String>()
         var nickNameDup = PublishSubject<Bool>()
@@ -97,20 +91,17 @@ final class EditInfoViewModel: BaseViewModel {
 
         var toast = PublishSubject<String>()
         var toastActivity = PublishSubject<Bool>()
-        var showPicker = PublishSubject<EditProfileType>()
     }
 
     struct Route {
         var backward = PublishSubject<Bool>()
-        var photoModal = PublishSubject<Void>()
         var nickNameModal = PublishSubject<Void>()
-        var jobModal = PublishSubject<Job>()
+        var jobModal = PublishSubject<Void>()
     }
 
     struct RouteInput {
         var changeJob = PublishSubject<Bool>()
         var changeNickName = PublishSubject<Bool>()
-        var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 
     private var disposeBag = DisposeBag()

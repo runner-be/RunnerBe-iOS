@@ -38,4 +38,8 @@ final class MyPageComponent: Component<MyPageDependency> {
     var takePhotoModalComponent: TakePhotoModalComponent {
         return TakePhotoModalComponent(parent: self)
     }
+
+    var manageAttendanceComponent: ManageAttendanceComponent {
+        return ManageAttendanceComponent(parent: self)
+    }
 }

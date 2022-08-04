@@ -41,6 +41,13 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
                 self?.presentNickNameModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.jobModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentJobModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentNickNameModal(vm: EditInfoViewModel, animated: Bool) {
@@ -57,6 +64,26 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
                     vm.routeInputs.changeNickName.onNext(true)
                 case .cancel:
                     vm.routeInputs.changeNickName.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: uuid, disposable: disposable)
+    }
+
+    private func presentJobModal(vm: EditInfoViewModel, animated: Bool) {
+        let comp = component.jobChangeModalComponent
+        let coord = JobChangeModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .ok:
+                    vm.routeInputs.changeJob.onNext(true)
+                case .cancel:
+                    vm.routeInputs.changeJob.onNext(false)
                 }
             })
 

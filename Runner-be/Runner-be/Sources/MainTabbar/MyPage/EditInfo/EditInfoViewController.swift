@@ -15,6 +15,8 @@ import UIKit
 
 class EditInfoViewController: BaseViewController {
     lazy var editInfoDataManager = EditInfoDataManager()
+    var jobindex = -1
+    var jobCode = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +58,6 @@ class EditInfoViewController: BaseViewController {
             .distinctUntilChanged()
             .compactMap { $0 }
             .bind(to: viewModel.inputs.nickNameText)
-            .disposed(by: disposeBag)
-
-        selectJobView.jobGroup.tap
-            .bind(to: viewModel.inputs.jobSelected)
             .disposed(by: disposeBag)
     }
 
@@ -155,6 +153,8 @@ class EditInfoViewController: BaseViewController {
                 self?.selectNickName.nickNameField.endEditing(true)
             })
             .disposed(by: disposeBag)
+
+        selectJobView.jobGroupCollectionView
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in
@@ -302,11 +302,49 @@ extension EditInfoViewController {
 //            selectNickName.applyButton.isEnabled = true
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         }
-    }
-    
-    func didSuccessPatchJob(_ response:BaseResponse) {
 
+        jobCode = (result.myInfo?[0].job)!
+
+        switch result.myInfo?[0].job {
+        case "공무원":
+            jobindex = 0
+        case "교육":
+            jobindex = 1
+        case "개발":
+            jobindex = 2
+        case "기획/전략/경영":
+            jobindex = 3
+        case "디자인":
+            jobindex = 4
+        case "마케팅/PR":
+            jobindex = 5
+        case "서비스":
+            jobindex = 6
+        case "생산":
+            jobindex = 7
+        case "연구":
+            jobindex = 8
+        case "영업/제휴":
+            jobindex = 9
+        case "의료":
+            jobindex = 10
+        case "인사":
+            jobindex = 11
+        case "재무/회계":
+            jobindex = 12
+        case "CS":
+            jobindex = 13
+        case .none:
+            break
+        case .some:
+            break
+        }
+
+        selectJobView.jobGroup.result.append(jobindex)
+        selectJobView.jobGroup.labels[jobindex].isOn = true
     }
+
+    func didSuccessPatchJob(_: BaseResponse) {}
 
     func failedToRequest(message: String) {
         print(message)

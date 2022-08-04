@@ -89,12 +89,15 @@ class MyPageViewController: BaseViewController {
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
         // 작성한 글 탭
-        let myPostDatasource = MyPagePostDataSource { _, collectionView, indexPath, item in
+        let myPostDatasource = MyPagePostDataSource { [self] _, collectionView, indexPath, item in
 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPagePostCell.id, for: indexPath) as? MyPagePostCell
             else { return UICollectionViewCell() }
             cell.configure(with: item)
             cell.postInfoView.bookMarkIcon.isHidden = true
+            cell.manageButton.rx.tap
+                .bind(to: self.viewModel.inputs.manageAttendance)
+                .disposed(by: disposeBag)
 
             return cell
         }
