@@ -29,7 +29,7 @@ class MessagePostView: UIView {
     }
 
     private var rightArrow = UIImageView().then { view in
-        view.image = UIImage(named: "Chevron_right")
+        view.image = UIImage(named: "Chevron_right_Xs")
     }
 
     private func setup() {
@@ -54,7 +54,7 @@ class MessagePostView: UIView {
 
         postTitle.snp.makeConstraints { make in
             make.centerY.equalTo(badgeLabel)
-            make.leading.equalTo(badgeLabel).offset(12)
+            make.leading.equalTo(badgeLabel.snp.trailing).offset(12)
         }
 
         rightArrow.snp.makeConstraints { make in

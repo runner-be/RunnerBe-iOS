@@ -14,7 +14,7 @@ import Then
 import UIKit
 
 class MessageChatViewController: BaseViewController {
-    var messages: [Message] = []
+    var messages: [MessageList] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,13 @@ class MessageChatViewController: BaseViewController {
     private var viewModel: MessageChatViewModel
 
     private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
+
+//        navBar.rightBtnItem.rx.tap
+//            .bind(to: viewModel.inputs.report)
+//            .disposed(by: disposeBag)
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
@@ -52,13 +59,16 @@ class MessageChatViewController: BaseViewController {
         navBar.titleLabel.text = L10n.MessageList.NavBar.title
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.isHidden = true
-        navBar.rightSecondBtnItem.isHidden = false
-        navBar.rightSecondBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)
+        navBar.rightBtnItem.isHidden = false
+        navBar.rightBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)
+        navBar.rightSecondBtnItem.isHidden = true
         navBar.titleSpacing = 12
     }
 
-    private var postSection = MessagePostView()
+    var postSection = MessagePostView().then { view in
+        view.badgeLabel.text = "출근 전"
+        view.postTitle.text = "불금에 달리기하실분!"
+    }
 
     private var tableView = UITableView()
 }
@@ -105,8 +115,29 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
         return messages.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as? MessageChatLeftCell else { return .init() }
+    func tableView(_: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell!
+
+//        if !messages.isEmpty{
+//            if messages[indexPath.row].messageFrom == "Others" {
+//                cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
+//                if messages[indexPath.row].whetherPostUser == "Y"{
+//                    cell.bubbleBackground.backgroundColor = .primary
+//                }
+//                else{
+//                    cell?.bubbleBackground.backgroundColor = .darkG55
+//                }
+//            }
+//            else{
+//                cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as? MessageChatRightCell
+//                if messages[indexPath.row].whetherPostUser == "Y"{
+//                    cell?.bubbleBackground.backgroundColor = .primary
+//                }
+//                else{
+//                    cell?.bubbleBackground.backgroundColor = .darkG55
+//                }
+//            }
+//        }
 
         return cell
     }
@@ -118,4 +149,20 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
 //    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
 //        return 76
 //    }
+}
+
+extension MessageChatViewController {
+    func didSucessGetMessageChat(_ result: GetMessageChatResult) {
+        postSection.badgeLabel.text = result.roomInfo?[0].runningTag
+        postSection.postTitle.text = result.roomInfo?[0].title
+
+        if !result.messageList!.isEmpty {
+            messages = result.messageList!
+            tableView.reloadData()
+        }
+    }
+
+    func failedToRequest(message: String) {
+        print(message)
+    }
 }

@@ -306,6 +306,7 @@
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
 		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
+		DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
 		DA6278A328770EAE008255C6 /* ManageAttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */; };
 		DA784C8D289C1736005F92B1 /* JwtToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA784C8C289C1736005F92B1 /* JwtToken.swift */; };
@@ -647,6 +648,7 @@
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
 		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
+		DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageChatResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
 		DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceView.swift; sourceTree = "<group>"; };
 		DA784C8C289C1736005F92B1 /* JwtToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JwtToken.swift; sourceTree = "<group>"; };
@@ -1283,15 +1285,15 @@
 			children = (
 				C32C028527CB24640011419E /* View */,
 				DA5D5EF2288856A10038529B /* Model */,
-				C3C9736227CA979500232251 /* TakePhotoModal */,
 				C32C028C27CB45E00011419E /* Config */,
+				C3C9736227CA979500232251 /* TakePhotoModal */,
+				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
+				C3C9734727CA95D800232251 /* EditInfo */,
+				C3C9734527CA95B700232251 /* Settings */,
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
 				C38F8F3027AD965C0050137D /* MyPageViewController.swift */,
-				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
-				C3C9734727CA95D800232251 /* EditInfo */,
-				C3C9734527CA95B700232251 /* Settings */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1787,6 +1789,7 @@
 			children = (
 				DA117B1F283150A300158211 /* Message.swift */,
 				DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */,
+				DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2257,6 +2260,7 @@
 				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
+				DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				C3C9735327CA966900232251 /* SettingsCoordinator.swift in Sources */,

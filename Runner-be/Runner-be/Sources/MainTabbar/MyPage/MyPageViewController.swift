@@ -206,7 +206,6 @@ class MyPageViewController: BaseViewController {
                     })
                 default: // 기본 이미지로 변경
                     self.myInfoWithChevron.infoView.avatarView.image = Asset.iconsProfile48.uiImage
-                    print("hello")
                 }
                 //                switch sourceType {
                 //                case .photoLibrary:

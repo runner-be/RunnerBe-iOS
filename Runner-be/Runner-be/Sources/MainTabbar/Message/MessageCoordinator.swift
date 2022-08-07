@@ -31,8 +31,8 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
 
         scene.VM.routes.messageChat
             .map { scene.VM }
-            .subscribe(onNext: { [weak self] _ in
-//                self?.pushMessageChatScene(vm: vm, animated: false)
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushMessageChatScene(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -46,21 +46,21 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
            5.    addChildDisposable을 통해 disposable 저장
              모든 push~Scene, present~Scene 함수는 위 형태를 따릅니다.
      */
-//    func pushMessageChatScene(vm: MessageViewModel, animated: Bool) {
-//        let comp = component.messageChatComponent
-//        let coord = MessageChatCoordinator(component: comp, navController: navigationController)
-//
-//        let disposable = coordinate(coordinator: coord, animated: animated)
-//            .subscribe(onNext: { [weak self] coordResult in
-//                defer { self?.releaseChild(coordinator: coord) }
-//                switch coordResult {
-//                case .backward:
-//                    break
-//                case .report:
-//                    break
-//                }
-//            }
-//
-//        addChildDisposable(id: coord.identifier, disposable: disposable)
-//    }
+    func pushMessageChatScene(vm _: MessageViewModel, animated: Bool) {
+        let comp = component.messageChatComponent
+        let coord = MessageChatCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .backward:
+                    break
+                case .report:
+                    break
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
 }

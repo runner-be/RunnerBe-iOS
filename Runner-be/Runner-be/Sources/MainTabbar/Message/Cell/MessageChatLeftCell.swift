@@ -23,36 +23,36 @@ class MessageChatLeftCell: UITableViewCell {
         initialLayout() // cell 레이아웃 설정
     }
 
-    private var profileImage = UIImageView().then { view in
+    var profileImage = UIImageView().then { view in
         view.image = UIImage(named: "iconsProfile48")
     }
 
-    private var nickName = UILabel().then { view in
+    var nickName = UILabel().then { view in
         view.textColor = .darkG35
         view.font = .iosBody13R
         view.numberOfLines = 1
     }
 
-    private var messageContent = UILabel().then { label in
+    var messageContent = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG1
         label.text = "메시지 내용"
         label.numberOfLines = 0
     }
 
-    private var bubbleBackground = UIView().then { view in
+    var bubbleBackground = UIView().then { view in
         view.backgroundColor = .darkG55
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner] // 왼쪽 위 직각
         view.clipsToBounds = true
     }
 
-    private var checkBox = UIButton().then { button in
+    var checkBox = UIButton().then { button in
         button.setImage(Asset.checkBoxIconEmpty.uiImage, for: .normal)
         button.isHidden = true
     }
 
-    private var messageDate = UILabel().then { view in
+    var messageDate = UILabel().then { view in
         view.textColor = .darkG4
         view.font = .iosCaption11R
         view.numberOfLines = 1
@@ -94,7 +94,7 @@ extension MessageChatLeftCell {
         }
 
         bubbleBackground.snp.makeConstraints { make in
-            make.top.equalTo(nickName.snp.bottom).offset(6)
+            make.top.equalTo(nickName.snp.bottom).offset(12)
             make.leading.equalTo(nickName.snp.leading)
         }
 

@@ -31,34 +31,34 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-//        scene.VM.routes.backward
-//            .map { MessageChatResult.backward(needUpdate: $0) }
-//            .bind(to: closeSignal)
-//            .disposed(by: sceneDisposeBag)
+        scene.VM.routes.backward
+            .map { MessageChatResult.backward(needUpdate: $0) }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.report
             .map { scene.VM }
-            .subscribe(onNext: { [weak self] _ in
-//                self?.presentReportModal(vm: vm, animated: false)
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentReportModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
 
-//    private func presentReportModal(vm: MessageChatViewModel, animated: Bool) {
-//        let comp = component
-//        let coord = MessageChatCoordinator(component: comp, navController: navigationController)
-//
-//        let disposable = coordinate(coordinator: coord, animated: animated)
-//            .subscribe(onNext: { [weak self] coordResult in
-//                defer { self?.releaseChild(coordinator: coord) }
-//                switch coordResult {
-//                case .ok:
-//                    vm.routeInputs.report.onNext(true)
-//                case .cancel:
-//                    vm.routeInputs.report.onNext(false)
-//                }
-//            })
-//
-//        addChildDisposable(id: coord.identifier, disposable: disposable)
-//    }
+    private func presentReportModal(vm: MessageChatViewModel, animated: Bool) {
+        let comp = component.reportModalComponent
+        let coord = ReportModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .ok:
+                    vm.routeInputs.report.onNext(true)
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
 }

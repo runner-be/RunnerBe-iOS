@@ -155,7 +155,7 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectJobView.jobGroupCollectionView
+//        selectJobView.jobGroupCollectionView
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in

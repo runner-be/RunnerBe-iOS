@@ -24,6 +24,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent") { component in
         ReportModalDependency7c1d923aae037ccbecd8Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent->ReportModalComponent") { component in
+        ReportModalDependency7c87f66bcf84b474e31eProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         ApplicantListModalDependency38daf10a5dd5609ffa27Provider(component: component)
     }
@@ -81,6 +84,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent") { component in
         MessageDependencyb26316582fc24834a34cProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent") { component in
+        MessageChatDependency69fa9a9e73666ac036deProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->LogoutModalComponent") { component in
         LogoutModalDependency198c1460728f9b03415bProvider(component: component)
     }
@@ -95,6 +101,9 @@ public func registerProviderFactories() {
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutCompletionModalComponent") { component in
         SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->JobChangeModalComponent") { component in
+        JobChangeModalDependency2bbe3c5431a3152c52a3Provider(component: component)
     }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->NickNameChangeModalComponent") { component in
         NickNameChangeModalDependencyb35b5747f04ee5549ecdProvider(component: component)
@@ -182,6 +191,13 @@ private class ReportModalDependency626f492cc98b0841b683Provider: ReportModalDepe
 
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent
 private class ReportModalDependency7c1d923aae037ccbecd8Provider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+/// ^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent->ReportModalComponent
+private class ReportModalDependency7c87f66bcf84b474e31eProvider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }
@@ -364,6 +380,17 @@ private class MessageDependencyb26316582fc24834a34cProvider: MessageDependencyb2
     }
 }
 
+private class MessageChatDependency69fa9a9e73666ac036deBaseProvider: MessageChatDependency {
+    init() {}
+}
+
+/// ^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent
+private class MessageChatDependency69fa9a9e73666ac036deProvider: MessageChatDependency69fa9a9e73666ac036deBaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
 private class LogoutModalDependency198c1460728f9b03415bBaseProvider: LogoutModalDependency {
     init() {}
 }
@@ -414,6 +441,17 @@ private class SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfBaseProvider: 
 
 /// ^->AppComponent->MainTabComponent->MyPageComponent->SettingsComponent->SignoutCompletionModalComponent
 private class SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfProvider: SignoutCompletionModalDependency0f8fb0dec6297ed4f8bfBaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+private class JobChangeModalDependency2bbe3c5431a3152c52a3BaseProvider: JobChangeModalDependency {
+    init() {}
+}
+
+/// ^->AppComponent->MainTabComponent->MyPageComponent->EditInfoComponent->JobChangeModalComponent
+private class JobChangeModalDependency2bbe3c5431a3152c52a3Provider: JobChangeModalDependency2bbe3c5431a3152c52a3BaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }

@@ -50,6 +50,10 @@ class MessageViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
+        tableView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.messageChat)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {} // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -129,8 +133,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 76
     }
-
-    func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
 }
 
 extension MessageViewController {
