@@ -79,20 +79,20 @@
 
 // MARK: - Job
 
-"Job.PSV" = "🏫 공무원";
-"Job.EDU" = "📚 교육";
-"Job.DEV" = "🖥 개발";
-"Job.PSM" = "📈 기획/전략/경영";
-"Job.DES" = "🎨 디자인";
-"Job.MPR" = "📊 마케팅/PR";
-"Job.SER" = "⚙️ 서비스";
-"Job.PRO" = "🏭 생산";
-"Job.RES" = "🔬 연구";
-"Job.SAF" = "🤝 영업/제휴";
-"Job.MED" = "🏥 의료";
-"Job.HUR" = "👥 인사";
-"Job.ACC" = "💰 재무/회계";
-"Job.CUS" = "🗣 CS";
+"Job.PSV" = "공무원";
+"Job.EDU" = "교육";
+"Job.DEV" = "개발";
+"Job.PSM" = "기획/전략/경영";
+"Job.DES" = "디자인";
+"Job.MPR" = "마케팅/PR";
+"Job.SER" = "서비스";
+"Job.PRO" = "생산";
+"Job.RES" = "연구";
+"Job.SAF" = "영업/제휴";
+"Job.MED" = "의료";
+"Job.HUR" = "인사";
+"Job.ACC" = "재무/회계";
+"Job.CUS" = "CS";
 
 // MARK: - Gender
 "Gender.male" = "남성";

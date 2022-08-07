@@ -163,33 +163,33 @@ internal enum L10n {
   }
 
   internal enum Job {
-    /// 💰 재무/회계
+    /// 재무/회계
     internal static let acc = L10n.tr("Localizable", "Job.ACC")
-    /// 🗣 CS
+    /// CS
     internal static let cus = L10n.tr("Localizable", "Job.CUS")
-    /// 🎨 디자인
+    /// 디자인
     internal static let des = L10n.tr("Localizable", "Job.DES")
-    /// 🖥 개발
+    /// 개발
     internal static let dev = L10n.tr("Localizable", "Job.DEV")
-    /// 📚 교육
+    /// 교육
     internal static let edu = L10n.tr("Localizable", "Job.EDU")
-    /// 👥 인사
+    /// 인사
     internal static let hur = L10n.tr("Localizable", "Job.HUR")
-    /// 🏥 의료
+    /// 의료
     internal static let med = L10n.tr("Localizable", "Job.MED")
-    /// 📊 마케팅/PR
+    /// 마케팅/PR
     internal static let mpr = L10n.tr("Localizable", "Job.MPR")
-    /// 🏭 생산
+    /// 생산
     internal static let pro = L10n.tr("Localizable", "Job.PRO")
-    /// 📈 기획/전략/경영
+    /// 기획/전략/경영
     internal static let psm = L10n.tr("Localizable", "Job.PSM")
-    /// 🏫 공무원
+    /// 공무원
     internal static let psv = L10n.tr("Localizable", "Job.PSV")
-    /// 🔬 연구
+    /// 연구
     internal static let res = L10n.tr("Localizable", "Job.RES")
-    /// 🤝 영업/제휴
+    /// 영업/제휴
     internal static let saf = L10n.tr("Localizable", "Job.SAF")
-    /// ⚙️ 서비스
+    /// 서비스
     internal static let ser = L10n.tr("Localizable", "Job.SER")
   }
 
