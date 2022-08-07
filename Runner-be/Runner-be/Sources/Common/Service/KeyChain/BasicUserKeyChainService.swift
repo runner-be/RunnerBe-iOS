@@ -19,26 +19,17 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var uuid: String {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][uuid] get")
-            #endif
             guard let uuid: String = keychainWrapper[.User.uuid]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get uuid: nil")
                 return ""
             }
-            #if DEBUG
-                print("\t= \"\(uuid)\"")
-            #endif
+            Log.d(tag: .info, "get uuid: \(uuid)")
             return uuid
         }
 
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][uuid] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set uuid: \(newValue ?? "nil")")
             keychainWrapper.remove(forKey: .User.uuid)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.uuid.rawValue)
         }
@@ -46,26 +37,17 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var deviceToken: String {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][deviceToken] get")
-            #endif
             guard let deviceToken: String = keychainWrapper[.User.deviceToken]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get deviceToken: nil")
                 return ""
             }
-            #if DEBUG
-                print("\t= \"\(deviceToken)\"")
-            #endif
+            Log.d(tag: .info, "get deviceToken: \(deviceToken)")
             return deviceToken
         }
 
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][deviceToken] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set deviceToken: \(newValue ?? "nil")")
             keychainWrapper.remove(forKey: .User.deviceToken)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.deviceToken.rawValue)
         }
@@ -73,25 +55,16 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var nickName: String {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][nickName] get")
-            #endif
             guard let nickName: String = keychainWrapper[.User.nickName]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get nickName: \"\"")
                 return ""
             }
-            #if DEBUG
-                print("\t= \"\(nickName)\"")
-            #endif
+            Log.d(tag: .info, "get nickName: \(nickName)")
             return nickName
         }
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][nickName] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set nickName: \(newValue ?? "nil")")
             keychainWrapper.remove(forKey: .User.nickName)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.nickName.rawValue)
         }
@@ -99,25 +72,16 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var birthDay: Int {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][birthDay] get")
-            #endif
             guard let birthDay: Int = keychainWrapper[.User.birthday]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get birth: 0")
                 return 0
             }
-            #if DEBUG
-                print("\t= \"\(birthDay)\"")
-            #endif
+            Log.d(tag: .info, "get birth: \(birthDay)")
             return birthDay
         }
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][birthDay] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set birth: \(newValue)")
             keychainWrapper.remove(forKey: .User.birthday)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.birthday.rawValue)
         }
@@ -125,26 +89,17 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var job: Job {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][job] get")
-            #endif
             guard let job: String = keychainWrapper[.User.job]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get job: none")
                 return Job.none
             }
-            #if DEBUG
-                print("\t= \"\(job)\"")
-            #endif
+            Log.d(tag: .info, "get job: \(job)")
 
             return Job(code: job)
         }
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][job] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set job: \(newValue)")
             keychainWrapper.remove(forKey: .User.job)
             keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.job.rawValue)
         }
@@ -152,26 +107,17 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     var gender: Gender {
         get {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][gender] get")
-            #endif
             guard let gender: String = keychainWrapper[.User.gender]
             else {
-                #if DEBUG
-                    print("\t= \"\"")
-                #endif
+                Log.d(tag: .info, "get gender: none")
                 return Gender.none
             }
-            #if DEBUG
-                print("\t= \"\(gender)\"")
-            #endif
+            Log.d(tag: .info, "get gender: \(gender)")
             return Gender(code: gender)
         }
 
         set {
-            #if DEBUG
-                print("[BasicSignupKeyChainService][gender] set\n\t= \"\(newValue)\"")
-            #endif
+            Log.d(tag: .info, "set gender: \(newValue)")
             keychainWrapper.remove(forKey: .User.gender)
             keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.gender.rawValue)
         }

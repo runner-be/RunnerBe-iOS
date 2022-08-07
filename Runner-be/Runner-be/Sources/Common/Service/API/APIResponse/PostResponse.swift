@@ -102,6 +102,15 @@ extension PostResponse {
         return date
     }
 
+    var createTime: Date? {
+        guard let postingTime = postingTime else { return nil }
+        let formatter = DateUtil.shared.dateFormatter
+        formatter.dateFormat = DateFormat.apiDate.formatString
+        var date = formatter.date(from: postingTime)
+        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        return date
+    }
+
     var timeRunning: (hour: Int, minute: Int)? {
         guard let runningTime = runningTime else { return nil }
         let hms = runningTime.components(separatedBy: ":") // hour miniute seconds
@@ -137,6 +146,7 @@ extension PostResponse {
     var convertedPost: Post? {
         guard let runningTime = timeRunning,
               let gatherDate = gatherDate,
+              let postingTime = createTime,
               let ageRange = ageRange,
               let postID = postID,
               let postUserID = postUserID,
@@ -166,7 +176,8 @@ extension PostResponse {
             gender: genderType,
             locationInfo: locationInfo,
             coord: coords, // nullable
-            attendanceProfiles: profileURLList ?? []
+            attendanceProfiles: profileURLList ?? [],
+            postingTime: postingTime
         )
 
         post.marked = marked

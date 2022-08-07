@@ -33,6 +33,8 @@ struct Post {
     var whetherCheck: String = "N"
 
     var attendanceProfiles: [ProfileURL] = []
+
+    var postingTime: Date
 }
 
 struct PostDetail {
@@ -47,6 +49,7 @@ extension Post: CustomStringConvertible {
         let desc = """
         {
             id: \(ID),
+            postingTime: \(postingTime)
             writerId: \(writerID),
             writerName: \(writerName),
             writerProfileURL: \(writerProfileURL),

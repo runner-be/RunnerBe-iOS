@@ -38,6 +38,19 @@ extension RunningTag {
         }
     }
 
+    var idx: Int {
+        switch self {
+        case .beforeWork:
+            return 0
+        case .afterWork:
+            return 1
+        case .dayoff:
+            return 2
+        case .error:
+            return 4
+        }
+    }
+
     static func isValid(_ idx: Int) -> Bool {
         return idx < (RunningTag.allCases.count - 1)
     }

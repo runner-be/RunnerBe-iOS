@@ -53,7 +53,7 @@ class SelectJobView: SelectBaseView {
 
     var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
         if job != .none {
-            partialResult.append(OnOffLabel(text: job.name))
+            partialResult.append(OnOffLabel(text: job.emoji + " " + job.name))
         }
     }
 

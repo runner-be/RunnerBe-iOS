@@ -27,9 +27,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
         closeSignal
             .debug()
             .subscribe(onNext: { [weak self] result in
-                #if DEBUG
-                    print("[WritingMainPostCoordinator][closeSignal] popViewController")
-                #endif
+                Log.d(tag: .lifeCycle, "VC poped")
                 switch result {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)

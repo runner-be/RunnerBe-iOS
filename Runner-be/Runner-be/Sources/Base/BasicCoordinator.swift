@@ -23,17 +23,13 @@ class BasicCoordinator<ResultType>: Coordinator {
     // MARK: Lifecycle
 
     init(navController: UINavigationController) {
-        #if DEBUG
-            print("[init:   Coord]  \(Self.self)")
-        #endif
+        Log.d(tag: .lifeCycle, "Coordinator Initialized")
         navigationController = navController
         navigationController.setNavigationBarHidden(true, animated: false)
     }
 
     deinit {
-        #if DEBUG
-            print("[deinit: Coord]  \(Self.self)")
-        #endif
+        Log.d(tag: .lifeCycle, "Coordinator Deinitialized")
     }
 
     // MARK: Internal
@@ -70,17 +66,10 @@ class BasicCoordinator<ResultType>: Coordinator {
     }
 
     func release() {
-        #if DEBUG
-            print("[release:    Coord]  \(Self.self)")
-        #endif
         childCoordinators.forEach { _, coord in coord.release() }
         childCloseSignalBags.flatMap { $1 }.forEach { $0.dispose() }
         childCoordinators.removeAll()
         childCloseSignalBags.removeAll()
-
-        #if DEBUG
-            print("[released:   Coord]   \(Self.self)")
-        #endif
     }
 
     func start(animated _: Bool) {

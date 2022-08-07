@@ -39,7 +39,7 @@ class WritingPlaceView: SelectBaseView {
         placeLabel.texts = [city, name]
     }
 
-    var locationChanged = PublishSubject<CLLocationCoordinate2D>()
+    lazy var locationChanged = PublishSubject<CLLocationCoordinate2D>()
 
     lazy var mapView = MKMapView().then { view in
         view.clipsToBounds = true
@@ -65,20 +65,12 @@ class WritingPlaceView: SelectBaseView {
         label.isHidden = true
     }
 
-    private var infoLabel = UILabel().then { label in
-        label.font = UIFont.iosBody13R
-        label.text = L10n.Post.Place.Guide.readable
-        label.textColor = .primarydark
-        label.numberOfLines = 2
-    }
-
     override func setupViews() {
         super.setupViews()
         titleLabel.text = L10n.Home.Filter.Place.title
 
         contentView.addSubviews([
             mapView,
-            infoLabel,
         ])
 
         mapView.addSubviews([
@@ -96,11 +88,6 @@ class WritingPlaceView: SelectBaseView {
             make.trailing.equalTo(contentView.snp.trailing)
             make.height.equalTo(228)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
-        }
-
-        infoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
-            make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         placeMark.snp.makeConstraints { make in

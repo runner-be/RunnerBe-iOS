@@ -86,6 +86,12 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title")
       }
     }
+    internal enum Map {
+      internal enum RefreshButton {
+        /// 이 지역 재검색
+        internal static let title = L10n.tr("Localizable", "Home.Map.RefreshButton.title")
+      }
+    }
     internal enum PostDetail {
       internal enum Guest {
         /// 신청완료

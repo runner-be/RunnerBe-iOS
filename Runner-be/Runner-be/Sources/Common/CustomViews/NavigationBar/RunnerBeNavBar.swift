@@ -75,7 +75,7 @@ extension RunnerbeNavBar {
             make.trailing.equalTo(self.snp.trailing)
             make.top.equalTo(topNotchView.snp.bottom)
             make.bottom.equalTo(self.snp.bottom)
-            make.height.equalTo(44)
+            make.height.equalTo(AppContext.shared.navHeight)
         }
 
         leftBtnItem.snp.makeConstraints { make in

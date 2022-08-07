@@ -33,37 +33,50 @@ class BasicPostInfoView: UIView {
         bookMarkIcon.isSelected = item.bookmarked
         timeLabel.label.text = item.time
 
-        let numProfiles = CGFloat(item.attendanceProfiles.count)
-        let profileSpacing = Constants.Profile.spacing
-        let profileDimension = Constants.Profile.dimension
-        var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
-        for profile in item.attendanceProfiles {
-            let imageView = UIImageView()
-            profileFrameView.addSubview(imageView)
+        if !item.attendanceProfiles.isEmpty {
+            let numProfiles = min(4, CGFloat(item.attendanceProfiles.count))
+            let profileSpacing = Constants.Profile.spacing
+            let profileDimension = Constants.Profile.dimension
+            var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
+            for idx in 1 ... Int(numProfiles) {
+                let reverseIdx = Int(numProfiles) - idx
+                let imageView = UIImageView()
+                profileFrameView.addSubview(imageView)
 
-            if let profileURL = profile.profileImageURL {
-                imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
+                if let profileURL = item.attendanceProfiles[reverseIdx].profileImageURL {
+                    imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
+                } else {
+                    imageView.image = Asset.profileEmptyIcon.uiImage
+                }
+
+                imageView.snp.makeConstraints { make in
+                    make.top.equalTo(profileFrameView.snp.top)
+                    make.bottom.equalTo(profileFrameView.snp.bottom)
+                    make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
+                    make.width.equalTo(profileDimension)
+                    make.height.equalTo(profileDimension)
+                }
+                imageView.clipsToBounds = true
+                imageView.layer.borderColor = backgroundColor.cgColor
+                imageView.layer.borderWidth = Constants.Profile.borderWidth
+                imageView.layer.cornerRadius = Constants.Profile.cornerRadius
+
+                offsetLeading -= profileDimension + profileSpacing
+            }
+
+            profileFrameView.snp.updateConstraints { make in
+                make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
+            }
+
+            if numProfiles > 4 {
+                profileExtraLabel.text = "외 \(Int(numProfiles) - 4)명"
+                profileExtraLabel.isHidden = false
             } else {
-                imageView.image = Asset.profileEmptyIcon.uiImage
+                profileExtraLabel.isHidden = true
             }
-
-            imageView.snp.makeConstraints { make in
-                make.top.equalTo(profileFrameView.snp.top)
-                make.bottom.equalTo(profileFrameView.snp.bottom)
-                make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
-                make.width.equalTo(profileDimension)
-                make.height.equalTo(profileDimension)
-            }
-            imageView.clipsToBounds = true
-            imageView.layer.borderColor = backgroundColor.cgColor
-            imageView.layer.borderWidth = Constants.Profile.borderWidth
-            imageView.layer.cornerRadius = Constants.Profile.cornerRadius
-
-            offsetLeading -= profileDimension + profileSpacing
         }
-        profileFrameView.snp.updateConstraints { make in
-            make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
-        }
+
+        recruitFinishView.isHidden = !item.closed
     }
 
     func reset() {
@@ -145,6 +158,35 @@ class BasicPostInfoView: UIView {
         view.label.text = "여성 · 20-35"
         view.icon.image = Asset.group.uiImage
     }
+
+    lazy var participantExtraHStack = UIStackView.make(with: [profileExtraLabel, recruitFinishView], axis: .horizontal, alignment: .center, distribution: .equalSpacing, spacing: 8)
+
+    var profileExtraLabel = UILabel().then { label in
+        label.textColor = .darkG35
+        label.font = .iosBody13R
+    }
+
+    var recruitFinishView = UIView().then { view in
+        view.backgroundColor = .darkG45
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
+
+        let label = UILabel()
+        label.text = "모집 완료"
+        label.textColor = .darkG25
+        label.font = .iosBody13B
+
+        view.addSubview(label)
+
+        view.snp.makeConstraints { make in
+            make.height.equalTo(28)
+        }
+        label.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(8)
+            make.trailing.equalTo(view.snp.trailing).offset(-8)
+            make.centerY.equalTo(view.snp.centerY)
+        }
+    }
 }
 
 extension BasicPostInfoView {
@@ -157,6 +199,7 @@ extension BasicPostInfoView {
             dateLabel,
             timeLabel,
             participantLabel,
+            participantExtraHStack,
         ])
     }
 
@@ -176,6 +219,11 @@ extension BasicPostInfoView {
             make.top.equalTo(titleLabel.snp.bottom).offset(Constants.Profile.top)
             make.leading.equalTo(titleLabel.snp.leading)
             make.width.equalTo(0) // update dynamically
+        }
+
+        participantExtraHStack.snp.makeConstraints { make in
+            make.centerY.equalTo(profileFrameView.snp.centerY)
+            make.leading.equalTo(profileFrameView.snp.trailing).offset(8)
         }
 
         dateLabel.snp.makeConstraints { make in

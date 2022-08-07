@@ -26,4 +26,12 @@ final class HomeComponent: Component<HomeDependency> {
     func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
         return HomeFilterComponent(self, filter: filter)
     }
+
+    func postListOrderModal() -> PostOrderModalComponent {
+        return PostOrderModalComponent(parent: self)
+    }
+
+    func runningTagModal() -> RunningTagModalComponent {
+        return RunningTagModalComponent(parent: self)
+    }
 }

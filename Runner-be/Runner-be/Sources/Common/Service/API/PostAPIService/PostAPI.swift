@@ -39,7 +39,7 @@ extension PostAPI: TargetType {
         case let .fetchBookMarked(userId, _):
             return "/users/\(userId)/bookmarks/v2"
         case let .detail(postId, userId, _):
-            return "/postings/\(postId)/\(userId)"
+            return "/postings/v2/\(postId)/\(userId)"
         case let .apply(postId, _, _):
             return "/runnings/request/\(postId)"
         case let .accept(postId, _, applicantId, accept, _):
@@ -82,7 +82,7 @@ extension PostAPI: TargetType {
         switch self {
         case let .fetch(userId, filter):
             var parameters: [String: Any] = [
-                "whetherEnd": filter.wheterEnd.code,
+                "whetherEnd": filter.postState.code,
                 "filter": filter.filter.code,
                 "distanceFilter": "\(filter.distanceFilter)",
                 "genderFilter": filter.gender.code,

@@ -46,9 +46,7 @@ class HomeFilterViewController: BaseViewController {
                     minAge = 20
                     maxAge = 65
                 }
-                let location = self.filterPlaceView.mapView.centerCoordinate
-                let distance = Float(self.filterPlaceView.slider.selectedMinValue)
-                return (genderIdx, jobIdx, minAge, maxAge, location, distance)
+                return (genderIdx, jobIdx, minAge, maxAge)
             }
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
@@ -59,19 +57,6 @@ class HomeFilterViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.locationDistance
-            .subscribe(onNext: { [weak self] locationDistance in
-                self?.filterPlaceView.setMapCoord(locationDistance.location, CGFloat(locationDistance.distance), animated: false)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.boundaryLimit
-            .take(1)
-            .subscribe(onNext: { [weak self] coords in
-                self?.filterPlaceView.setMapBoundary(with: coords)
-            })
-            .disposed(by: disposeBag)
-
         viewModel.outputs.gender
             .take(1)
             .subscribe(onNext: { [weak self] idx in
@@ -113,14 +98,6 @@ class HomeFilterViewController: BaseViewController {
     }
 
     private var filterJobView = SelectJobView()
-    private var hDivider3 = UIView().then { view in
-        view.backgroundColor = .darkG6
-    }
-
-    private var filterPlaceView = SelectPlaceView().then { view in
-        // 3/3 Test 반영
-        view.mapView.isZoomEnabled = true
-    }
 
     private lazy var vStackView = UIStackView.make(
         with: [
@@ -129,8 +106,6 @@ class HomeFilterViewController: BaseViewController {
             filterAgeView,
             hDivider2,
             filterJobView,
-            hDivider3,
-            filterPlaceView,
         ],
         axis: .vertical,
         alignment: .fill,
@@ -195,11 +170,6 @@ extension HomeFilterViewController {
             make.height.equalTo(1)
         }
         hDivider2.snp.makeConstraints { make in
-            make.leading.equalTo(vStackView.snp.leading)
-            make.trailing.equalTo(vStackView.snp.trailing)
-            make.height.equalTo(1)
-        }
-        hDivider3.snp.makeConstraints { make in
             make.leading.equalTo(vStackView.snp.leading)
             make.trailing.equalTo(vStackView.snp.trailing)
             make.height.equalTo(1)
