@@ -18,12 +18,13 @@ final class DetailTitleView: UIView {
     init() {
         super.init(frame: .zero)
         setup()
-        initialLayout()
     }
 
-    func setup(title: String, tag: String) {
+    func setup(title: String, tag: String, finished: Bool) {
         titleLabel.text = title
         tagLabel.text = tag
+        finishTag.isHidden = !finished
+        initialLayout(finished: finished)
     }
 
     private var titleLabel = UILabel().then { label in
@@ -48,24 +49,63 @@ final class DetailTitleView: UIView {
         label.text = "TAGTAG"
     }
 
+    private var finishTag = UIView().then { view in
+        view.backgroundColor = .darkG45
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 4
+
+        let label = UILabel()
+        label.text = "모집 완료"
+        label.font = .iosBody13B
+        label.textColor = .darkG25
+
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(8)
+            make.trailing.equalTo(view.snp.trailing).offset(-8)
+            make.top.equalTo(view.snp.top).offset(5)
+            make.bottom.equalTo(view.snp.bottom).offset(-5)
+        }
+    }
+
     private func setup() {
         addSubviews([
             titleLabel,
             tagLabel,
+            finishTag,
         ])
     }
 
-    private func initialLayout() {
-        tagLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
-            make.leading.equalTo(self.snp.leading)
-        }
+    private func initialLayout(finished: Bool) {
+        if finished {
+            tagLabel.snp.makeConstraints { make in
+                make.top.equalTo(self.snp.top)
+                make.leading.equalTo(self.snp.leading)
+            }
 
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(tagLabel.snp.bottom).offset(9)
-            make.leading.equalTo(tagLabel.snp.leading)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom).offset(-3)
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(tagLabel.snp.bottom).offset(9)
+                make.leading.equalTo(tagLabel.snp.leading)
+                make.trailing.lessThanOrEqualTo(self.snp.trailing)
+            }
+
+            finishTag.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(12)
+                make.leading.equalTo(tagLabel.snp.leading)
+                make.bottom.equalTo(self.snp.bottom).offset(-3)
+            }
+        } else {
+            tagLabel.snp.makeConstraints { make in
+                make.top.equalTo(self.snp.top)
+                make.leading.equalTo(self.snp.leading)
+            }
+
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(tagLabel.snp.bottom).offset(9)
+                make.leading.equalTo(tagLabel.snp.leading)
+                make.trailing.lessThanOrEqualTo(self.snp.trailing)
+                make.bottom.equalTo(self.snp.bottom).offset(-3)
+            }
         }
     }
 }

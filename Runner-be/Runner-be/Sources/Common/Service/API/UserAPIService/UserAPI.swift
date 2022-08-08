@@ -20,7 +20,7 @@ enum UserAPI {
 
     case signout(userID: Int)
 
-    case updateFCMToken(userID: Int)
+    case updateFCMToken(userID: Int, fcmToken: String)
 }
 
 extension UserAPI: TargetType {
@@ -38,7 +38,7 @@ extension UserAPI: TargetType {
             return "/users/\(profileURL)/profileImage"
         case let .signout(userID: userID):
             return "/users/\(userID)"
-        case let .updateFCMToken(userID):
+        case let .updateFCMToken(userID, _):
             return "/users/\(userID)/deviceToken"
         }
     }
@@ -72,8 +72,8 @@ extension UserAPI: TargetType {
         case .signout:
             let parameters = ["secret_key": AppKeys.runnerbe]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case let .updateFCMToken(userID):
-            let parameters = ["deviceToken": userID]
+        case let .updateFCMToken(_, fcmToken):
+            let parameters = ["deviceToken": fcmToken]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }

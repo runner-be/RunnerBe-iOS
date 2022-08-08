@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
+		433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */; };
+		433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */; };
+		433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03428A131DD003B444E /* DetailOptionModalCoordinator.swift */; };
+		433BD03828A13655003B444E /* DeleteConfirmModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03728A13655003B444E /* DeleteConfirmModalViewController.swift */; };
+		433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03928A1365D003B444E /* DeleteConfirmModalViewModel.swift */; };
+		433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03B28A13661003B444E /* DeleteConfirmModalComponent.swift */; };
+		433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03D28A13669003B444E /* DeleteConfirmModalCoordinator.swift */; };
 		434635CA28910476007D8C10 /* PostOrderModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635C928910476007D8C10 /* PostOrderModalComponent.swift */; };
 		434635CC28910491007D8C10 /* PostOrderModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */; };
 		434635CE28910497007D8C10 /* PostOrderModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */; };
@@ -316,6 +324,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
+		433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewModel.swift; sourceTree = "<group>"; };
+		433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalComponent.swift; sourceTree = "<group>"; };
+		433BD03428A131DD003B444E /* DetailOptionModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalCoordinator.swift; sourceTree = "<group>"; };
+		433BD03728A13655003B444E /* DeleteConfirmModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmModalViewController.swift; sourceTree = "<group>"; };
+		433BD03928A1365D003B444E /* DeleteConfirmModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmModalViewModel.swift; sourceTree = "<group>"; };
+		433BD03B28A13661003B444E /* DeleteConfirmModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmModalComponent.swift; sourceTree = "<group>"; };
+		433BD03D28A13669003B444E /* DeleteConfirmModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmModalCoordinator.swift; sourceTree = "<group>"; };
 		434635C928910476007D8C10 /* PostOrderModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalComponent.swift; sourceTree = "<group>"; };
 		434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalCoordinator.swift; sourceTree = "<group>"; };
 		434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrderModalViewModel.swift; sourceTree = "<group>"; };
@@ -643,6 +659,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		433BD02D28A13179003B444E /* DetailOptionModal */ = {
+			isa = PBXGroup;
+			children = (
+				433BD03628A1362B003B444E /* DeleteConfirmModal */,
+				433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */,
+				433BD03428A131DD003B444E /* DetailOptionModalCoordinator.swift */,
+				433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */,
+				433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */,
+			);
+			path = DetailOptionModal;
+			sourceTree = "<group>";
+		};
+		433BD03628A1362B003B444E /* DeleteConfirmModal */ = {
+			isa = PBXGroup;
+			children = (
+				433BD03B28A13661003B444E /* DeleteConfirmModalComponent.swift */,
+				433BD03D28A13669003B444E /* DeleteConfirmModalCoordinator.swift */,
+				433BD03928A1365D003B444E /* DeleteConfirmModalViewModel.swift */,
+				433BD03728A13655003B444E /* DeleteConfirmModalViewController.swift */,
+			);
+			path = DeleteConfirmModal;
+			sourceTree = "<group>";
+		};
 		434635C728910435007D8C10 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1830,6 +1869,7 @@
 		DA60482C281E7ACA00A67568 /* PostDetail */ = {
 			isa = PBXGroup;
 			children = (
+				433BD02D28A13179003B444E /* DetailOptionModal */,
 				C38ABD9327D335F00025929E /* ReportModal */,
 				C3C9732B27C9E0A900232251 /* ApplicantListModal */,
 				C3C9732A27C9D3F400232251 /* Config */,
@@ -2165,6 +2205,7 @@
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
+				433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
@@ -2184,6 +2225,7 @@
 				C3C9736727CAA67E00232251 /* MakerView.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
+				433BD03828A13655003B444E /* DeleteConfirmModalViewController.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
@@ -2267,6 +2309,8 @@
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
+				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
+				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
@@ -2288,6 +2332,7 @@
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
+				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
@@ -2302,6 +2347,7 @@
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
 				C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */,
+				433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
@@ -2311,6 +2357,7 @@
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift in Sources */,
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
+				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
@@ -2363,6 +2410,7 @@
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */,
+				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,

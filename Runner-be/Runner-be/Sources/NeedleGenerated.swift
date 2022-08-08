@@ -33,6 +33,24 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         return ApplicantListModalDependency369da0b8761222e1dadaProvider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->DetailOptionModalComponent") { component in
+        return DetailOptionModalDependency57fe20f8e3658ff62885Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->DetailOptionModalComponent") { component in
+        return DetailOptionModalDependencyb571832a87ebc2bc1bc1Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->DetailOptionModalComponent") { component in
+        return DetailOptionModalDependency66e1bcf116b1e11a5451Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->DeleteConfirmModalComponent") { component in
+        return DeleteConfirmModalDependency3e39a1b905d06288ec3dProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->DeleteConfirmModalComponent") { component in
+        return DeleteConfirmModalDependency2dee429912565945bac2Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->DeleteConfirmModalComponent") { component in
+        return DeleteConfirmModalDependency8e5258be715bfcf76f8aProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent") { component in
         return PostDetailDependency0e20bfa0f3e155bd15e3Provider(component: component)
     }
@@ -214,6 +232,56 @@ private class ApplicantListModalDependency04cfed02b61183a240faProvider: Applican
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ApplicantListModalComponent
 private class ApplicantListModalDependency369da0b8761222e1dadaProvider: ApplicantListModalDependency38daf10a5dd5609ffa27BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class DetailOptionModalDependency57fe20f8e3658ff62885BaseProvider: DetailOptionModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->DetailOptionModalComponent
+private class DetailOptionModalDependency57fe20f8e3658ff62885Provider: DetailOptionModalDependency57fe20f8e3658ff62885BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->DetailOptionModalComponent
+private class DetailOptionModalDependencyb571832a87ebc2bc1bc1Provider: DetailOptionModalDependency57fe20f8e3658ff62885BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->DetailOptionModalComponent
+private class DetailOptionModalDependency66e1bcf116b1e11a5451Provider: DetailOptionModalDependency57fe20f8e3658ff62885BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class DeleteConfirmModalDependency3e39a1b905d06288ec3dBaseProvider: DeleteConfirmModalDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->DeleteConfirmModalComponent
+private class DeleteConfirmModalDependency3e39a1b905d06288ec3dProvider: DeleteConfirmModalDependency3e39a1b905d06288ec3dBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->BookMarkComponent->PostDetailComponent->DeleteConfirmModalComponent
+private class DeleteConfirmModalDependency2dee429912565945bac2Provider: DeleteConfirmModalDependency3e39a1b905d06288ec3dBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->DeleteConfirmModalComponent
+private class DeleteConfirmModalDependency8e5258be715bfcf76f8aProvider: DeleteConfirmModalDependency3e39a1b905d06288ec3dBaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }
