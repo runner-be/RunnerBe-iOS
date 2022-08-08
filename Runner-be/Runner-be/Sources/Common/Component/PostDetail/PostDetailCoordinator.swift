@@ -48,6 +48,20 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 self?.presentReportModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.moreOption
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentDetailOptionModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.deleteConfirm
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presetnDeleteConfrimModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
@@ -78,6 +92,42 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 switch coordResult {
                 case .ok:
                     vm.routeInputs.report.onNext(true)
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presentDetailOptionModal(vm: PostDetailViewModel, animated: Bool) {
+        let comp = component.detailOptionModalComponent
+        let coord = DetailOptionModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .delete:
+                    vm.routeInputs.deleteOption.onNext(())
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presetnDeleteConfrimModal(vm: PostDetailViewModel, animated: Bool) {
+        let comp = component.deleteConfirmModalComponent
+        let coord = DeleteConfirmModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .delete:
+                    vm.routeInputs.delete.onNext(())
                 case .cancel:
                     vm.routeInputs.report.onNext(false)
                 }

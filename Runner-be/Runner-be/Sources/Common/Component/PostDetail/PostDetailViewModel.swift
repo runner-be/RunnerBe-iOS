@@ -10,7 +10,9 @@ import RxSwift
 
 final class PostDetailViewModel: BaseViewModel {
 //    private var marked: Bool = false
+    private var isWriter: Bool = false
     private var applicants: [User] = []
+    private var participants: [User] = []
     var anyChanged = false
 
     init(
@@ -28,6 +30,7 @@ final class PostDetailViewModel: BaseViewModel {
 
                 switch result {
                 case let .guest(postDetail, participated, marked, apply, participants):
+                    self.isWriter = false
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -49,6 +52,7 @@ final class PostDetailViewModel: BaseViewModel {
 //                    self.outputs.bookMarked.onNext(marked)
 //                    self.outputs.apply.onNext(apply)
                 case let .writer(postDetail, marked, participants, applicant):
+                    self.isWriter = true
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
@@ -64,6 +68,7 @@ final class PostDetailViewModel: BaseViewModel {
                         )
                     )
                     self.applicants = applicant
+                    self.participants = participants
 //                    self.marked = marked
 //                    self.outputs.bookMarked.onNext(marked)
                 default: break
@@ -151,8 +156,38 @@ final class PostDetailViewModel: BaseViewModel {
             .subscribe(routes.applicantsModal)
             .disposed(by: disposeBag)
 
-        inputs.report
-            .subscribe(routes.report)
+        inputs.rightOptionItem
+            .subscribe(onNext: { [unowned self] in
+                if self.isWriter {
+                    routes.moreOption.onNext(())
+                } else {
+                    routes.report.onNext(())
+                }
+            })
+            .disposed(by: disposeBag)
+
+        routeInputs.deleteOption
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                if self.isWriter, self.applicants.isEmpty, self.participants.isEmpty {
+                    self.routes.deleteConfirm.onNext(())
+                } else {
+                    self.outputs.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        routeInputs.delete
+            .flatMap {
+                postAPIService.delete(postId: postId)
+            }
+            .subscribe(onNext: { [weak self] success in
+                if success {
+                    self?.routes.backward.onNext((id: postId, needUpdate: true))
+                } else {
+                    self?.outputs.toast.onNext("삭제에 실패했습니다.")
+                }
+            })
             .disposed(by: disposeBag)
 
         routeInputs.report
@@ -171,7 +206,7 @@ final class PostDetailViewModel: BaseViewModel {
 
     struct Input {
         var backward = PublishSubject<Void>()
-        var report = PublishSubject<Void>()
+        var rightOptionItem = PublishSubject<Void>()
 
 //        var bookMark = PublishSubject<Bool>()
         var toMessage = PublishSubject<Void>()
@@ -190,6 +225,8 @@ final class PostDetailViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<(id: Int, needUpdate: Bool)>()
+        var moreOption = PublishSubject<Void>()
+        var deleteConfirm = PublishSubject<Void>()
         var report = PublishSubject<Void>()
         var applicantsModal = PublishSubject<[User]>()
         var message = PublishSubject<Int>()
@@ -198,6 +235,8 @@ final class PostDetailViewModel: BaseViewModel {
     struct RouteInput {
         var needUpdate = PublishSubject<Void>()
         var report = PublishSubject<Bool>()
+        var deleteOption = PublishSubject<Void>()
+        var delete = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

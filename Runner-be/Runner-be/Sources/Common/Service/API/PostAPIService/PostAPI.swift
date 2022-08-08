@@ -18,6 +18,7 @@ enum PostAPI {
     case apply(postId: Int, userId: Int, token: LoginToken)
     case accept(postId: Int, userId: Int, applicantId: Int, accept: Bool, token: LoginToken)
     case close(postId: Int, token: LoginToken)
+    case delete(postId: Int, userId: Int, token: LoginToken)
 
     case myPage(userId: Int, token: LoginToken)
     case attendance(postId: Int, userId: Int, token: LoginToken)
@@ -46,6 +47,8 @@ extension PostAPI: TargetType {
             return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         case let .close(postId, _):
             return "/postings/\(postId)/closing"
+        case let .delete(postId, userId, _):
+            return "/postings/\(postId)/\(userId)/drop"
         case let .myPage(userId, _):
             return "/users/\(userId)/myPage/v2"
         case let .attendance(postId, userId, _):
@@ -71,6 +74,8 @@ extension PostAPI: TargetType {
             return Method.patch
         case .close:
             return Method.post
+        case .delete:
+            return Method.patch
         case .myPage:
             return Method.get
         case .attendance:
@@ -134,6 +139,8 @@ extension PostAPI: TargetType {
             return .requestCompositeData(bodyData: Data(), urlParameters: query)
         case .close:
             return .requestPlain
+        case .delete:
+            return .requestPlain
         case .myPage:
             return .requestPlain
         case .attendance:
@@ -158,6 +165,8 @@ extension PostAPI: TargetType {
         case let .accept(_, _, _, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .close(_, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .delete(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .myPage(_, token):
             return ["x-access-token": "\(token.jwt)"]

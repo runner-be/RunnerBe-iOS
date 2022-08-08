@@ -41,7 +41,7 @@ class PostDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.inputs.report)
+            .bind(to: viewModel.inputs.rightOptionItem)
             .disposed(by: disposeBag)
     }
 
@@ -71,10 +71,11 @@ class PostDetailViewController: BaseViewController {
                     view.setup(userInfo: $1)
                     $0.append(view)
                 }
-                self?.navBar.rightBtnItem.isHidden = data.writer
+
                 self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
+                self?.makeNavBarRightButton(writer: data.writer)
                 self?.makeFooter(
                     writer: data.writer,
                     participated: data.participated,
@@ -261,6 +262,14 @@ extension PostDetailViewController {
         applicantNoti.snp.makeConstraints { make in
             make.trailing.equalTo(applicantBtn.snp.trailing)
             make.top.equalTo(applicantBtn.snp.top)
+        }
+    }
+
+    func makeNavBarRightButton(writer: Bool) {
+        if writer {
+            navBar.rightBtnItem.setImage(Asset.moreVertical.uiImage, for: .normal)
+        } else {
+            navBar.rightBtnItem.setImage(Asset.report.uiImage.withTintColor(.darkG3), for: .normal)
         }
     }
 
