@@ -28,7 +28,11 @@ class OnOffLabelGroup {
     var selected: [Int] {
         for (idx, label) in labels.enumerated() {
             if label.isOn {
-                result.append(idx)
+                if result.isEmpty {
+                    result.append(idx)
+                } else {
+                    result[0] = idx
+                }
             }
         }
         return result
@@ -68,7 +72,7 @@ class OnOffLabelGroup {
                 self?.toggle(label: label)
             })
             .subscribe(onNext: { [weak self] _ in
-                self?.tap.onNext(self?.numberOfOnState ?? 0)
+                self?.tap.onNext(self?.selected[0] ?? 0)
             })
             .disposed(by: disposeBag)
         labels.append(label)

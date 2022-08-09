@@ -15,6 +15,8 @@ import UIKit
 
 class MessageChatViewController: BaseViewController {
     var messages: [MessageList] = []
+    var messageId = 0
+    lazy var messageDataManager = MessageDataManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +26,13 @@ class MessageChatViewController: BaseViewController {
         viewInputs()
         viewModelInput()
         viewModelOutput()
+
+//        messageDataManager.get
     }
 
-    init(viewModel: MessageChatViewModel) {
+    init(viewModel: MessageChatViewModel, messageId: Int) {
         self.viewModel = viewModel
+        self.messageId = messageId
         super.init()
     }
 
@@ -118,25 +123,24 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
 
-//        if !messages.isEmpty{
+//        if !messages.isEmpty {
 //            if messages[indexPath.row].messageFrom == "Others" {
 //                cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
-//                if messages[indexPath.row].whetherPostUser == "Y"{
+//                if messages[indexPath.row].whetherPostUser == "Y" {
 //                    cell.bubbleBackground.backgroundColor = .primary
-//                }
-//                else{
+//                } else {
 //                    cell?.bubbleBackground.backgroundColor = .darkG55
 //                }
-//            }
-//            else{
+//            } else {
 //                cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as? MessageChatRightCell
-//                if messages[indexPath.row].whetherPostUser == "Y"{
+//                if messages[indexPath.row].whetherPostUser == "Y" {
 //                    cell?.bubbleBackground.backgroundColor = .primary
-//                }
-//                else{
+//                } else {
 //                    cell?.bubbleBackground.backgroundColor = .darkG55
 //                }
 //            }
+//        } else {
+//            cell = UITableViewCell()
 //        }
 
         return cell

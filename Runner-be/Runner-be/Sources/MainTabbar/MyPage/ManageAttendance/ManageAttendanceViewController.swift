@@ -74,6 +74,9 @@ class ManageAttendanceViewController: BaseViewController {
         view.setTitleColor(.black, for: .normal)
         view.titleLabel?.font = .iosBody13B
         view.setTitle(L10n.MyPage.MyPost.Manage.SaveButton.title, for: .normal)
+        view.layer.borderWidth = 0
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
     }
 }
 
@@ -84,7 +87,7 @@ extension ManageAttendanceViewController {
 
         view.addSubviews([
             navBar,
-//            timeView,
+            timeView,
             tableView,
             saveButton,
         ])
@@ -97,6 +100,13 @@ extension ManageAttendanceViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
+        timeView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(44)
+        }
+
         tableView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalTo(view.snp.leading)
@@ -105,6 +115,7 @@ extension ManageAttendanceViewController {
         }
 
         saveButton.snp.makeConstraints { make in
+            make.height.equalTo(40)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(8)

@@ -51,7 +51,7 @@ class MessageViewController: BaseViewController {
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
         tableView.rx.itemSelected
-            .map { $0.item }
+            .map { self.messageList[$0.row].roomID! }
             .bind(to: viewModel.inputs.messageChat)
             .disposed(by: disposeBag)
     }

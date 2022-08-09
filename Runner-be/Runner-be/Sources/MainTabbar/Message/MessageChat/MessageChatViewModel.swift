@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class MessageChatViewModel: BaseViewModel {
-    override init() {
+    init(messageId _: Int) {
         super.init()
 
         inputs.backward

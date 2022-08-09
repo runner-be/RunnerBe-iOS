@@ -11,9 +11,21 @@ import NeedleFoundation
 protocol MessageChatDependency: Dependency {}
 
 final class MessageChatComponent: Component<MessageChatDependency> {
-    lazy var scene: (VC: MessageChatViewController, VM: MessageChatViewModel) = (VC: MessageChatViewController(viewModel: viewModel), VM: viewModel)
+    var scene: (VC: UIViewController, VM: MessageChatViewModel) {
+        let viewModel = self.viewModel
+        return (MessageChatViewController(viewModel: viewModel, messageId: messageId), viewModel)
+    }
 
-    lazy var viewModel: MessageChatViewModel = .init()
+    var viewModel: MessageChatViewModel {
+        MessageChatViewModel(messageId: messageId)
+    }
+
+    init(parent: Scope, messageId: Int) {
+        self.messageId = messageId
+        super.init(parent: parent)
+    }
+
+    var messageId: Int
 
     var reportModalComponent: ReportModalComponent {
         return ReportModalComponent(parent: self)

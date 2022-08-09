@@ -15,7 +15,7 @@ final class MessageComponent: Component<MessageDependency> {
 
     lazy var viewModel: MessageViewModel = .init()
 
-    var messageChatComponent: MessageChatComponent {
-        return MessageChatComponent(parent: self)
+    func messageChatComponent(messageId: Int) -> MessageChatComponent {
+        return MessageChatComponent(parent: self, messageId: messageId)
     }
 }

@@ -155,7 +155,12 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-//        selectJobView.jobGroupCollectionView
+        selectJobView.jobGroup.tap.subscribe(onNext: { [weak self] idx in
+            // 여기서 필요한 조치를 취하면 됨
+            if self?.jobindex != idx{ //jobid 넘기고 모달띄우기
+                
+            }
+        })
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in
@@ -341,7 +346,6 @@ extension EditInfoViewController {
             break
         }
 
-        selectJobView.jobGroup.result.append(jobindex)
         selectJobView.jobGroup.labels[jobindex].isOn = true
     }
 
