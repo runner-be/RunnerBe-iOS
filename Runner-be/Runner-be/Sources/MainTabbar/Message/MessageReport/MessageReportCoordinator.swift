@@ -1,22 +1,22 @@
 //
-//  MessageCoordinator.swift
+//  MessageReportCoordinator.swift
 //  Runner-be
 //
-//  Created by 김신우 on 2022/04/26.
+//  Created by 이유리 on 2022/08/13.
 //
 
 import Foundation
 import RxSwift
 
-enum MessageChatResult {
+enum MessageReportResult {
     case backward(needUpdate: Bool)
-    case report
+    case reportModal
 }
 
-final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
-    var component: MessageChatComponent
+final class MessageReportCoordinator: BasicCoordinator<MessageReportResult> {
+    var component: MessageReportComponent
 
-    init(component: MessageChatComponent, navController: UINavigationController) {
+    init(component: MessageReportComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -32,14 +32,14 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
-            .map { MessageChatResult.backward(needUpdate: $0) }
+            .map { MessageReportResult.backward(needUpdate: $0) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.report
-            .map { (vm: scene.VM, messageId: $0) }
-            .subscribe(onNext: { [weak self] result in
-                self?.pushMessageReportScene(vm: result.vm, messageId: result.messageId, animated: true)
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentReportModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -51,25 +51,25 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             .disposed(by: sceneDisposeBag)
     }
 
-    func pushMessageReportScene(vm: MessageChatViewModel, messageId: Int, animated: Bool) {
-        let comp = component.reportMessageComponent(messageId: messageId)
-        let coord = MessageReportCoordinator(component: comp, navController: navigationController)
+    private func presentReportModal(vm: MessageReportViewModel, animated: Bool) {
+        let comp = component.reportModalComponent
+        let coord = ReportModalCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
-                case let .backward(needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                case .reportModal:
-                    vm.routeInputs.report.onNext(messageId)
+                case .ok:
+                    vm.routeInputs.report.onNext(true)
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
                 }
             })
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
-    func pushDetailPostScene(vm: MessageChatViewModel, postId: Int, animated: Bool) {
+    func pushDetailPostScene(vm: MessageReportViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 

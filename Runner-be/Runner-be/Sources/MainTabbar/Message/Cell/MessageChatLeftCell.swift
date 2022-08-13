@@ -21,6 +21,14 @@ class MessageChatLeftCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
+
+        checkBox.rx.tap
+            .map {
+                self.checkBox.isSelected.toggle()
+                return self.checkBox.isSelected
+            }
+            .subscribe(tapCheck)
+            .disposed(by: disposeBag)
     }
 
     var profileImage = UIImageView().then { view in
@@ -49,9 +57,20 @@ class MessageChatLeftCell: UITableViewCell {
     }
 
     var checkBox = UIButton().then { button in
-        button.setImage(Asset.checkBoxIconEmpty.uiImage, for: .normal)
-        button.setImage(Asset.checkBoxIconChecked.uiImage, for: .selected)
+        button.setImage(Asset.checkBoxIconEmpty.uiImage.withTintColor(.darkG35), for: .normal)
+        button.setImage(Asset.checkBoxIconChecked.uiImage.withTintColor(.primary), for: .selected)
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        button.backgroundColor = .clear
+        button.isSelected = false
         button.isHidden = true
+    }
+
+    override var isSelected: Bool {
+        get { checkBox.isSelected }
+        set {
+            checkBox.isSelected = newValue
+            tapCheck.onNext(newValue)
+        }
     }
 
     var messageDate = UILabel().then { view in
@@ -65,6 +84,7 @@ class MessageChatLeftCell: UITableViewCell {
     }
 
     var disposeBag = DisposeBag()
+    var tapCheck = PublishSubject<Bool>()
 }
 
 extension MessageChatLeftCell {

@@ -1,8 +1,8 @@
 //
-//  MessageViewController.swift
+//  MessageReportViewController.swift
 //  Runner-be
 //
-//  Created by 이유리 on 2022/04/26.
+//  Created by 이유리 on 2022/08/13.
 //
 
 import RxCocoa
@@ -12,10 +12,11 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageChatViewController: BaseViewController {
+class MessageReportViewController: BaseViewController {
     var messages: [MessageList] = []
     var messageId = 0
     var postId = 0
+    var reportMessageList: [Int] = []
 
     lazy var messageDataManager = MessageDataManager()
 
@@ -31,12 +32,12 @@ class MessageChatViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        chatTextView.delegate = self
+//        chatTextView.delegate = self
 
         messageDataManager.getMessageChat(viewController: self, roomId: messageId)
     }
 
-    init(viewModel: MessageChatViewModel, messageId: Int) {
+    init(viewModel: MessageReportViewModel, messageId: Int) {
         self.viewModel = viewModel
         self.messageId = messageId
         super.init()
@@ -47,7 +48,7 @@ class MessageChatViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: MessageChatViewModel
+    private var viewModel: MessageReportViewModel
 
     private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
         navBar.leftBtnItem.rx.tap
@@ -55,7 +56,6 @@ class MessageChatViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .map { _ in self.messageId }
             .bind(to: viewModel.inputs.report)
             .disposed(by: disposeBag)
 
@@ -70,17 +70,20 @@ class MessageChatViewController: BaseViewController {
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+        viewModel.outputs.toast
+            .subscribe(onNext: { [weak self] message in
+                self?.view.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.text = L10n.MessageList.NavBar.title
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.isHidden = false
-        navBar.rightBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)
-        navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
+        navBar.rightBtnItem.setImage(nil, for: .normal) // 버튼 지우기
+        navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
+        navBar.rightBtnItem.setTitleColor(.darkG35, for: .normal)
+        navBar.rightBtnItem.isEnabled = false
+        navBar.titleLabel.text = L10n.MessageList.Chat.NavBar.title
     }
 
     var postSection = MessagePostView().then { view in
@@ -95,32 +98,11 @@ class MessageChatViewController: BaseViewController {
         view.separatorColor = .clear
         view.showsVerticalScrollIndicator = false
     }
-
-    var chatBackGround = UIView().then { view in
-        view.backgroundColor = .darkG6
-    }
-
-    var chatTextView = UITextView().then { view in
-        view.backgroundColor = .darkG5
-        view.layer.borderWidth = 0
-        view.layer.cornerRadius = 32
-        view.clipsToBounds = true
-
-        view.contentInset = .init(top: 8, left: 14, bottom: 18, right: 44)
-//        view.textContainerInset = .init(top: 8, left: 14, bottom: 18, right: 44)
-        view.font = .iosBody15R
-        view.isScrollEnabled = true
-        view.showsVerticalScrollIndicator = false
-    }
-
-    var sendButton = UIButton().then { view in
-        view.setImage(Asset.iconsSend24.uiImage, for: .normal)
-    }
 }
 
 // MARK: - Layout
 
-extension MessageChatViewController {
+extension MessageReportViewController {
     private func setupViews() {
         setBackgroundColor()
 
@@ -128,19 +110,7 @@ extension MessageChatViewController {
             navBar,
             postSection,
             tableView,
-            chatBackGround,
         ])
-
-        chatBackGround.addSubviews([
-            chatTextView,
-        ])
-
-        chatTextView.addSubviews([
-            sendButton,
-        ])
-
-        chatBackGround.bringSubviewToFront(chatTextView)
-        chatTextView.bringSubviewToFront(sendButton)
     }
 
     private func initialLayout() {
@@ -160,44 +130,36 @@ extension MessageChatViewController {
             make.top.equalTo(postSection.snp.bottom).offset(22)
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.chatBackGround.snp.top)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        chatBackGround.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.snp.leading)
-            make.trailing.equalTo(self.view.snp.trailing)
-            make.bottom.equalTo(self.view.snp.bottom)
-            make.height.greaterThanOrEqualTo(84)
-            make.height.lessThanOrEqualTo(118)
-        }
-
-        chatTextView.snp.makeConstraints { make in
-            make.leading.equalTo(chatBackGround.snp.leading).offset(16)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
-            make.bottom.equalTo(chatBackGround.snp.bottom).offset(-45)
-            make.top.equalTo(chatBackGround.snp.top).offset(12)
-            make.height.greaterThanOrEqualTo(30)
-            make.height.lessThanOrEqualTo(60)
-        }
-
-        sendButton.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
-            make.bottom.equalTo(chatTextView.textInputView.snp.bottom).offset(-6)
-            make.trailing.equalTo(chatTextView.textInputView.snp.trailing).offset(-12)
-        }
-
-        let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
-        sendButton.addGestureRecognizer(tapSendMessage)
-    }
-
-    @objc
-    func tapSendMessage(_: UITapGestureRecognizer) {
-        messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+//        chatBackGround.snp.makeConstraints { make in
+//            make.leading.equalTo(self.view.snp.leading)
+//            make.trailing.equalTo(self.view.snp.trailing)
+//            make.bottom.equalTo(self.view.snp.bottom)
+//            make.height.greaterThanOrEqualTo(84)
+//            make.height.lessThanOrEqualTo(118)
+//        }
+//
+//        chatTextView.snp.makeConstraints { make in
+//            make.leading.equalTo(chatBackGround.snp.leading).offset(16)
+//            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
+//            make.bottom.equalTo(chatBackGround.snp.bottom).offset(-45)
+//            make.top.equalTo(chatBackGround.snp.top).offset(12)
+//            make.height.greaterThanOrEqualTo(30)
+//            make.height.lessThanOrEqualTo(60)
+//        }
+//
+//        sendButton.snp.makeConstraints { make in
+//            make.width.equalTo(24)
+//            make.height.equalTo(24)
+//            make.bottom.equalTo(chatTextView.textInputView.snp.bottom).offset(-6)
+//            make.trailing.equalTo(chatTextView.textInputView.snp.trailing).offset(-12)
+//        }
     }
 }
 
-extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
+extension MessageReportViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return messages.count
     }
@@ -219,6 +181,7 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.messageContent.text = messages[indexPath.row].content!
                 cell.nickName.text = messages[indexPath.row].nickName
                 cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+                cell.checkBox.isHidden = false
 
                 if messages[indexPath.row].whetherPostUser == "Y" {
                     cell.bubbleBackground.backgroundColor = .primary
@@ -261,17 +224,7 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
 //    }
 }
 
-extension MessageChatViewController: UITextViewDelegate {
-    func textViewDidChange(_: UITextView) {
-        if !chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.isEnabled = true
-        } else {
-            sendButton.isEnabled = false
-        }
-    }
-}
-
-extension MessageChatViewController {
+extension MessageReportViewController {
     func didSucessGetMessageChat(_ result: GetMessageChatResult) {
         postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
         postSection.postTitle.text = result.roomInfo?[0].title
@@ -280,10 +233,6 @@ extension MessageChatViewController {
         messages.removeAll()
         messages.append(contentsOf: result.messageList!)
         tableView.reloadData()
-    }
-
-    func didSuccessPostMessage(_: BaseResponse) {
-        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
     }
 
     func failedToRequest(message: String) {
