@@ -76,7 +76,7 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var nickNameText = PublishSubject<String>()
         var nickNameApply = PublishSubject<String>()
-        var jobSelected = PublishSubject<Int>()
+        var jobSelected = PublishSubject<String>()
     }
 
     struct Output {
@@ -97,6 +97,7 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var nickNameModal = PublishSubject<Void>()
         var jobModal = PublishSubject<Void>()
+        var jobSelected = PublishSubject<String>()
     }
 
     struct RouteInput {

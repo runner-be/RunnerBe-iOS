@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class JobChangeModalViewModel: BaseViewModel {
-    override init() {
+    init(job _: String) {
         super.init()
 
         inputs.tapOK

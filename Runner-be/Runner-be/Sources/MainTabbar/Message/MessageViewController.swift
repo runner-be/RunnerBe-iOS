@@ -51,7 +51,7 @@ class MessageViewController: BaseViewController {
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
         tableView.rx.itemSelected
-            .map { self.messageList[$0.row].roomID! }
+            .map { self.messageList[$0.row].roomId! }
             .bind(to: viewModel.inputs.messageChat)
             .disposed(by: disposeBag)
     }
@@ -71,7 +71,9 @@ class MessageViewController: BaseViewController {
         navBar.titleSpacing = 12
     }
 
-    private var tableView = UITableView()
+    private var tableView = UITableView().then { view in
+        view.separatorColor = .clear
+    }
 }
 
 // MARK: - Layout
@@ -121,7 +123,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postTitle.text = messageList[indexPath.row].title
             cell.nameLabel.text = messageList[indexPath.row].repUserName
 
-            if messageList[indexPath.row].recentMessage == "N" { // 읽은 메시지가 아니면
+            if messageList[indexPath.row].recentMessage == "Y" { // 안읽은 메시지 여부 : 있음
                 cell.backgroundColor = .primaryBestDark
             } else {
                 cell.backgroundColor = .clear

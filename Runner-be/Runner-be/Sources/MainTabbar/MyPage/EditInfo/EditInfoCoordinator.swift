@@ -43,9 +43,9 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.jobModal
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentJobModal(vm: vm, animated: false)
+            .map { (vm: scene.VM, job: $0) }
+            .subscribe(onNext: { [weak self] _ in
+//                self?.presentJobModal(vm: vm, job: result.job, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -70,8 +70,8 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
         addChildDisposable(id: uuid, disposable: disposable)
     }
 
-    private func presentJobModal(vm: EditInfoViewModel, animated: Bool) {
-        let comp = component.jobChangeModalComponent
+    private func presentJobModal(vm: EditInfoViewModel, job: String, animated: Bool) {
+        let comp = component.jobChangeModalComponent(job: job)
         let coord = JobChangeModalCoordinator(component: comp, navController: navigationController)
         let uuid = coord.identifier
 

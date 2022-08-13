@@ -30,4 +30,8 @@ final class MessageChatComponent: Component<MessageChatDependency> {
     var reportModalComponent: ReportModalComponent {
         return ReportModalComponent(parent: self)
     }
+
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(parent: self, postId: postId)
+    }
 }

@@ -37,5 +37,6 @@ struct MessageList: Codable {
 // MARK: - RoomInfo
 
 struct RoomInfo: Codable {
+    let postId: Int?
     let runningTag, title: String?
 }

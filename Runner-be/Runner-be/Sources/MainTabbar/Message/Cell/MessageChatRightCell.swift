@@ -23,26 +23,22 @@ class MessageChatRightCell: UITableViewCell {
         initialLayout() // cell 레이아웃 설정
     }
 
-    private var messageContent = UILabel().then { label in
+    var messageContent = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG1
         label.text = "메시지 내용"
+        label.textColor = .black
         label.numberOfLines = 0
     }
 
-    private var bubbleBackground = UIView().then { view in
+    var bubbleBackground = UIView().then { view in
         view.backgroundColor = .darkG55
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner] // 오른쪽 위 직각
         view.clipsToBounds = true
     }
 
-    private var checkBox = UIButton().then { button in
-        button.setImage(Asset.checkBoxIconEmpty.uiImage, for: .normal)
-        button.isHidden = true
-    }
-
-    private var messageDate = UILabel().then { view in
+    var messageDate = UILabel().then { view in
         view.textColor = .darkG4
         view.font = .iosCaption11R
         view.numberOfLines = 1
@@ -63,7 +59,6 @@ extension MessageChatRightCell {
         contentView.addSubviews([
             bubbleBackground,
             messageContent,
-            checkBox,
             messageDate,
         ])
     }
@@ -72,6 +67,16 @@ extension MessageChatRightCell {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
             make.trailing.equalTo(self.contentView.snp.trailing)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
+        }
+
+        messageContent.snp.makeConstraints { make in
+            make.width.lessThanOrEqualTo(200)
+            make.height.lessThanOrEqualTo(200)
+            make.top.equalTo(bubbleBackground.snp.top).offset(12)
+            make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
+            make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
+            make.bottom.equalTo(bubbleBackground.snp.bottom).offset(-12)
         }
 
         messageDate.snp.makeConstraints { make in

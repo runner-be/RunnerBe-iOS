@@ -42,6 +42,13 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
                 self?.presentReportModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentReportModal(vm: MessageChatViewModel, animated: Bool) {
@@ -56,6 +63,23 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
                     vm.routeInputs.report.onNext(true)
                 case .cancel:
                     vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    func pushDetailPostScene(vm: MessageChatViewModel, postId: Int, animated: Bool) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case let .backward(id, marked, needUpdate):
+                    vm.routeInputs.needUpdate.onNext(needUpdate)
+                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
                 }
             })
 

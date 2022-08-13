@@ -21,7 +21,17 @@ class MessagePostView: UIView {
         initialLayout()
     }
 
-    var badgeLabel = BadgeLabel()
+    var badgeLabel = UIButton().then { view in
+        view.sizeToFit()
+        view.setTitleColor(.primarydark, for: .normal)
+        view.titleLabel?.font = .iosBody13R
+//        view.setTitle(L10n.MyPage.MyPost.Manage.SaveButton.title, for: .normal)
+        view.layer.borderColor = UIColor.primarydark.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        view.isEnabled = false
+    }
 
     var postTitle = UILabel().then { view in
         view.textColor = .darkG25
@@ -50,6 +60,7 @@ class MessagePostView: UIView {
             make.top.equalTo(self.snp.top).offset(16)
             make.leading.equalTo(self.snp.leading).offset(16)
             make.bottom.equalTo(self.snp.bottom).offset(-18)
+            make.height.equalTo(20)
         }
 
         postTitle.snp.makeConstraints { make in

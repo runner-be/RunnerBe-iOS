@@ -23,6 +23,7 @@ enum DateFormat {
     case ampm // am, pm
     case Hmm // 6:00
     case custom(format: String)
+    case messageTime
 }
 
 extension DateFormat {
@@ -58,6 +59,8 @@ extension DateFormat {
             return "약 h시간mm분"
         case let .custom(format):
             return format
+        case .messageTime:
+            return "M/dd"
         }
     }
 }

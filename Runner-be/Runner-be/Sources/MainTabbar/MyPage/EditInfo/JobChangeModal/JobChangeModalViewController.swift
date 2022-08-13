@@ -13,6 +13,9 @@ import Then
 import UIKit
 
 class JobChangeModalViewController: BaseViewController {
+    var job = ""
+    lazy var editInfoDataManager = EditInfoDataManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,8 +25,9 @@ class JobChangeModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: JobChangeModalViewModel) {
+    init(viewModel: JobChangeModalViewModel, job: String) {
         self.viewModel = viewModel
+        self.job = job
         super.init()
     }
 

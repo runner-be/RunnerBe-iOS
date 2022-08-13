@@ -37,6 +37,7 @@ class MessageChatLeftCell: UITableViewCell {
         label.font = .iosBody15R
         label.textColor = .darkG1
         label.text = "메시지 내용"
+        label.textColor = .black
         label.numberOfLines = 0
     }
 
@@ -49,6 +50,7 @@ class MessageChatLeftCell: UITableViewCell {
 
     var checkBox = UIButton().then { button in
         button.setImage(Asset.checkBoxIconEmpty.uiImage, for: .normal)
+        button.setImage(Asset.checkBoxIconChecked.uiImage, for: .selected)
         button.isHidden = true
     }
 
@@ -96,6 +98,16 @@ extension MessageChatLeftCell {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(nickName.snp.bottom).offset(12)
             make.leading.equalTo(nickName.snp.leading)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
+        }
+
+        messageContent.snp.makeConstraints { make in
+            make.width.lessThanOrEqualTo(200)
+            make.height.lessThanOrEqualTo(200)
+            make.top.equalTo(bubbleBackground.snp.top).offset(12)
+            make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
+            make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
+            make.bottom.equalTo(bubbleBackground.snp.bottom).offset(-12)
         }
 
         checkBox.snp.makeConstraints { make in

@@ -46,4 +46,44 @@ class MessageDataManager {
                 }
             }
     }
+
+    func postMessage(viewController: MessageChatViewController, roomId: Int, content: String) {
+        let parameters = PostMessageRequest(content: content)
+        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+            .validate()
+            .responseDecodable(of: BaseResponse.self) { response in
+                switch response.result {
+                case let .success(response):
+                    if response.isSuccess {
+                        viewController.didSuccessPostMessage(response)
+
+                    } else {
+                        viewController.failedToRequest(message: response.message)
+                    }
+                case let .failure(error):
+                    print(error)
+                    viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
+                }
+            }
+    }
+    
+//    func reportMessage(viewController: ReportModalViewController, messageIdList:String) {
+//        let parameters = PostMessageReportRequest(messageIdList: messageIdList)
+//        AF.request("\(Constant.BASE_URL)messages/report", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+//            .validate()
+//            .responseDecodable(of: BaseResponse.self) { response in
+//                switch response.result {
+//                case let .success(response):
+//                    if response.isSuccess {
+//                        viewController.didSuccessPostMessage(response)
+//
+//                    } else {
+//                        viewController.failedToRequest(message: response.message)
+//                    }
+//                case let .failure(error):
+//                    print(error)
+//                    viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
+//                }
+//            }
+//    }
 }
