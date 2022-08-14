@@ -37,15 +37,14 @@ final class ManageAttendanceResultView: UIView {
     }
 
     private func initialLayout() {
-        background.snp.makeConstraints{ make in
+        background.snp.makeConstraints { _ in
 //            make.top.equalTo(self..snp.top)
 //            make.leading.equalTo(contentView.snp.leading).offset(16)
 //            make.trailing.equalTo(self.view.snp.trailing).offset(-16)
 //            make.bottom.equalTo(self.view.snp.bottom)
         }
 
-        label.snp.makeConstraints{ make in
-
+        label.snp.makeConstraints { _ in
         }
     }
 }

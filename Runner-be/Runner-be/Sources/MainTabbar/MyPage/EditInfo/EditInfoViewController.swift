@@ -155,7 +155,7 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectJobView.jobGroup.tap.subscribe(onNext: { [weak self] idx in
+        selectJobView.jobGroup.tap.subscribe(onNext: { [weak self] _ in
             // 여기서 필요한 조치를 취하면 됨
 
         })
