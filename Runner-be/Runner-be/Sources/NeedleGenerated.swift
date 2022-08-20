@@ -30,6 +30,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent") { component in
         ReportModalDependency7c1d923aae037ccbecd8Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent->MessageReportComponent->ReportModalComponent") { component in
+        ReportModalDependency0e81ba2045853184f70fProvider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->PostDetailComponent->ApplicantListModalComponent") { component in
         ApplicantListModalDependency38daf10a5dd5609ffa27Provider(component: component)
     }
@@ -229,6 +232,13 @@ private class ReportModalDependencycbafb2a64b71f6d458d4Provider: ReportModalDepe
 
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent->ReportModalComponent
 private class ReportModalDependency7c1d923aae037ccbecd8Provider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
+    init(component _: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+
+/// ^->AppComponent->MainTabComponent->MessageComponent->MessageChatComponent->MessageReportComponent->ReportModalComponent
+private class ReportModalDependency0e81ba2045853184f70fProvider: ReportModalDependencyb9c310c9766e66dc9083BaseProvider {
     init(component _: NeedleFoundation.Scope) {
         super.init()
     }

@@ -11,11 +11,17 @@ import SnapKit
 import Then
 import UIKit
 
+protocol MessageChatReportDelegate: AnyObject {
+    func checkButtonTap(cell: MessageChatLeftCell) // 체크박스 눌렀을 때 index를 받기 위한 delegate
+}
+
 class MessageChatLeftCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    var delegate: MessageChatReportDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,11 +31,17 @@ class MessageChatLeftCell: UITableViewCell {
         checkBox.rx.tap
             .map {
                 self.checkBox.isSelected.toggle()
+                self.delegate?.checkButtonTap(cell: self)
                 return self.checkBox.isSelected
             }
             .subscribe(tapCheck)
             .disposed(by: disposeBag)
     }
+
+//    @objc
+//    func tapCheckBox(_: UITapGestureRecognizer) {
+//        delegate?.checkButtonTap(cell: self)
+//    }
 
     var profileImage = UIImageView().then { view in
         view.image = UIImage(named: "iconsProfile48")

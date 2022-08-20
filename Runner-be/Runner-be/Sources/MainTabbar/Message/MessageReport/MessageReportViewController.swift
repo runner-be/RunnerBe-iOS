@@ -10,6 +10,7 @@ import RxGesture
 import RxSwift
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 class MessageReportViewController: BaseViewController {
@@ -17,6 +18,8 @@ class MessageReportViewController: BaseViewController {
     var messageId = 0
     var postId = 0
     var reportMessageList: [Int] = []
+    var reportMessageIndexString = ""
+    var toastMessage = ""
 
     lazy var messageDataManager = MessageDataManager()
 
@@ -72,7 +75,11 @@ class MessageReportViewController: BaseViewController {
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+                self!.reportMessageIndexString = self!.reportMessageList.map(String.init).joined(separator: ",") // 인덱스 separator ,로 붙여서 전달
+                print(self!.reportMessageIndexString)
+                self!.toastMessage = message // 메시지 세팅
+//                self!.view.makeToast(message)
+                self!.messageDataManager.reportMessage(viewController: self!, messageIdList: self!.reportMessageIndexString)
             })
             .disposed(by: disposeBag)
     }
@@ -159,7 +166,25 @@ extension MessageReportViewController {
     }
 }
 
-extension MessageReportViewController: UITableViewDelegate, UITableViewDataSource {
+extension MessageReportViewController: UITableViewDelegate, UITableViewDataSource, MessageChatReportDelegate {
+    func checkButtonTap(cell: MessageChatLeftCell) {
+        if cell.checkBox.isSelected { // 선택한 것만 가져오기
+            let index = tableView.indexPath(for: cell)?.row
+//            print(index)
+            reportMessageList.append(index!)
+        } else { // 제외하기
+            reportMessageList = reportMessageList.filter { $0 != tableView.indexPath(for: cell)?.row }
+        }
+
+        if !reportMessageList.isEmpty {
+            navBar.rightBtnItem.isEnabled = true
+            navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
+        } else {
+            navBar.rightBtnItem.isEnabled = false
+            navBar.rightBtnItem.setTitleColor(.darkG4, for: .normal)
+        }
+    }
+
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return messages.count
     }
@@ -174,6 +199,7 @@ extension MessageReportViewController: UITableViewDelegate, UITableViewDataSourc
 
             if messages[indexPath.row].messageFrom == "Others" {
                 let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
+                cell.delegate = self // 위 MessageChatReportDelegate를 동작시키려면 반드시 이 delegate가 자기자신임을 명시해주어야함 !!
 
                 cell.selectionStyle = .none
                 cell.separatorInset = .zero // 구분선 제거
@@ -233,6 +259,10 @@ extension MessageReportViewController {
         messages.removeAll()
         messages.append(contentsOf: result.messageList!)
         tableView.reloadData()
+    }
+
+    func didSuccessReportMessage(_: BaseResponse) {
+        view.makeToast(toastMessage)
     }
 
     func failedToRequest(message: String) {
