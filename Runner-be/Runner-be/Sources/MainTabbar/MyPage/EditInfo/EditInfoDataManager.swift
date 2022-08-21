@@ -16,6 +16,7 @@ class EditInfoDataManager {
                 switch response.result {
                 case let .success(response):
                     if response.isSuccess {
+                        print(response)
                         viewController.didSuccessGetUserMyPage(response.result!)
                     } else {
                         viewController.failedToRequest(message: response.message)

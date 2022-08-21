@@ -13,7 +13,6 @@ import Then
 import UIKit
 
 class JobChangeModalViewController: BaseViewController {
-    var job = ""
     lazy var editInfoDataManager = EditInfoDataManager()
 
     override func viewDidLoad() {
@@ -25,9 +24,8 @@ class JobChangeModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: JobChangeModalViewModel, job: String) {
+    init(viewModel: JobChangeModalViewModel) {
         self.viewModel = viewModel
-        self.job = job
         super.init()
     }
 
@@ -75,7 +73,7 @@ class JobChangeModalViewController: BaseViewController {
         label.font = .iosBody17R
         label.textColor = .darkG1
         label.text = L10n.MyPage.Settings.Modal.Job.content
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.textAlignment = .center
     }
 
@@ -84,7 +82,7 @@ class JobChangeModalViewController: BaseViewController {
     }
 
     private var buttonOk = UIButton().then { button in
-        button.setTitle(L10n.MyPage.Settings.Modal.NickName.Button.ok, for: .normal)
+        button.setTitle(L10n.MyPage.Settings.Modal.Job.ok, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
 
@@ -96,7 +94,7 @@ class JobChangeModalViewController: BaseViewController {
     }
 
     private var buttonNo = UIButton().then { button in
-        button.setTitle(L10n.MyPage.Settings.Modal.NickName.Button.cancel, for: .normal)
+        button.setTitle(L10n.MyPage.Settings.Modal.Job.no, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
 

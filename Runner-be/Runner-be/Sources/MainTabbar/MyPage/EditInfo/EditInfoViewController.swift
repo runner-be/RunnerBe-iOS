@@ -16,8 +16,12 @@ import UIKit
 class EditInfoViewController: BaseViewController {
     lazy var editInfoDataManager = EditInfoDataManager()
 
-    var jobindex = -1
-    var jobCode = ""
+    var jobindex = -1 // 초기 job index
+    var jobCode = "" // 초기 job code
+    var selectedJobCode = "" // 선택된 jobcode
+    var selectedJobIdx = -1 // 선택된 jobindex
+    var jobChangePossible = false
+    var jobCodeList = ["PSV", "EDU", "DEV", "PSM", "DES", "MPR", "SER", "PRO", "RES", "SAF", "MED", "HUR", "ACC", "CUS"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +118,12 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+        viewModel.outputs.jobChanged
+            .subscribe(onNext: { [weak self] _ in
+                self!.editInfoDataManager.patchJob(viewController: self!, job: self?.selectedJobCode ?? "PSV")
+            })
+            .disposed(by: disposeBag)
+
         viewModel.outputs.toast
             .subscribe(onNext: { [weak self] message in
                 self?.view.makeToast(message)
@@ -155,10 +165,35 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectJobView.jobGroup.tap.subscribe(onNext: { [weak self] _ in
-            // 여기서 필요한 조치를 취하면 됨
+        // 1. 현재 직업과 다른 직업을 선택했을 때 모달 노출
+        // 2. 직업 수정한 이후에 한번 더 직업을 수정하려고 할 때, 텍스트가 뜨면서 모달 노출 X
+        // job modal 뷰컨에 idx 넘겨서 job modal에서 api 호출한 뒤 결과값만 받아오도록
+        // 한번 변경한 뒤에는, 모달이 아니라 텍스트를 띄워줘야함
 
-        })
+        selectJobView.jobGroup.tap
+            .filter { [weak self] idx in
+                if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
+                    self?.selectedJobIdx = idx
+                    return true
+                }
+                return false // 여기서는 실행이 안됨
+            }
+            .do(onNext: { [weak self] idx in
+                self?.selectedJobCode = self?.jobCodeList[idx] ?? "PSV"
+            })
+            .map { _ in }
+            .bind(to: viewModel.inputs.jobSelected)
+            .disposed(by: disposeBag)
+
+        // 별로 안좋은 예시
+//            .subscribe(onNext: { [weak self] idx in
+//            self?.selectedJobIdx = idx
+//
+//            if idx != self?.jobindex {
+//                //editinfo viewmodel에
+//                self?.viewModel.inputs.jobSelected.onNext(())
+//            }
+//        })
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in
@@ -307,6 +342,14 @@ extension EditInfoViewController {
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         }
 
+        if result.myInfo?[0].jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
+            selectJobGuideLabel.isHidden = false
+            jobChangePossible = false
+        } else { // 변경한지 3개월 지남 -> 변경 가능
+            selectJobGuideLabel.isHidden = true
+            jobChangePossible = true
+        }
+
         jobCode = (result.myInfo?[0].job)!
 
         switch result.myInfo?[0].job {
@@ -345,11 +388,16 @@ extension EditInfoViewController {
         }
 
         selectJobView.jobGroup.labels[jobindex].isOn = true
+        selectJobView.jobGroup.result.removeAll()
+        selectJobView.jobGroup.result.append(jobindex)
     }
 
-    func didSuccessPatchJob(_: BaseResponse) {}
+    func didSuccessPatchJob(_: BaseResponse) {
+        selectJobView.jobGroup.labels[selectedJobIdx].isOn = true
+        selectJobGuideLabel.isHidden = false
+    }
 
     func failedToRequest(message: String) {
-        print(message)
+        view.makeToast(message)
     }
 }

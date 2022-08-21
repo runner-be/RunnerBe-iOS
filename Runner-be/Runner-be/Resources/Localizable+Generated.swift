@@ -462,7 +462,7 @@ internal enum L10n {
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.Content")
           /// 아니오
           internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.no")
-          /// 예
+          /// 네
           internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.ok")
         }
         internal enum Logout {

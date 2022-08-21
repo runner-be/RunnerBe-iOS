@@ -31,7 +31,7 @@ final class EditInfoComponent: Component<EditInfoDependency> {
         return NickNameChangeModalComponent(parent: self)
     }
 
-    func jobChangeModalComponent(job: String) -> JobChangeModalComponent {
-        return JobChangeModalComponent(parent: self, job: job)
+    var jobChangeModalComponent: JobChangeModalComponent {
+        return JobChangeModalComponent(parent: self)
     }
 }

@@ -31,13 +31,13 @@ struct MyInfo: Codable {
     let nickName, gender, age, diligence: String?
     let job: String?
     let profileImageURL: String?
-    let pushOn, nameChanged: String?
+    let pushOn, nameChanged, jobChangePossible: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case nickName, gender, age, diligence, job
         case profileImageURL = "profileImageUrl"
-        case pushOn, nameChanged
+        case pushOn, nameChanged, jobChangePossible
     }
 }
 

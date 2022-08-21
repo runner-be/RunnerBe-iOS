@@ -31,16 +31,17 @@ final class EditInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-//        inputs.jobSelected
-//            .map { Job(idx: $0) }
-//            .do(onNext: { [weak self] job in
-//                if job == .none {
-//                    self?.outputs.toast.onNext("오류가 발생했습니다 다시 시도해주세요")
-//                }
-//            })
-//            .filter { $0 != .none }
-//            .bind(to: routes.jobModal)
-//            .disposed(by: disposeBag)
+        inputs.jobSelected
+            .bind(to: routes.jobModal)
+            .disposed(by: disposeBag)
+
+        routeInputs.changeJob
+            .subscribe(onNext: { [weak self] isChangeJob in
+                if isChangeJob {
+                    self?.outputs.jobChanged.onNext(isChangeJob)
+                }
+            })
+            .disposed(by: disposeBag)
 
         inputs.backward
             .map { [weak self] in self?.dirty ?? true }
@@ -76,13 +77,13 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var nickNameText = PublishSubject<String>()
         var nickNameApply = PublishSubject<String>()
-        var jobSelected = PublishSubject<String>()
+        var jobSelected = PublishSubject<Void>()
     }
 
     struct Output {
         var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
 
-        var jobChanged = PublishSubject<Job>()
+        var jobChanged = PublishSubject<Bool>()
 
         var nickNameChanged = PublishSubject<String>()
         var nickNameDup = PublishSubject<Bool>()

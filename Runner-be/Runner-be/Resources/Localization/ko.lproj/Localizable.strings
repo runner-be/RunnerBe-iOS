@@ -248,7 +248,7 @@
 "MyPage.Settings.Modal.Signout.no" = "아니오";
 
 "MyPage.Settings.Modal.Job.Content" = "직군 변경은 3개월에 1회 가능해요.\n변경하시겠어요?";
-"MyPage.Settings.Modal.Job.ok" = "예";
+"MyPage.Settings.Modal.Job.ok" = "네";
 "MyPage.Settings.Modal.Job.no" = "아니오";
 
 "MyPage.Settings.Modal.Manage.Content" = "출석 관리 시간이 만료되었어요!";

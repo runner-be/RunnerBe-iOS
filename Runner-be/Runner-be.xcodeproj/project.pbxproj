@@ -343,6 +343,7 @@
 		DAC50002282B8F38004CFF64 /* MessageChatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */; };
 		DAC50003282B8F3A004CFF64 /* MessageChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */; };
 		DAC50004282B8F3C004CFF64 /* MessageChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC50000282B89B3004CFF64 /* MessageChatViewModel.swift */; };
+		DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */; };
 		DADD85FB28870B8000B11041 /* SettingsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FA28870B8000B11041 /* SettingsDataManager.swift */; };
 		DADD85FD28870BEE00B11041 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FC28870BEE00B11041 /* Constants.swift */; };
 		DADD85FF2887195300B11041 /* MessageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FE2887195300B11041 /* MessageDataManager.swift */; };
@@ -704,6 +705,7 @@
 		DAC5FFFD282B89B3004CFF64 /* MessageChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatViewController.swift; sourceTree = "<group>"; };
 		DAC5FFFE282B89B3004CFF64 /* MessageChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatCoordinator.swift; sourceTree = "<group>"; };
 		DAC5FFFF282B89B3004CFF64 /* MessageChatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatComponent.swift; sourceTree = "<group>"; };
+		DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchAttendanceRequest.swift; sourceTree = "<group>"; };
 		DADD85FA28870B8000B11041 /* SettingsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataManager.swift; sourceTree = "<group>"; };
 		DADD85FC28870BEE00B11041 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DADD85FE2887195300B11041 /* MessageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataManager.swift; sourceTree = "<group>"; };
@@ -1903,6 +1905,7 @@
 				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
 				DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */,
 				DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */,
+				DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2454,6 +2457,7 @@
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
+				DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
 				DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */,
