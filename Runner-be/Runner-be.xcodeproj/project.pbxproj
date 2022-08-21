@@ -320,7 +320,6 @@
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
 		DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
-		DA6278A328770EAE008255C6 /* ManageAttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */; };
 		DA784C8D289C1736005F92B1 /* JwtToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA784C8C289C1736005F92B1 /* JwtToken.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
@@ -682,7 +681,6 @@
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
 		DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageChatResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
-		DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceView.swift; sourceTree = "<group>"; };
 		DA784C8C289C1736005F92B1 /* JwtToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JwtToken.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
@@ -2039,7 +2037,6 @@
 		DA6278A128770EA1008255C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DA6278A228770EAE008255C6 /* ManageAttendanceView.swift */,
 				DADD949E28A7E8660004F86F /* ManageAttendanceButtonGroup.swift */,
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
@@ -2299,7 +2296,6 @@
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
-				DA6278A328770EAE008255C6 /* ManageAttendanceView.swift in Sources */,
 				C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,

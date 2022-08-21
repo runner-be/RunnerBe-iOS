@@ -69,9 +69,9 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.manageAttendance
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushManageAttendanceScene(vm: vm, animated: false)
+            .map { (vm: scene.VM, myRunningIdx: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushManageAttendanceScene(vm: result.vm, myRunningIdx: result.myRunningIdx, animated: true)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -169,8 +169,8 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         addChildDisposable(id: uuid, disposable: disposable)
     }
 
-    func pushManageAttendanceScene(vm _: MyPageViewModel, animated: Bool) {
-        let comp = component.manageAttendanceComponent
+    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningIdx: Int, animated: Bool) {
+        let comp = component.manageAttendanceComponent(myRunningIdx: myRunningIdx)
         let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)

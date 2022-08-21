@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class ManageAttendanceViewModel: BaseViewModel {
-    override init() {
+    init(myRunningIdx _: Int) {
         super.init()
 
         inputs.backward
@@ -19,6 +19,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
     struct Input {
         var backward = PublishSubject<Void>()
+        var showExpiredModal = PublishSubject<Void>()
     }
 
     struct Output {
@@ -31,8 +32,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
     }
 
     struct RouteInputs {
-//        var logout = PublishSubject<Bool>()
-//        var signout = PublishSubject<Bool>()
+        var showExpiredModal = PublishSubject<Bool>()
     }
 
     private var disposeBag = DisposeBag()

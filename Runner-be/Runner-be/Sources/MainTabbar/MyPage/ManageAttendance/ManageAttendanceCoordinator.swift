@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum ManageAttendanceResult {
-//    case s
+//    case timeexpired
     case backward
 }
 

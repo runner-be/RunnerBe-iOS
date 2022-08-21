@@ -13,11 +13,15 @@ import RxSwift
 import SafariServices
 import SnapKit
 import Then
+import Toast_Swift
 import UIKit
 
 class ManageAttendanceViewController: BaseViewController {
     var useCornerRadiusAsRatio: Bool = true
     var cornerRadiusFactor: CGFloat = 1
+    var myRunningIdx = -1 // 출석관리하기의 runnerList를 가져올 idx
+    lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
+    var runnerList: [RunnerList] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +31,16 @@ class ManageAttendanceViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
 
-//        tableView.delegate = self
-//        tableView.dataSource = self
+        manageAttendanceDataManager.getManageAttendance(viewController: self)
+
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
-    init(viewModel: ManageAttendanceViewModel) {
+    init(viewModel: ManageAttendanceViewModel, myRunningIdx: Int) {
         self.viewModel = viewModel
+        self.myRunningIdx = myRunningIdx
+
         super.init()
     }
 
@@ -52,6 +60,7 @@ class ManageAttendanceViewController: BaseViewController {
     private func viewModelOutput() {}
 
     private var tableView = UITableView().then { view in
+        view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
         view.backgroundColor = .clear
     }
 
@@ -83,11 +92,12 @@ class ManageAttendanceViewController: BaseViewController {
 // layout
 extension ManageAttendanceViewController {
     private func setupViews() {
-        setBackgroundColor()
+//        setBackgroundColor()
+        view.backgroundColor = .black
 
         view.addSubviews([
             navBar,
-            timeView,
+//            timeView,
             tableView,
             saveButton,
         ])
@@ -100,12 +110,12 @@ extension ManageAttendanceViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        timeView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(44)
-        }
+//        timeView.snp.makeConstraints { make in
+//            make.top.equalTo(navBar.snp.bottom)
+//            make.leading.equalTo(view.snp.leading)
+//            make.trailing.equalTo(view.snp.trailing)
+//            make.height.equalTo(44)
+//        }
 
         tableView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom)
@@ -123,13 +133,44 @@ extension ManageAttendanceViewController {
     }
 }
 
-// extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSource{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        2
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "", for: <#T##IndexPath#>)
-//    }
-//
-// }
+extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return runnerList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ManageAttendanceCell.id) as? ManageAttendanceCell else { return .init() }
+
+        cell.userInfoView.avatarView.kf.setImage(with: URL(string: runnerList[indexPath.row].profileImageURL!), placeholder: Asset.profileEmptyIcon.uiImage)
+        cell.userInfoView.nameLabel.text = runnerList[indexPath.row].nickName!
+        cell.userInfoView.genderLabel.text = runnerList[indexPath.row].gender!
+        cell.userInfoView.ageLabel.text = runnerList[indexPath.row].age!
+        cell.userInfoView.jobTagLabel.text = runnerList[indexPath.row].job!
+//        cell.userInfoView.badgeLabel.iconView =
+
+        return cell
+    }
+}
+
+extension ManageAttendanceViewController {
+    func didSuccessGetManageAttendance(result: GetMyPageResult) {
+        runnerList.append(contentsOf: result.myPosting?[myRunningIdx].runnerList ?? [])
+        print(runnerList.count)
+
+        tableView.reloadData()
+
+        if result.myPosting?[0].attendance == 1 { // 출석을 완료할 경우
+            navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
+            saveButton.isHidden = true
+        } else { // 출석이 완료되지 않을 경우
+            navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
+            saveButton.isHidden = false
+        }
+    }
+
+    func didSuccessPatchAttendance(_: BaseResponse) {}
+
+    func failedToRequest(message: String) {
+        print(message)
+    }
+}

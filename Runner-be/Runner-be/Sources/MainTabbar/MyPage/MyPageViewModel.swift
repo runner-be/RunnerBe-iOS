@@ -157,6 +157,9 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.manageAttendance
+            .compactMap { [weak self] idx in
+                idx
+            }
             .bind(to: routes.manageAttendance)
             .disposed(by: disposeBag)
 
@@ -209,7 +212,7 @@ final class MyPageViewModel: BaseViewModel {
         var writePost = PublishSubject<Void>()
         var changePhoto = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
-        var manageAttendance = PublishSubject<Void>()
+        var manageAttendance = PublishSubject<Int>()
     }
 
     struct Output {
@@ -233,7 +236,7 @@ final class MyPageViewModel: BaseViewModel {
         var writePost = PublishSubject<Void>()
         var toMain = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
-        var manageAttendance = PublishSubject<Void>()
+        var manageAttendance = PublishSubject<Int>()
     }
 
     struct RouteInput {

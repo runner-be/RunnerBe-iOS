@@ -41,7 +41,7 @@ class UserInfoView: UIView {
         avatarView.image = Asset.profileEmptyIcon.uiImage
     }
 
-    private var avatarView = UIImageView().then { view in
+    var avatarView = UIImageView().then { view in
         view.snp.makeConstraints { make in
             make.width.equalTo(48)
             make.height.equalTo(48)
@@ -52,13 +52,13 @@ class UserInfoView: UIView {
         view.image = Asset.profileEmptyIcon.uiImage
     }
 
-    private var nameLabel = UILabel().then { label in
+    var nameLabel = UILabel().then { label in
         label.font = .iosBody15B
         label.textColor = .darkG2
         label.text = "닉네임"
     }
 
-    private var genderLabel = UILabel().then { label in
+    var genderLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .darkG25
         label.text = "여성"
@@ -75,7 +75,7 @@ class UserInfoView: UIView {
         view.layer.cornerRadius = 1
     }
 
-    private var ageLabel = UILabel().then { label in
+    var ageLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .darkG25
         label.text = "20대 후반"
@@ -89,7 +89,7 @@ class UserInfoView: UIView {
         spacing: 4
     )
 
-    private var ownerMark = UIImageView().then { view in
+    var ownerMark = UIImageView().then { view in
         view.snp.makeConstraints { make in
             make.width.equalTo(16)
             make.height.equalTo(16)
@@ -98,9 +98,9 @@ class UserInfoView: UIView {
         view.image = Asset.postOwner.uiImage
     }
 
-    private var badgeLabel = RunnerBadge()
+    var badgeLabel = RunnerBadge()
 
-    private var jobTagLabel = BadgeLabel().then { label in
+    var jobTagLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(
             font: .iosBody13R,
             backgroundColor: .darkG5,

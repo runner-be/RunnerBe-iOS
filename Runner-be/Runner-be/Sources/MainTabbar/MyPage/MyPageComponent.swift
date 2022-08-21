@@ -39,7 +39,7 @@ final class MyPageComponent: Component<MyPageDependency> {
         return TakePhotoModalComponent(parent: self)
     }
 
-    var manageAttendanceComponent: ManageAttendanceComponent {
-        return ManageAttendanceComponent(parent: self)
+    func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(parent: self, myRunningIdx: myRunningIdx)
     }
 }

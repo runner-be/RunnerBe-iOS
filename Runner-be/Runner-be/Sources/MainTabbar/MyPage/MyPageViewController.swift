@@ -95,8 +95,10 @@ class MyPageViewController: BaseViewController {
             else { return UICollectionViewCell() }
             cell.configure(with: item)
             cell.postInfoView.bookMarkIcon.isHidden = true
-            cell.manageButton.rx.tap
-                .bind(to: self.viewModel.inputs.manageAttendance)
+            cell.manageButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.row }
+                .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
                 .disposed(by: disposeBag)
 
             return cell
