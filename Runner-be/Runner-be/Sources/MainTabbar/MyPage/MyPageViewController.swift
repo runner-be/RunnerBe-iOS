@@ -198,7 +198,7 @@ class MyPageViewController: BaseViewController {
                     AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
                         DispatchQueue.main.async {
                             if ok {
-                                self?.present(picker, animated: true)
+                                AppContext.shared.rootNavigationController?.present(picker, animated: true)
                             } else {
                                 self?.view.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
                             }
