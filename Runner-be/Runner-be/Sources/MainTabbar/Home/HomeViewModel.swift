@@ -388,6 +388,15 @@ final class HomeViewModel: BaseViewModel {
                 self.outputs.runningTagChanged.onNext(tag)
             })
             .disposed(by: disposeBag)
+
+        inputs.tapAlarm
+            .bind(to: routes.alarmList)
+            .disposed(by: disposeBag)
+
+        routeInputs.alarmChecked
+            .map { true }
+            .bind(to: outputs.alarmChecked)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -407,6 +416,8 @@ final class HomeViewModel: BaseViewModel {
         var tapPostPin = PublishSubject<Int?>()
         var tapPostListOrder = PublishSubject<Void>()
         var tapRunningTag = PublishSubject<Void>()
+
+        var tapAlarm = PublishSubject<Void>()
     }
 
     struct Output {
@@ -422,6 +433,7 @@ final class HomeViewModel: BaseViewModel {
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
         var titleLocationChanged = PublishSubject<String?>()
+        var alarmChecked = PublishSubject<Bool>()
     }
 
     struct Route {
@@ -431,6 +443,7 @@ final class HomeViewModel: BaseViewModel {
         var nonMemberCover = PublishSubject<Void>()
         var postListOrder = PublishSubject<Void>()
         var runningTag = PublishSubject<Void>()
+        var alarmList = PublishSubject<Void>()
     }
 
     struct RouteInput {
@@ -439,6 +452,7 @@ final class HomeViewModel: BaseViewModel {
         var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
+        var alarmChecked = PublishSubject<Void>()
     }
 
     var disposeBag = DisposeBag()

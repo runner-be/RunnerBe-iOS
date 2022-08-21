@@ -34,4 +34,8 @@ final class HomeComponent: Component<HomeDependency> {
     func runningTagModal() -> RunningTagModalComponent {
         return RunningTagModalComponent(parent: self)
     }
+
+    var alarmListComponent: AlarmListComponent {
+        return AlarmListComponent(parent: self)
+    }
 }

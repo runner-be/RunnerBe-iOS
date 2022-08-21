@@ -27,6 +27,13 @@
 		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
 		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
 		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
+		436D8A9A28B1B6E700E3DA6C /* AlarmListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */; };
+		436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9B28B1B73100E3DA6C /* Alarm.swift */; };
+		436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */; };
+		43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */; };
+		43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */; };
+		43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */; };
+		43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
 		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
@@ -344,6 +351,13 @@
 		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
 		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
+		436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListSection.swift; sourceTree = "<group>"; };
+		436D8A9B28B1B73100E3DA6C /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
+		43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewModel.swift; sourceTree = "<group>"; };
+		43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListCoordinator.swift; sourceTree = "<group>"; };
+		43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListComponent.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
@@ -729,6 +743,35 @@
 				4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		436D8A9728B1B5E400E3DA6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		436D8A9828B1B67000E3DA6C /* AlarmCell */ = {
+			isa = PBXGroup;
+			children = (
+				436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */,
+				436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */,
+			);
+			path = AlarmCell;
+			sourceTree = "<group>";
+		};
+		43B1E6C528B1AD320057A1AF /* AlarmList */ = {
+			isa = PBXGroup;
+			children = (
+				436D8A9828B1B67000E3DA6C /* AlarmCell */,
+				436D8A9728B1B5E400E3DA6C /* View */,
+				43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */,
+				43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */,
+				43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */,
+				43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */,
+			);
+			path = AlarmList;
 			sourceTree = "<group>";
 		};
 		7DFA2EC107AA65E58D6F6BC9 /* Frameworks */ = {
@@ -1853,6 +1896,7 @@
 				C3A64F8627C54A7F0088E387 /* PostState.swift */,
 				C3A64F9027C54DBA0088E387 /* FilterType.swift */,
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
+				436D8A9B28B1B73100E3DA6C /* Alarm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1860,6 +1904,7 @@
 		DA60482B281E7AC600A67568 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				DA60482C281E7ACA00A67568 /* PostDetail */,
 			);
@@ -2135,7 +2180,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
+				43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
+				436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */,
 				C32C028727CB24720011419E /* MyInfoView.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
@@ -2264,6 +2311,7 @@
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
 				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
+				43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */,
 				C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
@@ -2338,6 +2386,7 @@
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
+				436D8A9A28B1B6E700E3DA6C /* AlarmListSection.swift in Sources */,
 				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,
 				C3C9734B27CA962A00232251 /* EditInfoCoordinator.swift in Sources */,
 				C34BA6B127CD47C9003E393A /* DetailPostResponse.swift in Sources */,
@@ -2352,6 +2401,7 @@
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
+				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
 				C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift in Sources */,
@@ -2417,10 +2467,12 @@
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,
 				C32C027E27CB173A0011419E /* LogoutModalComponent.swift in Sources */,
+				436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C38ABD8427D31EAD0025929E /* LoginType.swift in Sources */,
+				43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */,
 				C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */,
 				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
 				C38ABDAD27D4F2E60025929E /* SignoutCompletionModalViewController.swift in Sources */,

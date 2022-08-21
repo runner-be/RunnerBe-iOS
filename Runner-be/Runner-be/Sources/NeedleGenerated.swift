@@ -60,6 +60,9 @@ public func registerProviderFactories() {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent") { component in
         return PostDetailDependencyfaba91a453a4115aa8d1Provider(component: component)
     }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->AlarmListComponent") { component in
+        return AlarmListDependency286ad0909531083e0e95Provider(component: component)
+    }
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->MainTabComponent->HomeComponent->WritingMainPostComponent->WritingDetailPostComponent") { component in
         return WritingDetailPostDependencybef9fe2df3caa6a55869Provider(component: component)
     }
@@ -307,6 +310,19 @@ private class PostDetailDependencyefc8ed9cd9a796bab512Provider: PostDetailDepend
 }
 /// ^->AppComponent->MainTabComponent->MyPageComponent->PostDetailComponent
 private class PostDetailDependencyfaba91a453a4115aa8d1Provider: PostDetailDependency0e20bfa0f3e155bd15e3BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class AlarmListDependency286ad0909531083e0e95BaseProvider: AlarmListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent->AlarmListComponent
+private class AlarmListDependency286ad0909531083e0e95Provider: AlarmListDependency286ad0909531083e0e95BaseProvider {
     init(component: NeedleFoundation.Scope) {
         super.init()
     }

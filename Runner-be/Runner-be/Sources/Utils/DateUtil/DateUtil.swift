@@ -13,9 +13,14 @@ class DateUtil {
         dateFormatter = DateFormatter()
         dateFormatter.locale = defaultLocale
         dateFormatter.timeZone = defaultTimeZone
+
+        relativeDateTimeFormatter = RelativeDateTimeFormatter()
+        relativeDateTimeFormatter.locale = defaultLocale
+        relativeDateTimeFormatter.dateTimeStyle = .named
     }
 
     let dateFormatter: DateFormatter
+    let relativeDateTimeFormatter: RelativeDateTimeFormatter
     let defaultLocale = Locale(identifier: L10n.locale)
     let defaultTimeZone = TimeZone(abbreviation: L10n.DateUtil.timezone)
     var defaultYear = 2022
@@ -68,5 +73,9 @@ class DateUtil {
         dateFormatter.dateFormat = format.formatString
 
         return dateFormatter.string(from: date)
+    }
+
+    func relativeDateString(for date: Date, relativeTo date2: Date) -> String {
+        return relativeDateTimeFormatter.localizedString(for: date, relativeTo: date2)
     }
 }
