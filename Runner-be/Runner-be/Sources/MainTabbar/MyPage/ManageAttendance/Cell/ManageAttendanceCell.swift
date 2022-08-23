@@ -33,6 +33,11 @@ class ManageAttendanceCell: UITableViewCell {
     var dividerView = UIView().then { view in
         view.backgroundColor = .black
     }
+
+    func configure(userInfo: UserConfig) {
+        // TODO: avartarView
+        userInfoView.setup(userInfo: userInfo)
+    }
 }
 
 extension ManageAttendanceCell {

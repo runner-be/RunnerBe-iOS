@@ -92,8 +92,7 @@ class ManageAttendanceViewController: BaseViewController {
 // layout
 extension ManageAttendanceViewController {
     private func setupViews() {
-//        setBackgroundColor()
-        view.backgroundColor = .black
+        setBackgroundColor()
 
         view.addSubviews([
             navBar,
@@ -141,12 +140,16 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ManageAttendanceCell.id) as? ManageAttendanceCell else { return .init() }
 
-        cell.userInfoView.avatarView.kf.setImage(with: URL(string: runnerList[indexPath.row].profileImageURL!), placeholder: Asset.profileEmptyIcon.uiImage)
-        cell.userInfoView.nameLabel.text = runnerList[indexPath.row].nickName!
-        cell.userInfoView.genderLabel.text = runnerList[indexPath.row].gender!
-        cell.userInfoView.ageLabel.text = runnerList[indexPath.row].age!
-        cell.userInfoView.jobTagLabel.text = runnerList[indexPath.row].job!
-//        cell.userInfoView.badgeLabel.iconView =
+        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL!)
+        var isUser = false
+
+        if runnerList[indexPath.row].whetherPostUser == "Y" {
+            isUser = true
+        } else {
+            isUser = false
+        }
+
+        cell.userInfoView.setup(userInfo: UserConfig(from: user, owner: isUser))
 
         return cell
     }
