@@ -23,28 +23,36 @@ final class ManageAttendanceResultView: UIView {
 
     private var background = UIView().then { view in
         view.backgroundColor = .darkG6
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
     }
 
-    private var label = UIButton().then { view in
-        view.titleLabel?.text = L10n.MyPage.MyPost.Manage.Absent.title
+    var label = UILabel().then { view in
+        view.font = .iosBody15R
+        view.text = "테스트"
+        view.textColor = .white
     }
 
     private func setup() {
         addSubviews([
             background,
-            label,
         ])
+
+        background.addSubview(label)
     }
 
     private func initialLayout() {
-        background.snp.makeConstraints { _ in
-//            make.top.equalTo(self.view.snp.top).offset(24)
-//            make.leading.equalTo(contentView.snp.leading).offset(16)
-//            make.trailing.equalTo(self.view.snp.trailing).offset(-16)
-//            make.bottom.equalTo(self.view.snp.bottom)
+        background.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.bottom.equalTo(self.snp.bottom)
+            make.height.equalTo(44)
         }
 
-        label.snp.makeConstraints { _ in
+        label.snp.makeConstraints { make in
+            make.centerX.equalTo(self.background.snp.centerX)
+            make.centerY.equalTo(self.background.snp.centerY)
         }
     }
 }

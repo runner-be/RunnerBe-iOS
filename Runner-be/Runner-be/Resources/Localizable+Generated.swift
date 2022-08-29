@@ -342,6 +342,20 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "MyPage.Maker.NavBar.title")
       }
     }
+    internal enum ManageAttendance {
+      internal enum Absence {
+        /// 불참했어요 😭
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Absence.title")
+      }
+      internal enum Attendance {
+        /// 출석을 완료했어요 😎
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Attendance.title")
+      }
+      internal enum Before {
+        /// 출석을 체크하지 않았어요 😣
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Before.title")
+      }
+    }
     internal enum MyPost {
       internal enum Empty {
         /// 아직 모임을 만들지 않았어요!

@@ -201,6 +201,11 @@
 "MyPage.MyRunning.Attendance.Absence.title" = "불참했어요 😭";
 "MyPage.MyRunning.Attendance.NotCheck.title" = "리더가 출석을 체크하지 않았어요😂";
 
+// MARK: - MyPage.ManageAttendacne
+"MyPage.ManageAttendance.Before.title" = "출석을 체크하지 않았어요 😣";
+"MyPage.ManageAttendance.Attendance.title" = "출석을 완료했어요 😎";
+"MyPage.ManageAttendance.Absence.title" = "불참했어요 😭";
+
 // MARK: - MyPage.EditInfo
 "MyPage.EditInfo.NavBar.title" = "내 정보 수정";
 "MyPage.EditInfo.NickName.title" = "닉네임";

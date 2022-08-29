@@ -20,6 +20,7 @@ class ManageAttendanceViewController: BaseViewController {
     var useCornerRadiusAsRatio: Bool = true
     var cornerRadiusFactor: CGFloat = 1
     var myRunningIdx = -1 // 출석관리하기의 runnerList를 가져올 idx
+    var attendTimeOver = "N"
     lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
     var runnerList: [RunnerList] = []
 
@@ -61,10 +62,12 @@ class ManageAttendanceViewController: BaseViewController {
 
     private var tableView = UITableView().then { view in
         view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
-        view.backgroundColor = .clear
+        view.separatorStyle = .none
+        view.backgroundColor = .black
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.backgroundColor = .darkG7
         navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
         navBar.titleLabel.textColor = .darkG35
         navBar.titleLabel.font = .iosBody17Sb
@@ -92,11 +95,12 @@ class ManageAttendanceViewController: BaseViewController {
 // layout
 extension ManageAttendanceViewController {
     private func setupViews() {
-        setBackgroundColor()
+//        setBackgroundColor()
+        view.backgroundColor = .black
 
         view.addSubviews([
             navBar,
-//            timeView,
+            timeView,
             tableView,
             saveButton,
         ])
@@ -149,23 +153,43 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
             isUser = false
         }
 
-        cell.userInfoView.setup(userInfo: UserConfig(from: user, owner: isUser))
+        if runnerList[indexPath.row].whetherCheck! == "Y" { // 리더가 출석체크했음
+            if runnerList[indexPath.row].attendance! == 0 {
+                cell.resultView.label.text = L10n.MyPage.ManageAttendance.Absence.title
+            } else {
+                cell.resultView.label.text = L10n.MyPage.ManageAttendance.Attendance.title
+            }
+        } else {
+            cell.resultView.label.text = L10n.MyPage.ManageAttendance.Before.title
+        }
+        
+//        if attendTimeOver! == "Y" { //출석관리 마감시간 여부
+////            cell.
+//        }
+
+        cell.configure(userInfo: UserConfig(from: user, owner: isUser))
 
         return cell
+    }
+
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return CGFloat(176)
     }
 }
 
 extension ManageAttendanceViewController {
     func didSuccessGetManageAttendance(result: GetMyPageResult) {
+//        print("출석 여부: \(result.myPosting?[myRunningIdx].attendTimeOver)")
         runnerList.append(contentsOf: result.myPosting?[myRunningIdx].runnerList ?? [])
-        print(runnerList.count)
 
         tableView.reloadData()
 
-        if result.myPosting?[0].attendance == 1 { // 출석을 완료할 경우
+        if result.myPosting?[myRunningIdx].attendTimeOver! == "Y" { // 출석 관리 마감 여부
+            attendTimeOver = "Y"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
             saveButton.isHidden = true
         } else { // 출석이 완료되지 않을 경우
+            attendTimeOver = "N"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
             saveButton.isHidden = false
         }

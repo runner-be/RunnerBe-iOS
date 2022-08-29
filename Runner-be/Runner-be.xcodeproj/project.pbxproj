@@ -353,7 +353,6 @@
 		DADD949728A7CF5C0004F86F /* MessageReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949628A7CF5C0004F86F /* MessageReportCoordinator.swift */; };
 		DADD949928A7CF630004F86F /* MessageReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949828A7CF630004F86F /* MessageReportViewModel.swift */; };
 		DADD949C28A7CF6F0004F86F /* MessageReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949B28A7CF6F0004F86F /* MessageReportViewController.swift */; };
-		DADD949F28A7E8660004F86F /* ManageAttendanceButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949E28A7E8660004F86F /* ManageAttendanceButtonGroup.swift */; };
 		DADD94A128A7E87C0004F86F /* ManageAttendanceResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */; };
 		DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF932870790300E98E56 /* MyPagePostCell.swift */; };
 		DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */; };
@@ -714,7 +713,6 @@
 		DADD949628A7CF5C0004F86F /* MessageReportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportCoordinator.swift; sourceTree = "<group>"; };
 		DADD949828A7CF630004F86F /* MessageReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportViewModel.swift; sourceTree = "<group>"; };
 		DADD949B28A7CF6F0004F86F /* MessageReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportViewController.swift; sourceTree = "<group>"; };
-		DADD949E28A7E8660004F86F /* ManageAttendanceButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceButtonGroup.swift; sourceTree = "<group>"; };
 		DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceResultView.swift; sourceTree = "<group>"; };
 		DAF6BF932870790300E98E56 /* MyPagePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostCell.swift; sourceTree = "<group>"; };
 		DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipateCell.swift; sourceTree = "<group>"; };
@@ -2037,7 +2035,6 @@
 		DA6278A128770EA1008255C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DADD949E28A7E8660004F86F /* ManageAttendanceButtonGroup.swift */,
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
@@ -2603,7 +2600,6 @@
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
-				DADD949F28A7E8660004F86F /* ManageAttendanceButtonGroup.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */,
 				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,

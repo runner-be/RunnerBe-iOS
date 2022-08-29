@@ -30,6 +30,14 @@ class ManageAttendanceCell: UITableViewCell {
 
     var userInfoView = UserInfoView()
 
+    var resultView = ManageAttendanceResultView()
+    
+//    var manageButtonGroup = OnOffLabelGroup().then { view in
+//        view.labels = [OnOffLabel(text: "결석"), OnOffLabel(text: "출석")]
+//    }
+
+//    var buttonGroup =
+
     var dividerView = UIView().then { view in
         view.backgroundColor = .black
     }
@@ -45,25 +53,28 @@ extension ManageAttendanceCell {
         backgroundColor = .darkG7
         contentView.addSubviews([
             userInfoView,
+            resultView,
             dividerView,
         ])
     }
 
     private func initialLayout() {
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(148)
+        userInfoView.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.top.equalTo(contentView.snp.top).offset(24)
         }
 
-        userInfoView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing)
-            make.top.equalTo(contentView.snp.top)
+        resultView.snp.makeConstraints { make in
+            make.top.equalTo(userInfoView.snp.bottom).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
         dividerView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.top.equalTo(userInfoView.snp.bottom)
+            make.top.equalTo(resultView.snp.bottom).offset(26)
             make.height.equalTo(14)
             make.bottom.equalTo(contentView.snp.bottom)
         }

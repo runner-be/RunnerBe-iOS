@@ -59,6 +59,7 @@ struct MyPosting: Codable {
     let attendance: Int?
     let profileURLList: [ProfileURLList]?
     let runnerList: [RunnerList]?
+    let attendTimeOver: String?
 
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
@@ -73,6 +74,7 @@ struct MyPosting: Codable {
         case attendance
         case profileURLList = "profileUrlList"
         case runnerList
+        case attendTimeOver
     }
 }
 
