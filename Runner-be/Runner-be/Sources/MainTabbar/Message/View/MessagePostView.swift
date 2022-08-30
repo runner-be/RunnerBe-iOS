@@ -27,6 +27,7 @@ class MessagePostView: UIView {
         view.titleLabel?.font = .iosBody13R
 //        view.setTitle(L10n.MyPage.MyPost.Manage.SaveButton.title, for: .normal)
         view.layer.borderColor = UIColor.primarydark.cgColor
+        view.titleLabel?.textAlignment = .center
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
@@ -61,6 +62,7 @@ class MessagePostView: UIView {
             make.leading.equalTo(self.snp.leading).offset(16)
             make.bottom.equalTo(self.snp.bottom).offset(-18)
             make.height.equalTo(20)
+            make.width.equalTo(50)
         }
 
         postTitle.snp.makeConstraints { make in

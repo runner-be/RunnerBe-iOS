@@ -112,7 +112,7 @@ class SelectJobView: SelectBaseView {
             make.top.equalTo(contentView.snp.top).offset(16)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(276)
+            make.height.greaterThanOrEqualTo(276)
             make.bottom.equalTo(contentView.snp.bottom)
         }
     }

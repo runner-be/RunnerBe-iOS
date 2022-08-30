@@ -31,7 +31,7 @@ class ManageAttendanceCell: UITableViewCell {
     var userInfoView = UserInfoView()
 
     var resultView = ManageAttendanceResultView()
-    
+
 //    var manageButtonGroup = OnOffLabelGroup().then { view in
 //        view.labels = [OnOffLabel(text: "결석"), OnOffLabel(text: "출석")]
 //    }

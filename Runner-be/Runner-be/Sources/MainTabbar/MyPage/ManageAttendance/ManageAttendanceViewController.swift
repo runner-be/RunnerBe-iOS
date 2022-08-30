@@ -162,9 +162,9 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
         } else {
             cell.resultView.label.text = L10n.MyPage.ManageAttendance.Before.title
         }
-        
+
 //        if attendTimeOver! == "Y" { //출석관리 마감시간 여부
-////            cell.
+        ////            cell.
 //        }
 
         cell.configure(userInfo: UserConfig(from: user, owner: isUser))

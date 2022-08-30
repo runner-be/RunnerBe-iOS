@@ -475,6 +475,7 @@ extension MyPageViewController {
         myPostEmptyButton.snp.makeConstraints { make in
             make.centerX.equalTo(myPostCollectionView.snp.centerX)
             make.top.equalTo(myPostCollectionView.snp.centerY).offset(12)
+            make.width.equalTo(182)
             make.height.equalTo(40)
         }
         myPostEmptyButton.layer.cornerRadius = 20
@@ -487,6 +488,7 @@ extension MyPageViewController {
         myRunningEmptyButton.snp.makeConstraints { make in
             make.centerX.equalTo(myRunningCollectionView.snp.centerX)
             make.top.equalTo(myRunningCollectionView.snp.centerY).offset(12)
+            make.width.equalTo(140)
             make.height.equalTo(40)
         }
         myRunningEmptyButton.layer.cornerRadius = 20
