@@ -56,7 +56,7 @@ final class MessageReportViewModel: BaseViewModel {
         let report = PublishSubject<Bool>()
         var backward = PublishSubject<(id: Int, needUpdate: Bool)>()
         var needUpdate = PublishSubject<Bool>()
-        var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
+        var detailClosed = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

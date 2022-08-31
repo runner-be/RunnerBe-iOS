@@ -77,9 +77,9 @@ final class MessageReportCoordinator: BasicCoordinator<MessageReportResult> {
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
-                case let .backward(id, marked, needUpdate):
+                case let .backward(id, needUpdate):
                     vm.routeInputs.needUpdate.onNext(needUpdate)
-                    vm.routeInputs.detailClosed.onNext((id: id, marked: marked))
+                    vm.routeInputs.detailClosed.onNext(())
                 }
             })
 
