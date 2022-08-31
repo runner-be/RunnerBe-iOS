@@ -42,59 +42,11 @@ class BasicPostCell: UICollectionViewCell {
 
     var disposeBag = DisposeBag()
 
-    var postState: State = .closed {
-        didSet {
-            updateCover()
-        }
-    }
+    var postState: State = .closed
 
     var blurAlpha: CGFloat = Constants.Cover.blur
 
     var postInfoView = BasicPostInfoView()
-
-    private var cover: UIView?
-
-    private func updateCover() {
-        cover?.removeFromSuperview()
-        if postState == .open {
-            cover = nil
-            return
-        }
-
-        let cover = UIView()
-        addSubview(cover)
-        cover.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom)
-        }
-
-        switch postState {
-        case .closed:
-            let coverLabel = UILabel()
-            coverLabel.font = .iosBody15R
-            coverLabel.textColor = .darkG35
-            coverLabel.text = L10n.Home.PostList.Cell.Cover.closed
-
-            let blur = UIBlurEffect(style: .dark)
-            let blurView = UIVisualEffectView(effect: blur)
-            blurView.alpha = blurAlpha
-            blurView.frame = cover.bounds
-            blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            cover.addSubview(blurView)
-
-            cover.addSubview(coverLabel)
-            coverLabel.snp.makeConstraints { make in
-                make.centerX.equalTo(cover.snp.centerX)
-                make.centerY.equalTo(cover.snp.centerY)
-            }
-        case .open:
-            break
-        }
-
-        self.cover = cover
-    }
 
     enum Constants {
         static let MarginX: CGFloat = 12
@@ -120,8 +72,6 @@ extension BasicPostCell {
         contentView.addSubviews([
             postInfoView,
         ])
-
-        updateCover()
     }
 
     private func initialLayout() {

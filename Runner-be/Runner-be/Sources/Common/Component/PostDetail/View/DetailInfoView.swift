@@ -23,26 +23,18 @@ final class DetailInfoView: UIView {
     }
 
     func setup(
-        place: String,
+        place _: String,
         date: String,
         time: String,
         numLimit: String,
         gender: String,
         age: String
     ) {
-        placeLabel.label.text = place
         dateLabel.label.text = date
         timeLabel.label.text = time
         genderLabel.label.text = gender
         participantLabel.text = numLimit
         ageLabel.text = age
-    }
-
-    private var placeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
-        view.icon.image = Asset.place.uiImage
-        view.label.font = .iosBody15R
-        view.label.textColor = .darkG1
-        view.label.text = "PLACE INFO"
     }
 
     private var dateLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
@@ -114,7 +106,6 @@ final class DetailInfoView: UIView {
 
     private lazy var vStackView = UIStackView.make(
         with: [
-            placeLabel,
             dateLabel,
             timeLabel,
             infoStackView,

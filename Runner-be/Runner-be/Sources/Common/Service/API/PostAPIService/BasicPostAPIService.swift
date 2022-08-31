@@ -688,4 +688,63 @@ final class BasicPostAPIService: PostAPIService {
                 self?.disposableDic.removeValue(forKey: id)
             })
     }
+
+    func delete(postId: Int) -> Observable<Bool> {
+        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
+
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(false) }
+
+        let disposable = provider.rx.request(.delete(postId: postId, userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (BasicResponse?) in
+                guard let json = json
+                else {
+                    Log.d(tag: .network, "result: fail")
+                    functionResult.onNext(false)
+                    return nil
+                }
+
+                return try? BasicResponse(json: json)
+            }
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(false)
+                    return
+                }
+
+                switch response.code {
+                case 1000: // 성공
+                    functionResult.onNext(true)
+                case 2010: // jwt와 userId 불일치
+                    functionResult.onNext(false)
+                case 2011: // userId 미입력
+                    functionResult.onNext(false)
+                case 2012: // userId 형식 오류 (숫자입력 X)
+                    functionResult.onNext(false)
+                case 2041: // postId 미입력
+                    functionResult.onNext(false)
+                case 2042: // postId 형식 오류
+                    functionResult.onNext(false)
+                case 2044: // 인증 대기중 회원
+                    functionResult.onNext(false)
+                case 2077: // 유저가 해당 러닝모임에 속하지 않습니다.
+                    functionResult.onNext(false)
+                default:
+                    functionResult.onNext(false)
+                }
+            })
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposable
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic[id]?.dispose()
+                self?.disposableDic.removeValue(forKey: id)
+            })
+    }
 }

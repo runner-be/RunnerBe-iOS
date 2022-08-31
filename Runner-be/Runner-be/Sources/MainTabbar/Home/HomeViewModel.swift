@@ -45,10 +45,10 @@ final class HomeViewModel: BaseViewModel {
         locationService.geoCodeLocation(at: searchLocation)
             .take(1)
             .subscribe(onNext: { [weak self] geoCode in
-                if let city = geoCode?.administrativeArea,
-                   let locality = geoCode?.locality
+                if let locality = geoCode?.locality,
+                   let subLocality = geoCode?.subLocality
                 {
-                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                    self?.outputs.titleLocationChanged.onNext(locality + " " + subLocality)
                 } else {
                     self?.outputs.titleLocationChanged.onNext(nil)
                 }
@@ -86,10 +86,10 @@ final class HomeViewModel: BaseViewModel {
                         )
                         return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
                     case .latest:
-                        return pLeft.postingTime < pRight.postingTime
+                        return pLeft.postingTime > pRight.postingTime
                     }
                 })
-                self.outputs.posts.onNext(posts)
+                self.outputs.posts.onNext(self.posts)
                 self.outputs.focusSelectedPost.onNext(nil)
                 self.outputs.refresh.onNext(())
                 self.outputs.showRefreshRegion.onNext(false)
@@ -259,17 +259,17 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
-        routeInputs.detailClosed
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self,
-                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
-                else { return }
-                self.posts[index].marked = result.marked
-                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
-                self.outputs.posts.onNext(self.posts)
-                self.outputs.focusSelectedPost.onNext(nil)
-            })
-            .disposed(by: disposeBag)
+//        routeInputs.detailClosed
+//            .subscribe(onNext: { [weak self] result in
+//                guard let self = self,
+//                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
+//                else { return }
+//                self.posts[index].marked = result.marked
+//                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
+//                self.outputs.posts.onNext(self.posts)
+//                self.outputs.focusSelectedPost.onNext(nil)
+//            })
+//            .disposed(by: disposeBag)
 
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in
@@ -292,10 +292,10 @@ final class HomeViewModel: BaseViewModel {
                 locationService.geoCodeLocation(at: region.location)
             }
             .subscribe(onNext: { [weak self] geoCode in
-                if let city = geoCode?.administrativeArea,
-                   let locality = geoCode?.locality
+                if let locality = geoCode?.locality,
+                   let subLocality = geoCode?.subLocality
                 {
-                    self?.outputs.titleLocationChanged.onNext(city + " " + locality)
+                    self?.outputs.titleLocationChanged.onNext(locality + " " + subLocality)
                 } else {
                     self?.outputs.titleLocationChanged.onNext(nil)
                 }
@@ -369,7 +369,7 @@ final class HomeViewModel: BaseViewModel {
                         )
                         return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
                     case .latest:
-                        return pLeft.postingTime < pRight.postingTime
+                        return pLeft.postingTime > pRight.postingTime
                     }
                 })
                 self.outputs.posts.onNext(self.posts)
@@ -436,7 +436,7 @@ final class HomeViewModel: BaseViewModel {
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
         var filterChanged = PublishSubject<PostFilter>()
-        var detailClosed = PublishSubject<(id: Int, marked: Bool)>()
+        var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
     }

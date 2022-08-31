@@ -35,4 +35,12 @@ final class PostDetailComponent: Component<PostDetailDependency> {
     var reportModalComponent: ReportModalComponent {
         return ReportModalComponent(parent: self)
     }
+
+    var detailOptionModalComponent: DetailOptionModalComponent {
+        return DetailOptionModalComponent(parent: self)
+    }
+
+    var deleteConfirmModalComponent: DeleteConfirmModalComponent {
+        return DeleteConfirmModalComponent(parent: self)
+    }
 }

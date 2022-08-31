@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum PostDetailResult {
-    case backward(id: Int, marked: Bool, needUpdate: Bool)
+    case backward(id: Int, needUpdate: Bool)
 }
 
 final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
@@ -31,7 +31,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
-            .map { PostDetailResult.backward(id: $0.id, marked: $0.marked, needUpdate: $0.needUpdate) }
+            .map { PostDetailResult.backward(id: $0.id, needUpdate: $0.needUpdate) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 
@@ -46,6 +46,20 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.presentReportModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.moreOption
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentDetailOptionModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.deleteConfirm
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presetnDeleteConfrimModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -78,6 +92,42 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 switch coordResult {
                 case .ok:
                     vm.routeInputs.report.onNext(true)
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presentDetailOptionModal(vm: PostDetailViewModel, animated: Bool) {
+        let comp = component.detailOptionModalComponent
+        let coord = DetailOptionModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .delete:
+                    vm.routeInputs.deleteOption.onNext(())
+                case .cancel:
+                    vm.routeInputs.report.onNext(false)
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presetnDeleteConfrimModal(vm: PostDetailViewModel, animated: Bool) {
+        let comp = component.deleteConfirmModalComponent
+        let coord = DeleteConfirmModalCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .delete:
+                    vm.routeInputs.delete.onNext(())
                 case .cancel:
                     vm.routeInputs.report.onNext(false)
                 }

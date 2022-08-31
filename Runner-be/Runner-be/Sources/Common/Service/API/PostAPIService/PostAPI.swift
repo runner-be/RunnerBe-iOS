@@ -18,6 +18,7 @@ enum PostAPI {
     case apply(postId: Int, userId: Int, token: LoginToken)
     case accept(postId: Int, userId: Int, applicantId: Int, accept: Bool, token: LoginToken)
     case close(postId: Int, token: LoginToken)
+    case delete(postId: Int, userId: Int, token: LoginToken)
 
     case myPage(userId: Int, token: LoginToken)
     case attendance(postId: Int, userId: Int, token: LoginToken)
@@ -40,12 +41,14 @@ extension PostAPI: TargetType {
             return "/users/\(userId)/bookmarks/v2"
         case let .detail(postId, userId, _):
             return "/postings/v2/\(postId)/\(userId)"
-        case let .apply(postId, _, _):
-            return "/runnings/request/\(postId)"
+        case let .apply(postId, userId, _):
+            return "/runnings/request/\(postId)/\(userId)"
         case let .accept(postId, _, applicantId, accept, _):
             return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
         case let .close(postId, _):
             return "/postings/\(postId)/closing"
+        case let .delete(postId, userId, _):
+            return "/postings/\(postId)/\(userId)/drop"
         case let .myPage(userId, _):
             return "/users/\(userId)/myPage/v2"
         case let .attendance(postId, userId, _):
@@ -71,6 +74,8 @@ extension PostAPI: TargetType {
             return Method.patch
         case .close:
             return Method.post
+        case .delete:
+            return Method.patch
         case .myPage:
             return Method.get
         case .attendance:
@@ -126,16 +131,15 @@ extension PostAPI: TargetType {
         case .detail:
             return .requestPlain
         case let .apply(_, userId, _):
-            let query: [String: Any] = [
-                "userId": userId,
-            ]
-            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+            return .requestPlain
         case let .accept(_, userId, _, _, _):
             let query: [String: Any] = [
                 "userId": userId,
             ]
             return .requestCompositeData(bodyData: Data(), urlParameters: query)
         case .close:
+            return .requestPlain
+        case .delete:
             return .requestPlain
         case .myPage:
             return .requestPlain
@@ -161,6 +165,8 @@ extension PostAPI: TargetType {
         case let .accept(_, _, _, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .close(_, token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .delete(_, _, token):
             return ["x-access-token": "\(token.jwt)"]
         case let .myPage(_, token):
             return ["x-access-token": "\(token.jwt)"]

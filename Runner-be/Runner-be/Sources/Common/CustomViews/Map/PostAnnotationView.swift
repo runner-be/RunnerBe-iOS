@@ -13,22 +13,50 @@ import UIKit
 final class PostAnnotaionView: MKAnnotationView {
     static let identifier = "\(String(describing: PostAnnotaionView.self))"
 
+    var markerView = UIImageView().then { view in
+        view.snp.makeConstraints { make in
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+        }
+    }
+
+    lazy var selectedMarkerView = UIImageView().then { view in
+        view.snp.makeConstraints { make in
+            make.width.equalTo(52)
+            make.height.equalTo(52)
+        }
+
+        view.addSubview(profileImageView)
+        profileImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.top.equalTo(view.snp.top).offset(12)
+        }
+    }
+
     let profileImageView = UIImageView().then { imageView in
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(16)
-            make.height.equalTo(16)
+            make.width.equalTo(17)
+            make.height.equalTo(17)
         }
-        imageView.isHidden = true
+        imageView.image = Asset.profileEmptyIcon.uiImage
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
     }
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        addSubview(profileImageView)
-        profileImageView.snp.makeConstraints { make in
+        addSubviews([markerView, selectedMarkerView])
+        markerView.snp.makeConstraints { make in
             make.centerX.equalTo(self.snp.centerX)
-            make.top.equalTo(self.snp.top).offset(6)
+            make.bottom.equalTo(self.snp.bottom)
+        }
+        selectedMarkerView.snp.makeConstraints { make in
+            make.centerX.equalTo(self.snp.centerX)
+            make.bottom.equalTo(self.snp.bottom)
+        }
+        snp.makeConstraints { make in
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
@@ -59,11 +87,13 @@ final class PostAnnotaionView: MKAnnotationView {
 
     private func setSelected(with annotation: PostAnnotation, selected: Bool) {
         if selected {
-            image = annotation.isOpen ? Asset.placeActiveSelected.uiImage : Asset.placeInactiveSelected.uiImage
-            profileImageView.isHidden = false
+            selectedMarkerView.isHidden = false
+            markerView.isHidden = true
+            selectedMarkerView.image = annotation.isOpen ? Asset.placeActiveSelected.uiImage : Asset.placeInactiveSelected.uiImage
         } else {
-            image = annotation.isOpen ? Asset.placeActive.uiImage : Asset.placeInactive.uiImage
-            profileImageView.isHidden = true
+            selectedMarkerView.isHidden = true
+            markerView.isHidden = false
+            markerView.image = annotation.isOpen ? Asset.placeActive.uiImage : Asset.placeInactive.uiImage
         }
     }
 }
