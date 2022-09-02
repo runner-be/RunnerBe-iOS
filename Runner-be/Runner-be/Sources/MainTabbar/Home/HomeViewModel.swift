@@ -17,6 +17,8 @@ final class HomeViewModel: BaseViewModel {
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
+        userAPIService: UserAPIService = BasicUserAPIService(),
+        notificationService: RBNotificationService = BasicRBNotificationService.shared,
         locationService: LocationService = BasicLocationService.shared,
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
@@ -227,6 +229,15 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
+        routeInputs.needUpdate
+            .flatMap { _ in
+                userAPIService.checkAlarms()
+            }
+            .subscribe(onNext: { [weak self] hasAlarm in
+                self?.outputs.alarmChecked.onNext(!hasAlarm)
+            })
+            .disposed(by: disposeBag)
+
         routeInputs.filterChanged
             .do(onNext: { [weak self] inputFilter in
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
@@ -388,6 +399,21 @@ final class HomeViewModel: BaseViewModel {
                 self.outputs.runningTagChanged.onNext(tag)
             })
             .disposed(by: disposeBag)
+
+        inputs.tapAlarm
+            .bind(to: routes.alarmList)
+            .disposed(by: disposeBag)
+
+        routeInputs.alarmChecked
+            .map { true }
+            .bind(to: outputs.alarmChecked)
+            .disposed(by: disposeBag)
+
+        notificationService.pushAlarmReceived
+            .subscribe(onNext: { [weak self] in
+                self?.outputs.alarmChecked.onNext(false)
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -407,6 +433,8 @@ final class HomeViewModel: BaseViewModel {
         var tapPostPin = PublishSubject<Int?>()
         var tapPostListOrder = PublishSubject<Void>()
         var tapRunningTag = PublishSubject<Void>()
+
+        var tapAlarm = PublishSubject<Void>()
     }
 
     struct Output {
@@ -422,6 +450,7 @@ final class HomeViewModel: BaseViewModel {
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
         var titleLocationChanged = PublishSubject<String?>()
+        var alarmChecked = PublishSubject<Bool>()
     }
 
     struct Route {
@@ -431,6 +460,7 @@ final class HomeViewModel: BaseViewModel {
         var nonMemberCover = PublishSubject<Void>()
         var postListOrder = PublishSubject<Void>()
         var runningTag = PublishSubject<Void>()
+        var alarmList = PublishSubject<Void>()
     }
 
     struct RouteInput {
@@ -439,6 +469,7 @@ final class HomeViewModel: BaseViewModel {
         var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
         var runningTagChanged = PublishSubject<RunningTag>()
+        var alarmChecked = PublishSubject<Void>()
     }
 
     var disposeBag = DisposeBag()
