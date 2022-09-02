@@ -17,6 +17,8 @@ final class HomeViewModel: BaseViewModel {
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
+        userAPIService: UserAPIService = BasicUserAPIService(),
+        notificationService: RBNotificationService = BasicRBNotificationService.shared,
         locationService: LocationService = BasicLocationService.shared,
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
@@ -227,6 +229,15 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
+        routeInputs.needUpdate
+            .flatMap { _ in
+                userAPIService.checkAlarms()
+            }
+            .subscribe(onNext: { [weak self] hasAlarm in
+                self?.outputs.alarmChecked.onNext(!hasAlarm)
+            })
+            .disposed(by: disposeBag)
+
         routeInputs.filterChanged
             .do(onNext: { [weak self] inputFilter in
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
@@ -396,6 +407,12 @@ final class HomeViewModel: BaseViewModel {
         routeInputs.alarmChecked
             .map { true }
             .bind(to: outputs.alarmChecked)
+            .disposed(by: disposeBag)
+
+        notificationService.pushAlarmReceived
+            .subscribe(onNext: { [weak self] in
+                self?.outputs.alarmChecked.onNext(false)
+            })
             .disposed(by: disposeBag)
     }
 

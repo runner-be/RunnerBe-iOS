@@ -239,4 +239,38 @@ final class BasicUserAPIService: UserAPIService {
 
         provider.request(.updateFCMToken(userID: userID, fcmToken: fcmToken), completion: { _ in })
     }
+
+    func fetchAlarms() -> Observable<[Alarm]?> {
+        guard let token = loginKeyChainService.token
+        else {
+            return .just(nil)
+        }
+
+        return provider.rx.request(.fetchAlarms(token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { json -> (response: BasicResponse, json: JSON)? in
+                guard let json = json
+                else {
+                    Log.d(tag: .network, "result: fail")
+                    return nil
+                }
+
+                return try? (response: BasicResponse(json: json), json: json)
+            }
+            .map { (try? $0?.json["result"].rawData()) ?? Data() }
+            .decode(type: [Alarm]?.self, decoder: JSONDecoder())
+    }
+
+    func checkAlarms() -> Observable<Bool> {
+        guard let token = loginKeyChainService.token
+        else {
+            return .just(false)
+        }
+
+        return provider.rx.request(.checkAlarms(token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { $0?["result"].string == "Y" }
+    }
 }

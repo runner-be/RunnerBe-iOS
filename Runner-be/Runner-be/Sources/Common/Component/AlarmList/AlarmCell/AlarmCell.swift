@@ -30,7 +30,7 @@ class AlarmCell: UITableViewCell {
     }
 
     func checkAlarm(isNew: Bool) {
-        contentView.backgroundColor = isNew ? .primarydarker : .clear
+        contentView.backgroundColor = isNew ? UIColor(red: 254.0 / 255.0, green: 207 / 255.0, blue: 108.0 / 255.0, alpha: 0.15) : .clear
         backgroundColor = .clear
     }
 

@@ -43,8 +43,7 @@ class AlarmListViewController: BaseViewController {
 
         alarmListTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                guard let cell = self?.alarmListTableView.cellForRow(at: indexPath) as? AlarmCell else { return }
-                cell.checkAlarm(isNew: false)
+                self?.viewModel.inputs.alarmChecked.onNext(indexPath.item)
             })
             .disposed(by: disposeBag)
     }

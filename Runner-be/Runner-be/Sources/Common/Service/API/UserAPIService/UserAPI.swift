@@ -21,6 +21,11 @@ enum UserAPI {
     case signout(userID: Int)
 
     case updateFCMToken(userID: Int, fcmToken: String)
+    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=196917615
+    case fetchAlarms(token: LoginToken)
+
+    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=39753795
+    case checkAlarms(token: LoginToken)
 }
 
 extension UserAPI: TargetType {
@@ -40,6 +45,10 @@ extension UserAPI: TargetType {
             return "/users/\(userID)"
         case let .updateFCMToken(userID, _):
             return "/users/\(userID)/deviceToken"
+        case .fetchAlarms:
+            return "/users/alarms"
+        case .checkAlarms:
+            return "/users/whether-new-alarms"
         }
     }
 
@@ -55,6 +64,10 @@ extension UserAPI: TargetType {
             return Method.delete
         case .updateFCMToken:
             return Method.patch
+        case .fetchAlarms:
+            return Method.get
+        case .checkAlarms:
+            return Method.get
         }
     }
 
@@ -75,6 +88,10 @@ extension UserAPI: TargetType {
         case let .updateFCMToken(_, fcmToken):
             let parameters = ["deviceToken": fcmToken]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .fetchAlarms:
+            return .requestPlain
+        case .checkAlarms:
+            return .requestPlain
         }
     }
 
@@ -90,6 +107,10 @@ extension UserAPI: TargetType {
             return nil
         case .updateFCMToken:
             return nil
+        case let .fetchAlarms(token):
+            return ["x-access-token": "\(token.jwt)"]
+        case let .checkAlarms(token):
+            return ["x-access-token": "\(token.jwt)"]
         }
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
+		432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */; };
 		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
 		433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */; };
 		433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */; };
@@ -331,6 +333,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
+		432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRBNotificationService.swift; sourceTree = "<group>"; };
 		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
 		433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewModel.swift; sourceTree = "<group>"; };
 		433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalComponent.swift; sourceTree = "<group>"; };
@@ -673,6 +677,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		432B45E028C1C1B0001AB8A9 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */,
+				432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 		433BD02D28A13179003B444E /* DetailOptionModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +798,7 @@
 		C304C57D281E858000C24295 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				432B45E028C1C1B0001AB8A9 /* NotificationService */,
 				C304C57E281E863100C24295 /* KeyChain */,
 				DA60482D281E7C7C00A67568 /* API */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
@@ -2309,6 +2323,7 @@
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
+				432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */,
 				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */,
@@ -2361,6 +2376,7 @@
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
+				432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */,
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,

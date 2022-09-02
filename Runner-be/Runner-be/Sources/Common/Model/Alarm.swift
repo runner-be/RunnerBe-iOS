@@ -8,13 +8,42 @@
 import Foundation
 import SwiftyJSON
 
-struct Alarm {
+struct Alarm: Decodable {
     let alarmID: Int
     let userID: Int
     let createdAt: Date
     let title: String
     let content: String
-    let isNew: Bool
+    var isNew: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case alarmID = "alarmId"
+        case userID = "userId"
+        case createdAt
+        case title
+        case content
+        case whetherRead
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        alarmID = try container.decode(Int.self, forKey: .alarmID)
+        userID = try container.decode(Int.self, forKey: .userID)
+        title = try container.decode(String.self, forKey: .title)
+        content = try container.decode(String.self, forKey: .content)
+        let whetherRead = try container.decode(String.self, forKey: .whetherRead)
+        let dateString = try container.decode(String.self, forKey: .createdAt)
+        isNew = whetherRead == "N"
+
+        let formatter = DateUtil.shared.dateFormatter
+        formatter.dateFormat = DateFormat.apiDate.formatString
+        var date = formatter.date(from: dateString)
+        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        guard let createdAt = date else {
+            throw JSONError.error("Json Decoding Error")
+        }
+        self.createdAt = createdAt
+    }
 
     init(json: JSON) throws {
         guard let alarmID = json["alarmId"].int,

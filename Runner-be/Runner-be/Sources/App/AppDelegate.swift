@@ -79,11 +79,18 @@ extension AppDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    // Push 알림 수신시 호출
     func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        BasicRBNotificationService.shared.sendNotification(type: .pushAlarm)
         completionHandler([.badge, .sound, .alert])
     }
 
+    // Push 알림 선택시 호출
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        Log.d(tag: .custom("🔔Notification"), "\n" + response.notification.request.content.userInfo.map {
+            "\(($0.key as? String) ?? "-") : \(($0.value as? String) ?? "-")"
+        }.joined(separator: "\n"))
+
         sendNotificationURLToConnectedScene(urlString: response.notification.request.content.userInfo["url"] as? String)
         completionHandler()
     }
