@@ -33,7 +33,7 @@ final class AlarmListViewModel: BaseViewModel {
                 guard let self = self,
                       self.alarms[item].isNew
                 else { return }
-                
+
                 self.alarms[item].isNew = false
                 self.outputs.alarmList.onNext(self.alarms)
             })

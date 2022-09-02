@@ -33,13 +33,16 @@ final class BasicLoginService: LoginService {
         else { return .just(.nonMember) }
 
         return loginAPIService.login(with: token)
-            .map { result in
+            .map { [weak self] result in
                 switch result {
                 case .member:
+                    self?.loginKeyChainService.loginType = .member
                     return .member
                 case .nonMember:
+                    self?.loginKeyChainService.loginType = .nonMember
                     return .nonMember
                 case .waitCertification:
+                    self?.loginKeyChainService.loginType = .waitCertification
                     return .memberWaitCertification
                 }
             }
