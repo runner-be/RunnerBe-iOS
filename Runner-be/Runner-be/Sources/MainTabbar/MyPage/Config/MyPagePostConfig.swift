@@ -29,7 +29,7 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
 
         let currentIntervalFromRef = now.timeIntervalSince1970
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970
-        let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute)
+        let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60)
 
         if post.writerID != UserDefaults.standard.integer(forKey: "userID"), post.whetherCheck == "N", currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석체크X & 3시간 전 -> 리더의 체크를 기다리고있어요
             state = .beforeManage
@@ -38,9 +38,9 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
         } else if post.writerID != UserDefaults.standard.integer(forKey: "userID"), post.whetherCheck == "Y", post.attendance == false { // 결석
             state = .absence
             // 위 까지가 '참여 러닝' 시점
-        } else if post.writerID == UserDefaults.standard.integer(forKey: "userID"), post.whetherCheck == "N", currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 러닝 후에 출석을 관리해주세요
+        } else if post.writerID == UserDefaults.standard.integer(forKey: "userID"), post.whetherCheck == "N", currentIntervalFromRef < startIntervalFromRef { // 러닝 후에 출석을 관리해주세요 -> 시작 전까지
             state = .beforeManagable
-        } else if post.writerID == UserDefaults.standard.integer(forKey: "userID"), currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 관리
+        } else if post.writerID == UserDefaults.standard.integer(forKey: "userID"), currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 관리 -> 시작 전 ~ 종료 + 3시간 전까지
             state = .managable
         } else if post.writerID == UserDefaults.standard.integer(forKey: "userID"), currentIntervalFromRef > startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 확인하기
             state = .afterManage

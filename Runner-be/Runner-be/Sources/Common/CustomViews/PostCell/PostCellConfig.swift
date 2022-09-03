@@ -32,7 +32,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
                 + " "
                 + DateUtil.shared.formattedString(for: post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "
-                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "h:mm"))
+                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "hh:mm"))
         time = "\(post.runningTime.hour)시간 \(post.runningTime.minute)분"
 
         place = post.locationInfo
