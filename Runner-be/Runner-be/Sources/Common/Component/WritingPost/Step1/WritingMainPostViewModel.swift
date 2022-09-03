@@ -19,6 +19,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         outputs.boundaryLimit.onNext(locationService.allowableBoundary)
         outputs.location.onNext(writingPostData.location)
         outputs.date.onNext(writingPostData.dateString)
+        outputs.time.onNext(writingPostData.time)
 
         inputs.backward
             .debug()

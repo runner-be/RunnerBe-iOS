@@ -61,6 +61,9 @@ class SelectTimeModalViewController: BaseViewController {
                 self?.view.makeToast(message)
             })
             .disposed(by: disposeBag)
+
+        timePicker.selectRow(viewModel.inputs.timeSelected, animated: false)
+        minutePicker.selectRow(viewModel.inputs.minuteSelected, animated: false)
     }
 
     private var sheet = UIView().then { view in

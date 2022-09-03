@@ -23,7 +23,7 @@ struct WritingPostData {
             + DateUtil.shared.formattedString(for: date, format: .custom(format: "H:mm"))
     }
 
-    var time: String = ""
+    var time: String = "1시간 00분"
     var location: CLLocationCoordinate2D
     var placeInfo: String = ""
 
