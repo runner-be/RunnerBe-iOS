@@ -24,10 +24,10 @@ class SummaryMainPostView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with data: WritingPostDetailConfigData) {
+    func configure(with data: WritingPostData) {
         badgeLabel.text = data.tag
         titleLabel.text = data.title
-        dateLabel.label.text = data.date
+        dateLabel.label.text = data.dateString
         timeLabel.label.text = data.time
         mapView.centerToCoord(data.location, regionRadius: 300, animated: false)
         addressInfoView.label.text = data.placeInfo

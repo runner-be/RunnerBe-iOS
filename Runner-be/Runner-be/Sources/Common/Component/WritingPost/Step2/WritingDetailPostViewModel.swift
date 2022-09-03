@@ -9,28 +9,22 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-struct WritingPostDetailConfigData {
-    let tag: String
-    let title: String
-    let date: String
-    let time: String
-    let location: CLLocationCoordinate2D
-    let placeInfo: String
-}
-
-struct WritingPostDetailViewInputData {
-    let gender: Int
-    let ageMin: Int
-    let ageMax: Int
-    let numPerson: Int
-    let textContent: String
-}
-
 final class WritingDetailPostViewModel: BaseViewModel {
-    init(mainPostData: WritingPostDetailConfigData, postAPIService: PostAPIService = BasicPostAPIService()) {
+    var writingPostData: WritingPostData
+
+    struct ViewInputData {
+        let gender: Int
+        let ageMin: Int
+        let ageMax: Int
+        let numPerson: Int
+        let textContent: String
+    }
+
+    init(writingPostData: WritingPostData, postAPIService: PostAPIService = BasicPostAPIService()) {
+        self.writingPostData = writingPostData
         super.init()
 
-        outputs.mainPostData.onNext(mainPostData)
+        outputs.writingPostData.onNext(writingPostData)
 
         inputs.posting
             .do(onNext: { [weak self] inputData in
@@ -41,26 +35,24 @@ final class WritingDetailPostViewModel: BaseViewModel {
             .compactMap { $0 }
             .filter { $0.ageMin >= 20 && $0.ageMin <= $0.ageMax && $0.ageMax <= 65 && $0.numPerson >= 2 }
             .map { [weak self] data -> PostingForm? in
-                let runningTag = RunningTag(name: mainPostData.tag)
+                let runningTag = RunningTag(name: writingPostData.tag)
                 let gender = Gender(idx: data.gender)
-                let curYearGathringDate = DateUtil.shared.getCurrent(format: .yyyy) + " " + mainPostData.date
+                let gatheringTime = DateUtil.shared.formattedString(for: Date(timeIntervalSince1970: writingPostData.date), format: .yyyyMMddHHmmss)
                 guard runningTag != .error,
-                      let gatheringTime = DateUtil.shared.changeFormat(curYearGathringDate, from: .yyyyMdEahmm, to: .yyyyMMddHHmmss), // "\($0.date) \($0.ampm) \($0.time):\($0.minute)"
-                      let runningTime = DateUtil.shared.changeFormat(mainPostData.time, from: .korHmm, to: .HHmm) // "\($0.time)시간 \($0.minute)분"
+                      let runningTime = DateUtil.shared.changeFormat(writingPostData.time, from: .korHmm, to: .HHmm) // "\($0.time)시간 \($0.minute)분"
                 else {
                     self?.outputs.toast.onNext("날짜를 불러오는데 실패했습니다.")
                     return nil
                 }
-
-                print("gathering Time : \(gatheringTime), runningTime: \(runningTime)")
+                Log.d(tag: .info, "gathering Time : \(gatheringTime), runningTime: \(runningTime)")
 
                 return PostingForm(
-                    title: mainPostData.title,
+                    title: writingPostData.title,
                     gatheringTime: gatheringTime,
                     runningTime: runningTime,
-                    gatherLongitude: Float(mainPostData.location.longitude),
-                    gatherLatitude: Float(mainPostData.location.latitude),
-                    locationInfo: mainPostData.placeInfo,
+                    gatherLongitude: Float(writingPostData.location.longitude),
+                    gatherLatitude: Float(writingPostData.location.latitude),
+                    locationInfo: writingPostData.placeInfo,
                     runningTag: runningTag,
                     ageMin: data.ageMin,
                     ageMax: data.ageMax,
@@ -90,11 +82,11 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     struct Input {
         var backward = PublishSubject<Void>()
-        var posting = PublishSubject<WritingPostDetailViewInputData?>()
+        var posting = PublishSubject<ViewInputData?>()
     }
 
     struct Output {
-        var mainPostData = ReplaySubject<WritingPostDetailConfigData>.create(bufferSize: 1)
+        var writingPostData = ReplaySubject<WritingPostData>.create(bufferSize: 1)
         var toast = PublishSubject<String>()
     }
 

@@ -14,6 +14,8 @@ import Then
 import UIKit
 
 class WritingDetailPostViewController: BaseViewController {
+    typealias ViewInputData = WritingDetailPostViewModel.ViewInputData
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -51,7 +53,7 @@ class WritingDetailPostViewController: BaseViewController {
                     self.selectAgeView.slider.maxValue : self.selectAgeView.slider.selectedMaxValue
                 let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
                 let content = self.selectTextContentView.textField.text ?? ""
-                return WritingPostDetailViewInputData(
+                return ViewInputData(
                     gender: genderIdx,
                     ageMin: Int(ageMin),
                     ageMax: Int(ageMax),
@@ -64,7 +66,7 @@ class WritingDetailPostViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.mainPostData
+        viewModel.outputs.writingPostData
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
                 self.summaryView.configure(with: data)

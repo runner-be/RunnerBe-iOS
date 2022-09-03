@@ -70,6 +70,7 @@ class DateUtil {
         defer { dateFormatter.locale = oldLocale }
 
         dateFormatter.locale = Locale(identifier: localeId)
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
         dateFormatter.dateFormat = format.formatString
 
         return dateFormatter.string(from: date)
