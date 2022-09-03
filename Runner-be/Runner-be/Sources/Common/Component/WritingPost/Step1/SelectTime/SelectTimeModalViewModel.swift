@@ -49,7 +49,7 @@ final class SelectTimeModalViewModel: BaseViewModel {
     struct Input {
         var tapBackground = PublishSubject<Void>()
         var tapOK = PublishSubject<Void>()
-        var timeSelected: Int = 0
+        var timeSelected: Int = 1
         var minuteSelected: Int = 0
     }
 
