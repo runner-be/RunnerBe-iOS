@@ -30,4 +30,6 @@ protocol UserAPIService {
     func setJob(to job: Job) -> Observable<SetJobResult>
     func setProfileImage(to image: Data) -> Observable<SetProfileResult>
     func signout() -> Observable<Bool>
+    func fetchAlarms() -> Observable<[Alarm]?>
+    func checkAlarms() -> Observable<Bool>
 }

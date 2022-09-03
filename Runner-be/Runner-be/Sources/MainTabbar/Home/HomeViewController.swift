@@ -97,6 +97,10 @@ class HomeViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.tapRunningTag)
             .disposed(by: disposeBag)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapAlarm)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -210,6 +214,12 @@ class HomeViewController: BaseViewController {
                     navBar.titleLabel.textColor = .primarydark
                     navBar.titleSpacing = 8
                 }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.alarmChecked
+            .subscribe(onNext: { [weak self] isChecked in
+                self?.navBar.rightBtnItem.setImage(isChecked ? Asset.alarmNomal.uiImage : Asset.alarmNew.uiImage, for: .normal)
             })
             .disposed(by: disposeBag)
     }
@@ -371,9 +381,8 @@ class HomeViewController: BaseViewController {
         navBar.titleLabel.font = .aggroLight
         navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
         navBar.titleLabel.textColor = .primarydark
-        navBar.rightBtnItem.setImage(Asset.search.uiImage, for: .normal)
+        navBar.rightBtnItem.setImage(Asset.alarmNew.uiImage, for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.rightBtnItem.isHidden = true
         navBar.titleSpacing = 8
         navBar.backgroundColor = Constants.NavigationBar.backgroundColor
     }

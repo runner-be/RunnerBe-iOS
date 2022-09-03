@@ -9,26 +9,39 @@ import Foundation
 import RxSwift
 
 final class SelectDateModalViewModel: BaseViewModel {
+    let currentDate: Date = .init()
+    let dateIntervals: [Double]
+
     override init() {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        let dateTodayInterval = calendar.date(from: components)!.timeIntervalSince1970
+
+        dateIntervals = (0 ..< 7).map {
+            Date(timeIntervalSince1970: dateTodayInterval + Double($0) * DateStamp.DAY).timeIntervalSince1970
+        }
         super.init()
 
-        outputs.dateItems = DateUtil.shared.getFormattedDateArray(format: .MdE, startDate: Date(), dayOffset: 7)
+        outputs.dateItems = dateIntervals.map {
+            let date = Date(timeIntervalSince1970: $0)
+            return DateUtil.shared.formattedString(for: date, format: .MdE)
+        }
 
         inputs.tapOK
-            .map { [weak self] _ -> (date: Int, ampm: Int, time: Int, minute: Int)? in
+            .map { [weak self] _ -> (dateIdx: Int, ampmIdx: Int, timeIdx: Int, minuteIdx: Int)? in
                 guard let date = self?.inputs.dateSelected,
                       let ampm = self?.inputs.ampmSelected,
                       let time = self?.inputs.timeSelected,
                       let minute = self?.inputs.minuteSelected
                 else { return nil }
-                return (date: date, ampm: ampm, time: time, minute: minute)
+                return (dateIdx: date, ampmIdx: ampm, timeIdx: time, minuteIdx: minute)
             }
             .do(onNext: { [weak self] result in
                 guard let outputs = self?.outputs, let result = result,
-                      result.date >= 0, result.date < outputs.dateItems.count,
-                      result.ampm >= 0, result.ampm < outputs.ampmItems.count,
-                      result.time >= 0, result.time < outputs.timeItems.count,
-                      result.minute >= 0, result.minute < outputs.minuteItems.count
+                      result.dateIdx >= 0, result.dateIdx < outputs.dateItems.count,
+                      result.ampmIdx >= 0, result.ampmIdx < outputs.ampmItems.count,
+                      result.timeIdx >= 0, result.timeIdx < outputs.timeItems.count,
+                      result.minuteIdx >= 0, result.minuteIdx < outputs.minuteItems.count
                 else {
                     self?.outputs.toast.onNext("일시 입력에 실패하였습니다.")
                     self?.routes.cancel.onNext(())
@@ -36,16 +49,19 @@ final class SelectDateModalViewModel: BaseViewModel {
                 }
             })
             .compactMap { $0 }
-            .map { [weak self] result -> (date: String, ampm: String, time: String, minute: String)? in
-                guard let outputs = self?.outputs
+            .map { [weak self] result -> Double? in
+                guard let self = self
                 else { return nil }
-                return (date: outputs.dateItems[result.date],
-                        ampm: outputs.ampmItems[result.ampm],
-                        time: outputs.timeItems[result.time],
-                        minute: outputs.minuteItems[result.minute])
+
+                let ampm = result.ampmIdx
+                let hourInterval = Double(result.timeIdx + ampm * 12) * DateStamp.HOUR
+                let minuteInterval = Double(result.minuteIdx * 5) * DateStamp.MINUTE
+
+                let dateInterval = self.dateIntervals[result.dateIdx] + hourInterval + minuteInterval
+                Log.d(tag: .info, "selected interval: \(dateInterval), date: \(Date(timeIntervalSince1970: dateInterval))")
+                return dateInterval
             }
             .compactMap { $0 }
-            .map { "\($0.date) \($0.ampm) \($0.time):\($0.minute)" }
             .bind(to: routes.apply)
             .disposed(by: disposeBag)
 
@@ -74,7 +90,8 @@ final class SelectDateModalViewModel: BaseViewModel {
 
     struct Route {
         var cancel = PublishSubject<Void>()
-        var apply = PublishSubject<String>()
+        // TimeInterval 전달
+        var apply = PublishSubject<Double>()
     }
 
     private var disposeBag = DisposeBag()

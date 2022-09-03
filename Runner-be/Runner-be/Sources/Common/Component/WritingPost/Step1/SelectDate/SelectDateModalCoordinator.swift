@@ -10,7 +10,7 @@ import RxSwift
 
 enum SelectDateModalResult {
     case cancel
-    case apply(String)
+    case apply(Double)
 }
 
 final class SelectDateModalCoordinator: BasicCoordinator<SelectDateModalResult> {

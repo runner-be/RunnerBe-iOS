@@ -27,10 +27,10 @@ final class AppCoordinator: BasicCoordinator<Void> {
     var component: AppComponent
 
     override func start(animated _: Bool = true) {
-        BasicLoginKeyChainService.shared.token = nil
+//        BasicLoginKeyChainService.shared.token = nil
         window.makeKeyAndVisible()
 
-        BasicLoginService().checkLogin()
+        component.loginService.checkLogin()
             .subscribe(onNext: { result in
                 switch result {
                 case .member:

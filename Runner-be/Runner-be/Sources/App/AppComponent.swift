@@ -16,4 +16,6 @@ final class AppComponent: BootstrapComponent {
     var mainTabComponent: MainTabComponent {
         return MainTabComponent(parent: self)
     }
+
+    var loginService = BasicLoginService()
 }

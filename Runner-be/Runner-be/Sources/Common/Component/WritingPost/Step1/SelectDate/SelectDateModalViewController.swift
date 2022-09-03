@@ -55,7 +55,12 @@ class SelectDateModalViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        datePickerView.selectRow(0, animated: false)
+        morningAfterPicker.selectRow(0, animated: false)
+        timePicker.selectRow(0, animated: false)
+        minutePicker.selectRow(0, animated: false)
+    }
 
     private var sheet = UIView().then { view in
         view.backgroundColor = .darkG5
@@ -147,7 +152,7 @@ extension SelectDateModalViewController {
             make.top.equalTo(sheet.snp.top).offset(24)
             make.leading.equalTo(sheet.snp.leading).offset(35)
             make.height.equalTo(120)
-            make.width.equalTo(85)
+            make.width.equalTo(90)
         }
 
         morningAfterPicker.snp.makeConstraints { make in

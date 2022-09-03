@@ -67,6 +67,13 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 self?.showRunningTagModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.alarmList
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushAlarmListScene(vm: vm, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
@@ -146,6 +153,22 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 case let .ok(tag: tag):
                     vm.routeInputs.runningTagChanged.onNext(tag)
                 case .cancel: break
+                }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
+        let comp = component.alarmListComponent
+        let coord = AlarmListCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .backward:
+                    vm.routeInputs.alarmChecked.onNext(())
                 }
             })
 

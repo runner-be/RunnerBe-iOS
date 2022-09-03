@@ -43,41 +43,31 @@ class WritingMainPostViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .map { [weak self] _ -> WritingPostMainViewInputData? in
-                guard let self = self else { return nil }
-                let tag = self.segmentedControl.selectedItem
-                let title = self.writeTitleView.textField.text ?? ""
-                let date = self.writeDateView.iconTextButtonGroup.titleLabel.text ?? ""
-                let time = self.writeTimeView.iconTextButtonGroup.titleLabel.text ?? ""
-                let coord = self.writePlaceView.mapView.centerCoordinate
-                let placeInfo = self.writePlaceView.placeLabel.text
-                return WritingPostMainViewInputData(
-                    tag: tag,
-                    title: title,
-                    date: date,
-                    time: time,
-                    location: coord,
-                    placeInfo: placeInfo
-                )
-            }
             .bind(to: viewModel.inputs.next)
             .disposed(by: disposeBag)
 
-        writeDateView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
-            delegate.simultaneousRecognitionPolicy = .never
-        })
-        .when(.recognized)
-        .map { _ in }
-        .bind(to: viewModel.inputs.editDate)
-        .disposed(by: disposeBag)
+        writeTitleView.textField.rx.text
+            .map { $0 ?? "" }
+            .bind(to: viewModel.inputs.editTitle)
+            .disposed(by: disposeBag)
 
-        writeTimeView.iconTextButtonGroup.rx.tapGesture(configuration: { _, delegate in
-            delegate.simultaneousRecognitionPolicy = .never
-        })
-        .when(.recognized)
-        .map { _ in }
-        .bind(to: viewModel.inputs.editTime)
-        .disposed(by: disposeBag)
+        writeDateView.iconTextButtonGroup.rx
+            .tapGesture(configuration: { _, delegate in
+                delegate.simultaneousRecognitionPolicy = .never
+            })
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editDate)
+            .disposed(by: disposeBag)
+
+        writeTimeView.iconTextButtonGroup.rx
+            .tapGesture(configuration: { _, delegate in
+                delegate.simultaneousRecognitionPolicy = .never
+            })
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editTime)
+            .disposed(by: disposeBag)
 
         writePlaceView.locationChanged
             .bind(to: viewModel.inputs.locationChanged)
@@ -266,5 +256,13 @@ extension WritingMainPostViewController {
             make.height.equalTo(1)
             make.width.equalTo(hDivider1)
         }
+    }
+}
+
+// MARK: - SegmentedControl Delegate
+
+extension WritingMainPostViewController: SegmentedControlDelegate {
+    func didChanged(_: SegmentedControl, from _: Int, to: Int) {
+        viewModel.inputs.editTag.onNext(to)
     }
 }
