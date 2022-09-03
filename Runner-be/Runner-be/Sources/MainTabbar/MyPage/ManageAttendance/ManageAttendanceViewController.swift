@@ -88,12 +88,12 @@ class ManageAttendanceViewController: BaseViewController {
         time -= 1
         timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time / 60))분"
 
-        if time == 0 {
-            timer?.invalidate()
-            let vc = ManagedTimeExpiredViewController()
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
-        }
+//        if time == 0 {
+//            timer?.invalidate()
+//            let vc = ManagedTimeExpiredViewController()
+//            vc.modalPresentationStyle = .fullScreen
+//            present(vc, animated: true)
+//        }
     }
 
     private var tableView = UITableView().then { view in

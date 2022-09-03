@@ -24,18 +24,18 @@ final class ManageTimeExpiredModalCoordinator: BasicCoordinator<ManageTimeExpire
         let scene = component.scene
         navigationController.pushViewController(scene.VC, animated: true)
 
-//        closeSignal
-//            .subscribe(onNext: { [weak self] result in
-//                switch result {
-//                case .ok:
-//                    self?.navigationController.popViewController(animated: true)
-//                }
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.ok
-//            .map { ManageAttendanceResult.backward }
-//            .bind(to: closeSignal)
-//            .disposed(by: sceneDisposeBag)
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .ok:
+                    self?.navigationController.popViewController(animated: true)
+                }
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.ok
+            .map { ManageTimeExpiredModalResult.ok }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
     }
 }

@@ -13,7 +13,7 @@ protocol ManageTimeExpiredModalDependency: Dependency {}
 final class ManageTimeExpiredModalComponent: Component<ManageTimeExpiredModalDependency> {
     var scene: (VC: UIViewController, VM: ManageTimeExpiredModalViewModel) {
         let viewModel = self.viewModel
-        return (ManagedTimeExpiredViewController(viewModel: viewModel), viewModel)
+        return (ManagedTimeExpiredViewController(), viewModel)
     }
 
     var viewModel: ManageTimeExpiredModalViewModel {

@@ -22,8 +22,8 @@ class ManagedTimeExpiredViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: ManageTimeExpiredModalViewModel) {
-        self.viewModel = viewModel
+    override init() {
+//        self.viewModel = viewModel
         super.init()
     }
 
@@ -32,7 +32,7 @@ class ManagedTimeExpiredViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: ManageTimeExpiredModalViewModel
+//    private var viewModel: ManageTimeExpiredModalViewModel
 
     private func viewModelInput() {
 //        sheet.rx.tapGesture(configuration: { _, delegate in
@@ -49,13 +49,9 @@ class ManagedTimeExpiredViewController: BaseViewController {
 //        .map { _ in }
 //        .subscribe(viewModel.inputs.backward)
 //        .disposed(by: disposeBag)
-
-        toMyPageButton.rx.tap
-            .bind(to: viewModel.inputs.tapOK)
-            .disposed(by: disposeBag)
-
-//        buttonNo.rx.tap
-//            .bind(to: viewModel.inputs.backward)
+//
+//        toMyPageButton.rx.tap
+//            .bind(to: viewModel.inputs.tapOK)
 //            .disposed(by: disposeBag)
     }
 
@@ -86,18 +82,6 @@ class ManagedTimeExpiredViewController: BaseViewController {
 
         button.titleLabel?.font = .iosBody17R
     }
-
-    private var vDivider = UIView().then { view in
-        view.backgroundColor = .darkG45
-    }
-
-    private var buttonNo = UIButton().then { button in
-        button.setTitle(L10n.MyPage.Settings.Modal.NickName.Button.cancel, for: .normal)
-        button.setTitleColor(.primary, for: .normal)
-        button.setBackgroundColor(.clear, for: .normal)
-
-        button.titleLabel?.font = .iosBody17R
-    }
 }
 
 // MARK: - Layout
@@ -114,7 +98,6 @@ extension ManagedTimeExpiredViewController {
             titleLabel,
             hDivider,
             toMyPageButton,
-            vDivider,
         ])
     }
 
@@ -139,10 +122,11 @@ extension ManagedTimeExpiredViewController {
         }
 
         toMyPageButton.snp.makeConstraints { make in
-            make.top.equalTo(vDivider.snp.top)
+            make.top.equalTo(hDivider.snp.bottom)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
             make.bottom.equalTo(sheet.snp.bottom)
+            make.height.equalTo(40)
         }
     }
 }
