@@ -28,7 +28,7 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
         return SelectDateModalComponent(parent: self)
     }
 
-    func BuildWritingDetailPostComponent(with data: WritingPostDetailConfigData) -> WritingDetailPostComponent {
-        return WritingDetailPostComponent(parent: self, postMainData: data)
+    func BuildWritingDetailPostComponent(with data: WritingPostData) -> WritingDetailPostComponent {
+        return WritingDetailPostComponent(parent: self, writingPostData: data)
     }
 }

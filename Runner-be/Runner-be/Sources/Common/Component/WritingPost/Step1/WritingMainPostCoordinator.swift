@@ -62,7 +62,7 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: sceneDisposeBag)
     }
 
-    private func pushWritingDetailPost(data: WritingPostDetailConfigData, animated _: Bool) {
+    private func pushWritingDetailPost(data: WritingPostData, animated _: Bool) {
         let comp = component.BuildWritingDetailPostComponent(with: data)
         let coord = WritingDetailPostCoordinator(component: comp, navController: navigationController)
 
@@ -106,8 +106,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
-                case let .apply(resultString):
-                    vm.routeInputs.editDateResult.onNext(resultString)
+                case let .apply(timeInterval):
+                    vm.routeInputs.editDateResult.onNext(timeInterval)
                 case .cancel:
                     break
                 }

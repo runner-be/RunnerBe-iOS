@@ -32,10 +32,12 @@
 		436D8A9A28B1B6E700E3DA6C /* AlarmListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */; };
 		436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9B28B1B73100E3DA6C /* Alarm.swift */; };
 		436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */; };
+		438AB20628C3875C00AD1AD3 /* WritingPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AB20528C3875C00AD1AD3 /* WritingPostData.swift */; };
 		43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */; };
 		43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */; };
 		43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */; };
 		43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */; };
+		43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E5181D28C2E257009A1897 /* DateStamp.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
 		C304C584282708A100C24295 /* SelectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304C583282708A100C24295 /* SelectionLabel.swift */; };
 		C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */; };
@@ -358,10 +360,12 @@
 		436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListSection.swift; sourceTree = "<group>"; };
 		436D8A9B28B1B73100E3DA6C /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		438AB20528C3875C00AD1AD3 /* WritingPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPostData.swift; sourceTree = "<group>"; };
 		43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
 		43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewModel.swift; sourceTree = "<group>"; };
 		43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListCoordinator.swift; sourceTree = "<group>"; };
 		43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListComponent.swift; sourceTree = "<group>"; };
+		43E5181D28C2E257009A1897 /* DateStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStamp.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
 		766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D71D92A78B39A06F159B10 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
@@ -774,6 +778,14 @@
 			path = AlarmCell;
 			sourceTree = "<group>";
 		};
+		438AB20428C3872600AD1AD3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				438AB20528C3875C00AD1AD3 /* WritingPostData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		43B1E6C528B1AD320057A1AF /* AlarmList */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +844,7 @@
 		C3089AF227BF45C100884987 /* WritingPost */ = {
 			isa = PBXGroup;
 			children = (
+				438AB20428C3872600AD1AD3 /* Model */,
 				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3227C0DB8D003EDD0F /* Step1 */,
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
@@ -1031,6 +1044,7 @@
 			children = (
 				C34BA6A727CD3FCF003E393A /* DateUtil.swift */,
 				C34BA6A927CD409C003E393A /* DateFormat.swift */,
+				43E5181D28C2E257009A1897 /* DateStamp.swift */,
 			);
 			path = DateUtil;
 			sourceTree = "<group>";
@@ -2308,6 +2322,7 @@
 				C3089AF627BF45FE00884987 /* WritingMainPostCoordinator.swift in Sources */,
 				C3F3C63527B2016C000A63BC /* SelectGenderCoordinator.swift in Sources */,
 				C3498F2B27C0DB41003EDD0F /* WritingTitleView.swift in Sources */,
+				438AB20628C3875C00AD1AD3 /* WritingPostData.swift in Sources */,
 				C342F9A6282D58420000E46C /* PostResponse.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
@@ -2478,6 +2493,7 @@
 				C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */,
 				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
+				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
@@ -2650,7 +2666,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Runner-be/Info.plist";
@@ -2668,7 +2684,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2687,7 +2703,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = 88WL9553L8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Runner-be/Info.plist";
@@ -2705,7 +2721,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

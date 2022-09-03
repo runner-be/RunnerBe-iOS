@@ -36,7 +36,7 @@ class WritingPlaceView: SelectBaseView {
 
     func showPlaceInfo(city: String, name: String) {
         placeLabel.isHidden = city.isEmpty && name.isEmpty
-        placeLabel.texts = [city, name]
+        placeLabel.text = city + "\n" + name
     }
 
     lazy var locationChanged = PublishSubject<CLLocationCoordinate2D>()
@@ -54,15 +54,25 @@ class WritingPlaceView: SelectBaseView {
         view.contentMode = .scaleAspectFit
     }
 
-    var placeLabel = BubbleLabel(direction: .left).then { label in
-        label.bubbleColor = .darkG6
-        label.bubbleBorderColor = .darkG6
-        label.bubbleLineWidth = 0
+    var placeLabel = UILabel().then { label in
         label.font = .iosBody13R
-        label.fontSize = 13
         label.textColor = .darkG1
-        label.padding = UIEdgeInsets(top: 6, left: 9, bottom: 9, right: 8)
-        label.isHidden = true
+        label.numberOfLines = 0
+    }
+
+    lazy var placeLabelBackground = UIView().then { view in
+        view.backgroundColor = .darkG6
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+
+        view.addSubviews([placeLabel])
+        placeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(9)
+            make.trailing.equalTo(view.snp.trailing).offset(-8)
+            make.top.equalTo(view.snp.top).offset(6)
+            make.bottom.equalTo(view.snp.bottom).offset(-9)
+        }
     }
 
     override func setupViews() {
@@ -75,7 +85,7 @@ class WritingPlaceView: SelectBaseView {
 
         mapView.addSubviews([
             placeMark,
-            placeLabel,
+            placeLabelBackground,
         ])
     }
 
@@ -97,7 +107,7 @@ class WritingPlaceView: SelectBaseView {
             make.height.equalTo(24)
         }
 
-        placeLabel.snp.makeConstraints { make in
+        placeLabelBackground.snp.makeConstraints { make in
             make.leading.equalTo(placeMark.snp.trailing)
             make.bottom.equalTo(placeMark.snp.top)
             make.trailing.lessThanOrEqualTo(mapView.snp.trailing).offset(-30)

@@ -17,13 +17,13 @@ final class WritingDetailPostComponent: Component<WritingDetailPostDependency> {
     }
 
     var viewModel: WritingDetailPostViewModel {
-        return WritingDetailPostViewModel(mainPostData: postMainData)
+        return WritingDetailPostViewModel(writingPostData: writingPostData)
     }
 
-    init(parent: Scope, postMainData: WritingPostDetailConfigData) {
-        self.postMainData = postMainData
+    init(parent: Scope, writingPostData: WritingPostData) {
+        self.writingPostData = writingPostData
         super.init(parent: parent)
     }
 
-    var postMainData: WritingPostDetailConfigData
+    var writingPostData: WritingPostData
 }
