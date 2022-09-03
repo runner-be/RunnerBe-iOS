@@ -26,17 +26,34 @@ class ManageAttendanceCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
+        contentView.isUserInteractionEnabled = true
     }
 
     var userInfoView = UserInfoView()
 
     var resultView = ManageAttendanceResultView()
 
-//    var manageButtonGroup = OnOffLabelGroup().then { view in
-//        view.labels = [OnOffLabel(text: "결석"), OnOffLabel(text: "출석")]
-//    }
+    var refusalBtn = UIButton().then { button in
+        button.setTitle(L10n.MyPage.MyPost.Manage.Absent.title, for: .normal)
+        button.setTitleColor(.darkG3, for: .normal)
+        button.setBackgroundColor(.clear, for: .normal)
+        button.titleLabel?.font = .iosBody15R
 
-//    var buttonGroup =
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.darkG4.cgColor
+        button.clipsToBounds = true
+    }
+
+    var acceptBtn = UIButton().then { button in
+        button.setTitle(L10n.MyPage.MyPost.Manage.Attend.title, for: .normal)
+        button.setTitleColor(.darkG3, for: .normal)
+        button.setBackgroundColor(.clear, for: .normal)
+        button.titleLabel?.font = .iosBody15R
+
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.darkG4.cgColor
+        button.clipsToBounds = true
+    }
 
     var dividerView = UIView().then { view in
         view.backgroundColor = .black
@@ -54,6 +71,8 @@ extension ManageAttendanceCell {
         contentView.addSubviews([
             userInfoView,
             resultView,
+            acceptBtn,
+            refusalBtn,
             dividerView,
         ])
     }
@@ -70,6 +89,22 @@ extension ManageAttendanceCell {
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
+
+        refusalBtn.snp.makeConstraints { make in
+            make.top.equalTo(userInfoView.snp.bottom).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.centerX)
+            make.height.equalTo(32)
+        }
+        refusalBtn.layer.cornerRadius = 16
+
+        acceptBtn.snp.makeConstraints { make in
+            make.top.equalTo(refusalBtn.snp.top)
+            make.leading.equalTo(contentView.snp.centerX).offset(11)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.height.equalTo(32)
+        }
+        acceptBtn.layer.cornerRadius = 16
 
         dividerView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)

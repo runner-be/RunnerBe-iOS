@@ -398,6 +398,14 @@ internal enum L10n {
           /// 제출하기
           internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.SaveButton.title")
         }
+        internal enum TimeGuide {
+          internal enum Content {
+            /// 함께한 러너들의 출석을 
+            internal static let first = L10n.tr("Localizable", "MyPage.MyPost.Manage.TimeGuide.content.first")
+            ///  후까지 체크할 수 있어요!
+            internal static let second = L10n.tr("Localizable", "MyPage.MyPost.Manage.TimeGuide.content.second")
+          }
+        }
       }
     }
     internal enum MyRunning {

@@ -195,6 +195,8 @@
 "MyPage.MyPost.Manage.Absent.title" = "결석";
 "MyPage.MyPost.Manage.SaveButton.title" = "제출하기";
 "MyPage.MyPost.Manage.Modal.content" = "출석 관리 시간이 만료되었어요!";
+"MyPage.MyPost.Manage.TimeGuide.content.first" = "함께한 러너들의 출석을 ";
+"MyPage.MyPost.Manage.TimeGuide.content.second" = " 후까지 체크할 수 있어요!";
 "MyPage.MyPost.Manage.Modal.button.title" = "마이페이지로 이동";
 "MyPage.MyRunning.Attendance.Before.title" = "리더의 체크를 기다리고 있어요";
 "MyPage.MyRunning.Attendance.Attendance.title" = "출석을 완료했어요 😎";

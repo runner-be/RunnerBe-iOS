@@ -20,22 +20,46 @@ class ManageAttendanceViewController: BaseViewController {
     var useCornerRadiusAsRatio: Bool = true
     var cornerRadiusFactor: CGFloat = 1
     var myRunningIdx = -1 // 출석관리하기의 runnerList를 가져올 idx
+    var postId = -1
     var attendTimeOver = "N"
-    lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
     var runnerList: [RunnerList] = []
+    var userList: [Int] = []
+    var attendList: [String] = []
+
+    lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
+
+    let currentDate = DateUtil.shared.now
+    var gatherDate = Date()
+    var runningTime = TimeInterval()
+    var time = 0
+    var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        manageAttendanceDataManager.getManageAttendance(viewController: self)
+
         setupViews()
         initialLayout()
 
         viewModelInput()
         viewModelOutput()
 
-        manageAttendanceDataManager.getManageAttendance(viewController: self)
-
         tableView.delegate = self
         tableView.dataSource = self
+
+        saveButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                if !self.attendList.contains("-") { // 모두 출석체크되었으면
+                    print(self.userList.description)
+                    print(self.attendList.description)
+                    self.manageAttendanceDataManager.patchAttendance(viewController: self, postId: self.postId, userIdList: self.userList.map(String.init).joined(separator: ","), whetherAttendList: self.attendList.joined(separator: ","))
+                }
+            })
+            .disposed(by: disposeBag)
+
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
     }
 
     init(viewModel: ManageAttendanceViewModel, myRunningIdx: Int) {
@@ -60,6 +84,18 @@ class ManageAttendanceViewController: BaseViewController {
 
     private func viewModelOutput() {}
 
+    @objc func timerCallback() {
+        time -= 1
+        timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time / 60))분"
+
+        if time == 0 {
+            timer?.invalidate()
+            let vc = ManagedTimeExpiredViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
+    }
+
     private var tableView = UITableView().then { view in
         view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
         view.separatorStyle = .none
@@ -81,10 +117,27 @@ class ManageAttendanceViewController: BaseViewController {
         view.isHidden = true
     }
 
+    private var timeFirstLabel = UILabel().then { view in
+        view.textColor = .darkG25
+        view.font = .iosBody13B
+        view.text = L10n.MyPage.MyPost.Manage.TimeGuide.Content.first
+    }
+
+    var timeSecondLabel = UILabel().then { view in
+        view.textColor = .primary
+        view.font = .iosBody13B
+    }
+
+    private var timeThirdLabel = UILabel().then { view in
+        view.textColor = .darkG25
+        view.font = .iosBody13B
+        view.text = L10n.MyPage.MyPost.Manage.TimeGuide.Content.second
+    }
+
     private var saveButton = UIButton().then { view in
         view.backgroundColor = .primary
         view.setTitleColor(.black, for: .normal)
-        view.titleLabel?.font = .iosBody13B
+        view.titleLabel?.font = .iosBody15B
         view.setTitle(L10n.MyPage.MyPost.Manage.SaveButton.title, for: .normal)
         view.layer.borderWidth = 0
         view.layer.cornerRadius = 20
@@ -101,6 +154,9 @@ extension ManageAttendanceViewController {
         view.addSubviews([
             navBar,
             timeView,
+            timeFirstLabel,
+            timeSecondLabel,
+            timeThirdLabel,
             tableView,
             saveButton,
         ])
@@ -113,15 +169,34 @@ extension ManageAttendanceViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-//        timeView.snp.makeConstraints { make in
-//            make.top.equalTo(navBar.snp.bottom)
-//            make.leading.equalTo(view.snp.leading)
-//            make.trailing.equalTo(view.snp.trailing)
-//            make.height.equalTo(44)
-//        }
+        timeView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(44)
+        }
+
+        timeFirstLabel.snp.makeConstraints { make in
+            make.leading.equalTo(timeView.snp.leading).offset(18)
+            make.centerY.equalTo(timeView.snp.centerY)
+        }
+
+        timeSecondLabel.snp.makeConstraints { make in
+            make.leading.equalTo(timeFirstLabel.snp.trailing).offset(2)
+            make.centerY.equalTo(timeView.snp.centerY)
+        }
+
+        timeThirdLabel.snp.makeConstraints { make in
+            make.leading.equalTo(timeSecondLabel.snp.trailing).offset(2)
+            make.centerY.equalTo(timeView.snp.centerY)
+        }
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
+//            if timeView.isHidden {
+//                make.top.equalTo(view.snp.bottom)
+//            } else {
+            make.top.equalTo(timeView.snp.bottom)
+//            }
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(saveButton.snp.top).offset(8)
@@ -143,7 +218,9 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ManageAttendanceCell.id) as? ManageAttendanceCell else { return .init() }
+        cell.selectionStyle = .none
 
+        // user 세팅하기
         let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL!)
         var isUser = false
 
@@ -153,21 +230,80 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
             isUser = false
         }
 
-        if runnerList[indexPath.row].whetherCheck! == "Y" { // 리더가 출석체크했음
-            if runnerList[indexPath.row].attendance! == 0 {
-                cell.resultView.label.text = L10n.MyPage.ManageAttendance.Absence.title
+        cell.configure(userInfo: UserConfig(from: user, owner: isUser))
+
+        // 출석관리하기 버튼 / 결과값 여부
+        if attendTimeOver == "Y" { // 출석관리 마감시간 여부
+            timeView.isHidden = true
+            cell.resultView.isHidden = false
+            cell.refusalBtn.isHidden = true
+            cell.acceptBtn.isHidden = true
+
+            if runnerList[indexPath.row].whetherCheck! == "Y" { // 리더가 출석체크했음
+                if runnerList[indexPath.row].attendance! == 0 {
+                    cell.resultView.label.text = L10n.MyPage.ManageAttendance.Absence.title
+                } else {
+                    cell.resultView.label.text = L10n.MyPage.ManageAttendance.Attendance.title
+                }
             } else {
-                cell.resultView.label.text = L10n.MyPage.ManageAttendance.Attendance.title
+                cell.resultView.label.text = L10n.MyPage.ManageAttendance.Before.title
             }
         } else {
-            cell.resultView.label.text = L10n.MyPage.ManageAttendance.Before.title
+            timeView.isHidden = false
+            cell.resultView.isHidden = true
+            cell.refusalBtn.isHidden = false
+            cell.acceptBtn.isHidden = false
+
+            cell.refusalBtn.rx.tapGesture()
+                .when(.recognized)
+                .subscribe(onNext: { _ in
+                    if !cell.refusalBtn.isSelected { // 비활성 -> 활성
+                        cell.refusalBtn.isSelected = true
+                        cell.refusalBtn.backgroundColor = .primary
+                        cell.refusalBtn.setTitleColor(.black, for: .selected)
+
+                        cell.acceptBtn.isSelected = false
+                        cell.acceptBtn.backgroundColor = .clear
+                        cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+
+                        self.attendList[indexPath.row] = "N"
+
+                    } else { // 활성 -> 비활성
+                        cell.refusalBtn.isSelected = false
+                        cell.refusalBtn.backgroundColor = .clear
+                        cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+
+                        self.attendList[indexPath.row] = "-"
+                    }
+
+                })
+                .disposed(by: disposeBag)
+
+            cell.acceptBtn.rx.tapGesture()
+                .when(.recognized)
+                .subscribe(onNext: { _ in
+                    if !cell.acceptBtn.isSelected { // 비활성 -> 활성
+                        cell.acceptBtn.isSelected = true
+                        cell.acceptBtn.backgroundColor = .primary
+                        cell.acceptBtn.setTitleColor(.black, for: .selected)
+
+                        cell.refusalBtn.isSelected = false
+                        cell.refusalBtn.backgroundColor = .clear
+                        cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+
+                        self.attendList[indexPath.row] = "Y"
+
+                    } else { // 활성 -> 비활성
+                        cell.acceptBtn.isSelected = false
+                        cell.acceptBtn.backgroundColor = .clear
+                        cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+
+                        self.attendList[indexPath.row] = "-"
+                    }
+
+                })
+                .disposed(by: disposeBag)
         }
-
-//        if attendTimeOver! == "Y" { //출석관리 마감시간 여부
-        ////            cell.
-//        }
-
-        cell.configure(userInfo: UserConfig(from: user, owner: isUser))
 
         return cell
     }
@@ -188,14 +324,51 @@ extension ManageAttendanceViewController {
             attendTimeOver = "Y"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
             saveButton.isHidden = true
+
+            timeView.isHidden = true
+            timeFirstLabel.isHidden = true
+            timeSecondLabel.isHidden = true
+            timeThirdLabel.isHidden = true
         } else { // 출석이 완료되지 않을 경우
             attendTimeOver = "N"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
             saveButton.isHidden = false
+
+            timeView.isHidden = false
+            timeFirstLabel.isHidden = false
+            timeSecondLabel.isHidden = false
+            timeThirdLabel.isHidden = false
+        }
+
+        postId = (result.myPosting?[myRunningIdx].postID)!
+
+        let formatter = DateUtil.shared.dateFormatter
+        formatter.dateFormat = DateFormat.apiDate.formatString
+        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
+
+        let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
+        var hour = Int(hms![0])
+        var minute = Int(hms![1])
+
+        print("\(hour):\(minute)")
+
+//        runningInterval = TimeInterval(hour! * 60 * 60 + minute! * 60)
+
+        print(gatherDate)
+        var finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+        print(finishedDate.description)
+//        time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
+        time = 10
+
+        for user in result.myPosting![myRunningIdx].runnerList! {
+            userList.append(user.userID!)
+            attendList.append("-")
         }
     }
 
-    func didSuccessPatchAttendance(_: BaseResponse) {}
+    func didSuccessPatchAttendance(_: BaseResponse) {
+        view.makeToast("출석이 제출되었습니다.")
+    }
 
     func failedToRequest(message: String) {
         print(message)

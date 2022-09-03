@@ -15,6 +15,10 @@ final class ManageAttendanceViewModel: BaseViewModel {
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
+
+        inputs.showExpiredModal
+            .bind(to: routes.showExpiredModal)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -29,6 +33,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
+        var showExpiredModal = PublishSubject<Void>()
     }
 
     struct RouteInputs {
