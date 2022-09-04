@@ -332,6 +332,7 @@
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
 		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
 		DA117B20283150A300158211 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA117B1F283150A300158211 /* Message.swift */; };
+		DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */; };
 		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
@@ -346,7 +347,6 @@
 		DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */; };
 		DA7E971C288BE1D10001BBDC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */; };
 		DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */; };
-		DA7E9721288C12AF0001BBDC /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */; };
 		DA7E9724288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */; };
 		DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */; };
 		DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */; };
@@ -711,6 +711,7 @@
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		DA117B1F283150A300158211 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
@@ -725,7 +726,6 @@
 		DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewController.swift; sourceTree = "<group>"; };
 		DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
 		DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchJobRequest.swift; sourceTree = "<group>"; };
-		DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPageParticipatePostConfig.swift; path = ../../../../../../../../Downloads/MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalViewModel.swift; sourceTree = "<group>"; };
@@ -989,9 +989,9 @@
 		C32C028C27CB45E00011419E /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				DA7E9720288C12AF0001BBDC /* MyPageParticipatePostConfig.swift */,
 				C32C028F27CB46030011419E /* MyPagePostConfig.swift */,
 				C32C029527CB63270011419E /* MyPagePostDataSource.swift */,
+				DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -2471,7 +2471,6 @@
 				C3F0968A27AED7AC00959F9A /* UIButton+.swift in Sources */,
 				C38ABDA927D4F2D90025929E /* SignoutCompletionModalCoordinator.swift in Sources */,
 				C3BB13C427C907AD004954EB /* PostDetailViewController.swift in Sources */,
-				DA7E9721288C12AF0001BBDC /* MyPageParticipatePostConfig.swift in Sources */,
 				C3347BE927C2D113006FB110 /* WritingDetailPostComponent.swift in Sources */,
 				C35B832227B9176400551AC5 /* SignupService.swift in Sources */,
 				C3432CA827B8315F00DEFF51 /* LoginToken.swift in Sources */,
@@ -2542,6 +2541,7 @@
 				C3C9732527C9373900232251 /* User.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
 				DADD85FD28870BEE00B11041 /* Constants.swift in Sources */,
+				DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
@@ -2959,8 +2959,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
-				ONLY_ACTIVE_ARCH = YES;
 				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
