@@ -34,4 +34,12 @@ final class MyPageComponent: Component<MyPageDependency> {
     var imageUploadService: ImageUploadService {
         return BasicImageUploadService()
     }
+
+    var takePhotoModalComponent: TakePhotoModalComponent {
+        return TakePhotoModalComponent(parent: self)
+    }
+
+    func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(parent: self, myRunningIdx: myRunningIdx)
+    }
 }

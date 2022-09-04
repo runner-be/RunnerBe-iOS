@@ -11,6 +11,8 @@ import RxSwift
 import UIKit
 
 class OnOffLabelGroup {
+    var result = [Int]()
+
     var styleOn = OnOffLabel.Style() {
         didSet {
             labels.forEach { $0.styleOn = styleOn }
@@ -24,10 +26,13 @@ class OnOffLabelGroup {
     }
 
     var selected: [Int] {
-        var result = [Int]()
         for (idx, label) in labels.enumerated() {
             if label.isOn {
-                result.append(idx)
+                if result.isEmpty {
+                    result.append(idx)
+                } else {
+                    result[0] = idx
+                }
             }
         }
         return result
@@ -47,7 +52,7 @@ class OnOffLabelGroup {
     var tap = PublishSubject<Int>()
 
     private var disposeBag = DisposeBag()
-    private var labels = [OnOffLabel]()
+    var labels = [OnOffLabel]()
     private var numberOfOnState = 0
     private var lastSelected: OnOffLabel?
 
@@ -67,7 +72,7 @@ class OnOffLabelGroup {
                 self?.toggle(label: label)
             })
             .subscribe(onNext: { [weak self] _ in
-                self?.tap.onNext(self?.numberOfOnState ?? 0)
+                self?.tap.onNext(self?.selected[0] ?? 0)
             })
             .disposed(by: disposeBag)
         labels.append(label)

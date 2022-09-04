@@ -15,6 +15,9 @@ import Then
 import UIKit
 
 class SettingsViewController: BaseViewController {
+    lazy var myDataManager = SettinsDataManager()
+    var isPushOn = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,6 +25,9 @@ class SettingsViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+
+        myDataManager.getMyPage(viewController: self)
+        pushSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
     }
 
     init(viewModel: SettingsViewModel) {
@@ -32,6 +38,17 @@ class SettingsViewController: BaseViewController {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func switchChanged(sender pushSwtich: UISwitch) {
+        print(pushSwtich.isOn)
+        if !pushSwtich.isOn {
+            myDataManager.patchPushOn(viewController: self, pushOn: "N")
+            isPushOn = false
+        } else {
+            myDataManager.patchPushOn(viewController: self, pushOn: "Y")
+            isPushOn = true
+        }
     }
 
     private var viewModel: SettingsViewModel
@@ -48,8 +65,8 @@ class SettingsViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        let dataSource = RxTableViewSectionedReloadDataSource<SettingCategorySection> {
-            _, tableView, _, item in
+        let dataSource = RxTableViewSectionedReloadDataSource<SettingCategorySection> { [self]
+            _, tableView, indexPath, item in
 
             let cell: UITableViewCell
             if let c = tableView.dequeueReusableCell(withIdentifier: "cell") {
@@ -58,6 +75,13 @@ class SettingsViewController: BaseViewController {
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
             }
 
+            if indexPath.section == 0, indexPath.row == 0 {
+                cell.contentView.addSubview(self.pushSwitch)
+                self.pushSwitch.snp.makeConstraints { view in
+                    view.trailing.equalTo(cell.snp.trailing).offset(-16)
+                    view.centerY.equalTo(cell.snp.centerY)
+                }
+            }
             cell.textLabel?.text = item.title
             cell.textLabel?.font = .iosBody15R
             cell.textLabel?.textColor = .darkG1
@@ -103,6 +127,14 @@ class SettingsViewController: BaseViewController {
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
     }
+
+    private var pushSwitch = UISwitch().then { view in
+        view.onTintColor = .primary
+        view.tintColor = .darkG2
+        view.backgroundColor = .darkG2
+        view.layer.cornerRadius = view.frame.height / 2
+        view.clipsToBounds = true
+    }
 }
 
 // MARK: - Layout
@@ -134,18 +166,32 @@ extension SettingsViewController {
 }
 
 extension SettingsViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 8
+    func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat { // 섹션 height
+        return section == 0 ? 0 : 14
     }
 
-    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? { // 섹션 뷰
         if section != 0 {
             let view = UIView()
-            view.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 8)
-            view.backgroundColor = .darkG6
+            view.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 14)
+            view.backgroundColor = .black
             return view
         }
 
         return nil
+    }
+}
+
+extension SettingsViewController {
+    func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
+        if result.myInfo![0].pushOn == "N" {
+            pushSwitch.isOn = false
+        } else {
+            pushSwitch.isOn = true
+        }
+    }
+
+    func failedToRequest(message: String) {
+        print(message)
     }
 }

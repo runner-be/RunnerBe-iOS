@@ -6,7 +6,6 @@
 //
 
 import Kingfisher
-import Photos
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -15,6 +14,15 @@ import Then
 import UIKit
 
 class EditInfoViewController: BaseViewController {
+    lazy var editInfoDataManager = EditInfoDataManager()
+
+    var jobindex = -1 // 초기 job index
+    var jobCode = "" // 초기 job code
+    var selectedJobCode = "" // 선택된 jobcode
+    var selectedJobIdx = -1 // 선택된 jobindex
+    var jobChangePossible = false
+    var jobCodeList = ["PSV", "EDU", "DEV", "PSM", "DES", "MPR", "SER", "PRO", "RES", "SAF", "MED", "HUR", "ACC", "CUS"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -23,6 +31,8 @@ class EditInfoViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         viewInputs()
+
+        editInfoDataManager.getMyPage(viewController: self)
     }
 
     // TODO: 유저 이미지 연결
@@ -54,16 +64,6 @@ class EditInfoViewController: BaseViewController {
             .compactMap { $0 }
             .bind(to: viewModel.inputs.nickNameText)
             .disposed(by: disposeBag)
-
-        profileImageView.rx.tapGesture()
-            .when(.recognized)
-            .map { _ in }
-            .bind(to: viewModel.inputs.changePhoto)
-            .disposed(by: disposeBag)
-
-        selectJobView.jobGroup.tap
-            .bind(to: viewModel.inputs.jobSelected)
-            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -74,87 +74,18 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.currentProfile
-            .take(1)
-            .compactMap { $0 }
-            .compactMap { URL(string: $0) }
-            .subscribe(onNext: { [weak self] url in
-                self?.profileImageView.kf.setImage(with: url)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.showPicker
-            .map { $0.sourceType }
-            .subscribe(onNext: { [weak self] sourceType in
-                guard let self = self else { return }
-                let picker = UIImagePickerController()
-                picker.sourceType = sourceType
-                picker.allowsEditing = true
-                picker.delegate = self
-                switch sourceType {
-                case .photoLibrary:
-                    PHPhotoLibrary.requestAuthorization { [weak self] status in
-                        DispatchQueue.main.async {
-                            switch status {
-                            case .authorized:
-                                self?.present(picker, animated: true)
-                            default:
-                                self?.view.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
-                            }
-                        }
-                    }
-                case .camera:
-                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-                        DispatchQueue.main.async {
-                            if ok {
-                                self?.present(picker, animated: true)
-                            } else {
-                                self?.view.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
-                            }
-                        }
-                    })
-                default:
-                    break
-                }
-//                switch sourceType {
-//                case .photoLibrary:
-//                    if self.photoAuth() {
-//                        self.present(picker, animated: true)
-//                    } else {
-//                        self.authSettingOpen(authString: "앨범 권한 설정")
-//                    }
-//                case .camera:
-                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-                ////                        DispatchQueue.main.async {
-                ////                            if ok {
-                ////                                self?.present(picker, animated: true)
-                ////                            } else {
-                ////                                self?.view.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
-                ////                            }
-                ////                        }
-                ////                    })
-//                    if self.cameraAuth() {
-//                        self.present(picker, animated: true)
-//                    } else {
-//                        self.authSettingOpen(authString: "카메라 권한 설정")
-//                    }
-//                default:
-//                    break
-//                }
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.nickNameDup
+        viewModel.outputs.nickNameDup // 닉네임 중복처리
             .subscribe(onNext: { [weak self] dup in
                 self?.nickNameDupErrLabel.isHidden = !dup
                 self?.selectNickName.applyButton.isEnabled = !dup
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.nickNameRuleOK
+        viewModel.outputs.nickNameRuleOK // 유효성 검증
             .subscribe(onNext: { [weak self] ok in
                 self?.nickNameRuleErrLabel.isHidden = ok
                 self?.selectNickName.applyButton.isEnabled = ok
+//                print("hello \(self?.selectNickName.applyButton.isEnabled)")
             })
             .disposed(by: disposeBag)
 
@@ -164,6 +95,7 @@ class EditInfoViewController: BaseViewController {
                 self?.nickNameGuideLabel.isHidden = false
                 self?.nickNameRuleErrLabel.isHidden = true
                 self?.nickNameDupErrLabel.isHidden = true
+                self?.selectNickName.nickNameField.isEnabled = false
                 self?.selectNickName.disableWithPlaceHolder(
                     fieldText: nil,
                     // "MyPage.EditInfo.NickName.Button.CANNT" = "변경불가";
@@ -186,11 +118,9 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.profileChanged
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] data in
-                self?.profileImageView.image = UIImage(data: data)
-                self?.profileCameraIcon.isHidden = true
+        viewModel.outputs.jobChanged
+            .subscribe(onNext: { [weak self] _ in
+                self!.editInfoDataManager.patchJob(viewController: self!, job: self?.selectedJobCode ?? "PSV")
             })
             .disposed(by: disposeBag)
 
@@ -234,27 +164,36 @@ class EditInfoViewController: BaseViewController {
                 self?.selectNickName.nickNameField.endEditing(true)
             })
             .disposed(by: disposeBag)
-    }
 
-    private var profileImageView = UIImageView().then { view in
-        view.image = Asset.profileEmptyIcon.uiImage
+        // 1. 현재 직업과 다른 직업을 선택했을 때 모달 노출
+        // 2. 직업 수정한 이후에 한번 더 직업을 수정하려고 할 때, 텍스트가 뜨면서 모달 노출 X
+        // job modal 뷰컨에 idx 넘겨서 job modal에서 api 호출한 뒤 결과값만 받아오도록
+        // 한번 변경한 뒤에는, 모달이 아니라 텍스트를 띄워줘야함
 
-        view.snp.makeConstraints { make in
-            make.width.equalTo(78)
-            make.height.equalTo(78)
-        }
+        selectJobView.jobGroup.tap
+            .filter { [weak self] idx in
+                if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
+                    self?.selectedJobIdx = idx
+                    return true
+                }
+                return false // 여기서는 실행이 안됨
+            }
+            .do(onNext: { [weak self] idx in
+                self?.selectedJobCode = self?.jobCodeList[idx] ?? "PSV"
+            })
+            .map { _ in }
+            .bind(to: viewModel.inputs.jobSelected)
+            .disposed(by: disposeBag)
 
-        view.layer.cornerRadius = 39
-        view.clipsToBounds = true
-    }
-
-    private var profileCameraIcon = UIImageView().then { view in
-        view.image = Asset.camera.uiImage
-
-        view.snp.makeConstraints { make in
-            make.width.equalTo(36)
-            make.height.equalTo(36)
-        }
+        // 별로 안좋은 예시
+//            .subscribe(onNext: { [weak self] idx in
+//            self?.selectedJobIdx = idx
+//
+//            if idx != self?.jobindex {
+//                //editinfo viewmodel에
+//                self?.viewModel.inputs.jobSelected.onNext(())
+//            }
+//        })
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in
@@ -268,7 +207,7 @@ class EditInfoViewController: BaseViewController {
         label.font = .iosBody13R
         label.textColor = .primary
         label.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
-        label.isHidden = true
+        label.isHidden = false
     }
 
     private var nickNameDupErrLabel = UILabel().then { label in
@@ -290,19 +229,26 @@ class EditInfoViewController: BaseViewController {
         axis: .vertical,
         alignment: .leading,
         distribution: .equalSpacing,
-        spacing: 1
+        spacing: 4
     )
 
     private var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG55
+        view.backgroundColor = .black
         view.snp.makeConstraints { make in
-            make.height.equalTo(1)
+            make.height.equalTo(14)
         }
     }
 
     private var selectJobView = SelectJobView().then { view in
         view.titleLabel.text = L10n.MyPage.EditInfo.Job.title
-        view.isHidden = true
+        view.isHidden = false
+    }
+
+    private var selectJobGuideLabel = UILabel().then { label in
+        label.font = .iosBody13R
+        label.textColor = .primary
+        label.text = L10n.MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month
+        label.isHidden = true // 처음엔 노출 안되게
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -323,12 +269,11 @@ extension EditInfoViewController {
 
         view.addSubviews([
             navBar,
-            profileImageView,
-            profileCameraIcon,
             selectNickName,
             vStack,
             hDivider,
             selectJobView,
+            selectJobGuideLabel,
         ])
     }
 
@@ -339,18 +284,8 @@ extension EditInfoViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(16)
-            make.centerX.equalTo(view.snp.centerX)
-        }
-
-        profileCameraIcon.snp.makeConstraints { make in
-            make.bottom.equalTo(profileImageView.snp.bottom)
-            make.centerX.equalTo(profileImageView.snp.trailing)
-        }
-
         selectNickName.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(16)
+            make.top.equalTo(navBar.snp.bottom).offset(16)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
@@ -363,14 +298,20 @@ extension EditInfoViewController {
 
         hDivider.snp.makeConstraints { make in
             make.top.equalTo(vStack.snp.bottom).offset(27)
-            make.leading.equalTo(selectNickName.snp.leading)
-            make.trailing.equalTo(selectNickName.snp.trailing)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         selectJobView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(24)
             make.leading.equalTo(selectNickName.snp.leading)
             make.trailing.equalTo(selectNickName.snp.trailing)
+            make.height.equalTo(view.snp.height).multipliedBy(0.4) // 세로의 0.4로 비율조정
+        }
+
+        selectJobGuideLabel.snp.makeConstraints { make in
+            make.top.equalTo(selectJobView.snp.bottom).offset(24)
+            make.leading.equalTo(selectJobView.snp.leading)
         }
     }
 }
@@ -389,70 +330,75 @@ extension EditInfoViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - UIImagePickerViewController Delegate
+extension EditInfoViewController {
+    func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
+        if result.myInfo?[0].nameChanged == "Y" {
+            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.alreadychanged
+            selectNickName.nickNameField.isEnabled = false
+            selectNickName.applyButton.isEnabled = false
+            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.NickNameChanged.title, for: .disabled)
+        } else {
+            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
+//            selectNickName.applyButton.isEnabled = true
+            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
+        }
 
-extension EditInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
-    }
+        if result.myInfo?[0].jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
+            selectJobGuideLabel.isHidden = false
+            jobChangePossible = false
+        } else { // 변경한지 3개월 지남 -> 변경 가능
+            selectJobGuideLabel.isHidden = true
+            jobChangePossible = true
+        }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        let originalImage = info[.originalImage] as? UIImage
-        let editedImage = info[.editedImage] as? UIImage
-        let editedResizedImage = editedImage?.resize(newWidth: 300)
-        let originalResizedImage = originalImage?.resize(newWidth: 300)
-        viewModel.inputs.photoSelected.onNext(editedResizedImage?.pngData() ?? originalResizedImage?.pngData())
-        picker.dismiss(animated: true)
-    }
+        jobCode = (result.myInfo?[0].job)!
 
-    func photoAuth() -> Bool {
-        let authorizationState = PHPhotoLibrary.authorizationStatus()
-        var isAuth = false
-
-        switch authorizationState {
-        case .authorized:
-            return true
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization { state in
-                if state == .authorized {
-                    isAuth = true
-                }
-            }
-            return isAuth
-        case .restricted:
+        switch result.myInfo?[0].job {
+        case "공무원":
+            jobindex = 0
+        case "교육":
+            jobindex = 1
+        case "개발":
+            jobindex = 2
+        case "기획/전략/경영":
+            jobindex = 3
+        case "디자인":
+            jobindex = 4
+        case "마케팅/PR":
+            jobindex = 5
+        case "서비스":
+            jobindex = 6
+        case "생산":
+            jobindex = 7
+        case "연구":
+            jobindex = 8
+        case "영업/제휴":
+            jobindex = 9
+        case "의료":
+            jobindex = 10
+        case "인사":
+            jobindex = 11
+        case "재무/회계":
+            jobindex = 12
+        case "CS":
+            jobindex = 13
+        case .none:
             break
-        case .denied:
-            break
-        case .limited:
-            break
-        @unknown default:
+        case .some:
             break
         }
-        return false
+
+        selectJobView.jobGroup.labels[jobindex].isOn = true
+        selectJobView.jobGroup.result.removeAll()
+        selectJobView.jobGroup.result.append(jobindex)
     }
 
-    func cameraAuth() -> Bool {
-        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    func didSuccessPatchJob(_: BaseResponse) {
+        selectJobView.jobGroup.labels[selectedJobIdx].isOn = true
+        selectJobGuideLabel.isHidden = false
     }
 
-    func authSettingOpen(authString: String) {
-        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
-            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
-            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
-
-            let cancel = UIAlertAction(title: "취소", style: .default) { action in
-                alert.dismiss(animated: true, completion: nil)
-                print("\(String(describing: action.title)) 클릭")
-            }
-
-            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }
-
-            alert.addAction(cancel)
-            alert.addAction(confirm)
-
-            present(alert, animated: true, completion: nil)
-        }
+    func failedToRequest(message: String) {
+        view.makeToast(message)
     }
 }

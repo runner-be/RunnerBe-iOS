@@ -18,6 +18,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
         self.window = window
         let navController = UINavigationController()
         window.rootViewController = navController
+        AppContext.shared.rootNavigationController = navController
         super.init(navController: navController)
     }
 

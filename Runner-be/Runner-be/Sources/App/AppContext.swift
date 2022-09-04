@@ -11,6 +11,8 @@ class AppContext {
     static let shared = AppContext()
     private init() {}
 
+    var rootNavigationController: UINavigationController?
+
     var safeAreaInsets: UIEdgeInsets = .zero
     let tabHeight: CGFloat = 52
     let navHeight: CGFloat = 44

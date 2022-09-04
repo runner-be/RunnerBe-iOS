@@ -31,7 +31,7 @@ final class EditInfoComponent: Component<EditInfoDependency> {
         return NickNameChangeModalComponent(parent: self)
     }
 
-    var takePhotoModalComponent: TakePhotoModalComponent {
-        return TakePhotoModalComponent(parent: self)
+    var jobChangeModalComponent: JobChangeModalComponent {
+        return JobChangeModalComponent(parent: self)
     }
 }

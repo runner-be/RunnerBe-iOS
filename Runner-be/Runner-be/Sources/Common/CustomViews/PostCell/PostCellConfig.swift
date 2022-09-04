@@ -21,6 +21,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
     let writerProfileURL: String?
     var bookmarked: Bool
     let closed: Bool
+    var runningTag: String
     let attendanceProfiles: [ProfileURL]
 
     init(from post: Post) {
@@ -31,7 +32,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
                 + " "
                 + DateUtil.shared.formattedString(for: post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "
-                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "h:mm"))
+                + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "hh:mm"))
         time = "\(post.runningTime.hour)시간 \(post.runningTime.minute)분"
 
         place = post.locationInfo
@@ -47,6 +48,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
         writerProfileURL = post.writerProfileURL
         closed = !post.open
         bookmarked = post.marked
+        runningTag = post.tag.code
 
         attendanceProfiles = post.attendanceProfiles
     }

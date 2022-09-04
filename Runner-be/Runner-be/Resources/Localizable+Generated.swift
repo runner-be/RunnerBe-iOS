@@ -22,6 +22,20 @@ internal enum L10n {
 
   internal enum BookMark {
     internal enum Main {
+      internal enum Empty {
+        internal enum After {
+          /// 찜한 퇴근 후 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.after.title")
+        }
+        internal enum Before {
+          /// 찜한 출근 전 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.before.title")
+        }
+        internal enum Holiday {
+          /// 찜한 휴일 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.holiday.title")
+        }
+      }
       internal enum NavBar {
         /// 찜 목록
         internal static let title = L10n.tr("Localizable", "BookMark.Main.NavBar.title")
@@ -216,10 +230,16 @@ internal enum L10n {
   }
 
   internal enum MessageList {
+    internal enum Chat {
+      internal enum NavBar {
+        /// 신고하기
+        internal static let title = L10n.tr("Localizable", "MessageList.Chat.NavBar.Title")
+      }
+    }
     internal enum NavBar {
-      /// 삭제
+      /// 신고
       internal static let rightItem = L10n.tr("Localizable", "MessageList.NavBar.RightItem")
-      /// 쪽지
+      /// 러닝톡
       internal static let title = L10n.tr("Localizable", "MessageList.NavBar.Title")
     }
   }
@@ -241,6 +261,8 @@ internal enum L10n {
       internal enum Button {
         /// 앨범에서 가져오기
         internal static let album = L10n.tr("Localizable", "Modal.TakePhoto.Button.album")
+        /// 기본 이미지로 변경하기
+        internal static let `default` = L10n.tr("Localizable", "Modal.TakePhoto.Button.default")
         /// 촬영하기
         internal static let photo = L10n.tr("Localizable", "Modal.TakePhoto.Button.photo")
       }
@@ -252,13 +274,17 @@ internal enum L10n {
       internal enum Job {
         /// 나의 직군
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.Job.title")
+        internal enum ErrorLabel {
+          /// * 직군은 3개월에 한 번 변경할 수 있어요!
+          internal static let cannotIn3Month = L10n.tr("Localizable", "MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month")
+        }
       }
       internal enum NavBar {
         /// 내 정보 수정
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NavBar.title")
       }
       internal enum NickName {
-        /// 닉네임 변경
+        /// 닉네임
         internal static let title = L10n.tr("Localizable", "MyPage.EditInfo.NickName.title")
         internal enum Button {
           /// 등록하기
@@ -273,13 +299,13 @@ internal enum L10n {
         internal enum ErrorLabel {
           /// 중복된 닉네임이에요!
           internal static let duplicated = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.duplicated")
-          /// 영어 대문자, 특수문자, 띄어쓰기는 사용할 수 없습니다.
+          /// 영어 대문자, 특수문자, 띄어쓰기는 쓸 수 없어요!
           internal static let form = L10n.tr("Localizable", "MyPage.EditInfo.NickName.ErrorLabel.form")
         }
         internal enum InfoLabel {
-          /// 닉네임 변경이 완료되어 추가 변경은 불가능해요
+          /// * 닉네임 변경이 완료되어 추가 변경은 불가능해요!
           internal static let alreadychanged = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.alreadychanged")
-          /// 닉네임은 딱 한 번만 바꿀 수 있어요
+          /// * 딱 한 번만 바꿀 수 있어요!
           internal static let caution = L10n.tr("Localizable", "MyPage.EditInfo.NickName.InfoLabel.caution")
         }
         internal enum TextField {
@@ -316,6 +342,20 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "MyPage.Maker.NavBar.title")
       }
     }
+    internal enum ManageAttendance {
+      internal enum Absence {
+        /// 불참했어요 😭
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Absence.title")
+      }
+      internal enum Attendance {
+        /// 출석을 완료했어요 😎
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Attendance.title")
+      }
+      internal enum Before {
+        /// 출석을 체크하지 않았어요 😣
+        internal static let title = L10n.tr("Localizable", "MyPage.ManageAttendance.Before.title")
+      }
+    }
     internal enum MyPost {
       internal enum Empty {
         /// 아직 모임을 만들지 않았어요!
@@ -325,8 +365,68 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Empty.Button.title")
         }
       }
+      internal enum Manage {
+        internal enum Absent {
+          /// 결석
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Absent.title")
+        }
+        internal enum After {
+          /// 출석 관리하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.After.title")
+        }
+        internal enum Attend {
+          /// 출석
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Attend.title")
+        }
+        internal enum Before {
+          /// 러닝 후에 출석을 관리해주세요
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Before.title")
+        }
+        internal enum Finished {
+          /// 출석 확인하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Finished.title")
+        }
+        internal enum Modal {
+          /// 출석 관리 시간이 만료되었어요!
+          internal static let content = L10n.tr("Localizable", "MyPage.MyPost.Manage.Modal.content")
+          internal enum Button {
+            /// 마이페이지로 이동
+            internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.Modal.button.title")
+          }
+        }
+        internal enum SaveButton {
+          /// 제출하기
+          internal static let title = L10n.tr("Localizable", "MyPage.MyPost.Manage.SaveButton.title")
+        }
+        internal enum TimeGuide {
+          internal enum Content {
+            /// 함께한 러너들의 출석을 
+            internal static let first = L10n.tr("Localizable", "MyPage.MyPost.Manage.TimeGuide.content.first")
+            ///  후까지 체크할 수 있어요!
+            internal static let second = L10n.tr("Localizable", "MyPage.MyPost.Manage.TimeGuide.content.second")
+          }
+        }
+      }
     }
     internal enum MyRunning {
+      internal enum Attendance {
+        internal enum Absence {
+          /// 불참했어요 😭
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Absence.title")
+        }
+        internal enum Attendance {
+          /// 출석을 완료했어요 😎
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Attendance.title")
+        }
+        internal enum Before {
+          /// 리더의 체크를 기다리고 있어요
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Before.title")
+        }
+        internal enum NotCheck {
+          /// 리더가 출석을 체크하지 않았어요😂
+          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.NotCheck.title")
+        }
+      }
       internal enum Empty {
         /// 아직 러닝에 참여하지 않았어요!
         internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Empty.title")
@@ -349,6 +449,10 @@ internal enum L10n {
           }
         }
         internal enum Account {
+          internal enum EditPassword {
+            /// 비밀번호 변경
+            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.EditPassword.title")
+          }
           internal enum Logout {
             /// 로그아웃
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Account.Logout.title")
@@ -359,16 +463,12 @@ internal enum L10n {
           }
         }
         internal enum Policy {
-          internal enum License {
-            ///  오픈소스 라이센스
-            internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.License.title")
-          }
           internal enum Privacy {
             /// 개인정보 처리방침
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Privacy.title")
           }
           internal enum Term {
-            /// 이용 약관
+            /// 이용약관
             internal static let title = L10n.tr("Localizable", "MyPage.Settings.Category.Policy.Term.title")
           }
           internal enum Version {
@@ -378,8 +478,17 @@ internal enum L10n {
         }
       }
       internal enum Modal {
+        internal enum Job {
+          /// 직군 변경은 3개월에 1회 가능해요.
+          /// 변경하시겠어요?
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.Content")
+          /// 아니오
+          internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.no")
+          /// 네
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Job.ok")
+        }
         internal enum Logout {
-          /// 정말 로그아웃하시겠어요?
+          /// 로그아웃 하시겠어요?
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Content")
           internal enum Button {
             /// 아니오
@@ -388,8 +497,15 @@ internal enum L10n {
             internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Logout.Button.ok")
           }
         }
+        internal enum Manage {
+          /// 출석 관리 시간이 만료되었어요!
+          internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.Manage.Content")
+          /// 마이페이지로 이동
+          internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Manage.ok")
+        }
         internal enum NickName {
-          /// 닉네임 변경은 1회만 가능하며 재변경은 불가능해요!
+          /// 닉네임 변경은 1회만 가능하며
+          /// 재변경은 불가능해요!
           /// 정말 변경하시겠어요?
           internal static let content = L10n.tr("Localizable", "MyPage.Settings.Modal.NickName.Content")
           internal enum Button {
@@ -400,11 +516,10 @@ internal enum L10n {
           }
         }
         internal enum Signout {
-          /// 탈퇴를 진행하시겠어요?
-          /// 탈퇴시 계정은 삭제되며,
-          /// 데이터는 복구되지 않습니다.
+          /// 탈퇴하면 모든 러너 정보가 삭제돼요.
+          /// 정말 탈퇴하시겠어요?
           internal static let message = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.message")
-          /// 더 고민할래요
+          /// 아니오
           internal static let no = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.no")
           /// 예
           internal static let ok = L10n.tr("Localizable", "MyPage.Settings.Modal.Signout.ok")
@@ -420,6 +535,10 @@ internal enum L10n {
       internal enum NavBar {
         /// 설정
         internal static let title = L10n.tr("Localizable", "MyPage.Settings.NavBar.title")
+      }
+      internal enum Push {
+        /// 푸시 알림
+        internal static let title = L10n.tr("Localizable", "MyPage.Settings.Push.title")
       }
     }
     internal enum Tab {

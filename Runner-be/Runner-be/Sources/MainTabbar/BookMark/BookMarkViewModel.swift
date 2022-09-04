@@ -21,9 +21,9 @@ final class BookMarkViewModel: BaseViewModel {
     init(postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
-        routeInputs.needUpdate
+        routeInputs.needUpdate // API로부터 북마크 목록 뿌리는 부분
             .flatMap { _ in
-                postAPIService.fetchPostsBookMarked()
+                postAPIService.fetchPostsBookMarked() // flatMap : Observable을 벗겨냄
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
@@ -39,6 +39,8 @@ final class BookMarkViewModel: BaseViewModel {
 
                     if let posts = self.posts[self.runningTag] {
                         self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
+                    } else {
+                        self.outputs.posts.onNext([])
                     }
                 }
             })
@@ -85,7 +87,9 @@ final class BookMarkViewModel: BaseViewModel {
                 guard let self = self,
                       let posts = self.posts[self.runningTag],
                       idx >= 0, idx < posts.count
-                else { return }
+                else {
+                    return
+                }
                 self.routes.detailPost.onNext(posts[idx].ID)
             })
             .disposed(by: disposeBag)

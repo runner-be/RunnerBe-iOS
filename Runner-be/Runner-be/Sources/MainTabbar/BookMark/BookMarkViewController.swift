@@ -14,6 +14,8 @@ import Then
 import UIKit
 
 class BookMarkViewController: BaseViewController {
+    var runningTagInt = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -37,7 +39,7 @@ class BookMarkViewController: BaseViewController {
 
     private func viewModelInput() {
         postCollectionView.rx.itemSelected
-            .map { $0.row }
+            .map { $0.row } // 다른 자료형으로 형변환
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBag)
     }
@@ -48,24 +50,38 @@ class BookMarkViewController: BaseViewController {
         let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
             [weak self] _, collectionView, indexPath, item in
 
-            guard let self = self,
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-            else { return UICollectionViewCell() }
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+                else { return UICollectionViewCell() }
 
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.row }
-                .subscribe(onNext: { [weak self] idx in
-                    self?.viewModel.inputs.tapPostBookMark.onNext(idx)
-                })
-                .disposed(by: cell.disposeBag)
+                cell.postInfoView.bookMarkIcon.rx.tap
+                    .map { indexPath.row }
+                    .subscribe(onNext: { [weak self] idx in
+                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+                    })
+                    .disposed(by: cell.disposeBag)
 
-            cell.configure(with: item)
-            return cell
+                cell.configure(with: item)
+                return cell
         }
 
         viewModel.outputs.posts
             .do(onNext: { [weak self] configs in
-                self?.numPostLabel.text = "총 \(configs.count) 건"
+                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
+
+                if configs.isEmpty {
+                    self?.emptyLabel.isHidden = false
+                    switch self?.runningTagInt {
+                    case 0:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
+                    case 1:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
+                    default:
+                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
+                    }
+                } else {
+                    self?.emptyLabel.isHidden = true
+                }
             })
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
@@ -107,6 +123,17 @@ class BookMarkViewController: BaseViewController {
         label.text = "총 0 건"
     }
 
+    var emptyLabelView = UIView().then { view in // 라벨을 가운데에 있게할 트릭 uiview
+        view.backgroundColor = UIColor.clear
+    }
+
+    var emptyLabel = UILabel().then { label in // 목록이 없을때 띄워줄 label
+        label.font = .iosTitle19R
+        label.textColor = .darkG4
+//        label.text = L10n.BookMark.Main.Empty.Before.title
+        label.isHidden = true
+    }
+
     private lazy var postCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
@@ -127,6 +154,8 @@ extension BookMarkViewController {
             navBar,
             segmentedControl,
             numPostLabel,
+            emptyLabel,
+            emptyLabelView,
             postCollectionView,
         ])
     }
@@ -150,10 +179,22 @@ extension BookMarkViewController {
         }
 
         postCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(numPostLabel.snp.bottom).offset(12)
+            make.top.equalTo(numPostLabel.snp.bottom).offset(8)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
+        }
+
+        emptyLabelView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.leading.equalTo(self.view.snp.leading)
+            make.trailing.equalTo(self.view.snp.trailing)
+        }
+
+        emptyLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.centerY.equalTo(emptyLabelView.snp.centerY)
         }
     }
 }
@@ -161,7 +202,8 @@ extension BookMarkViewController {
 extension BookMarkViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from: Int, to: Int) {
         if from != to {
-            viewModel.inputs.tagChanged.onNext(to)
+            runningTagInt = to
+            viewModel.inputs.tagChanged.onNext(to) // 출근 전, 퇴근 후, 휴일 태그가 바꼈을 시
         }
     }
 }

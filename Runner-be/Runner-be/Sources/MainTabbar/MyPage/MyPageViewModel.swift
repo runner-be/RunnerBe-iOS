@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 
 final class MyPageViewModel: BaseViewModel {
+    var dirty: Bool = false
+
     enum PostType {
         case basic, attendable
     }
@@ -16,7 +18,7 @@ final class MyPageViewModel: BaseViewModel {
     var user: User?
     var posts = [PostType: [Post]]()
 
-    init(postAPIService: PostAPIService = BasicPostAPIService()) {
+    init(postAPIService: PostAPIService = BasicPostAPIService(), userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
         routeInputs.needUpdate
@@ -127,8 +129,7 @@ final class MyPageViewModel: BaseViewModel {
                     return
                 }
 
-                self.posts[self.outputs.postType]![idx].attendance = true
-                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: PostAttendState.attend))
+                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
             })
             .disposed(by: disposeBag)
 
@@ -154,10 +155,54 @@ final class MyPageViewModel: BaseViewModel {
         inputs.writePost
             .bind(to: routes.writePost)
             .disposed(by: disposeBag)
+
+        inputs.manageAttendance
+            .compactMap { [weak self] idx in
+                idx
+            }
+            .bind(to: routes.manageAttendance)
+            .disposed(by: disposeBag)
+
+        Observable<String?>.of(user?.profileImageURL)
+            .subscribe(outputs.currentProfile)
+            .disposed(by: disposeBag)
+
+        inputs.changePhoto
+            .bind(to: routes.photoModal)
+            .disposed(by: disposeBag)
+
+        routeInputs.photoTypeSelected
+            .compactMap { $0 }
+            .bind(to: outputs.showPicker)
+            .disposed(by: disposeBag)
+
+        inputs.photoSelected
+            .do(onNext: { [weak self] _ in
+                self?.outputs.toastActivity.onNext(true)
+            })
+            .compactMap { [weak self] data in
+                if data == nil {
+                    self?.outputs.toastActivity.onNext(false)
+                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
+                }
+                return data
+            }
+            .flatMap { userAPIService.setProfileImage(to: $0) }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .succeed(data):
+                    self?.outputs.profileChanged.onNext(data)
+                    self?.dirty = true
+                case .error:
+                    self?.outputs.toast.onNext("이미지 등록에 실패했어요")
+                }
+                self?.outputs.toastActivity.onNext(false)
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
-        var typeChanged = PublishSubject<PostType>()
+        var typeChanged = PublishSubject<PostType>() // subscribe 된 시점 이후부터 발생한 이벤트를 전달
         var settings = PublishSubject<Void>()
         var editInfo = PublishSubject<Void>()
         var tapPost = PublishSubject<Int>()
@@ -165,15 +210,22 @@ final class MyPageViewModel: BaseViewModel {
         var attend = PublishSubject<Int>()
         var toMain = PublishSubject<Void>()
         var writePost = PublishSubject<Void>()
+        var changePhoto = PublishSubject<Void>()
+        var photoSelected = PublishSubject<Data?>()
+        var manageAttendance = PublishSubject<Int>()
     }
 
     struct Output {
         var postType: PostType = .basic
-        var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
+        var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1) // n개의 이벤트를 저장하고 subscribe 되는 시점과 상관없이 저장된 모든 이벤트 전달
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
-        var attend = PublishSubject<(type: PostType, idx: Int, state: PostAttendState)>()
-        var toast = BehaviorSubject<String>(value: "")
+        var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
+        var toast = BehaviorSubject<String>(value: "") // PublishSubject와 다르지않으나 초기값을 가진 subject
+        var profileChanged = PublishSubject<Data?>()
+        var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
+        var toastActivity = PublishSubject<Bool>()
+        var showPicker = PublishSubject<EditProfileType>()
     }
 
     struct Route {
@@ -183,10 +235,13 @@ final class MyPageViewModel: BaseViewModel {
         var settings = PublishSubject<Void>()
         var writePost = PublishSubject<Void>()
         var toMain = PublishSubject<Void>()
+        var photoModal = PublishSubject<Void>()
+        var manageAttendance = PublishSubject<Int>()
     }
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
+        var photoTypeSelected = PublishSubject<EditProfileType?>()
         var detailClosed = PublishSubject<Void>()
     }
 

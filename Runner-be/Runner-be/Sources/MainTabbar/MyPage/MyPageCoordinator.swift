@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-enum MyPageResult {
+enum MyPageResult { // mypage에서 발생할 수 있는 모든 result를 enum으로 모아둠
     case logout
     case toMain
 }
@@ -42,7 +42,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.settings
+        scene.VM.routes.settings // 설정으로 화면전환
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushSettingsScene(vm: vm, animated: true)
@@ -58,6 +58,20 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
                 self?.pushWritingPostScene(vm: vm, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.photoModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentPhotoModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.manageAttendance
+            .map { (vm: scene.VM, myRunningIdx: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushManageAttendanceScene(vm: result.vm, myRunningIdx: result.myRunningIdx, animated: true)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -125,6 +139,49 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                     vm.routeInputs.needUpdate.onNext(needUpdate)
                 }
             })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presentPhotoModal(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.takePhotoModalComponent
+        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .take(1)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .takePhoto:
+                    vm.routeInputs.photoTypeSelected.onNext(.camera)
+                case .choosePhoto:
+                    vm.routeInputs.photoTypeSelected.onNext(.library)
+                case .cancel:
+                    break
+//                case .chooseDefault:
+//                    vm.routeInputs.photoTypeSelected.onNext(.basic)
+                case .chooseDefault:
+                    vm.routeInputs.photoTypeSelected.onNext(.basic)
+                }
+            })
+
+        addChildDisposable(id: uuid, disposable: disposable)
+    }
+
+    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningIdx: Int, animated: Bool) {
+        let comp = component.manageAttendanceComponent(myRunningIdx: myRunningIdx)
+        let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .subscribe(onNext: { [weak self] coordResult in
+                defer { self?.releaseChild(coordinator: coord) }
+                switch coordResult {
+                case .backward:
+                    break
+                }
+            }
+            )
 
         addChildDisposable(id: coord.identifier, disposable: disposable)
     }

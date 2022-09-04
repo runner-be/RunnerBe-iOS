@@ -25,7 +25,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 
     var component: HomeComponent
 
-    override func start(animated _: Bool = true) {
+    override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
 
         scene.VM.routes.filter
@@ -90,7 +90,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 }
             })
 
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        addChildDisposable(id: coord.identifier, disposable: disposable) // 바인딩 결과 저장
     }
 
     private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {

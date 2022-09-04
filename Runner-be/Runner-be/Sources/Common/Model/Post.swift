@@ -30,6 +30,7 @@ struct Post {
     var open: Bool = false
     var marked: Bool = false
     var attendance: Bool = false
+    var whetherCheck: String = "N"
 
     var attendanceProfiles: [ProfileURL] = []
 
@@ -63,6 +64,7 @@ extension Post: CustomStringConvertible {
             open: \(open),
             marked: \(marked),
             attendance: \(attendance),
+            whetherCheck: \(whetherCheck),
             attendanceProfiles: \(attendanceProfiles),
         }
         """

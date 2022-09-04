@@ -101,19 +101,19 @@ final class MainTabViewModel: BaseViewModel {
         }
     }
 
-    struct Input {
+    struct Input { // View에서 ViewModel로 전달되는 이벤트가 있을때의 구조체
         var homeSelected = PublishSubject<Void>()
         var bookMarkSelected = PublishSubject<Void>()
         var messageSelected = PublishSubject<Void>()
         var myPageSelected = PublishSubject<Void>()
     }
 
-    struct Output {
+    struct Output { // ViewModel에서 View로 전달되는 이벤트가 있을때의 구조체
         var loginType: LoginType = .nonMember
         var selectScene = PublishSubject<Int>()
     }
 
-    struct Route {
+    struct Route { // 화면 전환 이벤트를 coordinator에 전달하는 구조체
         var home = PublishSubject<Void>()
         var bookmark = PublishSubject<Void>()
         var message = PublishSubject<Void>()
@@ -121,7 +121,7 @@ final class MainTabViewModel: BaseViewModel {
         var onboardingCover = ReplaySubject<Void>.create(bufferSize: 1)
     }
 
-    struct RouteInput {
+    struct RouteInput { // 자식 화면이 해제될때 (ex. 뒤로가기) 전달해야할 정보가 있을 경우, 해당 이벤트가 정의되어있는 구조체
         var onboardingCoverClosed = PublishSubject<Void>()
         var toHome = PublishSubject<Void>()
         var needCover = PublishSubject<Void>()

@@ -42,10 +42,10 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.photoModal
+        scene.VM.routes.jobModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
-                self?.presentPhotoModal(vm: vm, animated: false)
+                self?.presentJobModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -70,9 +70,9 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
         addChildDisposable(id: uuid, disposable: disposable)
     }
 
-    private func presentPhotoModal(vm: EditInfoViewModel, animated: Bool) {
-        let comp = component.takePhotoModalComponent
-        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+    private func presentJobModal(vm: EditInfoViewModel, animated: Bool) {
+        let comp = component.jobChangeModalComponent
+        let coord = JobChangeModalCoordinator(component: comp, navController: navigationController)
         let uuid = coord.identifier
 
         let disposable = coordinate(coordinator: coord, animated: animated)
@@ -80,12 +80,10 @@ final class EditInfoCoordinator: BasicCoordinator<EditInfoResult> {
             .subscribe(onNext: { [weak self] coordResult in
                 defer { self?.releaseChild(coordinator: coord) }
                 switch coordResult {
-                case .takePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.camera)
-                case .choosePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.library)
+                case .ok:
+                    vm.routeInputs.changeJob.onNext(true)
                 case .cancel:
-                    break
+                    vm.routeInputs.changeJob.onNext(false)
                 }
             })
 

@@ -30,9 +30,24 @@ class SettingCell: UITableViewCell {
         label.textColor = .darkG2
     }
 
-    private func setupViews() {}
+    private var pushSwitch = UISwitch().then { make in
+        make.onTintColor = .primary
+        make.tintColor = .darkG35
+        make.backgroundColor = .darkG35
+        make.isHidden = false
+    }
 
-    private func initialLayout() {}
+    private func setupViews() {
+        addSubviews([
+            pushSwitch,
+        ])
+    }
+
+    private func initialLayout() {
+        pushSwitch.snp.makeConstraints { make in
+            make.trailing.equalTo(self.contentView.snp.trailing)
+        }
+    }
 }
 
 extension SettingCell {
