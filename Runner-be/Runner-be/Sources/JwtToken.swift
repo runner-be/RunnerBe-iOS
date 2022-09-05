@@ -7,6 +7,13 @@
 
 import Foundation
 
-struct JwtToken {
-    static var token: String? = UserDefaults.standard.string(forKey: "jwt") ?? ""
+final class JwtToken {
+    var loginKeyChainService: LoginKeyChainService
+    var token: String
+
+    init(loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
+        self.loginKeyChainService = loginKeyChainService
+
+        token = self.loginKeyChainService.token?.jwt ?? ""
+    }
 }
