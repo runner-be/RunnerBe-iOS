@@ -318,8 +318,8 @@ final class BasicPostAPIService: PostAPIService {
             .subscribe(onNext: { result in
                 let decoder = JSONDecoder()
                 let posts = try? decoder.decode([DetailPostResponse].self, from: result.post)
-                let participants = (try? decoder.decode([User].self, from: result.participants)) ?? []
-                let applicant = (try? decoder.decode([User].self, from: result.applicant)) ?? []
+                let participants = (try? decoder.decode([UserResponse].self, from: result.participants))?.map { $0.userInfo } ?? []
+                let applicant = (try? decoder.decode([UserResponse].self, from: result.applicant))?.map { $0.userInfo } ?? []
 
                 guard let postDetail = posts?.first?.convertedDetailPost
                 else {
