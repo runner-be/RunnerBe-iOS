@@ -8,5 +8,5 @@
 import Foundation
 
 struct JwtToken {
-    static var token: String? = UserDefaults.standard.string(forKey: "jwt")
+    static var token: String? = UserDefaults.standard.string(forKey: "jwt") ?? ""
 }
