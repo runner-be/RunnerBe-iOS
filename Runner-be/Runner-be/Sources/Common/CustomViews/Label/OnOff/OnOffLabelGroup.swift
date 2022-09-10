@@ -72,7 +72,7 @@ class OnOffLabelGroup {
                 self?.toggle(label: label)
             })
             .subscribe(onNext: { [weak self] _ in
-                self?.tap.onNext(self?.selected[0] ?? 0)
+                self?.tap.onNext(self?.numberOfOnState ?? 0)
             })
             .disposed(by: disposeBag)
         labels.append(label)
