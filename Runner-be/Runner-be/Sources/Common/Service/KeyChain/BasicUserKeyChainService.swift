@@ -122,6 +122,14 @@ final class BasicUserKeyChainService: UserKeychainService {
             keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.gender.rawValue)
         }
     }
+    
+    func clear() {
+        uuid = ""
+        nickName = ""
+        birthDay = 0
+        job = Job.none
+        gender = Gender.none
+    }
 }
 
 private extension KeychainWrapper.Key {
