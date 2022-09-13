@@ -122,7 +122,7 @@ final class BasicUserKeyChainService: UserKeychainService {
             keychainWrapper.set(newValue.code, forKey: KeychainWrapper.Key.User.gender.rawValue)
         }
     }
-    
+
     func clear() {
         uuid = ""
         nickName = ""
