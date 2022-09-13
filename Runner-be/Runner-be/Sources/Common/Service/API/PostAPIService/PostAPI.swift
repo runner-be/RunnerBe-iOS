@@ -105,22 +105,23 @@ extension PostAPI: TargetType {
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):
-            let parameters: [String: Any] = [
-                "title": form.title,
-                "gatheringTime": form.gatheringTime,
-                "runningTime": form.runningTime,
-                "gatherLongitude": "\(form.gatherLongitude)",
-                "gatherLatitude": "\(form.gatherLatitude)",
-                "locationInfo": "\(form.locationInfo)",
-                "runningTag": form.runningTag.code,
-                "ageMin": "\(form.ageMin)",
-                "ageMax": "\(form.ageMax)",
-                "peopleNum": "\(form.peopleNum)",
-                "contents": form.contents,
-                "runnerGender": form.runnerGender.code,
-            ]
+            return .requestJSONEncodable(form)
+//            let parameters: [String: Any] = [
+//                "title": form.title,
+//                "gatheringTime": form.gatheringTime,
+//                "runningTime": form.runningTime,
+//                "gatherLongitude": "\(form.gatherLongitude)",
+//                "gatherLatitude": "\(form.gatherLatitude)",
+//                "locationInfo": "\(form.locationInfo)",
+//                "runningTag": form.runningTag.code,
+//                "ageMin": "\(form.ageMin)",
+//                "ageMax": "\(form.ageMax)",
+//                "peopleNum": "\(form.peopleNum)",
+//                "contents": form.contents,
+//                "runnerGender": form.runnerGender.code,
+//            ]
 
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+//            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .bookmarking(postId, _, _, _):
             let query: [String: Any] = [
                 "postId": postId,
