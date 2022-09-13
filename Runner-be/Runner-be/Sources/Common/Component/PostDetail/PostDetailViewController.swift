@@ -221,7 +221,7 @@ extension PostDetailViewController {
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.width.equalTo(view.snp.width)
-            make.height.equalTo(160)
+            make.height.equalTo(202)
         }
 
         vStackView.snp.makeConstraints { make in
