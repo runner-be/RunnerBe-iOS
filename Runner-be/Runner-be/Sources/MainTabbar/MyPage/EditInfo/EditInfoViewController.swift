@@ -309,8 +309,7 @@ extension EditInfoViewController {
         selectJobView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(24)
             make.leading.equalTo(selectNickName.snp.leading)
-            make.trailing.equalTo(selectNickName.snp.trailing)
-            make.height.equalTo(view.snp.height).multipliedBy(0.4) // 세로의 0.4로 비율조정
+            make.trailing.equalTo(selectNickName.snp.trailing) // 세로의 0.4로 비율조정
         }
 
         selectJobGuideLabel.snp.makeConstraints { make in
