@@ -28,7 +28,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
         id = post.ID
         title = post.title
         date =
-            DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "M/d(E)"))
+            DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "M/d (E)"))
                 + " "
                 + DateUtil.shared.formattedString(for: post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "
