@@ -16,15 +16,18 @@ final class BasicUserAPIService: UserAPIService {
 
     private var imageUploadService: ImageUploadService
     private var loginKeyChainService: LoginKeyChainService
+    private var userKeyChainService: UserKeychainService
     private var provider: MoyaProvider<UserAPI>
 
     init(
         provider: MoyaProvider<UserAPI> = .init(plugins: [VerbosePlugin(verbose: true)]),
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared,
         imageUploadService: ImageUploadService = BasicImageUploadService()
     ) {
         self.provider = provider
         self.loginKeyChainService = loginKeyChainService
+        self.userKeyChainService = userKeyChainService
         self.imageUploadService = imageUploadService
     }
 
@@ -198,7 +201,7 @@ final class BasicUserAPIService: UserAPIService {
 
                 return try? BasicResponse(json: json)
             }
-            .subscribe(onNext: { response in
+            .subscribe(onNext: { [weak self] response in
                 guard let response = response else {
                     functionResult.onNext(false)
                     return
@@ -207,6 +210,8 @@ final class BasicUserAPIService: UserAPIService {
                 switch response.code {
                 case 1000: // 성공
                     functionResult.onNext(true)
+                    self?.loginKeyChainService.clear()
+                    self?.userKeyChainService.clear()
                 case 2011: // userId 미입력
                     functionResult.onNext(false)
                 case 2012: // userID 형식 오류 (숫자)

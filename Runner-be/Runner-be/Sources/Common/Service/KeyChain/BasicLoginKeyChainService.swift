@@ -64,6 +64,12 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
     }
 
     var loginType: LoginType = .nonMember
+
+    func clear() {
+        uuid = nil
+        token = nil
+        userId = nil
+    }
 }
 
 private extension KeychainWrapper.Key {

@@ -12,12 +12,14 @@ final class BasicLoginService: LoginService {
     private var disposeBag = DisposeBag()
 
     private var loginKeyChainService: LoginKeyChainService
+    private var userKeyChainService: UserKeychainService
     private let kakaoLoginService: SocialLoginService
     private let naverLoginService: SocialLoginService
     private let loginAPIService: LoginAPIService
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared,
         loginAPIService: LoginAPIService = BasicLoginAPIService(),
         kakaoLoginService: SocialLoginService = KakaoLoginService(),
         naverLoginService: SocialLoginService = NaverLoginService()
@@ -26,6 +28,7 @@ final class BasicLoginService: LoginService {
         self.naverLoginService = naverLoginService
         self.loginAPIService = loginAPIService
         self.loginKeyChainService = loginKeyChainService
+        self.userKeyChainService = userKeyChainService
     }
 
     func checkLogin() -> Observable<CheckLoginResult> {
@@ -33,6 +36,7 @@ final class BasicLoginService: LoginService {
         else { return .just(.nonMember) }
 
         return loginAPIService.login(with: token)
+            .timeout(.seconds(5), other: Observable.just(.nonMember), scheduler: MainScheduler.instance)
             .map { [weak self] result in
                 switch result {
                 case .member:
@@ -107,5 +111,7 @@ final class BasicLoginService: LoginService {
     func logout() {
         naverLoginService.logout()
         kakaoLoginService.logout()
+        loginKeyChainService.clear()
+        userKeyChainService.clear()
     }
 }
