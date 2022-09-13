@@ -13,7 +13,7 @@ class PostDetailFooter: UIView {
     var disposeBag = DisposeBag()
 
     func setup() {
-        backgroundColor = .darkG6
+        backgroundColor = .darkG7
         addSubviews([toMessageButton, applyBtn])
     }
 
