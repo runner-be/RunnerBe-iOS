@@ -9,8 +9,10 @@ import Alamofire
 import Foundation
 
 class EditInfoDataManager {
+    var userId = UserInfo().userId
+
     func getMyPage(viewController: EditInfoViewController) {
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetMyPageResponse.self) { response in
                 switch response.result {
@@ -30,7 +32,7 @@ class EditInfoDataManager {
 
     func patchJob(viewController: EditInfoViewController, job: String) {
         let parameters = PatchJobRequest(job: job)
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/job", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(userId)/job", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {

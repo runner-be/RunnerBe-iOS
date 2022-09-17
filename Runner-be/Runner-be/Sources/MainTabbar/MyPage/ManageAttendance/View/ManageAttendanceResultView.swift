@@ -30,7 +30,7 @@ final class ManageAttendanceResultView: UIView {
     var label = UILabel().then { view in
         view.font = .iosBody15R
         view.text = "테스트"
-        view.textColor = .white
+        view.textColor = .darkG35
     }
 
     private func setup() {

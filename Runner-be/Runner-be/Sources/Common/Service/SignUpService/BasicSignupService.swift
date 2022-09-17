@@ -69,9 +69,7 @@ final class BasicSignupService: SignupService {
             switch result {
             case let .succeed(token, userID):
                 self.loginKeyChainService.token = LoginToken(jwt: token)
-                UserDefaults.standard.set(token, forKey: "jwt")
                 self.loginKeyChainService.userId = userID
-                UserDefaults.standard.set(userID, forKey: "userID")
                 self.loginKeyChainService.loginType = .member
                 signUpFinished.onNext(.success)
             case let .error(code):

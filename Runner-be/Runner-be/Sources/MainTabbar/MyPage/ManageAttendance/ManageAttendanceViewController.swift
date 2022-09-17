@@ -329,6 +329,14 @@ extension ManageAttendanceViewController {
             timeFirstLabel.isHidden = true
             timeSecondLabel.isHidden = true
             timeThirdLabel.isHidden = true
+
+            tableView.snp.makeConstraints { make in
+                make.top.equalTo(navBar.snp.bottom)
+                //            }
+                make.leading.equalTo(view.snp.leading)
+                make.trailing.equalTo(view.snp.trailing)
+                make.bottom.equalTo(saveButton.snp.top).offset(8)
+            }
         } else { // 출석이 완료되지 않을 경우
             attendTimeOver = "N"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
@@ -338,6 +346,17 @@ extension ManageAttendanceViewController {
             timeFirstLabel.isHidden = false
             timeSecondLabel.isHidden = false
             timeThirdLabel.isHidden = false
+
+            tableView.snp.makeConstraints { make in
+                //            if timeView.isHidden {
+                //                make.top.equalTo(view.snp.bottom)
+                //            } else {
+                make.top.equalTo(timeView.snp.bottom)
+                //            }
+                make.leading.equalTo(view.snp.leading)
+                make.trailing.equalTo(view.snp.trailing)
+                make.bottom.equalTo(saveButton.snp.top).offset(8)
+            }
         }
 
         postId = (result.myPosting?[myRunningIdx].postID)!
@@ -357,8 +376,8 @@ extension ManageAttendanceViewController {
         print(gatherDate)
         var finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
         print(finishedDate.description)
-//        time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
-        time = 10
+        time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
+        print(time)
 
         for user in result.myPosting![myRunningIdx].runnerList! {
             userList.append(user.userID!)

@@ -10,7 +10,7 @@ import Foundation
 
 class ManageAttendanceDataManager {
     func getManageAttendance(viewController: ManageAttendanceViewController) {
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetMyPageResponse.self) { response in
                 switch response.result {
