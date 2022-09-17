@@ -169,7 +169,7 @@ final class PostDetailViewModel: BaseViewModel {
         routeInputs.deleteOption
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                if self.isWriter, self.applicants.isEmpty, self.participants.isEmpty {
+                if self.isWriter, self.applicants.isEmpty, self.participants.count < 2 {
                     self.routes.deleteConfirm.onNext(())
                 } else {
                     self.outputs.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
