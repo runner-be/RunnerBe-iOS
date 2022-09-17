@@ -36,7 +36,7 @@ final class BasicLoginService: LoginService {
         else { return .just(.nonMember) }
 
         return loginAPIService.login(with: token)
-            .timeout(.seconds(5), other: Observable.just(.nonMember), scheduler: MainScheduler.instance)
+            .timeout(.seconds(10), other: Observable.just(.nonMember), scheduler: MainScheduler.instance)
             .map { [weak self] result in
                 switch result {
                 case .member:
