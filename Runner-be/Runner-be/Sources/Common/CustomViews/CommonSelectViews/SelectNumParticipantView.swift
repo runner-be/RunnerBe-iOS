@@ -38,7 +38,7 @@ class SelectNumParticipantView: SelectBaseView {
                 self.minusBtn.isEnabled = newNum > 2
 
                 if newNum <= 2 {
-                    self.errorLabel.text = L10n.Post.Detail.NumParticipant.mixError
+                    self.errorLabel.text = L10n.Post.Detail.NumParticipant.minError
                 }
 
                 if newNum >= 2 {
@@ -98,7 +98,7 @@ class SelectNumParticipantView: SelectBaseView {
     private var errorLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .errorlight
-        label.text = L10n.Post.Detail.NumParticipant.mixError
+        label.text = L10n.Post.Detail.NumParticipant.minError
     }
 
     private lazy var vStackView = UIStackView.make(

@@ -148,8 +148,8 @@
 "Post.Detail.NavBar.title" = "게시글 작성";
 "Post.Detail.NavBar.RightItem" = "등록";
 "Post.Detail.NumParticipant.title" = "인원";
-"Post.Detail.NumParticipant.mixError" = "모임 인원은 최소 2명 부터 가능해요!";
-"Post.Detail.NumParticipant.maxError" = "모임 인원은 최대 8명 최대 8명 까지에요!";
+"Post.Detail.NumParticipant.minError" = "모임 인원은 최소 2명 부터 가능해요!";
+"Post.Detail.NumParticipant.maxError" = "모임 인원은 최대 8명까지 가능해요! ";
 "Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
 "Post.Detail.TextContent.PlaceHolder" = "함께할 러너들에게 하실 말씀이 있나요?";
 
