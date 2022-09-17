@@ -340,7 +340,7 @@
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
 		DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
-		DA784C8D289C1736005F92B1 /* JwtToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA784C8C289C1736005F92B1 /* JwtToken.swift */; };
+		DA784C8D289C1736005F92B1 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA784C8C289C1736005F92B1 /* UserInfo.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
@@ -719,7 +719,7 @@
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
 		DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageChatResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
-		DA784C8C289C1736005F92B1 /* JwtToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JwtToken.swift; sourceTree = "<group>"; };
+		DA784C8C289C1736005F92B1 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -1293,7 +1293,7 @@
 				C3AD115727B81EF600A7044C /* Error */,
 				C38ABD9127D332600025929E /* NeedleGenerated.swift */,
 				DADD85FC28870BEE00B11041 /* Constants.swift */,
-				DA784C8C289C1736005F92B1 /* JwtToken.swift */,
+				DA784C8C289C1736005F92B1 /* UserInfo.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -2455,7 +2455,7 @@
 				DADD948F28A7A8B20004F86F /* ManageAttendanceDataManager.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
-				DA784C8D289C1736005F92B1 /* JwtToken.swift in Sources */,
+				DA784C8D289C1736005F92B1 /* UserInfo.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,

@@ -81,9 +81,7 @@ final class BasicLoginService: LoginService {
                 switch result {
                 case let LoginAPIResult.member(id, jwt, _):
                     self?.loginKeyChainService.token = LoginToken(jwt: jwt)
-                    UserDefaults.standard.set(jwt, forKey: "jwt")
                     self?.loginKeyChainService.userId = id
-                    UserDefaults.standard.set(id, forKey: "userID")
                     self?.loginKeyChainService.loginType = .member
                     functionResult.onNext(.member)
                 case let LoginAPIResult.nonMember(uuid, _):

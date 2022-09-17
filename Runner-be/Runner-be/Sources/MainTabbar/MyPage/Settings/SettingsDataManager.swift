@@ -10,7 +10,7 @@ import Foundation
 
 class SettinsDataManager {
     func getMyPage(viewController: SettingsViewController) {
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetMyPageResponse.self) { response in
                 switch response.result {
@@ -28,7 +28,7 @@ class SettinsDataManager {
     }
 
     func patchPushOn(viewController: SettingsViewController, pushOn: String) {
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/push-alarm/\(pushOn)", method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/push-alarm/\(pushOn)", method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -46,7 +46,7 @@ class SettinsDataManager {
 
     func patchProfileImageToDefault(viewController: TakePhotoModalViewController) {
         let parameters = PatchProfileRequest(profileImageUrl: nil)
-        AF.request("\(Constant.BASE_URL)users/\(UserDefaults.standard.integer(forKey: "userID"))/profileImage", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/profileImage", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {

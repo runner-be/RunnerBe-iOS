@@ -7,13 +7,15 @@
 
 import Foundation
 
-final class JwtToken {
+final class UserInfo {
     var loginKeyChainService: LoginKeyChainService
     var token: String
+    var userId: Int
 
     init(loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
         self.loginKeyChainService = loginKeyChainService
 
         token = self.loginKeyChainService.token?.jwt ?? ""
+        userId = self.loginKeyChainService.userId ?? 0
     }
 }
