@@ -32,7 +32,7 @@ class EditInfoDataManager {
 
     func patchJob(viewController: EditInfoViewController, job: String) {
         let parameters = PatchJobRequest(job: job)
-        AF.request("\(Constant.BASE_URL)users/\(userId)/job", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(userId)/job", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {

@@ -10,7 +10,7 @@ import Foundation
 
 class MessageDataManager {
     func getMessageList(viewController: MessageViewController) {
-        AF.request("\(Constant.BASE_URL)messages", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)messages", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMessageListResponse.self) { response in
                 switch response.result {
@@ -29,7 +29,7 @@ class MessageDataManager {
     }
 
     func getMessageChat(viewController: MessageChatViewController, roomId: Int) {
-        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMessageChatResponse.self) { response in
                 switch response.result {
@@ -48,7 +48,7 @@ class MessageDataManager {
     }
 
     func getMessageChat(viewController: MessageReportViewController, roomId: Int) {
-        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMessageChatResponse.self) { response in
                 switch response.result {
@@ -68,7 +68,7 @@ class MessageDataManager {
 
     func postMessage(viewController: MessageChatViewController, roomId: Int, content: String) {
         let parameters = PostMessageRequest(content: content)
-        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -88,7 +88,7 @@ class MessageDataManager {
 
     func reportMessage(viewController: MessageReportViewController, messageIdList: String) {
         let parameters = PostMessageReportRequest(messageIdList: messageIdList)
-        AF.request("\(Constant.BASE_URL)messages/report", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)messages/report", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {

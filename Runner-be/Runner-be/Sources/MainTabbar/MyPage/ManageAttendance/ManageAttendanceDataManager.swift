@@ -10,7 +10,7 @@ import Foundation
 
 class ManageAttendanceDataManager {
     func getManageAttendance(viewController: ManageAttendanceViewController) {
-        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(UserInfo().userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMyPageResponse.self) { response in
                 switch response.result {
@@ -29,7 +29,7 @@ class ManageAttendanceDataManager {
 
     func patchAttendance(viewController: ManageAttendanceViewController, postId: Int, userIdList: String, whetherAttendList: String) {
         let parameters = PatchAttendanceRequest(userIdList: userIdList, whetherAttendList: whetherAttendList)
-        AF.request("\(Constant.BASE_URL)runnings/\(postId)/attend", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)runnings/\(postId)/attend", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
