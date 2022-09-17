@@ -32,6 +32,7 @@ class MessageChatViewController: BaseViewController {
         tableView.dataSource = self
 
         chatTextView.delegate = self
+        dismissKeyboardWhenTappedAround()
 
         messageDataManager.getMessageChat(viewController: self, roomId: messageId)
     }
