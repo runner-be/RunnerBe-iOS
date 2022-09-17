@@ -396,7 +396,7 @@ extension EditInfoViewController {
     }
 
     func didSuccessPatchJob(_: BaseResponse) {
-        selectJobView.jobGroup.labels[selectedJobIdx].isOn = true
+        editInfoDataManager.getMyPage(viewController: self)
         selectJobGuideLabel.isHidden = false
     }
 
