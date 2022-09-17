@@ -43,15 +43,16 @@ class WritingTimeView: SelectBaseView {
         group.titleLabel.textColor = .darkG1
     }
 
-    private var errorLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .errorlight
-        label.text = L10n.Post.Time.error
-        label.isHidden = false
-    }
+//    private var errorLabel = UILabel().then { label in
+//        label.font = .iosBody13R
+//        label.textColor = .errorlight
+//        label.text = L10n.Post.Time.error
+//        label.isHidden = false
+//    }
 
     private lazy var vStackView = UIStackView.make(
-        with: [groupBackground, errorLabel],
+        //        with: [groupBackground, errorLabel],
+        with: [groupBackground],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
