@@ -21,10 +21,11 @@ class IconLabel: UIView {
 
     private let iconPosition: IconPosition
 
-    init(iconPosition: IconPosition = .left, iconSize: CGSize = CGSize(width: 14, height: 14), spacing: CGFloat = 6, padding _: UIEdgeInsets = .zero) {
+    init(iconPosition: IconPosition = .left, iconSize: CGSize = CGSize(width: 14, height: 14), spacing: CGFloat = 6, padding: UIEdgeInsets = .zero) {
         self.iconPosition = iconPosition
         self.iconSize = iconSize
         self.spacing = spacing
+        self.padding = padding
         super.init(frame: .zero)
         setup()
         updateLayout()
@@ -34,6 +35,7 @@ class IconLabel: UIView {
     var label = UILabel()
     private var iconSize: CGSize
     private var spacing: CGFloat
+    private var padding: UIEdgeInsets
 
     private func setup() {
         icon.contentMode = .scaleAspectFit
@@ -51,30 +53,30 @@ class IconLabel: UIView {
         switch iconPosition {
         case .left:
             icon.snp.makeConstraints { make in
-                make.leading.equalTo(self.snp.leading)
-                make.top.equalTo(self.snp.top)
-                make.bottom.equalTo(self.snp.bottom)
+                make.leading.equalTo(self.snp.leading).offset(padding.left)
+                make.top.equalTo(self.snp.top).offset(padding.top)
+                make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
                 make.height.equalTo(iconSize.height)
                 make.width.equalTo(icon.snp.height)
             }
 
             label.snp.makeConstraints { make in
                 make.leading.equalTo(icon.snp.trailing).offset(spacing)
-                make.trailing.equalTo(self.snp.trailing)
+                make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
                 make.centerY.equalTo(icon.snp.centerY)
             }
 
         case .right:
             label.snp.makeConstraints { make in
-                make.leading.equalTo(self.snp.leading)
+                make.leading.equalTo(self.snp.leading).offset(padding.left)
                 make.centerY.equalTo(icon.snp.centerY)
             }
 
             icon.snp.makeConstraints { make in
                 make.leading.equalTo(label.snp.trailing).offset(spacing)
-                make.trailing.equalTo(self.snp.trailing)
-                make.top.equalTo(self.snp.top)
-                make.bottom.equalTo(self.snp.bottom)
+                make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
+                make.top.equalTo(self.snp.top).offset(padding.top)
+                make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
                 make.height.equalTo(iconSize.height)
                 make.width.equalTo(icon.snp.height)
             }
@@ -83,11 +85,11 @@ class IconLabel: UIView {
 }
 
 extension IconLabel {
-    static func Size(iconSize: CGSize, text: String, font: UIFont, spacing: CGFloat) -> CGSize {
+    static func Size(iconSize: CGSize, text: String, font: UIFont, spacing: CGFloat, padding: UIEdgeInsets = .zero) -> CGSize {
         let labelSize = NSString(string: text).size(withAttributes: [.font: font])
 
-        let width = iconSize.width + spacing + labelSize.width
-        let height = max(iconSize.height, labelSize.height)
+        let width = iconSize.width + spacing + labelSize.width + padding.left + padding.right
+        let height = max(iconSize.height, labelSize.height) + padding.top + padding.bottom
 
         return CGSize(width: width, height: height)
     }

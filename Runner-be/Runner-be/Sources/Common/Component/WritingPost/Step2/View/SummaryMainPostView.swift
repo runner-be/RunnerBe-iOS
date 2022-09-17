@@ -47,7 +47,7 @@ class SummaryMainPostView: UIView {
         }
     }
 
-    private var addressInfoView = IconLabel(iconPosition: .left, iconSize: CGSize(width: 18, height: 18)).then { view in
+    private var addressInfoView = IconLabel(iconPosition: .left, iconSize: CGSize(width: 18, height: 18), padding: UIEdgeInsets(top: 5, left: 6, bottom: 5, right: 6)).then { view in
         view.icon.image = Asset.place.uiImage
         view.label.font = .iosBody13R
         view.label.textColor = .darkG3
@@ -116,7 +116,7 @@ class SummaryMainPostView: UIView {
         mapView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
-            make.height.equalTo(88)
+            make.height.equalTo(69 + 29)
             make.width.equalTo(110)
             make.bottom.equalTo(self.snp.bottom)
         }
