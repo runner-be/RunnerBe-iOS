@@ -12,7 +12,7 @@ class EditInfoDataManager {
     var userId = UserInfo().userId
 
     func getMyPage(viewController: EditInfoViewController) {
-        AF.request("\(Constant.BASE_URL)users/\(userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)users/\(userId)/myPage/v2", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMyPageResponse.self) { response in
                 switch response.result {
