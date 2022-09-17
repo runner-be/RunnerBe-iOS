@@ -144,7 +144,7 @@ extension MessageTableViewCell {
 
         messageProfile.snp.makeConstraints { make in
             make.centerY.equalTo(self.contentView)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.leading.equalTo(contentView.snp.leading)
             make.centerY.equalTo(contentView.snp.centerY)
         }
 
