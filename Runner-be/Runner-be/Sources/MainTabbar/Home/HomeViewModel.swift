@@ -395,8 +395,11 @@ final class HomeViewModel: BaseViewModel {
 
         routeInputs.runningTagChanged
             .subscribe(onNext: { [unowned self] tag in
-                self.inputs.tagChanged.onNext(tag.idx)
-                self.outputs.runningTagChanged.onNext(tag)
+                if tag != self.filter.runningTag {
+                    self.outputs.posts.onNext([])
+                    self.inputs.tagChanged.onNext(tag.idx)
+                    self.outputs.runningTagChanged.onNext(tag)
+                }
             })
             .disposed(by: disposeBag)
 
