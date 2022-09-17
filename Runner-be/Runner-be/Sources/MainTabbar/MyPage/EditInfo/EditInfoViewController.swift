@@ -32,8 +32,6 @@ class EditInfoViewController: BaseViewController {
         viewModelOutput()
         viewInputs()
 
-        print(UserInfo().token)
-        print(UserInfo().userId)
         editInfoDataManager.getMyPage(viewController: self)
     }
 
@@ -390,7 +388,9 @@ extension EditInfoViewController {
             break
         }
 
-        selectJobView.jobGroup.labels[jobindex].isOn = true
+        if jobindex >= 0 || jobindex < Job.none.index {
+            selectJobView.jobGroup.labels[jobindex].isOn = true
+        }
         selectJobView.jobGroup.result.removeAll()
         selectJobView.jobGroup.result.append(jobindex)
     }
