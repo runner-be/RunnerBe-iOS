@@ -32,8 +32,6 @@ class EditInfoViewController: BaseViewController {
         viewModelOutput()
         viewInputs()
 
-        print(UserInfo().token)
-        print(UserInfo().userId)
         editInfoDataManager.getMyPage(viewController: self)
     }
 
@@ -393,13 +391,15 @@ extension EditInfoViewController {
             break
         }
 
-        selectJobView.jobGroup.labels[jobindex].isOn = true
+        if jobindex >= 0 || jobindex < Job.none.index {
+            selectJobView.jobGroup.labels[jobindex].isOn = true
+        }
         selectJobView.jobGroup.result.removeAll()
         selectJobView.jobGroup.result.append(jobindex)
     }
 
     func didSuccessPatchJob(_: BaseResponse) {
-        selectJobView.jobGroup.labels[selectedJobIdx].isOn = true
+        editInfoDataManager.getMyPage(viewController: self)
         selectJobGuideLabel.isHidden = false
     }
 
