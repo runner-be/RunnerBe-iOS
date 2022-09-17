@@ -34,6 +34,7 @@ class SettinsDataManager {
                 switch response.result {
                 case let .success(response):
                     if response.isSuccess {
+                        print(response)
                     } else {
                         viewController.failedToRequest(message: response.message)
                     }

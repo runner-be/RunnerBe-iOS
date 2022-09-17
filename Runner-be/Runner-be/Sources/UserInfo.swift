@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class UserInfo {
+class UserInfo {
     var loginKeyChainService: LoginKeyChainService
     var token: String
     var userId: Int
 
-    init(loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
-        self.loginKeyChainService = loginKeyChainService
+    init() {
+        loginKeyChainService = BasicLoginKeyChainService.shared
 
-        token = self.loginKeyChainService.token?.jwt ?? ""
-        userId = self.loginKeyChainService.userId ?? 0
+        token = loginKeyChainService.token?.jwt ?? ""
+        userId = loginKeyChainService.userId ?? 0
     }
 }

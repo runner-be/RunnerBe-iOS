@@ -32,6 +32,8 @@ class EditInfoViewController: BaseViewController {
         viewModelOutput()
         viewInputs()
 
+        print(UserInfo().token)
+        print(UserInfo().userId)
         editInfoDataManager.getMyPage(viewController: self)
     }
 
