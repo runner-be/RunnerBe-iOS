@@ -90,9 +90,7 @@ class ManageAttendanceViewController: BaseViewController {
 
         if time == 0 {
             timer?.invalidate()
-//            let vc = ManagedTimeExpiredViewController()
-//            vc.modalPresentationStyle = .fullScreen
-//            present(vc, animated: true)
+            viewModel.inputs.showExpiredModal.onNext(())
         }
     }
 
@@ -363,23 +361,29 @@ extension ManageAttendanceViewController {
 
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
+        // <<<<<<< Updated upstream
         let dateString = (result.myPosting?[myRunningIdx].gatheringTime!)!
+        print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
 //        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
+        //=======
+//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
+//        gatherDate = gatherDate.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        // >>>>>>> Stashed changes
 
         let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
-        var hour = Int(hms![0])
-        var minute = Int(hms![1])
+        let hour = Int(hms![0])
+        let minute = Int(hms![1])
 
-        print("\(hour):\(minute)")
+        print("runningTime: \(hour):\(minute)")
 
 //        runningInterval = TimeInterval(hour! * 60 * 60 + minute! * 60)
 
-        print(gatherDate)
+        print("gatherDate \(gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60)))")
         var finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
-        print(finishedDate.description)
+        print("finishedDate \(finishedDate.description)")
         time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
-        print(time)
+        print("time \(time)")
 
         for user in result.myPosting![myRunningIdx].runnerList! {
             userList.append(user.userID!)

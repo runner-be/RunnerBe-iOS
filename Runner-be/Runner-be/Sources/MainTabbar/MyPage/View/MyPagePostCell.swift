@@ -29,6 +29,8 @@ class MyPagePostCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
+
         postInfoView.reset()
         disposeBag = DisposeBag()
     }

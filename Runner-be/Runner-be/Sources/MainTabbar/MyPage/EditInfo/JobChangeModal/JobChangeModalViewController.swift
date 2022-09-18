@@ -73,7 +73,7 @@ class JobChangeModalViewController: BaseViewController {
         label.font = .iosBody17R
         label.textColor = .darkG1
         label.text = L10n.MyPage.Settings.Modal.Job.content
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textAlignment = .center
     }
 
@@ -130,8 +130,8 @@ extension JobChangeModalViewController {
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(sheet.snp.leading).offset(24)
-            make.trailing.equalTo(sheet.snp.trailing).offset(-24)
+            make.leading.equalTo(sheet.snp.leading).offset(12)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-12)
         }
 
         hDivider.snp.makeConstraints { make in
