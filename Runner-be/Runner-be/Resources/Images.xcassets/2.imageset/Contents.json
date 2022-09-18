@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "icEffortRunner.png",
-      "scale" : "1x"
+      "filename" : "2.png"
     },
     {
+      "filename" : "2@2x.png",
       "scale" : "2x",
-      "idiom" : "universal",
-      "filename" : "icEffortRunner@2x.png"
+      "idiom" : "universal"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "icEffortRunner@3x.png"
+      "filename" : "2@3x.png"
     }
   ],
   "info" : {

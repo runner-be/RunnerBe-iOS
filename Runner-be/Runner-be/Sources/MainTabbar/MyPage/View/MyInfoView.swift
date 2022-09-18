@@ -28,6 +28,20 @@ class MyInfoView: UIView {
         genderLabel.text = config.gender
         ageLabel.text = config.age
         jobLabel.text = config.job
+
+        switch config.diligence {
+        case "성실 러너":
+            badgeLabel.iconView.image = Asset.smile.uiImage
+        case "노력 러너":
+            badgeLabel.iconView.image = Asset.icEffortRunner.uiImage
+        case "불량 러너":
+            badgeLabel.iconView.image = Asset.icBadRunner.uiImage
+        case "초보 러너":
+            badgeLabel.iconView.image = Asset.icBasicRunner.uiImage
+        default:
+            break
+        }
+
         badgeLabel.label.text = config.diligence
 
         // TODO: PROFILE
