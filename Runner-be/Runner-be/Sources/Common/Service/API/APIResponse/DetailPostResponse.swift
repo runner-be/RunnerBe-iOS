@@ -70,22 +70,14 @@ extension DetailPostResponse {
         return (min: min, max: max)
     }
 
-    var gatherDate: Date? { // "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        guard let gatheringTime = gatheringTime else { return nil }
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-        var date = formatter.date(from: gatheringTime)
-        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
-        return date
+    var gatherDate: Date? { // "yyyy-MM-dd'T'HH:mm:ss.SSSZ" -> "yyyy-MM-dd'T'HH:mm:ss"
+        guard var gatheringTime = gatheringTime else { return nil }
+        return DateUtil.shared.apiDateStringToDate(gatheringTime)
     }
 
     var createTime: Date? {
         guard let postingTime = postingTime else { return nil }
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-        var date = formatter.date(from: postingTime)
-        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
-        return date
+        return DateUtil.shared.apiDateStringToDate(postingTime)
     }
 
     var timeRunning: (hour: Int, minute: Int)? {

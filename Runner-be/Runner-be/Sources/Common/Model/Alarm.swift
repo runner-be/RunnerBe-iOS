@@ -35,10 +35,7 @@ struct Alarm: Decodable {
         let dateString = try container.decode(String.self, forKey: .createdAt)
         isNew = whetherRead == "N"
 
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-        var date = formatter.date(from: dateString)
-        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        let date = DateUtil.shared.apiDateStringToDate(dateString)
         guard let createdAt = date else {
             throw JSONError.error("Json Decoding Error")
         }
@@ -57,10 +54,7 @@ struct Alarm: Decodable {
             throw JSONError.error("Json Decoding Error")
         }
 
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-        var date = formatter.date(from: createdAtString)
-        date = date?.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
+        let date = DateUtil.shared.apiDateStringToDate(createdAtString)
         guard let createdAt = date else {
             throw JSONError.error("Json Decoding Error")
         }
