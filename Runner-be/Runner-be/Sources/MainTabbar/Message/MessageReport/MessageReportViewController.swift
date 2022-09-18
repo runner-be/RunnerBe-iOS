@@ -190,12 +190,13 @@ extension MessageReportViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
+//        let formatter = DateUtil.shared.dateFormatter
+//        formatter.dateFormat = DateFormat.apiDate.formatString
         let dateUtil = DateUtil.shared
 
         if !messages.isEmpty {
-            let date = formatter.date(from: messages[indexPath.row].createdAt!)
+//            let date = formatter.date(from: messages[indexPath.row].createdAt!)
+            let date = dateUtil.apiDateStringToDate(messages[indexPath.row].createdAt!)
 
             if messages[indexPath.row].messageFrom == "Others" {
                 let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell

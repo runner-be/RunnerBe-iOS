@@ -26,11 +26,7 @@ class DateUtil {
     var defaultYear = 2022
 
     var now: Date {
-        dateFormatter.timeZone = defaultTimeZone
-        dateFormatter.locale = defaultLocale
-        dateFormatter.dateFormat = DateFormat.apiDate.formatString
-        let str = dateFormatter.string(from: Date())
-        return dateFormatter.date(from: str)!
+        return Date()
     }
 
     func getDate(from dateString: String, format: DateFormat) -> Date? {
@@ -78,5 +74,14 @@ class DateUtil {
 
     func relativeDateString(for date: Date, relativeTo date2: Date) -> String {
         return relativeDateTimeFormatter.localizedString(for: date, relativeTo: date2)
+    }
+
+    func apiDateStringToDate(_ str: String) -> Date? {
+        var string = str
+        string.removeLast(5)
+        let formatter = DateUtil.shared.dateFormatter
+        formatter.dateFormat = DateFormat.apiDateTimeZoneRemoved.formatString
+        let date = formatter.date(from: string)
+        return date
     }
 }

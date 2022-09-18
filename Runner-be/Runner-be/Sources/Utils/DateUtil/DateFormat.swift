@@ -9,6 +9,7 @@ import Foundation
 
 enum DateFormat {
     case apiDate
+    case apiDateTimeZoneRemoved
     case apiTime
     case yyyy // yyyy
     case yyyyMMddHHmmss // yyyy-MM-dd HH:mm:ss 서버 전달용
@@ -31,6 +32,8 @@ extension DateFormat {
         switch self {
         case .apiDate:
             return "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        case .apiDateTimeZoneRemoved:
+            return "yyyy-MM-dd'T'HH:mm:ss"
         case .apiTime:
             return "hh:mm:ss"
         case .yyyy:
