@@ -105,11 +105,10 @@ final class SelectGenderViewController: BaseViewController {
     }
 
     private var genderLabelGroup = OnOffLabelGroup().then { group in
-
         group.styleOn = OnOffLabel.Style(
             font: .iosBody15R,
-            backgroundColor: .clear,
-            textColor: .primary,
+            backgroundColor: .primary,
+            textColor: .darkG6,
             borderWidth: 1,
             borderColor: .primary,
             cornerRadiusRatio: 1,

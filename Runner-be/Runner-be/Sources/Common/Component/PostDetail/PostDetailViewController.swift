@@ -108,7 +108,7 @@ class PostDetailViewController: BaseViewController {
     private var textView = UITextView().then { view in
         view.font = .iosBody15R
         view.textColor = .darkG25
-        view.text = "TEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST\nTEST"
+        view.text = ""
         view.isScrollEnabled = false
         view.isEditable = false
         view.backgroundColor = .clear
@@ -171,7 +171,7 @@ class PostDetailViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = "TITLE"
+        navBar.titleLabel.text = ""
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
@@ -221,7 +221,7 @@ extension PostDetailViewController {
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.width.equalTo(view.snp.width)
-            make.height.equalTo(160)
+            make.height.equalTo(202)
         }
 
         vStackView.snp.makeConstraints { make in

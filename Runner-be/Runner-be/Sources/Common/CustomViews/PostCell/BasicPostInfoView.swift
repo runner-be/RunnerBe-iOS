@@ -213,6 +213,8 @@ extension BasicPostInfoView {
         bookMarkIcon.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.top)
             make.trailing.equalTo(self.snp.trailing)
+            make.width.equalTo(40)
+            make.height.equalTo(40)
         }
 
         profileFrameView.snp.makeConstraints { make in

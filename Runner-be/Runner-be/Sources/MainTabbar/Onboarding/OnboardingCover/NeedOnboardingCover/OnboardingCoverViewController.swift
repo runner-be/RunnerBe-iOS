@@ -186,17 +186,17 @@ extension OnboardingCoverViewController {
         contentViewBottom.isActive = true
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(40)
+            make.top.equalTo(contentView.snp.top).offset(36)
             make.centerX.equalTo(contentView.snp.centerX)
         }
 
         titleIcon.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(11)
             make.centerX.equalTo(contentView.snp.centerX)
         }
 
         onboardBtn.snp.makeConstraints { make in
-            make.top.equalTo(titleIcon.snp.bottom).offset(29)
+            make.top.equalTo(titleIcon.snp.bottom).offset(16)
             make.centerX.equalTo(contentView.snp.centerX)
             make.width.equalTo(280)
         }

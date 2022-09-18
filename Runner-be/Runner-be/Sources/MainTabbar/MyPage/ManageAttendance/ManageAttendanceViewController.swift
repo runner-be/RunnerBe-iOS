@@ -363,7 +363,9 @@ extension ManageAttendanceViewController {
 
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
-        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
+        let dateString = (result.myPosting?[myRunningIdx].gatheringTime!)!
+        gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
+//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
 
         let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
         var hour = Int(hms![0])

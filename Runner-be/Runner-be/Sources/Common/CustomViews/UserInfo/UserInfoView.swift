@@ -68,13 +68,13 @@ class UserInfoView: UIView {
     var nameLabel = UILabel().then { label in
         label.font = .iosBody15B
         label.textColor = .darkG2
-        label.text = "닉네임"
+        label.text = ""
     }
 
     var genderLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .darkG25
-        label.text = "여성"
+        label.text = ""
     }
 
     private var dotSeparator = UIView().then { view in
@@ -91,7 +91,7 @@ class UserInfoView: UIView {
     var ageLabel = UILabel().then { label in
         label.font = .iosBody13R
         label.textColor = .darkG25
-        label.text = "20대 후반"
+        label.text = ""
     }
 
     private lazy var genderDotAgeStack = UIStackView.make(
@@ -126,7 +126,7 @@ class UserInfoView: UIView {
         )
 
         label.applyStyle(style)
-        label.text = "TAGTAG"
+        label.text = ""
     }
 
 //    private var hDivider = UIView().then { view in

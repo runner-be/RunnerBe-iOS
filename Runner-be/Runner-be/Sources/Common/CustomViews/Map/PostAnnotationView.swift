@@ -15,15 +15,15 @@ final class PostAnnotaionView: MKAnnotationView {
 
     var markerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(30)
-            make.height.equalTo(30)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
     lazy var selectedMarkerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(52)
-            make.height.equalTo(52)
+            make.width.equalTo(48)
+            make.height.equalTo(48)
         }
 
         view.addSubview(profileImageView)

@@ -31,7 +31,7 @@ extension PostDetailRunningConfig {
         time = "\(postDetail.post.runningTime.hour)시간 \(postDetail.post.runningTime.minute)분"
         age = "\(postDetail.post.ageRange.min)-\(postDetail.post.ageRange.max)"
         date =
-            DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "M/d(E)"))
+            DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "M/d (E)"))
                 + " "
                 + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "

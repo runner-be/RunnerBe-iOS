@@ -47,7 +47,18 @@ class OnboardingCompletionViewController: BaseViewController {
     var titleLabel = UILabel().then { label in
         var font = UIFont.aggroLight.withSize(22)
         label.font = font
-        label.setTextWithLineHeight(text: L10n.Onboarding.Completion.title, with: 35.2)
+        label.text = "나를 충분히 소개했어요."
+        label.textColor = .primary
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
+    }
+
+    var titleLabel2 = UILabel().then { label in
+        var font = UIFont.aggroLight.withSize(22)
+        label.font = font
+        label.text = "달릴 준비 완료!"
         label.textColor = .primary
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -56,7 +67,7 @@ class OnboardingCompletionViewController: BaseViewController {
     }
 
     var subTitleLabel = UILabel().then { label in
-        label.font = .iosTitle19R
+        label.font = .iosBody15R
         label.textColor = .darkG25
         label.text = L10n.Onboarding.Completion.subTitle
         label.textAlignment = .center
@@ -90,6 +101,7 @@ extension OnboardingCompletionViewController {
 
         view.addSubviews([
             titleLabel,
+            titleLabel2,
             subTitleLabel,
             iconImageView,
             startButton,
@@ -98,7 +110,7 @@ extension OnboardingCompletionViewController {
 
     private func initialLayout() {
         iconImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(178)
+            make.bottom.equalTo(view.snp.centerY)
             make.centerX.equalTo(view.snp.centerX)
             make.width.equalTo(248)
             make.height.equalTo(216)
@@ -107,11 +119,15 @@ extension OnboardingCompletionViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(iconImageView.snp.bottom).offset(32)
             make.centerX.equalTo(view.snp.centerX)
-            make.width.equalTo(240)
+        }
+
+        titleLabel2.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(view.snp.centerX)
         }
 
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.top.equalTo(titleLabel2.snp.bottom).offset(12)
             make.centerX.equalTo(view.snp.centerX)
         }
 

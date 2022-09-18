@@ -171,6 +171,10 @@ class EditInfoViewController: BaseViewController {
         // 한번 변경한 뒤에는, 모달이 아니라 텍스트를 띄워줘야함
 
         selectJobView.jobGroup.tap
+            .filter { [unowned self] numSelected in numSelected > 0 }
+            .map { [unowned self] _ in
+                self.selectJobView.jobGroup.selected[0]
+            }
             .filter { [weak self] idx in
                 if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
                     self?.selectedJobIdx = idx
@@ -305,8 +309,7 @@ extension EditInfoViewController {
         selectJobView.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(24)
             make.leading.equalTo(selectNickName.snp.leading)
-            make.trailing.equalTo(selectNickName.snp.trailing)
-            make.height.equalTo(view.snp.height).multipliedBy(0.5) // 세로의 0.4로 비율조정
+            make.trailing.equalTo(selectNickName.snp.trailing) // 세로의 0.4로 비율조정
         }
 
         selectJobGuideLabel.snp.makeConstraints { make in
