@@ -34,6 +34,9 @@ class MessageChatViewController: BaseViewController {
         chatTextView.delegate = self
         dismissKeyboardWhenTappedAround()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         messageDataManager.getMessageChat(viewController: self, roomId: messageId)
     }
 
@@ -192,9 +195,28 @@ extension MessageChatViewController {
         sendButton.addGestureRecognizer(tapSendMessage)
     }
 
+    // function
     @objc
     func tapSendMessage(_: UITapGestureRecognizer) {
         messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+    }
+
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            chatBackGround.frame.origin.y -= keyboardHeight
+        }
+    }
+
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            chatBackGround.frame.origin.y += keyboardHeight
+        }
     }
 }
 
