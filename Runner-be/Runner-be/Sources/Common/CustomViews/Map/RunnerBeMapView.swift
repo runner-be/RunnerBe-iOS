@@ -14,18 +14,30 @@ class RunnerBeMapView: MKMapView {
     let regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
     let postSelected = PublishSubject<Int?>()
 
+    private var postAnnotations: [PostAnnotation] = []
+
+    var isAnnotationHidden: Bool = false {
+        didSet {
+            removeAnnotations(annotations)
+            if isAnnotationHidden == false {
+                addAnnotations(postAnnotations)
+            }
+        }
+    }
+
     func setRegion(to coord: CLLocationCoordinate2D, radius: CLLocationDistance = 1000, animated: Bool = false) {
         centerToCoord(coord, regionRadius: radius, animated: animated)
     }
 
     func update(with posts: [Post], alwaysSelected: Bool = false) {
         removeAnnotations(annotations)
-        let annotations = posts.compactMap { PostAnnotation(post: $0, alwaysSelected: alwaysSelected) }
-        addAnnotations(annotations)
+        postAnnotations = posts.compactMap { PostAnnotation(post: $0, alwaysSelected: alwaysSelected) }
+        addAnnotations(postAnnotations)
     }
 
     init() {
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         delegate = self
         register(PostAnnotaionView.self, forAnnotationViewWithReuseIdentifier: PostAnnotaionView.identifier)
     }
