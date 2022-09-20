@@ -29,7 +29,7 @@ final class PostAnnotaionView: MKAnnotationView {
         view.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.snp.top).offset(12)
+            make.top.equalTo(view.snp.top).offset(11)
         }
     }
 
