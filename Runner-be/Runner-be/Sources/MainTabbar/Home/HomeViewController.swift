@@ -731,12 +731,13 @@ extension HomeViewController {
     }
 
     private func onPanGesture(translation: CGPoint) {
+        mapView.isAnnotationHidden = true
         updateBottomSheetPosition(with: translation)
         updateBottomSheetCornerRadius()
         updatePostCollectionView(with: bottomSheetState)
     }
 
-    private func setBottomSheetState(to state: State.BottomSheet, animated: Bool = true) {
+    private func setBottomSheetState(to state: State.BottomSheet, animated: Bool = true, completion: (() -> Void)? = nil) {
         let maxHeight = bottomSheetMaxheight
 
         switch state {
@@ -751,9 +752,12 @@ extension HomeViewController {
         updateBottomSheetCornerRadius()
         updatePostCollectionView(with: state)
 
+        mapView.isAnnotationHidden = true
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                 self.view.layoutIfNeeded()
+            } completion: { [weak self] _ in
+                completion?()
             }
         }
 
@@ -761,7 +765,9 @@ extension HomeViewController {
     }
 
     private func onPanGestureEnded() {
-        setBottomSheetState(to: bottomSheetState)
+        setBottomSheetState(to: bottomSheetState, completion: { [weak self] in
+            self?.mapView.isAnnotationHidden = false
+        })
     }
 
     private var bottomSheetState: State.BottomSheet {
