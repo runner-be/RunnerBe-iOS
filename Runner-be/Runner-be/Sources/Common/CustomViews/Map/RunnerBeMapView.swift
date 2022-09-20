@@ -37,6 +37,7 @@ class RunnerBeMapView: MKMapView {
 
     init() {
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         delegate = self
         register(PostAnnotaionView.self, forAnnotationViewWithReuseIdentifier: PostAnnotaionView.identifier)
     }

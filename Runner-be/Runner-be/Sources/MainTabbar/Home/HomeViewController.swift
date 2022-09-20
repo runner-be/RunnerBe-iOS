@@ -752,11 +752,10 @@ extension HomeViewController {
         updateBottomSheetCornerRadius()
         updatePostCollectionView(with: state)
 
-        mapView.isAnnotationHidden = true
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                 self.view.layoutIfNeeded()
-            } completion: { [weak self] _ in
+            } completion: { _ in
                 completion?()
             }
         }

@@ -13,6 +13,8 @@ import UIKit
 final class PostAnnotaionView: MKAnnotationView {
     static let identifier = "\(String(describing: PostAnnotaionView.self))"
 
+    var timer: Timer?
+
     var markerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
             make.width.equalTo(36)
@@ -69,12 +71,20 @@ final class PostAnnotaionView: MKAnnotationView {
         if let profileUrl = annotation.profileUrl {
             profileImageView.kf.setImage(with: URL(string: profileUrl), placeholder: Asset.profileEmptyIcon.uiImage)
         }
-        setSelected(with: annotation, selected: annotation.isAlwaysSelected)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { [weak self] _ in
+            self?.timer?.invalidate()
+            self?.setSelected(with: annotation, selected: annotation.isAlwaysSelected)
+            self?.timer = nil
+        })
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         profileImageView.image = Asset.profileEmptyIcon.uiImage
+        markerView.isHidden = true
+        selectedMarkerView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
