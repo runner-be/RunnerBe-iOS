@@ -113,7 +113,7 @@ final class DetailInfoView: UIView {
         axis: .vertical,
         alignment: .leading,
         distribution: .equalSpacing,
-        spacing: 4
+        spacing: 6
     )
 
     func setup() {
