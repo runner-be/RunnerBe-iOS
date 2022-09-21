@@ -51,7 +51,7 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editTitle)
             .disposed(by: disposeBag)
 
-        writeDateView.iconTextButtonGroup.rx
+        writeDateView.rx
             .tapGesture(configuration: { _, delegate in
                 delegate.simultaneousRecognitionPolicy = .never
             })
@@ -60,7 +60,7 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editDate)
             .disposed(by: disposeBag)
 
-        writeTimeView.iconTextButtonGroup.rx
+        writeTimeView.rx
             .tapGesture(configuration: { _, delegate in
                 delegate.simultaneousRecognitionPolicy = .never
             })

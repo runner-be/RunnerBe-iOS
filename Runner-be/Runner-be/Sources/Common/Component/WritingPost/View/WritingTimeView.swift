@@ -41,6 +41,7 @@ class WritingTimeView: SelectBaseView {
         group.titleLabel.text = L10n.Post.Time.placeHolder
         group.titleLabel.font = .iosBody15R
         group.titleLabel.textColor = .darkG1
+        group.moreInfoButton.isEnabled = false
     }
 
 //    private var errorLabel = UILabel().then { label in
