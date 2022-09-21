@@ -46,7 +46,11 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+                if self?.component.fromPostDetail == true {
+                    self?.closeSignal.onNext(MessageChatResult.backward(needUpdate: false))
+                } else {
+                    self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+                }
             })
             .disposed(by: sceneDisposeBag)
     }

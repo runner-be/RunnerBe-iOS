@@ -17,17 +17,19 @@ final class MessageChatComponent {
         MessageChatViewModel(messageId: messageId)
     }
 
-    init(messageId: Int) {
+    init(messageId: Int, fromPostDetail: Bool = false) {
         self.messageId = messageId
+        self.fromPostDetail = fromPostDetail
     }
 
     var messageId: Int
+    var fromPostDetail: Bool
 
     func reportMessageComponent(messageId: Int) -> MessageReportComponent {
         return MessageReportComponent(messageId: messageId)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(postId: postId)
+        return PostDetailComponent(postId: postId, fromMessageChat: true)
     }
 }

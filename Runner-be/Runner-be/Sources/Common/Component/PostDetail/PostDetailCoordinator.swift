@@ -66,7 +66,11 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
         scene.VM.routes.message
             .map { (vm: scene.VM, roomID: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.presentMessageChat(vm: result.vm, roomID: result.roomID, animated: true)
+                if self?.component.fromMessageChat == true {
+                    self?.closeSignal.onNext(PostDetailResult.backward(id: 0, needUpdate: false))
+                } else {
+                    self?.presentMessageChat(vm: result.vm, roomID: result.roomID, animated: true)
+                }
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -144,7 +148,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
     }
 
     private func presentMessageChat(vm _: PostDetailViewModel, roomID: Int, animated: Bool) {
-        let comp = component.messageComponent(roomID: roomID)
+        let comp = component.messageChatComponent(roomID: roomID)
         let coord = MessageChatCoordinator(component: comp, navController: navigationController)
 
         let disposable = coordinate(coordinator: coord, animated: animated)

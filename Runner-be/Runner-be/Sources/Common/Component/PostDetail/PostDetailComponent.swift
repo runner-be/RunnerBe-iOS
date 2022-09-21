@@ -17,19 +17,21 @@ final class PostDetailComponent {
         return PostDetailViewModel(postId: postId)
     }
 
+    let fromMessageChat: Bool
     let postId: Int
 
     /* component 생성시 추가 정보가 필요하다면 다음처럼 init을 구현해주시면 됩니다. */
-    init(postId: Int) {
+    init(postId: Int, fromMessageChat: Bool = false) {
         self.postId = postId
+        self.fromMessageChat = fromMessageChat
     }
 
     func applicantListModal(applicants: [User]) -> ApplicantListModalComponent {
         return ApplicantListModalComponent(postId: postId, applicants: applicants)
     }
 
-    func messageComponent(roomID: Int) -> MessageChatComponent {
-        return MessageChatComponent(messageId: roomID)
+    func messageChatComponent(roomID: Int) -> MessageChatComponent {
+        return MessageChatComponent(messageId: roomID, fromPostDetail: true)
     }
 
     var reportModalComponent: ReportModalComponent {
