@@ -13,6 +13,7 @@ final class PostDetailViewModel: BaseViewModel {
     private var isWriter: Bool = false
     private var applicants: [User] = []
     private var participants: [User] = []
+    private var roomID: Int?
     var anyChanged = false
 
     init(
@@ -29,8 +30,9 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(postDetail, participated, marked, apply, participants):
+                case let .guest(postDetail, participated, marked, apply, participants, roomID):
                     self.isWriter = false
+                    self.roomID = roomID
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -51,8 +53,9 @@ final class PostDetailViewModel: BaseViewModel {
 //                    self.marked = marked
 //                    self.outputs.bookMarked.onNext(marked)
 //                    self.outputs.apply.onNext(apply)
-                case let .writer(postDetail, marked, participants, applicant):
+                case let .writer(postDetail, marked, participants, applicant, roomID):
                     self.isWriter = true
+                    self.roomID = roomID
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
@@ -199,8 +202,14 @@ final class PostDetailViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.toMessage
-            .map { postId }
-            .bind(to: routes.message)
+            .map { [weak self] in self?.roomID }
+            .subscribe(onNext: { [weak self] roomID in
+                if let roomID = roomID {
+                    self?.routes.message.onNext(roomID)
+                } else {
+                    self?.outputs.toast.onNext("채팅방을 찾을 수 없습니다.")
+                }
+            })
             .disposed(by: disposeBag)
     }
 

@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/07.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol PolicyTermDependency: Dependency {}
-
-final class PolicyTermComponent: Component<PolicyTermDependency> {
+final class PolicyTermComponent {
     var scene: (VC: UIViewController, VM: PolicyTermViewModel) {
         let viewModel = viewModel
         return (PolicyTermViewController(viewModel: viewModel), viewModel)
@@ -21,14 +18,14 @@ final class PolicyTermComponent: Component<PolicyTermDependency> {
     }
 
     var birthComponent: BirthComponent {
-        return BirthComponent(parent: self)
+        return BirthComponent()
     }
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
-        return OnboardingCancelModalComponent(parent: self)
+        return OnboardingCancelModalComponent()
     }
 
     func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {
-        return PolicyDetailComponent(parent: self, policyType: type, modal: modal)
+        return PolicyDetailComponent(policyType: type, modal: modal)
     }
 }

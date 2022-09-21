@@ -8,13 +8,13 @@
 import Foundation
 import NeedleFoundation
 
-final class AppComponent: BootstrapComponent {
+final class AppComponent {
     var loggedOutComponent: LoggedOutComponent {
-        return LoggedOutComponent(parent: self)
+        return LoggedOutComponent()
     }
 
     var mainTabComponent: MainTabComponent {
-        return MainTabComponent(parent: self)
+        return MainTabComponent()
     }
 
     var loginService = BasicLoginService()

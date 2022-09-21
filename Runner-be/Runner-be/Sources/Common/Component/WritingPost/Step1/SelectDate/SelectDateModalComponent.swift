@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SelectDateModalDependency: Dependency {}
-
-final class SelectDateModalComponent: Component<SelectDateModalDependency> {
+final class SelectDateModalComponent {
     var scene: (VC: UIViewController, VM: SelectDateModalViewModel) {
         let viewModel = viewModel
         return (SelectDateModalViewController(viewModel: viewModel), viewModel)

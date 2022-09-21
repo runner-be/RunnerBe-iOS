@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol TakePhotoModalDependency: Dependency {}
-
-final class TakePhotoModalComponent: Component<TakePhotoModalDependency> {
+final class TakePhotoModalComponent {
     var scene: (VC: UIViewController, VM: TakePhotoModalViewModel) {
         let viewModel = self.viewModel
         return (TakePhotoModalViewController(viewModel: viewModel), viewModel)

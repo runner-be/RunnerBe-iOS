@@ -8,9 +8,7 @@
 import Foundation
 import NeedleFoundation
 
-protocol OnboardingCancelModalDependency: Dependency {}
-
-final class OnboardingCancelModalComponent: Component<OnboardingCancelModalDependency> {
+final class OnboardingCancelModalComponent {
     var scene: (VC: UIViewController, VM: OnboardingCancelModalViewModel) {
         let viewModel = self.viewModel
         return (OnboardingCancelModalViewController(viewModel: viewModel), viewModel)

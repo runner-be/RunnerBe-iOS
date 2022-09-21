@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/08.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SelectJobGroupDependency: Dependency {}
-
-final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
+final class SelectJobGroupComponent {
     var scene: (VC: UIViewController, VM: SelectJobGroupViewModel) {
         let viewModel = viewModel
         return (SelectJobGroupViewController(viewModel: viewModel), viewModel)
@@ -21,10 +18,10 @@ final class SelectJobGroupComponent: Component<SelectJobGroupDependency> {
     }
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
-        return OnboardingCancelModalComponent(parent: self)
+        return OnboardingCancelModalComponent()
     }
 
     var onboardingCompleteComponent: OnboardingCompletionComponent {
-        return OnboardingCompletionComponent(parent: self)
+        return OnboardingCompletionComponent()
     }
 }

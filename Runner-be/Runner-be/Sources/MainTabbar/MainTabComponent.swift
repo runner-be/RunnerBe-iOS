@@ -6,11 +6,8 @@
 //
 
 import Foundation
-import NeedleFoundation
 
-protocol MainTabDependency: Dependency {}
-
-final class MainTabComponent: Component<MainTabDependency> {
+final class MainTabComponent {
     lazy var scene: (VC: MainTabViewController, VM: MainTabViewModel) = (
         VC: MainTabViewController(viewModel: viewModel),
         VM: viewModel
@@ -19,22 +16,22 @@ final class MainTabComponent: Component<MainTabDependency> {
     lazy var viewModel = MainTabViewModel()
 
     var homeComponent: HomeComponent {
-        return HomeComponent(parent: self)
+        return HomeComponent()
     }
 
     var bookmarkComponent: BookMarkComponent {
-        return BookMarkComponent(parent: self)
+        return BookMarkComponent()
     }
 
     var messageComponent: MessageComponent {
-        return MessageComponent(parent: self)
+        return MessageComponent()
     }
 
     var myPageComponent: MyPageComponent {
-        return MyPageComponent(parent: self)
+        return MyPageComponent()
     }
 
     var onboardingCoverComponent: OnboardingCoverComponent {
-        return OnboardingCoverComponent(parent: self)
+        return OnboardingCoverComponent()
     }
 }

@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/26.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol ApplicantListModalDependency: Dependency {}
-
-final class ApplicantListModalComponent: Component<ApplicantListModalDependency> {
+final class ApplicantListModalComponent {
     var scene: (VC: UIViewController, VM: ApplicantListModalViewModel) {
         let viewModel = self.viewModel
         return (ApplicantListModalViewController(viewModel: viewModel), viewModel)
@@ -23,9 +20,8 @@ final class ApplicantListModalComponent: Component<ApplicantListModalDependency>
     let applicants: [User]
     let postId: Int
 
-    init(parent: Scope, postId: Int, applicants: [User]) {
+    init(postId: Int, applicants: [User]) {
         self.applicants = applicants
         self.postId = postId
-        super.init(parent: parent)
     }
 }

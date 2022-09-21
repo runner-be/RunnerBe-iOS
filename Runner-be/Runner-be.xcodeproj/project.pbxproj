@@ -163,7 +163,6 @@
 		C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302027BA012E0076AB85 /* String+Subscript.swift */; };
 		C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379302327BA20A30076AB85 /* VerbosePlugin.swift */; };
 		C38ABD8427D31EAD0025929E /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD8327D31EAD0025929E /* LoginType.swift */; };
-		C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9127D332600025929E /* NeedleGenerated.swift */; };
 		C38ABD9527D336010025929E /* ReportModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9427D336010025929E /* ReportModalComponent.swift */; };
 		C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */; };
 		C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABD9827D336170025929E /* ReportModalViewModel.swift */; };
@@ -537,7 +536,6 @@
 		C379302027BA012E0076AB85 /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
 		C379302327BA20A30076AB85 /* VerbosePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbosePlugin.swift; sourceTree = "<group>"; };
 		C38ABD8327D31EAD0025929E /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
-		C38ABD9127D332600025929E /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		C38ABD9427D336010025929E /* ReportModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalComponent.swift; sourceTree = "<group>"; };
 		C38ABD9627D3360A0025929E /* ReportModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalCoordinator.swift; sourceTree = "<group>"; };
 		C38ABD9827D336170025929E /* ReportModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModalViewModel.swift; sourceTree = "<group>"; };
@@ -1293,7 +1291,6 @@
 				C34FDA5627AD5C82007718F8 /* Extensions */,
 				C39E925F27BACC9E00798F3A /* Utils */,
 				C3AD115727B81EF600A7044C /* Error */,
-				C38ABD9127D332600025929E /* NeedleGenerated.swift */,
 				DADD85FC28870BEE00B11041 /* Constants.swift */,
 				DA784C8C289C1736005F92B1 /* UserInfo.swift */,
 			);
@@ -2652,7 +2649,6 @@
 				C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
-				C38ABD9227D332600025929E /* NeedleGenerated.swift in Sources */,
 				433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,

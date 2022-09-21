@@ -5,12 +5,9 @@
 //  Created by 이유리 on 2022/07/23.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol JobChangeModalDependency: Dependency {}
-
-final class JobChangeModalComponent: Component<JobChangeModalDependency> {
+final class JobChangeModalComponent {
     var scene: (VC: UIViewController, VM: JobChangeModalViewModel) {
         let viewModel = self.viewModel
         return (JobChangeModalViewController(viewModel: viewModel), viewModel)

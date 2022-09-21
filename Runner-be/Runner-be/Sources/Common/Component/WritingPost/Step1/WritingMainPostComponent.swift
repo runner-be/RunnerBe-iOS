@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/18.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol WritingMainPostDependency: Dependency {}
-
-final class WritingMainPostComponent: Component<WritingMainPostDependency> {
+final class WritingMainPostComponent {
     var scene: (VC: UIViewController, VM: WritingMainPostViewModel) {
         let viewModel = self.viewModel
         return (WritingMainPostViewController(viewModel: viewModel), viewModel)
@@ -21,14 +18,14 @@ final class WritingMainPostComponent: Component<WritingMainPostDependency> {
     }
 
     var selectTimeComponent: SelectTimeModalComponent {
-        return SelectTimeModalComponent(parent: self)
+        return SelectTimeModalComponent()
     }
 
     var selectDateComponent: SelectDateModalComponent {
-        return SelectDateModalComponent(parent: self)
+        return SelectDateModalComponent()
     }
 
     func BuildWritingDetailPostComponent(with data: WritingPostData) -> WritingDetailPostComponent {
-        return WritingDetailPostComponent(parent: self, writingPostData: data)
+        return WritingDetailPostComponent(writingPostData: data)
     }
 }

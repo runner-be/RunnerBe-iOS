@@ -5,17 +5,14 @@
 //  Created by 김신우 on 2022/04/26.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol MessageDependency: Dependency {}
-
-final class MessageComponent: Component<MessageDependency> {
+final class MessageComponent {
     lazy var scene: (VC: MessageViewController, VM: MessageViewModel) = (VC: MessageViewController(viewModel: viewModel), VM: viewModel)
 
     lazy var viewModel: MessageViewModel = .init()
 
     func messageChatComponent(messageId: Int) -> MessageChatComponent {
-        return MessageChatComponent(parent: self, messageId: messageId)
+        return MessageChatComponent(messageId: messageId)
     }
 }

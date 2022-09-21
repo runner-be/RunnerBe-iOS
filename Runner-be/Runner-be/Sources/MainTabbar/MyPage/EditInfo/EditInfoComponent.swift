@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol EditInfoDependency: Dependency {}
-
-final class EditInfoComponent: Component<EditInfoDependency> {
+final class EditInfoComponent {
     var scene: (VC: UIViewController, VM: EditInfoViewModel) {
         let viewModel = self.viewModel
         return (EditInfoViewController(viewModel: viewModel), viewModel)
@@ -20,18 +17,17 @@ final class EditInfoComponent: Component<EditInfoDependency> {
         return EditInfoViewModel(user: user)
     }
 
-    init(parent: Scope, user: User) {
+    init(user: User) {
         self.user = user
-        super.init(parent: parent)
     }
 
     var user: User
 
     var nickNameModalComponent: NickNameChangeModalComponent {
-        return NickNameChangeModalComponent(parent: self)
+        return NickNameChangeModalComponent()
     }
 
     var jobChangeModalComponent: JobChangeModalComponent {
-        return JobChangeModalComponent(parent: self)
+        return JobChangeModalComponent()
     }
 }

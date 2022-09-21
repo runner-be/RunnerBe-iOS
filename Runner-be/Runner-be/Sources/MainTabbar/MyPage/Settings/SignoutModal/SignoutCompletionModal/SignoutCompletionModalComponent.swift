@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/03/06.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SignoutCompletionModalDependency: Dependency {}
-
-final class SignoutCompletionModalComponent: Component<SignoutCompletionModalDependency> {
+final class SignoutCompletionModalComponent {
     var scene: (VC: UIViewController, VM: SignoutCompletionModalViewModel) {
         let viewModel = self.viewModel
         return (SignoutCompletionModalViewController(viewModel: viewModel), viewModel)

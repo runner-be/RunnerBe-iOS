@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SelectTimeModalDependency: Dependency {}
-
-final class SelectTimeModalComponent: Component<SelectTimeModalDependency> {
+final class SelectTimeModalComponent {
     var scene: (VC: UIViewController, VM: SelectTimeModalViewModel) {
         let viewModel = viewModel
         return (SelectTimeModalViewController(viewModel: viewModel), viewModel)

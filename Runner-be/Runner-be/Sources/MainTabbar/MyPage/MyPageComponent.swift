@@ -5,30 +5,27 @@
 //  Created by 김신우 on 2022/02/05.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol MyPageDependency: Dependency {}
-
-final class MyPageComponent: Component<MyPageDependency> {
+final class MyPageComponent {
     lazy var scene: (VC: MyPageViewController, VM: MyPageViewModel) = (VC: MyPageViewController(viewModel: viewModel), VM: viewModel)
 
     lazy var viewModel = MyPageViewModel()
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(parent: self, postId: postId)
+        return PostDetailComponent(postId: postId)
     }
 
     func editInfoComponent(user: User) -> EditInfoComponent {
-        return EditInfoComponent(parent: self, user: user)
+        return EditInfoComponent(user: user)
     }
 
     var settingsComponent: SettingsComponent {
-        return SettingsComponent(parent: self)
+        return SettingsComponent()
     }
 
     var writingPostComponent: WritingMainPostComponent {
-        return WritingMainPostComponent(parent: self)
+        return WritingMainPostComponent()
     }
 
     var imageUploadService: ImageUploadService {
@@ -36,10 +33,10 @@ final class MyPageComponent: Component<MyPageDependency> {
     }
 
     var takePhotoModalComponent: TakePhotoModalComponent {
-        return TakePhotoModalComponent(parent: self)
+        return TakePhotoModalComponent()
     }
 
     func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
-        return ManageAttendanceComponent(parent: self, myRunningIdx: myRunningIdx)
+        return ManageAttendanceComponent(myRunningIdx: myRunningIdx)
     }
 }

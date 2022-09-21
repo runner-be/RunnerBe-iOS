@@ -221,7 +221,8 @@ final class BasicPostAPIService: PostAPIService {
             isApplicant: Bool,
             post: Data,
             participants: Data,
-            applicant: Data
+            applicant: Data,
+            roomID: Int?
         )
 
         guard let userId = loginKeyChain.userId,
@@ -245,6 +246,7 @@ final class BasicPostAPIService: PostAPIService {
                 let postData = (try? result?.json["result"]["postingInfo"].rawData()) ?? Data()
                 let participantData = (try? result?.json["result"]["runnerInfo"].rawData()) ?? Data()
                 let applicantData = (try? result?.json["result"]["waitingRunnerInfo"].rawData()) ?? Data()
+                let roomID = (try? result?.json["result"]["roomId"].int)
 
                 Log.d(tag: .info, """
                 postData :
@@ -311,7 +313,8 @@ final class BasicPostAPIService: PostAPIService {
                     isApplicant: applicant,
                     post: postData,
                     participants: participantData,
-                    applicant: applicantData
+                    applicant: applicantData,
+                    roomID: roomID
                 )
             }
             .compactMap { $0 }
@@ -333,7 +336,8 @@ final class BasicPostAPIService: PostAPIService {
                             post: postDetail,
                             marked: result.bookMarked,
                             participants: participants,
-                            applicant: applicant
+                            applicant: applicant,
+                            roomID: result.roomID
                         )
                     )
                 } else {
@@ -342,7 +346,8 @@ final class BasicPostAPIService: PostAPIService {
                                participated: participants.contains(where: { $0.userID == userId }),
                                marked: result.bookMarked,
                                apply: result.isApplicant,
-                               participants: participants)
+                               participants: participants,
+                               roomID: result.roomID)
                     )
                 }
             })
