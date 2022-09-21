@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/04/26.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol MessageChatDependency: Dependency {}
-
-final class MessageChatComponent: Component<MessageChatDependency> {
+final class MessageChatComponent {
     var scene: (VC: UIViewController, VM: MessageChatViewModel) {
         let viewModel = self.viewModel
         return (MessageChatViewController(viewModel: viewModel, messageId: messageId), viewModel)
@@ -20,18 +17,19 @@ final class MessageChatComponent: Component<MessageChatDependency> {
         MessageChatViewModel(messageId: messageId)
     }
 
-    init(parent: Scope, messageId: Int) {
+    init(messageId: Int, fromPostDetail: Bool = false) {
         self.messageId = messageId
-        super.init(parent: parent)
+        self.fromPostDetail = fromPostDetail
     }
 
     var messageId: Int
+    var fromPostDetail: Bool
 
     func reportMessageComponent(messageId: Int) -> MessageReportComponent {
-        return MessageReportComponent(parent: self, messageId: messageId)
+        return MessageReportComponent(messageId: messageId)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(parent: self, postId: postId)
+        return PostDetailComponent(postId: postId, fromMessageChat: true)
     }
 }

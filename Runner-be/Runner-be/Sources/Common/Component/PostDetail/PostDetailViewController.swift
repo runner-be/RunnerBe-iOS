@@ -327,6 +327,10 @@ extension PostDetailViewController {
 //                })
 //                .disposed(by: guestFooter.disposeBag)
 
+            guestFooter.toMessageButton.rx.tap
+                .bind(to: viewModel.inputs.toMessage)
+                .disposed(by: guestFooter.disposeBag)
+
             viewModel.outputs.apply
                 .subscribe(onNext: { applied in
                     guestFooter.applyBtn.isEnabled = !applied

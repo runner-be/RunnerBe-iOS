@@ -5,14 +5,9 @@
 //  Created by 김신우 on 2022/02/07.
 //
 
-import Foundation
+import UIKit
 
-import Foundation
-import NeedleFoundation
-
-protocol BirthDependency: Dependency {}
-
-final class BirthComponent: Component<BirthDependency> {
+final class BirthComponent {
     var scene: (VC: UIViewController, VM: BirthViewModel) {
         let viewModel = viewModel
         return (BirthViewController(viewModel: viewModel), viewModel)
@@ -23,10 +18,10 @@ final class BirthComponent: Component<BirthDependency> {
     }
 
     var selectGenderComponent: SelectGenderComponent {
-        return SelectGenderComponent(parent: self)
+        return SelectGenderComponent()
     }
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
-        return OnboardingCancelModalComponent(parent: self)
+        return OnboardingCancelModalComponent()
     }
 }

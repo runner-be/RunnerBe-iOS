@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/04.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol LoggedOutDependency: Dependency {}
-
-class LoggedOutComponent: Component<LoggedOutDependency> {
+class LoggedOutComponent {
     var scene: (VC: UIViewController, VM: LoggedOutViewModel) {
         let viewModel = self.viewModel
         return (LoggedOutViewController(viewModel: viewModel), viewModel)

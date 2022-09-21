@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol OnboardingCompletionDependency: Dependency {}
-
-final class OnboardingCompletionComponent: Component<OnboardingCompletionDependency> {
+final class OnboardingCompletionComponent {
     var scene: (VC: UIViewController, VM: OnboardingCompletionViewModel) {
         let viewModel = self.viewModel
         return (OnboardingCompletionViewController(viewModel: viewModel), viewModel)

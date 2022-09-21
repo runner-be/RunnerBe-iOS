@@ -5,17 +5,14 @@
 //  Created by 김신우 on 2022/02/05.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol BookMarkDependency: Dependency {}
-
-final class BookMarkComponent: Component<BookMarkDependency> {
+final class BookMarkComponent {
     lazy var scene: (VC: BookMarkViewController, VM: BookMarkViewModel) = (VC: BookMarkViewController(viewModel: viewModel), VM: viewModel)
 
     lazy var viewModel = BookMarkViewModel()
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(parent: self, postId: postId)
+        return PostDetailComponent(postId: postId)
     }
 }

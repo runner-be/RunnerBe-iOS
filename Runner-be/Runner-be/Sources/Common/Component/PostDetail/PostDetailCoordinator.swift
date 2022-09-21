@@ -62,6 +62,17 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 self?.presetnDeleteConfrimModal(vm: vm, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.message
+            .map { (vm: scene.VM, roomID: $0) }
+            .subscribe(onNext: { [weak self] result in
+                if self?.component.fromMessageChat == true {
+                    self?.closeSignal.onNext(PostDetailResult.backward(id: 0, needUpdate: false))
+                } else {
+                    self?.presentMessageChat(vm: result.vm, roomID: result.roomID, animated: true)
+                }
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
@@ -131,6 +142,27 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 case .cancel:
                     vm.routeInputs.report.onNext(false)
                 }
+            })
+
+        addChildDisposable(id: coord.identifier, disposable: disposable)
+    }
+
+    private func presentMessageChat(vm _: PostDetailViewModel, roomID: Int, animated: Bool) {
+        let comp = component.messageChatComponent(roomID: roomID)
+        let coord = MessageChatCoordinator(component: comp, navController: navigationController)
+
+        let disposable = coordinate(coordinator: coord, animated: animated)
+            .take(1)
+            .subscribe(onNext: { [weak self] _ in
+                defer { self?.releaseChild(coordinator: coord) }
+//                switch coordResult {
+//                case .backward
+//                case .cancelOnboarding:
+//                    self?.closeSignal.onNext(.cancelOnboarding)
+//                case .toMain:
+//                    self?.closeSignal.onNext(.toMain)
+//                case .backward: break
+//                }
             })
 
         addChildDisposable(id: coord.identifier, disposable: disposable)

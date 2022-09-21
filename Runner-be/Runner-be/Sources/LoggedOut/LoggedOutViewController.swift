@@ -128,7 +128,7 @@ extension LoggedOutViewController {
         }
 
         loginBtnVStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.snp.bottom).offset(-81)
+            make.bottom.equalTo(view.snp.bottom).offset(-40)
             make.left.equalTo(view.snp.left).offset(16)
             make.right.equalTo(view.snp.right).offset(-16)
         }

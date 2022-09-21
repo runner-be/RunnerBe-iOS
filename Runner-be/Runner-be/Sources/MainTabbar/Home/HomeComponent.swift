@@ -5,37 +5,34 @@
 //  Created by 김신우 on 2022/02/05.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol HomeDependency: Dependency {}
-
-final class HomeComponent: Component<HomeDependency> {
+final class HomeComponent {
     lazy var scene: (VC: HomeViewController, VM: HomeViewModel) = (VC: HomeViewController(viewModel: viewModel), VM: viewModel)
 
     lazy var viewModel: HomeViewModel = .init()
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(parent: self, postId: postId)
+        return PostDetailComponent(postId: postId)
     }
 
     var writingPostComponent: WritingMainPostComponent {
-        return WritingMainPostComponent(parent: self)
+        return WritingMainPostComponent()
     }
 
     func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
-        return HomeFilterComponent(self, filter: filter)
+        return HomeFilterComponent(filter: filter)
     }
 
     func postListOrderModal() -> PostOrderModalComponent {
-        return PostOrderModalComponent(parent: self)
+        return PostOrderModalComponent()
     }
 
     func runningTagModal() -> RunningTagModalComponent {
-        return RunningTagModalComponent(parent: self)
+        return RunningTagModalComponent()
     }
 
     var alarmListComponent: AlarmListComponent {
-        return AlarmListComponent(parent: self)
+        return AlarmListComponent()
     }
 }

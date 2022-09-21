@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/03/04.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol OnboardingCoverDependency: Dependency {}
-
-final class OnboardingCoverComponent: Component<OnboardingCoverDependency> {
+final class OnboardingCoverComponent {
     var scene: (VC: UIViewController, VM: OnboardingCoverViewModel) {
         let viewModel = self.viewModel
         return (OnboardingCoverViewController(viewModel: viewModel), viewModel)
@@ -21,6 +18,6 @@ final class OnboardingCoverComponent: Component<OnboardingCoverDependency> {
     }
 
     var policyTermComponent: PolicyTermComponent {
-        return PolicyTermComponent(parent: self)
+        return PolicyTermComponent()
     }
 }

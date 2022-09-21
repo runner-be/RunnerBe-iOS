@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/07/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol RunningTagModalDependency: Dependency {}
-
-final class RunningTagModalComponent: Component<RunningTagModalDependency> {
+final class RunningTagModalComponent {
     var scene: (VC: UIViewController, VM: RunningTagModalViewModel) {
         let viewModel = self.viewModel
         return (RunningTagModalViewController(viewModel: viewModel), viewModel)

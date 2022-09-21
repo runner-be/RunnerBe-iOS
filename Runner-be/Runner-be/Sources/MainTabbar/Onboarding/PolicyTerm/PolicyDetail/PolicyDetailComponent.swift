@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol PolicyDetailDependency: Dependency {}
-
-final class PolicyDetailComponent: Component<PolicyDetailDependency> {
+final class PolicyDetailComponent {
     var scene: (VC: UIViewController, VM: PolicyDetailViewModel) {
         let viewModel = self.viewModel
         return (PolicyDetailViewController(viewModel: viewModel), viewModel)
@@ -20,10 +17,9 @@ final class PolicyDetailComponent: Component<PolicyDetailDependency> {
         return PolicyDetailViewModel(policyType: policyType, modal: isModal)
     }
 
-    init(parent: Scope, policyType: PolicyType, modal: Bool) {
+    init(policyType: PolicyType, modal: Bool) {
         isModal = modal
         self.policyType = policyType
-        super.init(parent: parent)
     }
 
     private(set) var isModal: Bool

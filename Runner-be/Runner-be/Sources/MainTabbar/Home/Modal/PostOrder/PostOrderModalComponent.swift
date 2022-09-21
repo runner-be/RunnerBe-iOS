@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/07/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol PostOrderModalDependency: Dependency {}
-
-final class PostOrderModalComponent: Component<PostOrderModalDependency> {
+final class PostOrderModalComponent {
     var scene: (VC: UIViewController, VM: PostOrderModalViewModel) {
         let viewModel = self.viewModel
         return (PostOrderModalViewController(viewModel: viewModel), viewModel)

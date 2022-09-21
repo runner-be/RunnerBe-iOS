@@ -5,12 +5,9 @@
 //  Created by 이유리 on 2022/07/23.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol ManageTimeExpiredModalDependency: Dependency {}
-
-final class ManageTimeExpiredModalComponent: Component<ManageTimeExpiredModalDependency> {
+final class ManageTimeExpiredModalComponent {
     var scene: (VC: UIViewController, VM: ManageTimeExpiredModalViewModel) {
         let viewModel = self.viewModel
         return (ManagedTimeExpiredViewController(), viewModel)
