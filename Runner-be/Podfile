@@ -8,7 +8,7 @@ target 'Runner-be' do
   # Pods for RunnerBe-iOS
 
   # Needle
-  pod 'NeedleFoundation'
+  # pod 'NeedleFoundation'
   
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'
