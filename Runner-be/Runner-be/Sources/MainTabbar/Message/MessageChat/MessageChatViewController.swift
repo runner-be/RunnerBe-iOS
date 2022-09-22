@@ -110,8 +110,7 @@ class MessageChatViewController: BaseViewController {
         view.layer.cornerRadius = 32
         view.clipsToBounds = true
 
-        view.contentInset = .init(top: 8, left: 14, bottom: 18, right: 44)
-//        view.textContainerInset = .init(top: 8, left: 14, bottom: 18, right: 44)
+        view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44) // textview padding 추가
         view.font = .iosBody15R
         view.isScrollEnabled = true
         view.showsVerticalScrollIndicator = false
@@ -171,8 +170,7 @@ extension MessageChatViewController {
             make.leading.equalTo(self.view.snp.leading)
             make.trailing.equalTo(self.view.snp.trailing)
             make.bottom.equalTo(self.view.snp.bottom)
-            make.height.greaterThanOrEqualTo(84)
-            make.height.lessThanOrEqualTo(118)
+            make.height.equalTo(84)
         }
 
         chatTextView.snp.makeConstraints { make in
@@ -180,15 +178,14 @@ extension MessageChatViewController {
             make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
             make.bottom.equalTo(chatBackGround.snp.bottom).offset(-45)
             make.top.equalTo(chatBackGround.snp.top).offset(12)
-            make.height.greaterThanOrEqualTo(30)
-            make.height.lessThanOrEqualTo(60)
+            make.height.equalTo(38)
         }
 
         sendButton.snp.makeConstraints { make in
             make.width.equalTo(24)
             make.height.equalTo(24)
-            make.bottom.equalTo(chatTextView.textInputView.snp.bottom).offset(-6)
-            make.trailing.equalTo(chatTextView.textInputView.snp.trailing).offset(-12)
+            make.top.equalTo(chatTextView.snp.top).offset(-6)
+            make.trailing.equalTo(chatTextView.snp.trailing).offset(-12)
         }
 
         let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
