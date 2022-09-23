@@ -10,6 +10,7 @@ import RxSwift
 
 enum PostingResult {
     case succeed, fail, needLogin
+    case genderDenied(message: String)
 }
 
 enum DetailInfoResult {

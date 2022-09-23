@@ -67,6 +67,8 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 switch result {
                 case .succeed:
                     self?.routes.apply.onNext(())
+                case let .genderDenied(message):
+                    self?.outputs.toast.onNext(message)
                 case .fail:
                     self?.outputs.toast.onNext("다시 시도해주세요!")
                 case .needLogin:

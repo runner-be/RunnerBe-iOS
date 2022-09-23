@@ -87,6 +87,8 @@ final class BasicPostAPIService: PostAPIService {
                     functionResult.onNext(.succeed)
                 case 2010, 2011, 2012, 2044, 3006: // 유저 로그인 필요
                     functionResult.onNext(.needLogin)
+                case 2095: // 성별 불가
+                    functionResult.onNext(.genderDenied(message: response.message))
                 case 4000: // db에러
                     functionResult.onNext(.fail)
                 default: // 나머지 에러
