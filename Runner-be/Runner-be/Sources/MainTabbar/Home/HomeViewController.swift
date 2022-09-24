@@ -178,7 +178,10 @@ class HomeViewController: BaseViewController {
                 self.selectedPostCollectionView.isHidden = hideSelectedPost
 
                 if post != nil {
-                    self.setBottomSheetState(to: .halfOpen)
+                    self.mapView.isAnnotationHidden = true
+                    self.setBottomSheetState(to: .halfOpen, animated: true) { [weak self] in
+                        self?.mapView.isAnnotationHidden = false
+                    }
                 }
             })
             .disposed(by: disposeBag)

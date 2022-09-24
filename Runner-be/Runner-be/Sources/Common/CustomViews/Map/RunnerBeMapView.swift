@@ -18,9 +18,8 @@ class RunnerBeMapView: MKMapView {
 
     var isAnnotationHidden: Bool = false {
         didSet {
-            removeAnnotations(annotations)
-            if isAnnotationHidden == false {
-                addAnnotations(postAnnotations)
+            postAnnotations.forEach {
+                self.view(for: $0)?.isHidden = isAnnotationHidden
             }
         }
     }
