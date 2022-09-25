@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "Group 20.png",
+      "scale" : "1x",
       "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "BookMarkTabIcon.png"
     },
     {
-      "filename" : "Group 20@2x.png",
       "idiom" : "universal",
+      "filename" : "BookMarkTabIcon@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "Group 20@3x.png",
+      "filename" : "BookMarkTabIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }
