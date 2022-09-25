@@ -121,9 +121,9 @@ extension NickNameChangeModalViewController {
 
     private func initialLayout() {
         sheet.snp.makeConstraints { make in
-            make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
-            make.width.equalTo(270)
+            make.leading.equalTo(52)
+            make.trailing.equalTo(-52)
         }
 
         titleLabel.snp.makeConstraints { make in

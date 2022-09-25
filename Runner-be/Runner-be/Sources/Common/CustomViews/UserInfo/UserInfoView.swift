@@ -30,6 +30,19 @@ class UserInfoView: UIView {
         jobTagLabel.text = userInfo.job
         badgeLabel.label.text = userInfo.diligence
 
+        switch userInfo.diligence {
+        case "성실 러너":
+            badgeLabel.iconView.image = Asset.smile.uiImage
+        case "노력 러너":
+            badgeLabel.iconView.image = Asset.icEffortRunner.uiImage
+        case "불량 러너":
+            badgeLabel.iconView.image = Asset.icBadRunner.uiImage
+        case "초보 러너":
+            badgeLabel.iconView.image = Asset.icBasicRunner.uiImage
+        default:
+            break
+        }
+
         if let url = userInfo.profileURL,
            let profileURL = URL(string: url)
         {

@@ -118,14 +118,14 @@ extension MakerViewController {
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(plan.snp.height)
             make.top.equalTo(navBar.snp.bottom).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(88)
+            make.leading.equalTo(view.snp.leading).offset(view.bounds.width * 0.235)
         }
 
         design.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(design.snp.height)
             make.top.equalTo(plan.snp.top)
-            make.leading.equalTo(plan.snp.trailing).offset(60)
+            make.trailing.equalTo(view.snp.trailing).offset(-view.bounds.width * 0.15)
         }
 
         aos_duru.snp.makeConstraints { make in
@@ -139,28 +139,28 @@ extension MakerViewController {
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(aos_judy.snp.height)
             make.top.equalTo(aos_duru.snp.top)
-            make.leading.equalTo(plan.snp.trailing).offset(60)
+            make.leading.equalTo(design.snp.leading)
         }
 
         ios_shiv.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(ios_shiv.snp.height)
             make.top.equalTo(aos_duru.snp.bottom).offset(43)
-            make.leading.equalTo(aos_duru.snp.leading)
+            make.leading.equalTo(plan.snp.leading)
         }
 
         ios_zoe.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(ios_zoe.snp.height)
             make.top.equalTo(ios_shiv.snp.top)
-            make.leading.equalTo(plan.snp.trailing).offset(60)
+            make.leading.equalTo(design.snp.leading)
         }
 
         server.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(server.snp.height)
             make.top.equalTo(ios_shiv.snp.bottom).offset(43)
-            make.leading.equalTo(ios_shiv.snp.leading)
+            make.leading.equalTo(plan.snp.leading)
         }
     }
 }

@@ -158,7 +158,8 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.manageAttendance
             .compactMap { [weak self] idx in
-                idx
+                print(idx)
+                return idx
             }
             .bind(to: routes.manageAttendance)
             .disposed(by: disposeBag)

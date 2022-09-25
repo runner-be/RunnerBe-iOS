@@ -124,12 +124,13 @@ extension SignoutModalViewController {
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
             make.width.equalTo(270)
+            make.height.equalTo(144)
         }
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top).offset(24)
-            make.leading.equalTo(sheet.snp.leading).offset(24)
-            make.trailing.equalTo(sheet.snp.trailing).offset(-24)
+            make.leading.equalTo(sheet.snp.leading).offset(12)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-12)
         }
 
         hDivider.snp.makeConstraints { make in

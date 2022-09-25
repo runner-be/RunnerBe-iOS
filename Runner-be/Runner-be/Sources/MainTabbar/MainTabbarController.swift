@@ -122,8 +122,8 @@ class MainTabViewController: BaseViewController {
         button.setImage(Asset.homeTabIconNormal.image, for: .normal)
         button.setImage(Asset.homeTabIconFocused.image, for: .selected)
         button.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
@@ -131,8 +131,8 @@ class MainTabViewController: BaseViewController {
         button.setImage(Asset.bookmarkTabIconNormal.image, for: .normal)
         button.setImage(Asset.bookmarkTabIconFocused.image, for: .selected)
         button.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
@@ -140,8 +140,8 @@ class MainTabViewController: BaseViewController {
         button.setImage(Asset.messageTabIconNormal.image, for: .normal)
         button.setImage(Asset.messageTabIconFocused.image, for: .selected)
         button.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
@@ -149,8 +149,8 @@ class MainTabViewController: BaseViewController {
         button.setImage(Asset.myPageTabIconNormal.image, for: .normal)
         button.setImage(Asset.myPageTabIconFocused.image, for: .selected)
         button.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
     }
 
