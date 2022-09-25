@@ -50,6 +50,8 @@ target 'Runner-be' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
+  # Firebase Crashlytics
+  pod 'Firebase/Crashlytics'
 
   # Kakao Login
   pod 'RxKakaoSDKCommon' # 필수 모듈
