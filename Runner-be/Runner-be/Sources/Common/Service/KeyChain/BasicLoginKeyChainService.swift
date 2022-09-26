@@ -68,7 +68,7 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
     func setLoginInfo(loginType: LoginType, uuid: String?, userID: Int?, token: LoginToken?) {
         self.loginType = loginType
         self.uuid = uuid
-        self.userId = userID
+        userId = userID
         self.token = token
     }
 

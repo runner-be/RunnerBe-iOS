@@ -5,8 +5,7 @@
 //  Created by 김신우 on 2022/02/04.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
 final class AppComponent {
     var loggedOutComponent: LoggedOutComponent {

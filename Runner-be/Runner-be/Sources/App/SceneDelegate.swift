@@ -14,7 +14,6 @@ import RxSwift
 
 import FirebaseDynamicLinks
 
-import NeedleFoundation
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

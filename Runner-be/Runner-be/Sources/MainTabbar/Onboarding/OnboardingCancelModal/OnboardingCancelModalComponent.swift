@@ -5,8 +5,7 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
 final class OnboardingCancelModalComponent {
     var scene: (VC: UIViewController, VM: OnboardingCancelModalViewModel) {
