@@ -33,7 +33,10 @@ final class BasicLoginService: LoginService {
 
     func checkLogin() -> Observable<CheckLoginResult> {
         guard let token = loginKeyChainService.token
-        else { return .just(.nonMember) }
+        else {
+            logout()
+            return .just(.nonMember)
+        }
 
         return loginAPIService.login(with: token)
             .timeout(.seconds(10), other: Observable.just(.nonMember), scheduler: MainScheduler.instance)
@@ -82,19 +85,16 @@ final class BasicLoginService: LoginService {
                     functionResult.onNext(LoginResult.loginFail)
                     return
                 }
+
                 switch result {
                 case let LoginAPIResult.member(id, jwt, _):
-                    self?.loginKeyChainService.token = LoginToken(jwt: jwt)
-                    self?.loginKeyChainService.userId = id
-                    self?.loginKeyChainService.loginType = .member
+                    self?.loginKeyChainService.setLoginInfo(loginType: .member, uuid: nil, userID: id, token: LoginToken(jwt: jwt))
                     functionResult.onNext(.member)
                 case let LoginAPIResult.nonMember(uuid, _):
-                    self?.loginKeyChainService.uuid = uuid
-                    self?.loginKeyChainService.loginType = .nonMember
+                    self?.loginKeyChainService.setLoginInfo(loginType: .nonMember, uuid: uuid, userID: nil, token: nil)
                     functionResult.onNext(.nonMember(uuid: uuid))
                 case let LoginAPIResult.memberWaitCertification(_, jwt, _):
-                    self?.loginKeyChainService.token = LoginToken(jwt: jwt)
-                    self?.loginKeyChainService.loginType = .waitCertification
+                    self?.loginKeyChainService.setLoginInfo(loginType: .waitCertification, uuid: nil, userID: nil, token: LoginToken(jwt: jwt))
                     functionResult.onNext(.memberWaitCertification)
                 }
             })
