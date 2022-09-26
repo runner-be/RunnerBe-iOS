@@ -80,67 +80,51 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         let comp = component.editInfoComponent(user: user)
         let coord = EditInfoCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 
     func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(id, needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                    vm.routeInputs.detailClosed.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(id, needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+                vm.routeInputs.detailClosed.onNext(())
+            }
+        }
     }
 
     func pushSettingsScene(vm _: MyPageViewModel, animated: Bool) {
         let comp = component.settingsComponent
         let coord = SettingsCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    break
-                case .logout:
-                    self?.closeSignal.onNext(MyPageResult.logout)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .logout:
+                self?.closeSignal.onNext(MyPageResult.logout)
+            }
+        }
     }
 
     private func pushWritingPostScene(vm: MyPageViewModel, animated: Bool) {
         let comp = component.writingPostComponent
         let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 
     private func presentPhotoModal(vm: MyPageViewModel, animated: Bool) {
@@ -148,41 +132,31 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
         let uuid = coord.identifier
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .takePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.camera)
-                case .choosePhoto:
-                    vm.routeInputs.photoTypeSelected.onNext(.library)
-                case .cancel:
-                    break
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .takePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.camera)
+            case .choosePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.library)
+            case .cancel:
+                break
 //                case .chooseDefault:
 //                    vm.routeInputs.photoTypeSelected.onNext(.basic)
-                case .chooseDefault:
-                    vm.routeInputs.photoTypeSelected.onNext(.basic)
-                }
-            })
-
-        addChildDisposable(id: uuid, disposable: disposable)
+            case .chooseDefault:
+                vm.routeInputs.photoTypeSelected.onNext(.basic)
+            }
+        }
     }
 
     func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningIdx: Int, animated: Bool) {
         let comp = component.manageAttendanceComponent(myRunningIdx: myRunningIdx)
         let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    break
-                }
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
             }
-            )
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        }
     }
 }

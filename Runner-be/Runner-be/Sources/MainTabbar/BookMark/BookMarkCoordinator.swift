@@ -37,16 +37,12 @@ final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(id, needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                    vm.routeInputs.detailClosed.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(id, needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+                vm.routeInputs.detailClosed.onNext(())
+            }
+        }
     }
 }

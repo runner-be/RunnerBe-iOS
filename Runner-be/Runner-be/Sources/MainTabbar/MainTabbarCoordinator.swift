@@ -62,15 +62,12 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         let comp = component.homeComponent
         let coord = HomeCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: false)
-            .subscribe(onNext: { coordResult in
-                switch coordResult {
-                case .needCover:
-                    vm.routeInputs.needCover.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: false, needRelease: false) { coordResult in
+            switch coordResult {
+            case .needCover:
+                vm.routeInputs.needCover.onNext(())
+            }
+        }
 
         vm.routes.home
             .subscribe(onNext: {
@@ -85,7 +82,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         let comp = component.bookmarkComponent
         let coord = BookMarkCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: false)
+        coordinate(coordinator: coord, animated: false, needRelease: false)
 
         vm.routes.bookmark
             .subscribe(onNext: {
@@ -100,13 +97,13 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         let comp = component.messageComponent
         let coord = MessageCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: false)
-
         vm.routes.message
             .subscribe(onNext: {
                 comp.scene.VM.routeInputs.needsUpdate.onNext(true)
             })
             .disposed(by: sceneDisposeBag)
+
+        coordinate(coordinator: coord, animated: false, needRelease: false)
 
         return comp.scene.VC
     }
@@ -115,16 +112,15 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         let comp = component.myPageComponent
         let coord = MyPageCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: false)
-            .subscribe(onNext: { [weak self] coordResult in
-                switch coordResult {
-                case .logout:
-                    self?.closeSignal.onNext(MainTabbarResult.logout)
-                    self?.release()
-                case .toMain:
-                    vm.routeInputs.toHome.onNext(())
-                }
-            })
+        coordinate(coordinator: coord, animated: false, needRelease: false) { [weak self] coordResult in
+            switch coordResult {
+            case .logout:
+                self?.closeSignal.onNext(MainTabbarResult.logout)
+                self?.release()
+            case .toMain:
+                vm.routeInputs.toHome.onNext(())
+            }
+        }
 
         vm.routes.myPage
             .subscribe(onNext: {
@@ -132,7 +128,6 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        addChildDisposable(id: coord.identifier, disposable: disposable)
         return comp.scene.VC
     }
 
@@ -140,15 +135,11 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
         let comp = component.onboardingCoverComponent
         let coord = OnboardingCoverCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .toMain:
-                    vm.routeInputs.onboardingCoverClosed.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .toMain:
+                vm.routeInputs.onboardingCoverClosed.onNext(())
+            }
+        }
     }
 }

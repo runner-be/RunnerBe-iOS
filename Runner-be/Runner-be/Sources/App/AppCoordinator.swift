@@ -48,33 +48,23 @@ final class AppCoordinator: BasicCoordinator<Void> {
         let comp = component.mainTabComponent
         let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .logout:
-                    self?.showLoggedOut(animated: false)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .logout:
+                self?.showLoggedOut(animated: false)
+            }
+        }
     }
 
     func showLoggedOut(animated: Bool) {
         let comp = component.loggedOutComponent
         let coord = LoggedOutCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-
-                switch coordResult {
-                case .loginSuccess:
-                    self?.showMain(animated: false)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .loginSuccess:
+                self?.showMain(animated: false)
+            }
+        }
     }
 }

@@ -50,17 +50,13 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
         let comp = component.messageChatComponent(messageId: messagedId)
         let coord = MessageChatCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    break
-                case .report:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .report:
+                break
+            }
+        }
     }
 }

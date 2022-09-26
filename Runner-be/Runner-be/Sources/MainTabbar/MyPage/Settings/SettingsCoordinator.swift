@@ -116,78 +116,53 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
         let comp = component.makerComponent
         let coord = MakerCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated)
     }
 
     private func presentLogoutModal(vm: SettingsViewModel, animated: Bool) {
         let comp = component.logoutModalComponent
         let coord = LogoutModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    vm.routeInputs.logout.onNext(false)
-                case .logout:
-                    vm.routeInputs.logout.onNext(true)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.logout.onNext(false)
+            case .logout:
+                vm.routeInputs.logout.onNext(true)
+            }
+        }
     }
 
     private func presentSignoutModal(vm: SettingsViewModel, animated: Bool) {
         let comp = component.signoutModalComponent
         let coord = SignoutModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .signout:
-                    vm.routeInputs.signout.onNext(true)
-                case .cancel:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .signout:
+                vm.routeInputs.signout.onNext(true)
+            case .cancel:
+                break
+            }
+        }
     }
 
     private func presentSignoutCompletionModal(vm _: SettingsViewModel, animated: Bool) {
         let comp = component.signoutCompletionModalComponent
         let coord = SignoutCompletionModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .toLoginPage:
-                    self?.closeSignal.onNext(.logout)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .toLoginPage:
+                self?.closeSignal.onNext(.logout)
+            }
+        }
     }
 
     private func pushPolicy(vm _: SettingsViewModel, policyType: PolicyType, animated: Bool) {
         let comp = component.policyDetailComponent(type: policyType, modal: false)
         let coord = PolicyDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
-                self?.releaseChild(coordinator: coord)
-            })
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated)
     }
 }
