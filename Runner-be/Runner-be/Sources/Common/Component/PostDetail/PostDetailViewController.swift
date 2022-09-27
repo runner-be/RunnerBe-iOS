@@ -310,7 +310,8 @@ extension PostDetailViewController {
             footer = writerFooter
         } else {
             let guestFooter = PostGuestFooter(applied: applied, satisfied: satisfied)
-            guestFooter.toMessageButton.isEnabled = participated
+            guestFooter.toMessageButton.isEnabled = true
+//            guestFooter.toMessageButton.isEnabled = participated
 
 //            guestFooter.bookMarkBtn.rx.tap
 //                .map { !guestFooter.bookMarkBtn.isSelected }
