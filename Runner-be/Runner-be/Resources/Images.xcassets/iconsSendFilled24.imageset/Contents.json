@@ -6,14 +6,14 @@
       "filename" : "iconsSendFilled24.png"
     },
     {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "iconsSendFilled24@2x.png"
+      "filename" : "iconsSendFilled24@2x.png",
+      "idiom" : "universal"
     },
     {
       "idiom" : "universal",
-      "filename" : "iconsSendFilled24@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "iconsSendFilled24@3x.png"
     }
   ],
   "info" : {
