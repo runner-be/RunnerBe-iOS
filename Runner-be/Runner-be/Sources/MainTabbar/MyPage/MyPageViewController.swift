@@ -103,12 +103,11 @@ class MyPageViewController: BaseViewController {
             cell.postInfoView.bookMarkIcon.isHidden = true
             cell.manageButton.rx.tapGesture() // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
                 .when(.recognized)
-                .take(until: self.rx.deallocated)
                 .map { _ in
                     indexPath.row
                 }
                 .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
-                .disposed(by: disposeBag)
+                .disposed(by: cell.disposeBag) //button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
 
             return cell
         }
