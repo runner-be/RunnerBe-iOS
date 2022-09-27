@@ -27,6 +27,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
         outputs.writingPostData.onNext(writingPostData)
 
         inputs.posting
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .do(onNext: { [weak self] inputData in
                 if inputData == nil {
                     self?.outputs.toast.onNext("데이터 처리에 실패하였습니다.")
