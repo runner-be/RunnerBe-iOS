@@ -99,6 +99,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tagChanged
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .map { RunningTag(idx: $0) }
             .filter { $0 != .error }
             .map { [unowned self] runningTag -> PostFilter in
@@ -118,6 +119,7 @@ final class HomeViewModel: BaseViewModel {
 
         inputs.tapShowClosedPost
             .skip(1)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
                 newFilter.postState = self.filter.postState.toggled
@@ -160,6 +162,7 @@ final class HomeViewModel: BaseViewModel {
         inputs.writingPost
             // TODO: 시작시 이벤트가 바로 들어오는 현상이 있음 그래서 skip 1 해결방안 찾으면 수정할 것
             .skip(1)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
@@ -170,6 +173,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookmark
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .do(onNext: { [unowned self] _ in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())

@@ -59,6 +59,7 @@ final class BookMarkViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookMark
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
                       let posts = self.posts[self.runningTag],
