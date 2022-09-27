@@ -197,5 +197,21 @@ extension MainTabViewController {
             make.leading.equalTo(bottomView.snp.leading).offset(36)
             make.trailing.equalTo(bottomView.snp.trailing).offset(-36)
         }
+
+        homeBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(bottomView.snp.centerY)
+        }
+
+        bookmarkBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(bottomView.snp.centerY)
+        }
+
+        messageBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(bottomView.snp.centerY)
+        }
+
+        myPageBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(bottomView.snp.centerY)
+        }
     }
 }
