@@ -169,11 +169,11 @@ extension MessageReportViewController {
 extension MessageReportViewController: UITableViewDelegate, UITableViewDataSource, MessageChatReportDelegate {
     func checkButtonTap(cell: MessageChatLeftCell) {
         if cell.checkBox.isSelected { // 선택한 것만 가져오기
-            let index = tableView.indexPath(for: cell)?.row
+            let index = messages[tableView.indexPath(for: cell)!.row].messageId ?? 0
 //            print(index)
-            reportMessageList.append(index!)
+            reportMessageList.append(index)
         } else { // 제외하기
-            reportMessageList = reportMessageList.filter { $0 != tableView.indexPath(for: cell)?.row }
+            reportMessageList = reportMessageList.filter { $0 != messages[tableView.indexPath(for: cell)!.row].messageId }
         }
 
         if !reportMessageList.isEmpty {

@@ -107,7 +107,7 @@ class MyPageViewController: BaseViewController {
                     indexPath.row
                 }
                 .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
-                .disposed(by: cell.disposeBag) //button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
+                .disposed(by: cell.disposeBag) // button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
 
             return cell
         }

@@ -26,7 +26,7 @@ struct GetMessageChatResult: Codable {
 // MARK: - MessageList
 
 struct MessageList: Codable {
-    let messageID: Int?
+    let messageId: Int?
     let content, createdAt: String?
     let userID: Int?
     let nickName: String?
