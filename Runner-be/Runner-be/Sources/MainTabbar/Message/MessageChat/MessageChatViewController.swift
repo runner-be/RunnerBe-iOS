@@ -107,8 +107,8 @@ class MessageChatViewController: BaseViewController {
     var chatTextView = UITextView().then { view in
         view.backgroundColor = .darkG5
         view.layer.borderWidth = 0
-        view.layer.cornerRadius = 18
-//        view.clipsToBounds = true
+        view.layer.cornerRadius = 32
+        view.clipsToBounds = true
 
         view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44) // textview padding 추가
         view.font = .iosBody15R
@@ -178,7 +178,7 @@ extension MessageChatViewController {
             make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
             make.bottom.equalTo(chatBackGround.snp.bottom).offset(-45)
             make.top.equalTo(chatBackGround.snp.top).offset(12)
-            make.height.equalTo(40)
+            make.height.equalTo(38)
         }
 
         sendButton.snp.makeConstraints { make in

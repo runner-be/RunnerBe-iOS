@@ -25,17 +25,6 @@ class MyPageViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         viewInputs()
-
-        let button = UIButton(type: .roundedRect)
-        button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
-        button.setTitle("Test Crash", for: [])
-        button.addTarget(self, action: #selector(crashButtonTapped(_:)), for: .touchUpInside)
-        view.addSubview(button)
-    }
-
-    @IBAction func crashButtonTapped(_: AnyObject) {
-        let numbers = [0]
-        _ = numbers[1]
     }
 
     override func viewWillAppear(_: Bool) {
@@ -296,10 +285,6 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var scrollView = UIScrollView()
-
-    private var contentsView = UIView() // 스크롤로 감싸기 위해 스크롤뷰, 컨텐츠를 담을 UIView 생성
-
     private var myInfoWithChevron = MyInfoViewWithChevron()
 
     private var hDivider = UIView().then { view in
@@ -350,7 +335,6 @@ class MyPageViewController: BaseViewController {
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MyPagePostCell.self, forCellWithReuseIdentifier: MyPagePostCell.id)
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -362,7 +346,6 @@ class MyPageViewController: BaseViewController {
         collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = true
-        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -413,19 +396,7 @@ extension MyPageViewController {
     private func setupViews() {
         setBackgroundColor()
 
-        view.addSubview(scrollView)
-
-        myPostCollectionView.addSubviews([
-            myPostEmptyLabel,
-            myPostEmptyButton,
-        ])
-
-        myRunningCollectionView.addSubviews([
-            myRunningEmptyLabel,
-            myRunningEmptyButton,
-        ])
-
-        contentsView.addSubviews([
+        view.addSubviews([
             navBar,
             myInfoWithChevron,
             hDivider,
@@ -437,73 +408,72 @@ extension MyPageViewController {
             myRunningCollectionView,
         ])
 
-        scrollView.addSubview(contentsView)
+        myPostCollectionView.addSubviews([
+            myPostEmptyLabel,
+            myPostEmptyButton,
+        ])
+
+        myRunningCollectionView.addSubviews([
+            myRunningEmptyLabel,
+            myRunningEmptyButton,
+        ])
     }
 
     private func initialLayout() {
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide)
-            make.left.right.bottom.equalToSuperview()
-        }
-
-        contentsView.snp.makeConstraints { make in
-            make.top.bottom.width.equalToSuperview()
-        }
-
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(contentsView.snp.top)
-            make.leading.equalTo(contentsView.snp.leading)
-            make.trailing.equalTo(contentsView.snp.trailing)
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         myInfoWithChevron.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(20)
-            make.leading.equalTo(contentsView.snp.leading).offset(16)
-            make.trailing.equalTo(contentsView.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
         hDivider.snp.makeConstraints { make in
             make.top.equalTo(myInfoWithChevron.snp.bottom).offset(26)
-            make.leading.equalTo(contentsView.snp.leading)
-            make.trailing.equalTo(contentsView.snp.trailing)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         writtenTab.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(16)
-            make.leading.equalTo(contentsView.snp.leading).offset(16)
-            make.trailing.equalTo(contentsView.snp.centerX)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.centerX)
         }
 
         participantTab.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.top)
-            make.leading.equalTo(contentsView.snp.centerX)
-            make.trailing.equalTo(contentsView.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.centerX)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
         tabDivider.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.bottom).offset(16)
-            make.leading.equalTo(contentsView.snp.leading)
-            make.trailing.equalTo(contentsView.snp.trailing)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
         }
 
         tabMover.snp.makeConstraints { make in
             make.bottom.equalTo(tabDivider.snp.bottom)
             make.leading.equalTo(writtenTab.snp.leading)
-            make.trailing.equalTo(contentsView.snp.centerX)
+            make.trailing.equalTo(view.snp.centerX)
         }
 
         myPostCollectionView.snp.makeConstraints { make in
             make.top.equalTo(tabDivider.snp.bottom).offset(2)
-            make.leading.equalTo(contentsView.snp.leading)
-            make.trailing.equalTo(contentsView.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
         myRunningCollectionView.snp.makeConstraints { make in
             make.top.equalTo(tabDivider.snp.bottom).offset(2)
-            make.leading.equalTo(contentsView.snp.leading)
-            make.trailing.equalTo(contentsView.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
         myPostEmptyLabel.snp.makeConstraints { make in
