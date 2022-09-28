@@ -17,28 +17,28 @@ final class PostAnnotaionView: MKAnnotationView {
 
     var markerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(36)
-            make.height.equalTo(36)
+            make.width.equalTo(40)
+            make.height.equalTo(40)
         }
     }
 
     lazy var selectedMarkerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(48)
-            make.height.equalTo(48)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
         }
 
         view.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.snp.top).offset(11)
+            make.top.equalTo(view.snp.top).offset(13)
         }
     }
 
     let profileImageView = UIImageView().then { imageView in
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(17)
-            make.height.equalTo(17)
+            make.width.equalTo(19)
+            make.height.equalTo(19)
         }
         imageView.image = Asset.profileEmptyIcon.uiImage
         imageView.layer.cornerRadius = 8
