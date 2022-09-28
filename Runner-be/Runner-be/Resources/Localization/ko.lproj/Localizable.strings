@@ -182,6 +182,7 @@
 "MessageList.NavBar.Title" = "러닝톡";
 "MessageList.NavBar.RightItem" = "신고";
 "MessageList.Chat.NavBar.Title" = "신고하기";
+"MessageList.Chat.PlaceHolder" = "내용을 입력하세요";
 
 // MARK: - MyPage.Post
 "MyPage.MyPost.Empty.title" = "아직 모임을 만들지 않았어요!";

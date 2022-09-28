@@ -231,6 +231,8 @@ internal enum L10n {
 
   internal enum MessageList {
     internal enum Chat {
+      /// 내용을 입력하세요
+      internal static let placeHolder = L10n.tr("Localizable", "MessageList.Chat.PlaceHolder")
       internal enum NavBar {
         /// 신고하기
         internal static let title = L10n.tr("Localizable", "MessageList.Chat.NavBar.Title")
