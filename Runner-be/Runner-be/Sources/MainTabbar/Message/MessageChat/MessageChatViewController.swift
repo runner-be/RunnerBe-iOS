@@ -123,6 +123,7 @@ class MessageChatViewController: BaseViewController {
     }
 
     var sendButton = UIButton().then { view in
+        view.isUserInteractionEnabled = false
         view.setImage(Asset.iconsSend24.uiImage, for: .normal)
     }
 }
@@ -285,24 +286,28 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 extension MessageChatViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
         if textView.text == L10n.MessageList.Chat.placeHolder {
             textView.text = nil // placeholder 제거
             textView.textColor = .darkG1
         }
     }
 
-    func textViewDidChange(_ textView: UITextView) {
-        if !chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
-            sendButton.isEnabled = true
-        } else {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             // 비어있을 경우 placeholder 노출
             textView.text = L10n.MessageList.Chat.placeHolder
             textView.textColor = .darkG35
+        }
+    }
 
-            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal)
-            sendButton.isEnabled = false
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            sendButton.isUserInteractionEnabled = false
+//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal) // 이부분때문에 textview 사라지는 현상 발생
+        } else {
+            sendButton.isUserInteractionEnabled = true
+//            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
     }
 }
