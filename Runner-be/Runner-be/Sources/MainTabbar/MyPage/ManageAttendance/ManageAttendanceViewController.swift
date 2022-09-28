@@ -86,7 +86,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     @objc func timerCallback() {
         time -= 1
-        timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time / 60))분"
+        timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time % (60 * 60)))분"
 
         if time == 0 {
             timer?.invalidate()
@@ -365,24 +365,25 @@ extension ManageAttendanceViewController {
         let dateString = (result.myPosting?[myRunningIdx].gatheringTime!)!
         print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
-//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
-        //=======
-//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
-//        gatherDate = gatherDate.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
-        // >>>>>>> Stashed changes
 
         let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
         let hour = Int(hms![0])
         let minute = Int(hms![1])
 
+        // 러닝 시간
         print("runningTime: \(hour):\(minute)")
 
-//        runningInterval = TimeInterval(hour! * 60 * 60 + minute! * 60)
+        // 모임 날짜
+        gatherDate = gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
+        print("gatherDate \(gatherDate)")
 
-        print("gatherDate \(gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60)))")
-        var finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+        // 출석 마감 날짜
+        let finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
         print("finishedDate \(finishedDate.description)")
-        time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
+
+        // 현재 - 출석 마감 날짜 남은 분
+        let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
+        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second!
         print("time \(time)")
 
         for user in result.myPosting![myRunningIdx].runnerList! {
