@@ -22,10 +22,9 @@ final class BasicPostAPIService: PostAPIService {
         self.provider = provider
     }
 
-    func fetchPosts(with filter: PostFilter) -> Observable<[Post]?> {
-        let functionResult = ReplaySubject<[Post]?>.create(bufferSize: 1)
-
-        let disposable = provider.rx.request(.fetch(userId: loginKeyChain.userId, filter: filter))
+    func fetchPosts(with filter: PostFilter) -> Observable<APIResult<[Post]?>> {
+        
+        return provider.rx.request(.fetch(userId: loginKeyChain.userId, filter: filter))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
@@ -39,149 +38,105 @@ final class BasicPostAPIService: PostAPIService {
             .map { try? $0?.json["result"].rawData() }
             .compactMap { $0 }
             .decode(type: [PostResponse].self, decoder: JSONDecoder())
-            .map { $0.compactMap { $0.convertedPost }}
-            .bind(to: functionResult)
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            .map { APIResult.response(result: $0.compactMap { $0.convertedPost }) }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func posting(form: PostingForm) -> Observable<PostingResult> {
+    func posting(form: PostingForm) -> Observable<APIResult<PostingResult>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
-            return .just(.needLogin)
+            return .just(APIResult.response(result: .needLogin))
         }
-        let functionResult = ReplaySubject<PostingResult>.create(bufferSize: 1)
-
-        let disposable = provider.rx.request(.posting(form: form, id: userId, token: token))
+        
+        return provider.rx.request(.posting(form: form, id: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(.fail)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
                     Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(.fail)
-                    return
+                    return .error(alertMessage: nil)
                 }
 
                 Log.d(tag: .network, "response message: \(response.message)")
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext(.succeed)
+                    return .response(result: .succeed)
                 case 2010, 2011, 2012, 2044, 3006: // 유저 로그인 필요
-                    functionResult.onNext(.needLogin)
+                    return .response(result: .needLogin)
                 case 2095: // 성별 불가
-                    functionResult.onNext(.genderDenied(message: response.message))
+                    return .error(alertMessage: response.message)
                 case 4000: // db에러
-                    functionResult.onNext(.fail)
+                    return .error(alertMessage: nil)
                 default: // 나머지 에러
-                    functionResult.onNext(.fail)
+                    return .error(alertMessage: nil)
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)> {
-        let functionResult = ReplaySubject<(postId: Int, mark: Bool)>.create(bufferSize: 1)
-
+    func bookmark(postId: Int, mark: Bool) -> Observable<APIResult<(postId: Int, mark: Bool)>> {
+        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just((postId: postId, mark: !mark)) }
-
-        let disposable = provider.rx.request(.bookmarking(postId: postId, userId: userId, mark: mark, token: token))
+        else {
+            return .just(APIResult.response(result: (postId: postId, mark: !mark)))
+        }
+        
+        return provider.rx.request(.bookmarking(postId: postId, userId: userId, mark: mark, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result = fail")
-                    functionResult.onNext((postId: postId, mark: !mark))
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
                     Log.d(tag: .network, "res")
-                    functionResult.onNext((postId: postId, mark: !mark))
-                    return
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 }
 
                 Log.d(tag: .network, "response message: \(response.message)")
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext((postId: postId, mark: mark))
+                    return APIResult.response(result: (postId: postId, mark: mark))
                 case 2011: // userId 미입력
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2012: // userId 형식 오류 (숫자입력 X)
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2041: // postId 미입력
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2042: // postId 형식 오류
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2044: // 인증 대기중 회원
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2071: // 찜 등록/ 해제 미입력
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2072: // 찜 등록/ 해제 형식 오류 (Y,N)으로 입력
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2073: // 이미 찜 등록중
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 2074: // 이미 찜 해제함
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 case 4000: // 데이터베이스 에러
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 default:
-                    functionResult.onNext((postId: postId, mark: !mark))
+                    return APIResult.response(result: (postId: postId, mark: !mark))
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func fetchPostsBookMarked() -> Observable<[Post]?> {
-        let functionResult = ReplaySubject<[Post]?>.create(bufferSize: 1)
-
+    func fetchPostsBookMarked() -> Observable<APIResult<[Post]?>> {
+        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(nil) }
-
-        let disposable = provider.rx.request(.fetchBookMarked(userId: userId, token: token))
+        else {
+            return .just(.error(alertMessage: nil))
+        }
+        
+        return provider.rx.request(.fetchBookMarked(userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
@@ -201,22 +156,13 @@ final class BasicPostAPIService: PostAPIService {
                 return .just(nil)
             }
             .map { $0?.compactMap { $0.convertedPost } }
-            .bind(to: functionResult)
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            .map { APIResult.response(result: $0) }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func detailInfo(postId: Int) -> Observable<DetailInfoResult> {
-        let functionResult = ReplaySubject<DetailInfoResult>.create(bufferSize: 1)
-
+    func detailInfo(postId: Int) -> Observable<APIResult<DetailInfoResult>> {
+        
         typealias MapResult = (
             bookMarked: Bool,
             isWriter: Bool,
@@ -229,9 +175,9 @@ final class BasicPostAPIService: PostAPIService {
 
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(.error) }
-
-        let disposable = provider.rx.request(.detail(postId: postId, userId: userId, token: token))
+        else { return .just(APIResult.error(alertMessage: nil)) }
+        
+        return provider.rx.request(.detail(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
@@ -282,28 +228,21 @@ final class BasicPostAPIService: PostAPIService {
                         writer = true
                     // 실패
                     case 2010: // jwt와 userId 불일치
-                        functionResult.onNext(.error)
                         return nil
                     case 2011: // userId값 필요
-                        functionResult.onNext(.error)
                         return nil
                     case 2012: // userId 형식 오류
-                        functionResult.onNext(.error)
                         return nil
                     case 2041: // postId 미입력
-                        functionResult.onNext(.error)
                         return nil
                     case 2042: // postId 형식오류
-                        functionResult.onNext(.error)
                         return nil
                     case 2044: // 인증X 회원
-                        functionResult.onNext(.error)
                         return nil
                     case 4000: // 데이터베이스 에러
-                        functionResult.onNext(.error)
                         return nil
                     default:
-                        functionResult.onNext(.error)
+                        return nil
                     }
                 } else {
                     Log.d(tag: .network, "detailInfo(postId:\(postId)) network Error no Response")
@@ -320,7 +259,7 @@ final class BasicPostAPIService: PostAPIService {
                 )
             }
             .compactMap { $0 }
-            .subscribe(onNext: { result in
+            .map { result in
                 let decoder = JSONDecoder()
                 let posts = try? decoder.decode([DetailPostResponse].self, from: result.post)
                 let participants = (try? decoder.decode([UserResponse].self, from: result.participants))?.map { $0.userInfo } ?? []
@@ -328,12 +267,11 @@ final class BasicPostAPIService: PostAPIService {
 
                 guard let postDetail = posts?.first?.convertedDetailPost
                 else {
-                    functionResult.onNext(.error)
-                    return
+                    return APIResult.error(alertMessage: nil)
                 }
 
                 if result.isWriter {
-                    functionResult.onNext(
+                    return APIResult.response(result:
                         .writer(
                             post: postDetail,
                             marked: result.bookMarked,
@@ -343,7 +281,7 @@ final class BasicPostAPIService: PostAPIService {
                         )
                     )
                 } else {
-                    functionResult.onNext(
+                    return APIResult.response(result:
                         .guest(post: postDetail,
                                participated: participants.contains(where: { $0.userID == userId }),
                                marked: result.bookMarked,
@@ -352,86 +290,59 @@ final class BasicPostAPIService: PostAPIService {
                                roomID: result.roomID)
                     )
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func apply(postId: Int) -> Observable<Bool> {
-        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
-
+    func apply(postId: Int) -> Observable<APIResult<Bool>> {
+        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(false) }
-
-        let disposable = provider.rx.request(.apply(postId: postId, userId: userId, token: token))
+        else { return .just(APIResult.error(alertMessage: nil)) }
+        
+        return provider.rx.request(.apply(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(false)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
-                    functionResult.onNext(false)
-                    return
+                    return APIResult.error(alertMessage: nil)
                 }
 
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext(true)
+                    return APIResult.response(result: true)
                 case 2010: // jwt와 userId 불일치
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2011: // userId값 필요
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2012: // userId 형식 오류
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2041: // postId 미입력
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2042: // postId 형식오류
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2044: // 인증 대기중 회원
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2064: // 이미 신청한 유저
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 default:
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, accept: Bool, success: Bool)> {
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<APIResult<(id: Int, accept: Bool, success: Bool)>> {
         let functionResult = ReplaySubject<(id: Int, accept: Bool, success: Bool)>.create(bufferSize: 1)
 
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just((id: applicantId, accept: accept, success: false)) }
-
-        let disposable = provider.rx.request(
+        else { return .just(APIResult.response(result: (id: applicantId, accept: accept, success: false))) }
+        
+        return provider.rx.request(
             .accept(
                 postId: postId,
                 userId: userId,
@@ -442,123 +353,86 @@ final class BasicPostAPIService: PostAPIService {
         )
         .asObservable()
         .map { try? JSON(data: $0.data) }
-        .map { json -> (BasicResponse?) in
-            guard let json = json
-            else {
-                Log.d(tag: .network, "result: fail")
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
-                return nil
-            }
-
-            return try? BasicResponse(json: json)
-        }
-        .subscribe(onNext: { response in
+        .map { try? BasicResponse(json: $0) }
+        .map { response in
             guard let response = response else {
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
-                return
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             }
 
             switch response.code {
             case 1000: // 성공
-                functionResult.onNext((id: applicantId, accept: accept, success: true))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: true))
             case 2010: // jwt와 userId 불일치
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2011: // userId값 필요
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2012: // userId 형식 오류
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2041: // postId 미입력
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2042: // postId 형식오류
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2044: // 인증 대기중 회원
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2065: // applicantId 미입력
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2066: // applicantId 형식오류
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2067: // 수락 권한 없음
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2068: // accept 여부 미입력
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2069: // accept 형식 오류 "Y" "D"
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             case 2070: // applicant 유저가 모임 대기상태가 아닙니다.
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             default:
-                functionResult.onNext((id: applicantId, accept: accept, success: false))
+                return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             }
-        })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+        }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func close(postId: Int) -> Observable<Bool> {
-        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
-
+    func close(postId: Int) -> Observable<APIResult<Bool>> {
+        
         guard let token = loginKeyChain.token
-        else { return .just(false) }
-
-        let disposable = provider.rx.request(.close(postId: postId, token: token))
+        else { return .just(APIResult.error(alertMessage: nil)) }
+        
+        return provider.rx.request(.close(postId: postId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(false)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
-                    functionResult.onNext(false)
-                    return
+                    return APIResult.error(alertMessage: nil)
                 }
 
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext(true)
+                    return APIResult.response(result: true)
                 case 2043:
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2044: // 인증 대기중 회원
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 default:
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func myPage() -> Observable<MyPageAPIResult> {
+    func myPage() -> Observable<APIResult<MyPageAPIResult>> {
         let functionResult = ReplaySubject<MyPageAPIResult>.create(bufferSize: 1)
 
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(.error) }
+        else { return .just(APIResult.error(alertMessage: nil)) }
 
-        typealias RawDatas = (userData: Data, postingData: Data, joinedData: Data)
-
-        let disposable = provider.rx.request(.myPage(userId: userId, token: token))
+        typealias RawDatas = (responseCode: Int?, userData: Data, postingData: Data, joinedData: Data)
+        
+        return provider.rx.request(.myPage(userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
             .map { json -> (response: BasicResponse, json: JSON)? in
@@ -585,173 +459,121 @@ final class BasicPostAPIService: PostAPIService {
                 \(joinedData)
                 """)
 
-                if let result = result {
-                    switch result.response.code {
-                    // 성공
-                    case 1000: // 성공, 비작성자, 참여신청O, 찜O
-                        break
-                    case 2010: // jwt와 userId 불일치
-                        functionResult.onNext(.error)
-                        return nil
-                    case 2011: // userId값 필요
-                        functionResult.onNext(.error)
-                        return nil
-                    case 2012: // userId 형식 오류
-                        functionResult.onNext(.error)
-                        return nil
-                    case 2044: // 인증X 회원
-                        functionResult.onNext(.error)
-                        return nil
-                    default:
-                        functionResult.onNext(.error)
-                        return nil
-                    }
-                }
-                return (userData: userData, postingData: postingData, joinedData: joinedData)
+                return (responseCode: result?.response.code, userData: userData, postingData: postingData, joinedData: joinedData)
             }
             .compactMap { $0 }
-            .subscribe(onNext: { result in
-                let decoder = JSONDecoder()
-                let userInfo = try? decoder.decode([User].self, from: result.userData).first
-                let posting = (try? decoder.decode([PostResponse].self, from: result.postingData)) ?? []
-                let joined = (try? decoder.decode([PostResponse].self, from: result.joinedData)) ?? []
+            .map { result in
+                switch result.responseCode {
+                // 성공
+                case 1000: // 성공, 비작성자, 참여신청O, 찜O
 
-                let userPosting: [Post] = posting.compactMap { $0.convertedPost }
-                let userJoined: [Post] = joined.compactMap { $0.convertedPost }
+                    let decoder = JSONDecoder()
+                    let userInfo = try? decoder.decode([User].self, from: result.userData).first
+                    let posting = (try? decoder.decode([PostResponse].self, from: result.postingData)) ?? []
+                    let joined = (try? decoder.decode([PostResponse].self, from: result.joinedData)) ?? []
 
-                if let user = userInfo {
-                    functionResult.onNext(.success(info: user, posting: userPosting, joined: userJoined))
-                } else {
-                    functionResult.onNext(.error)
+                    let userPosting: [Post] = posting.compactMap { $0.convertedPost }
+                    let userJoined: [Post] = joined.compactMap { $0.convertedPost }
+
+                    if let user = userInfo {
+                        return APIResult.response(result: .success(info: user, posting: userPosting, joined: userJoined))
+                    } else {
+                        return APIResult.error(alertMessage: nil)
+                    }
+
+                case 2010: // jwt와 userId 불일치
+                    return APIResult.error(alertMessage: nil)
+                case 2011: // userId값 필요
+                    return APIResult.error(alertMessage: nil)
+                case 2012: // userId 형식 오류
+                    return APIResult.error(alertMessage: nil)
+                case 2044: // 인증X 회원
+                    return APIResult.error(alertMessage: nil)
+                default:
+                    return APIResult.error(alertMessage: nil)
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func attendance(postId: Int) -> Observable<(postId: Int, success: Bool)> {
-        let functionResult = ReplaySubject<(postId: Int, success: Bool)>.create(bufferSize: 1)
-
+    func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>> {
+        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just((postId: postId, success: false)) }
-
-        let disposable = provider.rx.request(.attendance(postId: postId, userId: userId, token: token))
+        else { return .just(APIResult.response(result: (postId: postId, success: false))) }
+        
+        return provider.rx.request(.attendance(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext((postId: postId, success: false))
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
-                    functionResult.onNext((postId: postId, success: false))
-                    return
+                    return APIResult.response(result: (postId: postId, success: false))
                 }
 
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext((postId: postId, success: true))
+                    return APIResult.response(result: (postId: postId, success: true))
                 case 2010: // jwt와 userId 불일치
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2011: // userId 미입력
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2012: // userId 형식 오류 (숫자입력 X)
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2041: // postId 미입력
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2042: // postId 형식 오류
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2044: // 인증 대기중 회원
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 case 2077: // 유저가 해당 러닝모임에 속하지 않습니다.
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 default:
-                    functionResult.onNext((postId: postId, success: false))
+                    return APIResult.response(result: (postId: postId, success: false))
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func delete(postId: Int) -> Observable<Bool> {
-        let functionResult = ReplaySubject<Bool>.create(bufferSize: 1)
-
+    func delete(postId: Int) -> Observable<APIResult<Bool>> {
+        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
-        else { return .just(false) }
-
-        let disposable = provider.rx.request(.delete(postId: postId, userId: userId, token: token))
+        else { return .just(APIResult.error(alertMessage: nil)) }
+        
+        return provider.rx.request(.delete(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
-            .map { json -> (BasicResponse?) in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(false)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
-            .subscribe(onNext: { response in
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
                 guard let response = response else {
-                    functionResult.onNext(false)
-                    return
+                    return APIResult.error(alertMessage: nil)
                 }
 
                 switch response.code {
                 case 1000: // 성공
-                    functionResult.onNext(true)
+                    return APIResult.response(result: true)
                 case 2010: // jwt와 userId 불일치
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2011: // userId 미입력
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2012: // userId 형식 오류 (숫자입력 X)
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2041: // postId 미입력
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2042: // postId 형식 오류
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2044: // 인증 대기중 회원
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 case 2077: // 유저가 해당 러닝모임에 속하지 않습니다.
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 default:
-                    functionResult.onNext(false)
+                    return APIResult.error(alertMessage: nil)
                 }
-            })
-
-        let id = disposableId
-        disposableId += 1
-        disposableDic[disposableId] = disposable
-
-        return functionResult
-            .do(onNext: { [weak self] _ in
-                self?.disposableDic[id]?.dispose()
-                self?.disposableDic.removeValue(forKey: id)
-            })
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 }

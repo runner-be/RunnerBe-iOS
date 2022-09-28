@@ -16,24 +16,22 @@ enum PostingResult {
 enum DetailInfoResult {
     case writer(post: PostDetail, marked: Bool, participants: [User], applicant: [User], roomID: Int?)
     case guest(post: PostDetail, participated: Bool, marked: Bool, apply: Bool, participants: [User], roomID: Int?)
-    case error
 }
 
 enum MyPageAPIResult {
     case success(info: User, posting: [Post], joined: [Post])
-    case error
 }
 
 protocol PostAPIService {
-    func fetchPosts(with filter: PostFilter) -> Observable<[Post]?>
-    func fetchPostsBookMarked() -> Observable<[Post]?>
-    func posting(form: PostingForm) -> Observable<PostingResult>
-    func bookmark(postId: Int, mark: Bool) -> Observable<(postId: Int, mark: Bool)>
-    func detailInfo(postId: Int) -> Observable<DetailInfoResult>
-    func apply(postId: Int) -> Observable<Bool>
-    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<(id: Int, accept: Bool, success: Bool)>
-    func close(postId: Int) -> Observable<Bool>
-    func myPage() -> Observable<MyPageAPIResult>
-    func delete(postId: Int) -> Observable<Bool>
-    func attendance(postId: Int) -> Observable<(postId: Int, success: Bool)>
+    func fetchPosts(with filter: PostFilter) -> Observable<APIResult<[Post]?>>
+    func fetchPostsBookMarked() -> Observable<APIResult<[Post]?>>
+    func posting(form: PostingForm) -> Observable<APIResult<PostingResult>>
+    func bookmark(postId: Int, mark: Bool) -> Observable<APIResult<(postId: Int, mark: Bool)>>
+    func detailInfo(postId: Int) -> Observable<APIResult<DetailInfoResult>>
+    func apply(postId: Int) -> Observable<APIResult<Bool>>
+    func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<APIResult<(id: Int, accept: Bool, success: Bool)>>
+    func close(postId: Int) -> Observable<APIResult<Bool>>
+    func myPage() -> Observable<APIResult<MyPageAPIResult>>
+    func delete(postId: Int) -> Observable<APIResult<Bool>>
+    func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>>
 }

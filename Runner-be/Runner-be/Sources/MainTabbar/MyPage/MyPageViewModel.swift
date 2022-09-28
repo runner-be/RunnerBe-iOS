@@ -30,21 +30,28 @@ final class MyPageViewModel: BaseViewModel {
                 self.outputs.posts.onNext([])
 
                 switch result {
-                case let .success(info, posting, joined):
-                    let now = DateUtil.shared.now
-                    self.user = info
-                    let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-                    let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+                case let .response(result: data):
+                    switch data {
+                    case let .success(info, posting, joined):
+                        let now = DateUtil.shared.now
+                        self.user = info
+                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
+                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
 
-                    self.posts[.basic] = postings
-                    self.posts[.attendable] = joins
+                        self.posts[.basic] = postings
+                        self.posts[.attendable] = joins
 
-                    let posts = self.outputs.postType == .basic ? postings : joins
-                    self.user = info
-                    self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
-                case .error:
-                    self.outputs.toast.onNext("불러오기에 실패했습니다.")
+                        let posts = self.outputs.postType == .basic ? postings : joins
+                        self.user = info
+                        self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
+                        self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self.outputs.toast.onNext("불러오기에 실패했습니다.")
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -93,6 +100,24 @@ final class MyPageViewModel: BaseViewModel {
                 return posts[idx]
             }
             .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
+            .do(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    return
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                }
+            })
+            .compactMap { result -> (postId: Int, mark: Bool)? in
+                switch result {
+                case let .response(data):
+                    return data
+                case .error:
+                    return nil
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let posts = self.posts[self.outputs.postType],
@@ -120,16 +145,24 @@ final class MyPageViewModel: BaseViewModel {
             }
             .flatMap { postAPIService.attendance(postId: $0.ID) }
             .subscribe(onNext: { [weak self] result in
-                guard result.success,
-                      let self = self,
-                      let posts = self.posts[self.outputs.postType],
-                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
-                else {
-                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
-                    return
+                switch result {
+                case let .response(result: data):
+                    guard data.success,
+                          let self = self,
+                          let posts = self.posts[self.outputs.postType],
+                          let idx = posts.firstIndex(where: { $0.ID == data.postId })
+                    else {
+                        self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                        return
+                    }
+                    self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    }
                 }
-
-                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
             })
             .disposed(by: disposeBag)
 

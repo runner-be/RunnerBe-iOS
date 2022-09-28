@@ -25,6 +25,17 @@ final class BookMarkViewModel: BaseViewModel {
             .flatMap { _ in
                 postAPIService.fetchPostsBookMarked() // flatMap : Observable을 벗겨냄
             }
+            .map { [weak self] result -> [Post]? in
+                switch result {
+                case let .response(result: data):
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
@@ -73,11 +84,18 @@ final class BookMarkViewModel: BaseViewModel {
                       var posts = self.posts[self.runningTag]
                 else { return }
 
-                if let idx = posts.firstIndex(where: { $0.ID == result.postId }) {
-                    if !result.mark {
-                        posts.remove(at: idx)
-                        self.posts[self.runningTag] = posts
-                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
+                switch result {
+                case let .response(data):
+                    if let idx = posts.firstIndex(where: { $0.ID == data.postId }) {
+                        if !data.mark {
+                            posts.remove(at: idx)
+                            self.posts[self.runningTag] = posts
+                            self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
+                        }
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.outputs.toast.onNext(alertMessage)
                     }
                 }
             })
