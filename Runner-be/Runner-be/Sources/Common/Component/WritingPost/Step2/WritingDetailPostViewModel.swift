@@ -66,14 +66,21 @@ final class WritingDetailPostViewModel: BaseViewModel {
             .flatMap { postAPIService.posting(form: $0) }
             .subscribe(onNext: { [weak self] result in
                 switch result {
-                case .succeed:
-                    self?.routes.apply.onNext(())
-                case let .genderDenied(message):
-                    self?.outputs.toast.onNext(message)
-                case .fail:
-                    self?.outputs.toast.onNext("다시 시도해주세요!")
-                case .needLogin:
-                    self?.outputs.toast.onNext("로그인이 필요합니다")
+                case let .response(data):
+                    switch data {
+                    case .succeed:
+                        self?.routes.apply.onNext(())
+                    case let .genderDenied(message):
+                        self?.outputs.toast.onNext(message)
+                    case .fail:
+                        self?.outputs.toast.onNext("다시 시도해주세요!")
+                    case .needLogin:
+                        self?.outputs.toast.onNext("로그인이 필요합니다")
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
                 }
             })
             .disposed(by: disposeBag)

@@ -109,11 +109,20 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+            .compactMap { [weak self] result -> [Post]? in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -142,12 +151,21 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 필터 타입 원위치
+            .compactMap { [weak self] result -> [Post]? in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        // TODO: 필터 타입 원위치
+                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -188,6 +206,24 @@ final class HomeViewModel: BaseViewModel {
                 }
             }
             .flatMap { postAPIService.bookmark(postId: $0.post.ID, mark: !$0.post.marked) }
+            .do(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    return
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                }
+            })
+            .compactMap { result -> (postId: Int, mark: Bool)? in
+                switch result {
+                case let .response(data):
+                    return data
+                case .error:
+                    return nil
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.postId })
@@ -225,11 +261,20 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
             }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("새로고침에 실패했습니다.")
+            .compactMap { [weak self] result in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self?.outputs.toast.onNext("새로고침에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -265,12 +310,21 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
             }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 필터 아이콘 다시 이전 상태로 돌리기
+            .compactMap { [weak self] result in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                        // TODO: 필터 아이콘 다시 이전 상태로 돌리기
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 

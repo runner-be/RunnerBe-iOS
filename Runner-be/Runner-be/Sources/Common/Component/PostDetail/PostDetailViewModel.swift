@@ -81,15 +81,35 @@ final class PostDetailViewModel: BaseViewModel {
 
         postAPIService.detailInfo(postId: postId)
             .take(1)
-            .subscribe(onNext: {
-                postDetailInfoReady.onNext($0)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    postDetailInfoReady.onNext(data)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self?.outputs.toast.onNext("데이터 불러오기에 실패했습니다.")
+                    }
+                    self?.routes.backward.onNext((id: postId, needUpdate: false))
+                }
             })
             .disposed(by: disposeBag)
 
         routeInputs.needUpdate
             .flatMap { postAPIService.detailInfo(postId: postId) }
-            .subscribe(onNext: {
-                postDetailInfoReady.onNext($0)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    postDetailInfoReady.onNext(data)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self?.outputs.toast.onNext("데이터 불러오기에 실패했습니다.")
+                    }
+                    self?.routes.backward.onNext((id: postId, needUpdate: false))
+                }
             })
             .disposed(by: disposeBag)
 
@@ -116,19 +136,20 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.apply(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
-                guard let self = self
-                else { return }
-                let message: String
-                if success {
-                    message = "신청을 완료했습니다!"
-                    self.outputs.apply.onNext(true)
-                } else {
-                    message = "신청에 실패했습니다!"
-                    self.outputs.apply.onNext(false)
-                }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    self?.outputs.apply.onNext(true)
+                    self?.outputs.toast.onNext("신청을 완료했습니다!")
 
-                self.outputs.toast.onNext(message)
+                case let .error(alertMessage):
+                    self?.outputs.apply.onNext(false)
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self?.outputs.toast.onNext("신청에 실패했습니다")
+                    }
+                }
             })
             .disposed(by: disposeBag)
 
@@ -136,19 +157,26 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.close(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
+            .subscribe(onNext: { [weak self] result in
                 guard let self = self
                 else { return }
-                let message: String
-                if success {
-                    message = "마감을 완료하였습니다!"
+
+                let message: String?
+                let success: Bool
+                switch result {
+                case .response:
+                    message = "마감을 완료했습니다."
                     self.anyChanged = true
-                } else {
-                    message = "마감에 실패했습니다!"
+                    success = true
+                case let .error(alertMessage):
+                    message = alertMessage
+                    success = false
                 }
 
+                if let message = message {
+                    self.outputs.toast.onNext(message)
+                }
                 self.outputs.finished.onNext(success)
-                self.outputs.toast.onNext(message)
             })
             .disposed(by: disposeBag)
 
@@ -184,11 +212,16 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.delete(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
-                if success {
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
                     self?.routes.backward.onNext((id: postId, needUpdate: true))
-                } else {
-                    self?.outputs.toast.onNext("삭제에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.outputs.toast.onNext(alertMessage)
+                    } else {
+                        self?.outputs.toast.onNext("삭제에 실패했습니다.")
+                    }
                 }
             })
             .disposed(by: disposeBag)

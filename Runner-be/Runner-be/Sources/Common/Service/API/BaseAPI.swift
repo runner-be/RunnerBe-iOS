@@ -10,3 +10,8 @@ import Foundation
 enum BaseAPI {
     static var url = URL(string: "https://www.runnerbe2.shop")!
 }
+
+enum APIResult<T> {
+    case response(result: T)
+    case error(alertMessage: String?)
+}
