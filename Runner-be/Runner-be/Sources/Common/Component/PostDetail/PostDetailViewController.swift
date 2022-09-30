@@ -87,9 +87,9 @@ class PostDetailViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
     }

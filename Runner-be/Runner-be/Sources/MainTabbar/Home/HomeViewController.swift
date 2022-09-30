@@ -225,6 +225,12 @@ class HomeViewController: BaseViewController {
                 self?.navBar.rightBtnItem.setImage(isChecked ? Asset.alarmNomal.uiImage : Asset.alarmNew.uiImage, for: .normal)
             })
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func bindBottomSheetGesture() {

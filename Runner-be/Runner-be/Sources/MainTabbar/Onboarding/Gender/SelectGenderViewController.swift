@@ -67,6 +67,12 @@ final class SelectGenderViewController: BaseViewController {
                 self?.nextButton.isEnabled = enable
             })
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private

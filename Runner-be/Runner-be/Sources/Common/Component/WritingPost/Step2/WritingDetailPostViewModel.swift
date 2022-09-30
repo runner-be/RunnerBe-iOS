@@ -30,7 +30,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .do(onNext: { [weak self] inputData in
                 if inputData == nil {
-                    self?.outputs.toast.onNext("데이터 처리에 실패하였습니다.")
+                    self?.toast.onNext("데이터 처리에 실패하였습니다.")
                 }
             })
             .compactMap { $0 }
@@ -42,7 +42,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 guard runningTag != .error,
                       let runningTime = DateUtil.shared.changeFormat(writingPostData.time, from: .korHmm, to: .HHmm) // "\($0.time)시간 \($0.minute)분"
                 else {
-                    self?.outputs.toast.onNext("날짜를 불러오는데 실패했습니다.")
+                    self?.toast.onNext("날짜를 불러오는데 실패했습니다.")
                     return nil
                 }
                 Log.d(tag: .info, "gathering Time : \(gatheringTime), runningTime: \(runningTime)")
@@ -71,15 +71,15 @@ final class WritingDetailPostViewModel: BaseViewModel {
                     case .succeed:
                         self?.routes.apply.onNext(())
                     case let .genderDenied(message):
-                        self?.outputs.toast.onNext(message)
+                        self?.toast.onNext(message)
                     case .fail:
-                        self?.outputs.toast.onNext("다시 시도해주세요!")
+                        self?.toast.onNext("다시 시도해주세요!")
                     case .needLogin:
-                        self?.outputs.toast.onNext("로그인이 필요합니다")
+                        self?.toast.onNext("로그인이 필요합니다")
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                 }
             })
@@ -97,7 +97,6 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     struct Output {
         var writingPostData = ReplaySubject<WritingPostData>.create(bufferSize: 1)
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

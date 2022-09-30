@@ -73,8 +73,9 @@ class MessageReportViewController: BaseViewController {
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
-        viewModel.outputs.toast
+        viewModel.toast
             .subscribe(onNext: { [weak self] message in
+                guard let message = message else { return }
                 self!.reportMessageIndexString = self!.reportMessageList.map(String.init).joined(separator: ",") // 인덱스 separator ,로 붙여서 전달
                 print(self!.reportMessageIndexString)
                 self!.toastMessage = message // 메시지 세팅

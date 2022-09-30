@@ -69,9 +69,9 @@ final class LoggedOutViewController: BaseViewController {
     }
 
     private func bindViewModelOutput() {
-        viewModel.outputs.toast
+        viewModel.toast
             .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
     }

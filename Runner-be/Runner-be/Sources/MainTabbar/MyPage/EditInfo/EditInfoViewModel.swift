@@ -60,14 +60,14 @@ final class EditInfoViewModel: BaseViewModel {
                 switch result {
                 case let .succeed(name):
                     self?.outputs.nickNameChanged.onNext(name)
-                    self?.outputs.toast.onNext("닉네임 변경이 완료되었습니다.")
+                    self?.toast.onNext("닉네임 변경이 완료되었습니다.")
                     self?.dirty = true
                 case .duplicated:
                     self?.outputs.nickNameDup.onNext(true)
                 case .alreadyChanged:
                     self?.outputs.nickNameAlreadyChanged.onNext(true)
                 case .error:
-                    self?.outputs.toast.onNext("닉네임 변경중 오류가 발생했습니다.")
+                    self?.toast.onNext("닉네임 변경중 오류가 발생했습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -90,7 +90,6 @@ final class EditInfoViewModel: BaseViewModel {
         var nickNameRuleOK = PublishSubject<Bool>()
         var nickNameAlreadyChanged = PublishSubject<Bool>()
 
-        var toast = PublishSubject<String>()
         var toastActivity = PublishSubject<Bool>()
     }
 

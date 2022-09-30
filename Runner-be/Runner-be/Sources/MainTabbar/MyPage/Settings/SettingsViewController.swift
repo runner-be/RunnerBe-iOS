@@ -111,6 +111,12 @@ class SettingsViewController: BaseViewController {
                 self.present(instaSafariView, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private lazy var tableView = UITableView(frame: .zero, style: .plain).then { view in

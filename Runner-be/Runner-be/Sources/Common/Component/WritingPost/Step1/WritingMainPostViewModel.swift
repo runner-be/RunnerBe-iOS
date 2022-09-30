@@ -32,19 +32,19 @@ final class WritingMainPostViewModel: BaseViewModel {
 
                 guard !self.writingPostData.title.isEmpty
                 else {
-                    self.outputs.toast.onNext("제목을 입력해주세요")
+                    self.toast.onNext("제목을 입력해주세요")
                     return
                 }
 
                 guard Date().timeIntervalSince1970 < self.writingPostData.date
                 else {
-                    self.outputs.toast.onNext("모임 일시가 이미 지난 시간입니다.")
+                    self.toast.onNext("모임 일시가 이미 지난 시간입니다.")
                     return
                 }
 
                 guard !self.writingPostData.time.isEmpty
                 else {
-                    self.outputs.toast.onNext("시간을 다시 설정해 주세요")
+                    self.toast.onNext("시간을 다시 설정해 주세요")
                     return
                 }
 
@@ -131,7 +131,6 @@ final class WritingMainPostViewModel: BaseViewModel {
         var location = ReplaySubject<CLLocationCoordinate2D>.create(bufferSize: 1)
         var placeInfo = PublishSubject<(city: String, detail: String)>()
         var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

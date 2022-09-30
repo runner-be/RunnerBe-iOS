@@ -60,7 +60,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
                 }
 
                 if let message = message {
-                    self.outputs.toast.onNext(message)
+                    self.toast.onNext(message)
                 }
             })
             .disposed(by: disposeBag)
@@ -74,7 +74,6 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
     struct Output {
         var participants = ReplaySubject<[UserConfig]>.create(bufferSize: 1)
-        var toast = PublishSubject<String>()
     }
 
     struct Route {
