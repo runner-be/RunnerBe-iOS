@@ -60,6 +60,12 @@ class SelectDateModalViewController: BaseViewController {
         morningAfterPicker.selectRow(0, animated: false)
         timePicker.selectRow(0, animated: false)
         minutePicker.selectRow(0, animated: false)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private var sheet = UIView().then { view in

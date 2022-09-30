@@ -23,7 +23,6 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func fetchPosts(with filter: PostFilter) -> Observable<APIResult<[Post]?>> {
-        
         return provider.rx.request(.fetch(userId: loginKeyChain.userId, filter: filter))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -49,7 +48,7 @@ final class BasicPostAPIService: PostAPIService {
         else {
             return .just(APIResult.response(result: .needLogin))
         }
-        
+
         return provider.rx.request(.posting(form: form, id: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -79,13 +78,12 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func bookmark(postId: Int, mark: Bool) -> Observable<APIResult<(postId: Int, mark: Bool)>> {
-        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
             return .just(APIResult.response(result: (postId: postId, mark: !mark)))
         }
-        
+
         return provider.rx.request(.bookmarking(postId: postId, userId: userId, mark: mark, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -129,13 +127,12 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func fetchPostsBookMarked() -> Observable<APIResult<[Post]?>> {
-        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
         }
-        
+
         return provider.rx.request(.fetchBookMarked(userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -162,7 +159,6 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func detailInfo(postId: Int) -> Observable<APIResult<DetailInfoResult>> {
-        
         typealias MapResult = (
             bookMarked: Bool,
             isWriter: Bool,
@@ -176,7 +172,7 @@ final class BasicPostAPIService: PostAPIService {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else { return .just(APIResult.error(alertMessage: nil)) }
-        
+
         return provider.rx.request(.detail(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -296,11 +292,10 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func apply(postId: Int) -> Observable<APIResult<Bool>> {
-        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else { return .just(APIResult.error(alertMessage: nil)) }
-        
+
         return provider.rx.request(.apply(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -341,7 +336,7 @@ final class BasicPostAPIService: PostAPIService {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else { return .just(APIResult.response(result: (id: applicantId, accept: accept, success: false))) }
-        
+
         return provider.rx.request(
             .accept(
                 postId: postId,
@@ -395,10 +390,9 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func close(postId: Int) -> Observable<APIResult<Bool>> {
-        
         guard let token = loginKeyChain.token
         else { return .just(APIResult.error(alertMessage: nil)) }
-        
+
         return provider.rx.request(.close(postId: postId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -431,7 +425,7 @@ final class BasicPostAPIService: PostAPIService {
         else { return .just(APIResult.error(alertMessage: nil)) }
 
         typealias RawDatas = (responseCode: Int?, userData: Data, postingData: Data, joinedData: Data)
-        
+
         return provider.rx.request(.myPage(userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -498,11 +492,10 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>> {
-        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else { return .just(APIResult.response(result: (postId: postId, success: false))) }
-        
+
         return provider.rx.request(.attendance(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }
@@ -538,11 +531,10 @@ final class BasicPostAPIService: PostAPIService {
     }
 
     func delete(postId: Int) -> Observable<APIResult<Bool>> {
-        
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else { return .just(APIResult.error(alertMessage: nil)) }
-        
+
         return provider.rx.request(.delete(postId: postId, userId: userId, token: token))
             .asObservable()
             .map { try? JSON(data: $0.data) }

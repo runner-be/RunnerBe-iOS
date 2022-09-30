@@ -124,18 +124,18 @@ class EditInfoViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toastActivity
+        viewModel.toastActivity
             .subscribe(onNext: { [weak self] show in
                 if show {
-                    self?.view.makeToastActivity(.center)
+                    AppContext.shared.makeToastActivity(position: .center)
                 } else {
-                    self?.view.hideToastActivity()
+                    AppContext.shared.hideToastActivity()
                 }
             })
             .disposed(by: disposeBag)

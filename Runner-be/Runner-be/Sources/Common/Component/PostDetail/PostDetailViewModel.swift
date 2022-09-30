@@ -87,9 +87,9 @@ final class PostDetailViewModel: BaseViewModel {
                     postDetailInfoReady.onNext(data)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     } else {
-                        self?.outputs.toast.onNext("데이터 불러오기에 실패했습니다.")
+                        self?.toast.onNext("데이터 불러오기에 실패했습니다.")
                     }
                     self?.routes.backward.onNext((id: postId, needUpdate: false))
                 }
@@ -104,9 +104,9 @@ final class PostDetailViewModel: BaseViewModel {
                     postDetailInfoReady.onNext(data)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     } else {
-                        self?.outputs.toast.onNext("데이터 불러오기에 실패했습니다.")
+                        self?.toast.onNext("데이터 불러오기에 실패했습니다.")
                     }
                     self?.routes.backward.onNext((id: postId, needUpdate: false))
                 }
@@ -140,14 +140,14 @@ final class PostDetailViewModel: BaseViewModel {
                 switch result {
                 case .response:
                     self?.outputs.apply.onNext(true)
-                    self?.outputs.toast.onNext("신청을 완료했습니다!")
+                    self?.toast.onNext("신청을 완료했습니다!")
 
                 case let .error(alertMessage):
                     self?.outputs.apply.onNext(false)
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     } else {
-                        self?.outputs.toast.onNext("신청에 실패했습니다")
+                        self?.toast.onNext("신청에 실패했습니다")
                     }
                 }
             })
@@ -174,7 +174,7 @@ final class PostDetailViewModel: BaseViewModel {
                 }
 
                 if let message = message {
-                    self.outputs.toast.onNext(message)
+                    self.toast.onNext(message)
                 }
                 self.outputs.finished.onNext(success)
             })
@@ -203,7 +203,7 @@ final class PostDetailViewModel: BaseViewModel {
                 if self.isWriter, self.applicants.isEmpty, self.participants.count < 2 {
                     self.routes.deleteConfirm.onNext(())
                 } else {
-                    self.outputs.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
+                    self.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -218,9 +218,9 @@ final class PostDetailViewModel: BaseViewModel {
                     self?.routes.backward.onNext((id: postId, needUpdate: true))
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     } else {
-                        self?.outputs.toast.onNext("삭제에 실패했습니다.")
+                        self?.toast.onNext("삭제에 실패했습니다.")
                     }
                 }
             })
@@ -229,7 +229,7 @@ final class PostDetailViewModel: BaseViewModel {
         routeInputs.report
             .subscribe(onNext: { [weak self] report in
                 if report {
-                    self?.outputs.toast.onNext("신고가 접수되었습니다.")
+                    self?.toast.onNext("신고가 접수되었습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -240,7 +240,7 @@ final class PostDetailViewModel: BaseViewModel {
                 if let roomID = roomID {
                     self?.routes.message.onNext(roomID)
                 } else {
-                    self?.outputs.toast.onNext("채팅방을 찾을 수 없습니다.")
+                    self?.toast.onNext("채팅방을 찾을 수 없습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -261,7 +261,6 @@ final class PostDetailViewModel: BaseViewModel {
         var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
 //        var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
-        var toast = PublishSubject<String>()
         var finished = PublishSubject<Bool>()
     }
 

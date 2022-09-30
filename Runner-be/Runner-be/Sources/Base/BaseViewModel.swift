@@ -19,4 +19,7 @@ class BaseViewModel {
     deinit {
         Log.d(tag: .lifeCycle, "VM Deinitailized")
     }
+
+    var toast = PublishSubject<String?>()
+    var toastActivity = PublishSubject<Bool>()
 }

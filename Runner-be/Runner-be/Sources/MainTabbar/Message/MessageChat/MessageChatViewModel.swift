@@ -35,7 +35,6 @@ final class MessageChatViewModel: BaseViewModel {
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
-        var toast = PublishSubject<String>()
         var detailPost = PublishSubject<Int>()
     }
 

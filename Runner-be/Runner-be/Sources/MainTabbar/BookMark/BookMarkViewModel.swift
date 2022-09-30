@@ -31,7 +31,7 @@ final class BookMarkViewModel: BaseViewModel {
                     return data
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                     return nil
                 }
@@ -95,7 +95,7 @@ final class BookMarkViewModel: BaseViewModel {
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self.outputs.toast.onNext(alertMessage)
+                        self.toast.onNext(alertMessage)
                     }
                 }
             })

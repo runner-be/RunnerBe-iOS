@@ -56,7 +56,13 @@ class MessageViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelOutput() {} // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+    private func viewModelOutput() {
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+    } // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.MessageList.NavBar.title

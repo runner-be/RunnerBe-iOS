@@ -113,12 +113,12 @@ final class HomeViewModel: BaseViewModel {
                 switch result {
                 case let .response(data):
                     if data == nil {
-                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
                     }
                     return data
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                     return nil
                 }
@@ -156,12 +156,12 @@ final class HomeViewModel: BaseViewModel {
                 case let .response(data):
                     if data == nil {
                         // TODO: 필터 타입 원위치
-                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
                     }
                     return data
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                     return nil
                 }
@@ -212,7 +212,7 @@ final class HomeViewModel: BaseViewModel {
                     return
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                 }
             })
@@ -243,7 +243,7 @@ final class HomeViewModel: BaseViewModel {
             .do(onNext: { [unowned self] idx in
                 guard idx >= 0, idx <= self.posts.count
                 else {
-                    self.outputs.toast.onNext("해당 포스트를 찾을 수 없습니다.")
+                    self.toast.onNext("해당 포스트를 찾을 수 없습니다.")
                     return
                 }
             })
@@ -254,6 +254,9 @@ final class HomeViewModel: BaseViewModel {
         // MARK: - RouteInput
 
         routeInputs.needUpdate
+            .do(onNext: { [weak self] _ in
+                self?.outputs.showRefreshRegion.onNext(false)
+            })
             .filter { $0 }
             .compactMap { [weak self] _ in
                 self?.filter
@@ -262,15 +265,16 @@ final class HomeViewModel: BaseViewModel {
                 postAPIService.fetchPosts(with: filter)
             }
             .compactMap { [weak self] result in
+                guard let self = self else { return nil }
                 switch result {
                 case let .response(data):
                     if data == nil {
-                        self?.outputs.toast.onNext("새로고침에 실패했습니다.")
+                        self.toast.onNext("새로고침에 실패했습니다.")
                     }
                     return data
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self.toast.onNext(alertMessage)
                     }
                     return nil
                 }
@@ -314,13 +318,13 @@ final class HomeViewModel: BaseViewModel {
                 switch result {
                 case let .response(data):
                     if data == nil {
-                        self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
                         // TODO: 필터 아이콘 다시 이전 상태로 돌리기
                     }
                     return data
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                     return nil
                 }
@@ -501,7 +505,6 @@ final class HomeViewModel: BaseViewModel {
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var refresh = PublishSubject<Void>()
-        var toast = PublishSubject<String>()
         var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
         var showClosedPost = PublishSubject<Bool>()

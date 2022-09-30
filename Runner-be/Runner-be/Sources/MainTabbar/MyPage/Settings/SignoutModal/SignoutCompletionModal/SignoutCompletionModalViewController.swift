@@ -55,7 +55,13 @@ class SignoutCompletionModalViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+    }
 
     private var sheet = UIView().then { view in
         view.backgroundColor = .darkG5

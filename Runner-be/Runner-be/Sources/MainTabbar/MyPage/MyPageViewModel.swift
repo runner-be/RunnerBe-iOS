@@ -48,9 +48,9 @@ final class MyPageViewModel: BaseViewModel {
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self.outputs.toast.onNext(alertMessage)
+                        self.toast.onNext(alertMessage)
                     } else {
-                        self.outputs.toast.onNext("불러오기에 실패했습니다.")
+                        self.toast.onNext("불러오기에 실패했습니다.")
                     }
                 }
             })
@@ -79,7 +79,7 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("해당 포스트를 여는데 실패했습니다.")
+                    self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
                 print("post id: \(posts[idx].ID)")
@@ -94,7 +94,7 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    self?.toast.onNext("북마크를 실패했습니다.")
                     return nil
                 }
                 return posts[idx]
@@ -106,7 +106,7 @@ final class MyPageViewModel: BaseViewModel {
                     return
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     }
                 }
             })
@@ -123,7 +123,7 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
-                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    self?.toast.onNext("북마크를 실패했습니다.")
                     return
                 }
 
@@ -138,7 +138,7 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
                     return nil
                 }
                 return posts[idx]
@@ -152,15 +152,15 @@ final class MyPageViewModel: BaseViewModel {
                           let posts = self.posts[self.outputs.postType],
                           let idx = posts.firstIndex(where: { $0.ID == data.postId })
                     else {
-                        self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                        self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
                         return
                     }
                     self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
-                        self?.outputs.toast.onNext(alertMessage)
+                        self?.toast.onNext(alertMessage)
                     } else {
-                        self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                        self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
                     }
                 }
             })
@@ -175,7 +175,7 @@ final class MyPageViewModel: BaseViewModel {
                 if let user = self?.user {
                     return user
                 }
-                self?.outputs.toast.onNext("내 정보를 가져오는데 실패했습니다.")
+                self?.toast.onNext("내 정보를 가져오는데 실패했습니다.")
                 return nil
             }
             .bind(to: routes.editInfo)
@@ -212,12 +212,12 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.photoSelected
             .do(onNext: { [weak self] _ in
-                self?.outputs.toastActivity.onNext(true)
+                self?.toastActivity.onNext(true)
             })
             .compactMap { [weak self] data in
                 if data == nil {
-                    self?.outputs.toastActivity.onNext(false)
-                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
+                    self?.toastActivity.onNext(false)
+                    self?.toast.onNext("이미지 불러오기에 실패했어요")
                 }
                 return data
             }
@@ -228,9 +228,9 @@ final class MyPageViewModel: BaseViewModel {
                     self?.outputs.profileChanged.onNext(data)
                     self?.dirty = true
                 case .error:
-                    self?.outputs.toast.onNext("이미지 등록에 실패했어요")
+                    self?.toast.onNext("이미지 등록에 실패했어요")
                 }
-                self?.outputs.toastActivity.onNext(false)
+                self?.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
     }
@@ -258,7 +258,6 @@ final class MyPageViewModel: BaseViewModel {
         var toast = BehaviorSubject<String>(value: "") // PublishSubject와 다르지않으나 초기값을 가진 subject
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
-        var toastActivity = PublishSubject<Bool>()
         var showPicker = PublishSubject<EditProfileType>()
     }
 
