@@ -28,7 +28,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
 
-    let currentDate = DateUtil.shared.now
+    let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
     var gatherDate = Date()
     var runningTime = TimeInterval()
     var time = 0
@@ -60,6 +60,8 @@ class ManageAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
+
+        print("myRunningIdx \(myRunningIdx)")
     }
 
     init(viewModel: ManageAttendanceViewModel, myRunningIdx: Int) {
@@ -92,7 +94,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     @objc func timerCallback() {
         time -= 1
-        timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time % (60 * 60)))분"
+        timeSecondLabel.text = "\(Int(time / (60 * 60))) 시간 \(Int((time / 60) % 60)) 분"
 
         if time == 0 {
             timer?.invalidate()
@@ -388,8 +390,10 @@ extension ManageAttendanceViewController {
         print("finishedDate \(finishedDate.description)")
 
         // 현재 - 출석 마감 날짜 남은 분
+        print(currentDate.description)
         let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
-        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second!
+        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+        print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
         print("time \(time)")
 
         for user in result.myPosting![myRunningIdx].runnerList! {
