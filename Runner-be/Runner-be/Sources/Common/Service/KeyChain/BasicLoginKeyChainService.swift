@@ -65,10 +65,18 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
 
     var loginType: LoginType = .nonMember
 
+    func setLoginInfo(loginType: LoginType, uuid: String?, userID: Int?, token: LoginToken?) {
+        self.loginType = loginType
+        self.uuid = uuid
+        userId = userID
+        self.token = token
+    }
+
     func clear() {
         uuid = nil
         token = nil
         userId = nil
+        loginType = .nonMember
     }
 }
 

@@ -13,30 +13,32 @@ import UIKit
 final class PostAnnotaionView: MKAnnotationView {
     static let identifier = "\(String(describing: PostAnnotaionView.self))"
 
+    var timer: Timer?
+
     var markerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(36)
-            make.height.equalTo(36)
+            make.width.equalTo(40)
+            make.height.equalTo(40)
         }
     }
 
     lazy var selectedMarkerView = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(48)
-            make.height.equalTo(48)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
         }
 
         view.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.snp.top).offset(12)
+            make.top.equalTo(view.snp.top).offset(13)
         }
     }
 
     let profileImageView = UIImageView().then { imageView in
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(17)
-            make.height.equalTo(17)
+            make.width.equalTo(19)
+            make.height.equalTo(19)
         }
         imageView.image = Asset.profileEmptyIcon.uiImage
         imageView.layer.cornerRadius = 8
@@ -69,12 +71,20 @@ final class PostAnnotaionView: MKAnnotationView {
         if let profileUrl = annotation.profileUrl {
             profileImageView.kf.setImage(with: URL(string: profileUrl), placeholder: Asset.profileEmptyIcon.uiImage)
         }
-        setSelected(with: annotation, selected: annotation.isAlwaysSelected)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { [weak self] _ in
+            self?.timer?.invalidate()
+            self?.setSelected(with: annotation, selected: annotation.isAlwaysSelected)
+            self?.timer = nil
+        })
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         profileImageView.image = Asset.profileEmptyIcon.uiImage
+        markerView.isHidden = true
+        selectedMarkerView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -25,6 +25,7 @@ class AlarmCell: UITableViewCell {
     func configure(with config: AlarmCellConfig) {
         titleLabel.text = config.title
         contentLabel.text = config.content
+        contentLabel.setTextWithLineHeight(text: config.content, with: 22)
         timeLabel.text = config.timeDiff
         checkAlarm(isNew: config.isNew)
     }
@@ -76,7 +77,7 @@ extension AlarmCell {
         }
 
         contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-31)
         }

@@ -16,7 +16,6 @@ import RxKakaoSDKUser
 
 import NaverThirdPartyLogin
 
-import NeedleFoundation
 import RxSwift
 import UIKit
 
@@ -24,8 +23,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
-        registerProviderFactories()
-
         setupSocialLoginSDKs()
         setupFirebase(application)
 
@@ -56,10 +53,11 @@ extension AppDelegate {
         naverLogin?.isNaverAppOauthEnable = false
         naverLogin?.isInAppOauthEnable = true
         naverLogin?.isOnlyPortraitSupportedInIphone()
-        naverLogin?.serviceUrlScheme = kServiceAppUrlScheme
-        naverLogin?.consumerKey = kConsumerKey
-        naverLogin?.consumerSecret = kConsumerSecret
-        naverLogin?.appName = kServiceAppName
+
+        naverLogin?.serviceUrlScheme = AppKeys.NaverAppUrlScheme
+        naverLogin?.consumerKey = AppKeys.NaverConsumerKey
+        naverLogin?.consumerSecret = AppKeys.NaverConsumerSecret
+        naverLogin?.appName = AppKeys.NaverAppName
     }
 
     private func setupFirebase(_ application: UIApplication) {

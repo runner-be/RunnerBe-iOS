@@ -86,6 +86,12 @@ class BookMarkViewController: BaseViewController {
             .map { [BasicPostSection(items: $0)] }
             .bind(to: postCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in

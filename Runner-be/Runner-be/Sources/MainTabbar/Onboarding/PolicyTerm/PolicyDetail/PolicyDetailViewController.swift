@@ -61,6 +61,12 @@ class PolicyDetailViewController: BaseViewController {
             .take(1)
             .bind(to: navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func setupBarStyle(modal: Bool) {

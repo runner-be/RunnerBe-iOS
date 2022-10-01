@@ -43,7 +43,7 @@ final class SelectDateModalViewModel: BaseViewModel {
                       result.timeIdx >= 0, result.timeIdx < outputs.timeItems.count,
                       result.minuteIdx >= 0, result.minuteIdx < outputs.minuteItems.count
                 else {
-                    self?.outputs.toast.onNext("일시 입력에 실패하였습니다.")
+                    self?.toast.onNext("일시 입력에 실패하였습니다.")
                     self?.routes.cancel.onNext(())
                     return
                 }
@@ -85,7 +85,6 @@ final class SelectDateModalViewModel: BaseViewModel {
         let ampmItems = ["AM", "PM"]
         let timeItems = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         let minuteItems = ["00", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

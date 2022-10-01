@@ -83,10 +83,10 @@ final class SettingsViewModel: BaseViewModel {
             .flatMap { _ in userAPIService.signout() }
             .subscribe(onNext: { [weak self] success in
                 if success {
-                    self?.outputs.toast.onNext("회원탈퇴가 완료되었습니다.")
+                    self?.toast.onNext("회원탈퇴가 완료되었습니다.")
                     self?.routes.signoutComplete.onNext(())
                 } else {
-                    self?.outputs.toast.onNext("죄송합니다 다시 시도해주세요.")
+                    self?.toast.onNext("죄송합니다 다시 시도해주세요.")
                 }
             })
             .disposed(by: disposeBag)
@@ -107,7 +107,6 @@ final class SettingsViewModel: BaseViewModel {
 
     struct Output {
         var menus = ReplaySubject<[[SettingCellConfig]]>.create(bufferSize: 1)
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

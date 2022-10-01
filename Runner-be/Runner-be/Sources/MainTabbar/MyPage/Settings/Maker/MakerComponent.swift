@@ -5,14 +5,9 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import Foundation
+import UIKit
 
-import Foundation
-import NeedleFoundation
-
-protocol MakerDependency: Dependency {}
-
-final class MakerComponent: Component<MakerDependency> {
+final class MakerComponent {
     var scene: (VC: UIViewController, VM: MakerViewModel) {
         let viewModel = self.viewModel
         return (MakerViewController(viewModel: viewModel), viewModel)

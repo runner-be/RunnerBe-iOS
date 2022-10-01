@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/08/08.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol DetailOptionModalDependency: Dependency {}
-
-final class DetailOptionModalComponent: Component<DetailOptionModalDependency> {
+final class DetailOptionModalComponent {
     var scene: (VC: UIViewController, VM: DetailOptionModalViewModel) {
         let viewModel = self.viewModel
         return (DetailOptionModalViewController(viewModel: viewModel), viewModel)

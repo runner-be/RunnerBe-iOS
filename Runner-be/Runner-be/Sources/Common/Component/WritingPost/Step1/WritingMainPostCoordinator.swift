@@ -62,57 +62,45 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: sceneDisposeBag)
     }
 
-    private func pushWritingDetailPost(data: WritingPostData, animated _: Bool) {
+    private func pushWritingDetailPost(data: WritingPostData, animated: Bool) {
         let comp = component.BuildWritingDetailPostComponent(with: data)
         let coord = WritingDetailPostCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    break
-                case .apply:
-                    self?.closeSignal.onNext(.backward(needUpdate: true))
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .apply:
+                self?.closeSignal.onNext(.backward(needUpdate: true))
+            }
+        }
     }
 
     private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectTimeComponent
         let coord = SelectTimeModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .apply(resultString):
-                    vm.routeInputs.editTimeResult.onNext(resultString)
-                case .cancel:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .apply(resultString):
+                vm.routeInputs.editTimeResult.onNext(resultString)
+            case .cancel:
+                break
+            }
+        }
     }
 
     private func presentSelectDateModal(vm: WritingMainPostViewModel, animated: Bool) {
         let comp = component.selectDateComponent
         let coord = SelectDateModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .apply(timeInterval):
-                    vm.routeInputs.editDateResult.onNext(timeInterval)
-                case .cancel:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .apply(timeInterval):
+                vm.routeInputs.editDateResult.onNext(timeInterval)
+            case .cancel:
+                break
+            }
+        }
     }
 }

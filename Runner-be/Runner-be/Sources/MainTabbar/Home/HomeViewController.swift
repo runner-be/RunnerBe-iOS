@@ -178,7 +178,10 @@ class HomeViewController: BaseViewController {
                 self.selectedPostCollectionView.isHidden = hideSelectedPost
 
                 if post != nil {
-                    self.setBottomSheetState(to: .halfOpen)
+                    self.mapView.isAnnotationHidden = true
+                    self.setBottomSheetState(to: .halfOpen, animated: true) { [weak self] in
+                        self?.mapView.isAnnotationHidden = false
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -220,6 +223,12 @@ class HomeViewController: BaseViewController {
         viewModel.outputs.alarmChecked
             .subscribe(onNext: { [weak self] isChecked in
                 self?.navBar.rightBtnItem.setImage(isChecked ? Asset.alarmNomal.uiImage : Asset.alarmNew.uiImage, for: .normal)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
     }
@@ -731,12 +740,13 @@ extension HomeViewController {
     }
 
     private func onPanGesture(translation: CGPoint) {
+        mapView.isAnnotationHidden = true
         updateBottomSheetPosition(with: translation)
         updateBottomSheetCornerRadius()
         updatePostCollectionView(with: bottomSheetState)
     }
 
-    private func setBottomSheetState(to state: State.BottomSheet, animated: Bool = true) {
+    private func setBottomSheetState(to state: State.BottomSheet, animated: Bool = true, completion: (() -> Void)? = nil) {
         let maxHeight = bottomSheetMaxheight
 
         switch state {
@@ -754,6 +764,8 @@ extension HomeViewController {
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                 self.view.layoutIfNeeded()
+            } completion: { _ in
+                completion?()
             }
         }
 
@@ -761,7 +773,9 @@ extension HomeViewController {
     }
 
     private func onPanGestureEnded() {
-        setBottomSheetState(to: bottomSheetState)
+        setBottomSheetState(to: bottomSheetState, completion: { [weak self] in
+            self?.mapView.isAnnotationHidden = false
+        })
     }
 
     private var bottomSheetState: State.BottomSheet {

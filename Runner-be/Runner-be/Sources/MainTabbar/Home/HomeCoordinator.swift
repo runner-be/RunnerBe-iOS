@@ -80,98 +80,76 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(id, needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                    vm.routeInputs.detailClosed.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable) // 바인딩 결과 저장
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(_, needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+                vm.routeInputs.detailClosed.onNext(())
+            }
+        }
     }
 
     private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
         let comp = component.writingPostComponent
         let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 
     private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
         let comp = component.postFilterComponent(filter: filter)
         let coord = HomeFilterCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(filter):
-                    vm.routeInputs.filterChanged.onNext(filter)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(
+            coordinator: coord, animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case let .backward(filter):
+                vm.routeInputs.filterChanged.onNext(filter)
+            }
+        }
     }
 
     private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
         let comp = component.postListOrderModal()
         let coord = PostOrderModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .ok(order: order):
-                    vm.routeInputs.postListOrderChanged.onNext(order)
-                case .cancel: break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .ok(order: order):
+                vm.routeInputs.postListOrderChanged.onNext(order)
+            case .cancel: break
+            }
+        }
     }
 
     private func showRunningTagModal(vm: HomeViewModel, animated: Bool) {
         let comp = component.runningTagModal()
         let coord = RunningTagModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .ok(tag: tag):
-                    vm.routeInputs.runningTagChanged.onNext(tag)
-                case .cancel: break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .ok(tag: tag):
+                vm.routeInputs.runningTagChanged.onNext(tag)
+            case .cancel: break
+            }
+        }
     }
 
     private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
         let comp = component.alarmListComponent
         let coord = AlarmListCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .backward:
-                    vm.routeInputs.alarmChecked.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.alarmChecked.onNext(())
+            }
+        }
     }
 }

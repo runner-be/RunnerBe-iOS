@@ -46,7 +46,11 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+                if self?.component.fromPostDetail == true {
+                    self?.closeSignal.onNext(MessageChatResult.backward(needUpdate: false))
+                } else {
+                    self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+                }
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -55,34 +59,26 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
         let comp = component.reportMessageComponent(messageId: messageId)
         let coord = MessageReportCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                case .reportModal:
-                    vm.routeInputs.report.onNext(messageId)
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            case .reportModal:
+                vm.routeInputs.report.onNext(messageId)
+            }
+        }
     }
 
     func pushDetailPostScene(vm: MessageChatViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case let .backward(id, needUpdate):
-                    vm.routeInputs.needUpdate.onNext(needUpdate)
-                    vm.routeInputs.detailClosed.onNext(())
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case let .backward(id, needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+                vm.routeInputs.detailClosed.onNext(())
+            }
+        }
     }
 }

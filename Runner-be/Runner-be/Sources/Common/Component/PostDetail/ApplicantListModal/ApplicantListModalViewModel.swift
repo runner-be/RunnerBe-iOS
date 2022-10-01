@@ -39,22 +39,29 @@ final class ApplicantListModalViewModel: BaseViewModel {
                                       accept: $0.accept)
             }
             .subscribe(onNext: { [weak self] result in
-                guard let self = self
-                else { return }
+                guard let self = self else { return }
 
-                let message: String
-                if result.success {
-                    message = result.accept ? "수락 완료" : "거절 완료"
-                    self.applicants.removeAll(where: { $0.userID == result.id })
-                    let configs = self.applicants.reduce(into: [UserConfig]()) {
-                        $0.append(UserConfig(from: $1, owner: false))
+                let message: String?
+                switch result {
+                case let .response(result: data):
+                    if data.success {
+                        message = data.accept ? "수락 완료" : "거절 완료"
+                        self.applicants.removeAll(where: { $0.userID == data.id })
+                        let configs = self.applicants.reduce(into: [UserConfig]()) {
+                            $0.append(UserConfig(from: $1, owner: false))
+                        }
+                        self.outputs.participants.onNext(configs)
+                        self.changed = true
+                    } else {
+                        message = "수락 실패"
                     }
-                    self.outputs.participants.onNext(configs)
-                    self.changed = true
-                } else {
-                    message = "수락 실패"
+                case let .error(alertMessage: alertMessage):
+                    message = alertMessage
                 }
-                self.outputs.toast.onNext(message)
+
+                if let message = message {
+                    self.toast.onNext(message)
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -67,7 +74,6 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
     struct Output {
         var participants = ReplaySubject<[UserConfig]>.create(bufferSize: 1)
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

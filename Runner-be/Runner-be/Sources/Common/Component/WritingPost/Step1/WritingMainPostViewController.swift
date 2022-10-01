@@ -51,7 +51,7 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editTitle)
             .disposed(by: disposeBag)
 
-        writeDateView.iconTextButtonGroup.rx
+        writeDateView.rx
             .tapGesture(configuration: { _, delegate in
                 delegate.simultaneousRecognitionPolicy = .never
             })
@@ -60,7 +60,7 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editDate)
             .disposed(by: disposeBag)
 
-        writeTimeView.iconTextButtonGroup.rx
+        writeTimeView.rx
             .tapGesture(configuration: { _, delegate in
                 delegate.simultaneousRecognitionPolicy = .never
             })
@@ -103,9 +103,9 @@ class WritingMainPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
     }

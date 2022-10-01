@@ -36,7 +36,7 @@ final class SelectJobGroupViewModel: BaseViewModel {
                 case .success:
                     self?.routes.complete.onNext(())
                 case .fail:
-                    self?.outputs.toast.onNext("추가정보 입력 중 오류가 발생했습니다.")
+                    self?.toast.onNext("추가정보 입력 중 오류가 발생했습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -67,7 +67,6 @@ final class SelectJobGroupViewModel: BaseViewModel {
 
     struct Output {
         var enableComplete = PublishSubject<Bool>()
-        var toast = PublishSubject<String>()
     }
 
     struct Route {

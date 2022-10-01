@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "place_selected_36.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "place_selected_36@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "place_selected_36@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "place_selected_36.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

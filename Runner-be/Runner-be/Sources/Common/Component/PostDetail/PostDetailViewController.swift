@@ -87,9 +87,9 @@ class PostDetailViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
     }
@@ -310,7 +310,8 @@ extension PostDetailViewController {
             footer = writerFooter
         } else {
             let guestFooter = PostGuestFooter(applied: applied, satisfied: satisfied)
-            guestFooter.toMessageButton.isEnabled = participated
+            guestFooter.toMessageButton.isEnabled = true
+//            guestFooter.toMessageButton.isEnabled = participated
 
 //            guestFooter.bookMarkBtn.rx.tap
 //                .map { !guestFooter.bookMarkBtn.isSelected }
@@ -326,6 +327,10 @@ extension PostDetailViewController {
 //                    guestFooter.bookMarkBtn.isSelected = marked
 //                })
 //                .disposed(by: guestFooter.disposeBag)
+
+            guestFooter.toMessageButton.rx.tap
+                .bind(to: viewModel.inputs.toMessage)
+                .disposed(by: guestFooter.disposeBag)
 
             viewModel.outputs.apply
                 .subscribe(onNext: { applied in

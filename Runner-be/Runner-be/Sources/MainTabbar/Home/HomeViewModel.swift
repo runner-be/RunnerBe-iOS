@@ -99,6 +99,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tagChanged
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .map { RunningTag(idx: $0) }
             .filter { $0 != .error }
             .map { [unowned self] runningTag -> PostFilter in
@@ -108,16 +109,26 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
+            .compactMap { [weak self] result -> [Post]? in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         inputs.tapShowClosedPost
             .skip(1)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .map { [unowned self] () -> Bool in
                 var newFilter = self.filter
                 newFilter.postState = self.filter.postState.toggled
@@ -140,12 +151,21 @@ final class HomeViewModel: BaseViewModel {
                 return newFilter
             }
             .flatMap { postAPIService.fetchPosts(with: $0) }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 필터 타입 원위치
+            .compactMap { [weak self] result -> [Post]? in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        // TODO: 필터 타입 원위치
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -160,6 +180,7 @@ final class HomeViewModel: BaseViewModel {
         inputs.writingPost
             // TODO: 시작시 이벤트가 바로 들어오는 현상이 있음 그래서 skip 1 해결방안 찾으면 수정할 것
             .skip(1)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
@@ -170,6 +191,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookmark
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .do(onNext: { [unowned self] _ in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
@@ -184,6 +206,24 @@ final class HomeViewModel: BaseViewModel {
                 }
             }
             .flatMap { postAPIService.bookmark(postId: $0.post.ID, mark: !$0.post.marked) }
+            .do(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    return
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            })
+            .compactMap { result -> (postId: Int, mark: Bool)? in
+                switch result {
+                case let .response(data):
+                    return data
+                case .error:
+                    return nil
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let index = self.posts.firstIndex(where: { $0.ID == result.postId })
@@ -203,7 +243,7 @@ final class HomeViewModel: BaseViewModel {
             .do(onNext: { [unowned self] idx in
                 guard idx >= 0, idx <= self.posts.count
                 else {
-                    self.outputs.toast.onNext("해당 포스트를 찾을 수 없습니다.")
+                    self.toast.onNext("해당 포스트를 찾을 수 없습니다.")
                     return
                 }
             })
@@ -214,6 +254,9 @@ final class HomeViewModel: BaseViewModel {
         // MARK: - RouteInput
 
         routeInputs.needUpdate
+            .do(onNext: { [weak self] _ in
+                self?.outputs.showRefreshRegion.onNext(false)
+            })
             .filter { $0 }
             .compactMap { [weak self] _ in
                 self?.filter
@@ -221,11 +264,21 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
             }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("새로고침에 실패했습니다.")
+            .compactMap { [weak self] result in
+                guard let self = self else { return nil }
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self.toast.onNext("새로고침에 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -261,12 +314,21 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { filter in
                 postAPIService.fetchPosts(with: filter)
             }
-            .do(onNext: { [weak self] result in
-                if result == nil {
-                    self?.outputs.toast.onNext("필터 적용에 실패했습니다.")
-                    // TODO: 필터 아이콘 다시 이전 상태로 돌리기
+            .compactMap { [weak self] result in
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self?.toast.onNext("필터 적용에 실패했습니다.")
+                        // TODO: 필터 아이콘 다시 이전 상태로 돌리기
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
+            }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
@@ -443,7 +505,6 @@ final class HomeViewModel: BaseViewModel {
     struct Output {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var refresh = PublishSubject<Void>()
-        var toast = PublishSubject<String>()
         var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
         var highLightFilter = PublishSubject<Bool>()
         var showClosedPost = PublishSubject<Bool>()

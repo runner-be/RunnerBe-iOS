@@ -30,21 +30,28 @@ final class MyPageViewModel: BaseViewModel {
                 self.outputs.posts.onNext([])
 
                 switch result {
-                case let .success(info, posting, joined):
-                    let now = DateUtil.shared.now
-                    self.user = info
-                    let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-                    let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+                case let .response(result: data):
+                    switch data {
+                    case let .success(info, posting, joined):
+                        let now = DateUtil.shared.now
+                        self.user = info
+                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
+                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
 
-                    self.posts[.basic] = postings
-                    self.posts[.attendable] = joins
+                        self.posts[.basic] = postings
+                        self.posts[.attendable] = joins
 
-                    let posts = self.outputs.postType == .basic ? postings : joins
-                    self.user = info
-                    self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                    self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
-                case .error:
-                    self.outputs.toast.onNext("불러오기에 실패했습니다.")
+                        let posts = self.outputs.postType == .basic ? postings : joins
+                        self.user = info
+                        self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
+                        self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    } else {
+                        self.toast.onNext("불러오기에 실패했습니다.")
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -72,7 +79,7 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("해당 포스트를 여는데 실패했습니다.")
+                    self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
                 print("post id: \(posts[idx].ID)")
@@ -87,18 +94,36 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    self?.toast.onNext("북마크를 실패했습니다.")
                     return nil
                 }
                 return posts[idx]
             }
             .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
+            .do(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    return
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            })
+            .compactMap { result -> (postId: Int, mark: Bool)? in
+                switch result {
+                case let .response(data):
+                    return data
+                case .error:
+                    return nil
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let posts = self.posts[self.outputs.postType],
                       let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
-                    self?.outputs.toast.onNext("북마크를 실패했습니다.")
+                    self?.toast.onNext("북마크를 실패했습니다.")
                     return
                 }
 
@@ -113,23 +138,31 @@ final class MyPageViewModel: BaseViewModel {
                       let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
-                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
                     return nil
                 }
                 return posts[idx]
             }
             .flatMap { postAPIService.attendance(postId: $0.ID) }
             .subscribe(onNext: { [weak self] result in
-                guard result.success,
-                      let self = self,
-                      let posts = self.posts[self.outputs.postType],
-                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
-                else {
-                    self?.outputs.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
-                    return
+                switch result {
+                case let .response(result: data):
+                    guard data.success,
+                          let self = self,
+                          let posts = self.posts[self.outputs.postType],
+                          let idx = posts.firstIndex(where: { $0.ID == data.postId })
+                    else {
+                        self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                        return
+                    }
+                    self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
+                    }
                 }
-
-                self.outputs.attend.onNext((type: self.outputs.postType, idx: idx, state: ParticipateAttendState.absence))
             })
             .disposed(by: disposeBag)
 
@@ -142,7 +175,7 @@ final class MyPageViewModel: BaseViewModel {
                 if let user = self?.user {
                     return user
                 }
-                self?.outputs.toast.onNext("내 정보를 가져오는데 실패했습니다.")
+                self?.toast.onNext("내 정보를 가져오는데 실패했습니다.")
                 return nil
             }
             .bind(to: routes.editInfo)
@@ -179,12 +212,12 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.photoSelected
             .do(onNext: { [weak self] _ in
-                self?.outputs.toastActivity.onNext(true)
+                self?.toastActivity.onNext(true)
             })
             .compactMap { [weak self] data in
                 if data == nil {
-                    self?.outputs.toastActivity.onNext(false)
-                    self?.outputs.toast.onNext("이미지 불러오기에 실패했어요")
+                    self?.toastActivity.onNext(false)
+                    self?.toast.onNext("이미지 불러오기에 실패했어요")
                 }
                 return data
             }
@@ -195,9 +228,9 @@ final class MyPageViewModel: BaseViewModel {
                     self?.outputs.profileChanged.onNext(data)
                     self?.dirty = true
                 case .error:
-                    self?.outputs.toast.onNext("이미지 등록에 실패했어요")
+                    self?.toast.onNext("이미지 등록에 실패했어요")
                 }
-                self?.outputs.toastActivity.onNext(false)
+                self?.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
     }
@@ -225,7 +258,6 @@ final class MyPageViewModel: BaseViewModel {
         var toast = BehaviorSubject<String>(value: "") // PublishSubject와 다르지않으나 초기값을 가진 subject
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
-        var toastActivity = PublishSubject<Bool>()
         var showPicker = PublishSubject<EditProfileType>()
     }
 

@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/08.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SelectGenderDependency: Dependency {}
-
-final class SelectGenderComponent: Component<SelectGenderDependency> {
+final class SelectGenderComponent {
     var scene: (VC: UIViewController, VM: SelectGenderViewModel) {
         let viewModel = viewModel
         return (SelectGenderViewController(viewModel: viewModel), viewModel)
@@ -21,10 +18,10 @@ final class SelectGenderComponent: Component<SelectGenderDependency> {
     }
 
     var selectJobGroupCoord: SelectJobGroupComponent {
-        return SelectJobGroupComponent(parent: self)
+        return SelectJobGroupComponent()
     }
 
     var onboardingCancelModalComponent: OnboardingCancelModalComponent {
-        return OnboardingCancelModalComponent(parent: self)
+        return OnboardingCancelModalComponent()
     }
 }

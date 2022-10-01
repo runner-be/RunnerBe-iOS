@@ -76,48 +76,36 @@ final class PolicyTermCoordinator: BasicCoordinator<PolicyTermResult> {
         let comp = component.birthComponent
         let coord = BirthCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .cancelOnboarding:
-                    self?.closeSignal.onNext(.cancelOnboarding)
-                case .toMain:
-                    self?.closeSignal.onNext(.toMain)
-                case .backward: break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            defer { self?.releaseChild(coordinator: coord) }
+            switch coordResult {
+            case .cancelOnboarding:
+                self?.closeSignal.onNext(.cancelOnboarding)
+            case .toMain:
+                self?.closeSignal.onNext(.toMain)
+            case .backward: break
+            }
+        }
     }
 
     private func presentPolicyDetail(type: PolicyType, animated: Bool) {
         let comp = component.policyDetailComponent(type: type, modal: true)
         let coord = PolicyDetailCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] _ in
-                self?.releaseChild(coordinator: coord)
-            })
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated)
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .debug("PolicyTerm - close Onboarding")
-            .subscribe(onNext: { [weak self] modalResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch modalResult {
-                case .cancelOnboarding:
-                    self?.closeSignal.onNext(.cancelOnboarding)
-                case .cancelModal:
-                    break
-                }
-            })
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] modalResult in
+            switch modalResult {
+            case .cancelOnboarding:
+                self?.closeSignal.onNext(.cancelOnboarding)
+            case .cancelModal:
+                break
+            }
+        }
     }
 }

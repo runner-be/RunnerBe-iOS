@@ -24,7 +24,7 @@ final class MessageReportViewModel: BaseViewModel {
         routeInputs.report
             .subscribe(onNext: { [weak self] report in
                 if report {
-                    self?.outputs.toast.onNext("신고가 접수되었습니다.")
+                    self?.toast.onNext("신고가 접수되었습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -42,7 +42,6 @@ final class MessageReportViewModel: BaseViewModel {
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
-        var toast = PublishSubject<String>()
         var detailPost = PublishSubject<Int>()
     }
 

@@ -13,6 +13,7 @@ final class PostDetailViewModel: BaseViewModel {
     private var isWriter: Bool = false
     private var applicants: [User] = []
     private var participants: [User] = []
+    private var roomID: Int?
     var anyChanged = false
 
     init(
@@ -29,8 +30,9 @@ final class PostDetailViewModel: BaseViewModel {
                 guard let self = self else { return }
 
                 switch result {
-                case let .guest(postDetail, participated, marked, apply, participants):
+                case let .guest(postDetail, participated, marked, apply, participants, roomID):
                     self.isWriter = false
+                    self.roomID = roomID
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -51,8 +53,9 @@ final class PostDetailViewModel: BaseViewModel {
 //                    self.marked = marked
 //                    self.outputs.bookMarked.onNext(marked)
 //                    self.outputs.apply.onNext(apply)
-                case let .writer(postDetail, marked, participants, applicant):
+                case let .writer(postDetail, marked, participants, applicant, roomID):
                     self.isWriter = true
+                    self.roomID = roomID
                     self.outputs.detailData.onNext(
                         (
                             finished: !postDetail.post.open,
@@ -78,15 +81,35 @@ final class PostDetailViewModel: BaseViewModel {
 
         postAPIService.detailInfo(postId: postId)
             .take(1)
-            .subscribe(onNext: {
-                postDetailInfoReady.onNext($0)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    postDetailInfoReady.onNext(data)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("데이터 불러오기에 실패했습니다.")
+                    }
+                    self?.routes.backward.onNext((id: postId, needUpdate: false))
+                }
             })
             .disposed(by: disposeBag)
 
         routeInputs.needUpdate
             .flatMap { postAPIService.detailInfo(postId: postId) }
-            .subscribe(onNext: {
-                postDetailInfoReady.onNext($0)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    postDetailInfoReady.onNext(data)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("데이터 불러오기에 실패했습니다.")
+                    }
+                    self?.routes.backward.onNext((id: postId, needUpdate: false))
+                }
             })
             .disposed(by: disposeBag)
 
@@ -113,19 +136,20 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.apply(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
-                guard let self = self
-                else { return }
-                let message: String
-                if success {
-                    message = "신청을 완료했습니다!"
-                    self.outputs.apply.onNext(true)
-                } else {
-                    message = "신청에 실패했습니다!"
-                    self.outputs.apply.onNext(false)
-                }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    self?.outputs.apply.onNext(true)
+                    self?.toast.onNext("신청을 완료했습니다!")
 
-                self.outputs.toast.onNext(message)
+                case let .error(alertMessage):
+                    self?.outputs.apply.onNext(false)
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("신청에 실패했습니다")
+                    }
+                }
             })
             .disposed(by: disposeBag)
 
@@ -133,19 +157,26 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.close(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
+            .subscribe(onNext: { [weak self] result in
                 guard let self = self
                 else { return }
-                let message: String
-                if success {
-                    message = "마감을 완료하였습니다!"
+
+                let message: String?
+                let success: Bool
+                switch result {
+                case .response:
+                    message = "마감을 완료했습니다."
                     self.anyChanged = true
-                } else {
-                    message = "마감에 실패했습니다!"
+                    success = true
+                case let .error(alertMessage):
+                    message = alertMessage
+                    success = false
                 }
 
+                if let message = message {
+                    self.toast.onNext(message)
+                }
                 self.outputs.finished.onNext(success)
-                self.outputs.toast.onNext(message)
             })
             .disposed(by: disposeBag)
 
@@ -172,7 +203,7 @@ final class PostDetailViewModel: BaseViewModel {
                 if self.isWriter, self.applicants.isEmpty, self.participants.count < 2 {
                     self.routes.deleteConfirm.onNext(())
                 } else {
-                    self.outputs.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
+                    self.toast.onNext("모임인원이 있어 삭제할 수 없습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -181,11 +212,16 @@ final class PostDetailViewModel: BaseViewModel {
             .flatMap {
                 postAPIService.delete(postId: postId)
             }
-            .subscribe(onNext: { [weak self] success in
-                if success {
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
                     self?.routes.backward.onNext((id: postId, needUpdate: true))
-                } else {
-                    self?.outputs.toast.onNext("삭제에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("삭제에 실패했습니다.")
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -193,14 +229,20 @@ final class PostDetailViewModel: BaseViewModel {
         routeInputs.report
             .subscribe(onNext: { [weak self] report in
                 if report {
-                    self?.outputs.toast.onNext("신고가 접수되었습니다.")
+                    self?.toast.onNext("신고가 접수되었습니다.")
                 }
             })
             .disposed(by: disposeBag)
 
         inputs.toMessage
-            .map { postId }
-            .bind(to: routes.message)
+            .map { [weak self] in self?.roomID }
+            .subscribe(onNext: { [weak self] roomID in
+                if let roomID = roomID {
+                    self?.routes.message.onNext(roomID)
+                } else {
+                    self?.toast.onNext("채팅방을 찾을 수 없습니다.")
+                }
+            })
             .disposed(by: disposeBag)
     }
 
@@ -219,7 +261,6 @@ final class PostDetailViewModel: BaseViewModel {
         var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
 //        var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
-        var toast = PublishSubject<String>()
         var finished = PublishSubject<Bool>()
     }
 

@@ -134,10 +134,11 @@ extension PostAPI: TargetType {
         case let .apply(_, userId, _):
             return .requestPlain
         case let .accept(_, userId, _, _, _):
-            let query: [String: Any] = [
-                "userId": userId,
-            ]
-            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+//            let query: [String: Any] = [
+//                "userId": userId,
+//            ]
+//            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+            return .requestPlain
         case .close:
             return .requestPlain
         case .delete:

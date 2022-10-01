@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/11.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol OnboardingCancelModalDependency: Dependency {}
-
-final class OnboardingCancelModalComponent: Component<OnboardingCancelModalDependency> {
+final class OnboardingCancelModalComponent {
     var scene: (VC: UIViewController, VM: OnboardingCancelModalViewModel) {
         let viewModel = self.viewModel
         return (OnboardingCancelModalViewController(viewModel: viewModel), viewModel)

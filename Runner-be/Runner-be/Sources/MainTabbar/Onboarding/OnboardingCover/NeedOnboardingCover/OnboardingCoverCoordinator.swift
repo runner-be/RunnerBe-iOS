@@ -56,17 +56,13 @@ final class OnboardingCoverCoordinator: BasicCoordinator<OnboardingCoverResult> 
         let comp = component.policyTermComponent
         let coord = PolicyTermCoordinator(component: comp, navController: newNavController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .toMain:
-                    self?.closeSignal.onNext(.toMain)
-                case .backward, .cancelOnboarding:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .toMain:
+                self?.closeSignal.onNext(.toMain)
+            case .backward, .cancelOnboarding:
+                break
+            }
+        }
     }
 }

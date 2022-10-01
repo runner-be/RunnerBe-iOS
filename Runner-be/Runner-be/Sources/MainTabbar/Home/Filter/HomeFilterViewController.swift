@@ -85,6 +85,12 @@ class HomeFilterViewController: BaseViewController {
                 self?.filterGenderView.reset()
             })
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private var filterGenderView = SelectGenderView()

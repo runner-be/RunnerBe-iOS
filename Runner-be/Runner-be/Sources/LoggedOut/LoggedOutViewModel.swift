@@ -35,7 +35,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
-                    self?.outputs.toast.onNext("로그인에 실패했습니다")
+                    self?.toast.onNext("로그인에 실패했습니다")
                 }
             })
             .disposed(by: disposeBag)
@@ -55,7 +55,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
-                    self?.outputs.toast.onNext("로그인에 실패했습니다")
+                    self?.toast.onNext("로그인에 실패했습니다")
                 }
             })
             .disposed(by: disposeBag)
@@ -78,7 +78,7 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.userKeyChainService.uuid = uuid
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
-                    self?.outputs.toast.onNext("로그인에 실패했습니다.")
+                    self?.toast.onNext("로그인에 실패했습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -94,7 +94,6 @@ final class LoggedOutViewModel: BaseViewModel {
 
     struct Output {
         let loginFail = PublishSubject<Void>()
-        let toast = PublishSubject<String>()
     }
 
     struct Route {

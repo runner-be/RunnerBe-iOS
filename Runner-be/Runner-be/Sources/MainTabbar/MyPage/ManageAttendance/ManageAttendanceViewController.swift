@@ -82,7 +82,13 @@ class ManageAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+    }
 
     @objc func timerCallback() {
         time -= 1

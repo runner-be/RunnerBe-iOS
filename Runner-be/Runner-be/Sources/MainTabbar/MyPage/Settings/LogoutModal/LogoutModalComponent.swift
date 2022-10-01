@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol LogoutModalDependency: Dependency {}
-
-final class LogoutModalComponent: Component<LogoutModalDependency> {
+final class LogoutModalComponent {
     var scene: (VC: UIViewController, VM: LogoutModalViewModel) {
         let viewModel = self.viewModel
         return (LogoutModalViewController(viewModel: viewModel), viewModel)

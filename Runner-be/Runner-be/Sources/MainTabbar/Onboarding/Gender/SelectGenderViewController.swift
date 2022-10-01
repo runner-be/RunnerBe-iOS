@@ -67,6 +67,12 @@ final class SelectGenderViewController: BaseViewController {
                 self?.nextButton.isEnabled = enable
             })
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: Private
@@ -106,7 +112,7 @@ final class SelectGenderViewController: BaseViewController {
 
     private var genderLabelGroup = OnOffLabelGroup().then { group in
         group.styleOn = OnOffLabel.Style(
-            font: .iosBody15R,
+            font: .iosBody15B,
             backgroundColor: .primary,
             textColor: .darkG6,
             borderWidth: 1,
@@ -117,7 +123,7 @@ final class SelectGenderViewController: BaseViewController {
         )
 
         group.styleOff = OnOffLabel.Style(
-            font: .iosBody15R,
+            font: .iosBody15B,
             backgroundColor: .clear,
             textColor: .darkG35,
             borderWidth: 1,

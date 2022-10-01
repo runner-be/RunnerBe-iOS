@@ -13,8 +13,9 @@ struct BasicResponse {
     let code: Int
     let message: String
 
-    init(json: JSON) throws {
-        guard let success = json["isSuccess"].bool,
+    init(json: JSON?) throws {
+        guard let json = json,
+              let success = json["isSuccess"].bool,
               let code = json["code"].int,
               let message = json["message"].string
         else { throw JSONError.error("Json Decoding Error") }

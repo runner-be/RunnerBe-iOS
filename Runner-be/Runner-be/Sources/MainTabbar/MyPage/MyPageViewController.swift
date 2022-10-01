@@ -168,9 +168,9 @@ class MyPageViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.toast
-            .subscribe(onNext: { [weak self] message in
-                self?.view.makeToast(message)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
 
@@ -199,7 +199,7 @@ class MyPageViewController: BaseViewController {
                             case .authorized:
                                 self?.present(picker, animated: true)
                             default:
-                                self?.view.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                                AppContext.shared.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
                             }
                         }
                     }
@@ -210,7 +210,7 @@ class MyPageViewController: BaseViewController {
                             if ok {
                                 AppContext.shared.rootNavigationController?.present(picker, animated: true)
                             } else {
-                                self?.view.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
+                                AppContext.shared.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
                             }
                         }
                     })
@@ -230,7 +230,7 @@ class MyPageViewController: BaseViewController {
                 ////                            if ok {
                 ////                                self?.present(picker, animated: true)
                 ////                            } else {
-                ////                                self?.view.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
+                ////                                AppContext.shared.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
                 ////                            }
                 ////                        }
                 ////                    })

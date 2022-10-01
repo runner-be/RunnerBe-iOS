@@ -67,41 +67,30 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
     private func pushSelectGenderCoord(animated: Bool) {
         let comp = component.selectGenderComponent
-
         let coord = SelectGenderCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] coordResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch coordResult {
-                case .cancelOnboarding:
-                    self?.closeSignal.onNext(.cancelOnboarding)
-                case .toMain:
-                    self?.closeSignal.onNext(.toMain)
-                case .backward: break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .cancelOnboarding:
+                self?.closeSignal.onNext(.cancelOnboarding)
+            case .toMain:
+                self?.closeSignal.onNext(.toMain)
+            case .backward: break
+            }
+        }
     }
 
     private func presentOnboardingCancelCoord(animated: Bool) {
         let comp = component.onboardingCancelModalComponent
         let coord = OnboardingCancelModalCoordinator(component: comp, navController: navigationController)
 
-        let disposable = coordinate(coordinator: coord, animated: animated)
-            .take(1)
-            .subscribe(onNext: { [weak self] modalResult in
-                defer { self?.releaseChild(coordinator: coord) }
-                switch modalResult {
-                case .cancelOnboarding:
-                    self?.closeSignal.onNext(.cancelOnboarding)
-                case .cancelModal:
-                    break
-                }
-            })
-
-        addChildDisposable(id: coord.identifier, disposable: disposable)
+        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+            switch coordResult {
+            case .cancelOnboarding:
+                self?.closeSignal.onNext(.cancelOnboarding)
+            case .cancelModal:
+                break
+            }
+        }
     }
 }

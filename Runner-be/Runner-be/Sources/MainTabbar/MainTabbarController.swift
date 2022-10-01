@@ -62,6 +62,11 @@ class MainTabViewController: BaseViewController {
                 self?.showSelectedVC(at: index)
             })
             .disposed(by: disposeBag)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func showSelectedVC(at index: Int) {

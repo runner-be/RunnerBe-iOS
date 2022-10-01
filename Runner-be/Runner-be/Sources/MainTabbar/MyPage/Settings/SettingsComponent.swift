@@ -5,12 +5,9 @@
 //  Created by 김신우 on 2022/02/27.
 //
 
-import Foundation
-import NeedleFoundation
+import UIKit
 
-protocol SettingsDependency: Dependency {}
-
-final class SettingsComponent: Component<SettingsDependency> {
+final class SettingsComponent {
     var scene: (VC: UIViewController, VM: SettingsViewModel) {
         let viewModel = self.viewModel
         return (SettingsViewController(viewModel: viewModel), viewModel)
@@ -21,11 +18,11 @@ final class SettingsComponent: Component<SettingsDependency> {
     }
 
     var makerComponent: MakerComponent {
-        return MakerComponent(parent: self)
+        return MakerComponent()
     }
 
     var logoutModalComponent: LogoutModalComponent {
-        return LogoutModalComponent(parent: self)
+        return LogoutModalComponent()
     }
 
 //    var licenseComponent: LicenseComponent {
@@ -33,14 +30,14 @@ final class SettingsComponent: Component<SettingsDependency> {
 //    }
 
     var signoutModalComponent: SignoutModalComponent {
-        return SignoutModalComponent(parent: self)
+        return SignoutModalComponent()
     }
 
     var signoutCompletionModalComponent: SignoutCompletionModalComponent {
-        return SignoutCompletionModalComponent(parent: self)
+        return SignoutCompletionModalComponent()
     }
 
     func policyDetailComponent(type: PolicyType, modal: Bool) -> PolicyDetailComponent {
-        return PolicyDetailComponent(parent: self, policyType: type, modal: modal)
+        return PolicyDetailComponent(policyType: type, modal: modal)
     }
 }

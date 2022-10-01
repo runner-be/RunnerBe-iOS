@@ -41,6 +41,7 @@ class WritingDateView: SelectBaseView {
         group.titleLabel.text = L10n.Post.Date.placeHolder
         group.titleLabel.font = .iosBody15R
         group.titleLabel.textColor = .darkG1
+        group.moreInfoButton.isEnabled = false
     }
 
     override func setupViews() {
