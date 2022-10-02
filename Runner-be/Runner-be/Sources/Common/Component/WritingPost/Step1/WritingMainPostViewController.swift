@@ -204,6 +204,7 @@ class WritingMainPostViewController: BaseViewController {
 extension WritingMainPostViewController {
     private func setupViews() {
         setBackgroundColor()
+        segmentedControl.delegate = self
 
         view.addSubviews([
             navBar,
