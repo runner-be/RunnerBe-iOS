@@ -245,8 +245,8 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
             cell.refusalBtn.isHidden = true
             cell.acceptBtn.isHidden = true
 
-            if runnerList[indexPath.row].whetherCheck! == "Y" { // 리더가 출석체크했음
-                if runnerList[indexPath.row].attendance! == 0 {
+            if runnerList[indexPath.row].whetherCheck == "Y" { // 리더가 출석체크했음
+                if runnerList[indexPath.row].attendance == 0 {
                     cell.resultView.label.text = L10n.MyPage.ManageAttendance.Absence.title
                 } else {
                     cell.resultView.label.text = L10n.MyPage.ManageAttendance.Attendance.title
@@ -327,12 +327,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
 extension ManageAttendanceViewController {
     func didSuccessGetManageAttendance(result: GetMyPageResult) {
-//        print("출석 여부: \(result.myPosting?[myRunningIdx].attendTimeOver)")
-        runnerList.append(contentsOf: result.myPosting?[myRunningIdx].runnerList ?? [])
+        // 이 화면에 들어왔다는 것은, runnerList가 1명이상은 무조건 있다는 것임 (자기자신)
+        runnerList.append(contentsOf: (result.myPosting?[myRunningIdx].runnerList)!)
 
         tableView.reloadData()
 
-        if result.myPosting?[myRunningIdx].attendTimeOver! == "Y" { // 출석 관리 마감 여부
+        if result.myPosting?[myRunningIdx].attendTimeOver == "Y" { // 출석 관리 마감 여부
             attendTimeOver = "Y"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
             saveButton.isHidden = true
@@ -376,11 +376,11 @@ extension ManageAttendanceViewController {
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
         // <<<<<<< Updated upstream
-        let dateString = (result.myPosting?[myRunningIdx].gatheringTime!)!
+        let dateString = (result.myPosting?[myRunningIdx].gatheringTime)!
         print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
 
-        let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
+        let hms = result.myPosting?[myRunningIdx].runningTime?.components(separatedBy: ":") // hour miniute seconds
         let hour = Int(hms![0])
         let minute = Int(hms![1])
 
