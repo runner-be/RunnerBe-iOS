@@ -273,7 +273,7 @@ extension PostDetailViewController {
         }
     }
 
-    func makeFooter(writer: Bool, participated: Bool, applied: Bool, satisfied: Bool, finished: Bool) {
+    func makeFooter(writer: Bool, participated _: Bool, applied: Bool, satisfied: Bool, finished: Bool) {
         footer?.removeFromSuperview()
 
         let footer: PostDetailFooter
@@ -282,12 +282,12 @@ extension PostDetailViewController {
             let writerFooter = PostWriterFooter()
 
             writerFooter.applyBtn.isEnabled = false
-            writerFooter.toMessageButton.isEnabled = participated
+            writerFooter.toMessageButton.isEnabled = true
             applicantBtn.isHidden = true
             footer = writerFooter
         } else if writer {
             let writerFooter = PostWriterFooter()
-            writerFooter.toMessageButton.isEnabled = participated
+            writerFooter.toMessageButton.isEnabled = true
 
             writerFooter.applyBtn.rx.tap
                 .debug()
@@ -311,25 +311,9 @@ extension PostDetailViewController {
         } else {
             let guestFooter = PostGuestFooter(applied: applied, satisfied: satisfied)
             guestFooter.toMessageButton.isEnabled = true
-//            guestFooter.toMessageButton.isEnabled = participated
-
-//            guestFooter.bookMarkBtn.rx.tap
-//                .map { !guestFooter.bookMarkBtn.isSelected }
-//                .bind(to: viewModel.inputs.bookMark)
-//                .disposed(by: guestFooter.disposeBag)
 
             guestFooter.applyBtn.rx.tap
                 .bind(to: viewModel.inputs.apply)
-                .disposed(by: guestFooter.disposeBag)
-
-//            viewModel.outputs.bookMarked
-//                .subscribe(onNext: { marked in
-//                    guestFooter.bookMarkBtn.isSelected = marked
-//                })
-//                .disposed(by: guestFooter.disposeBag)
-
-            guestFooter.toMessageButton.rx.tap
-                .bind(to: viewModel.inputs.toMessage)
                 .disposed(by: guestFooter.disposeBag)
 
             viewModel.outputs.apply
