@@ -226,8 +226,8 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ManageAttendanceCell.id) as? ManageAttendanceCell else { return .init() }
         cell.selectionStyle = .none
 
-        // user 세팅하기
-        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL!)
+        // user 세팅하기 -> profileImageURL이 null인 경우가 있으니, null일 경우엔 빈값으로 두어서 대응
+        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL ?? "")
         var isUser = false
 
         if runnerList[indexPath.row].whetherPostUser == "Y" {
@@ -375,7 +375,7 @@ extension ManageAttendanceViewController {
 
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
-        // <<<<<<< Updated upstream
+
         let dateString = (result.myPosting?[myRunningIdx].gatheringTime)!
         print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!

@@ -204,6 +204,7 @@ extension MessageChatViewController {
     @objc
     func tapSendMessage(_: UITapGestureRecognizer) {
         messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+        chatTextView.text = ""
     }
 
     @objc
