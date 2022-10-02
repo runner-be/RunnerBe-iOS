@@ -71,7 +71,7 @@ class MessagePostView: UIView {
         }
 
         rightArrow.snp.makeConstraints { make in
-            make.centerY.equalTo(postTitle)
+            make.centerY.equalTo(self.snp.centerY)
             make.trailing.equalTo(self.snp.trailing).offset(-16)
         }
     }

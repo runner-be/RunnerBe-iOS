@@ -91,6 +91,8 @@ class MessageReportViewController: BaseViewController {
         navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG35, for: .normal)
         navBar.rightBtnItem.isEnabled = false
+        navBar.titleLabel.font = .iosBody17Sb
+        navBar.titleLabel.textColor = .darkG35
         navBar.titleLabel.text = L10n.MessageList.Chat.NavBar.title
     }
 
@@ -123,9 +125,13 @@ extension MessageReportViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
+            make.top.equalTo(view.snp.top).offset(11)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
+        }
+
+        navBar.titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(navBar.navContentView.snp.top).offset(8)
         }
 
         postSection.snp.makeConstraints { make in
