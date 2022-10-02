@@ -37,6 +37,7 @@
 		43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */; };
 		43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */; };
 		43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */; };
+		43D8F20A28E9E25100EB3B92 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8F20928E9E25100EB3B92 /* Skeleton.swift */; };
 		43DDEC5E28CF2F20005741FE /* JobGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DDEC5D28CF2F20005741FE /* JobGroupView.swift */; };
 		43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E5181D28C2E257009A1897 /* DateStamp.swift */; };
 		B36BE72EA04BE8F7564F362B /* Pods_Runner_be.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EE430F32B637ED938FCDD /* Pods_Runner_be.framework */; };
@@ -409,6 +410,7 @@
 		43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewModel.swift; sourceTree = "<group>"; };
 		43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListCoordinator.swift; sourceTree = "<group>"; };
 		43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListComponent.swift; sourceTree = "<group>"; };
+		43D8F20928E9E25100EB3B92 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		43DDEC5D28CF2F20005741FE /* JobGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobGroupView.swift; sourceTree = "<group>"; };
 		43E5181D28C2E257009A1897 /* DateStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStamp.swift; sourceTree = "<group>"; };
 		58506B163AF48E00A7D66D1A /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
@@ -885,6 +887,14 @@
 				43B1E6C628B1AD4B0057A1AF /* AlarmListViewController.swift */,
 			);
 			path = AlarmList;
+			sourceTree = "<group>";
+		};
+		43D8F20828E9E22800EB3B92 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				43D8F20928E9E25100EB3B92 /* Skeleton.swift */,
+			);
+			path = Skeleton;
 			sourceTree = "<group>";
 		};
 		7DFA2EC107AA65E58D6F6BC9 /* Frameworks */ = {
@@ -1888,6 +1898,7 @@
 		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				43D8F20828E9E22800EB3B92 /* Skeleton */,
 				434ED1FA286007DA00F6EF69 /* Map */,
 				C399FD1127C2833400396DC3 /* PostCell */,
 				C3347BF327C2D9CA006FB110 /* CommonSelectViews */,
@@ -2432,6 +2443,7 @@
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
+				43D8F20A28E9E25100EB3B92 /* Skeleton.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
 				DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */,
@@ -2925,7 +2937,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
@@ -2951,7 +2963,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = yuri;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2969,7 +2981,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 88WL9553L8;
@@ -2995,7 +3007,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = yuri;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

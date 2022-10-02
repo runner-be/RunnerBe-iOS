@@ -18,11 +18,24 @@ final class DetailTitleView: UIView {
     init() {
         super.init(frame: .zero)
         setup()
+        initialLayout(finished: false)
     }
 
     func setup(title: String, tag: String, finished: Bool) {
         titleLabel.text = title
         tagLabel.text = tag
+        tagLabel.applyStyle(
+            BadgeLabel.Style(
+                font: .iosBody13R,
+                backgroundColor: .clear,
+                textColor: .primarydark,
+                borderWidth: 1,
+                borderColor: .primarydark,
+                cornerRadiusRatio: 1,
+                useCornerRadiusAsFactor: true,
+                padding: UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
+            )
+        )
         finishTag.isHidden = !finished
         initialLayout(finished: finished)
     }
@@ -30,7 +43,7 @@ final class DetailTitleView: UIView {
     private var titleLabel = UILabel().then { label in
         label.font = .iosBody17R
         label.textColor = .darkG1
-        label.text = "TITLETITLETITLE"
+        label.text = "게시글 제목"
     }
 
     private var tagLabel = BadgeLabel().then { label in
@@ -38,15 +51,15 @@ final class DetailTitleView: UIView {
             font: .iosBody13R,
             backgroundColor: .clear,
             textColor: .primarydark,
-            borderWidth: 1,
+            borderWidth: 0,
             borderColor: .primarydark,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
+            padding: UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
         )
 
         label.applyStyle(style)
-        label.text = "TAGTAG"
+        label.text = "게시글 태그"
     }
 
     private var finishTag = UIView().then { view in
@@ -77,6 +90,10 @@ final class DetailTitleView: UIView {
     }
 
     private func initialLayout(finished: Bool) {
+        tagLabel.snp.removeConstraints()
+        titleLabel.snp.removeConstraints()
+        finishTag.snp.removeConstraints()
+
         if finished {
             tagLabel.snp.makeConstraints { make in
                 make.top.equalTo(self.snp.top)
