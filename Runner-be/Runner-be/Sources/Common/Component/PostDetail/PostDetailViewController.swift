@@ -13,11 +13,13 @@ import Then
 import Toast_Swift
 import UIKit
 
-class PostDetailViewController: BaseViewController {
+class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         initialLayout()
+
+        showSkeleton()
 
         viewModelInput()
         viewModelOutput()
@@ -84,6 +86,8 @@ class PostDetailViewController: BaseViewController {
                     finished: data.finished
                 )
                 self?.applicantNoti.isHidden = data.numApplicant == 0
+
+                self?.hideSkeleton()
             })
             .disposed(by: disposeBag)
 
@@ -108,7 +112,7 @@ class PostDetailViewController: BaseViewController {
     private var textView = UITextView().then { view in
         view.font = .iosBody15R
         view.textColor = .darkG25
-        view.text = ""
+        view.text = "게시글\n상세\n내용"
         view.isScrollEnabled = false
         view.isEditable = false
         view.backgroundColor = .clear
@@ -136,7 +140,7 @@ class PostDetailViewController: BaseViewController {
     private var participantHeader = UserInfoHeader()
 
     private var participantView = UIStackView.make(
-        with: [UserInfoWithSingleDivider()],
+        with: [],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
