@@ -81,7 +81,6 @@ final class PostDetailViewModel: BaseViewModel {
 
         postAPIService.detailInfo(postId: postId)
             .take(1)
-            .delay(.seconds(2), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
