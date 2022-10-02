@@ -227,9 +227,20 @@ final class PostDetailViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         routeInputs.report
-            .subscribe(onNext: { [weak self] report in
-                if report {
+            .filter { $0 }
+            .flatMap { _ in
+                postAPIService.report(postId: postId)
+            }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
                     self?.toast.onNext("신고가 접수되었습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생해 신고가 접수되지 않았습니다.")
+                    }
                 }
             })
             .disposed(by: disposeBag)

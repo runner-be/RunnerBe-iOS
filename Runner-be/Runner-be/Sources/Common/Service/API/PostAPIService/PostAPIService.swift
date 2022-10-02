@@ -34,4 +34,5 @@ protocol PostAPIService {
     func myPage() -> Observable<APIResult<MyPageAPIResult>>
     func delete(postId: Int) -> Observable<APIResult<Bool>>
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>>
+    func report(postId: Int) -> Observable<APIResult<Bool>>
 }
