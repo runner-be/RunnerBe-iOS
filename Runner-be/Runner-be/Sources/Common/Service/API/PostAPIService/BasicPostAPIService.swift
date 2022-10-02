@@ -568,4 +568,43 @@ final class BasicPostAPIService: PostAPIService {
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+
+    func report(postId: Int) -> Observable<APIResult<Bool>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(APIResult.error(alertMessage: nil)) }
+
+        return provider.rx.request(.report(postId: postId, userId: userId, token: token))
+            .asObservable()
+            .map { try? JSON(data: $0.data) }
+            .map { try? BasicResponse(json: $0) }
+            .map { response in
+                guard let response = response else {
+                    return APIResult.error(alertMessage: nil)
+                }
+
+                switch response.code {
+                case 1000: // 성공
+                    return APIResult.response(result: true)
+                case 2010: // jwt와 userId 불일치
+                    return APIResult.error(alertMessage: nil)
+                case 2011: // userId 미입력
+                    return APIResult.error(alertMessage: nil)
+                case 2012: // userId 형식 오류 (숫자입력 X)
+                    return APIResult.error(alertMessage: nil)
+                case 2041: // postId 미입력
+                    return APIResult.error(alertMessage: nil)
+                case 2042: // postId 형식 오류
+                    return APIResult.error(alertMessage: nil)
+                case 2044: // 인증 대기중 회원
+                    return APIResult.error(alertMessage: nil)
+                case 2045: // 존재하지 않는 postId
+                    return APIResult.error(alertMessage: nil)
+                default:
+                    return APIResult.error(alertMessage: nil)
+                }
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }
