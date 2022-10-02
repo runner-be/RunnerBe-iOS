@@ -74,7 +74,7 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
                     $0.append(view)
                 }
 
-                self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/8)"
+                self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/\(data.postDetail.maximumNum))"
                 self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 self?.participantView.addArrangedSubviews(userInfoViews)
                 self?.makeNavBarRightButton(writer: data.writer)
