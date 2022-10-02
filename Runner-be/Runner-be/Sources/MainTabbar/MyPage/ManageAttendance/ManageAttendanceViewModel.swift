@@ -19,21 +19,26 @@ final class ManageAttendanceViewModel: BaseViewModel {
         inputs.showExpiredModal
             .bind(to: routes.showExpiredModal)
             .disposed(by: disposeBag)
+
+        inputs.goToMyPage
+            .bind(to: routes.goToMyPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var backward = PublishSubject<Void>()
         var showExpiredModal = PublishSubject<Void>()
+        var goToMyPage = PublishSubject<Void>()
     }
 
     struct Output {
-//        var menus = ReplaySubject<[[SettingCellConfig]]>.create(bufferSize: 1)
-//        var toast = PublishSubject<String>()
+        var goToMyPage = PublishSubject<Bool>()
     }
 
     struct Route {
         var backward = PublishSubject<Void>()
         var showExpiredModal = PublishSubject<Void>()
+        var goToMyPage = PublishSubject<Void>()
     }
 
     struct RouteInputs {

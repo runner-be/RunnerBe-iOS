@@ -22,8 +22,9 @@ class ManagedTimeExpiredViewController: BaseViewController {
         viewModelOutput()
     }
 
-    override init() {
-//        self.viewModel = viewModel
+    init(viewModel: ManageTimeExpiredModalViewModel) {
+        self.viewModel = viewModel
+
         super.init()
     }
 
@@ -32,27 +33,27 @@ class ManagedTimeExpiredViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    private var viewModel: ManageTimeExpiredModalViewModel
+    private var viewModel: ManageTimeExpiredModalViewModel
 
     private func viewModelInput() {
-//        sheet.rx.tapGesture(configuration: { _, delegate in
-//            delegate.simultaneousRecognitionPolicy = .never
-//        })
-//        .when(.recognized)
-//        .subscribe()
-//        .disposed(by: disposeBag)
-//
-//        view.rx.tapGesture(configuration: { _, delegate in
-//            delegate.simultaneousRecognitionPolicy = .never
-//        })
-//        .when(.recognized)
-//        .map { _ in }
-//        .subscribe(viewModel.inputs.backward)
-//        .disposed(by: disposeBag)
-//
-//        toMyPageButton.rx.tap
-//            .bind(to: viewModel.inputs.tapOK)
-//            .disposed(by: disposeBag)
+        sheet.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .subscribe()
+        .disposed(by: disposeBag)
+
+        view.rx.tapGesture(configuration: { _, delegate in
+            delegate.simultaneousRecognitionPolicy = .never
+        })
+        .when(.recognized)
+        .map { _ in }
+        .subscribe(viewModel.inputs.backward)
+        .disposed(by: disposeBag)
+
+        toMyPageButton.rx.tap
+            .bind(to: viewModel.inputs.tapOK)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {}

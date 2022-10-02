@@ -157,13 +157,9 @@ extension MessageChatViewController {
 
     private func initialLayout() {
         navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(11)
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-        }
-
-        navBar.titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(navBar.navContentView.snp.top).offset(8)
         }
 
         postSection.snp.makeConstraints { make in

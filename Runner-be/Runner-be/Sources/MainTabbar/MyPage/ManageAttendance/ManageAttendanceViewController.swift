@@ -267,10 +267,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.isSelected = true
                         cell.refusalBtn.backgroundColor = .primary
                         cell.refusalBtn.setTitleColor(.black, for: .selected)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15B
 
                         cell.acceptBtn.isSelected = false
                         cell.acceptBtn.backgroundColor = .clear
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "N"
 
@@ -278,6 +280,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.isSelected = false
                         cell.refusalBtn.backgroundColor = .clear
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "-"
                     }
@@ -292,10 +295,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.isSelected = true
                         cell.acceptBtn.backgroundColor = .primary
                         cell.acceptBtn.setTitleColor(.black, for: .selected)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15B
 
                         cell.refusalBtn.isSelected = false
                         cell.refusalBtn.backgroundColor = .clear
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "Y"
 
@@ -303,6 +308,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.isSelected = false
                         cell.acceptBtn.backgroundColor = .clear
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "-"
                     }
@@ -393,6 +399,7 @@ extension ManageAttendanceViewController {
         print(currentDate.description)
         let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
         time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+//        time = 5 // 마이페이지 모달 이동 테스트용
         print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
         print("time \(time)")
 
