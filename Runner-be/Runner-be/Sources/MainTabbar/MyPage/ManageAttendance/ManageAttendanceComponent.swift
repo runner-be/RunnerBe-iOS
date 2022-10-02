@@ -27,4 +27,8 @@ final class ManageAttendanceComponent {
     var manageExpiredModalComponent: ManageTimeExpiredModalComponent {
         return ManageTimeExpiredModalComponent()
     }
+
+    var myPageComponent: MyPageComponent {
+        return MyPageComponent()
+    }
 }

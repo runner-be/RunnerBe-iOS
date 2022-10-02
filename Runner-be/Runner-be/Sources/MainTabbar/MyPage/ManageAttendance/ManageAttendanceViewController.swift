@@ -28,7 +28,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
 
-    let currentDate = DateUtil.shared.now
+    let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
     var gatherDate = Date()
     var runningTime = TimeInterval()
     var time = 0
@@ -60,6 +60,8 @@ class ManageAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
+
+        print("myRunningIdx \(myRunningIdx)")
     }
 
     init(viewModel: ManageAttendanceViewModel, myRunningIdx: Int) {
@@ -92,7 +94,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     @objc func timerCallback() {
         time -= 1
-        timeSecondLabel.text = "\(Int(time / (60 * 60)))시간 \(Int(time / 60))분"
+        timeSecondLabel.text = "\(Int(time / (60 * 60))) 시간 \(Int((time / 60) % 60)) 분"
 
         if time == 0 {
             timer?.invalidate()
@@ -243,8 +245,8 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
             cell.refusalBtn.isHidden = true
             cell.acceptBtn.isHidden = true
 
-            if runnerList[indexPath.row].whetherCheck! == "Y" { // 리더가 출석체크했음
-                if runnerList[indexPath.row].attendance! == 0 {
+            if runnerList[indexPath.row].whetherCheck == "Y" { // 리더가 출석체크했음
+                if runnerList[indexPath.row].attendance == 0 {
                     cell.resultView.label.text = L10n.MyPage.ManageAttendance.Absence.title
                 } else {
                     cell.resultView.label.text = L10n.MyPage.ManageAttendance.Attendance.title
@@ -265,10 +267,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.isSelected = true
                         cell.refusalBtn.backgroundColor = .primary
                         cell.refusalBtn.setTitleColor(.black, for: .selected)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15B
 
                         cell.acceptBtn.isSelected = false
                         cell.acceptBtn.backgroundColor = .clear
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "N"
 
@@ -276,6 +280,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.isSelected = false
                         cell.refusalBtn.backgroundColor = .clear
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "-"
                     }
@@ -290,10 +295,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.isSelected = true
                         cell.acceptBtn.backgroundColor = .primary
                         cell.acceptBtn.setTitleColor(.black, for: .selected)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15B
 
                         cell.refusalBtn.isSelected = false
                         cell.refusalBtn.backgroundColor = .clear
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.refusalBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "Y"
 
@@ -301,6 +308,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.isSelected = false
                         cell.acceptBtn.backgroundColor = .clear
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
+                        cell.acceptBtn.titleLabel?.font = .iosBody15R
 
                         self.attendList[indexPath.row] = "-"
                     }
@@ -319,12 +327,12 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
 extension ManageAttendanceViewController {
     func didSuccessGetManageAttendance(result: GetMyPageResult) {
-//        print("출석 여부: \(result.myPosting?[myRunningIdx].attendTimeOver)")
-        runnerList.append(contentsOf: result.myPosting?[myRunningIdx].runnerList ?? [])
+        // 이 화면에 들어왔다는 것은, runnerList가 1명이상은 무조건 있다는 것임 (자기자신)
+        runnerList.append(contentsOf: (result.myPosting?[myRunningIdx].runnerList)!)
 
         tableView.reloadData()
 
-        if result.myPosting?[myRunningIdx].attendTimeOver! == "Y" { // 출석 관리 마감 여부
+        if result.myPosting?[myRunningIdx].attendTimeOver == "Y" { // 출석 관리 마감 여부
             attendTimeOver = "Y"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
             saveButton.isHidden = true
@@ -368,27 +376,31 @@ extension ManageAttendanceViewController {
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
         // <<<<<<< Updated upstream
-        let dateString = (result.myPosting?[myRunningIdx].gatheringTime!)!
+        let dateString = (result.myPosting?[myRunningIdx].gatheringTime)!
         print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
-//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
-        //=======
-//        gatherDate = formatter.date(from: (result.myPosting?[myRunningIdx].gatheringTime!)!)! // 러닝 시작 날짜
-//        gatherDate = gatherDate.addingTimeInterval(TimeInterval(-TimeZone.current.secondsFromGMT()))
-        // >>>>>>> Stashed changes
 
-        let hms = result.myPosting?[myRunningIdx].runningTime!.components(separatedBy: ":") // hour miniute seconds
+        let hms = result.myPosting?[myRunningIdx].runningTime?.components(separatedBy: ":") // hour miniute seconds
         let hour = Int(hms![0])
         let minute = Int(hms![1])
 
+        // 러닝 시간
         print("runningTime: \(hour):\(minute)")
 
-//        runningInterval = TimeInterval(hour! * 60 * 60 + minute! * 60)
+        // 모임 날짜
+        gatherDate = gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
+        print("gatherDate \(gatherDate)")
 
-        print("gatherDate \(gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60)))")
-        var finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+        // 출석 마감 날짜
+        let finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
         print("finishedDate \(finishedDate.description)")
-        time = Int(finishedDate.timeIntervalSince(currentDate) / (60 * 60))
+
+        // 현재 - 출석 마감 날짜 남은 분
+        print(currentDate.description)
+        let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
+        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+//        time = 5 // 마이페이지 모달 이동 테스트용
+        print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
         print("time \(time)")
 
         for user in result.myPosting![myRunningIdx].runnerList! {

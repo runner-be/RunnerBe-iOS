@@ -10,7 +10,7 @@ import UIKit
 final class ManageTimeExpiredModalComponent {
     var scene: (VC: UIViewController, VM: ManageTimeExpiredModalViewModel) {
         let viewModel = self.viewModel
-        return (ManagedTimeExpiredViewController(), viewModel)
+        return (ManagedTimeExpiredViewController(viewModel: viewModel), viewModel)
     }
 
     var viewModel: ManageTimeExpiredModalViewModel {

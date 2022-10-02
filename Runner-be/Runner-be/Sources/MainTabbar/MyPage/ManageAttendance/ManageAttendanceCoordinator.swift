@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 enum ManageAttendanceResult {
-//    case timeexpired
+//    case logout
     case backward
 }
 
@@ -38,5 +38,43 @@ final class ManageAttendanceCoordinator: BasicCoordinator<ManageAttendanceResult
             .map { ManageAttendanceResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.showExpiredModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentExpiredModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.goToMyPage
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.configureAndGetMyPageScene(vm: vm)
+            })
+            .disposed(by: sceneDisposeBag)
+    }
+
+    private func presentExpiredModal(vm: ManageAttendanceViewModel, animated: Bool) {
+        let comp = component.manageExpiredModalComponent
+        let coord = ManageTimeExpiredModalCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .ok:
+                vm.routes.goToMyPage.onNext(())
+            }
+        }
+    }
+
+    private func configureAndGetMyPageScene(vm: ManageAttendanceViewModel) {
+        let comp = component.myPageComponent
+        let coord = MyPageCoordinator(component: comp, navController: navigationController)
+
+        vm.routes.backward.onNext(()) // 출석관리하기 화면 종료
+
+        coordinate(coordinator: coord, animated: false, needRelease: false)
+        // 마이페이지 이동
+
+        comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
 }

@@ -42,7 +42,10 @@ final class RunnerbeNavBar: UIView {
     var leftBtnItem = UIButton()
     var rightBtnItem = UIButton()
     var rightSecondBtnItem = UIButton()
-    var titleLabel = UILabel().then { label in label.text = "" }
+    var titleLabel = UILabel().then { label in
+        label.text = ""
+        label.font = .iosBody17Sb
+    }
 }
 
 // MARK: - Layout
@@ -66,7 +69,7 @@ extension RunnerbeNavBar {
         topNotchView.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(self.snp.trailing)
-            make.top.equalTo(self.snp.top)
+            make.top.equalTo(self.snp.top).offset(11)
             make.height.equalTo(AppContext.shared.safeAreaInsets.top)
         }
 
@@ -96,6 +99,7 @@ extension RunnerbeNavBar {
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(navContentView.snp.centerX)
             make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
+            make.top.equalTo(navContentView.snp.top).offset(8)
         }
     }
 }

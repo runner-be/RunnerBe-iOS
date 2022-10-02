@@ -110,18 +110,25 @@ class MessageChatViewController: BaseViewController {
     }
 
     var chatTextView = UITextView().then { view in
+        // background
         view.backgroundColor = .darkG5
         view.layer.borderWidth = 0
-        view.layer.cornerRadius = 32
         view.clipsToBounds = true
+        view.layer.cornerRadius = 19
 
-        view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44) // textview padding 추가
+        // textview padding
+        view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44)
+
         view.font = .iosBody15R
-        view.isScrollEnabled = true
+
+        // place holder 설정
+        view.text = L10n.MessageList.Chat.placeHolder
+        view.textColor = .darkG35
         view.showsVerticalScrollIndicator = false
     }
 
     var sendButton = UIButton().then { view in
+        view.isUserInteractionEnabled = false
         view.setImage(Asset.iconsSend24.uiImage, for: .normal)
     }
 }
@@ -141,9 +148,6 @@ extension MessageChatViewController {
 
         chatBackGround.addSubviews([
             chatTextView,
-        ])
-
-        chatTextView.addSubviews([
             sendButton,
         ])
 
@@ -175,13 +179,12 @@ extension MessageChatViewController {
             make.leading.equalTo(self.view.snp.leading)
             make.trailing.equalTo(self.view.snp.trailing)
             make.bottom.equalTo(self.view.snp.bottom)
-            make.height.equalTo(84)
+            make.height.equalTo(96)
         }
 
         chatTextView.snp.makeConstraints { make in
             make.leading.equalTo(chatBackGround.snp.leading).offset(16)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
-            make.bottom.equalTo(chatBackGround.snp.bottom).offset(-45)
+            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-52)
             make.top.equalTo(chatBackGround.snp.top).offset(12)
             make.height.equalTo(38)
         }
@@ -189,8 +192,8 @@ extension MessageChatViewController {
         sendButton.snp.makeConstraints { make in
             make.width.equalTo(24)
             make.height.equalTo(24)
-            make.top.equalTo(chatTextView.snp.top).offset(-6)
-            make.trailing.equalTo(chatTextView.snp.trailing).offset(-12)
+            make.centerY.equalTo(chatTextView.snp.centerY)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
         let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
@@ -288,11 +291,28 @@ extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 extension MessageChatViewController: UITextViewDelegate {
-    func textViewDidChange(_: UITextView) {
-        if !chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.isEnabled = true
+    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
+        if textView.text == L10n.MessageList.Chat.placeHolder {
+            textView.text = nil // placeholder 제거
+            textView.textColor = .darkG1
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            // 비어있을 경우 placeholder 노출
+            textView.text = L10n.MessageList.Chat.placeHolder
+            textView.textColor = .darkG35
+        }
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            sendButton.isUserInteractionEnabled = false
+//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal) // 이부분때문에 textview 사라지는 현상 발생
         } else {
-            sendButton.isEnabled = false
+            sendButton.isUserInteractionEnabled = true
+//            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
     }
 }
