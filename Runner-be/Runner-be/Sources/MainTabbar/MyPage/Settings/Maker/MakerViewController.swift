@@ -124,14 +124,14 @@ extension MakerViewController {
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(plan.snp.height)
             make.top.equalTo(navBar.snp.bottom).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(view.bounds.width * 0.235)
+            make.leading.equalTo(view.snp.leading).offset(view.bounds.width * 0.194)
         }
 
         design.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(design.snp.height)
             make.top.equalTo(plan.snp.top)
-            make.trailing.equalTo(view.snp.trailing).offset(-view.bounds.width * 0.235)
+            make.trailing.equalTo(view.snp.trailing).offset(-view.bounds.width * 0.194)
         }
 
         aos_duru.snp.makeConstraints { make in
