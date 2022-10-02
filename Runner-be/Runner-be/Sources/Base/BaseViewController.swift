@@ -32,11 +32,18 @@ class BaseViewController: UIViewController {
     // MARK: Internal
 
     var disposeBag = DisposeBag()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
 }
 
 // MARK: - Base Functions
 
-extension BaseViewController {
+extension BaseViewController: UIGestureRecognizerDelegate {
     func setBackgroundColor() {
         view.backgroundColor = .darkG7
     }
@@ -54,5 +61,9 @@ extension BaseViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(false)
+    }
+
+    func gestureRecognizer(_: UIGestureRecognizer, shouldBeRequiredToFailBy _: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
