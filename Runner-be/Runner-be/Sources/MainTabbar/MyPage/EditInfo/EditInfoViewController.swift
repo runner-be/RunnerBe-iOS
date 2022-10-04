@@ -179,6 +179,8 @@ class EditInfoViewController: BaseViewController {
                 if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
                     self?.selectedJobIdx = idx
                     return true
+                } else {
+                    self?.selectJobGuideLabel.isHidden = false
                 }
                 return false // 여기서는 실행이 안됨
             }
@@ -347,10 +349,8 @@ extension EditInfoViewController {
         }
 
         if result.myInfo?[0].jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
-            selectJobGuideLabel.isHidden = false
             jobChangePossible = false
         } else { // 변경한지 3개월 지남 -> 변경 가능
-            selectJobGuideLabel.isHidden = true
             jobChangePossible = true
         }
 
