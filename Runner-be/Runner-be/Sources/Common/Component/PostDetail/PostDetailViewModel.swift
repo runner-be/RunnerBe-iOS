@@ -38,6 +38,7 @@ final class PostDetailViewModel: BaseViewModel {
 
                     self.outputs.detailData.onNext(
                         (
+                            postDetail: postDetail,
                             finished: !postDetail.post.open,
                             writer: false,
                             participated: participated,
@@ -58,6 +59,7 @@ final class PostDetailViewModel: BaseViewModel {
                     self.roomID = roomID
                     self.outputs.detailData.onNext(
                         (
+                            postDetail: postDetail,
                             finished: !postDetail.post.open,
                             writer: true,
                             participated: true,
@@ -269,7 +271,7 @@ final class PostDetailViewModel: BaseViewModel {
     }
 
     struct Output {
-        var detailData = ReplaySubject<(finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
+        var detailData = ReplaySubject<(postDetail: PostDetail, finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
 //        var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var finished = PublishSubject<Bool>()

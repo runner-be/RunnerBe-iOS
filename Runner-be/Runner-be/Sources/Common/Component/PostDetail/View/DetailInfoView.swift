@@ -41,21 +41,21 @@ final class DetailInfoView: UIView {
         view.icon.image = Asset.scheduled.uiImage
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
-        view.label.text = ""
+        view.label.text = "M/DD (E) - HH:mm"
     }
 
     private var timeLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.time.uiImage
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
-        view.label.text = ""
+        view.label.text = "-시간 --분"
     }
 
     private var genderLabel = IconLabel(iconPosition: .left, iconSize: CGSize(width: 24, height: 24), spacing: 8, padding: .zero).then { view in
         view.icon.image = Asset.group.uiImage
         view.label.font = .iosBody15R
         view.label.textColor = .darkG1
-        view.label.text = ""
+        view.label.text = "-만"
     }
 
     private var dotSeparator1 = UIView().then { view in
@@ -71,7 +71,7 @@ final class DetailInfoView: UIView {
     private var ageLabel = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG1
-        label.text = ""
+        label.text = "최소-최대"
     }
 
     private var dotSeparator2 = UIView().then { view in
@@ -87,7 +87,7 @@ final class DetailInfoView: UIView {
     private var participantLabel = UILabel().then { label in
         label.font = .iosBody15R
         label.textColor = .darkG1
-        label.text = ""
+        label.text = "최대 -명"
     }
 
     private lazy var infoStackView = UIStackView.make(
