@@ -39,6 +39,8 @@ final class AppCoordinator: BasicCoordinator<Void> {
                     self.showMain(animated: false)
                 case .nonMember:
                     self.showLoggedOut(animated: false)
+                case .stopped:
+                    self.showLoggedOut(animated: false)
                 }
             })
             .disposed(by: sceneDisposeBag)

@@ -51,6 +51,9 @@ final class BasicLoginService: LoginService {
                 case .waitCertification:
                     self?.loginKeyChainService.loginType = .waitCertification
                     return .memberWaitCertification
+                case .stopped:
+                    self?.loginKeyChainService.loginType = .stopped
+                    return .stopped
                 }
             }
     }
@@ -80,6 +83,7 @@ final class BasicLoginService: LoginService {
                 self.loginAPIService.login(with: socialType, token: socialLogin.token)
             }
             .subscribe(onNext: { [weak self] apiResult in
+
                 guard let result = apiResult
                 else {
                     functionResult.onNext(LoginResult.loginFail)
@@ -96,6 +100,10 @@ final class BasicLoginService: LoginService {
                 case let LoginAPIResult.memberWaitCertification(_, jwt, _):
                     self?.loginKeyChainService.setLoginInfo(loginType: .waitCertification, uuid: nil, userID: nil, token: LoginToken(jwt: jwt))
                     functionResult.onNext(.memberWaitCertification)
+                case let LoginAPIResult.stopped:
+                    print("stopped")
+                    self?.loginKeyChainService.setLoginInfo(loginType: .stopped, uuid: nil, userID: nil, token: nil)
+                    functionResult.onNext(.stopped)
                 }
             })
             .disposed(by: disposeBag)

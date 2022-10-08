@@ -38,6 +38,8 @@ class BasicLoginAPIService: LoginAPIService {
                     return .member
                 case let code where code == 1007: // 인증 대기
                     return .waitCertification
+                case let code where code == 2093:
+                    return .stopped
                 default:
                     return .nonMember
                 }
@@ -59,6 +61,7 @@ class BasicLoginAPIService: LoginAPIService {
             .map {
                 guard let result = $0
                 else { return nil }
+
                 switch result.response.code {
                 case let code where code == 1001: // 1001 = 회원 로그인 성공
                     return try? LoginAPIResult.Member(json: result.json)
@@ -66,6 +69,8 @@ class BasicLoginAPIService: LoginAPIService {
                     return try? LoginAPIResult.MemberWaitCertification(json: result.json)
                 case let code where code == 1002: // 1002 = 비회원 로그인 성공
                     return try? LoginAPIResult.NonMember(json: result.json)
+                case let code where code == 2093:
+                    return try? LoginAPIResult.Stopped(json: result.json)
                 default:
                     return nil
                 }

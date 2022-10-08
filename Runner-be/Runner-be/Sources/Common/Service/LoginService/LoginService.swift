@@ -15,12 +15,14 @@ enum LoginResult {
     case nonMember(uuid: String)
     case socialLoginFail
     case loginFail
+    case stopped
 }
 
 enum CheckLoginResult {
     case member
     case memberWaitCertification
     case nonMember
+    case stopped
 }
 
 protocol LoginService {

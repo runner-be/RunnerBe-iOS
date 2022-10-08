@@ -36,6 +36,8 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.toast.onNext("로그인에 실패했습니다")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
                 }
             })
             .disposed(by: disposeBag)
@@ -45,6 +47,7 @@ final class LoggedOutViewModel: BaseViewModel {
             .compactMap { $0 }
             .flatMap { $0 }
             .subscribe(onNext: { [weak self] result in
+                print(result)
                 switch result {
                 case .member, .succeed:
                     self?.routes.loginSuccess.onNext(true)
@@ -56,6 +59,8 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.toast.onNext("로그인에 실패했습니다")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
                 }
             })
             .disposed(by: disposeBag)
@@ -79,6 +84,8 @@ final class LoggedOutViewModel: BaseViewModel {
                     self?.routes.nonMember.onNext(())
                 case .loginFail, .socialLoginFail:
                     self?.toast.onNext("로그인에 실패했습니다.")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
                 }
             })
             .disposed(by: disposeBag)
