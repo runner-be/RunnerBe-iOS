@@ -10,16 +10,16 @@ import RxSwift
 final class EditInfoViewModel: BaseViewModel {
     var dirty: Bool = false
 
-    init(user: User, userAPIService: UserAPIService = BasicUserAPIService()) {
+    init(user _: User, userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
-        Observable<String>.of(user.job)
-            .map { Job(name: $0) }
-            .filter { $0 != .none }
-            .subscribe(onNext: { [weak self] job in
-                self?.outputs.currentJob.onNext(job)
-            })
-            .disposed(by: disposeBag)
+//        Observable<String>.of(user.job)
+//            .map { Job(name: $0) }
+//            .filter { $0 != .none }
+//            .subscribe(onNext: { [weak self] job in
+//                self?.outputs.currentJob.onNext(job)
+//            })
+//            .disposed(by: disposeBag)
 
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
@@ -81,7 +81,7 @@ final class EditInfoViewModel: BaseViewModel {
     }
 
     struct Output {
-        var currentJob = ReplaySubject<Job>.create(bufferSize: 1)
+        var currentJob = PublishSubject<Job>()
 
         var jobChanged = PublishSubject<Bool>()
 
