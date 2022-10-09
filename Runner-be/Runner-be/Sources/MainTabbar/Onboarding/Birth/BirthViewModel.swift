@@ -29,12 +29,20 @@ final class BirthViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapNext
-            .do(onNext: { [weak self] in
-                guard let self = self else { return }
-                let idx = try! self.inputs.itemSelected.value()
-                let year = self.outputs.items[idx]
-                self.userKeyChainService.birthDay = year
+            .map { [unowned self] in
+                guard let idx = try? self.inputs.itemSelected.value()
+                else { return -1 }
+                return idx
+            }
+            .do(onNext: { [unowned self] idx in
+                if idx < 19 {
+                    self.toast.onNext("19세 이상만 진행 가능합니다.")
+                } else {
+                    self.userKeyChainService.birthDay = self.outputs.items[idx]
+                }
             })
+            .filter { $0 > 19 }
+            .map { _ in }
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
 
@@ -44,6 +52,18 @@ final class BirthViewModel: BaseViewModel {
 
         inputs.tapBackward
             .subscribe(routes.backward)
+            .disposed(by: disposeBag)
+
+        routeInputs.returned
+            .subscribe(onNext: { [weak self] in
+                guard let self = self,
+                      let idx = try? self.inputs.itemSelected.value()
+                else { return }
+                let year = self.outputs.items[idx]
+                if idx < 19 {
+                    self.outputs.enableNext.onNext(false)
+                }
+            })
             .disposed(by: disposeBag)
     }
 
@@ -68,9 +88,14 @@ final class BirthViewModel: BaseViewModel {
         var cancel = PublishSubject<Void>()
     }
 
+    struct RouteInput {
+        var returned = PublishSubject<Void>()
+    }
+
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+    var routeInputs = RouteInput()
 
     // MARK: Private
 
