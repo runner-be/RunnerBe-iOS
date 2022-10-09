@@ -12,6 +12,7 @@ enum LoginWithTokenResult {
     case nonMember
     case waitCertification
     case member
+    case stopped
 }
 
 protocol LoginAPIService {

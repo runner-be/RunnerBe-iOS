@@ -11,4 +11,5 @@ enum LoginType {
     case member
     case waitCertification
     case nonMember
+    case stopped
 }

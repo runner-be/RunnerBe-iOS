@@ -24,6 +24,8 @@ final class MainTabViewModel: BaseViewModel {
                     self?.routes.onboardingCover.onNext(())
                 case .member:
                     break
+                case .stopped:
+                    break
                 }
             })
             .disposed(by: disposeBag)
@@ -75,6 +77,8 @@ final class MainTabViewModel: BaseViewModel {
                 case .waitCertification:
                     self.routes.onboardingCover.onNext(())
                 case .member:
+                    break
+                case .stopped:
                     break
                 }
             })

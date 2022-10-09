@@ -12,6 +12,7 @@ enum LoginAPIResult {
     case member(userId: Int, jwt: String, message: String)
     case memberWaitCertification(userId: Int, jwt: String, message: String)
     case nonMember(uuid: String, message: String)
+    case stopped(message: String)
 }
 
 extension LoginAPIResult {
@@ -39,5 +40,11 @@ extension LoginAPIResult {
               let message = result["message"].string
         else { throw JSONError.decoding }
         return LoginAPIResult.nonMember(uuid: uuid, message: message)
+    }
+
+    static func Stopped(json: JSON) throws -> LoginAPIResult {
+        guard let message = json["message"].string
+        else { throw JSONError.decoding }
+        return LoginAPIResult.stopped(message: message)
     }
 }

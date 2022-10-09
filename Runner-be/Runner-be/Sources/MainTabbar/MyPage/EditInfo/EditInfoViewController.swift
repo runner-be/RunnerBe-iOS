@@ -67,12 +67,12 @@ class EditInfoViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.currentJob
-            .take(1)
-            .subscribe(onNext: { [weak self] job in
-                self?.selectJobView.select(idx: job.index)
-            })
-            .disposed(by: disposeBag)
+        // 얘가 앱을 껐다가 켜야만 실행되고, 종료 안하고 마이페이지 실행하면 실행 안되는것으로 보임
+//        viewModel.outputs.currentJob
+//            .subscribe(onNext: { [weak self] job in
+//                self?.selectJobView.select(idx: job.index)
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameDup // 닉네임 중복처리
             .subscribe(onNext: { [weak self] dup in
@@ -179,7 +179,7 @@ class EditInfoViewController: BaseViewController {
                 if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
                     self?.selectedJobIdx = idx
                     return true
-                } else {
+                } else if idx != self?.jobindex, !self!.jobChangePossible { // jobindex는 다르나 직업 수정이 불가능하다면, 안내라벨 띄우기
                     self?.selectJobGuideLabel.isHidden = false
                 }
                 return false // 여기서는 실행이 안됨
@@ -391,16 +391,14 @@ extension EditInfoViewController {
             break
         }
 
-        if jobindex >= 0 || jobindex < Job.none.index {
-            selectJobView.jobGroup.labels[jobindex].isOn = true
-        }
-        selectJobView.jobGroup.result.removeAll()
-        selectJobView.jobGroup.result.append(jobindex)
+        selectJobView.select(idx: jobindex)
     }
 
     func didSuccessPatchJob(_: BaseResponse) {
         editInfoDataManager.getMyPage(viewController: self)
         selectJobGuideLabel.isHidden = false
+
+        selectJobView.select(idx: selectedJobIdx)
     }
 
     func failedToRequest(message: String) {

@@ -16,6 +16,7 @@ class MessageChatViewController: BaseViewController {
     var messages: [MessageList] = []
     var messageId = 0
     var postId = 0
+    static let chatBackgroundHeight = UIScreen.main.isWiderThan375pt ? 96 : 62
 
     lazy var messageDataManager = MessageDataManager()
 
@@ -179,7 +180,7 @@ extension MessageChatViewController {
             make.leading.equalTo(self.view.snp.leading)
             make.trailing.equalTo(self.view.snp.trailing)
             make.bottom.equalTo(self.view.snp.bottom)
-            make.height.equalTo(96)
+            make.height.equalTo(MessageChatViewController.chatBackgroundHeight)
         }
 
         chatTextView.snp.makeConstraints { make in
