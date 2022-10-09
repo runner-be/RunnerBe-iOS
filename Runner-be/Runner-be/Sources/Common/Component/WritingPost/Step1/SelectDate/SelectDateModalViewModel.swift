@@ -9,12 +9,14 @@ import Foundation
 import RxSwift
 
 final class SelectDateModalViewModel: BaseViewModel {
-    let currentDate: Date = .init()
+    let currentDate: Date
     let dateIntervals: [Double]
 
-    override init() {
+    init(dateInterval: Double) {
+        currentDate = Date(timeIntervalSince1970: dateInterval)
+        let dateNow = Date()
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        let components = calendar.dateComponents([.year, .month, .day], from: dateNow)
         let dateTodayInterval = calendar.date(from: components)!.timeIntervalSince1970
 
         dateIntervals = (0 ..< 7).map {
@@ -22,9 +24,24 @@ final class SelectDateModalViewModel: BaseViewModel {
         }
         super.init()
 
+        let inputDateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: currentDate)
+
         outputs.dateItems = dateIntervals.map {
             let date = Date(timeIntervalSince1970: $0)
             return DateUtil.shared.formattedString(for: date, format: .MdE)
+        }
+
+        if let inputHour = inputDateComponents.hour,
+           let inputMiniute = inputDateComponents.minute
+        {
+            let dayIndex = outputs.dateItems.firstIndex(where: {
+                $0 == DateUtil.shared.formattedString(for: currentDate, format: .MdE)
+            }) ?? 0
+
+            inputs.dateSelected = dayIndex
+            inputs.ampmSelected = inputHour < 12 ? 0 : 1
+            inputs.timeSelected = inputHour < 12 ? inputHour : inputHour - 12
+            inputs.minuteSelected = inputMiniute / 5
         }
 
         inputs.tapOK

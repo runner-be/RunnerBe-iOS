@@ -17,12 +17,12 @@ final class WritingMainPostComponent {
         return WritingMainPostViewModel()
     }
 
-    var selectTimeComponent: SelectTimeModalComponent {
-        return SelectTimeModalComponent()
+    func selectTimeComponent(timeString: String) -> SelectTimeModalComponent {
+        return SelectTimeModalComponent(timeString: timeString)
     }
 
-    var selectDateComponent: SelectDateModalComponent {
-        return SelectDateModalComponent()
+    func selectDateComponent(dateInterval: Double) -> SelectDateModalComponent {
+        return SelectDateModalComponent(dateInterval: dateInterval)
     }
 
     func BuildWritingDetailPostComponent(with data: WritingPostData) -> WritingDetailPostComponent {

@@ -66,10 +66,12 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.editDate
+            .map { [unowned self] in self.writingPostData.date }
             .bind(to: routes.editDate)
             .disposed(by: disposeBag)
 
         inputs.editTime
+            .map { [unowned self] in self.writingPostData.time }
             .bind(to: routes.editTime)
             .disposed(by: disposeBag)
 
@@ -134,8 +136,8 @@ final class WritingMainPostViewModel: BaseViewModel {
     }
 
     struct Route {
-        var editDate = PublishSubject<Void>()
-        var editTime = PublishSubject<Void>()
+        var editDate = PublishSubject<Double>()
+        var editTime = PublishSubject<String>()
         var backward = PublishSubject<Void>()
         var next = PublishSubject<WritingPostData>()
     }

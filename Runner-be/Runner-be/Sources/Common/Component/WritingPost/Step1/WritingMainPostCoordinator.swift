@@ -48,16 +48,16 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.editTime
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentSelectTimeModal(vm: vm, animated: false)
+            .map { (vm: scene.VM, timeString: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.presentSelectTimeModal(vm: result.vm, timeString: result.timeString, animated: false)
             })
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.editDate
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.presentSelectDateModal(vm: vm, animated: false)
+            .map { (vm: scene.VM, dateInterval: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.presentSelectDateModal(vm: result.vm, dateInterval: result.dateInterval, animated: false)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -76,8 +76,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
         }
     }
 
-    private func presentSelectTimeModal(vm: WritingMainPostViewModel, animated: Bool) {
-        let comp = component.selectTimeComponent
+    private func presentSelectTimeModal(vm: WritingMainPostViewModel, timeString: String, animated: Bool) {
+        let comp = component.selectTimeComponent(timeString: timeString)
         let coord = SelectTimeModalCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
@@ -90,8 +90,8 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
         }
     }
 
-    private func presentSelectDateModal(vm: WritingMainPostViewModel, animated: Bool) {
-        let comp = component.selectDateComponent
+    private func presentSelectDateModal(vm: WritingMainPostViewModel, dateInterval: Double, animated: Bool) {
+        let comp = component.selectDateComponent(dateInterval: dateInterval)
         let coord = SelectDateModalCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in

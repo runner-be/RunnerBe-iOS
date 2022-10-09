@@ -56,10 +56,10 @@ class SelectDateModalViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        datePickerView.selectRow(0, animated: false)
-        morningAfterPicker.selectRow(0, animated: false)
-        timePicker.selectRow(0, animated: false)
-        minutePicker.selectRow(0, animated: false)
+        datePickerView.selectRow(viewModel.inputs.dateSelected, animated: false)
+        morningAfterPicker.selectRow(viewModel.inputs.ampmSelected, animated: false)
+        timePicker.selectRow(viewModel.inputs.timeSelected, animated: false)
+        minutePicker.selectRow(viewModel.inputs.minuteSelected, animated: false)
 
         viewModel.toast
             .subscribe(onNext: { message in

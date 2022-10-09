@@ -14,6 +14,12 @@ final class SelectTimeModalComponent {
     }
 
     private var viewModel: SelectTimeModalViewModel {
-        return SelectTimeModalViewModel()
+        return SelectTimeModalViewModel(timeString: timeString)
+    }
+
+    private var timeString: String
+
+    init(timeString: String) {
+        self.timeString = timeString
     }
 }
