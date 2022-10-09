@@ -25,6 +25,7 @@ class ManageAttendanceViewController: BaseViewController {
     var runnerList: [RunnerList] = []
     var userList: [Int] = []
     var attendList: [String] = []
+    static let postButtonMargin = UIScreen.main.isWiderThan375pt ? 42 : 8
 
     lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
 
@@ -212,7 +213,7 @@ extension ManageAttendanceViewController {
             make.height.equalTo(40)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(8)
+            make.bottom.equalTo(view.snp.bottom).offset(-ManageAttendanceViewController.postButtonMargin)
         }
     }
 }
