@@ -9,8 +9,21 @@ import Foundation
 import RxSwift
 
 final class SelectTimeModalViewModel: BaseViewModel {
-    override init() {
+    init(timeString: String) {
         super.init()
+
+        if let regex = try? NSRegularExpression(pattern: "\\d+") {
+            let nsString = timeString as NSString
+            let result = regex.matches(in: timeString, range: NSMakeRange(0, nsString.length))
+            let numbers = result.map { Int(nsString.substring(with: $0.range)) ?? 0 }
+
+            if numbers.count == 2 {
+                let timeIdx = outputs.timeItems.map { Int($0)! }.firstIndex(where: { $0 == numbers[0] }) ?? 0
+                let minuteIdx = outputs.minuteItems.map { Int($0)! }.firstIndex(where: { $0 == numbers[1] }) ?? 0
+                inputs.timeSelected = timeIdx
+                inputs.minuteSelected = minuteIdx
+            }
+        }
 
         inputs.tapOK
             .map { [weak self] _ -> (time: Int, minute: Int)? in

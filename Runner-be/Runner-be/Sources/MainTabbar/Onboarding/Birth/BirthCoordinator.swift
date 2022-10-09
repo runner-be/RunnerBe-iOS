@@ -46,8 +46,9 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nextProcess
-            .subscribe(onNext: { [weak self] in
-                self?.pushSelectGenderCoord(animated: true)
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushSelectGenderCoord(vm: vm, animated: true)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -65,7 +66,7 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
 
     // MARK: Private
 
-    private func pushSelectGenderCoord(animated: Bool) {
+    private func pushSelectGenderCoord(vm _: BirthViewModel, animated: Bool) {
         let comp = component.selectGenderComponent
         let coord = SelectGenderCoordinator(component: comp, navController: navigationController)
 
@@ -75,7 +76,9 @@ final class BirthCoordinator: BasicCoordinator<BirthResult> {
                 self?.closeSignal.onNext(.cancelOnboarding)
             case .toMain:
                 self?.closeSignal.onNext(.toMain)
-            case .backward: break
+            case .backward:
+
+                break
             }
         }
     }
