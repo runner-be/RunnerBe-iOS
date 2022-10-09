@@ -64,6 +64,26 @@ final class ApplicantListModalViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        inputs.finishing
+            .flatMap {
+                postAPIService.close(postId: postId)
+            }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(success):
+                    if success {
+                        self?.toast.onNext("마감 완료")
+                        self?.routes.backward.onNext(true)
+                    } else {
+                        self?.toast.onNext("다시시도해주세요")
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            })
     }
 
     struct Input {
