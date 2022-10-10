@@ -327,13 +327,13 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 }
 
 extension ManageAttendanceViewController {
-    func didSuccessGetManageAttendance(result: GetMyPageResult) {
+    func didSuccessGetManageAttendance(myPosting: [MyPosting]) {
         // 이 화면에 들어왔다는 것은, runnerList가 1명이상은 무조건 있다는 것임 (자기자신)
-        runnerList.append(contentsOf: (result.myPosting?[myRunningIdx].runnerList)!)
+        runnerList.append(contentsOf: myPosting[myRunningIdx].runnerList ?? [])
 
         tableView.reloadData()
 
-        if result.myPosting?[myRunningIdx].attendTimeOver == "Y" { // 출석 관리 마감 여부
+        if myPosting[myRunningIdx].attendTimeOver == "Y" { // 출석 관리 마감 여부
             attendTimeOver = "Y"
             navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
             saveButton.isHidden = true
@@ -372,16 +372,16 @@ extension ManageAttendanceViewController {
             }
         }
 
-        postId = (result.myPosting?[myRunningIdx].postID)!
+        postId = myPosting[myRunningIdx].postID ?? -1
 
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-        let dateString = (result.myPosting?[myRunningIdx].gatheringTime)!
+        let dateString = myPosting[myRunningIdx].gatheringTime!
         print("dateString : \(dateString)")
         gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
 
-        let hms = result.myPosting?[myRunningIdx].runningTime?.components(separatedBy: ":") // hour miniute seconds
+        let hms = myPosting[myRunningIdx].runningTime?.components(separatedBy: ":") // hour miniute seconds
         let hour = Int(hms![0])
         let minute = Int(hms![1])
 
@@ -404,7 +404,7 @@ extension ManageAttendanceViewController {
         print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
         print("time \(time)")
 
-        for user in result.myPosting![myRunningIdx].runnerList! {
+        for user in myPosting[myRunningIdx].runnerList! {
             userList.append(user.userID!)
             attendList.append("-")
         }

@@ -16,7 +16,8 @@ class ManageAttendanceDataManager {
                 switch response.result {
                 case let .success(response):
                     if response.isSuccess {
-                        viewController.didSuccessGetManageAttendance(result: response.result!)
+                        let sortedResult = response.result?.myPosting?.sorted(by: { $0.gatheringTime! > $1.gatheringTime! })
+                        viewController.didSuccessGetManageAttendance(myPosting: sortedResult ?? [])
                     } else {
                         viewController.failedToRequest(message: response.message)
                     }
