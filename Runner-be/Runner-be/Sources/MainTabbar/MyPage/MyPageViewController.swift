@@ -104,7 +104,7 @@ class MyPageViewController: BaseViewController {
             cell.manageButton.rx.tapGesture() // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
                 .when(.recognized)
                 .map { _ in
-                    collectionView.numberOfItems(inSection: 0) - indexPath.row - 1 // 작성한 글이 최신순 정렬됨에 따라 API 순서와 역순이기때문에, row값을 역순으로 보내주기 위함
+                    indexPath.row
                 }
                 .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
                 .disposed(by: cell.disposeBag) // button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
