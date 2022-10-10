@@ -14,6 +14,12 @@ final class SelectDateModalComponent {
     }
 
     private var viewModel: SelectDateModalViewModel {
-        return SelectDateModalViewModel()
+        return SelectDateModalViewModel(dateInterval: dateInterval)
+    }
+
+    private var dateInterval: Double
+
+    init(dateInterval: Double) {
+        self.dateInterval = dateInterval
     }
 }

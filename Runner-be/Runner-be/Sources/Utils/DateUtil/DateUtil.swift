@@ -12,7 +12,7 @@ class DateUtil {
     private init() {
         dateFormatter = DateFormatter()
         dateFormatter.locale = defaultLocale
-        dateFormatter.timeZone = defaultTimeZone
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
 
         relativeDateTimeFormatter = RelativeDateTimeFormatter()
         relativeDateTimeFormatter.locale = defaultLocale
@@ -66,7 +66,6 @@ class DateUtil {
         defer { dateFormatter.locale = oldLocale }
 
         dateFormatter.locale = Locale(identifier: localeId)
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
         dateFormatter.dateFormat = format.formatString
 
         return dateFormatter.string(from: date)
@@ -82,6 +81,7 @@ class DateUtil {
         let formatter = DateUtil.shared.dateFormatter
         formatter.dateFormat = DateFormat.apiDateTimeZoneRemoved.formatString
         let date = formatter.date(from: string)
+
         return date
     }
 }

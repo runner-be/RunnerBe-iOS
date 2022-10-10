@@ -35,7 +35,7 @@ extension PostDetailRunningConfig {
                 + " "
                 + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .ampm, localeId: "en_US")
                 + " "
-                + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "H:mm")) // 3/31 (금)  AM 6:00
+                + DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "hh:mm")) // 3/31 (금)  AM 6:00
         long = postDetail.post.coord!.long
         lat = postDetail.post.coord!.lat
         range = 1000

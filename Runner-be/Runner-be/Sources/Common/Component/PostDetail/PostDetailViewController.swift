@@ -331,7 +331,7 @@ extension PostDetailViewController {
 
         footer.toMessageButton.rx.tap
             .bind(to: viewModel.inputs.toMessage)
-            .disposed(by: disposeBag)
+            .disposed(by: footer.disposeBag)
 
         view.addSubviews([footer])
 
