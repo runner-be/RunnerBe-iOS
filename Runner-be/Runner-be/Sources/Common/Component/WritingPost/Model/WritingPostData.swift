@@ -20,7 +20,7 @@ struct WritingPostData {
             + " "
             + DateUtil.shared.formattedString(for: date, format: .ampm, localeId: "en_US")
             + " "
-            + DateUtil.shared.formattedString(for: date, format: .custom(format: "H:mm"))
+            + DateUtil.shared.formattedString(for: date, format: .custom(format: "hh:mm"))
     }
 
     var time: String = "1시간 00분"
