@@ -22,7 +22,7 @@ final class HomeViewModel: BaseViewModel {
         locationService: LocationService = BasicLocationService.shared,
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
-        let searchLocation = locationService.currentPlace
+        let searchLocation = loginKeyChainService.userId == 213 ? CLLocationCoordinate2D(latitude: 37.57191043904224, longitude: 126.96173755287116) : locationService.currentPlace
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
@@ -386,6 +386,7 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.toHomeLocation
+            .skip(1)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 let currentPlace = locationService.currentPlace

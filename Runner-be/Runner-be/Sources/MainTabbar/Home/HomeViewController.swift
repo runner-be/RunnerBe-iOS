@@ -172,7 +172,6 @@ class HomeViewController: BaseViewController {
 
         viewModel.outputs.focusSelectedPost
             .subscribe(onNext: { [unowned self] post in
-                print("post nil? \(post == nil)")
                 let hideSelectedPost = (post == nil)
                 self.postCollectionView.isHidden = !hideSelectedPost
                 self.selectedPostCollectionView.isHidden = hideSelectedPost
