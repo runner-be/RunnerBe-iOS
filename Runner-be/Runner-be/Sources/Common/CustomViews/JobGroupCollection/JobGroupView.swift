@@ -35,7 +35,7 @@ class JobGroupView: UIView {
             borderColor: .primary,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 6, left: 16, bottom: 8, right: 16)
         )
 
         group.styleOff = OnOffLabel.Style(
@@ -46,7 +46,7 @@ class JobGroupView: UIView {
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 6, left: 16, bottom: 8, right: 16)
         )
 
         group.maxNumberOfOnState = 1

@@ -116,8 +116,8 @@ class SelectJobView: SelectBaseView {
 
         jobGroupView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
 //            make.height.greaterThanOrEqualTo(276)
             make.bottom.equalTo(contentView.snp.bottom)
         }
