@@ -72,6 +72,14 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
         self.token = token
     }
 
+    func clearIfFirstLaunched() {
+        if !UserDefaults.standard.bool(forKey: "AppFirstLaunched") {
+            Log.d(tag: .info, "appFirstLaunched")
+            UserDefaults.standard.set(true, forKey: "AppFirstLaunched")
+            clear()
+        }
+    }
+
     func clear() {
         uuid = nil
         token = nil

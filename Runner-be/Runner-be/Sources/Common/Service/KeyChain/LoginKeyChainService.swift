@@ -14,5 +14,6 @@ protocol LoginKeyChainService {
     var uuid: String? { get set }
 
     func setLoginInfo(loginType: LoginType, uuid: String?, userID: Int?, token: LoginToken?)
+    func clearIfFirstLaunched()
     func clear()
 }
