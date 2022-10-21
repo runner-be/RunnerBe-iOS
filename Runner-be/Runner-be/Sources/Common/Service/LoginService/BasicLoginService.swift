@@ -116,9 +116,11 @@ final class BasicLoginService: LoginService {
     }
 
     func logout() {
-        naverLoginService.logout()
-        kakaoLoginService.logout()
-        loginKeyChainService.clear()
-        userKeyChainService.clear()
+        DispatchQueue.global().async { [weak self] in
+            self?.naverLoginService.logout()
+            self?.kakaoLoginService.logout()
+            self?.loginKeyChainService.clear()
+            self?.userKeyChainService.clear()
+        }
     }
 }
