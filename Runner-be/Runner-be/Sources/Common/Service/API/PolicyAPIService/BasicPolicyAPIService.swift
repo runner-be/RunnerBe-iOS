@@ -20,8 +20,12 @@ final class BasicPolicyAPIService: PolicyAPIService {
         return provider.rx.request(.policy(type: type))
             .asObservable()
             .map { response in
-                let str = String(data: response.data, encoding: .utf8)
-                return str ?? type.contents
+                if response.statusCode >= 200, response.statusCode < 300 {
+                    let str = String(data: response.data, encoding: .utf8)
+                    return str ?? type.contents
+                } else {
+                    return type.contents
+                }
             }
     }
 }

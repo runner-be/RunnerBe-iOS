@@ -12,7 +12,7 @@ enum PolicyAPI {
     case policy(type: PolicyType)
 }
 
-// https://raw.githubusercontent.com/applemango-runnerbe/applemango-runnerbe.github.io/main/Policy_Location.txt
+// https://raw.githubusercontent.com/runner-be/runner-be.github.io/main/policy/policy_location.txt
 extension PolicyAPI: TargetType {
     var baseURL: URL {
         return URL(string: "https://raw.githubusercontent.com/")!
@@ -21,7 +21,7 @@ extension PolicyAPI: TargetType {
     var path: String {
         switch self {
         case let .policy(type):
-            return "applemango-runnerbe/applemango-runnerbe.github.io/main/\(type.fName).txt"
+            return "runner-be/runner-be.github.io/main/policy/\(type.fName).txt"
         }
     }
 

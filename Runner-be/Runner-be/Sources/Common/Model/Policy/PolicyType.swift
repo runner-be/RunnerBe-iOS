@@ -31,13 +31,13 @@ extension PolicyType {
     var fName: String {
         switch self {
         case .service:
-            return "Policy_Service"
+            return "service"
         case .privacy_collect:
-            return "Policy_Privacy_Collect"
+            return "privacy-collect"
         case .privacy_deal:
-            return "Policy_Privacy_Deal"
+            return "privacy-deal"
         case .location:
-            return "Policy_Location"
+            return "policy_location"
         }
     }
 }
@@ -506,13 +506,6 @@ extension PolicyType {
             1. 이 약관의 해석 및 회사와 회원간의 분쟁에 대하여는 대한민국의 법령을 적용합니다.
 
             2. 서비스 이용 중 발생한 회원과 회사간의 소송은 민사소송법에 의한 관할법원에 제소합니다.
-            $10 상당의 새해 선물이 도착했어요
-            라이너 프리미엄과 함께
-            생산성 넘치는 2022년을 시작하세요
-
-            닫기
-            선물 열어보기
-
             """
         case .privacy_collect:
             return """
@@ -534,12 +527,6 @@ extension PolicyType {
              ③ 동의거부관리
              - 귀하께서는 본 안내에 따른 개인정보 수집, 이용에 대하여 동의를 거부하실 권리가 있습니다. 다만, 귀하가 개인정보의 수집/이용에 동의를 거부하시는 경우 러너비 서비스 이용에 있어 불이익이 발생할 수
             있음을 알려드립니다.
-            $10 상당의 새해 선물이 도착했어요
-            라이너 프리미엄과 함께
-            생산성 넘치는 2022년을 시작하세요
-
-            닫기
-            선물 열어보기
             """
         case .privacy_deal:
             return """
@@ -603,12 +590,7 @@ extension PolicyType {
             기타 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에 문의하시기 바랍니다.
             1.대검찰청 사이버수사과 (cybercid.spo.go.kr)
             2.경찰청 사이버테러대응센터 (www.ctrc.go.kr/02-392-0330)
-            $10 상당의 새해 선물이 도착했어요
-            라이너 프리미엄과 함께
-            생산성 넘치는 2022년을 시작하세요
 
-            닫기
-            선물 열어보기
             """
         case .location:
             return """
@@ -726,12 +708,6 @@ extension PolicyType {
             제2조 위치정보관리책임자는 2022년 03월을 기준으로 다음과 같이 지정합니다.
               1. 소  속 : 기획팀 / 김은서
               2. 연락처 : 0728kes@naver.com
-            $10 상당의 새해 선물이 도착했어요
-            라이너 프리미엄과 함께
-            생산성 넘치는 2022년을 시작하세요
-
-            닫기
-            선물 열어보기
             """
         }
     }

@@ -76,7 +76,7 @@ extension PolicyCategory {
     var detail: String {
         switch self {
         case .version:
-            return "1.2.2"
+            return "1.2.3"
         default:
             return ""
         }
