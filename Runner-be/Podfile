@@ -1,0 +1,81 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Runner-be' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for RunnerBe-iOS
+
+  # Needle
+  # pod 'NeedleFoundation'
+  
+  # SwiftGen
+  pod 'SwiftGen', '~> 6.0'
+  # SwiftFormat
+  pod 'SwiftFormat/CLI'
+  # Moya with rx
+  pod 'Moya/RxSwift', '~> 15.0'
+  # RxSwift & Cocoa
+  pod 'RxSwift', '~> 6.5.0'
+  pod 'RxCocoa', '~> 6.5.0'
+  # RxDataSource
+  pod 'RxDataSources', '~> 5.0'
+  # RxGesture
+  pod 'RxGesture'
+  # RxKeyboard
+  pod 'RxKeyboard'
+  # SnapKit
+  pod 'SnapKit', '~> 5.0.0'
+  # Then
+  pod 'Then'
+  # SwiftyJson
+  pod 'SwiftyJSON', '~> 4.0'
+  # SwiftKeychainWrapper
+  pod 'SwiftKeychainWrapper'
+  # Alamofire
+  pod 'Alamofire'
+
+  # Firebase
+  pod 'Firebase/Analytics'
+  # Firebase 이미지 업로드 저장소
+  pod 'Firebase/Storage'
+  # Firebase 동적링크
+  pod 'Firebase/DynamicLinks'
+  # Firebase 이메일  
+  pod 'Firebase/Auth'
+  # Firebase 푸시알림
+  pod 'Firebase/Messaging'
+  # Firebase 데이터베이스 (채팅)
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
+  # Firebase Crashlytics
+  pod 'Firebase/Crashlytics'
+
+  # Kakao Login
+  pod 'RxKakaoSDKCommon' # 필수 모듈
+  pod 'RxKakaoSDKAuth' # 카카오 로그인
+  pod 'RxKakaoSDKUser' 
+
+  # Naver Login
+  pod 'naveridlogin-sdk-ios'
+
+  # PickerView
+  pod 'PickerView'
+
+  # Toast
+  pod 'Toast-Swift', '~> 5.0.1'
+
+  # Kingfisher
+  pod 'Kingfisher', '~> 7.0'
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+      end
+    end
+  end
+
+end

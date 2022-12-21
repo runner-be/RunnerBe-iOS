@@ -1,0 +1,297 @@
+/*
+  Localizable.strings
+  RunnerBe-iOS
+
+  Created by 김신우 on 2022/01/30.
+  
+*/
+
+/*
+    "Key" = "localizing한 문자열"
+ ex) "Hello" = "Hello"; << 세미콜론(;) 필수
+ 
+ */
+// MARK: - Locale
+"Locale" = "Ko-kr";
+"DateUtil.Timezone" = "UTC";
+
+
+// MARK: - LoggedOut
+"LoggedOut.KakaoBtn.text" = "Login with Kakao";
+"LoggedOut.NaverBtn.text" = "Login with Naver";
+"LoggedOut.AppleBtn.text" = "Login with Apple";
+
+// MARK: - MainTabbar.Item
+"MainTabbar.Item.Home.title" = "Home";
+"MainTabbar.Item.BookMark.title" = "BookMark";
+"MainTabbar.Item.Message.title" = "Message";
+"MainTabbar.Item.MyPage.title" = "MyPage";
+
+// MARK: - NickName
+"NickName.title1" = "어떤 닉네임으로";
+"NickName.title2" = "활동하실 건가요?";
+"NickName.subtitle" = "한 번 정한 닉네임은 수정할 수 없어요.";
+"NickName.textfield.placeholder" = "영어 8자/한글 6자까지 쓸 수 있어요.";
+"NickName.button.checkDup.title" = "중복 확인";
+"NickName.button.setNickname.title" = "정했어요!";
+"NickName.error.textformat" = "특수문자, 띄어쓰기는 쓸 수 없어요!";
+"NickName.error.duplicated" = "중복된 닉네임이에요!";
+
+// MARK: - PolicyTerm
+"Onboarding.PolicyTerm.title" = "먼저 이용약관을 읽고 동의해주세요!";
+"Onboarding.PolicyTerm.Agree.All.title" = "모든 약관을 읽었으며, 이에 동의해요";
+"Onboarding.PolicyTerm.Agree.Service.title" = "[필수] 서비스 이용약관 동의";
+"Onboarding.PolicyTerm.Agree.Privacy.title" = "[필수] 개인정보 수집/이용 동의";
+"Onboarding.PolicyTerm.Agree.Location.title" = "[필수] 위치기반 서비스 이용약관 동의";
+"Onboarding.PolicyTerm.Button.Next.title" = "다음";
+
+// MARK: - PolicyDetail
+"Onboarding.PolicyDetail.NavBar.title" = "제목";
+
+// MARK: - Birth
+"Onboarding.Birth.NavBar.title" = "TITLE";
+"Onboarding.Birth.title" = "출생년도를 입력해주세요.";
+"Onboarding.Birth.subTitle1" = "정확한 나이는 공개되지 않아요!";
+"Onboarding.Birth.subTitle2" = "20대 초반, 30대 중반 등으로 표기될 거에요.";
+"Onboarding.Birth.error.age" = "19세 미만은 이용할 수 없어요!";
+"Onboarding.Birth.button.next" = "다음";
+
+// MARK: - SelectGender
+"Onboarding.Gender.NavBar.title" = "TITLE";
+"Onboarding.Gender.title" = "성별을 선택해주세요.";
+"Onboarding.Gender.Button.next" = "다음";
+
+// MARK: - SelectJobGroup
+"Onboarding.Job.NavBar.title" = "TITLE";
+"Onboarding.Job.title" = "어떤 직군에서 활동하시나요?";
+"Onboarding.Job.subTitle" = "추후 마이페이지에서 수정할 수 있어요!";
+"Onboarding.Job.Button.Next.title" = "완료";
+
+// MARK: - OnboardingCancelModal
+"Onboarding.Modal.Cancel.Message" = "정보를 입력하지 않으면\n둘러보기만 가능해요! 그만할까요?";
+"Onboarding.Modal.Cancel.Button.yes" = "네";
+"Onboarding.Modal.Cancel.Button.no" = "아니요";
+
+// MARK: - OnboardingCompletion
+"Onboarding.Completion.title" = "나를 충분히 소개했어요. 달릴 준비 완료!";
+"Onboarding.Completion.subTitle" = "이제 러너비에서 함께 달려볼까요?";
+"Onboarding.Completion.Button.start" = "START!";
+
+// MARK: - Job
+
+"Job.PSV" = "공무원";
+"Job.EDU" = "교육";
+"Job.DEV" = "개발";
+"Job.PSM" = "기획/전략/경영";
+"Job.DES" = "디자인";
+"Job.MPR" = "마케팅/PR";
+"Job.SER" = "서비스";
+"Job.PRO" = "생산";
+"Job.RES" = "연구";
+"Job.SAF" = "영업/제휴";
+"Job.MED" = "의료";
+"Job.HUR" = "인사";
+"Job.ACC" = "재무/회계";
+"Job.CUS" = "CS";
+
+// MARK: - Gender
+"Gender.male" = "남성";
+"Gender.female" = "여성";
+"Gender.none" = "전체";
+
+// MARK: - Home
+"Home.BottomSheet.title" = "러닝 목록";
+"Home.Map.RefreshButton.title" = "이 지역 재검색";
+
+// MARK: - Home.Filter
+"Home.Filter.NavBar.title" = "필터";
+"Home.Filter.Gender.title" = "모집 성별";
+"Home.Filter.Age.title" = "모집 연령";
+"Home.Filter.Job.title" = "모집 직군";
+"Home.Filter.Place.title" = "모임장소";
+"Home.Filter.Age.all" = "모든연령";
+
+// MARK: - Post
+"Post.WorkTime.BeforeWork" = "출근 전";
+"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.DayOff" = "휴일";
+"Post.Title.Title" = "제목";
+"Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
+"Post.Date.Title" = "일시";
+"Post.Date.PlaceHolder" = "3/31 (금) AM 6:00";
+"Post.Time.Title" = "소요 시간";
+"Post.Time.PlaceHolder" = "0시간 20분";
+"Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
+"Post.Place.Title" = "모임 장소";
+"Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
+
+"Post.Write.NavBar.title" = "게시글 작성";
+
+"Post.Modal.Time.time" = "시간";
+"Post.Modal.Time.minute" = "분";
+
+
+// MARK: - Common NavBar
+"NavBar.Right.First.next" = "다음";
+
+// MARK: - Home.PostList
+"Home.PostList.Cell.Cover.Closed" = "모집을 마감했어요";
+"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감 포함";
+"Home.PostList.Filter.Order.Distance" = "거리순";
+"Home.PostList.Filter.Order.NumBookMark" = "찜순";
+"Home.PostList.Filter.Order.Newest" = "최신순";
+"Home.PostList.NavBar.title" = "러너비";
+"Home.PostList.Empty.title" = "아직 진행중인 모임이 없어요";
+
+// MARK: - Post.Detail
+"Post.Detail.NavBar.title" = "게시글 작성";
+"Post.Detail.NavBar.RightItem" = "등록";
+"Post.Detail.NumParticipant.title" = "인원";
+"Post.Detail.NumParticipant.minError" = "모임 인원은 최소 2명 부터 가능해요!";
+"Post.Detail.NumParticipant.maxError" = "모임 인원은 2명부터 최대 8명까지 가능해요! ";
+"Post.Detail.TextContent.title" = "하고 싶은 말(선택)";
+"Post.Detail.TextContent.PlaceHolder" = "함께할 러너들에게 하실 말씀이 있나요?";
+
+// MARK: - Home.PostDetail
+"Home.PostDetail.Guest.Apply" = "신청하기";
+"Home.PostDetail.Guest.NotSatisfied" = "조건에 맞지 않는 모집글이에요";
+"Home.PostDetail.Guest.Applied" = "신청완료";
+"Home.PostDetail.Writer.Yes" = "수락하기";
+"Home.PostDetail.Writer.No" = "거절하기";
+"Home.PostDetail.Writer.Finishing" = "마감하기";
+"Home.PostDetail.Writer.Finished" = "마감된 게시글이에요";
+
+"Home.PostDetail.Participant.title" = "신청한 러너";
+"Home.PostDetail.Participant.empty" = "신청한 러너가 없어요!";
+
+// MARK: - Home.PostDetail.Report
+"Home.PostDetail.Report.content" = "부적절한 신고는 수락되지 않으며,\n활동 제재의 원인이 될 수 있습니다.\n정말 신고하시겠어요?";
+"Home.PostDetail.Report.Button.ok" = "예";
+"Home.PostDetail.Report.Button.no" = "아니오";
+
+// MARK: - Additional
+"Additional.Gender.Limit" = "만";
+
+// MARK: - BookMark
+"BookMark.Main.NavBar.title" = "찜 목록";
+"BookMark.Main.Empty.before.title" = "찜한 출근 전 모임이 없어요!";
+"BookMark.Main.Empty.after.title" = "찜한 퇴근 후 모임이 없어요!";
+"BookMark.Main.Empty.holiday.title" = "찜한 휴일 모임이 없어요!";
+
+// MARK: - MessageList
+"MessageList.NavBar.Title" = "러닝톡";
+"MessageList.NavBar.RightItem" = "신고";
+"MessageList.Chat.NavBar.Title" = "신고하기";
+"MessageList.Chat.PlaceHolder" = "내용을 입력하세요";
+
+// MARK: - MyPage.Post
+"MyPage.MyPost.Empty.title" = "아직 모임을 만들지 않았어요!";
+"MyPage.MyPost.Empty.Button.title" = "모임을 만들어볼까요? 👉";
+"MyPage.MyRunning.Empty.title" = "아직 러닝에 참여하지 않았어요!";
+"MyPage.MyRunning.Empty.Button.title" = "참여해볼까요? 👉";
+"MyPage.MyPost.Manage.Before.title" = "러닝 후에 출석을 관리해주세요";
+"MyPage.MyPost.Manage.After.title" = "출석 관리하기";
+"MyPage.MyPost.Manage.Finished.title" = "출석 확인하기";
+"MyPage.MyPost.Manage.Attend.title" = "출석";
+"MyPage.MyPost.Manage.Absent.title" = "결석";
+"MyPage.MyPost.Manage.SaveButton.title" = "제출하기";
+"MyPage.MyPost.Manage.TimeGuide.content.first" = "함께한 러너들의 출석을 ";
+"MyPage.MyPost.Manage.TimeGuide.content.second" = " 후까지 체크할 수 있어요!";
+"MyPage.MyPost.Manage.Modal.content" = "출석 관리 시간이 만료되었어요!";
+"MyPage.MyPost.Manage.Modal.button.title" = "마이페이지로 이동";
+"MyPage.MyRunning.Attendance.Before.title" = "리더의 체크를 기다리고 있어요";
+"MyPage.MyRunning.Attendance.Attendance.title" = "출석을 완료했어요 😎";
+"MyPage.MyRunning.Attendance.Absence.title" = "불참했어요 😭";
+"MyPage.MyRunning.Attendance.NotCheck.title" = "리더가 출석을 체크하지 않았어요😂";
+
+// MARK: - MyPage.ManageAttendacne
+"MyPage.ManageAttendance.Before.title" = "출석을 체크하지 않았어요 😣";
+"MyPage.ManageAttendance.Attendance.title" = "출석을 완료했어요 😎";
+"MyPage.ManageAttendance.Absence.title" = "불참했어요 😭";
+
+// MARK: - MyPage.EditInfo
+"MyPage.EditInfo.NavBar.title" = "내 정보 수정";
+"MyPage.EditInfo.NickName.title" = "닉네임";
+"MyPage.EditInfo.NickName.Button.NickNameChanged.title" = "등록 완료";
+"MyPage.EditInfo.NickName.Button.Apply" = "등록하기";
+"MyPage.EditInfo.NickName.Button.Cant" = "변경불가";
+"MyPage.EditInfo.NickName.TextField.PlaceHolder.rule" = "8자 이내(영어 소문자/한글/숫자)";
+"MyPage.EditInfo.NickName.TextField.PlaceHolder.changed" = "김출근";
+"MyPage.EditInfo.NickName.InfoLabel.alreadychanged" = "* 닉네임 변경이 완료되어 추가 변경은 불가능해요!";
+"MyPage.EditInfo.NickName.InfoLabel.caution" = "* 딱 한 번만 바꿀 수 있어요!";
+"MyPage.EditInfo.NickName.ErrorLabel.duplicated" = "중복된 닉네임이에요!";
+"MyPage.EditInfo.NickName.ErrorLabel.form" = "영어 대문자, 특수문자, 띄어쓰기는 쓸 수 없어요!";
+"MyPage.EditInfo.Job.title" = "나의 직군";
+"MyPage.EditInfo.Job.ErrorLabel.cannotIn3Month" = "* 직군은 3개월에 한 번 변경할 수 있어요!";
+
+// MARK: - MyPage.Maker
+"MyPage.Maker.NavBar.title" = "만든 사람들";
+
+// MARK: - Settings
+"MyPage.Settings.NavBar.title" = "설정";
+
+"MyPage.Settings.Push.title" = "푸시 알림";
+
+"MyPage.Settings.Category.Policy.Version.title" = "버전 정보";
+"MyPage.Settings.Category.Policy.Term.title" = "이용약관";
+"MyPage.Settings.Category.Policy.Privacy.title" = "개인정보 처리방침";
+
+"MyPage.Settings.Category.AboutRunnerbe.Maker.title" = "만든 사람들";
+"MyPage.Settings.Category.AboutRunnerbe.Instagram.title" = "러너비 인스타그램";
+
+"MyPage.Settings.Category.Account.EditPassword.title" = "비밀번호 변경";
+"MyPage.Settings.Category.Account.Logout.title" = "로그아웃";
+"MyPage.Settings.Category.Account.SignOut.title" = "회원탈퇴";
+
+// MARK: - MyPage Modal
+"MyPage.Settings.Modal.Logout.Button.cancel" = "아니오";
+"MyPage.Settings.Modal.Logout.Button.ok" = "네";
+"MyPage.Settings.Modal.Logout.Content" = "정말 로그아웃하시겠어요?";
+
+"MyPage.Settings.Modal.NickName.Button.cancel" = "더 고민할래요";
+"MyPage.Settings.Modal.NickName.Button.ok" = "네";
+"MyPage.Settings.Modal.NickName.Content" = "닉네임 변경은 1회만 가능하며\n재변경은 불가능해요!\n정말 변경하시겠어요?";
+"MyPage.Settings.Modal.Signout.message" = "탈퇴하면 모든 러너 정보가 삭제돼요.\n정말 탈퇴하시겠어요?";
+"MyPage.Settings.Modal.Signout.ok" = "예";
+"MyPage.Settings.Modal.Signout.no" = "아니오";
+
+"MyPage.Settings.Modal.Job.Content" = "직군 변경은 3개월에 1회 가능해요.\n변경하시겠어요?";
+"MyPage.Settings.Modal.Job.ok" = "네";
+"MyPage.Settings.Modal.Job.no" = "아니오";
+
+"MyPage.Settings.Modal.Manage.Content" = "출석 관리 시간이 만료되었어요!";
+"MyPage.Settings.Modal.Manage.ok" = "마이페이지로 이동";
+
+"MyPage.Settings.Modal.SignoutCompletion.message" = "회원탈퇴가 완료되었습니다.\n로그인페이지로 이동합니다.";
+"MyPage.Settings.Modal.SignoutCompletion.ok" = "이동";
+
+
+"MyPage.Tab.MyPost.title" = "작성한 글";
+"MyPage.Tab.MyParticipant.title" = "참여 러닝";
+
+// MARK: - MyPage.Main.Cell
+"MyPage.Main.Cell.Button.Attend.title" = "출석하기";
+"MyPage.Main.Cell.Cover.Attend.Yes" = "출석을 완료했어요 😎";
+"MyPage.Main.Cell.Cover.Attend.No" = "불참했어요 😭";
+
+// MARK: - Onboard.Cover
+"Onboard.Cover.Title" = "나를 알려주면 참여할 수 있어요!";
+"Onboard.Cover.Button.Onboard.title" = "나에 대해 알려주기";
+"Onboard.Cover.Button.LookAround.title" = "지금은 둘러보기만 할게요";
+
+// MARK: - Wait.Onboard
+"Onboard.Wait.Title" = "내 소개를 확인 중이에요.\n조금만 기다려주세요!";
+"Onboard.Wait.Button.title" = "메인 화면으로";
+
+// MARK: - SelectTimeModal
+"Modal.SelectTime.Button.ok" = "OK";
+
+// MARK: - SelectDateModal
+"Modal.SelectDate.Button.ok" = "OK";
+
+// MARK: - TakePhotoModal
+"Modal.TakePhoto.Button.photo" = "촬영하기";
+"Modal.TakePhoto.Button.album" = "앨범에서 가져오기";
+"Modal.TakePhoto.Button.default" = "기본 이미지로 변경하기";
+
+//

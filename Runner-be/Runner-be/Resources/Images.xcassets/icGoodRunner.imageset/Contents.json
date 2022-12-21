@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "icGoodRunner.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "icGoodRunner@2x.png",
+      "scale" : "2x",
+      "idiom" : "universal"
+    },
+    {
+      "scale" : "3x",
+      "idiom" : "universal",
+      "filename" : "icGoodRunner@3x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
