@@ -76,7 +76,8 @@ extension PolicyCategory {
     var detail: String {
         switch self {
         case .version:
-            return "1.2.3"
+            let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+            return version ?? "-"
         default:
             return ""
         }
