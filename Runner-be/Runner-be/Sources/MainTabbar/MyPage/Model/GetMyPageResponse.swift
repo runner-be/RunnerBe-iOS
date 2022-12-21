@@ -19,7 +19,7 @@ struct GetMyPageResponse: Codable {
 // MARK: - Result
 
 struct GetMyPageResult: Codable {
-    let myInfo: [MyInfo]?
+    let myInfo: MyInfo?
     let myPosting: [MyPosting]?
     let myRunning: [MyRunning]?
 }
