@@ -160,31 +160,34 @@ extension PostAPI: TargetType {
     }
 
     var headers: [String: String]? {
+        var header = ["MobileType": "iOS",
+                      "AppVersion": AppContext.shared.version]
         switch self {
         case .fetch:
             return nil
         case let .posting(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .bookmarking(_, _, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .fetchBookMarked(_, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .detail(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .apply(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .accept(_, _, _, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .close(_, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .delete(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .myPage(_, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .attendance(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .report(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         }
+        return header
     }
 }

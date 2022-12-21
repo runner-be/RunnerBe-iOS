@@ -19,6 +19,8 @@ class UserInfo {
 
         token = loginKeyChainService.token?.jwt ?? ""
         userId = loginKeyChainService.userId ?? 0
-        headers = ["x-access-token": token]
+        headers = ["x-access-token": token,
+                   "MobileType": "iOS",
+                   "AppVersion": AppContext.shared.version]
     }
 }

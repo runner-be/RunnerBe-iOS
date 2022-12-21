@@ -39,6 +39,8 @@ extension EmailAPI: TargetType {
                 "Content-Type": "application/json",
                 "Authorization": "Basic " +
                     "\(AppKeys.mailJetPublic):\(AppKeys.mailJetPrivate)".data(using: .nonLossyASCII)!.base64EncodedString(),
+                "MobileType": "iOS",
+                "AppVersion": AppContext.shared.version,
             ]
         }
     }
