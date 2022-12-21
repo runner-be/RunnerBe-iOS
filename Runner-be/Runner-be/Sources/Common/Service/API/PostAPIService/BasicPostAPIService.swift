@@ -462,7 +462,7 @@ final class BasicPostAPIService: PostAPIService {
                 case 1000: // 성공, 비작성자, 참여신청O, 찜O
 
                     let decoder = JSONDecoder()
-                    let userInfo = try? decoder.decode([User].self, from: result.userData).first
+                    let userInfo = try? decoder.decode(User.self, from: result.userData)
                     let posting = (try? decoder.decode([PostResponse].self, from: result.postingData)) ?? []
                     let joined = (try? decoder.decode([PostResponse].self, from: result.joinedData)) ?? []
 

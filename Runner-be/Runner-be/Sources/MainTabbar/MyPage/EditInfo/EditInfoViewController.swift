@@ -337,7 +337,7 @@ extension EditInfoViewController: UITextFieldDelegate {
 
 extension EditInfoViewController {
     func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
-        if result.myInfo?[0].nameChanged == "Y" {
+        if result.myInfo?.nameChanged == "Y" {
             nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.alreadychanged
             selectNickName.nickNameField.isEnabled = false
             selectNickName.applyButton.isEnabled = false
@@ -348,15 +348,15 @@ extension EditInfoViewController {
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         }
 
-        if result.myInfo?[0].jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
+        if result.myInfo?.jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
             jobChangePossible = false
         } else { // 변경한지 3개월 지남 -> 변경 가능
             jobChangePossible = true
         }
 
-        jobCode = (result.myInfo?[0].job)!
+        jobCode = (result.myInfo?.job)!
 
-        switch result.myInfo?[0].job {
+        switch result.myInfo?.job {
         case "공무원":
             jobindex = 0
         case "교육":

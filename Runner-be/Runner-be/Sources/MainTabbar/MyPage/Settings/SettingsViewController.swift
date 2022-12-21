@@ -190,7 +190,7 @@ extension SettingsViewController: UITableViewDelegate {
 
 extension SettingsViewController {
     func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
-        if result.myInfo![0].pushOn == "N" {
+        if result.myInfo?.pushOn == "N" {
             pushSwitch.isOn = false
         } else {
             pushSwitch.isOn = true
