@@ -96,21 +96,26 @@ extension UserAPI: TargetType {
     }
 
     var headers: [String: String]? {
+        var header = ["MobileType": "iOS",
+                      "AppVersion": AppContext.shared.version]
+
         switch self {
         case let .editNickName(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .setJob(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .setProfile(_, _, token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case .signout:
             return nil
         case .updateFCMToken:
             return nil
         case let .fetchAlarms(token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         case let .checkAlarms(token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         }
+
+        return header
     }
 }

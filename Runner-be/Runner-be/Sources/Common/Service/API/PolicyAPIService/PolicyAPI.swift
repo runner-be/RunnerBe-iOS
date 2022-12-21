@@ -40,9 +40,7 @@ extension PolicyAPI: TargetType {
     }
 
     var headers: [String: String]? {
-        switch self {
-        case .policy:
-            return nil
-        }
+        return ["MobileType": "iOS",
+                "AppVersion": AppContext.shared.version]
     }
 }

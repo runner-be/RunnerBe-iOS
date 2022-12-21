@@ -58,6 +58,7 @@ extension SignupAPI: TargetType {
     }
 
     var headers: [String: String]? {
-        nil
+        return ["MobileType": "iOS",
+                "AppVersion": AppContext.shared.version]
     }
 }

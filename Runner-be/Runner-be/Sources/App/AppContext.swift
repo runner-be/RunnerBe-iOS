@@ -33,4 +33,8 @@ class AppContext {
     func hideToastActivity() {
         rootNavigationController?.view.hideToastActivity()
     }
+
+    var version: String {
+        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
+    }
 }

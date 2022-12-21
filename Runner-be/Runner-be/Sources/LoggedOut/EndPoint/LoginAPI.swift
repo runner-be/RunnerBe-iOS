@@ -58,11 +58,14 @@ extension LoginAPI: TargetType {
     }
 
     var headers: [String: String]? {
+        var header = ["MobileType": "iOS",
+                      "AppVersion": AppContext.shared.version]
         switch self {
         case .socialLogin:
-            return nil
+            break
         case let .login(token):
-            return ["x-access-token": "\(token.jwt)"]
+            header["x-access-token"] = "\(token.jwt)"
         }
+        return header
     }
 }
