@@ -20,21 +20,11 @@ final class BasicSignupAPIService: SignupAPIService {
     func signup(with signupForm: SignupForm) -> Observable<SignupAPIResult?> {
         provider.rx.request(.signup(signupForm))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: nil")
-                    return nil
-                }
-
-                Log.d(tag: .network, "result: \n\(json)")
-                return try? (response: BasicResponse(json: json), json: json)
-            }
+            .mapResponse()
             .map {
-                guard let result = $0
+                guard let response = $0
                 else { return nil }
-                return SignupAPIResult(json: result.json, code: result.response.code)
+                return SignupAPIResult(json: response.json, code: response.basic.code)
             }
     }
 }
