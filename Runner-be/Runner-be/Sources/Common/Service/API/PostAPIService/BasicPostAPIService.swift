@@ -25,17 +25,8 @@ final class BasicPostAPIService: PostAPIService {
     func fetchPosts(with filter: PostFilter) -> Observable<APIResult<[Post]?>> {
         return provider.rx.request(.fetch(userId: loginKeyChain.userId, filter: filter))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    return nil
-                }
-                return try? (response: BasicResponse(json: json), json: json)
-            }
-            .map { try? $0?.json["result"].rawData() }
-            .compactMap { $0 }
+            .mapResponse()
+            .compactMap { try? $0?.json["result"].rawData() }
             .decode(type: [PostResponse].self, decoder: JSONDecoder())
             .map { APIResult.response(result: $0.compactMap { $0.convertedPost }) }
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
@@ -51,22 +42,21 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.posting(form: form, id: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     Log.d(tag: .network, "result: fail")
                     return .error(alertMessage: nil)
                 }
 
-                Log.d(tag: .network, "response message: \(response.message)")
-                switch response.code {
+                Log.d(tag: .network, "response message: \(response.basic.message)")
+                switch response.basic.code {
                 case 1000: // 성공
                     return .response(result: .succeed)
                 case 2010, 2011, 2012, 2044, 3006: // 유저 로그인 필요
                     return .response(result: .needLogin)
                 case 2095: // 성별 불가
-                    return .error(alertMessage: response.message)
+                    return .error(alertMessage: response.basic.message)
                 case 4000: // db에러
                     return .error(alertMessage: nil)
                 default: // 나머지 에러
@@ -86,16 +76,15 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.bookmarking(postId: postId, userId: userId, mark: mark, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     Log.d(tag: .network, "res")
                     return APIResult.response(result: (postId: postId, mark: !mark))
                 }
 
-                Log.d(tag: .network, "response message: \(response.message)")
-                switch response.code {
+                Log.d(tag: .network, "response message: \(response.basic.message)")
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: (postId: postId, mark: mark))
                 case 2011: // userId 미입력
@@ -135,17 +124,7 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.fetchBookMarked(userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    return nil
-                }
-
-                return try? (response: BasicResponse(json: json), json: json)
-            }
+            .mapResponse()
             .map { (try? $0?.json["result"]["bookMarkList"].rawData()) ?? Data() }
             .decode(type: [PostResponse]?.self, decoder: JSONDecoder())
             .catch { error in
@@ -175,22 +154,16 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.detail(postId: postId, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
+            .mapResponse()
+            .map { response -> (MapResult?) in
+                guard let response = response else {
                     return nil
                 }
 
-                return try? (response: BasicResponse(json: json), json: json)
-            }
-            .map { result -> (MapResult?) in
-
-                let postData = (try? result?.json["result"]["postingInfo"].rawData()) ?? Data()
-                let participantData = (try? result?.json["result"]["runnerInfo"].rawData()) ?? Data()
-                let applicantData = (try? result?.json["result"]["waitingRunnerInfo"].rawData()) ?? Data()
-                let roomID = (try? result?.json["result"]["roomId"].int)
+                let postData = (try? response.json["result"]["postingInfo"].rawData()) ?? Data()
+                let participantData = (try? response.json["result"]["runnerInfo"].rawData()) ?? Data()
+                let applicantData = (try? response.json["result"]["waitingRunnerInfo"].rawData()) ?? Data()
+                let roomID = (try? response.json["result"]["roomId"].int)
 
                 Log.d(tag: .info, """
                 postData :
@@ -204,44 +177,42 @@ final class BasicPostAPIService: PostAPIService {
                 var bookMarked = false
                 var writer = false
                 var applicant = false
-                if let result = result {
-                    Log.d(tag: .network, "detailInfo(postId:\(postId)) resultCode: \(result.response.code)")
-                    switch result.response.code {
-                    // 성공
-                    case 1015: // 성공, 비작성자, 참여신청O, 찜O
-                        bookMarked = true
-                        applicant = true
-                    case 1016: // 성공, 비작성자, 참여신청O, 찜X
-                        applicant = true
-                    case 1017: // 성공, 비작성자, 참여신청X, 찜O
-                        bookMarked = true
-                    case 1018: // 성공, 비작성자, 참여신청X, 찜X
-                        break
-                    case 1019: // 성공, 작성자, 찜O
-                        writer = true
-                        bookMarked = true
-                    case 1020: // 성공, 작성자, 찜X
-                        writer = true
-                    // 실패
-                    case 2010: // jwt와 userId 불일치
-                        return nil
-                    case 2011: // userId값 필요
-                        return nil
-                    case 2012: // userId 형식 오류
-                        return nil
-                    case 2041: // postId 미입력
-                        return nil
-                    case 2042: // postId 형식오류
-                        return nil
-                    case 2044: // 인증X 회원
-                        return nil
-                    case 4000: // 데이터베이스 에러
-                        return nil
-                    default:
-                        return nil
-                    }
-                } else {
-                    Log.d(tag: .network, "detailInfo(postId:\(postId)) network Error no Response")
+
+                Log.d(tag: .network, "detailInfo(postId:\(postId)) resultCode: \(response.basic.code)")
+
+                switch response.basic.code {
+                // 성공
+                case 1015: // 성공, 비작성자, 참여신청O, 찜O
+                    bookMarked = true
+                    applicant = true
+                case 1016: // 성공, 비작성자, 참여신청O, 찜X
+                    applicant = true
+                case 1017: // 성공, 비작성자, 참여신청X, 찜O
+                    bookMarked = true
+                case 1018: // 성공, 비작성자, 참여신청X, 찜X
+                    break
+                case 1019: // 성공, 작성자, 찜O
+                    writer = true
+                    bookMarked = true
+                case 1020: // 성공, 작성자, 찜X
+                    writer = true
+                // 실패
+                case 2010: // jwt와 userId 불일치
+                    return nil
+                case 2011: // userId값 필요
+                    return nil
+                case 2012: // userId 형식 오류
+                    return nil
+                case 2041: // postId 미입력
+                    return nil
+                case 2042: // postId 형식오류
+                    return nil
+                case 2044: // 인증X 회원
+                    return nil
+                case 4000: // 데이터베이스 에러
+                    return nil
+                default:
+                    return nil
                 }
 
                 return MapResult(
@@ -298,14 +269,13 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.apply(postId: postId, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     return APIResult.error(alertMessage: nil)
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: true)
                 case 2010: // jwt와 userId 불일치
@@ -347,14 +317,13 @@ final class BasicPostAPIService: PostAPIService {
             )
         )
         .asObservable()
-        .map { try? JSON(data: $0.data) }
-        .map { try? BasicResponse(json: $0) }
+        .mapResponse()
         .map { response in
             guard let response = response else {
                 return APIResult.response(result: (id: applicantId, accept: accept, success: false))
             }
 
-            switch response.code {
+            switch response.basic.code {
             case 1000: // 성공
                 return APIResult.response(result: (id: applicantId, accept: accept, success: true))
             case 2010: // jwt와 userId 불일치
@@ -395,14 +364,13 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.close(postId: postId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     return APIResult.error(alertMessage: nil)
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: true)
                 case 2043:
@@ -428,21 +396,16 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.myPage(userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-                guard let json = json
+            .mapResponse()
+            .map { response -> RawDatas? in
+                guard let response = response
                 else {
-                    Log.d(tag: .network, "result: fail")
                     return nil
                 }
 
-                return try? (response: BasicResponse(json: json), json: json)
-            }
-            .map { result -> RawDatas? in
-
-                let userData = (try? result?.json["result"]["myInfo"].rawData()) ?? Data()
-                let postingData = (try? result?.json["result"]["myPosting"].rawData()) ?? Data()
-                let joinedData = (try? result?.json["result"]["myRunning"].rawData()) ?? Data()
+                let userData = (try? response.json["result"]["myInfo"].rawData()) ?? Data()
+                let postingData = (try? response.json["result"]["myPosting"].rawData()) ?? Data()
+                let joinedData = (try? response.json["result"]["myRunning"].rawData()) ?? Data()
 
                 Log.d(tag: .info, """
                 userData:
@@ -453,7 +416,7 @@ final class BasicPostAPIService: PostAPIService {
                 \(joinedData)
                 """)
 
-                return (responseCode: result?.response.code, userData: userData, postingData: postingData, joinedData: joinedData)
+                return (responseCode: response.basic.code, userData: userData, postingData: postingData, joinedData: joinedData)
             }
             .compactMap { $0 }
             .map { result in
@@ -498,14 +461,13 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.attendance(postId: postId, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     return APIResult.response(result: (postId: postId, success: false))
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: (postId: postId, success: true))
                 case 2010: // jwt와 userId 불일치
@@ -537,14 +499,13 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.delete(postId: postId, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     return APIResult.error(alertMessage: nil)
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: true)
                 case 2010: // jwt와 userId 불일치
@@ -576,14 +537,13 @@ final class BasicPostAPIService: PostAPIService {
 
         return provider.rx.request(.report(postId: postId, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { try? BasicResponse(json: $0) }
+            .mapResponse()
             .map { response in
                 guard let response = response else {
                     return APIResult.error(alertMessage: nil)
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     return APIResult.response(result: true)
                 case 2010: // jwt와 userId 불일치

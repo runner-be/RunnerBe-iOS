@@ -43,25 +43,14 @@ final class BasicUserAPIService: UserAPIService {
 
         provider.rx.request(.editNickName(toName: nickName, userId: userId, token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> BasicResponse? in
-
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(.error)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
+            .mapResponse()
             .subscribe(onNext: { response in
                 guard let response = response else {
                     functionResult.onNext(.error)
                     return
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed(name: nickName))
                 case 2010: // jwt와 userID 불일치
@@ -135,22 +124,13 @@ final class BasicUserAPIService: UserAPIService {
             })
             .compactMap { $0 }
             .flatMap { $0 }
-            .map { try? JSON(data: $0.data) }
-            .map { json -> BasicResponse? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(.error)
-                    return nil
-                }
-                return try? BasicResponse(json: json)
-            }
+            .mapResponse()
             .subscribe(onNext: { response in
                 guard let response = response else {
                     functionResult.onNext(.error)
                     return
                 }
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     functionResult.onNext(.succeed(data: data))
                 case 2010: // jwt와 userID 불일치
@@ -190,24 +170,14 @@ final class BasicUserAPIService: UserAPIService {
 
         provider.rx.request(.signout(userID: userID))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> BasicResponse? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    functionResult.onNext(false)
-                    return nil
-                }
-
-                return try? BasicResponse(json: json)
-            }
+            .mapResponse()
             .subscribe(onNext: { [weak self] response in
                 guard let response = response else {
                     functionResult.onNext(false)
                     return
                 }
 
-                switch response.code {
+                switch response.basic.code {
                 case 1000: // 성공
                     functionResult.onNext(true)
                     self?.loginKeyChainService.clear()
@@ -253,16 +223,7 @@ final class BasicUserAPIService: UserAPIService {
 
         return provider.rx.request(.fetchAlarms(token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { json -> (response: BasicResponse, json: JSON)? in
-                guard let json = json
-                else {
-                    Log.d(tag: .network, "result: fail")
-                    return nil
-                }
-
-                return try? (response: BasicResponse(json: json), json: json)
-            }
+            .mapResponse()
             .map { (try? $0?.json["result"].rawData()) ?? Data() }
             .decode(type: [Alarm]?.self, decoder: JSONDecoder())
     }
@@ -275,7 +236,7 @@ final class BasicUserAPIService: UserAPIService {
 
         return provider.rx.request(.checkAlarms(token: token))
             .asObservable()
-            .map { try? JSON(data: $0.data) }
-            .map { $0?["result"].string == "Y" }
+            .mapResponse()
+            .map { $0?.json["result"].string == "Y" }
     }
 }

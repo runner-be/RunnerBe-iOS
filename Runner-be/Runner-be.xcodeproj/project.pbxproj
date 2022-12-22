@@ -29,6 +29,7 @@
 		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
 		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
 		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
+		4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360E2F72953D6EA003583BB /* Rx+Response.swift */; };
 		436D8A9A28B1B6E700E3DA6C /* AlarmListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */; };
 		436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8A9B28B1B73100E3DA6C /* Alarm.swift */; };
 		436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */; };
@@ -403,6 +404,7 @@
 		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
 		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
+		4360E2F72953D6EA003583BB /* Rx+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+Response.swift"; sourceTree = "<group>"; };
 		436D8A9928B1B6E700E3DA6C /* AlarmListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListSection.swift; sourceTree = "<group>"; };
 		436D8A9B28B1B73100E3DA6C /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		436D8AA028B1BFB100E3DA6C /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
@@ -854,6 +856,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		4360E2F62953D6D5003583BB /* Rx+ */ = {
+			isa = PBXGroup;
+			children = (
+				4360E2F72953D6EA003583BB /* Rx+Response.swift */,
+			);
+			path = "Rx+";
+			sourceTree = "<group>";
+		};
 		436D8A9728B1B5E400E3DA6C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1259,6 +1269,7 @@
 		C34FDA5627AD5C82007718F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4360E2F62953D6D5003583BB /* Rx+ */,
 				C34BA6AC27CD4162003E393A /* CG */,
 				C3F8D1BF27C3B02B0004CAB8 /* MapView+ */,
 				C379301F27BA01210076AB85 /* String+ */,
@@ -2483,6 +2494,7 @@
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
+				4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
