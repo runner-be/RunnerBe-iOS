@@ -103,10 +103,11 @@ class ManageAttendanceViewController: BaseViewController {
         }
     }
 
-    private var tableView = UITableView().then { view in
+    private var tableView = UITableView(frame: .zero, style: .grouped).then { view in
+        //style.grouped는 header와 cell을 같이 스크롤되게 하기 위함
         view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
         view.separatorStyle = .none
-        view.backgroundColor = .black
+        view.contentInsetAdjustmentBehavior = .never // 위에 빈 space 있는거 방지
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -121,7 +122,6 @@ class ManageAttendanceViewController: BaseViewController {
 
     private var timeView = UIView().then { view in
         view.backgroundColor = .darkG6
-        view.isHidden = true
     }
 
     private var timeFirstLabel = UILabel().then { view in
@@ -155,55 +155,50 @@ class ManageAttendanceViewController: BaseViewController {
 // layout
 extension ManageAttendanceViewController {
     private func setupViews() {
-//        setBackgroundColor()
         view.backgroundColor = .black
 
         view.addSubviews([
-            navBar,
-            timeView,
-            timeFirstLabel,
-            timeSecondLabel,
-            timeThirdLabel,
+            //navBar,
+//            timeView,
+//            timeFirstLabel,
+//            timeSecondLabel,
+//            timeThirdLabel,
             tableView,
             saveButton,
         ])
     }
 
     private func initialLayout() {
-        navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-        }
+//        navBar.snp.makeConstraints { make in
+//            make.top.equalTo(view.snp.top)
+//            make.leading.equalTo(view.snp.leading)
+//            make.trailing.equalTo(view.snp.trailing)
+//        }
 
-        timeView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(44)
-        }
-
-        timeFirstLabel.snp.makeConstraints { make in
-            make.leading.equalTo(timeView.snp.leading).offset(18)
-            make.centerY.equalTo(timeView.snp.centerY)
-        }
-
-        timeSecondLabel.snp.makeConstraints { make in
-            make.leading.equalTo(timeFirstLabel.snp.trailing).offset(2)
-            make.centerY.equalTo(timeView.snp.centerY)
-        }
-
-        timeThirdLabel.snp.makeConstraints { make in
-            make.leading.equalTo(timeSecondLabel.snp.trailing).offset(2)
-            make.centerY.equalTo(timeView.snp.centerY)
-        }
+//        timeView.snp.makeConstraints { make in
+//            make.top.equalTo(navBar.snp.bottom)
+//            make.leading.equalTo(view.snp.leading)
+//            make.trailing.equalTo(view.snp.trailing)
+//            make.height.equalTo(44)
+//        }
+//
+//        timeFirstLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(timeView.snp.leading).offset(18)
+//            make.centerY.equalTo(timeView.snp.centerY)
+//        }
+//
+//        timeSecondLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(timeFirstLabel.snp.trailing).offset(2)
+//            make.centerY.equalTo(timeView.snp.centerY)
+//        }
+//
+//        timeThirdLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(timeSecondLabel.snp.trailing).offset(2)
+//            make.centerY.equalTo(timeView.snp.centerY)
+//        }
 
         tableView.snp.makeConstraints { make in
-//            if timeView.isHidden {
-//                make.top.equalTo(view.snp.bottom)
-//            } else {
-            make.top.equalTo(timeView.snp.bottom)
-//            }
+            make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(saveButton.snp.top).offset(8)
@@ -324,6 +319,68 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return CGFloat(176)
     }
+
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+        if attendTimeOver == "Y" { // 출석확인
+            return 96
+        } else { // 출석관리
+            return 140
+        }
+    }
+
+    func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? { // 섹션 뷰
+        if attendTimeOver == "Y" {
+            navBar.snp.makeConstraints { make in
+                make.width.equalTo(view.frame.width)
+            }
+            return navBar
+        } else {
+            let contentView = UIView()
+
+            contentView.addSubviews([
+                navBar,
+                timeView,
+                timeFirstLabel,
+                timeSecondLabel,
+                timeThirdLabel,
+            ])
+
+            contentView.snp.makeConstraints { make in
+                make.width.equalTo(view.frame.width)
+                make.height.equalTo(140)
+            }
+
+            navBar.snp.makeConstraints { make in
+                make.top.equalTo(contentView.snp.top)
+                make.leading.equalTo(contentView.snp.leading)
+                make.trailing.equalTo(contentView.snp.trailing)
+            }
+
+            timeView.snp.makeConstraints { make in
+                make.top.equalTo(navBar.snp.bottom)
+                make.leading.equalTo(contentView.snp.leading)
+                make.trailing.equalTo(contentView.snp.trailing)
+                make.height.equalTo(44)
+            }
+
+            timeFirstLabel.snp.makeConstraints { make in
+                make.leading.equalTo(timeView.snp.leading).offset(18)
+                make.centerY.equalTo(timeView.snp.centerY)
+            }
+
+            timeSecondLabel.snp.makeConstraints { make in
+                make.leading.equalTo(timeFirstLabel.snp.trailing).offset(2)
+                make.centerY.equalTo(timeView.snp.centerY)
+            }
+
+            timeThirdLabel.snp.makeConstraints { make in
+                make.leading.equalTo(timeSecondLabel.snp.trailing).offset(2)
+                make.centerY.equalTo(timeView.snp.centerY)
+            }
+
+            return contentView
+        }
+    }
 }
 
 extension ManageAttendanceViewController {
@@ -344,11 +401,10 @@ extension ManageAttendanceViewController {
             timeThirdLabel.isHidden = true
 
             tableView.snp.makeConstraints { make in
-                make.top.equalTo(navBar.snp.bottom)
-                //            }
+                make.top.equalTo(view.snp.top)
                 make.leading.equalTo(view.snp.leading)
                 make.trailing.equalTo(view.snp.trailing)
-                make.bottom.equalTo(saveButton.snp.top).offset(8)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             }
         } else { // 출석이 완료되지 않을 경우
             attendTimeOver = "N"
@@ -361,11 +417,7 @@ extension ManageAttendanceViewController {
             timeThirdLabel.isHidden = false
 
             tableView.snp.makeConstraints { make in
-                //            if timeView.isHidden {
-                //                make.top.equalTo(view.snp.bottom)
-                //            } else {
-                make.top.equalTo(timeView.snp.bottom)
-                //            }
+                make.top.equalTo(view.snp.top)
                 make.leading.equalTo(view.snp.leading)
                 make.trailing.equalTo(view.snp.trailing)
                 make.bottom.equalTo(saveButton.snp.top).offset(8)
@@ -402,7 +454,6 @@ extension ManageAttendanceViewController {
         time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
 //        time = 5 // 마이페이지 모달 이동 테스트용
         print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
-        print("time \(time)")
 
         for user in myPosting[myRunningIdx].runnerList! {
             userList.append(user.userID!)
@@ -416,5 +467,13 @@ extension ManageAttendanceViewController {
 
     func failedToRequest(message: String) {
         print(message)
+    }
+}
+
+extension ManageAttendanceViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= 0 { // 아래에만 bounce 되게 처리
+            scrollView.contentOffset = CGPoint.zero
+        }
     }
 }
