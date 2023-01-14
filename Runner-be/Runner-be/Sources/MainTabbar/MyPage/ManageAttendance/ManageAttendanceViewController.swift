@@ -104,7 +104,7 @@ class ManageAttendanceViewController: BaseViewController {
     }
 
     private var tableView = UITableView(frame: .zero, style: .grouped).then { view in
-        //style.grouped는 header와 cell을 같이 스크롤되게 하기 위함
+        // style.grouped는 header와 cell을 같이 스크롤되게 하기 위함
         view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
         view.separatorStyle = .none
         view.contentInsetAdjustmentBehavior = .never // 위에 빈 space 있는거 방지
@@ -158,7 +158,7 @@ extension ManageAttendanceViewController {
         view.backgroundColor = .black
 
         view.addSubviews([
-            //navBar,
+            // navBar,
 //            timeView,
 //            timeFirstLabel,
 //            timeSecondLabel,
@@ -451,8 +451,8 @@ extension ManageAttendanceViewController {
         // 현재 - 출석 마감 날짜 남은 분
         print(currentDate.description)
         let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
-        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
-//        time = 5 // 마이페이지 모달 이동 테스트용
+//        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+        time = 5 // 마이페이지 모달 이동 테스트용
         print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
 
         for user in myPosting[myRunningIdx].runnerList! {

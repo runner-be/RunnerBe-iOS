@@ -15,8 +15,6 @@ import Toast_Swift
 import UIKit
 
 class MyPageViewController: BaseViewController {
-    var isPressed = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -25,10 +23,6 @@ class MyPageViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         viewInputs()
-    }
-
-    override func viewWillAppear(_: Bool) {
-        isPressed = false
     }
 
     init(viewModel: MyPageViewModel) {
@@ -109,6 +103,8 @@ class MyPageViewController: BaseViewController {
                 .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
                 .disposed(by: cell.disposeBag) // button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
 
+            print("sequence \(1)")
+
             return cell
         }
 
@@ -129,6 +125,8 @@ class MyPageViewController: BaseViewController {
 
             cell.postInfoView.bookMarkIcon.isHidden = true
 
+            print("sequence \(2)")
+
             return cell
         }
 
@@ -139,10 +137,24 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.posts
+            .subscribe { _ in
+                self.myPostCollectionView.snp.updateConstraints { make in
+                    make.height.equalTo(self.myPostCollectionView.contentSize.height)
+                }
+                self.myRunningCollectionView.snp.updateConstraints { make in
+                    make.height.equalTo(self.myPostCollectionView.contentSize.height)
+                }
+                print("sequence \(3)")
+            }
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.posts
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] empty in
                 guard let self = self else { return }
                 let type = self.viewModel.outputs.postType
+
+                print("sequence \(4)")
 
                 switch type {
                 case .attendable:
@@ -151,12 +163,44 @@ class MyPageViewController: BaseViewController {
 
                     self.myRunningEmptyLabel.isHidden = !empty
                     self.myRunningEmptyButton.isHidden = !empty
+
+                    if !empty {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
+                        }
+                    } else {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(450)
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(450)
+                        }
+                    }
                 case .basic:
                     self.myRunningCollectionView.isHidden = true
                     self.myPostCollectionView.isHidden = false
 
                     self.myPostEmptyLabel.isHidden = !empty
                     self.myPostEmptyButton.isHidden = !empty
+
+                    if !empty {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myPostCollectionView.contentSize.height)
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myPostCollectionView.contentSize.height)
+                        }
+                    } else {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(450)
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(450)
+                        }
+                    }
                 }
 
             })
@@ -284,6 +328,16 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
+    private var scrollView = UIScrollView(frame: .zero).then { view in
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private var contentView = UIView().then { view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+
     private var myInfoWithChevron = MyInfoViewWithChevron()
 
     private var hDivider = UIView().then { view in
@@ -334,6 +388,7 @@ class MyPageViewController: BaseViewController {
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MyPagePostCell.self, forCellWithReuseIdentifier: MyPagePostCell.id)
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -345,6 +400,7 @@ class MyPageViewController: BaseViewController {
         collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = true
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -397,6 +453,12 @@ extension MyPageViewController {
 
         view.addSubviews([
             navBar,
+            scrollView,
+        ])
+
+        scrollView.addSubview(contentView)
+
+        contentView.addSubviews([
             myInfoWithChevron,
             hDivider,
             writtenTab,
@@ -419,60 +481,80 @@ extension MyPageViewController {
     }
 
     private func initialLayout() {
+        print("sequence \(5)")
+
         navBar.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
         }
 
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(scrollView.snp.height).priority(.low)
+        }
+
         myInfoWithChevron.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(20)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
         hDivider.snp.makeConstraints { make in
             make.top.equalTo(myInfoWithChevron.snp.bottom).offset(26)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
         }
 
         writtenTab.snp.makeConstraints { make in
             make.top.equalTo(hDivider.snp.bottom).offset(16)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.centerX)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.centerX)
         }
 
         participantTab.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.top)
-            make.leading.equalTo(view.snp.centerX)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.leading.equalTo(contentView.snp.centerX)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
         tabDivider.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.bottom).offset(16)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
         }
 
         tabMover.snp.makeConstraints { make in
             make.bottom.equalTo(tabDivider.snp.bottom)
             make.leading.equalTo(writtenTab.snp.leading)
-            make.trailing.equalTo(view.snp.centerX)
+            make.trailing.equalTo(contentView.snp.centerX)
         }
 
         myPostCollectionView.snp.makeConstraints { make in
             make.top.equalTo(tabDivider.snp.bottom).offset(2)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.height.equalTo(450)
         }
 
         myRunningCollectionView.snp.makeConstraints { make in
             make.top.equalTo(tabDivider.snp.bottom).offset(2)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.height.equalTo(450)
         }
 
         myPostEmptyLabel.snp.makeConstraints { make in
