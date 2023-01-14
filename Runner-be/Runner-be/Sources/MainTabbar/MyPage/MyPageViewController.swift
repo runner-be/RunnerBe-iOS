@@ -103,8 +103,6 @@ class MyPageViewController: BaseViewController {
                 .bind(to: self.viewModel.inputs.manageAttendance) // indexPath.row 넘겨주기 -> 작성한 글 인덱스
                 .disposed(by: cell.disposeBag) // button이 여러번 눌리는 현상 : cell의 disposeBag을 사용하여 Dispose해야함.
 
-            print("sequence \(1)")
-
             return cell
         }
 
@@ -125,8 +123,6 @@ class MyPageViewController: BaseViewController {
 
             cell.postInfoView.bookMarkIcon.isHidden = true
 
-            print("sequence \(2)")
-
             return cell
         }
 
@@ -144,7 +140,6 @@ class MyPageViewController: BaseViewController {
                 self.myRunningCollectionView.snp.updateConstraints { make in
                     make.height.equalTo(self.myPostCollectionView.contentSize.height)
                 }
-                print("sequence \(3)")
             }
             .disposed(by: disposeBag)
 
@@ -153,8 +148,6 @@ class MyPageViewController: BaseViewController {
             .subscribe(onNext: { [weak self] empty in
                 guard let self = self else { return }
                 let type = self.viewModel.outputs.postType
-
-                print("sequence \(4)")
 
                 switch type {
                 case .attendable:
