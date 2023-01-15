@@ -49,9 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 _ = AuthController.handleOpenUrl(url: url)
             }
 
-            if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance(),
-               naverAPI.isNaverThirdPartyLoginAppschemeURL(url)
-            {
+            if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance() {
                 naverAPI.receiveAccessToken(url)
             }
 
