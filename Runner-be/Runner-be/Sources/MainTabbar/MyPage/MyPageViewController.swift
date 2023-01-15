@@ -39,7 +39,7 @@ class MyPageViewController: BaseViewController {
 
     private func viewModelInput() {
         writtenTab.rx.tap
-            .map { MyPageViewModel.PostType.basic }
+            .map { MyPageViewModel.PostType.myPost }
             .bind(to: viewModel.inputs.typeChanged)
             .disposed(by: disposeBag) // disposebag에 여러개의 구독을 담아두고, disposebag이 해제되면 모두 해제됨
 
@@ -107,7 +107,7 @@ class MyPageViewController: BaseViewController {
         }
 
         viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .basic }
+            .filter { [unowned self] _ in self.viewModel.outputs.postType == .myPost }
             .map { [MyPagePostSection(items: $0)] }
             .bind(to: myPostCollectionView.rx.items(dataSource: myPostDatasource))
             .disposed(by: disposeBag)
@@ -133,46 +133,13 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.posts
-            .subscribe { _ in
-                self.myPostCollectionView.snp.updateConstraints { make in
-                    make.height.equalTo(self.myPostCollectionView.contentSize.height)
-                }
-                self.myRunningCollectionView.snp.updateConstraints { make in
-                    make.height.equalTo(self.myPostCollectionView.contentSize.height)
-                }
-            }
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.posts
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] empty in
                 guard let self = self else { return }
                 let type = self.viewModel.outputs.postType
 
                 switch type {
-                case .attendable:
-                    self.myPostCollectionView.isHidden = true
-                    self.myRunningCollectionView.isHidden = false
-
-                    self.myRunningEmptyLabel.isHidden = !empty
-                    self.myRunningEmptyButton.isHidden = !empty
-
-                    if !empty {
-                        self.myPostCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
-                        }
-                        self.myRunningCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
-                        }
-                    } else {
-                        self.myPostCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(450)
-                        }
-                        self.myRunningCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(450)
-                        }
-                    }
-                case .basic:
+                case .myPost:
                     self.myRunningCollectionView.isHidden = true
                     self.myPostCollectionView.isHidden = false
 
@@ -188,10 +155,34 @@ class MyPageViewController: BaseViewController {
                         }
                     } else {
                         self.myPostCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(450)
+                            make.height.equalTo(self.view.frame.height - 330)
                         }
                         self.myRunningCollectionView.snp.updateConstraints { make in
-                            make.height.equalTo(450)
+                            make.height.equalTo(self.view.frame.height - 330)
+                        }
+                    }
+                case .attendable:
+                    self.myPostCollectionView.isHidden = true
+                    self.myRunningCollectionView.isHidden = false
+
+                    self.myRunningEmptyLabel.isHidden = !empty
+                    self.myRunningEmptyButton.isHidden = !empty
+
+                    self.myRunningCollectionView.layoutIfNeeded() // contentSize가 0인 경우에 대응 (cell layout을 그리는 시점)
+
+                    if !empty {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.myRunningCollectionView.contentSize.height)
+                        }
+                    } else {
+                        self.myPostCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.view.frame.height - 330) // tabHeight + 컬렉션뷰 위까지의 길이를 계산한 값
+                        }
+                        self.myRunningCollectionView.snp.updateConstraints { make in
+                            make.height.equalTo(self.view.frame.height - 330)
                         }
                     }
                 }
@@ -514,12 +505,14 @@ extension MyPageViewController {
             make.top.equalTo(hDivider.snp.bottom).offset(16)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.centerX)
+            make.height.equalTo(28)
         }
 
         participantTab.snp.makeConstraints { make in
             make.top.equalTo(writtenTab.snp.top)
             make.leading.equalTo(contentView.snp.centerX)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.height.equalTo(28)
         }
 
         tabDivider.snp.makeConstraints { make in
@@ -539,7 +532,7 @@ extension MyPageViewController {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(450)
+            make.height.equalTo(view.frame.height - 330)
         }
 
         myRunningCollectionView.snp.makeConstraints { make in
@@ -547,7 +540,7 @@ extension MyPageViewController {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(450)
+            make.height.equalTo(view.frame.height - 330)
         }
 
         myPostEmptyLabel.snp.makeConstraints { make in

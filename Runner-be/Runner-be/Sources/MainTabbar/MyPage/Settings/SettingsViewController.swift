@@ -68,29 +68,29 @@ class SettingsViewController: BaseViewController {
         let dataSource = RxTableViewSectionedReloadDataSource<SettingCategorySection> { [self]
             _, tableView, indexPath, item in
 
-            let cell: UITableViewCell
-            if let c = tableView.dequeueReusableCell(withIdentifier: "cell") {
-                cell = c
-            } else {
-                cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-            }
-
-            if indexPath.section == 0, indexPath.row == 0 {
-                cell.contentView.addSubview(self.pushSwitch)
-                self.pushSwitch.snp.makeConstraints { view in
-                    view.trailing.equalTo(cell.snp.trailing).offset(-16)
-                    view.centerY.equalTo(cell.snp.centerY)
+                let cell: UITableViewCell
+                if let c = tableView.dequeueReusableCell(withIdentifier: "cell") {
+                    cell = c
+                } else {
+                    cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
                 }
-            }
-            cell.textLabel?.text = item.title
-            cell.textLabel?.font = .iosBody15R
-            cell.textLabel?.textColor = .darkG1
-            cell.detailTextLabel?.text = item.details
-            cell.detailTextLabel?.font = .iosBody15R
-            cell.detailTextLabel?.textColor = .darkG2
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-            return cell
+
+                if indexPath.section == 0, indexPath.row == 0 {
+                    cell.contentView.addSubview(self.pushSwitch)
+                    self.pushSwitch.snp.makeConstraints { view in
+                        view.trailing.equalTo(cell.snp.trailing).offset(-16)
+                        view.centerY.equalTo(cell.snp.centerY)
+                    }
+                }
+                cell.textLabel?.text = item.title
+                cell.textLabel?.font = .iosBody15R
+                cell.textLabel?.textColor = .darkG1
+                cell.detailTextLabel?.text = item.details
+                cell.detailTextLabel?.font = .iosBody15R
+                cell.detailTextLabel?.textColor = .darkG2
+                cell.backgroundColor = .clear
+                cell.selectionStyle = .none
+                return cell
         }
 
         viewModel.outputs.menus

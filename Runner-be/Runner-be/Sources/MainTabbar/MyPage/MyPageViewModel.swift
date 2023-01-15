@@ -12,7 +12,7 @@ final class MyPageViewModel: BaseViewModel {
     var dirty: Bool = false
 
     enum PostType {
-        case basic, attendable
+        case myPost, attendable
     }
 
     var user: User?
@@ -38,10 +38,10 @@ final class MyPageViewModel: BaseViewModel {
                         let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
                         let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
 
-                        self.posts[.basic] = postings
+                        self.posts[.myPost] = postings
                         self.posts[.attendable] = joins
 
-                        let posts = self.outputs.postType == .basic ? postings : joins
+                        let posts = self.outputs.postType == .myPost ? postings : joins
                         self.user = info
                         self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
                         self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
@@ -250,7 +250,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Output {
-        var postType: PostType = .basic
+        var postType: PostType = .myPost
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1) // n개의 이벤트를 저장하고 subscribe 되는 시점과 상관없이 저장된 모든 이벤트 전달
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()

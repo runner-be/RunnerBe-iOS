@@ -50,19 +50,19 @@ class BookMarkViewController: BaseViewController {
         let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
             [weak self] _, collectionView, indexPath, item in
 
-                guard let self = self,
-                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-                else { return UICollectionViewCell() }
+            guard let self = self,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+            else { return UICollectionViewCell() }
 
-                cell.postInfoView.bookMarkIcon.rx.tap
-                    .map { indexPath.row }
-                    .subscribe(onNext: { [weak self] idx in
-                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
-                    })
-                    .disposed(by: cell.disposeBag)
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.row }
+                .subscribe(onNext: { [weak self] idx in
+                    self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+                })
+                .disposed(by: cell.disposeBag)
 
-                cell.configure(with: item)
-                return cell
+            cell.configure(with: item)
+            return cell
         }
 
         viewModel.outputs.posts
