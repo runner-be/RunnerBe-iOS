@@ -51,8 +51,8 @@ class MakerView: UIView {
 
     func initialLayout() {
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(85)
-            make.height.equalTo(90)
+            make.width.equalTo(83)
+            make.height.equalTo(96)
             make.leading.equalTo(self.snp.leading)
             make.top.equalTo(self.snp.top)
         }

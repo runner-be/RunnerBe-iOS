@@ -55,10 +55,10 @@ final class MakerViewController: BaseViewController {
         view.imageView.image = Asset.runnerBeDESIGN.uiImage
     }
 
-    private lazy var aos_duru = MakerView().then { view in
+    private lazy var aos_niaka = MakerView().then { view in
         view.roleLabel.text = "AOS"
-        view.nameLabel.text = "두루"
-        view.imageView.image = Asset.runnerBeDuru.uiImage
+        view.nameLabel.text = "나이아카"
+        view.imageView.image = Asset.runnerBeNiaka.uiImage
     }
 
     private lazy var aos_judy = MakerView().then { view in
@@ -105,7 +105,7 @@ extension MakerViewController {
             navBar,
             plan,
             design,
-            aos_duru,
+            aos_niaka,
             aos_judy,
             ios_shiv,
             ios_zoe,
@@ -134,9 +134,9 @@ extension MakerViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-view.bounds.width * 0.194)
         }
 
-        aos_duru.snp.makeConstraints { make in
+        aos_niaka.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(aos_duru.snp.height)
+            make.width.equalTo(aos_niaka.snp.height)
             make.top.equalTo(plan.snp.bottom).offset(43)
             make.leading.equalTo(plan.snp.leading)
         }
@@ -144,14 +144,14 @@ extension MakerViewController {
         aos_judy.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(aos_judy.snp.height)
-            make.top.equalTo(aos_duru.snp.top)
+            make.top.equalTo(aos_niaka.snp.top)
             make.leading.equalTo(design.snp.leading)
         }
 
         ios_shiv.snp.makeConstraints { make in
             make.height.equalTo(UIScreen.main.bounds.height * 0.13)
             make.width.equalTo(ios_shiv.snp.height)
-            make.top.equalTo(aos_duru.snp.bottom).offset(43)
+            make.top.equalTo(aos_niaka.snp.bottom).offset(43)
             make.leading.equalTo(plan.snp.leading)
         }
 
