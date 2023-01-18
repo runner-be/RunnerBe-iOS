@@ -109,7 +109,7 @@ extension ManageAttendanceCell {
         dividerView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.top.equalTo(resultView.snp.bottom).offset(26)
+            make.top.equalTo(resultView.snp.bottom).offset(20)
             make.height.equalTo(14)
             make.bottom.equalTo(contentView.snp.bottom)
         }

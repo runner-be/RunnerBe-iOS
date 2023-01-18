@@ -322,9 +322,9 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
     func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
         if attendTimeOver == "Y" { // 출석확인
-            return 96
+            return AppContext.shared.safeAreaInsets.top + AppContext.shared.navHeight
         } else { // 출석관리
-            return 140
+            return AppContext.shared.safeAreaInsets.top + AppContext.shared.navHeight + 48
         }
     }
 
