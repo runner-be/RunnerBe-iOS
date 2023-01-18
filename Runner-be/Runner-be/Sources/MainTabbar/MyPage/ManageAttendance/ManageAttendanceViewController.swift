@@ -451,8 +451,8 @@ extension ManageAttendanceViewController {
         // 현재 - 출석 마감 날짜 남은 분
         print(currentDate.description)
         let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
-//        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
-        time = 5 // 마이페이지 모달 이동 테스트용
+        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+//        time = 5 // 마이페이지 모달 이동 테스트용
         print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
 
         for user in myPosting[myRunningIdx].runnerList! {
