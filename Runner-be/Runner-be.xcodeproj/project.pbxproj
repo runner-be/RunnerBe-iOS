@@ -357,6 +357,8 @@
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
 		DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */; };
+		DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* MessageAPIService.swift */; };
+		DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
 		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
 		DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */; };
@@ -739,6 +741,8 @@
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoDataManager.swift; sourceTree = "<group>"; };
+		DAA1EAE82977BB440070B90F /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
+		DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
 		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
 		DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatLeftCell.swift; sourceTree = "<group>"; };
@@ -965,6 +969,7 @@
 		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				DAA1EAEA2977C53E0070B90F /* Network */,
 				DA117B1E2831508C00158211 /* Model */,
 				DAC50010282B9999004CFF64 /* View */,
 				DA3067642826235A00543D74 /* Cell */,
@@ -974,7 +979,6 @@
 				C31E633328171CF600C6B5A0 /* MessageCoordinator.swift */,
 				C31E633528171CFD00C6B5A0 /* MessageViewModel.swift */,
 				DA10361C2824413700F78F72 /* MessageViewController.swift */,
-				DADD85FE2887195300B11041 /* MessageDataManager.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2200,6 +2204,16 @@
 			path = ManageTimeExpiredModal;
 			sourceTree = "<group>";
 		};
+		DAA1EAEA2977C53E0070B90F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
+				DADD85FE2887195300B11041 /* MessageDataManager.swift */,
+				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		DAA252C8287204EC0087FCA9 /* ManageAttendance */ = {
 			isa = PBXGroup;
 			children = (
@@ -2616,6 +2630,7 @@
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
+				DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */,
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
@@ -2657,6 +2672,7 @@
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */,
+				DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */,
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,

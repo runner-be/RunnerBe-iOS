@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Welcome
 
-struct GetMessageChatResponse: Codable {
+struct GetMessageChatResponse: Decodable {
     let isSuccess: Bool
     let code: Int
     let message: String
@@ -18,14 +18,14 @@ struct GetMessageChatResponse: Codable {
 
 // MARK: - Result
 
-struct GetMessageChatResult: Codable {
+struct GetMessageChatResult: Decodable {
     let roomInfo: [RoomInfo]?
-    let messageList: [MessageList]?
+    let messageList: [MessageContent]?
 }
 
 // MARK: - MessageList
 
-struct MessageList: Codable {
+struct MessageContent: Decodable {
     let messageId: Int?
     let content, createdAt: String?
     let userID: Int?
@@ -36,7 +36,7 @@ struct MessageList: Codable {
 
 // MARK: - RoomInfo
 
-struct RoomInfo: Codable {
+struct RoomInfo: Decodable {
     let postId: Int?
     let runningTag, title: String?
 }

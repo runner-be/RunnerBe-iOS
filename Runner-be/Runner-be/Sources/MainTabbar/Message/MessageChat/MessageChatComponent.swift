@@ -10,19 +10,19 @@ import UIKit
 final class MessageChatComponent {
     var scene: (VC: UIViewController, VM: MessageChatViewModel) {
         let viewModel = self.viewModel
-        return (MessageChatViewController(viewModel: viewModel, messageId: messageId), viewModel)
+        return (MessageChatViewController(viewModel: viewModel), viewModel)
     }
 
     var viewModel: MessageChatViewModel {
-        MessageChatViewModel(messageId: messageId)
+        MessageChatViewModel(roomId: roomId)
     }
 
-    init(messageId: Int, fromPostDetail: Bool = false) {
-        self.messageId = messageId
+    init(roomId: Int, fromPostDetail: Bool = false) {
+        self.roomId = roomId
         self.fromPostDetail = fromPostDetail
     }
 
-    var messageId: Int
+    var roomId: Int
     var fromPostDetail: Bool
 
     func reportMessageComponent(messageId: Int) -> MessageReportComponent {

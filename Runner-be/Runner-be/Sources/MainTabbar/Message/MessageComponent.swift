@@ -12,7 +12,7 @@ final class MessageComponent {
 
     lazy var viewModel: MessageViewModel = .init()
 
-    func messageChatComponent(messageId: Int) -> MessageChatComponent {
-        return MessageChatComponent(messageId: messageId)
+    func messageChatComponent(roomId: Int) -> MessageChatComponent {
+        return MessageChatComponent(roomId: roomId)
     }
 }

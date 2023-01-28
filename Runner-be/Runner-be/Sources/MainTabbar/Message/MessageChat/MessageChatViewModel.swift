@@ -9,8 +9,44 @@ import Foundation
 import RxSwift
 
 final class MessageChatViewModel: BaseViewModel {
-    init(messageId _: Int) {
+    var messages: [MessageContent] = []
+    var postInfo: RoomInfo?
+
+    init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
         super.init()
+
+        routeInputs.needUpdate
+            .flatMap { _ in messageAPIService.getMessages(roomId: roomId) }
+            .map { [weak self] result -> GetMessageChatResult? in
+                switch result {
+                case let .response(result: data):
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                self.messages.removeAll()
+
+                if let result = result {
+                    self.messages = result.messageList ?? []
+                    self.postInfo = result.roomInfo![0]
+
+                    if !self.messages.isEmpty {
+                        self.outputs.messageContents.onNext(self.messages)
+                    } else {
+                        self.outputs.messageContents.onNext([])
+                    }
+
+                    self.outputs.roomInfo.onNext(self.postInfo!)
+                }
+
+            })
+            .disposed(by: disposeBag)
 
         inputs.backward
             .map { [weak self] in true }
@@ -35,7 +71,8 @@ final class MessageChatViewModel: BaseViewModel {
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
-        var detailPost = PublishSubject<Int>()
+        var roomInfo = PublishSubject<RoomInfo>()
+        var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
     }
 
     struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체

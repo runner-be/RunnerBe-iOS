@@ -13,21 +13,22 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageViewController: BaseViewController {
-    lazy var myDataManager = MessageDataManager()
-    var messageList = [GetMessageListResult]()
+class MessageViewController: BaseViewController, UIScrollViewDelegate {
+//    lazy var myDataManager = MessageDataManager()
+//    var messageList = [GetMessageListResult]()
+    let cellID = "MessageTableViewCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         initialLayout()
 
-        tableView.delegate = self
-        tableView.dataSource = self
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//
+//        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.id)
 
-        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.id)
-
-        myDataManager.getMessageList(viewController: self)
+//        myDataManager.getMessageList(viewController: self)
 
         viewInputs()
         viewModelInput()
@@ -50,13 +51,45 @@ class MessageViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-        tableView.rx.itemSelected
-            .map { self.messageList[$0.row].roomId! }
+        tableView.rx.modelSelected(MessageListItem.self)
+            .map { $0.roomId! }
             .bind(to: viewModel.inputs.messageChat)
             .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+
+        viewModel.outputs.messageLists
+            .filter { [weak self] array in
+                if array.isEmpty {
+                    self!.tableView.isHidden = true
+                    return false
+                } else {
+                    self!.tableView.isHidden = false
+                    return true
+                }
+            }
+            .bind(to: tableView.rx.items(cellIdentifier: cellID, cellType: MessageTableViewCell.self)) { _, item, cell in
+
+                cell.selectionStyle = .none
+//                반짝임 효과 제거
+                if item.profileImageUrl != nil {
+                    cell.messageProfile.kf.setImage(with: URL(string: item.profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
+                } else {
+                    cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
+                }
+                cell.postTitle.text = item.title
+                cell.nameLabel.text = item.repUserName
+
+                if item.recentMessage == "Y" { // 안읽은 메시지 여부 : 있음
+                    cell.backgroundColor = .primaryBestDark
+                } else {
+                    cell.backgroundColor = .clear
+                }
+            }
+            .disposed(by: disposeBag)
+
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
@@ -79,6 +112,7 @@ class MessageViewController: BaseViewController {
 
     private var tableView = UITableView().then { view in
         view.separatorColor = .clear
+        view.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.id)
     }
 }
 
@@ -112,40 +146,41 @@ extension MessageViewController {
     }
 }
 
-extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return messageList.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.id) as? MessageTableViewCell else { return .init() }
-        cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
-        if !messageList.isEmpty {
-            if messageList[indexPath.row].profileImageUrl != nil {
-                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
-            } else {
-                cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
-            }
-            cell.postTitle.text = messageList[indexPath.row].title
-            cell.nameLabel.text = messageList[indexPath.row].repUserName
-
-            if messageList[indexPath.row].recentMessage == "Y" { // 안읽은 메시지 여부 : 있음
-                cell.backgroundColor = .primaryBestDark
-            } else {
-                cell.backgroundColor = .clear
-            }
-        }
-        return cell
-    }
-
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 76
-    }
-}
-
+//
+// extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+//        return messageList.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.id) as? MessageTableViewCell else { return .init() }
+//        cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
+//        if !messageList.isEmpty {
+//            if messageList[indexPath.row].profileImageUrl != nil {
+//                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
+//            } else {
+//                cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
+//            }
+//            cell.postTitle.text = messageList[indexPath.row].title
+//            cell.nameLabel.text = messageList[indexPath.row].repUserName
+//
+//            if messageList[indexPath.row].recentMessage == "Y" { // 안읽은 메시지 여부 : 있음
+//                cell.backgroundColor = .primaryBestDark
+//            } else {
+//                cell.backgroundColor = .clear
+//            }
+//        }
+//        return cell
+//    }
+//
+//    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+//        return 76
+//    }
+// }
+//
 extension MessageViewController {
-    func didSucessGetMessageList(_ result: [GetMessageListResult]) {
-        messageList.append(contentsOf: result)
+    func didSucessGetMessageList(_: [MessageListItem]) {
+//        messageList.append(contentsOf: result)
         tableView.reloadData()
     }
 

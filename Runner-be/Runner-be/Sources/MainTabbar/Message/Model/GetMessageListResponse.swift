@@ -9,16 +9,16 @@ import Foundation
 
 // MARK: - Welcome
 
-struct GetMessageListResponse: Codable {
+struct GetMessageListResponse: Decodable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: [GetMessageListResult]?
+    let result: [MessageListItem]?
 }
 
 // MARK: - Result
 
-struct GetMessageListResult: Codable {
+struct MessageListItem: Decodable {
     let roomId: Int?
     let title, repUserName: String?
     let profileImageUrl: String?

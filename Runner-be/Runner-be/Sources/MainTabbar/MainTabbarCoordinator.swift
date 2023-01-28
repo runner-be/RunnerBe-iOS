@@ -99,7 +99,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
         vm.routes.message
             .subscribe(onNext: {
-                comp.scene.VM.routeInputs.needsUpdate.onNext(true)
+                comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: sceneDisposeBag)
 

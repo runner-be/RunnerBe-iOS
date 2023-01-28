@@ -13,9 +13,12 @@ import Then
 import UIKit
 
 class MessageChatViewController: BaseViewController {
-    var messages: [MessageList] = []
-    var messageId = 0
+    var messages: [MessageContent] = []
     var postId = 0
+    var messageId = 0
+    let formatter = DateUtil.shared.dateFormatter
+    let dateUtil = DateUtil.shared
+
     static let chatBackgroundHeight = UIScreen.main.isWiderThan375pt ? 96 : 62
 
     lazy var messageDataManager = MessageDataManager()
@@ -29,8 +32,10 @@ class MessageChatViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        formatter.dateFormat = DateFormat.apiDate.formatString
+
+//        tableView.delegate = self
+//        tableView.dataSource = self
 
         chatTextView.delegate = self
         dismissKeyboardWhenTappedAround()
@@ -38,12 +43,12 @@ class MessageChatViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
+//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
+        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
-    init(viewModel: MessageChatViewModel, messageId: Int) {
+    init(viewModel: MessageChatViewModel) {
         self.viewModel = viewModel
-        self.messageId = messageId
         super.init()
     }
 
@@ -72,6 +77,7 @@ class MessageChatViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
+        
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -79,6 +85,68 @@ class MessageChatViewController: BaseViewController {
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
             })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.roomInfo
+            .subscribe(onNext: { roomInfo in
+                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
+                self.postSection.postTitle.text = roomInfo.title
+                self.postId = roomInfo.postId!
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.messageContents
+            .filter { [weak self] contents in
+                if contents.isEmpty {
+                    self!.tableView.isHidden = true
+                    return false
+                } else {
+                    self!.tableView.isHidden = false
+                    return true
+                }
+            }
+            .bind(to: tableView.rx.items) { _, _, item -> UITableViewCell in
+
+                let date = self.dateUtil.apiDateStringToDate(item.createdAt!)
+
+                if item.messageFrom == "Others" {
+                    let cell = self.tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
+
+                    cell.selectionStyle = .none
+                    cell.separatorInset = .zero // 구분선 제거
+
+                    cell.messageContent.text = item.content!
+                    cell.nickName.text = item.nickName
+                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+
+                    if item.whetherPostUser == "Y" {
+                        cell.bubbleBackground.backgroundColor = .primary
+                        cell.messageContent.textColor = .black
+                    } else {
+                        cell.bubbleBackground.backgroundColor = .darkG55
+                        cell.messageContent.textColor = .darkG1
+                    }
+                    return cell
+
+                } else {
+                    let cell = self.tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
+
+                    cell.selectionStyle = .none
+                    cell.separatorInset = .zero
+
+                    cell.messageContent.text = item.content!
+                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+
+                    if item.whetherPostUser == "Y" {
+                        cell.bubbleBackground.backgroundColor = .primary
+                        cell.messageContent.textColor = .black
+                    } else {
+                        cell.bubbleBackground.backgroundColor = .darkG55
+                        cell.messageContent.textColor = .darkG1
+                    }
+                    return cell
+                }
+            }
             .disposed(by: disposeBag)
     }
 
@@ -197,23 +265,23 @@ extension MessageChatViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
 
-        let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
-        sendButton.addGestureRecognizer(tapSendMessage)
+//        let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
+//        sendButton.addGestureRecognizer(tapSendMessage)
     }
 
-    // function
-    @objc
-    func tapSendMessage(_: UITapGestureRecognizer) {
-        messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-        chatTextView.text = ""
-    }
+//    // function
+//    @objc
+//    func tapSendMessage(_: UITapGestureRecognizer) {
+//        messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+//        chatTextView.text = ""
+//    }
 
     @objc
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y -= keyboardHeight
+            chatBackGround.frame.origin.y -= (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
         }
     }
 
@@ -222,75 +290,76 @@ extension MessageChatViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y += keyboardHeight
+            chatBackGround.frame.origin.y += (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
         }
     }
 }
 
-extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return messages.count
-    }
-
-    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-        let dateUtil = DateUtil.shared
-
-        if !messages.isEmpty {
-            //            let date = formatter.date(from: messages[indexPath.row].createdAt!)
-            let date = dateUtil.apiDateStringToDate(messages[indexPath.row].createdAt!)
-
-            if messages[indexPath.row].messageFrom == "Others" {
-                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
-
-                cell.selectionStyle = .none
-                cell.separatorInset = .zero // 구분선 제거
-
-                cell.messageContent.text = messages[indexPath.row].content!
-                cell.nickName.text = messages[indexPath.row].nickName
-                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-
-                if messages[indexPath.row].whetherPostUser == "Y" {
-                    cell.bubbleBackground.backgroundColor = .primary
-                    cell.messageContent.textColor = .black
-                } else {
-                    cell.bubbleBackground.backgroundColor = .darkG55
-                    cell.messageContent.textColor = .darkG1
-                }
-
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
-
-                cell.selectionStyle = .none
-                cell.separatorInset = .zero
-
-                cell.messageContent.text = messages[indexPath.row].content!
-                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-
-                if messages[indexPath.row].whetherPostUser == "Y" {
-                    cell.bubbleBackground.backgroundColor = .primary
-                    cell.messageContent.textColor = .black
-                } else {
-                    cell.bubbleBackground.backgroundColor = .darkG55
-                    cell.messageContent.textColor = .darkG1
-                }
-                return cell
-            }
-        } else {
-            return UITableViewCell()
-        }
-    }
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
+//
+//extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+//        return messages.count
 //    }
 //
-//    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-//        return 76
+//    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let formatter = DateUtil.shared.dateFormatter
+//        formatter.dateFormat = DateFormat.apiDate.formatString
+//        let dateUtil = DateUtil.shared
+//
+//        if !messages.isEmpty {
+//            //            let date = formatter.date(from: messages[indexPath.row].createdAt!)
+//            let date = dateUtil.apiDateStringToDate(messages[indexPath.row].createdAt!)
+//
+//            if messages[indexPath.row].messageFrom == "Others" {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
+//
+//                cell.selectionStyle = .none
+//                cell.separatorInset = .zero // 구분선 제거
+//
+//                cell.messageContent.text = messages[indexPath.row].content!
+//                cell.nickName.text = messages[indexPath.row].nickName
+//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+//
+//                if messages[indexPath.row].whetherPostUser == "Y" {
+//                    cell.bubbleBackground.backgroundColor = .primary
+//                    cell.messageContent.textColor = .black
+//                } else {
+//                    cell.bubbleBackground.backgroundColor = .darkG55
+//                    cell.messageContent.textColor = .darkG1
+//                }
+//
+//                return cell
+//            } else {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
+//
+//                cell.selectionStyle = .none
+//                cell.separatorInset = .zero
+//
+//                cell.messageContent.text = messages[indexPath.row].content!
+//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+//
+//                if messages[indexPath.row].whetherPostUser == "Y" {
+//                    cell.bubbleBackground.backgroundColor = .primary
+//                    cell.messageContent.textColor = .black
+//                } else {
+//                    cell.bubbleBackground.backgroundColor = .darkG55
+//                    cell.messageContent.textColor = .darkG1
+//                }
+//                return cell
+//            }
+//        } else {
+//            return UITableViewCell()
+//        }
 //    }
-}
+//
+//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//            <#code#>
+//        }
+//
+//        func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+//            return 76
+//        }
+//}
 
 extension MessageChatViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
@@ -310,28 +379,28 @@ extension MessageChatViewController: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.isUserInteractionEnabled = false
+            sendButton.isEnabled = false
 //            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal) // 이부분때문에 textview 사라지는 현상 발생
         } else {
-            sendButton.isUserInteractionEnabled = true
+            sendButton.isEnabled = true
 //            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
     }
 }
 
 extension MessageChatViewController {
-    func didSucessGetMessageChat(_ result: GetMessageChatResult) {
-        postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
-        postSection.postTitle.text = result.roomInfo?[0].title
-        postId = result.roomInfo?[0].postId! ?? 0
-
-        messages.removeAll()
-        messages.append(contentsOf: result.messageList!)
-        tableView.reloadData()
+    func didSucessGetMessageChat(_: GetMessageChatResult) {
+//        postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
+//        postSection.postTitle.text = result.roomInfo?[0].title
+//        postId = result.roomInfo?[0].postId! ?? 0
+//
+//        messages.removeAll()
+        ////        messages.append(contentsOf: result.messageList!)
+//        tableView.reloadData()
     }
 
     func didSuccessPostMessage(_: BaseResponse) {
-        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
+//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
     }
 
     func failedToRequest(message: String) {

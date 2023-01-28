@@ -30,9 +30,9 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.messageChat
-            .map { (vm: scene.VM, messageId: $0) }
+            .map { (vm: scene.VM, roomId: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushMessageChatScene(vm: result.vm, messagedId: result.messageId, animated: false)
+                self?.pushMessageChatScene(vm: result.vm, roomId: result.roomId, animated: true)
             })
             .disposed(by: sceneDisposeBag)
     }
@@ -46,14 +46,14 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
            5.    addChildDisposable을 통해 disposable 저장
              모든 push~Scene, present~Scene 함수는 위 형태를 따릅니다.
      */
-    func pushMessageChatScene(vm _: MessageViewModel, messagedId: Int, animated: Bool) {
-        let comp = component.messageChatComponent(messageId: messagedId)
+    func pushMessageChatScene(vm: MessageViewModel, roomId: Int, animated: Bool) {
+        let comp = component.messageChatComponent(roomId: roomId)
         let coord = MessageChatCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case .backward:
-                break
+                vm.routeInputs.needUpdate.onNext(true)
             case .report:
                 break
             }

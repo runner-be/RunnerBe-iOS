@@ -14,7 +14,7 @@ import Toast_Swift
 import UIKit
 
 class MessageReportViewController: BaseViewController {
-    var messages: [MessageList] = []
+    var messages: [MessageContent] = []
     var messageId = 0
     var postId = 0
     var reportMessageList: [Int] = []
