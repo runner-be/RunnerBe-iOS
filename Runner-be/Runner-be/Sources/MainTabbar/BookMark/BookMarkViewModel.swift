@@ -21,11 +21,11 @@ final class BookMarkViewModel: BaseViewModel {
     init(postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
-        routeInputs.needUpdate // API로부터 북마크 목록 뿌리는 부분
+        routeInputs.needUpdate
             .flatMap { _ in
-                postAPIService.fetchPostsBookMarked() // flatMap : Observable을 벗겨냄
+                postAPIService.fetchPostsBookMarked() // flatMap : Observable -> 변환 -> Observable들을 합쳐 하나의 Observable return
             }
-            .map { [weak self] result -> [Post]? in
+            .map { [weak self] result -> [Post]? in // weak self를 쓰는 이유? 메모리 누수의 원인인 순환 참조를 방지하기 위함!
                 switch result {
                 case let .response(result: data):
                     return data
@@ -49,7 +49,7 @@ final class BookMarkViewModel: BaseViewModel {
                     }
 
                     if let posts = self.posts[self.runningTag] {
-                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
+                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) }) // onNext -> 값 추가 -> event 발생
                     } else {
                         self.outputs.posts.onNext([])
                     }
@@ -70,12 +70,12 @@ final class BookMarkViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookMark
-            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance) //1초동안 이벤트를 방출하고싶지 않을때! (클릭한 이후에 1초동안 이벤트를 전달안함)
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
                       let posts = self.posts[self.runningTag],
                       idx >= 0, idx < posts.count
-                else { return nil }
+                else { return nil } //nil return하게 되면 그 아래가 실행 안됨
                 return posts[idx]
             }
             .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
