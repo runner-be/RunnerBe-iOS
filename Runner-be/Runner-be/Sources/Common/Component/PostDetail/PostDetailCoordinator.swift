@@ -69,7 +69,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 if self?.component.fromMessageChat == true {
                     self?.closeSignal.onNext(PostDetailResult.backward(id: 0, needUpdate: false))
                 } else {
-                    self?.presentMessageChat(vm: result.vm, roomID: result.roomID, animated: true)
+                    self?.presentMessageRoom(vm: result.vm, roomID: result.roomID, animated: true)
                 }
             })
             .disposed(by: sceneDisposeBag)
@@ -131,9 +131,9 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
         }
     }
 
-    private func presentMessageChat(vm _: PostDetailViewModel, roomID: Int, animated: Bool) {
+    private func presentMessageRoom(vm _: PostDetailViewModel, roomID: Int, animated: Bool) {
         let comp = component.messageChatComponent(roomID: roomID)
-        let coord = MessageChatCoordinator(component: comp, navController: navigationController)
+        let coord = MessageRoomCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { _ in
             //

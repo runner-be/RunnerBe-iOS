@@ -25,7 +25,7 @@ class MyPagePostCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.state)
+        update(with: item.myRunningState)
     }
 
     override func prepareForReuse() {
@@ -105,31 +105,17 @@ extension MyPagePostCell {
         manageButton.layer.cornerRadius = Constants.ManageButton.cornerRadius
     }
 
-    func update(with state: PostAttendState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: MyRunningState) { // 상황에 따라 뷰 업데이트하는 부분
         switch state {
         case .beforeManagable:
-//            manageButton.backgroundColor = .darkG5
             manageButton.isEnabled = false
-//            manageButton.setTitleColor(.darkG4, for: .disabled)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.Before.title, for: .disabled)
         case .managable:
-//            manageButton.backgroundColor = .primary
             manageButton.isEnabled = true
-//            manageButton.setTitleColor(.darkG6, for: .normal)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.After.title, for: .normal)
-        case .afterManage:
-//            manageButton.backgroundColor = .primary
+        case .confirmManage:
             manageButton.isEnabled = true
-//            manageButton.setTitleColor(.darkG6, for: .normal)
             manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
-        case .beforeManage:
-            manageButton.isHidden = true
-        case .attendance:
-            manageButton.isHidden = true
-        case .absence:
-            manageButton.isHidden = true
-        case .notManage:
-            manageButton.isHidden = true
         }
     }
 }

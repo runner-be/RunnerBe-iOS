@@ -25,7 +25,7 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.state)
+        update(with: item.myParticipateState)
     }
 
     override func prepareForReuse() {
@@ -105,19 +105,20 @@ extension MyPageParticipateCell {
         }
     }
 
-    func update(with state: PostAttendState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: MyParticipateState) { // 상황에 따라 뷰 업데이트하는 부분
         switch state {
-        case .beforeManagable: break
-        case .managable: break
-        case .afterManage: break
-        case .beforeManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Before.title
+        case .memberbeforeManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.Before.title
+        case .writerbeforeManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.Before.title
         case .attendance:
             statusLabel.text = L10n.MyPage.MyRunning.Attendance.Attendance.title
         case .absence:
             statusLabel.text = L10n.MyPage.MyRunning.Attendance.Absence.title
-        case .notManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.NotCheck.title
+        case .membernotManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.NotCheck.title
+        case .writernotManage:
+            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.NotCheck.title
         }
     }
 }

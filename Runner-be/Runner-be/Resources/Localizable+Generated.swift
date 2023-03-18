@@ -410,13 +410,25 @@ internal enum L10n {
           /// 출석을 완료했어요 😎
           internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Attendance.title", fallback: "출석을 완료했어요 😎")
         }
-        internal enum Before {
-          /// 리더의 체크를 기다리고 있어요
-          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Before.title", fallback: "리더의 체크를 기다리고 있어요")
+        internal enum Participate {
+          internal enum Before {
+            /// 리더의 체크를 기다리고 있어요
+            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Participate.Before.title", fallback: "리더의 체크를 기다리고 있어요")
+          }
+          internal enum NotCheck {
+            /// 리더가 출석을 체크하지 않았어요😂
+            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Participate.NotCheck.title", fallback: "리더가 출석을 체크하지 않았어요😂")
+          }
         }
-        internal enum NotCheck {
-          /// 리더가 출석을 체크하지 않았어요😂
-          internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.NotCheck.title", fallback: "리더가 출석을 체크하지 않았어요😂")
+        internal enum Writer {
+          internal enum Before {
+            /// 모임 후 출석을 체크해주세요
+            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Writer.Before.title", fallback: "모임 후 출석을 체크해주세요")
+          }
+          internal enum NotCheck {
+            /// 출석을 체크하지 않았어요😂
+            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Writer.NotCheck.title", fallback: "출석을 체크하지 않았어요😂")
+          }
         }
       }
       internal enum Empty {

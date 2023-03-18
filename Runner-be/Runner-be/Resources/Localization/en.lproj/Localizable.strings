@@ -200,10 +200,12 @@
 "MyPage.MyPost.Manage.TimeGuide.content.first" = "함께한 러너들의 출석을 ";
 "MyPage.MyPost.Manage.TimeGuide.content.second" = " 후까지 체크할 수 있어요!";
 "MyPage.MyPost.Manage.Modal.button.title" = "마이페이지로 이동";
-"MyPage.MyRunning.Attendance.Before.title" = "리더의 체크를 기다리고 있어요";
+"MyPage.MyRunning.Attendance.Participate.Before.title" = "리더의 체크를 기다리고 있어요";
+"MyPage.MyRunning.Attendance.Writer.Before.title" = "모임 후 출석을 체크해주세요";
 "MyPage.MyRunning.Attendance.Attendance.title" = "출석을 완료했어요 😎";
 "MyPage.MyRunning.Attendance.Absence.title" = "불참했어요 😭";
-"MyPage.MyRunning.Attendance.NotCheck.title" = "리더가 출석을 체크하지 않았어요😂";
+"MyPage.MyRunning.Attendance.Participate.NotCheck.title" = "리더가 출석을 체크하지 않았어요😂";
+"MyPage.MyRunning.Attendance.Writer.NotCheck.title" = "출석을 체크하지 않았어요😂";
 
 // MARK: - MyPage.ManageAttendacne
 "MyPage.ManageAttendance.Before.title" = "출석을 체크하지 않았어요 😣";
