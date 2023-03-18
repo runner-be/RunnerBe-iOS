@@ -51,16 +51,16 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-        tableView.rx.modelSelected(MessageListItem.self)
+        tableView.rx.modelSelected(MessageRoom.self)
             .map { $0.roomId! }
-            .bind(to: viewModel.inputs.messageChat)
+            .bind(to: viewModel.inputs.messageRoomId)
             .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        viewModel.outputs.messageLists
+        viewModel.outputs.messageRoomList
             .filter { [weak self] array in
                 if array.isEmpty {
                     self!.tableView.isHidden = true
@@ -179,7 +179,7 @@ extension MessageViewController {
 // }
 //
 extension MessageViewController {
-    func didSucessGetMessageList(_: [MessageListItem]) {
+    func didSucessGetMessageList(_: [MessageRoom]) {
 //        messageList.append(contentsOf: result)
         tableView.reloadData()
     }

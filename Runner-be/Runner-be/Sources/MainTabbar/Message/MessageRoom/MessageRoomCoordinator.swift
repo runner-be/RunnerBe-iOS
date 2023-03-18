@@ -8,15 +8,15 @@
 import Foundation
 import RxSwift
 
-enum MessageChatResult {
+enum MessageRoomResult {
     case backward(needUpdate: Bool)
     case report
 }
 
-final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
-    var component: MessageChatComponent
+final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
+    var component: MessageRoomComponent
 
-    init(component: MessageChatComponent, navController: UINavigationController) {
+    init(component: MessageRoomComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -32,7 +32,7 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backward
-            .map { MessageChatResult.backward(needUpdate: $0) }
+            .map { MessageRoomResult.backward(needUpdate: $0) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 
@@ -47,7 +47,7 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
                 if self?.component.fromPostDetail == true {
-                    self?.closeSignal.onNext(MessageChatResult.backward(needUpdate: false))
+                    self?.closeSignal.onNext(MessageRoomResult.backward(needUpdate: false))
                 } else {
                     self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
                 }
@@ -55,7 +55,7 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
             .disposed(by: sceneDisposeBag)
     }
 
-    func pushMessageReportScene(vm: MessageChatViewModel, messageId: Int, animated: Bool) {
+    func pushMessageReportScene(vm: MessageRoomViewModel, messageId: Int, animated: Bool) {
         let comp = component.reportMessageComponent(messageId: messageId)
         let coord = MessageReportCoordinator(component: comp, navController: navigationController)
 
@@ -69,7 +69,7 @@ final class MessageChatCoordinator: BasicCoordinator<MessageChatResult> {
         }
     }
 
-    func pushDetailPostScene(vm: MessageChatViewModel, postId: Int, animated: Bool) {
+    func pushDetailPostScene(vm: MessageRoomViewModel, postId: Int, animated: Bool) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 

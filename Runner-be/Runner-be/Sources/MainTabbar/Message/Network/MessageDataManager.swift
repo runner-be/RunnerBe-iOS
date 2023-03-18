@@ -28,7 +28,7 @@ class MessageDataManager {
             }
     }
 
-    func getMessageChat(viewController: MessageChatViewController, roomId: Int) {
+    func getMessageChat(viewController: MessageRoomViewController, roomId: Int) {
         AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: UserInfo().headers)
             .validate()
             .responseDecodable(of: GetMessageChatResponse.self) { response in
@@ -66,7 +66,7 @@ class MessageDataManager {
             }
     }
 
-    func postMessage(viewController: MessageChatViewController, roomId: Int, content: String) {
+    func postMessage(viewController: MessageRoomViewController, roomId: Int, content: String) {
         let parameters = PostMessageRequest(content: content)
         AF.request("\(Constant.BASE_URL)messages/rooms/\(roomId)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: UserInfo().headers)
             .validate()

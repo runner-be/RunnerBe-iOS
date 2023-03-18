@@ -255,7 +255,7 @@ extension MessageReportViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension MessageReportViewController {
-    func didSucessGetMessageChat(_ result: GetMessageChatResult) {
+    func didSucessGetMessageChat(_ result: GetMessageRoomInfoResult) {
         postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
         postSection.postTitle.text = result.roomInfo?[0].title
         postId = result.roomInfo?[0].postId! ?? 0

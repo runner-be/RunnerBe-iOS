@@ -30,8 +30,8 @@ final class PostDetailComponent {
         return ApplicantListModalComponent(postId: postId, applicants: applicants)
     }
 
-    func messageChatComponent(roomID: Int) -> MessageChatComponent {
-        return MessageChatComponent(roomId: roomID, fromPostDetail: true)
+    func messageChatComponent(roomID: Int) -> MessageRoomComponent {
+        return MessageRoomComponent(roomId: roomID, fromPostDetail: true)
     }
 
     var reportModalComponent: ReportModalComponent {

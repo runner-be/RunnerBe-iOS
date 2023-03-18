@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class MessageChatViewModel: BaseViewModel {
+final class MessageRoomViewModel: BaseViewModel {
     var messages: [MessageContent] = []
     var postInfo: RoomInfo?
 
@@ -17,7 +17,7 @@ final class MessageChatViewModel: BaseViewModel {
 
         routeInputs.needUpdate
             .flatMap { _ in messageAPIService.getMessages(roomId: roomId) }
-            .map { [weak self] result -> GetMessageChatResult? in
+            .map { [weak self] result -> GetMessageRoomInfoResult? in
                 switch result {
                 case let .response(result: data):
                     return data

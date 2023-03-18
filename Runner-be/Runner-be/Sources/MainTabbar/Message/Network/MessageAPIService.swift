@@ -22,7 +22,7 @@ final class MessageAPIService {
         self.provider = provider
     }
 
-    func getMessageList() -> Observable<APIResult<[MessageListItem]?>> {
+    func getMessageRoomList() -> Observable<APIResult<[MessageRoom]?>> {
         guard let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
@@ -32,7 +32,7 @@ final class MessageAPIService {
             .asObservable() // return type을 observable로
             .mapResponse()
             .map { (try? $0?.json["result"].rawData()) ?? Data() } // result에 해당하는 rawData
-            .decode(type: [MessageListItem]?.self, decoder: JSONDecoder())
+            .decode(type: [MessageRoom]?.self, decoder: JSONDecoder())
             .catch { error in
                 Log.e("\(error)")
                 return .just(nil)
@@ -42,7 +42,7 @@ final class MessageAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
     }
 
-    func getMessages(roomId: Int) -> Observable<APIResult<GetMessageChatResult?>> {
+    func getMessages(roomId: Int) -> Observable<APIResult<GetMessageRoomInfoResult?>> {
         guard let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
@@ -52,7 +52,7 @@ final class MessageAPIService {
             .asObservable() // return type을 observable로
             .mapResponse()
             .map { (try? $0?.json["result"].rawData()) ?? Data() } // result에 해당하는 rawData
-            .decode(type: GetMessageChatResult?.self, decoder: JSONDecoder())
+            .decode(type: GetMessageRoomInfoResult?.self, decoder: JSONDecoder())
             .catch { error in
                 Log.e("\(error)")
                 return .just(nil)
@@ -61,34 +61,34 @@ final class MessageAPIService {
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
     }
-    
-    func postMessage(roomId: Int, content:String) -> Observable<APIResult<Bool>> {
+
+    func postMessage(roomId: Int, content: String) -> Observable<APIResult<Bool>> {
         guard let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
         }
 
-        return provider.rx.request(.postMessage(roomId: roomId, postMessageRequest: PostMessageRequest(content:content), token: token))
+        return provider.rx.request(.postMessage(roomId: roomId, postMessageRequest: PostMessageRequest(content: content), token: token))
             .asObservable()
             .mapResponse()
             .map { response in
                 guard let response = response else {
-                    Log.d(tag: .network, "res")
-                    return APIResult.error(alertMessage: nil)
+                    Log.d(tag: .network, "result: fail")
+                    return .error(alertMessage: nil)
                 }
 
                 Log.d(tag: .network, "response message: \(response.basic.message)")
                 switch response.basic.code {
                 case 1000: // 성공
-                    return APIResult.response(result: true)
-                default:
-                    return APIResult.error(alertMessage: "오류가 발생했습니다. 다시 시도해주세요")
+                    return .response(result: true)
+                default: // 나머지 에러
+                    return .error(alertMessage: "오류가 발생했습니다. 다시 시도해주세요.")
                 }
             }
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
-    
+
 //    func posting(form: PostingForm) -> Observable<APIResult<PostingResult>> {
 //        guard let userId = loginKeyChain.userId,
 //              let token = loginKeyChain.token

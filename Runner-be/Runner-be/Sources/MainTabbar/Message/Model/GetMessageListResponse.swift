@@ -13,12 +13,12 @@ struct GetMessageListResponse: Decodable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: [MessageListItem]?
+    let result: [MessageRoom]?
 }
 
 // MARK: - Result
 
-struct MessageListItem: Decodable {
+struct MessageRoom: Decodable {
     let roomId: Int?
     let title, repUserName: String?
     let profileImageUrl: String?

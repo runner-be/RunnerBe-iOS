@@ -12,14 +12,12 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageChatViewController: BaseViewController {
+class MessageRoomViewController: BaseViewController {
     var messages: [MessageContent] = []
     var postId = 0
     var messageId = 0
     let formatter = DateUtil.shared.dateFormatter
     let dateUtil = DateUtil.shared
-
-    static let chatBackgroundHeight = UIScreen.main.isWiderThan375pt ? 96 : 62
 
     lazy var messageDataManager = MessageDataManager()
 
@@ -47,7 +45,7 @@ class MessageChatViewController: BaseViewController {
         viewModel.routeInputs.needUpdate.onNext(true)
     }
 
-    init(viewModel: MessageChatViewModel) {
+    init(viewModel: MessageRoomViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -57,7 +55,7 @@ class MessageChatViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: MessageChatViewModel
+    private var viewModel: MessageRoomViewModel
 
     private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
         navBar.leftBtnItem.rx.tap
@@ -77,7 +75,6 @@ class MessageChatViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-        
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -98,19 +95,19 @@ class MessageChatViewController: BaseViewController {
         viewModel.outputs.messageContents
             .filter { [weak self] contents in
                 if contents.isEmpty {
-                    self!.tableView.isHidden = true
+                    self!.messageContentsTableView.isHidden = true
                     return false
                 } else {
-                    self!.tableView.isHidden = false
+                    self!.messageContentsTableView.isHidden = false
                     return true
                 }
             }
-            .bind(to: tableView.rx.items) { _, _, item -> UITableViewCell in
+            .bind(to: messageContentsTableView.rx.items) { _, _, item -> UITableViewCell in
 
                 let date = self.dateUtil.apiDateStringToDate(item.createdAt!)
 
                 if item.messageFrom == "Others" {
-                    let cell = self.tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
+                    let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
 
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero // 구분선 제거
@@ -129,7 +126,7 @@ class MessageChatViewController: BaseViewController {
                     return cell
 
                 } else {
-                    let cell = self.tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
+                    let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
 
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero
@@ -166,7 +163,7 @@ class MessageChatViewController: BaseViewController {
         view.postTitle.text = "불금에 달리기하실분!"
     }
 
-    private var tableView = UITableView().then { view in
+    private var messageContentsTableView = UITableView().then { view in
         view.register(MessageChatLeftCell.self, forCellReuseIdentifier: MessageChatLeftCell.id) // 케이스에 따른 셀을 모두 등록
         view.register(MessageChatRightCell.self, forCellReuseIdentifier: MessageChatRightCell.id)
         view.backgroundColor = .darkG7
@@ -204,14 +201,14 @@ class MessageChatViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension MessageChatViewController {
+extension MessageRoomViewController {
     private func setupViews() {
         setBackgroundColor()
 
         view.addSubviews([
             navBar,
             postSection,
-            tableView,
+            messageContentsTableView,
             chatBackGround,
         ])
 
@@ -237,7 +234,7 @@ extension MessageChatViewController {
             make.trailing.equalTo(self.view.snp.trailing)
         }
 
-        tableView.snp.makeConstraints { make in
+        messageContentsTableView.snp.makeConstraints { make in
             make.top.equalTo(postSection.snp.bottom).offset(22)
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
@@ -248,7 +245,7 @@ extension MessageChatViewController {
             make.leading.equalTo(self.view.snp.leading)
             make.trailing.equalTo(self.view.snp.trailing)
             make.bottom.equalTo(self.view.snp.bottom)
-            make.height.equalTo(MessageChatViewController.chatBackgroundHeight)
+            make.height.equalTo(UIScreen.main.isWiderThan375pt ? 96 : 62)
         }
 
         chatTextView.snp.makeConstraints { make in
@@ -296,7 +293,7 @@ extension MessageChatViewController {
 }
 
 //
-//extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
+// extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
 //    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 //        return messages.count
 //    }
@@ -359,9 +356,9 @@ extension MessageChatViewController {
 //        func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
 //            return 76
 //        }
-//}
+// }
 
-extension MessageChatViewController: UITextViewDelegate {
+extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
         if textView.text == L10n.MessageList.Chat.placeHolder {
             textView.text = nil // placeholder 제거
@@ -388,8 +385,8 @@ extension MessageChatViewController: UITextViewDelegate {
     }
 }
 
-extension MessageChatViewController {
-    func didSucessGetMessageChat(_: GetMessageChatResult) {
+extension MessageRoomViewController {
+    func didSucessGetMessageChat(_: GetMessageRoomInfoResult) {
 //        postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
 //        postSection.postTitle.text = result.roomInfo?[0].title
 //        postId = result.roomInfo?[0].postId! ?? 0

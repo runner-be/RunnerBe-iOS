@@ -13,12 +13,12 @@ struct GetMessageChatResponse: Decodable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: GetMessageChatResult?
+    let result: GetMessageRoomInfoResult?
 }
 
 // MARK: - Result
 
-struct GetMessageChatResult: Decodable {
+struct GetMessageRoomInfoResult: Decodable {
     let roomInfo: [RoomInfo]?
     let messageList: [MessageContent]?
 }

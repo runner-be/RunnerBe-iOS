@@ -70,12 +70,12 @@ final class BookMarkViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookMark
-            .throttle(.seconds(1), scheduler: MainScheduler.instance) //1초동안 이벤트를 방출하고싶지 않을때! (클릭한 이후에 1초동안 이벤트를 전달안함)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance) // 1초동안 이벤트를 방출하고싶지 않을때! (클릭한 이후에 1초동안 이벤트를 전달안함)
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
                       let posts = self.posts[self.runningTag],
                       idx >= 0, idx < posts.count
-                else { return nil } //nil return하게 되면 그 아래가 실행 안됨
+                else { return nil } // nil return하게 되면 그 아래가 실행 안됨
                 return posts[idx]
             }
             .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }

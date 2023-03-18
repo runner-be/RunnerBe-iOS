@@ -10,7 +10,7 @@ import RxSwift
 
 protocol BookMarkResult {}
 
-final class BookMarkCoordinator: BasicCoordinator<HomeResult> {
+final class BookMarkCoordinator: BasicCoordinator<BookMarkResult> {
     // MARK: Lifecycle
 
     init(component: BookMarkComponent, navController: UINavigationController) {

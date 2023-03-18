@@ -70,17 +70,17 @@ class BookMarkViewController: BaseViewController {
                 self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
 
                 if configs.isEmpty {
-                    self?.emptyLabel.isHidden = false
+                    self?.noBookMarkLabel.isHidden = false
                     switch self?.runningTagInt {
                     case 0:
-                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
+                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.Before.title
                     case 1:
-                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
+                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.After.title
                     default:
-                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
+                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.Holiday.title
                     }
                 } else {
-                    self?.emptyLabel.isHidden = true
+                    self?.noBookMarkLabel.isHidden = true
                 }
             })
             .map { [BasicPostSection(items: $0)] }
@@ -129,11 +129,11 @@ class BookMarkViewController: BaseViewController {
         label.text = "총 0 건"
     }
 
-    var emptyLabelView = UIView().then { view in // 라벨을 가운데에 있게할 트릭 uiview
+    var noBookMarkLabelContainerView = UIView().then { view in // 라벨을 가운데에 있게할 트릭 uiview
         view.backgroundColor = UIColor.clear
     }
 
-    var emptyLabel = UILabel().then { label in // 목록이 없을때 띄워줄 label
+    var noBookMarkLabel = UILabel().then { label in // 목록이 없을때 띄워줄 label
         label.font = .iosTitle19R
         label.textColor = .darkG4
 //        label.text = L10n.BookMark.Main.Empty.Before.title
@@ -160,8 +160,8 @@ extension BookMarkViewController {
             navBar,
             segmentedControl,
             numPostLabel,
-            emptyLabel,
-            emptyLabelView,
+            noBookMarkLabel,
+            noBookMarkLabelContainerView,
             postCollectionView,
         ])
     }
@@ -191,16 +191,16 @@ extension BookMarkViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
 
-        emptyLabelView.snp.makeConstraints { make in
+        noBookMarkLabelContainerView.snp.makeConstraints { make in
             make.top.equalTo(segmentedControl.snp.bottom)
             make.bottom.equalTo(self.view.snp.bottom)
             make.leading.equalTo(self.view.snp.leading)
             make.trailing.equalTo(self.view.snp.trailing)
         }
 
-        emptyLabel.snp.makeConstraints { make in
+        noBookMarkLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.snp.centerX)
-            make.centerY.equalTo(emptyLabelView.snp.centerY)
+            make.centerY.equalTo(noBookMarkLabelContainerView.snp.centerY)
         }
     }
 }
