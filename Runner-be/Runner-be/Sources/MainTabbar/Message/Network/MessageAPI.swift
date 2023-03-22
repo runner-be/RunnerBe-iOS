@@ -40,7 +40,7 @@ extension MessageAPI: TargetType {
             return "/messages/rooms/\(roomId)"
         case let .postMessage(roomId, _, _):
             return "/messages/rooms/\(roomId)"
-            
+
 //        case let .detail(postId, userId, _):
 //            return "/postings/v2/\(postId)/\(userId)"
 //        case let .apply(postId, userId, _):
@@ -132,7 +132,7 @@ extension MessageAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .getMessages(roomId: _, token: token):
             header["x-access-token"] = "\(token.jwt)"
-        case let .postMessage(roomId: _, content: _, token: token):
+        case let .postMessage(roomId: _, postMessageRequest: _, token: token):
             header["x-access-token"] = "\(token.jwt)"
 //        case let .detail(_, _, token):
 //            header["x-access-token"] = "\(token.jwt)"

@@ -82,6 +82,12 @@ final class MyPageViewModel: BaseViewModel {
                     self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
+
+                guard Date().timeIntervalSince1970 >= posts[idx].gatherDate.timeIntervalSince1970 else { // 모임 시작
+                    self.toast.onNext("모임이 시작되면 출석을 체크할 수 있어요!")
+                    return nil
+                }
+
                 print("post id: \(posts[idx].ID)")
                 return posts[idx].ID
             }

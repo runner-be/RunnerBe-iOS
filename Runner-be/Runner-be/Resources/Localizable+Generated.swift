@@ -422,8 +422,8 @@ internal enum L10n {
         }
         internal enum Writer {
           internal enum Before {
-            /// 모임 후 출석을 체크해주세요
-            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Writer.Before.title", fallback: "모임 후 출석을 체크해주세요")
+            /// 참여자의 출석을 체크해주세요
+            internal static let title = L10n.tr("Localizable", "MyPage.MyRunning.Attendance.Writer.Before.title", fallback: "참여자의 출석을 체크해주세요")
           }
           internal enum NotCheck {
             /// 출석을 체크하지 않았어요😂
