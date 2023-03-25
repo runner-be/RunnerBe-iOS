@@ -340,7 +340,7 @@
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
 		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
-		DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */; };
+		DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
 		DA784C8D289C1736005F92B1 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA784C8C289C1736005F92B1 /* UserInfo.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
@@ -724,7 +724,7 @@
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
 		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
-		DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageChatResponse.swift; sourceTree = "<group>"; };
+		DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageRoomResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
 		DA784C8C289C1736005F92B1 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
@@ -2017,7 +2017,7 @@
 			children = (
 				DA117B1F283150A300158211 /* Message.swift */,
 				DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */,
-				DA48D8C3289D69AE0076638A /* GetMessageChatResponse.swift */,
+				DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */,
 				DADD948C28A794AA0004F86F /* PostMessageRequest.swift */,
 				DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */,
 			);
@@ -2540,7 +2540,7 @@
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
 				433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
-				DA48D8C4289D69AE0076638A /* GetMessageChatResponse.swift in Sources */,
+				DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */,
 				C38F8F4A27AD9EBA0050137D /* MyPageCoordinator.swift in Sources */,
 				C343A33A27BDEDA7008E6FA4 /* SliderLabelGroup.swift in Sources */,
 				DA8477AD28F1F36A006036CF /* UIScreen+.swift in Sources */,

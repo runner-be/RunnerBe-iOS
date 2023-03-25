@@ -14,21 +14,12 @@ import Then
 import UIKit
 
 class MessageViewController: BaseViewController, UIScrollViewDelegate {
-//    lazy var myDataManager = MessageDataManager()
-//    var messageList = [GetMessageListResult]()
     let cellID = "MessageTableViewCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         initialLayout()
-
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//
-//        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.id)
-
-//        myDataManager.getMessageList(viewController: self)
 
         viewInputs()
         viewModelInput()
@@ -52,7 +43,7 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
         tableView.rx.modelSelected(MessageRoom.self)
-            .map { $0.roomId! }
+            .compactMap { $0.roomId }
             .bind(to: viewModel.inputs.messageRoomId)
             .disposed(by: disposeBag)
     }
@@ -74,8 +65,8 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
 
                 cell.selectionStyle = .none
 //                반짝임 효과 제거
-                if item.profileImageUrl != nil {
-                    cell.messageProfile.kf.setImage(with: URL(string: item.profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
+                if let profileUrl = item.profileImageUrl {
+                    cell.messageProfile.kf.setImage(with: URL(string: profileUrl), placeholder: Asset.profileEmptyIcon.uiImage)
                 } else {
                     cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
                 }
@@ -143,48 +134,5 @@ extension MessageViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-    }
-}
-
-//
-// extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-//        return messageList.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.id) as? MessageTableViewCell else { return .init() }
-//        cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
-//        if !messageList.isEmpty {
-//            if messageList[indexPath.row].profileImageUrl != nil {
-//                cell.messageProfile.kf.setImage(with: URL(string: messageList[indexPath.row].profileImageUrl!), placeholder: Asset.profileEmptyIcon.uiImage)
-//            } else {
-//                cell.messageProfile.image = Asset.profileEmptyIcon.uiImage
-//            }
-//            cell.postTitle.text = messageList[indexPath.row].title
-//            cell.nameLabel.text = messageList[indexPath.row].repUserName
-//
-//            if messageList[indexPath.row].recentMessage == "Y" { // 안읽은 메시지 여부 : 있음
-//                cell.backgroundColor = .primaryBestDark
-//            } else {
-//                cell.backgroundColor = .clear
-//            }
-//        }
-//        return cell
-//    }
-//
-//    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-//        return 76
-//    }
-// }
-//
-extension MessageViewController {
-    func didSucessGetMessageList(_: [MessageRoom]) {
-//        messageList.append(contentsOf: result)
-        tableView.reloadData()
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }

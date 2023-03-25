@@ -37,9 +37,9 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.report
-            .map { (vm: scene.VM, messageId: $0) }
+            .map { (vm: scene.VM, roomId: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushMessageReportScene(vm: result.vm, messageId: result.messageId, animated: true)
+                self?.pushMessageReportScene(vm: result.vm, roomId: result.roomId)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -49,33 +49,33 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
                 if self?.component.fromPostDetail == true {
                     self?.closeSignal.onNext(MessageRoomResult.backward(needUpdate: false))
                 } else {
-                    self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+                    self?.pushDetailPostScene(vm: result.vm, postId: result.postId)
                 }
             })
             .disposed(by: sceneDisposeBag)
     }
 
-    func pushMessageReportScene(vm: MessageRoomViewModel, messageId: Int, animated: Bool) {
-        let comp = component.reportMessageComponent(messageId: messageId)
+    func pushMessageReportScene(vm: MessageRoomViewModel, roomId: Int) {
+        let comp = component.reportMessageComponent(roomId: roomId)
         let coord = MessageReportCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: animated) { coordResult in
+        coordinate(coordinator: coord) { coordResult in
             switch coordResult {
             case let .backward(needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
             case .reportModal:
-                vm.routeInputs.report.onNext(messageId)
+                vm.routeInputs.report.onNext(roomId)
             }
         }
     }
 
-    func pushDetailPostScene(vm: MessageRoomViewModel, postId: Int, animated: Bool) {
+    func pushDetailPostScene(vm: MessageRoomViewModel, postId: Int) {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+        coordinate(coordinator: coord) { [weak self] coordResult in
             switch coordResult {
-            case let .backward(id, needUpdate):
+            case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
                 vm.routeInputs.detailClosed.onNext(())
             }

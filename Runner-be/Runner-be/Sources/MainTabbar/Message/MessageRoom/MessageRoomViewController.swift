@@ -32,9 +32,6 @@ class MessageRoomViewController: BaseViewController {
 
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-//        tableView.delegate = self
-//        tableView.dataSource = self
-
         chatTextView.delegate = self
         dismissKeyboardWhenTappedAround()
 
@@ -63,7 +60,6 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .map { _ in self.messageId }
             .bind(to: viewModel.inputs.report)
             .disposed(by: disposeBag)
 
@@ -71,6 +67,11 @@ class MessageRoomViewController: BaseViewController {
             .when(.recognized)
             .map { _ in self.postId }
             .bind(to: viewModel.inputs.detailPost)
+            .disposed(by: disposeBag)
+
+        sendButton.rx.tap
+            .map { self.chatTextView.text ?? "" }
+            .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
     }
 
@@ -112,7 +113,7 @@ class MessageRoomViewController: BaseViewController {
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero // 구분선 제거
 
-                    cell.messageContent.text = item.content!
+                    cell.messageContent.text = item.content
                     cell.nickName.text = item.nickName
                     cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
 
@@ -131,7 +132,7 @@ class MessageRoomViewController: BaseViewController {
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero
 
-                    cell.messageContent.text = item.content!
+                    cell.messageContent.text = item.content
                     cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
 
                     if item.whetherPostUser == "Y" {
@@ -194,7 +195,7 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var sendButton = UIButton().then { view in
-        view.isUserInteractionEnabled = false
+        view.isEnabled = false
         view.setImage(Asset.iconsSend24.uiImage, for: .normal)
     }
 }
@@ -261,17 +262,7 @@ extension MessageRoomViewController {
             make.centerY.equalTo(chatTextView.snp.centerY)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
-
-//        let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
-//        sendButton.addGestureRecognizer(tapSendMessage)
     }
-
-//    // function
-//    @objc
-//    func tapSendMessage(_: UITapGestureRecognizer) {
-//        messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//        chatTextView.text = ""
-//    }
 
     @objc
     func keyboardWillShow(_ notification: Notification) {
@@ -382,25 +373,5 @@ extension MessageRoomViewController: UITextViewDelegate {
             sendButton.isEnabled = true
 //            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
-    }
-}
-
-extension MessageRoomViewController {
-    func didSucessGetMessageChat(_: GetMessageRoomInfoResult) {
-//        postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
-//        postSection.postTitle.text = result.roomInfo?[0].title
-//        postId = result.roomInfo?[0].postId! ?? 0
-//
-//        messages.removeAll()
-        ////        messages.append(contentsOf: result.messageList!)
-//        tableView.reloadData()
-    }
-
-    func didSuccessPostMessage(_: BaseResponse) {
-//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }

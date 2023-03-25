@@ -16,7 +16,7 @@ final class MessageRoomViewModel: BaseViewModel {
         super.init()
 
         routeInputs.needUpdate
-            .flatMap { _ in messageAPIService.getMessages(roomId: roomId) }
+            .flatMap { _ in messageAPIService.getMessageContents(roomId: roomId) }
             .map { [weak self] result -> GetMessageRoomInfoResult? in
                 switch result {
                 case let .response(result: data):
@@ -49,25 +49,47 @@ final class MessageRoomViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.backward
-            .map { [weak self] in true }
+            .map { true }
             .subscribe(routes.backward)
             .disposed(by: disposeBag)
 
         inputs.report
-            .compactMap { $0 }
-            .bind(to: routes.report)
+            .subscribe(onNext: { _ in
+                self.routes.report.onNext(roomId)
+            })
             .disposed(by: disposeBag)
 
         inputs.detailPost
             .compactMap { $0 }
             .bind(to: routes.detailPost)
             .disposed(by: disposeBag)
+
+        inputs.sendMessage
+            .flatMap { messageAPIService.postMessage(roomId: roomId, content: $0) }
+            .map { result in
+                switch result {
+                case let .response(result: data):
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    }
+                    return false
+                }
+            }
+            .subscribe(onNext: { isPosted in
+                if isPosted {
+                    self.routeInputs.needUpdate.onNext(true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
-        var report = PublishSubject<Int>()
+        var report = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
+        var sendMessage = PublishSubject<String>()
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체

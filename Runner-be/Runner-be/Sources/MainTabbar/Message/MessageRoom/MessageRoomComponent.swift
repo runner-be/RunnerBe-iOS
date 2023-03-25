@@ -25,11 +25,11 @@ final class MessageRoomComponent {
     var roomId: Int
     var fromPostDetail: Bool
 
-    func reportMessageComponent(messageId: Int) -> MessageReportComponent {
-        return MessageReportComponent(messageId: messageId)
+    func reportMessageComponent(roomId: Int) -> MessageReportComponent {
+        return MessageReportComponent(roomId: roomId)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {
-        return PostDetailComponent(postId: postId, fromMessageChat: true)
+        return PostDetailComponent(postId: postId, fromMessageRoom: true)
     }
 }
