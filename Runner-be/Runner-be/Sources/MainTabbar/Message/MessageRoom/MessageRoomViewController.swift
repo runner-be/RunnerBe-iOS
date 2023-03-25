@@ -217,9 +217,6 @@ extension MessageRoomViewController {
             chatTextView,
             sendButton,
         ])
-
-        chatBackGround.bringSubviewToFront(chatTextView)
-        chatTextView.bringSubviewToFront(sendButton)
     }
 
     private func initialLayout() {
@@ -260,7 +257,7 @@ extension MessageRoomViewController {
             make.width.equalTo(24)
             make.height.equalTo(24)
             make.centerY.equalTo(chatTextView.snp.centerY)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
         }
     }
 
@@ -269,7 +266,7 @@ extension MessageRoomViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y -= (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
+            chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
         }
     }
 
@@ -278,7 +275,7 @@ extension MessageRoomViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y += (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
+            chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
         }
     }
 }
@@ -368,7 +365,7 @@ extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             sendButton.isEnabled = false
-//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal) // 이부분때문에 textview 사라지는 현상 발생
+//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .disabled) // 이부분때문에 textview 사라지는 현상 발생
         } else {
             sendButton.isEnabled = true
 //            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
