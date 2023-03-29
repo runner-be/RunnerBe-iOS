@@ -17,17 +17,12 @@ import Toast_Swift
 import UIKit
 
 class ManageAttendanceViewController: BaseViewController {
-    var useCornerRadiusAsRatio: Bool = true
-    var cornerRadiusFactor: CGFloat = 1
     var myRunningIdx = -1 // 출석관리하기의 runnerList를 가져올 idx
     var postId = -1
     var attendTimeOver = "N"
     var runnerList: [RunnerList] = []
     var userList: [Int] = []
     var attendList: [String] = []
-    static let postButtonMargin = UIScreen.main.isWiderThan375pt ? 42 : 8
-
-    lazy var manageAttendanceDataManager = ManageAttendanceDataManager()
 
     let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
     var gatherDate = Date()
@@ -38,31 +33,18 @@ class ManageAttendanceViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        manageAttendanceDataManager.getManageAttendance(viewController: self)
-
         setupViews()
         initialLayout()
 
         viewModelInput()
         viewModelOutput()
 
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        saveButton.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                if !self.attendList.contains("-") { // 모두 출석체크되었으면
-                    print(self.userList.description)
-                    print(self.attendList.description)
-                    self.manageAttendanceDataManager.patchAttendance(viewController: self, postId: self.postId, userIdList: self.userList.map(String.init).joined(separator: ","), whetherAttendList: self.attendList.joined(separator: ","))
-                }
-            })
-            .disposed(by: disposeBag)
+        manageAttendanceTableView.delegate = self
+        manageAttendanceTableView.dataSource = self
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
 
-        print("myRunningIdx \(myRunningIdx)")
+        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
     init(viewModel: ManageAttendanceViewModel, myRunningIdx: Int) {
@@ -83,12 +65,102 @@ class ManageAttendanceViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
+
+        saveButton.rx.tap
+            .subscribe(onNext: { _ in
+                if !self.attendList.contains("-") { // 모두 출석체크되었으면
+                    print(self.userList.description)
+                    print(self.attendList.description)
+                    self.viewModel.inputs.patchAttendance.onNext((postId: self.postId, userIdList: self.userList.map { String($0) }.joined(separator: ","), whetherAttendList: self.attendList.joined(separator: ",")))
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.info
+            .subscribe(onNext: { info in
+                if info.attendTimeOver == "Y" { // 출석 관리 마감 여부
+                    self.attendTimeOver = "Y"
+                    self.navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
+                    self.saveButton.isHidden = true
+
+                    self.timeView.isHidden = true
+                    self.timeFirstLabel.isHidden = true
+                    self.timeSecondLabel.isHidden = true
+                    self.timeThirdLabel.isHidden = true
+
+                    self.manageAttendanceTableView.snp.makeConstraints { make in
+                        make.top.equalTo(self.view.snp.top)
+                        make.leading.equalTo(self.view.snp.leading)
+                        make.trailing.equalTo(self.view.snp.trailing)
+                        make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+                    }
+                } else { // 출석이 완료되지 않을 경우
+                    self.attendTimeOver = "N"
+                    self.navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
+                    self.saveButton.isHidden = false
+
+                    self.timeView.isHidden = false
+                    self.timeFirstLabel.isHidden = false
+                    self.timeSecondLabel.isHidden = false
+                    self.timeThirdLabel.isHidden = false
+
+                    self.manageAttendanceTableView.snp.makeConstraints { make in
+                        make.top.equalTo(self.view.snp.top)
+                        make.leading.equalTo(self.view.snp.leading)
+                        make.trailing.equalTo(self.view.snp.trailing)
+                        make.bottom.equalTo(self.saveButton.snp.top).offset(8)
+                    }
+                }
+
+                self.postId = info.postID ?? -1
+
+                let formatter = DateUtil.shared.dateFormatter
+                formatter.dateFormat = DateFormat.apiDate.formatString
+
+                let dateString = info.gatheringTime!
+                print("dateString : \(dateString)")
+                self.gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
+
+                let hms = info.runningTime?.components(separatedBy: ":") // hour miniute seconds
+                let hour = Int(hms![0])
+                let minute = Int(hms![1])
+
+                // 러닝 시간
+                print("runningTime: \(hour):\(minute)")
+
+                // 모임 날짜
+                self.gatherDate = self.gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
+
+                // 출석 마감 날짜
+                let finishedDate = self.gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+                print("finishedDate \(finishedDate.description)")
+
+                // 현재 - 출석 마감 날짜 남은 분
+                print(self.currentDate.description)
+                let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: self.currentDate, to: finishedDate)
+                self.time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
+                //        time = 5 // 마이페이지 모달 이동 테스트용
+                print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
+
+                for user in info.runnerList! {
+                    self.userList.append(user.userID!)
+                    self.attendList.append("-")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.runnerList
+            .subscribe(onNext: { runnerList in
+                self.runnerList = runnerList
+                self.manageAttendanceTableView.reloadData()
             })
             .disposed(by: disposeBag)
     }
@@ -103,7 +175,7 @@ class ManageAttendanceViewController: BaseViewController {
         }
     }
 
-    private var tableView = UITableView(frame: .zero, style: .grouped).then { view in
+    private var manageAttendanceTableView = UITableView(frame: .zero, style: .grouped).then { view in
         // style.grouped는 header와 cell을 같이 스크롤되게 하기 위함
         view.register(ManageAttendanceCell.self, forCellReuseIdentifier: ManageAttendanceCell.id) // 케이스에 따른 셀을 모두 등록
         view.separatorStyle = .none
@@ -158,46 +230,13 @@ extension ManageAttendanceViewController {
         view.backgroundColor = .black
 
         view.addSubviews([
-            // navBar,
-//            timeView,
-//            timeFirstLabel,
-//            timeSecondLabel,
-//            timeThirdLabel,
-            tableView,
+            manageAttendanceTableView,
             saveButton,
         ])
     }
 
     private func initialLayout() {
-//        navBar.snp.makeConstraints { make in
-//            make.top.equalTo(view.snp.top)
-//            make.leading.equalTo(view.snp.leading)
-//            make.trailing.equalTo(view.snp.trailing)
-//        }
-
-//        timeView.snp.makeConstraints { make in
-//            make.top.equalTo(navBar.snp.bottom)
-//            make.leading.equalTo(view.snp.leading)
-//            make.trailing.equalTo(view.snp.trailing)
-//            make.height.equalTo(44)
-//        }
-//
-//        timeFirstLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(timeView.snp.leading).offset(18)
-//            make.centerY.equalTo(timeView.snp.centerY)
-//        }
-//
-//        timeSecondLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(timeFirstLabel.snp.trailing).offset(2)
-//            make.centerY.equalTo(timeView.snp.centerY)
-//        }
-//
-//        timeThirdLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(timeSecondLabel.snp.trailing).offset(2)
-//            make.centerY.equalTo(timeView.snp.centerY)
-//        }
-
-        tableView.snp.makeConstraints { make in
+        manageAttendanceTableView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
@@ -208,7 +247,7 @@ extension ManageAttendanceViewController {
             make.height.equalTo(40)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(view.snp.bottom).offset(-ManageAttendanceViewController.postButtonMargin)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -8)
         }
     }
 }
@@ -380,93 +419,6 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
             return contentView
         }
-    }
-}
-
-extension ManageAttendanceViewController {
-    func didSuccessGetManageAttendance(myPosting: [MyPosting]) {
-        // 이 화면에 들어왔다는 것은, runnerList가 1명이상은 무조건 있다는 것임 (자기자신)
-        runnerList.append(contentsOf: myPosting[myRunningIdx].runnerList ?? [])
-
-        tableView.reloadData()
-
-        if myPosting[myRunningIdx].attendTimeOver == "Y" { // 출석 관리 마감 여부
-            attendTimeOver = "Y"
-            navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
-            saveButton.isHidden = true
-
-            timeView.isHidden = true
-            timeFirstLabel.isHidden = true
-            timeSecondLabel.isHidden = true
-            timeThirdLabel.isHidden = true
-
-            tableView.snp.makeConstraints { make in
-                make.top.equalTo(view.snp.top)
-                make.leading.equalTo(view.snp.leading)
-                make.trailing.equalTo(view.snp.trailing)
-                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            }
-        } else { // 출석이 완료되지 않을 경우
-            attendTimeOver = "N"
-            navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
-            saveButton.isHidden = false
-
-            timeView.isHidden = false
-            timeFirstLabel.isHidden = false
-            timeSecondLabel.isHidden = false
-            timeThirdLabel.isHidden = false
-
-            tableView.snp.makeConstraints { make in
-                make.top.equalTo(view.snp.top)
-                make.leading.equalTo(view.snp.leading)
-                make.trailing.equalTo(view.snp.trailing)
-                make.bottom.equalTo(saveButton.snp.top).offset(8)
-            }
-        }
-
-        postId = myPosting[myRunningIdx].postID ?? -1
-
-        let formatter = DateUtil.shared.dateFormatter
-        formatter.dateFormat = DateFormat.apiDate.formatString
-
-        let dateString = myPosting[myRunningIdx].gatheringTime!
-        print("dateString : \(dateString)")
-        gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
-
-        let hms = myPosting[myRunningIdx].runningTime?.components(separatedBy: ":") // hour miniute seconds
-        let hour = Int(hms![0])
-        let minute = Int(hms![1])
-
-        // 러닝 시간
-        print("runningTime: \(hour):\(minute)")
-
-        // 모임 날짜
-        gatherDate = gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
-        print("gatherDate \(gatherDate)")
-
-        // 출석 마감 날짜
-        let finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
-        print("finishedDate \(finishedDate.description)")
-
-        // 현재 - 출석 마감 날짜 남은 분
-        print(currentDate.description)
-        let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: finishedDate)
-        time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
-//        time = 5 // 마이페이지 모달 이동 테스트용
-        print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
-
-        for user in myPosting[myRunningIdx].runnerList! {
-            userList.append(user.userID!)
-            attendList.append("-")
-        }
-    }
-
-    func didSuccessPatchAttendance(_: BaseResponse) {
-        view.makeToast("출석이 제출되었습니다.")
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }
 

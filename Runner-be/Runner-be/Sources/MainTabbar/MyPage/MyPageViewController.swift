@@ -95,8 +95,7 @@ class MyPageViewController: BaseViewController {
             else { return UICollectionViewCell() }
             cell.configure(with: item)
             cell.postInfoView.bookMarkIcon.isHidden = true
-            cell.manageButton.rx.tapGesture() // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
-                .when(.recognized)
+            cell.manageButton.rx.tap // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
                 .map { _ in
                     indexPath.row
                 }
@@ -465,8 +464,6 @@ extension MyPageViewController {
     }
 
     private func initialLayout() {
-        print("sequence \(5)")
-
         navBar.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)

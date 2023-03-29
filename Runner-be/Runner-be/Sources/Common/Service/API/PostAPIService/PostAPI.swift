@@ -25,6 +25,8 @@ enum PostAPI {
 
     /// postings/:postId/report/:userId
     case report(postId: Int, userId: Int, token: LoginToken)
+    case getRunnerList(userId: Int, token: LoginToken)
+    case manageAttendance(postId: Int, request: PatchAttendanceRequest, token: LoginToken)
 }
 
 extension PostAPI: TargetType {
@@ -58,6 +60,10 @@ extension PostAPI: TargetType {
             return "/runnings/\(postId)/attendees/\(userId)"
         case let .report(postId, userId, _):
             return "/postings/\(postId)/report/\(userId)"
+        case let .manageAttendance(postId, _, _):
+            return "/runnings/\(postId)/attend"
+        case let .getRunnerList(userId, _):
+            return "/users/\(userId)/myPage/v2"
         }
     }
 
@@ -87,6 +93,10 @@ extension PostAPI: TargetType {
             return Method.patch
         case .report:
             return Method.post
+        case .manageAttendance:
+            return Method.patch
+        case .getRunnerList:
+            return Method.get
         }
     }
 
@@ -113,22 +123,6 @@ extension PostAPI: TargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):
             return .requestJSONEncodable(form)
-//            let parameters: [String: Any] = [
-//                "title": form.title,
-//                "gatheringTime": form.gatheringTime,
-//                "runningTime": form.runningTime,
-//                "gatherLongitude": "\(form.gatherLongitude)",
-//                "gatherLatitude": "\(form.gatherLatitude)",
-//                "locationInfo": "\(form.locationInfo)",
-//                "runningTag": form.runningTag.code,
-//                "ageMin": "\(form.ageMin)",
-//                "ageMax": "\(form.ageMax)",
-//                "peopleNum": "\(form.peopleNum)",
-//                "contents": form.contents,
-//                "runnerGender": form.runnerGender.code,
-//            ]
-
-//            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .bookmarking(postId, _, _, _):
             let query: [String: Any] = [
                 "postId": postId,
@@ -138,13 +132,9 @@ extension PostAPI: TargetType {
             return .requestPlain
         case .detail:
             return .requestPlain
-        case let .apply(_, userId, _):
+        case .apply:
             return .requestPlain
-        case let .accept(_, userId, _, _, _):
-//            let query: [String: Any] = [
-//                "userId": userId,
-//            ]
-//            return .requestCompositeData(bodyData: Data(), urlParameters: query)
+        case .accept:
             return .requestPlain
         case .close:
             return .requestPlain
@@ -155,6 +145,10 @@ extension PostAPI: TargetType {
         case .attendance:
             return .requestPlain
         case .report:
+            return .requestPlain
+        case let .manageAttendance(_, request, _):
+            return .requestJSONEncodable(request)
+        case .getRunnerList:
             return .requestPlain
         }
     }
@@ -186,6 +180,11 @@ extension PostAPI: TargetType {
         case let .attendance(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .report(_, _, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .manageAttendance(_, _, token):
+            header["x-access-token"] = "\(token.jwt)"
+
+        case let .getRunnerList(_, token):
             header["x-access-token"] = "\(token.jwt)"
         }
         return header

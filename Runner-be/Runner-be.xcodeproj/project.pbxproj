@@ -369,9 +369,7 @@
 		DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */; };
 		DADD85FB28870B8000B11041 /* SettingsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FA28870B8000B11041 /* SettingsDataManager.swift */; };
 		DADD85FD28870BEE00B11041 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FC28870BEE00B11041 /* Constants.swift */; };
-		DADD85FF2887195300B11041 /* MessageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FE2887195300B11041 /* MessageDataManager.swift */; };
 		DADD948D28A794AA0004F86F /* PostMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD948C28A794AA0004F86F /* PostMessageRequest.swift */; };
-		DADD948F28A7A8B20004F86F /* ManageAttendanceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD948E28A7A8B10004F86F /* ManageAttendanceDataManager.swift */; };
 		DADD949128A7CA9F0004F86F /* PostMessageReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */; };
 		DADD949528A7CF4B0004F86F /* MessageReportComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949428A7CF4B0004F86F /* MessageReportComponent.swift */; };
 		DADD949728A7CF5C0004F86F /* MessageReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949628A7CF5C0004F86F /* MessageReportCoordinator.swift */; };
@@ -753,9 +751,7 @@
 		DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchAttendanceRequest.swift; sourceTree = "<group>"; };
 		DADD85FA28870B8000B11041 /* SettingsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataManager.swift; sourceTree = "<group>"; };
 		DADD85FC28870BEE00B11041 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DADD85FE2887195300B11041 /* MessageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataManager.swift; sourceTree = "<group>"; };
 		DADD948C28A794AA0004F86F /* PostMessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageRequest.swift; sourceTree = "<group>"; };
-		DADD948E28A7A8B10004F86F /* ManageAttendanceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceDataManager.swift; sourceTree = "<group>"; };
 		DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageReportRequest.swift; sourceTree = "<group>"; };
 		DADD949428A7CF4B0004F86F /* MessageReportComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportComponent.swift; sourceTree = "<group>"; };
 		DADD949628A7CF5C0004F86F /* MessageReportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportCoordinator.swift; sourceTree = "<group>"; };
@@ -2208,7 +2204,6 @@
 			isa = PBXGroup;
 			children = (
 				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
-				DADD85FE2887195300B11041 /* MessageDataManager.swift */,
 				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
 			);
 			path = Network;
@@ -2224,7 +2219,6 @@
 				DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */,
 				DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */,
 				DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */,
-				DADD948E28A7A8B10004F86F /* ManageAttendanceDataManager.swift */,
 			);
 			path = ManageAttendance;
 			sourceTree = "<group>";
@@ -2513,7 +2507,6 @@
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
-				DADD948F28A7A8B20004F86F /* ManageAttendanceDataManager.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				DA784C8D289C1736005F92B1 /* UserInfo.swift in Sources */,
@@ -2651,7 +2644,6 @@
 				C343A33827BDA6B2008E6FA4 /* SliderHandle.swift in Sources */,
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
-				DADD85FF2887195300B11041 /* MessageDataManager.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
 				DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */,
 				434635D22891073E007D8C10 /* PostListOrder.swift in Sources */,
