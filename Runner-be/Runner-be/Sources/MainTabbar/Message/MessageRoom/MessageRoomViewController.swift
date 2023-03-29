@@ -19,8 +19,6 @@ class MessageRoomViewController: BaseViewController {
     let formatter = DateUtil.shared.dateFormatter
     let dateUtil = DateUtil.shared
 
-    lazy var messageDataManager = MessageDataManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -38,7 +36,6 @@ class MessageRoomViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
         viewModel.routeInputs.needUpdate.onNext(true)
     }
 

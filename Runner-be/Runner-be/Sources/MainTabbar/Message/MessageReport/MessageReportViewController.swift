@@ -19,8 +19,6 @@ class MessageReportViewController: BaseViewController {
     var reportMessageList: [Int] = []
     var reportMessageIndexString = ""
 
-    lazy var messageDataManager = MessageDataManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

@@ -194,6 +194,7 @@ class ManageAttendanceViewController: BaseViewController {
 
     private var timeView = UIView().then { view in
         view.backgroundColor = .darkG6
+        view.isHidden = true
     }
 
     private var timeFirstLabel = UILabel().then { view in
@@ -221,6 +222,7 @@ class ManageAttendanceViewController: BaseViewController {
         view.layer.borderWidth = 0
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
+        view.isHidden = true
     }
 }
 
@@ -379,6 +381,9 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
             contentView.addSubviews([
                 navBar,
                 timeView,
+            ])
+
+            timeView.addSubviews([
                 timeFirstLabel,
                 timeSecondLabel,
                 timeThirdLabel,
