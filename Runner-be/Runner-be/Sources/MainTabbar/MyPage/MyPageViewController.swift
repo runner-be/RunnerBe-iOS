@@ -197,7 +197,7 @@ class MyPageViewController: BaseViewController {
 
         viewModel.toast
             .subscribe(onNext: { message in
-                AppContext.shared.makeToast(message)
+                self.view.makeToast(message, point: CGPoint(x: self.view.frame.center.x, y: self.view.frame.maxY - 50), title: nil, image: nil, completion: nil)
             })
             .disposed(by: disposeBag)
 
