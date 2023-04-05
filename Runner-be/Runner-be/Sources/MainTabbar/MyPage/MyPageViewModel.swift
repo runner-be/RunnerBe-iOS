@@ -83,7 +83,7 @@ final class MyPageViewModel: BaseViewModel {
                     return nil
                 }
 
-                guard Date().timeIntervalSince1970 >= posts[idx].gatherDate.timeIntervalSince1970 else { // 모임 시작
+                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970, self.posts[self.outputs.postType]?[idx].writerID == UserInfo().userId { //리더이면서 아직 시작안했을 때
                     self.toast.onNext("모임이 시작되면 출석을 체크할 수 있어요!")
                     return nil
                 }
