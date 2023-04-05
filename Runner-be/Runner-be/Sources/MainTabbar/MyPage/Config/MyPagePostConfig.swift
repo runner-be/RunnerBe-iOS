@@ -39,26 +39,38 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970 // 모임 시간
         let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60) // 러닝 시간
 
+        print(post.whetherCheck)
+
         // 참여 러닝
-        if post.writerID != UserInfo().userId, currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 참여자 : 리더의 체크를 기다리고 있어요
-            myParticipateState = .memberbeforeManage
-        } else if post.writerID == UserInfo().userId, currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 시작 이후 -> 출석 관리 가능
-            myParticipateState = .writerbeforeManage // 모임전에 체크해주세요
-            if startIntervalFromRef < currentIntervalFromRef { // 시작 -> 출석 관리
-                myRunningState = .managable
+        if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 관리 시간이 아직 지나지 않음
+            if post.writerID != UserInfo().userId { // 참여자 : 리더의 체크를 기다리고 있어요
+                myParticipateState = .memberbeforeManage
+            } else {
+                myParticipateState = .writerbeforeManage // 리더 : 참여자의 출석을 체크해주세요
+                if startIntervalFromRef < currentIntervalFromRef { // 작성한글 / 출석 관리
+                    myRunningState = .managable
+                }
             }
-        } else if post.whetherCheck == "Y", post.attendance == true { // 참여자+리더 : 출석
-            myParticipateState = .attendance
-        } else if post.whetherCheck == "Y", post.attendance == false { // 참여자+리더 : 결석
-            myParticipateState = .absence
-        } else if post.writerID != UserInfo().userId, post.whetherCheck == "N", currentIntervalFromRef > startIntervalFromRef + runningInterval + (3 * 60 * 60) {
-            myParticipateState = .membernotManage
-            // 참여자 : 종료 이후에도 리더가 출석 체크 안했을 때
-        } else if post.writerID == UserInfo().userId, currentIntervalFromRef > startIntervalFromRef + runningInterval + (3 * 60 * 60) {
-            myRunningState = .confirmManage // 출석 확인하기
-            if post.whetherCheck == "N" {
-                myParticipateState = .writernotManage // 출석을 체크하지 않았어요
+        } else if currentIntervalFromRef > startIntervalFromRef + runningInterval + (3 * 60 * 60) {
+            if post.writerID != UserInfo().userId {
+                if post.whetherCheck == "N" { // 참여자 : 종료 이후에도 리더가 출석 체크 안했을 때
+                    myParticipateState = .membernotManage
+                }
+            } else { // 리더
+                myRunningState = .confirmManage // 출석 확인하기
+                if post.whetherCheck == "N" { // 리더 : 종료 이후에도 출석 체크 안했을 때
+                    myParticipateState = .writernotManage
+                }
             }
+
+            if post.whetherCheck == "Y" {
+                if post.attendance {
+                    myParticipateState = .attendance
+                } else {
+                    myParticipateState = .absence
+                }
+            }
+
         } else if post.writerID == UserInfo().userId, currentIntervalFromRef < startIntervalFromRef { // 러닝후에 관리해주세요 (리더인데 시작 전)
             myRunningState = .beforeManagable
         }
