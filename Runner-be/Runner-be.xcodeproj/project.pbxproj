@@ -26,7 +26,6 @@
 		434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D628910F13007D8C10 /* RunningTagModalCoordinator.swift */; };
 		434635D928910F19007D8C10 /* RunningTagModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635D828910F19007D8C10 /* RunningTagModalViewModel.swift */; };
 		434635DB28910F21007D8C10 /* RunningTagModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */; };
-		434782E728564CBD009A139D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434782E628564CBD009A139D /* Keys.swift */; };
 		434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */; };
 		4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */; };
 		4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4360E2F72953D6EA003583BB /* Rx+Response.swift */; };
@@ -354,6 +353,7 @@
 		DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */; };
 		DA7E972A288C363B0001BBDC /* ManageTimeExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9729288C363B0001BBDC /* ManageTimeExpiredViewController.swift */; };
 		DA8477AD28F1F36A006036CF /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8477AC28F1F36A006036CF /* UIScreen+.swift */; };
+		DA8B71A729DF4762006894C6 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8B71A629DF4762006894C6 /* Keys.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
 		DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */; };
@@ -401,7 +401,6 @@
 		434635D628910F13007D8C10 /* RunningTagModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalCoordinator.swift; sourceTree = "<group>"; };
 		434635D828910F19007D8C10 /* RunningTagModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalViewModel.swift; sourceTree = "<group>"; };
 		434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagModalViewController.swift; sourceTree = "<group>"; };
-		434782E628564CBD009A139D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Runner-be/Ignore/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		434ED1FB2860080700F6EF69 /* RunnerBeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeMapView.swift; sourceTree = "<group>"; };
 		4358CB2C288E0E58005099E9 /* PostAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotationView.swift; sourceTree = "<group>"; };
 		4360E2F72953D6EA003583BB /* Rx+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+Response.swift"; sourceTree = "<group>"; };
@@ -736,6 +735,7 @@
 		DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalViewModel.swift; sourceTree = "<group>"; };
 		DA7E9729288C363B0001BBDC /* ManageTimeExpiredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredViewController.swift; sourceTree = "<group>"; };
 		DA8477AC28F1F36A006036CF /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		DA8B71A629DF4762006894C6 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoDataManager.swift; sourceTree = "<group>"; };
@@ -837,14 +837,6 @@
 				434635DA28910F21007D8C10 /* RunningTagModalViewController.swift */,
 			);
 			path = RunningTag;
-			sourceTree = "<group>";
-		};
-		434782E828564D07009A139D /* Ignore */ = {
-			isa = PBXGroup;
-			children = (
-				434782E628564CBD009A139D /* Keys.swift */,
-			);
-			path = Ignore;
 			sourceTree = "<group>";
 		};
 		434ED1FA286007DA00F6EF69 /* Map */ = {
@@ -1208,9 +1200,9 @@
 		C34FDA1C27AD5997007718F8 /* Runner-be */ = {
 			isa = PBXGroup;
 			children = (
+				DA8B71A529DF4757006894C6 /* Ignore */,
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
-				434782E828564D07009A139D /* Ignore */,
 				C34FDA7527AD5C98007718F8 /* Sources */,
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
@@ -2200,6 +2192,14 @@
 			path = ManageTimeExpiredModal;
 			sourceTree = "<group>";
 		};
+		DA8B71A529DF4757006894C6 /* Ignore */ = {
+			isa = PBXGroup;
+			children = (
+				DA8B71A629DF4762006894C6 /* Keys.swift */,
+			);
+			path = Ignore;
+			sourceTree = "<group>";
+		};
 		DAA1EAEA2977C53E0070B90F /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -2540,7 +2540,6 @@
 				C3C9735327CA966900232251 /* SettingsCoordinator.swift in Sources */,
 				DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */,
 				DADD948D28A794AA0004F86F /* PostMessageRequest.swift in Sources */,
-				434782E728564CBD009A139D /* Keys.swift in Sources */,
 				43DDEC5E28CF2F20005741FE /* JobGroupView.swift in Sources */,
 				C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */,
 				C3498F2F27C0DB65003EDD0F /* WritingTimeView.swift in Sources */,
@@ -2804,6 +2803,7 @@
 				C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
+				DA8B71A729DF4762006894C6 /* Keys.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */,
 			);
