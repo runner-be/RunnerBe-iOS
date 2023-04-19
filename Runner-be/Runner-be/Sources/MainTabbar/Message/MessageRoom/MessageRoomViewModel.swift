@@ -65,6 +65,7 @@ final class MessageRoomViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.sendMessage
+            .throttle(.seconds(1), scheduler: MainScheduler.instance) // 누르고 1초 제한두기
             .flatMap { messageAPIService.postMessage(roomId: roomId, content: $0) }
             .map { result in
                 switch result {
@@ -79,6 +80,7 @@ final class MessageRoomViewModel: BaseViewModel {
             }
             .subscribe(onNext: { isPosted in
                 if isPosted {
+                    self.outputs.successSendMessage.onNext(true)
                     self.routeInputs.needUpdate.onNext(true)
                 }
             })
@@ -95,6 +97,7 @@ final class MessageRoomViewModel: BaseViewModel {
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
         var roomInfo = PublishSubject<RoomInfo>()
         var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
+        var successSendMessage = PublishSubject<Bool>()
     }
 
     struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체

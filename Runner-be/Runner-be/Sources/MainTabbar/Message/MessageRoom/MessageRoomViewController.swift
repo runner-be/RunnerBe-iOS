@@ -68,6 +68,7 @@ class MessageRoomViewController: BaseViewController {
 
         sendButton.rx.tap
             .map { self.chatTextView.text ?? "" }
+            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
             .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
     }
@@ -87,6 +88,14 @@ class MessageRoomViewController: BaseViewController {
                 self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
                 self.postId = roomInfo.postId!
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.successSendMessage
+            .subscribe(onNext: { isSuccessSendMessage in
+                if isSuccessSendMessage {
+                    self.chatTextView.text.removeAll()
+                }
             })
             .disposed(by: disposeBag)
 
