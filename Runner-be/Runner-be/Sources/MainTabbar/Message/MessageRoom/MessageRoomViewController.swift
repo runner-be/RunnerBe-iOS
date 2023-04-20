@@ -152,9 +152,16 @@ class MessageRoomViewController: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
+
+        viewModel.outputs.messageContents
+            .subscribe(onNext: { messages in
+                self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.backgroundColor = .darkG7
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.MessageList.NavBar.title
         navBar.titleLabel.textColor = .darkG35
@@ -175,7 +182,7 @@ class MessageRoomViewController: BaseViewController {
         view.register(MessageChatRightCell.self, forCellReuseIdentifier: MessageChatRightCell.id)
         view.backgroundColor = .darkG7
         view.separatorColor = .clear
-        view.showsVerticalScrollIndicator = false
+//        view.showsVerticalScrollIndicator = false
     }
 
     var chatBackGround = UIView().then { view in
@@ -223,6 +230,9 @@ extension MessageRoomViewController {
             chatTextView,
             sendButton,
         ])
+
+        view.bringSubviewToFront(navBar)
+        view.bringSubviewToFront(postSection)
     }
 
     private func initialLayout() {
@@ -239,7 +249,7 @@ extension MessageRoomViewController {
         }
 
         messageContentsTableView.snp.makeConstraints { make in
-            make.top.equalTo(postSection.snp.bottom).offset(22)
+            make.top.equalTo(postSection.snp.bottom).offset(10) // postSection만큼 떨어뜨리기
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
             make.bottom.equalTo(self.chatBackGround.snp.top)
@@ -268,11 +278,13 @@ extension MessageRoomViewController {
     }
 
     @objc
-    func keyboardWillShow(_ notification: Notification) {
+    func keyboardWillShow(_ notification: Notification) { // keyboardFrameEndUserInfoKey : 키보드가 차지하는 frame의 CGRect값 반환
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
+            messageContentsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight - AppContext.shared.safeAreaInsets.bottom, right: 0)
+            messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
         }
     }
 
@@ -282,6 +294,8 @@ extension MessageRoomViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
+            messageContentsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
         }
     }
 }

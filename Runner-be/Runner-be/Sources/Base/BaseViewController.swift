@@ -64,6 +64,7 @@ extension BaseViewController: UIGestureRecognizerDelegate {
     }
 
     func gestureRecognizer(_: UIGestureRecognizer, shouldBeRequiredToFailBy _: UIGestureRecognizer) -> Bool {
+        dismissKeyboard() // 제스처로 뒤로가기할 때 키보드 없애야함
         return true
     }
 }
