@@ -283,7 +283,7 @@ extension MessageRoomViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight - AppContext.shared.safeAreaInsets.bottom, right: 0)
+            messageContentsTableView.contentInset.bottom = keyboardHeight - AppContext.shared.safeAreaInsets.bottom
             messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
         }
     }
@@ -294,7 +294,7 @@ extension MessageRoomViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            messageContentsTableView.contentInset.bottom = 0
             messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
         }
     }
