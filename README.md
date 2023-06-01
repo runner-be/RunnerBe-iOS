@@ -11,7 +11,7 @@
 - Appstore: [https://apps.apple.com/kr/app/러너비/id1612604358](https://apps.apple.com/kr/app/%EB%9F%AC%EB%84%88%EB%B9%84/id1612604358)
 
 
-## 개발 환경
+## 개발 환경
 **StoryBoard vs Code**
 
 - 코드 방식으로 개발 (SnapKit)
@@ -26,10 +26,10 @@
 - RxSwift(+RxCocoa): 
 
 
-## 주요 화면
+## 주요 화면
 
 <img width="250" alt="Untitled (12)" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/fe2dea60-706d-4f7d-912f-1006cf8aa416">
-<img width="250" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/f8c78a0e-6b7d-48de-83ae-c8bdc07f05e5">
+<img width="250" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/f8c78a0e-6b7d-48de-83ae-c8bdc07f05e5">
 <img width="250" alt="Untitled (11)" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/9914e734-f440-40a3-b9a7-021995acb6c5">
 
 ## 시연 영상
@@ -37,10 +37,10 @@
 
 ##  주요 기능
 
-### ⭐️ 직장인 러닝 모임 개설 및 신청
-- 위치, 시간대, 성별, 나이대, 직업 별 직장인 러닝 모임 및 신청 기능
+### ⭐️ 직장인 러닝 모임 개설 및 신청
+- 위치, 시간대, 성별, 나이대, 직업 별 직장인 러닝 모임 및 신청 기능
 
-### ⭐️ 모임 멤버간 소통 및 출석 기능
+### ⭐️ 모임 멤버간 소통 및 출석 기능
 - 러닝톡을 통해 멤버간 소통이 가능하며, 리더는 본인을 포함한 멤버의 출석을 관리할 수 있음 
 
 ## 디렉토리 구조 및 역할
