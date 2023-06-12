@@ -30,12 +30,6 @@ final class WritingMainPostViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
 
-                guard !self.writingPostData.title.isEmpty
-                else {
-                    self.toast.onNext("제목을 입력해주세요")
-                    return
-                }
-
                 guard Date().timeIntervalSince1970 < self.writingPostData.date
                 else {
                     self.toast.onNext("모임 일시가 이미 지난 시간입니다.")

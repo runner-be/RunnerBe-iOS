@@ -47,8 +47,18 @@ class WritingMainPostViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         writeTitleView.textField.rx.text
-            .map { $0 ?? "" }
-            .bind(to: viewModel.inputs.editTitle)
+            .subscribe(onNext: { text in
+                if let text = text, !text.isEmpty {
+                    self.navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
+                    self.navBar.rightBtnItem.isEnabled = true
+                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
+                    self.viewModel.inputs.editTitle.onNext(text)
+                } else {
+                    self.navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
+                    self.navBar.rightBtnItem.isEnabled = false
+                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17R
+                }
+            })
             .disposed(by: disposeBag)
 
         writeDateView.rx
@@ -147,6 +157,7 @@ class WritingMainPostViewController: BaseViewController {
         navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
         navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightSecondBtnItem.isHidden = true
+        navBar.rightBtnItem.isEnabled = false
         navBar.titleSpacing = 12
     }
 
