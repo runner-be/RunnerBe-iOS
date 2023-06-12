@@ -35,6 +35,6 @@ class AppContext {
     }
 
     var version: String {
-        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
+        return (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String)
     }
 }
