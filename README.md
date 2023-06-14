@@ -212,7 +212,7 @@
 - develop 브랜치
 - 글 작성 (Post), 로그인(Onboarding, LoggedOut), 홈(Home), 스켈레톤 화면 처리(Skeleton)
 
-[@yurrrri - 이유리](https://github.com/yurrrri)
+[@yurrrri - 이유리](https://github.com/yurrrri) (2023.01 이후 모든 도메인 개발)
 - devlop_zoe 브랜치
 - 마이페이지 (MyPage 및 하위 도메인), 북마크(Bookmark), 러닝톡(Message)
 
@@ -225,4 +225,4 @@
 
 하단 링크를 클릭하시면 상세 설명을 확인하실 수 있습니다.
 
-[노션 link 이동](https://windy-laundry-812.notion.site/a04464eeb9c34afa98766bbf2c166058?pvs=4)
+[클릭 시 링크 이동](https://windy-laundry-812.notion.site/a04464eeb9c34afa98766bbf2c166058?pvs=4)
