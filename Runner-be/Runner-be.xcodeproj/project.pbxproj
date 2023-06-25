@@ -856,13 +856,6 @@
 			path = "Rx+";
 			sourceTree = "<group>";
 		};
-		436D8A9728B1B5E400E3DA6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		436D8A9828B1B67000E3DA6C /* AlarmCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,7 +877,6 @@
 			isa = PBXGroup;
 			children = (
 				436D8A9828B1B67000E3DA6C /* AlarmCell */,
-				436D8A9728B1B5E400E3DA6C /* View */,
 				43B1E6CC28B1AD6C0057A1AF /* AlarmListComponent.swift */,
 				43B1E6CA28B1AD670057A1AF /* AlarmListCoordinator.swift */,
 				43B1E6C828B1AD550057A1AF /* AlarmListViewModel.swift */,
@@ -1673,14 +1665,6 @@
 			sourceTree = "<group>";
 		};
 		C3BA45D127B60C4D0048CA76 /* OnboardingCompletion */ = {
-			isa = PBXGroup;
-			children = (
-				C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */,
-			);
-			path = OnboardingCompletion;
-			sourceTree = "<group>";
-		};
-		C3BA45D227B60C6B0048CA76 /* OnboardingCompletion */ = {
 			isa = PBXGroup;
 			children = (
 				C3BA45DC27B621850048CA76 /* OnboardingCompletionComponent.swift */,
