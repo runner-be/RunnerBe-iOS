@@ -49,7 +49,6 @@ final class BasicSignupService: SignupService {
             SignupForm(
                 uuid: uuid,
                 deviceToken: deviceToken,
-                nickName: RandomNickNameGenerator.generate(numOfRandom: 4, prefix: "Runner", suffix: ""),
                 birthday: birth,
                 gender: gender,
                 job: job

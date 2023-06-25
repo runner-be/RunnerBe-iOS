@@ -42,7 +42,6 @@ extension SignupAPI: TargetType {
             var parameters: [String: Any] = [
                 "uuid": signUpForm.uuid,
                 "deviceToken": signUpForm.deviceToken,
-                "nickName": signUpForm.nickName,
                 "birthday": signUpForm.birthday,
                 "gender": signUpForm.gender.code,
                 "job": signUpForm.job.code,
