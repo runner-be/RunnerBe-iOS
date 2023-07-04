@@ -154,6 +154,7 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.messageContents
+            .filter { !$0.isEmpty }
             .subscribe(onNext: { messages in
                 self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
             })
@@ -284,7 +285,9 @@ extension MessageRoomViewController {
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
             messageContentsTableView.contentInset.bottom = keyboardHeight - AppContext.shared.safeAreaInsets.bottom
-            messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
+                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            }
         }
     }
 
@@ -295,7 +298,9 @@ extension MessageRoomViewController {
             let keyboardHeight = keyboardRectangle.height
             chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
             messageContentsTableView.contentInset.bottom = 0
-            messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
+                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            }
         }
     }
 }
