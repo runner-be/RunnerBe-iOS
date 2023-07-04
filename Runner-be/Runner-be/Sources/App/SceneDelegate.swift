@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
 
             if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance(),
-               naverAPI.isNaverThirdPartyLoginAppschemeURL(url)
+               naverAPI.serviceUrlScheme == url.absoluteString
             {
                 naverAPI.receiveAccessToken(url)
             }

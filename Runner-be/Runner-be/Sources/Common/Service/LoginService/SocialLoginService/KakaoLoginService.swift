@@ -37,7 +37,7 @@ final class KakaoLoginService: SocialLoginService {
         return UserApi.shared.rx.loginWithKakaoTalk()
             .catchAndReturn(OAuthToken())
             .map {
-                return $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
+                $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 
@@ -45,7 +45,7 @@ final class KakaoLoginService: SocialLoginService {
         return UserApi.shared.rx.loginWithKakaoAccount()
             .catchAndReturn(OAuthToken())
             .map {
-                return $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
+                $0.accessToken.isEmpty ? nil : SocialLoginResult(token: $0.accessToken, loginType: .kakao)
             }
     }
 }
