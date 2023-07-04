@@ -49,7 +49,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 _ = AuthController.handleOpenUrl(url: url)
             }
 
-            if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance() {
+            if let naverAPI = NaverThirdPartyLoginConnection.getSharedInstance(),
+               naverAPI.serviceUrlScheme == url.absoluteString
+            {
                 naverAPI.receiveAccessToken(url)
             }
 
@@ -95,10 +97,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let parameters = componets,
               let deepLinkType = DeepLinkType.from(name: name, parameters: parameters)
         else { return }
-
-//        switch deepLinkType {
-//        case .emailCertification:
-//            appCoordinator?.handleDeepLink(type: deepLinkType)
-//        }
     }
 }
