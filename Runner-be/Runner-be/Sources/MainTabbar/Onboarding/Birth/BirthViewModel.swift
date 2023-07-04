@@ -17,14 +17,13 @@ final class BirthViewModel: BaseViewModel {
         self.userKeyChainService = userKeyChainService
         super.init()
 
-        let thisYear = Int(DateUtil.shared.getCurrent(format: .yyyy)) ?? DateUtil.shared.defaultYear
+        let thisYear = Int(DateUtil.shared.getCurrent(format: .yyyy))!
 
         ((thisYear - 80) ... thisYear).reversed()
             .forEach { self.outputs.items.append($0) }
 
         inputs.itemSelected
-            .filter { $0 < 81 && $0 > 0 }
-            .map { $0 > 19 }
+            .map { $0 >= 19 }
             .subscribe(outputs.enableNext)
             .disposed(by: disposeBag)
 

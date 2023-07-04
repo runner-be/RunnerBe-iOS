@@ -21,8 +21,8 @@ final class BirthViewController: BaseViewController {
         setupViews()
         initialLayout()
 
-        bindViewModelInput()
-        bindViewModelOutput()
+        viewModelInput()
+        viewModelOutput()
     }
 
     init(viewModel: BirthViewModel) {
@@ -39,7 +39,7 @@ final class BirthViewController: BaseViewController {
 
     private var viewModel: BirthViewModel
 
-    private func bindViewModelInput() {
+    private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.tapBackward)
             .disposed(by: disposeBag)
@@ -53,7 +53,7 @@ final class BirthViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func bindViewModelOutput() {
+    private func viewModelOutput() {
         viewModel.outputs.enableNext
             .subscribe(onNext: { [weak self] in
                 self?.nextButton.isEnabled = $0
@@ -231,6 +231,7 @@ extension BirthViewController: PickerViewDelegate, PickerViewDataSource {
     }
 
     func pickerView(_: PickerView, didSelectRow: Int) {
+        print(didSelectRow)
         viewModel.inputs.itemSelected.onNext(didSelectRow)
     }
 }
