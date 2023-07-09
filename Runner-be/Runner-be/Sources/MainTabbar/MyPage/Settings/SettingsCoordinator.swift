@@ -69,12 +69,6 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.license
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushLicenseScene(vm: vm, animated: true)
-            })
-            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.signout
             .map { scene.VM }
@@ -94,22 +88,6 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
             .map { SettingsResult.logout }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
-    }
-
-    private func pushLicenseScene(vm _: SettingsViewModel, animated _: Bool) {
-//        let comp = component.licenseComponent
-//        let coord = LicenseCoordinator(component: comp, navController: navigationController)
-//
-//        let disposable = coordinate(coordinator: coord, animated: animated)
-//            .subscribe(onNext: { [weak self] coordResult in
-//                defer { self?.releaseChild(coordinator: coord) }
-//                switch coordResult {
-//                case .backward:
-//                    break
-//                }
-//            })
-//
-//        addChildDisposable(id: coord.identifier, disposable: disposable)
     }
 
     private func pushMakerScene(vm _: SettingsViewModel, animated: Bool) {

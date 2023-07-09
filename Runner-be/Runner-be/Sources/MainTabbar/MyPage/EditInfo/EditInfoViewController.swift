@@ -67,12 +67,6 @@ class EditInfoViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        // 얘가 앱을 껐다가 켜야만 실행되고, 종료 안하고 마이페이지 실행하면 실행 안되는것으로 보임
-//        viewModel.outputs.currentJob
-//            .subscribe(onNext: { [weak self] job in
-//                self?.selectJobView.select(idx: job.index)
-//            })
-//            .disposed(by: disposeBag)
 
         viewModel.outputs.nickNameDup // 닉네임 중복처리
             .subscribe(onNext: { [weak self] dup in
@@ -85,7 +79,6 @@ class EditInfoViewController: BaseViewController {
             .subscribe(onNext: { [weak self] ok in
                 self?.nickNameRuleErrLabel.isHidden = ok
                 self?.selectNickName.applyButton.isEnabled = ok
-//                print("hello \(self?.selectNickName.applyButton.isEnabled)")
             })
             .disposed(by: disposeBag)
 
@@ -190,16 +183,6 @@ class EditInfoViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.jobSelected)
             .disposed(by: disposeBag)
-
-        // 별로 안좋은 예시
-//            .subscribe(onNext: { [weak self] idx in
-//            self?.selectedJobIdx = idx
-//
-//            if idx != self?.jobindex {
-//                //editinfo viewmodel에
-//                self?.viewModel.inputs.jobSelected.onNext(())
-//            }
-//        })
     }
 
     private lazy var selectNickName = TextFieldWithButton().then { view in
@@ -344,7 +327,6 @@ extension EditInfoViewController {
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.NickNameChanged.title, for: .disabled)
         } else {
             nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
-//            selectNickName.applyButton.isEnabled = true
             selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
         }
 

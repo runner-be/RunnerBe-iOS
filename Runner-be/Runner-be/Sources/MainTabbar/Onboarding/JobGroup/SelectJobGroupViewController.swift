@@ -62,14 +62,6 @@ final class SelectJobGroupViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         // TODO: 직군 종류들을 ViewModel로 넘길지 고민해보기
-//        let jobGroupLabels = Observable.of(jobLabels)
-//        jobGroupLabels.bind(
-//            to: jobGroupCollectionView.rx.items(
-//                cellIdentifier: JobGroupCollectionViewCell.id,
-//                cellType: JobGroupCollectionViewCell.self
-//            )
-//        ) { _, label, cell in cell.label = label }
-//            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -122,48 +114,6 @@ final class SelectJobGroupViewController: BaseViewController {
         label.adjustsFontSizeToFitWidth = true
     }
 
-//    private var jobLabels = Job.allCases.reduce(into: [OnOffLabel]()) { partialResult, job in
-//        if job != .none {
-//            partialResult.append(OnOffLabel(text: job.emoji + " " + job.name))
-//        }
-//    }
-//
-//    private var jobGroup = OnOffLabelGroup().then { group in
-//        group.styleOn = OnOffLabel.Style(
-//            font: .iosBody15B,
-//            backgroundColor: .primary,
-//            textColor: .darkG6,
-//            borderWidth: 1,
-//            borderColor: .primary,
-//            cornerRadiusRatio: 1,
-//            useCornerRadiusAsFactor: true,
-//            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
-//        )
-//
-//        group.styleOff = OnOffLabel.Style(
-//            font: .iosBody15R,
-//            backgroundColor: .clear,
-//            textColor: .darkG35,
-//            borderWidth: 1,
-//            borderColor: .darkG35,
-//            cornerRadiusRatio: 1,
-//            useCornerRadiusAsFactor: true,
-//            padding: UIEdgeInsets(top: 8, left: 19, bottom: 10, right: 19)
-//        )
-//
-//        group.maxNumberOfOnState = 1
-//    }
-//
-//    var jobGroupCollectionView: UICollectionView = {
-//        var layout = JobGroupCollectionViewLayout()
-//        layout.xSpacing = 12
-//        layout.ySpacing = 16
-//        layout.estimatedItemSize = CGSize(width: 140, height: 40)
-//        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.register(JobGroupCollectionViewCell.self, forCellWithReuseIdentifier: JobGroupCollectionViewCell.id)
-//        collectionView.backgroundColor = .clear
-//        return collectionView
-//    }()
     var jobGroupView = JobGroupView()
 
     private var completeButton = UIButton().then { button in
@@ -197,7 +147,6 @@ extension SelectJobGroupViewController {
             completeButton,
         ])
 
-//        jobGroup.append(labels: jobLabels)
     }
 
     private func initialLayout() {

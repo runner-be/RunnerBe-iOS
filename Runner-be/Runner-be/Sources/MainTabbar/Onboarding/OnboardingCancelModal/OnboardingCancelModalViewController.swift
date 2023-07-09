@@ -129,7 +129,6 @@ extension OnboardingCancelModalViewController {
         sheet.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
-//            make.width.equalTo(270)
         }
 
         titleLabel.snp.makeConstraints { make in

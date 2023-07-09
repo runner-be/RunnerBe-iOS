@@ -13,13 +13,6 @@ final class EditInfoViewModel: BaseViewModel {
     init(user _: User, userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
-//        Observable<String>.of(user.job)
-//            .map { Job(name: $0) }
-//            .filter { $0 != .none }
-//            .subscribe(onNext: { [weak self] job in
-//                self?.outputs.currentJob.onNext(job)
-//            })
-//            .disposed(by: disposeBag)
 
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
@@ -27,7 +20,6 @@ final class EditInfoViewModel: BaseViewModel {
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
 //                print(ruleOK)
                 self?.outputs.nickNameRuleOK.onNext(ruleOK)
-//                self?.outputs.nickNameDup.onNext(false)    //버튼을 눌렀을 때 중복확인을 해야하므로 여기서 처리X
             })
             .disposed(by: disposeBag)
 

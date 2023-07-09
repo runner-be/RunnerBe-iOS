@@ -113,7 +113,6 @@ final class SettingsViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var terms = PublishSubject<Void>()
         var privacy = PublishSubject<Void>()
-        var license = PublishSubject<Void>()
         var makers = PublishSubject<Void>()
         var instagram = PublishSubject<Void>()
         var logout = PublishSubject<Void>()
