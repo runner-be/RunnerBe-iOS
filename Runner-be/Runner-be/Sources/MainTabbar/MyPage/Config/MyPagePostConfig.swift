@@ -39,7 +39,6 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970 // 모임 시간
         let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60) // 러닝 시간
 
-        print(post.whetherCheck)
 
         // 참여 러닝
         if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 관리 시간이 아직 지나지 않음

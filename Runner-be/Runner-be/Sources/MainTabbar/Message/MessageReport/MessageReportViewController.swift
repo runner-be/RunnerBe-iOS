@@ -196,7 +196,6 @@ extension MessageReportViewController: MessageChatReportDelegate {
     func checkButtonTap(cell: MessageChatLeftCell) {
         if cell.checkBox.isSelected { // 선택한 것만 가져오기
             let index = messages[messageReportTableView.indexPath(for: cell)!.row].messageId ?? 0
-//            print(index)
             reportMessageList.append(index)
         } else { // 제외하기
             reportMessageList = reportMessageList.filter { $0 != messages[messageReportTableView.indexPath(for: cell)!.row].messageId }

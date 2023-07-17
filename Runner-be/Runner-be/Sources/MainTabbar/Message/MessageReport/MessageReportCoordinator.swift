@@ -73,7 +73,6 @@ final class MessageReportCoordinator: BasicCoordinator<MessageReportResult> {
             switch coordResult {
             case let .backward(id, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
-                vm.routeInputs.detailClosed.onNext(())
             }
         }
     }

@@ -64,7 +64,7 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
             .bind(to: tableView.rx.items(cellIdentifier: cellID, cellType: MessageTableViewCell.self)) { _, item, cell in
 
                 cell.selectionStyle = .none
-//                반짝임 효과 제거
+                
                 if let profileUrl = item.profileImageUrl {
                     cell.messageProfile.kf.setImage(with: URL(string: profileUrl), placeholder: Asset.profileEmptyIcon.uiImage)
                 } else {

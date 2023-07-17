@@ -305,71 +305,6 @@ extension MessageRoomViewController {
     }
 }
 
-//
-// extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-//        return messages.count
-//    }
-//
-//    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let formatter = DateUtil.shared.dateFormatter
-//        formatter.dateFormat = DateFormat.apiDate.formatString
-//        let dateUtil = DateUtil.shared
-//
-//        if !messages.isEmpty {
-//            //            let date = formatter.date(from: messages[indexPath.row].createdAt!)
-//            let date = dateUtil.apiDateStringToDate(messages[indexPath.row].createdAt!)
-//
-//            if messages[indexPath.row].messageFrom == "Others" {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
-//
-//                cell.selectionStyle = .none
-//                cell.separatorInset = .zero // 구분선 제거
-//
-//                cell.messageContent.text = messages[indexPath.row].content!
-//                cell.nickName.text = messages[indexPath.row].nickName
-//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-//
-//                if messages[indexPath.row].whetherPostUser == "Y" {
-//                    cell.bubbleBackground.backgroundColor = .primary
-//                    cell.messageContent.textColor = .black
-//                } else {
-//                    cell.bubbleBackground.backgroundColor = .darkG55
-//                    cell.messageContent.textColor = .darkG1
-//                }
-//
-//                return cell
-//            } else {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
-//
-//                cell.selectionStyle = .none
-//                cell.separatorInset = .zero
-//
-//                cell.messageContent.text = messages[indexPath.row].content!
-//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-//
-//                if messages[indexPath.row].whetherPostUser == "Y" {
-//                    cell.bubbleBackground.backgroundColor = .primary
-//                    cell.messageContent.textColor = .black
-//                } else {
-//                    cell.bubbleBackground.backgroundColor = .darkG55
-//                    cell.messageContent.textColor = .darkG1
-//                }
-//                return cell
-//            }
-//        } else {
-//            return UITableViewCell()
-//        }
-//    }
-//
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            <#code#>
-//        }
-//
-//        func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-//            return 76
-//        }
-// }
 
 extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
@@ -390,10 +325,8 @@ extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             sendButton.isEnabled = false
-//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .disabled) // 이부분때문에 textview 사라지는 현상 발생
         } else {
             sendButton.isEnabled = true
-//            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
     }
 }

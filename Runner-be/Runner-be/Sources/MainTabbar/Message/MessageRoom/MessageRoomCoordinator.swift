@@ -77,7 +77,6 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
             switch coordResult {
             case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
-                vm.routeInputs.detailClosed.onNext(())
             }
         }
     }

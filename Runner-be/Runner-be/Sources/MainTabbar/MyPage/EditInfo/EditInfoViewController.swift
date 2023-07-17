@@ -91,7 +91,6 @@ class EditInfoViewController: BaseViewController {
                 self?.selectNickName.nickNameField.isEnabled = false
                 self?.selectNickName.disableWithPlaceHolder(
                     fieldText: nil,
-                    // "MyPage.EditInfo.NickName.Button.CANNT" = "변경불가";
 
                     buttonText: L10n.MyPage.EditInfo.NickName.Button.cant
                 )
@@ -157,11 +156,6 @@ class EditInfoViewController: BaseViewController {
                 self?.selectNickName.nickNameField.endEditing(true)
             })
             .disposed(by: disposeBag)
-
-        // 1. 현재 직업과 다른 직업을 선택했을 때 모달 노출
-        // 2. 직업 수정한 이후에 한번 더 직업을 수정하려고 할 때, 텍스트가 뜨면서 모달 노출 X
-        // job modal 뷰컨에 idx 넘겨서 job modal에서 api 호출한 뒤 결과값만 받아오도록
-        // 한번 변경한 뒤에는, 모달이 아니라 텍스트를 띄워줘야함
 
         selectJobView.jobGroup.tap
             .filter { [unowned self] numSelected in numSelected > 0 }

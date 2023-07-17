@@ -18,7 +18,6 @@ final class EditInfoViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
-//                print(ruleOK)
                 self?.outputs.nickNameRuleOK.onNext(ruleOK)
             })
             .disposed(by: disposeBag)

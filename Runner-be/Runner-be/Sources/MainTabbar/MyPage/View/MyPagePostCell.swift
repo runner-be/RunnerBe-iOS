@@ -62,15 +62,12 @@ class MyPagePostCell: UICollectionViewCell {
     var postInfoView = BasicPostInfoView()
 
     var manageButton = UIButton().then { button in
-//        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .normal)
         button.setTitleColor(UIColor.darkG6, for: .normal)
         button.setBackgroundColor(UIColor.primary, for: .normal)
 
-//        button.setTitle(L10n.MyPage.Main.Cell.Button.Attend.title, for: .disabled)
         button.setTitleColor(UIColor.darkG4, for: .disabled)
         button.setBackgroundColor(.darkG5, for: .disabled)
         button.layer.borderWidth = 0
-//        button.layer.borderColor = UIColor.darkG4.cgColor
 
         button.titleLabel?.font = .iosBody13B
         button.clipsToBounds = true

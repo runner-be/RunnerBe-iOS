@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 enum ManageAttendanceResult {
-//    case logout
     case backward
 }
 

@@ -277,7 +277,6 @@ final class MyPageViewModel: BaseViewModel {
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
         var photoTypeSelected = PublishSubject<EditProfileType?>()
-        var detailClosed = PublishSubject<Void>()
     }
 
     var disposeBag = DisposeBag()

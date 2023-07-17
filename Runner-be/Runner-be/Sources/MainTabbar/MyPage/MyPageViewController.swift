@@ -244,31 +244,6 @@ class MyPageViewController: BaseViewController {
                 default: // 기본 이미지로 변경
                     self.myInfoWithChevron.infoView.avatarView.image = Asset.iconsProfile48.uiImage
                 }
-                //                switch sourceType {
-                //                case .photoLibrary:
-                //                    if self.photoAuth() {
-                //                        self.present(picker, animated: true)
-                //                    } else {
-                //                        self.authSettingOpen(authString: "앨범 권한 설정")
-                //                    }
-                //                case .camera:
-                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-                ////                        DispatchQueue.main.async {
-                ////                            if ok {
-                ////                                self?.present(picker, animated: true)
-                ////                            } else {
-                ////                                AppContext.shared.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
-                ////                            }
-                ////                        }
-                ////                    })
-                //                    if self.cameraAuth() {
-                //                        self.present(picker, animated: true)
-                //                    } else {
-                //                        self.authSettingOpen(authString: "카메라 권한 설정")
-                //                    }
-                //                default:
-                //                    break
-                //                }
             })
             .disposed(by: disposeBag)
 
@@ -276,7 +251,6 @@ class MyPageViewController: BaseViewController {
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] data in
                 self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
-//                self?.myInfoWithChevron.infoView.cameraIcon.isHidden = true
             })
             .disposed(by: disposeBag)
     }

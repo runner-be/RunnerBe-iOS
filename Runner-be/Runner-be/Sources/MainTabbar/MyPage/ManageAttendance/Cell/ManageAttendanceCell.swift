@@ -12,10 +12,7 @@ import Then
 import UIKit
 
 class ManageAttendanceCell: UITableViewCell {
-//    enum State {
-//        case open
-//        case closed
-//    }
+
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {

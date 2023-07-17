@@ -8,7 +8,6 @@ import Foundation
 import RxSwift
 
 enum ManageTimeExpiredModalResult {
-//    case s
     case ok
 }
 

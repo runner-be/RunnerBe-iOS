@@ -113,22 +113,6 @@ final class BookMarkViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-//        routeInputs.detailClosed
-//            .filter { $0.marked == false }
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self,
-//                      var posts = self.posts[self.runningTag]
-//                else { return }
-//
-//                if let idx = posts.firstIndex(where: { $0.ID == result.id }) {
-//                    if !result.marked {
-//                        posts.remove(at: idx)
-//                        self.posts[self.runningTag] = posts
-//                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
-//                    }
-//                }
-//            })
-//            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -149,7 +133,6 @@ final class BookMarkViewModel: BaseViewModel {
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
-        var detailClosed = PublishSubject<Void>()
     }
 
     var disposeBag = DisposeBag()
