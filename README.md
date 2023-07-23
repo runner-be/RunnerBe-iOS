@@ -4,11 +4,12 @@
 
 직장인 간 시간대/위치/직군/성별/나이 별로 러닝 모임을 결성하여 러닝을 뛸 수 있도록 돕는 서비스
 - 기간 : 2022.05 ~ 2022.10, 배포 및 운영중
-- 역할 :
-[@SHIVVVPP - 김신우](https://github.com/SHIVVVPP)
+- 역할 : <br/>
+
+  - [@SHIVVVPP - 김신우](https://github.com/SHIVVVPP)
   - 글 작성 (Post), 로그인(Onboarding, LoggedOut), 홈(Home), 스켈레톤 화면 처리(Skeleton)
  
-  [@yurrrri - 이유리](https://github.com/yurrrri)
+  - [@yurrrri - 이유리](https://github.com/yurrrri)
   - 마이페이지 (MyPage 및 하위 도메인), 북마크(Bookmark), 러닝톡(Message)
 
 - 팀 구성: iOS 개발자 2명, Android 개발자 2명, 백엔드 개발자 1명, 디자이너 1명, PM 1명
@@ -27,7 +28,7 @@
 
 ## 아키텍처
 ### MVVM-C
-<img width="600" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/e1c91eb4-5a41-4891-8fc6-3815db2edab5"/> <br/>
+<img width="400" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/e1c91eb4-5a41-4891-8fc6-3815db2edab5"/> <br/>
 
 - **App**: AppCoordinator, AppContext(앱 전체에 공통적으로 적용되는 속성 혹은 기능 정의)
 - **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, UI / 유용한 도구 모음 Util / Extension, Localization 등
