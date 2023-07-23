@@ -31,6 +31,7 @@
 
 - **App**: AppCoordinator, AppContext(앱 전체에 공통적으로 적용되는 속성 혹은 기능 정의)
 - **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, UI / 유용한 도구 모음 Util / Extension, Localization 등
+- **Base**: 앱의 ViewController, ViewModel, Coordinator와 APIService에 공통적으로 사용되는 속성을 정의하며, Feature의 각 요소는 해당 Base 클래스를 상속하여 재사용성을 높임
 - **Feature**: 회원가입 시 초기 진입하는 Onboarding 화면 / 탭바 기준으로 Home, BookMark, Message, MyPage로 분리
   - 각 Feature는 ViewController, ViewModel, Component, Coordinator를 가짐
   - **Component**: 화면 별로 필요한 ViewController, ViewModel을 소유하며 화면 전환 가능성이 있는 Component를 생성 및 전달
