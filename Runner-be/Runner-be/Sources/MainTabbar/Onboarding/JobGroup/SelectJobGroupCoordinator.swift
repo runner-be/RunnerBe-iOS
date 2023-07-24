@@ -92,7 +92,5 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
         }
     }
 
-    override func handleDeepLink(type _: DeepLinkType) {
-
-    }
+    override func handleDeepLink(type _: DeepLinkType) {}
 }

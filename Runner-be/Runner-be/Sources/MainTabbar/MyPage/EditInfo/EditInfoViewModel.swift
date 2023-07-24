@@ -13,7 +13,6 @@ final class EditInfoViewModel: BaseViewModel {
     init(user _: User, userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
-
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
@@ -73,14 +72,11 @@ final class EditInfoViewModel: BaseViewModel {
 
     struct Output {
         var currentJob = PublishSubject<Job>()
-
         var jobChanged = PublishSubject<Bool>()
-
         var nickNameChanged = PublishSubject<String>()
         var nickNameDup = PublishSubject<Bool>()
         var nickNameRuleOK = PublishSubject<Bool>()
         var nickNameAlreadyChanged = PublishSubject<Bool>()
-
         var toastActivity = PublishSubject<Bool>()
     }
 

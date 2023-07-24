@@ -10,7 +10,7 @@ import UIKit
 final class ManageAttendanceComponent {
     var scene: (VC: UIViewController, VM: ManageAttendanceViewModel) {
         let viewModel = self.viewModel
-        return (ManageAttendanceViewController(viewModel: viewModel, myRunningIdx: myRunningIdx), viewModel)
+        return (ManageAttendanceViewController(viewModel: viewModel), viewModel)
     }
 
     var viewModel: ManageAttendanceViewModel {

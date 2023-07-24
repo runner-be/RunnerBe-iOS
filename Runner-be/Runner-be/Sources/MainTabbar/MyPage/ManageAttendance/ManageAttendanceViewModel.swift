@@ -10,6 +10,9 @@ import RxSwift
 
 final class ManageAttendanceViewModel: BaseViewModel {
     var posts = [MyPosting]()
+    var runnerList: [RunnerList] = []
+    var attendTimeOver = "N"
+    var postID = -1
 
     init(myRunningIdx: Int, postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
@@ -21,6 +24,8 @@ final class ManageAttendanceViewModel: BaseViewModel {
                 switch result {
                 case let .response(result: result):
                     self.outputs.info.onNext(result![myRunningIdx])
+                    self.postID = result![myRunningIdx].postID!
+                    self.runnerList = result![myRunningIdx].runnerList!
                     self.outputs.runnerList.onNext(result![myRunningIdx].runnerList!)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -45,11 +50,11 @@ final class ManageAttendanceViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.patchAttendance
-            .flatMap { postAPIService.mangageAttendance(postId: $0.postId, request: PatchAttendanceRequest(userIdList: $0.userIdList, whetherAttendList: $0.whetherAttendList)) }
+            .flatMap { postAPIService.mangageAttendance(postId: self.postID, request: PatchAttendanceRequest(userIdList: $0.userIdList, whetherAttendList: $0.whetherAttendList)) }
             .subscribe(onNext: { result in
 
                 switch result {
-                case let .response(result: result):
+                case .response(result: _):
                     self.toast.onNext("출석이 제출되었습니다.")
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -66,7 +71,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var showExpiredModal = PublishSubject<Void>()
         var goToMyPage = PublishSubject<Void>()
-        var patchAttendance = PublishSubject<(postId: Int, userIdList: String, whetherAttendList: String)>()
+        var patchAttendance = PublishSubject<(userIdList: String, whetherAttendList: String)>()
     }
 
     struct Output {
