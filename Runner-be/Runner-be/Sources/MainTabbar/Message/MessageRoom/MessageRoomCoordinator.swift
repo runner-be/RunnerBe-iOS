@@ -73,7 +73,7 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
         let comp = component.postDetailComponent(postId: postId)
         let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord) { [weak self] coordResult in
+        coordinate(coordinator: coord) { coordResult in
             switch coordResult {
             case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)

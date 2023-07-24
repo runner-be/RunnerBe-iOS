@@ -17,13 +17,13 @@ final class MessageRoomComponent {
         MessageRoomViewModel(roomId: roomId)
     }
 
+    var roomId: Int
+    var fromPostDetail: Bool
+
     init(roomId: Int, fromPostDetail: Bool = false) {
         self.roomId = roomId
         self.fromPostDetail = fromPostDetail
     }
-
-    var roomId: Int
-    var fromPostDetail: Bool
 
     func reportMessageComponent(roomId: Int) -> MessageReportComponent {
         return MessageReportComponent(roomId: roomId)

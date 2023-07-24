@@ -10,7 +10,7 @@ import RxSwift
 
 final class MessageRoomViewModel: BaseViewModel {
     var messages: [MessageContent] = []
-    var postInfo: RoomInfo?
+    var roomInfo: RoomInfo?
 
     init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
         super.init()
@@ -34,7 +34,12 @@ final class MessageRoomViewModel: BaseViewModel {
 
                 if let result = result {
                     self.messages = result.messageList ?? []
-                    self.postInfo = result.roomInfo![0]
+
+                    guard let roomInfos = result.roomInfo else {
+                        self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                        return
+                    }
+                    self.roomInfo = roomInfos[0]
 
                     if !self.messages.isEmpty {
                         self.outputs.messageContents.onNext(self.messages)
@@ -42,7 +47,7 @@ final class MessageRoomViewModel: BaseViewModel {
                         self.outputs.messageContents.onNext([])
                     }
 
-                    self.outputs.roomInfo.onNext(self.postInfo!)
+                    self.outputs.roomInfo.onNext(self.roomInfo!)
                 }
 
             })

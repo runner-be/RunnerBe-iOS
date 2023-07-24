@@ -13,9 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageViewController: BaseViewController, UIScrollViewDelegate {
-    let cellID = "MessageTableViewCell"
-
+class MessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -49,8 +47,6 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
     }
 
     private func viewModelOutput() {
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
-
         viewModel.outputs.messageRoomList
             .filter { [weak self] array in
                 if array.isEmpty {
@@ -61,10 +57,10 @@ class MessageViewController: BaseViewController, UIScrollViewDelegate {
                     return true
                 }
             }
-            .bind(to: tableView.rx.items(cellIdentifier: cellID, cellType: MessageTableViewCell.self)) { _, item, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: MessageTableViewCell.id, cellType: MessageTableViewCell.self)) { _, item, cell in
 
                 cell.selectionStyle = .none
-                
+
                 if let profileUrl = item.profileImageUrl {
                     cell.messageProfile.kf.setImage(with: URL(string: profileUrl), placeholder: Asset.profileEmptyIcon.uiImage)
                 } else {

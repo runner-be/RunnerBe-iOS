@@ -13,9 +13,6 @@ import Then
 import UIKit
 
 class MessageRoomViewController: BaseViewController {
-    var messages: [MessageContent] = []
-    var postId = 0
-    var messageId = 0
     let formatter = DateUtil.shared.dateFormatter
     let dateUtil = DateUtil.shared
 
@@ -35,8 +32,6 @@ class MessageRoomViewController: BaseViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
-        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
     init(viewModel: MessageRoomViewModel) {
@@ -52,6 +47,8 @@ class MessageRoomViewController: BaseViewController {
     private var viewModel: MessageRoomViewModel
 
     private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
+        viewModel.routeInputs.needUpdate.onNext(true)
+
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
@@ -62,7 +59,7 @@ class MessageRoomViewController: BaseViewController {
 
         postSection.rx.tapGesture()
             .when(.recognized)
-            .map { _ in self.postId }
+            .map { _ in self.viewModel.roomInfo?.postId ?? -1 }
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
 
@@ -87,7 +84,6 @@ class MessageRoomViewController: BaseViewController {
             .subscribe(onNext: { roomInfo in
                 self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
-                self.postId = roomInfo.postId!
             })
             .disposed(by: disposeBag)
 
@@ -174,8 +170,8 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "출근 전"
-        view.postTitle.text = "불금에 달리기하실분!"
+        view.badgeLabel.titleLabel?.text = "태그"
+        view.postTitle.text = "게시글 제목"
     }
 
     private var messageContentsTableView = UITableView().then { view in
@@ -183,7 +179,6 @@ class MessageRoomViewController: BaseViewController {
         view.register(MessageChatRightCell.self, forCellReuseIdentifier: MessageChatRightCell.id)
         view.backgroundColor = .darkG7
         view.separatorColor = .clear
-//        view.showsVerticalScrollIndicator = false
     }
 
     var chatBackGround = UIView().then { view in
@@ -304,7 +299,6 @@ extension MessageRoomViewController {
         }
     }
 }
-
 
 extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작

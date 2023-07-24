@@ -10,13 +10,16 @@ import RxSwift
 
 final class MessageReportViewModel: BaseViewModel {
     var messages: [MessageContent] = []
+    var roomInfo: RoomInfo?
     var reportIntString = ""
+
+    var reportMessageList: [Int] = []
+    var reportMessageIndexString = ""
 
     init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
         super.init()
 
-        routeInputs.needUpdate
-            .flatMap { _ in messageAPIService.getMessageContents(roomId: roomId) }
+        messageAPIService.getMessageContents(roomId: roomId)
             .map { [weak self] result -> GetMessageRoomInfoResult? in
                 switch result {
                 case let .response(result: data):
@@ -30,16 +33,24 @@ final class MessageReportViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
+                self.messages.removeAll()
 
                 if let result = result {
                     self.messages = result.messageList ?? []
+
+                    guard let roomInfos = result.roomInfo else {
+                        self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                        return
+                    }
+                    self.roomInfo = roomInfos[0]
 
                     if !self.messages.isEmpty {
                         self.outputs.messageContents.onNext(self.messages)
                     } else {
                         self.outputs.messageContents.onNext([])
                     }
-                    self.outputs.roomInfo.onNext(result.roomInfo!.first!)
+
+                    self.outputs.roomInfo.onNext(self.roomInfo!)
                 }
 
             })
@@ -51,8 +62,9 @@ final class MessageReportViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.report
-            .subscribe(onNext: { result in
-                self.reportIntString = result
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.reportIntString = self.reportMessageList.map { String($0) }.joined(separator: ",")
                 self.routes.report.onNext(())
             })
             .disposed(by: disposeBag)
@@ -90,7 +102,7 @@ final class MessageReportViewModel: BaseViewModel {
     }
 
     struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
-        var report = PublishSubject<String>()
+        var report = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
     }

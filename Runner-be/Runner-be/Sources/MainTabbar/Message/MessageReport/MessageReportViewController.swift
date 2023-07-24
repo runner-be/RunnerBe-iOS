@@ -14,11 +14,6 @@ import Toast_Swift
 import UIKit
 
 class MessageReportViewController: BaseViewController {
-    var messages: [MessageContent] = []
-    var postId = 0
-    var reportMessageList: [Int] = []
-    var reportMessageIndexString = ""
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -27,8 +22,6 @@ class MessageReportViewController: BaseViewController {
         viewInputs()
         viewModelInput()
         viewModelOutput()
-
-        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
     init(viewModel: MessageReportViewModel, roomId _: Int) {
@@ -49,13 +42,13 @@ class MessageReportViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .map { self.reportMessageList.map { String($0) }.joined(separator: ",") }
             .bind(to: viewModel.inputs.report)
             .disposed(by: disposeBag)
 
         postSection.rx.tapGesture()
             .when(.recognized)
-            .map { _ in self.postId }
+            .filter { _ in self.viewModel.roomInfo != nil }
+            .map { _ in self.viewModel.roomInfo!.postId! }
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
     }
@@ -74,14 +67,10 @@ class MessageReportViewController: BaseViewController {
             .subscribe(onNext: { roomInfo in
                 self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
-                self.postId = roomInfo.postId!
             })
             .disposed(by: disposeBag)
 
         viewModel.outputs.messageContents
-            .do(onNext: { contents in
-                self.messages = contents
-            })
             .bind(to: messageReportTableView.rx.items) { _, _, item -> UITableViewCell in
 
                 let dateUtil = DateUtil.shared
@@ -195,13 +184,13 @@ extension MessageReportViewController {
 extension MessageReportViewController: MessageChatReportDelegate {
     func checkButtonTap(cell: MessageChatLeftCell) {
         if cell.checkBox.isSelected { // 선택한 것만 가져오기
-            let index = messages[messageReportTableView.indexPath(for: cell)!.row].messageId ?? 0
-            reportMessageList.append(index)
+            let index = viewModel.messages[messageReportTableView.indexPath(for: cell)!.row].messageId ?? 0
+            viewModel.reportMessageList.append(index)
         } else { // 제외하기
-            reportMessageList = reportMessageList.filter { $0 != messages[messageReportTableView.indexPath(for: cell)!.row].messageId }
+            viewModel.reportMessageList = viewModel.reportMessageList.filter { $0 != self.viewModel.messages[messageReportTableView.indexPath(for: cell)!.row].messageId }
         }
 
-        if !reportMessageList.isEmpty {
+        if !viewModel.reportMessageList.isEmpty {
             navBar.rightBtnItem.isEnabled = true
             navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
         } else {
