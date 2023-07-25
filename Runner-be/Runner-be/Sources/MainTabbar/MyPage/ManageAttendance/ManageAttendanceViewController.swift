@@ -77,7 +77,7 @@ class ManageAttendanceViewController: BaseViewController {
 
         viewModel.outputs.info
             .subscribe(onNext: { info in
-                if info.attendTimeOver == "Y" { // 출석 관리 마감 여부
+                if info.attendTimeOver! == "Y" { // 출석 관리 마감 여부
                     self.navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
                     self.saveButton.isHidden = true
 

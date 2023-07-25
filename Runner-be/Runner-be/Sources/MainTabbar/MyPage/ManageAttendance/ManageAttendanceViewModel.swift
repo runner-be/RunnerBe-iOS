@@ -24,6 +24,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
                 switch result {
                 case let .response(result: result):
                     self.outputs.info.onNext(result![myRunningIdx])
+                    self.attendTimeOver = result![myRunningIdx].attendTimeOver!
                     self.postID = result![myRunningIdx].postID!
                     self.runnerList = result![myRunningIdx].runnerList!
                     self.outputs.runnerList.onNext(result![myRunningIdx].runnerList!)

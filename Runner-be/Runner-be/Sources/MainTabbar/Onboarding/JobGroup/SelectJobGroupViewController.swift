@@ -146,7 +146,6 @@ extension SelectJobGroupViewController {
             jobGroupView,
             completeButton,
         ])
-
     }
 
     private func initialLayout() {
