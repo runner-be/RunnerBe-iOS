@@ -366,7 +366,6 @@
 		DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageRoomCoordinator.swift */; };
 		DAC50004282B8F3C004CFF64 /* MessageRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC50000282B89B3004CFF64 /* MessageRoomViewModel.swift */; };
 		DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */; };
-		DADD85FD28870BEE00B11041 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD85FC28870BEE00B11041 /* Constants.swift */; };
 		DADD948D28A794AA0004F86F /* PostMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD948C28A794AA0004F86F /* PostMessageRequest.swift */; };
 		DADD949128A7CA9F0004F86F /* PostMessageReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */; };
 		DADD949528A7CF4B0004F86F /* MessageReportComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949428A7CF4B0004F86F /* MessageReportComponent.swift */; };
@@ -746,7 +745,6 @@
 		DAC5FFFE282B89B3004CFF64 /* MessageRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomCoordinator.swift; sourceTree = "<group>"; };
 		DAC5FFFF282B89B3004CFF64 /* MessageRoomComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomComponent.swift; sourceTree = "<group>"; };
 		DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchAttendanceRequest.swift; sourceTree = "<group>"; };
-		DADD85FC28870BEE00B11041 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DADD948C28A794AA0004F86F /* PostMessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageRequest.swift; sourceTree = "<group>"; };
 		DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageReportRequest.swift; sourceTree = "<group>"; };
 		DADD949428A7CF4B0004F86F /* MessageReportComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReportComponent.swift; sourceTree = "<group>"; };
@@ -1294,7 +1292,6 @@
 				C34FDA5627AD5C82007718F8 /* Extensions */,
 				C39E925F27BACC9E00798F3A /* Utils */,
 				C3AD115727B81EF600A7044C /* Error */,
-				DADD85FC28870BEE00B11041 /* Constants.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -2571,7 +2568,6 @@
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
 				C3C9732527C9373900232251 /* User.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
-				DADD85FD28870BEE00B11041 /* Constants.swift in Sources */,
 				DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
