@@ -69,7 +69,6 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-
         scene.VM.routes.signout
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
@@ -101,7 +100,7 @@ final class SettingsCoordinator: BasicCoordinator<SettingsResult> {
         let comp = component.logoutModalComponent
         let coord = LogoutModalCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+        coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case .backward:
                 vm.routeInputs.logout.onNext(false)

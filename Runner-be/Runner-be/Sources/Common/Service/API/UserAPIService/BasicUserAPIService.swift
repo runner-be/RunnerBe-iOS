@@ -239,4 +239,11 @@ final class BasicUserAPIService: UserAPIService {
             .mapResponse()
             .map { $0?.json["result"].string == "Y" }
     }
+
+    func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool> {
+        return provider.rx.request(.patchPushAlaram(userID: userId, pushOn: pushOn))
+            .asObservable()
+            .mapResponse()
+            .map { $0?.basic.code == 1000 }
+    }
 }

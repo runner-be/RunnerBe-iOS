@@ -9,23 +9,14 @@ import Foundation
 import Moya
 
 enum UserAPI {
-    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=359925579
     case editNickName(toName: String, userId: Int, token: LoginToken)
-
-    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=407517168
     case setJob(toJob: Job, userId: Int, token: LoginToken)
-
-    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=420089353
     case setProfile(profileURL: String, userId: Int, token: LoginToken)
-
     case signout(userID: Int)
-
     case updateFCMToken(userID: Int, fcmToken: String)
-    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=196917615
     case fetchAlarms(token: LoginToken)
-
-    // https://docs.google.com/spreadsheets/d/1K3yR4ns25_ptuY9xEEvGObWE6k3PbYcziaaI26p9M7A/edit#gid=39753795
     case checkAlarms(token: LoginToken)
+    case patchPushAlaram(userID: String, pushOn: String)
 }
 
 extension UserAPI: TargetType {
@@ -49,6 +40,8 @@ extension UserAPI: TargetType {
             return "/users/alarms"
         case .checkAlarms:
             return "/users/whether-new-alarms"
+        case let .patchPushAlaram(userId, pushOn):
+            return "users/\(userId)/push-alarm/\(pushOn)"
         }
     }
 
@@ -68,6 +61,8 @@ extension UserAPI: TargetType {
             return Method.get
         case .checkAlarms:
             return Method.get
+        case .patchPushAlaram:
+            return Method.patch
         }
     }
 
@@ -92,6 +87,9 @@ extension UserAPI: TargetType {
             return .requestPlain
         case .checkAlarms:
             return .requestPlain
+        case let .patchPushAlaram(userId, pushOn):
+            let parameters: [String: Any] = ["userId": userId, "pushOn": pushOn]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 
@@ -114,6 +112,8 @@ extension UserAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .checkAlarms(token):
             header["x-access-token"] = "\(token.jwt)"
+        case .patchPushAlaram:
+            return nil
         }
 
         return header

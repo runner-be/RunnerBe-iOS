@@ -32,4 +32,5 @@ protocol UserAPIService {
     func signout() -> Observable<Bool>
     func fetchAlarms() -> Observable<[Alarm]?>
     func checkAlarms() -> Observable<Bool>
+    func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool>
 }

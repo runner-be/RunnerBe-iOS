@@ -15,8 +15,8 @@ import Then
 import UIKit
 
 class SettingsViewController: BaseViewController {
-    lazy var myDataManager = SettinsDataManager()
-    var isPushOn = false
+    private var viewModel: SettingsViewModel
+    private var isOn: String
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,12 @@ class SettingsViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-
-        myDataManager.getMyPage(viewController: self)
-        pushSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
     }
 
-    init(viewModel: SettingsViewModel) {
+    init(viewModel: SettingsViewModel, isOn: String) {
         self.viewModel = viewModel
+        self.isOn = isOn
+
         super.init()
     }
 
@@ -39,19 +38,6 @@ class SettingsViewController: BaseViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    @objc func switchChanged(sender pushSwtich: UISwitch) {
-        print(pushSwtich.isOn)
-        if !pushSwtich.isOn {
-            myDataManager.patchPushOn(viewController: self, pushOn: "N")
-            isPushOn = false
-        } else {
-            myDataManager.patchPushOn(viewController: self, pushOn: "Y")
-            isPushOn = true
-        }
-    }
-
-    private var viewModel: SettingsViewModel
 
     private func viewModelInput() {
         tableView.rx.itemSelected
@@ -61,6 +47,11 @@ class SettingsViewController: BaseViewController {
 
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
+
+        pushSwitch.rx.controlEvent(.valueChanged)
+            .withLatestFrom(pushSwitch.rx.value)
+            .bind(to: viewModel.inputs.switchChanged)
             .disposed(by: disposeBag)
     }
 
@@ -153,6 +144,12 @@ extension SettingsViewController {
             navBar,
             tableView,
         ])
+
+        if isOn == "Y" {
+            pushSwitch.isOn = true
+        } else {
+            pushSwitch.isOn = false
+        }
     }
 
     private func initialLayout() {
@@ -185,19 +182,5 @@ extension SettingsViewController: UITableViewDelegate {
         }
 
         return nil
-    }
-}
-
-extension SettingsViewController {
-    func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
-        if result.myInfo?.pushOn == "N" {
-            pushSwitch.isOn = false
-        } else {
-            pushSwitch.isOn = true
-        }
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }
