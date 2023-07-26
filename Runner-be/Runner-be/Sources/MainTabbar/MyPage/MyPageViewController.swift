@@ -201,15 +201,6 @@ class MyPageViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.currentProfile
-            .take(1)
-            .compactMap { $0 }
-            .compactMap { URL(string: $0) }
-            .subscribe(onNext: { [weak self] _ in
-//                self?.kf.setImage(with: url)
-            })
-            .disposed(by: disposeBag)
-
         viewModel.outputs.showPicker
             .map { $0.sourceType }
             .subscribe(onNext: { [weak self] sourceType in
@@ -248,9 +239,12 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.profileChanged
-            .compactMap { $0 }
             .subscribe(onNext: { [weak self] data in
-                self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
+                if let data = data {
+                    self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
+                } else {
+                    self?.myInfoWithChevron.infoView.avatarView.image = Asset.profileEmptyIcon.uiImage
+                }
             })
             .disposed(by: disposeBag)
     }

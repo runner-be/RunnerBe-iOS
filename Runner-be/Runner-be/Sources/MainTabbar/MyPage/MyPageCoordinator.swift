@@ -140,7 +140,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             case .cancel:
                 break
             case .chooseDefault:
-                vm.routeInputs.photoTypeSelected.onNext(.basic)
+                vm.inputs.changeToDefaultProfile.onNext(())
             }
         }
     }

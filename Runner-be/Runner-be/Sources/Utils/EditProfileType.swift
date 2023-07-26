@@ -11,7 +11,6 @@ import UIKit
 enum EditProfileType {
     case library
     case camera
-    case basic
 }
 
 extension EditProfileType {
@@ -21,8 +20,6 @@ extension EditProfileType {
             return "camera"
         case .library:
             return "library"
-        case .basic:
-            return "basic"
         }
     }
 }
