@@ -14,7 +14,11 @@
 
 - 팀 구성: iOS 개발자 2명, Android 개발자 2명, 백엔드 개발자 1명, 디자이너 1명, PM 1명
 - Appstore: [https://apps.apple.com/kr/app/러너비/id1612604358](https://apps.apple.com/kr/app/%EB%9F%AC%EB%84%88%EB%B9%84/id1612604358)
-
+- 브랜치
+  - devleop_zoe: [@yurrrri - 이유리](https://github.com/yurrrri) 개발
+  - develop: [@SHIVVVPP - 김신우](https://github.com/SHIVVVPP) 개발
+  - main: 앱스토어 출시 버전과 동일한 브랜치 (앱스토어 배포 시 release -> main, release -> develop_zoe merge)
+ 
 ## Tech Stack
 
 -   **언어**  : Swift
