@@ -83,7 +83,7 @@ final class MyPageViewModel: BaseViewModel {
                     return nil
                 }
 
-                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970, self.posts[self.outputs.postType]?[idx].writerID == UserInfo().userId { // 리더이면서 아직 시작안했을 때
+                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970, self.posts[self.outputs.postType]?[idx].writerID == BasicLoginKeyChainService.shared.userId! { // 리더이면서 아직 시작안했을 때
                     self.toast.onNext("모임이 시작되면 출석을 체크할 수 있어요!")
                     return nil
                 }
@@ -173,6 +173,7 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.settings
+            .map { self.user?.pushOn ?? "N" }
             .bind(to: routes.settings)
             .disposed(by: disposeBag)
 
@@ -235,6 +236,20 @@ final class MyPageViewModel: BaseViewModel {
                 self?.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
+
+        inputs.changeToDefaultProfile
+            .flatMap { userAPIService.setProfileImage(to: nil) }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .succeed:
+                    self?.outputs.profileChanged.onNext(nil)
+                    self?.dirty = true
+                case .error:
+                    self?.toast.onNext("기본 이미지 변경에 실패했어요")
+                }
+                self?.toastActivity.onNext(false)
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -249,15 +264,15 @@ final class MyPageViewModel: BaseViewModel {
         var changePhoto = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
         var manageAttendance = PublishSubject<Int>()
+        var changeToDefaultProfile = PublishSubject<Void>()
     }
 
     struct Output {
         var postType: PostType = .myPost
-        var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1) // n개의 이벤트를 저장하고 subscribe 되는 시점과 상관없이 저장된 모든 이벤트 전달
+        var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
-        var toast = BehaviorSubject<String>(value: "") // PublishSubject와 다르지않으나 초기값을 가진 subject
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
         var showPicker = PublishSubject<EditProfileType>()
@@ -267,7 +282,7 @@ final class MyPageViewModel: BaseViewModel {
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
         var editInfo = PublishSubject<User>()
-        var settings = PublishSubject<Void>()
+        var settings = PublishSubject<String>()
         var writePost = PublishSubject<Void>()
         var toMain = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
