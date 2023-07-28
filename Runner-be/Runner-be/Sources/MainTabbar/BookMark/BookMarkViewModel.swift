@@ -112,7 +112,6 @@ final class BookMarkViewModel: BaseViewModel {
                 self.routes.detailPost.onNext(posts[idx].ID)
             })
             .disposed(by: disposeBag)
-
     }
 
     struct Input {

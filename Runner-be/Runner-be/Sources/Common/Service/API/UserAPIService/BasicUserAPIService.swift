@@ -85,8 +85,17 @@ final class BasicUserAPIService: UserAPIService {
             })
     }
 
-    func setJob(to _: Job) -> Observable<SetJobResult> {
-        return .just(.succeed)
+    func setJob(to job: Job) -> Observable<Bool> {
+        guard let userId = loginKeyChainService.userId,
+              let token = loginKeyChainService.token
+        else {
+            return .just(false)
+        }
+
+        return provider.rx.request(.setJob(toJob: job, userId: userId, token: token))
+            .asObservable()
+            .mapResponse()
+            .map { $0?.basic.code == 1000 }
     }
 
     func setProfileImage(to data: Data?) -> Observable<SetProfileResult> {

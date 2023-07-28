@@ -9,8 +9,17 @@ import RxSwift
 
 final class EditInfoViewModel: BaseViewModel {
     var dirty: Bool = false
+    var user: User
+    var selectedJobcode = ""
 
-    init(user _: User, userAPIService: UserAPIService = BasicUserAPIService()) {
+    var userJobCode = ""
+    var userJobIdx = 0
+
+    init(user: User, userAPIService: UserAPIService = BasicUserAPIService()) {
+        self.user = user
+        userJobCode = Job(name: user.job).code
+        userJobIdx = Job(name: user.job).index
+
         super.init()
 
         inputs.nickNameText
@@ -22,13 +31,22 @@ final class EditInfoViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.jobSelected
-            .bind(to: routes.jobModal)
+            .subscribe(onNext: { jobCode in
+                self.selectedJobcode = jobCode
+                self.routes.jobModal.onNext(())
+            })
             .disposed(by: disposeBag)
 
         routeInputs.changeJob
-            .subscribe(onNext: { [weak self] isChangeJob in
-                if isChangeJob {
-                    self?.outputs.jobChanged.onNext(isChangeJob)
+            .filter { $0 }
+            .flatMap { _ in userAPIService.setJob(to: Job(code: self.selectedJobcode)) }
+            .subscribe(onNext: { isSuccess in
+                switch isSuccess {
+                case true:
+                    self.dirty = true
+                    self.outputs.jobChanged.onNext(true)
+                case false:
+                    self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
                 }
             })
             .disposed(by: disposeBag)
@@ -67,7 +85,7 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var nickNameText = PublishSubject<String>()
         var nickNameApply = PublishSubject<String>()
-        var jobSelected = PublishSubject<Void>()
+        var jobSelected = PublishSubject<String>()
     }
 
     struct Output {

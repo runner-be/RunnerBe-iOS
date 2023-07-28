@@ -27,7 +27,7 @@ enum SetProfileResult {
 
 protocol UserAPIService {
     func setNickName(to name: String) -> Observable<SetNickNameResult>
-    func setJob(to job: Job) -> Observable<SetJobResult>
+    func setJob(to job: Job) -> Observable<Bool>
     func setProfileImage(to image: Data?) -> Observable<SetProfileResult>
     func signout() -> Observable<Bool>
     func fetchAlarms() -> Observable<[Alarm]?>

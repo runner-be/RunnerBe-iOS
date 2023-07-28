@@ -14,14 +14,8 @@ import Then
 import UIKit
 
 class EditInfoViewController: BaseViewController {
-    lazy var editInfoDataManager = EditInfoDataManager()
-
-    var jobindex = -1 // 초기 job index
-    var jobCode = "" // 초기 job code
     var selectedJobCode = "" // 선택된 jobcode
     var selectedJobIdx = -1 // 선택된 jobindex
-    var jobChangePossible = false
-    var jobCodeList = ["PSV", "EDU", "DEV", "PSM", "DES", "MPR", "SER", "PRO", "RES", "SAF", "MED", "HUR", "ACC", "CUS"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +25,6 @@ class EditInfoViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         viewInputs()
-
-        editInfoDataManager.getMyPage(viewController: self)
     }
 
     // TODO: 유저 이미지 연결
@@ -67,7 +59,6 @@ class EditInfoViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-
         viewModel.outputs.nickNameDup // 닉네임 중복처리
             .subscribe(onNext: { [weak self] dup in
                 self?.nickNameDupErrLabel.isHidden = !dup
@@ -111,8 +102,10 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.jobChanged
-            .subscribe(onNext: { [weak self] _ in
-                self!.editInfoDataManager.patchJob(viewController: self!, job: self?.selectedJobCode ?? "PSV")
+            .subscribe(onNext: { isSuccess in
+                if isSuccess {
+                    self.selectJobView.select(idx: self.selectedJobIdx)
+                }
             })
             .disposed(by: disposeBag)
 
@@ -123,7 +116,7 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.toastActivity
-            .subscribe(onNext: { [weak self] show in
+            .subscribe(onNext: { show in
                 if show {
                     AppContext.shared.makeToastActivity(position: .center)
                 } else {
@@ -158,23 +151,22 @@ class EditInfoViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         selectJobView.jobGroup.tap
-            .filter { [unowned self] numSelected in numSelected > 0 }
-            .map { [unowned self] _ in
-                self.selectJobView.jobGroup.selected[0]
-            }
-            .filter { [weak self] idx in
-                if idx != self?.jobindex, self!.jobChangePossible { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
-                    self?.selectedJobIdx = idx
+            .filter { numSelected in numSelected > 0 }
+            .filter { _ in
+                let idx = self.selectJobView.jobGroup.selected[0]
+
+                if idx != self.viewModel.userJobIdx, self.viewModel.user.jobChangePossible! == "Y" { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
+                    self.selectedJobIdx = idx
+                    self.selectedJobCode = Job(idx: idx).code
                     return true
-                } else if idx != self?.jobindex, !self!.jobChangePossible { // jobindex는 다르나 직업 수정이 불가능하다면, 안내라벨 띄우기
-                    self?.selectJobGuideLabel.isHidden = false
+                } else if self.viewModel.user.jobChangePossible! == "N" { // jobindex는 다르나 직업 수정이 불가능하다면, 안내라벨 띄우기
+                    self.selectJobGuideLabel.isHidden = false
+                    return false
+                } else {
+                    return false
                 }
-                return false // 여기서는 실행이 안됨
             }
-            .do(onNext: { [weak self] idx in
-                self?.selectedJobCode = self?.jobCodeList[idx] ?? "PSV"
-            })
-            .map { _ in }
+            .map { _ in self.selectedJobCode }
             .bind(to: viewModel.inputs.jobSelected)
             .disposed(by: disposeBag)
     }
@@ -258,6 +250,8 @@ extension EditInfoViewController {
             selectJobView,
             selectJobGuideLabel,
         ])
+
+        selectJobView.select(idx: viewModel.userJobIdx)
     }
 
     private func initialLayout() {
@@ -309,75 +303,5 @@ extension EditInfoViewController: UITextFieldDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 8
-    }
-}
-
-extension EditInfoViewController {
-    func didSuccessGetUserMyPage(_ result: GetMyPageResult) {
-        if result.myInfo?.nameChanged == "Y" {
-            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.alreadychanged
-            selectNickName.nickNameField.isEnabled = false
-            selectNickName.applyButton.isEnabled = false
-            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.NickNameChanged.title, for: .disabled)
-        } else {
-            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
-            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
-        }
-
-        if result.myInfo?.jobChangePossible == "N" { // 변경한지 3개월 안지남 -> 변경 불가능
-            jobChangePossible = false
-        } else { // 변경한지 3개월 지남 -> 변경 가능
-            jobChangePossible = true
-        }
-
-        jobCode = (result.myInfo?.job)!
-
-        switch result.myInfo?.job {
-        case "공무원":
-            jobindex = 0
-        case "교육":
-            jobindex = 1
-        case "개발":
-            jobindex = 2
-        case "기획/전략/경영":
-            jobindex = 3
-        case "디자인":
-            jobindex = 4
-        case "마케팅/PR":
-            jobindex = 5
-        case "서비스":
-            jobindex = 6
-        case "생산":
-            jobindex = 7
-        case "연구":
-            jobindex = 8
-        case "영업/제휴":
-            jobindex = 9
-        case "의료":
-            jobindex = 10
-        case "인사":
-            jobindex = 11
-        case "재무/회계":
-            jobindex = 12
-        case "CS":
-            jobindex = 13
-        case .none:
-            break
-        case .some:
-            break
-        }
-
-        selectJobView.select(idx: jobindex)
-    }
-
-    func didSuccessPatchJob(_: BaseResponse) {
-        editInfoDataManager.getMyPage(viewController: self)
-        selectJobGuideLabel.isHidden = false
-
-        selectJobView.select(idx: selectedJobIdx)
-    }
-
-    func failedToRequest(message: String) {
-        view.makeToast(message)
     }
 }
