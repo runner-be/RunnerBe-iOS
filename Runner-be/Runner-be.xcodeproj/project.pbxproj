@@ -345,8 +345,6 @@
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
 		DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */; };
-		DA7E971C288BE1D10001BBDC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */; };
-		DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */; };
 		DA7E9724288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */; };
 		DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */; };
 		DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */; };
@@ -355,7 +353,6 @@
 		DA8B71A729DF4762006894C6 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8B71A629DF4762006894C6 /* Keys.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
-		DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */; };
 		DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* MessageAPIService.swift */; };
 		DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
@@ -724,8 +721,6 @@
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
 		DA7E9719288BCCD70001BBDC /* JobChangeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewController.swift; sourceTree = "<group>"; };
-		DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
-		DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchJobRequest.swift; sourceTree = "<group>"; };
 		DA7E9723288C360C0001BBDC /* ManageTimeExpiredModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9725288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9727288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTimeExpiredModalViewModel.swift; sourceTree = "<group>"; };
@@ -734,7 +729,6 @@
 		DA8B71A629DF4762006894C6 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
-		DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoDataManager.swift; sourceTree = "<group>"; };
 		DAA1EAE82977BB440070B90F /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
 		DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
@@ -1751,7 +1745,6 @@
 				C3C9734A27CA962A00232251 /* EditInfoCoordinator.swift */,
 				C3C9734C27CA963200232251 /* EditInfoViewModel.swift */,
 				C3C9734E27CA963B00232251 /* EditInfoViewController.swift */,
-				DA8EC6B32889AED9007BF0DD /* EditInfoDataManager.swift */,
 			);
 			path = EditInfo;
 			sourceTree = "<group>";
@@ -2001,8 +1994,6 @@
 			isa = PBXGroup;
 			children = (
 				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
-				DA7E971B288BE1D10001BBDC /* PatchProfileRequest.swift */,
-				DA7E971E288BF5C60001BBDC /* PatchJobRequest.swift */,
 				DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */,
 			);
 			path = Model;
@@ -2647,7 +2638,6 @@
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
 				C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift in Sources */,
-				DA7E971F288BF5C60001BBDC /* PatchJobRequest.swift in Sources */,
 				C361B6BE27B285E600824ABE /* SelectJobGroupViewController.swift in Sources */,
 				C3089AF427BF45F700884987 /* WritingMainPostComponent.swift in Sources */,
 				DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */,
@@ -2694,7 +2684,6 @@
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
-				DA7E971C288BE1D10001BBDC /* PatchProfileRequest.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
@@ -2765,7 +2754,6 @@
 				436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
-				DA8EC6B42889AED9007BF0DD /* EditInfoDataManager.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C38ABD8427D31EAD0025929E /* LoginType.swift in Sources */,
 				43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */,
