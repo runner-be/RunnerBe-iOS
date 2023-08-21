@@ -853,14 +853,6 @@
 			path = AlarmCell;
 			sourceTree = "<group>";
 		};
-		438AB20428C3872600AD1AD3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				438AB20528C3875C00AD1AD3 /* WritingPostData.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		43B1E6C528B1AD320057A1AF /* AlarmList */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,13 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				432B45E028C1C1B0001AB8A9 /* NotificationService */,
-				C304C57E281E863100C24295 /* KeyChain */,
-				DA60482D281E7C7C00A67568 /* API */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
-				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
-				C3432CAC27B8448400DEFF51 /* SignUpService */,
-				C3EB5CC827B8B62200775779 /* ImageUploadService */,
-				C3AD115827B825F500A7044C /* LoginService */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -926,7 +912,6 @@
 		C3089AF227BF45C100884987 /* WritingPost */ = {
 			isa = PBXGroup;
 			children = (
-				438AB20428C3872600AD1AD3 /* Model */,
 				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3227C0DB8D003EDD0F /* Step1 */,
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
@@ -937,8 +922,6 @@
 		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				DAA1EAEA2977C53E0070B90F /* Network */,
-				DA117B1E2831508C00158211 /* Model */,
 				DAC50010282B9999004CFF64 /* View */,
 				DA3067642826235A00543D74 /* Cell */,
 				DADD949228A7CF210004F86F /* MessageReport */,
@@ -988,14 +971,6 @@
 				DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */,
 			);
 			path = Config;
-			sourceTree = "<group>";
-		};
-		C32C029727CB9F7E0011419E /* CommonConfig */ = {
-			isa = PBXGroup;
-			children = (
-				C32C029827CB9F8E0011419E /* UserConfig.swift */,
-			);
-			path = CommonConfig;
 			sourceTree = "<group>";
 		};
 		C3319A5227C5170E0054B688 /* Bubble */ = {
@@ -1181,11 +1156,18 @@
 			isa = PBXGroup;
 			children = (
 				DA8B71A529DF4757006894C6 /* Ignore */,
-				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
-				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
-				C34FDA7527AD5C98007718F8 /* Sources */,
+				DA604820281E634F00A67568 /* App */,
+				C38F8F5127ADB3F60050137D /* Base */,
+				DAEEEC4C2A9398F900F8DD7A /* Presentation */,
+				DAEEEC4D2A9399B800F8DD7A /* Domain */,
+				DAEEEC4E2A9399CA00F8DD7A /* Data */,
+				C34FDA5627AD5C82007718F8 /* Extensions */,
+				C39E925F27BACC9E00798F3A /* Utils */,
+				C3AD115727B81EF600A7044C /* Error */,
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
+				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
+				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
 				C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */,
 			);
@@ -1211,7 +1193,6 @@
 		C34FDA4F27AD5C82007718F8 /* MainTabbar */ = {
 			isa = PBXGroup;
 			children = (
-				C32C029727CB9F7E0011419E /* CommonConfig */,
 				C38F8F2427AD947E0050137D /* MainTabComponent.swift */,
 				C38F8F2227AD929D0050137D /* MainTabbarCoordinator.swift */,
 				C3C9734127CA5EAF00232251 /* MainTabbarViewModel.swift */,
@@ -1228,8 +1209,6 @@
 		C34FDA5027AD5C82007718F8 /* LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
-				DA604837281E86E600A67568 /* Model */,
-				DA604832281E802800A67568 /* EndPoint */,
 				C34FDA6627AD5C83007718F8 /* LoggedOutComponent.swift */,
 				C34FDA6227AD5C83007718F8 /* LoggedOutCoordinator.swift */,
 				C34FDA5127AD5C82007718F8 /* LoggedOutViewModel.swift */,
@@ -1274,20 +1253,6 @@
 				C3FEECAF27AD860C00135099 /* NaverLoginService.swift */,
 			);
 			path = SocialLoginService;
-			sourceTree = "<group>";
-		};
-		C34FDA7527AD5C98007718F8 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				C38F8F5127ADB3F60050137D /* Base */,
-				DA604826281E69AC00A67568 /* Common */,
-				DA604820281E634F00A67568 /* App */,
-				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
-				C34FDA5627AD5C82007718F8 /* Extensions */,
-				C39E925F27BACC9E00798F3A /* Utils */,
-				C3AD115727B81EF600A7044C /* Error */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 		C34FDA7E27AD5DA1007718F8 /* Asset+ */ = {
@@ -1379,7 +1344,6 @@
 		C37E45EC27AE383A00C12CA2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				DA604838281E875F00A67568 /* Model */,
 				C3F1EBB427D13DD700207F35 /* OnboardingCover */,
 				C3BA45B427B570CF0048CA76 /* OnboardingCancelModal */,
 				C3F74B6227B0A34D002D5846 /* PolicyTerm */,
@@ -1465,7 +1429,6 @@
 			isa = PBXGroup;
 			children = (
 				C32C028527CB24640011419E /* View */,
-				DA5D5EF2288856A10038529B /* Model */,
 				C32C028C27CB45E00011419E /* Config */,
 				C3C9736227CA979500232251 /* TakePhotoModal */,
 				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
@@ -1589,6 +1552,7 @@
 		C3AD115827B825F500A7044C /* LoginService */ = {
 			isa = PBXGroup;
 			children = (
+				C3AD114827B8112500A7044C /* LoginAPI.swift */,
 				C34FDA5C27AD5C83007718F8 /* SocialLoginService */,
 				C3AD115927B8261000A7044C /* LoginService.swift */,
 				C3AD115B27B8262900A7044C /* BasicLoginService.swift */,
@@ -1968,18 +1932,6 @@
 			path = LocationService;
 			sourceTree = "<group>";
 		};
-		DA117B1E2831508C00158211 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DA117B1F283150A300158211 /* Message.swift */,
-				DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */,
-				DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */,
-				DADD948C28A794AA0004F86F /* PostMessageRequest.swift */,
-				DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		DA3067642826235A00543D74 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1988,15 +1940,6 @@
 				DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		DA5D5EF2288856A10038529B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
-				DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		DA604820281E634F00A67568 /* App */ = {
@@ -2010,35 +1953,6 @@
 				C34FDA6027AD5C83007718F8 /* AppCoordinator.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		DA604826281E69AC00A67568 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				C304C57D281E858000C24295 /* Service */,
-				DA60482B281E7AC600A67568 /* Component */,
-				DA604829281E6B1600A67568 /* Model */,
-				C3F0968B27AEDDCF00959F9A /* CustomViews */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		DA604829281E6B1600A67568 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C3256B5D27CE7EA7009B16DA /* Policy */,
-				C39E925A27BACA8400798F3A /* Mail */,
-				C35B832427B91E5B00551AC5 /* UserInfo */,
-				C3EB5CDE27B8BB2E00775779 /* Response */,
-				C3A64F8827C54A930088E387 /* PostFilter.swift */,
-				C3A64F8E27C54DA20088E387 /* Post.swift */,
-				C3A64F8427C54A6F0088E387 /* RunningTag.swift */,
-				C3A64F8627C54A7F0088E387 /* PostState.swift */,
-				C3A64F9027C54DBA0088E387 /* FilterType.swift */,
-				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
-				436D8A9B28B1B73100E3DA6C /* Alarm.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		DA60482B281E7AC600A67568 /* Component */ = {
@@ -2067,27 +1981,21 @@
 			path = PostDetail;
 			sourceTree = "<group>";
 		};
-		DA60482D281E7C7C00A67568 /* API */ = {
+		DA60482D281E7C7C00A67568 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
+				DAEEEC552A93A06100F8DD7A /* MessageService */,
+				C3432CAC27B8448400DEFF51 /* SignUpService */,
+				C3AD115827B825F500A7044C /* LoginService */,
 				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
 				DA604835281E80E100A67568 /* PostAPIService */,
 				C3256B5E27CE8014009B16DA /* PolicyAPIService */,
 				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
 				C39E926327BACFA400798F3A /* MailingAPIService */,
 				C3AD114327B80F4200A7044C /* LoginAPIService */,
-				C34BA6AD27CD479C003E393A /* APIResponse */,
 			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		DA604832281E802800A67568 /* EndPoint */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD114827B8112500A7044C /* LoginAPI.swift */,
-			);
-			path = EndPoint;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		DA604835281E80E100A67568 /* PostAPIService */ = {
@@ -2100,37 +2008,10 @@
 			path = PostAPIService;
 			sourceTree = "<group>";
 		};
-		DA604837281E86E600A67568 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C38F8F2027AD88970050137D /* SocialLoginType.swift */,
-				C38F8F1E27AD88700050137D /* SocialLoginResult.swift */,
-				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
-				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
-				C38ABD8327D31EAD0025929E /* LoginType.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		DA604838281E875F00A67568 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C3EB5CD927B8B76200775779 /* Signup */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		DA6278A028770E5A008255C6 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		DA6278A128770EA1008255C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */,
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
@@ -2166,21 +2047,11 @@
 			path = Ignore;
 			sourceTree = "<group>";
 		};
-		DAA1EAEA2977C53E0070B90F /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
-				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		DAA252C8287204EC0087FCA9 /* ManageAttendance */ = {
 			isa = PBXGroup;
 			children = (
 				DA7E9722288C35F70001BBDC /* ManageTimeExpiredModal */,
 				DA6278A128770EA1008255C6 /* View */,
-				DA6278A028770E5A008255C6 /* Cell */,
 				DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */,
 				DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */,
 				DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */,
@@ -2217,6 +2088,143 @@
 				DADD949B28A7CF6F0004F86F /* MessageReportViewController.swift */,
 			);
 			path = MessageReport;
+			sourceTree = "<group>";
+		};
+		DAEEEC4C2A9398F900F8DD7A /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC502A939B4A00F8DD7A /* Common */,
+				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		DAEEEC4D2A9399B800F8DD7A /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC512A939B5900F8DD7A /* Entities */,
+				C304C57D281E858000C24295 /* Service */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		DAEEEC4E2A9399CA00F8DD7A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC4F2A939AAD00F8DD7A /* Firebase */,
+				DA60482D281E7C7C00A67568 /* Network */,
+				C304C57E281E863100C24295 /* KeyChain */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		DAEEEC4F2A939AAD00F8DD7A /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				C3EB5CC827B8B62200775779 /* ImageUploadService */,
+				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		DAEEEC502A939B4A00F8DD7A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C32C029827CB9F8E0011419E /* UserConfig.swift */,
+				C3F0968B27AEDDCF00959F9A /* CustomViews */,
+				DA60482B281E7AC600A67568 /* Component */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		DAEEEC512A939B5900F8DD7A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC582A93A17200F8DD7A /* Settings */,
+				DAEEEC572A93A0ED00F8DD7A /* MyPage */,
+				DAEEEC562A93A0CB00F8DD7A /* Message */,
+				C34BA6AD27CD479C003E393A /* APIResponse */,
+				DAEEEC522A939B5F00F8DD7A /* Common */,
+				C3EB5CD927B8B76200775779 /* Signup */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		DAEEEC522A939B5F00F8DD7A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC542A939FDF00F8DD7A /* Post */,
+				C3256B5D27CE7EA7009B16DA /* Policy */,
+				C39E925A27BACA8400798F3A /* Mail */,
+				C35B832427B91E5B00551AC5 /* UserInfo */,
+				C3EB5CDE27B8BB2E00775779 /* Response */,
+				C3A64F8827C54A930088E387 /* PostFilter.swift */,
+				C3A64F8E27C54DA20088E387 /* Post.swift */,
+				C3A64F8427C54A6F0088E387 /* RunningTag.swift */,
+				C3A64F8627C54A7F0088E387 /* PostState.swift */,
+				C3A64F9027C54DBA0088E387 /* FilterType.swift */,
+				436D8A9B28B1B73100E3DA6C /* Alarm.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		DAEEEC542A939FDF00F8DD7A /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
+				438AB20528C3875C00AD1AD3 /* WritingPostData.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		DAEEEC552A93A06100F8DD7A /* MessageService */ = {
+			isa = PBXGroup;
+			children = (
+				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
+				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
+			);
+			path = MessageService;
+			sourceTree = "<group>";
+		};
+		DAEEEC562A93A0CB00F8DD7A /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				DA117B1F283150A300158211 /* Message.swift */,
+				DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */,
+				DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */,
+				DADD948C28A794AA0004F86F /* PostMessageRequest.swift */,
+				DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		DAEEEC572A93A0ED00F8DD7A /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
+				DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		DAEEEC582A93A17200F8DD7A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DAEEEC592A93A18000F8DD7A /* LoggedOut */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DAEEEC592A93A18000F8DD7A /* LoggedOut */ = {
+			isa = PBXGroup;
+			children = (
+				C38F8F2027AD88970050137D /* SocialLoginType.swift */,
+				C38F8F1E27AD88700050137D /* SocialLoginResult.swift */,
+				C3432CA727B8315F00DEFF51 /* LoginToken.swift */,
+				C3432CAA27B8317500DEFF51 /* LoginAPIResult.swift */,
+				C38ABD8327D31EAD0025929E /* LoginType.swift */,
+			);
+			path = LoggedOut;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
