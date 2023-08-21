@@ -884,6 +884,8 @@
 		C304C57D281E858000C24295 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C3432CAC27B8448400DEFF51 /* SignUpService */,
+				C3AD115827B825F500A7044C /* LoginService */,
 				432B45E028C1C1B0001AB8A9 /* NotificationService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 			);
@@ -1985,9 +1987,7 @@
 			isa = PBXGroup;
 			children = (
 				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
-				DAEEEC552A93A06100F8DD7A /* MessageService */,
-				C3432CAC27B8448400DEFF51 /* SignUpService */,
-				C3AD115827B825F500A7044C /* LoginService */,
+				DAEEEC552A93A06100F8DD7A /* MessageAPIService */,
 				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
 				DA604835281E80E100A67568 /* PostAPIService */,
 				C3256B5E27CE8014009B16DA /* PolicyAPIService */,
@@ -2111,6 +2111,7 @@
 		DAEEEC4E2A9399CA00F8DD7A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DAEEEC5A2A93B3CA00F8DD7A /* Repositories */,
 				DAEEEC4F2A939AAD00F8DD7A /* Firebase */,
 				DA60482D281E7C7C00A67568 /* Network */,
 				C304C57E281E863100C24295 /* KeyChain */,
@@ -2177,13 +2178,13 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
-		DAEEEC552A93A06100F8DD7A /* MessageService */ = {
+		DAEEEC552A93A06100F8DD7A /* MessageAPIService */ = {
 			isa = PBXGroup;
 			children = (
 				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
 				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
 			);
-			path = MessageService;
+			path = MessageAPIService;
 			sourceTree = "<group>";
 		};
 		DAEEEC562A93A0CB00F8DD7A /* Message */ = {
@@ -2225,6 +2226,13 @@
 				C38ABD8327D31EAD0025929E /* LoginType.swift */,
 			);
 			path = LoggedOut;
+			sourceTree = "<group>";
+		};
+		DAEEEC5A2A93B3CA00F8DD7A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
