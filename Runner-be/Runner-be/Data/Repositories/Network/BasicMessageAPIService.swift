@@ -10,7 +10,7 @@ import Moya
 import RxSwift
 import SwiftyJSON
 
-final class MessageAPIService {
+final class BasicMessageAPIService: MessageAPIService {
     private var disposableId: Int = 0
     private var disposableDic: [Int: Disposable] = [:]
 

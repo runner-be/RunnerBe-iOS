@@ -16,7 +16,7 @@ final class MessageReportViewModel: BaseViewModel {
     var reportMessageList: [Int] = []
     var reportMessageIndexString = ""
 
-    init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
+    init(messageAPIService: MessageAPIService = BasicMessageAPIService(), roomId: Int) {
         super.init()
 
         messageAPIService.getMessageContents(roomId: roomId)
@@ -82,9 +82,7 @@ final class MessageReportViewModel: BaseViewModel {
                     return nil
                 }
             }
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
-
+            .subscribe(onNext: { result in
                 if let result = result {
                     if result {
                         self.toast.onNext("신고가 접수되었습니다.")
@@ -92,8 +90,8 @@ final class MessageReportViewModel: BaseViewModel {
                         self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
                     }
                 }
-
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
 
         inputs.detailPost
             .compactMap { $0 }

@@ -12,7 +12,7 @@ final class MessageRoomViewModel: BaseViewModel {
     var messages: [MessageContent] = []
     var roomInfo: RoomInfo?
 
-    init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
+    init(messageAPIService: MessageAPIService = BasicMessageAPIService(), roomId: Int) {
         super.init()
 
         routeInputs.needUpdate

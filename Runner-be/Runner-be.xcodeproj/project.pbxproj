@@ -340,6 +340,7 @@
 		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
 		DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */; };
+		DA5745FD2A94F951007217C3 /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5745FC2A94F951007217C3 /* MessageAPIService.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
@@ -353,7 +354,7 @@
 		DA8B71A729DF4762006894C6 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8B71A629DF4762006894C6 /* Keys.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
-		DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* MessageAPIService.swift */; };
+		DAA1EAE92977BB440070B90F /* BasicMessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* BasicMessageAPIService.swift */; };
 		DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
 		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
@@ -716,6 +717,7 @@
 		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
 		DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageRoomResponse.swift; sourceTree = "<group>"; };
+		DA5745FC2A94F951007217C3 /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
@@ -729,7 +731,7 @@
 		DA8B71A629DF4762006894C6 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
-		DAA1EAE82977BB440070B90F /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
+		DAA1EAE82977BB440070B90F /* BasicMessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMessageAPIService.swift; sourceTree = "<group>"; };
 		DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
 		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
@@ -884,23 +886,12 @@
 		C304C57D281E858000C24295 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C34FDA5C27AD5C83007718F8 /* SocialLoginService */,
 				C3432CAC27B8448400DEFF51 /* SignUpService */,
-				C3AD115827B825F500A7044C /* LoginService */,
 				432B45E028C1C1B0001AB8A9 /* NotificationService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		C304C57E281E863100C24295 /* KeyChain */ = {
-			isa = PBXGroup;
-			children = (
-				C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */,
-				C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */,
-				C3EE147127E6505600AFC185 /* UserKeyChainService.swift */,
-				C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */,
-			);
-			path = KeyChain;
 			sourceTree = "<group>";
 		};
 		C304C5802826B39000C24295 /* View */ = {
@@ -942,16 +933,6 @@
 				C3256B5827CE7599009B16DA /* PolicyType.swift */,
 			);
 			path = Policy;
-			sourceTree = "<group>";
-		};
-		C3256B5E27CE8014009B16DA /* PolicyAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */,
-				C3256B5F27CE801F009B16DA /* PolicyAPIService.swift */,
-				C3256B6127CE8048009B16DA /* BasicPolicyAPIService.swift */,
-			);
-			path = PolicyAPIService;
 			sourceTree = "<group>";
 		};
 		C32C028527CB24640011419E /* View */ = {
@@ -1009,9 +990,7 @@
 		C3432CAC27B8448400DEFF51 /* SignUpService */ = {
 			isa = PBXGroup;
 			children = (
-				C379301527B9FA920076AB85 /* RendomNickNameGenerator */,
-				C3EB5CC427B8B57D00775779 /* SignupService.swift */,
-				C3EB5CC627B8B58700775779 /* BasicSignupService.swift */,
+				C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */,
 			);
 			path = SignUpService;
 			sourceTree = "<group>";
@@ -1165,9 +1144,7 @@
 				DAEEEC4E2A9399CA00F8DD7A /* Data */,
 				C34FDA5627AD5C82007718F8 /* Extensions */,
 				C39E925F27BACC9E00798F3A /* Utils */,
-				C3AD115727B81EF600A7044C /* Error */,
 				C34FDA3227AD59F3007718F8 /* Resources */,
-				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
@@ -1306,23 +1283,6 @@
 				C361B6CC27B29FF700824ABE /* TextFieldWithPadding.swift */,
 			);
 			path = TextField;
-			sourceTree = "<group>";
-		};
-		C379301527B9FA920076AB85 /* RendomNickNameGenerator */ = {
-			isa = PBXGroup;
-			children = (
-				C379301827B9FAC40076AB85 /* RandomNickNameGenerator.swift */,
-			);
-			path = RendomNickNameGenerator;
-			sourceTree = "<group>";
-		};
-		C379301A27B9FAEF0076AB85 /* DynamicLinkService */ = {
-			isa = PBXGroup;
-			children = (
-				C379301B27B9FB010076AB85 /* DynamicLinkService.swift */,
-				C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */,
-			);
-			path = DynamicLinkService;
 			sourceTree = "<group>";
 		};
 		C379301F27BA01210076AB85 /* String+ */ = {
@@ -1500,18 +1460,9 @@
 				C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */,
 				C34BA6AB27CD40BB003E393A /* DateUtil */,
 				C379302227BA20920076AB85 /* MoyaPlugin */,
+				C3AD115727B81EF600A7044C /* Error */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		C39E926327BACFA400798F3A /* MailingAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				C39E926127BACCF300798F3A /* EmailAPI.swift */,
-				C39E926427BACFB100798F3A /* MailingAPIService.swift */,
-				C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */,
-			);
-			path = MailingAPIService;
 			sourceTree = "<group>";
 		};
 		C39F2E9E27BC5E6D00A7D86B /* Slider */ = {
@@ -1534,32 +1485,12 @@
 			path = CheckBox;
 			sourceTree = "<group>";
 		};
-		C3AD114327B80F4200A7044C /* LoginAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD114E27B8140200A7044C /* LoginAPIService.swift */,
-				C3AD114C27B813D000A7044C /* BasicLoginAPIService.swift */,
-			);
-			path = LoginAPIService;
-			sourceTree = "<group>";
-		};
 		C3AD115727B81EF600A7044C /* Error */ = {
 			isa = PBXGroup;
 			children = (
 				C3AD115527B81D7B00A7044C /* JSONError.swift */,
 			);
 			path = Error;
-			sourceTree = "<group>";
-		};
-		C3AD115827B825F500A7044C /* LoginService */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD114827B8112500A7044C /* LoginAPI.swift */,
-				C34FDA5C27AD5C83007718F8 /* SocialLoginService */,
-				C3AD115927B8261000A7044C /* LoginService.swift */,
-				C3AD115B27B8262900A7044C /* BasicLoginService.swift */,
-			);
-			path = LoginService;
 			sourceTree = "<group>";
 		};
 		C3BA459827B405060048CA76 /* Label */ = {
@@ -1624,16 +1555,6 @@
 				C3BA45E227B621A60048CA76 /* OnboardingCompletionViewController.swift */,
 			);
 			path = OnboardingCompletion;
-			sourceTree = "<group>";
-		};
-		C3C43BEE27CC37A600D36D46 /* UserAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				C3C43BEC27CC34A600D36D46 /* UserAPI.swift */,
-				C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */,
-				C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */,
-			);
-			path = UserAPIService;
 			sourceTree = "<group>";
 		};
 		C3C9732A27C9D3F400232251 /* Config */ = {
@@ -1791,25 +1712,6 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
-		C3EB5CC827B8B62200775779 /* ImageUploadService */ = {
-			isa = PBXGroup;
-			children = (
-				C3EB5CC927B8B64100775779 /* ImageUploadService.swift */,
-				C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */,
-			);
-			path = ImageUploadService;
-			sourceTree = "<group>";
-		};
-		C3EB5CD227B8B6DE00775779 /* SignupAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				C3EB5CD727B8B70900775779 /* SignupAPI.swift */,
-				C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */,
-				C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */,
-			);
-			path = SignupAPIService;
-			sourceTree = "<group>";
-		};
 		C3EB5CD927B8B76200775779 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1944,6 +1846,72 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		DA5745FA2A94F752007217C3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C3AD115B27B8262900A7044C /* BasicLoginService.swift */,
+				C3EB5CC627B8B58700775779 /* BasicSignupService.swift */,
+				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */,
+				C3256B6127CE8048009B16DA /* BasicPolicyAPIService.swift */,
+				C3C43BF127CC384800D36D46 /* BasicUserAPIService.swift */,
+				C39E926627BACFC200798F3A /* BasicMailingAPIService.swift */,
+				C3AD114C27B813D000A7044C /* BasicLoginAPIService.swift */,
+				C3EB5CD527B8B6F800775779 /* BasicSignupAPIService.swift */,
+				DAA1EAE82977BB440070B90F /* BasicMessageAPIService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA5745FB2A94F760007217C3 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				C3432CA527B830FA00DEFF51 /* BasicLoginKeyChainService.swift */,
+				C3EE147327E650BA00AFC185 /* BasicUserKeyChainService.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		DA5745FE2A950CB7007217C3 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		DA5745FF2A950D1F007217C3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C3AD115927B8261000A7044C /* LoginService.swift */,
+				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
+				C3256B5F27CE801F009B16DA /* PolicyAPIService.swift */,
+				C3C43BEF27CC37B400D36D46 /* UserAPIService.swift */,
+				C39E926427BACFB100798F3A /* MailingAPIService.swift */,
+				C3AD114E27B8140200A7044C /* LoginAPIService.swift */,
+				C3EB5CD327B8B6F000775779 /* SignupAPIService.swift */,
+				C3EB5CC427B8B57D00775779 /* SignupService.swift */,
+				DA5745FC2A94F951007217C3 /* MessageAPIService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA5746002A950D30007217C3 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				C379301B27B9FB010076AB85 /* DynamicLinkService.swift */,
+				C3EB5CC927B8B64100775779 /* ImageUploadService.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		DA5746012A950D36007217C3 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				C3432CA327B830E000DEFF51 /* LoginKeyChainService.swift */,
+				C3EE147127E6505600AFC185 /* UserKeyChainService.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
 		DA604820281E634F00A67568 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -1957,14 +1925,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		DA60482B281E7AC600A67568 /* Component */ = {
+		DA60482B281E7AC600A67568 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
 				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				DA60482C281E7ACA00A67568 /* PostDetail */,
 			);
-			path = Component;
+			path = Feature;
 			sourceTree = "<group>";
 		};
 		DA60482C281E7ACA00A67568 /* PostDetail */ = {
@@ -1983,29 +1951,19 @@
 			path = PostDetail;
 			sourceTree = "<group>";
 		};
-		DA60482D281E7C7C00A67568 /* Network */ = {
+		DA60482D281E7C7C00A67568 /* MoyaAPI */ = {
 			isa = PBXGroup;
 			children = (
 				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
-				DAEEEC552A93A06100F8DD7A /* MessageAPIService */,
-				C3EB5CD227B8B6DE00775779 /* SignupAPIService */,
-				DA604835281E80E100A67568 /* PostAPIService */,
-				C3256B5E27CE8014009B16DA /* PolicyAPIService */,
-				C3C43BEE27CC37A600D36D46 /* UserAPIService */,
-				C39E926327BACFA400798F3A /* MailingAPIService */,
-				C3AD114327B80F4200A7044C /* LoginAPIService */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		DA604835281E80E100A67568 /* PostAPIService */ = {
-			isa = PBXGroup;
-			children = (
+				C3AD114827B8112500A7044C /* LoginAPI.swift */,
+				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
+				C3EB5CD727B8B70900775779 /* SignupAPI.swift */,
 				C3A64F8127C5487F0088E387 /* PostAPI.swift */,
-				C3A64F8C27C54D650088E387 /* PostAPIService.swift */,
-				C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */,
+				C3256B5B27CE7E03009B16DA /* PolicyAPI.swift */,
+				C3C43BEC27CC34A600D36D46 /* UserAPI.swift */,
+				C39E926127BACCF300798F3A /* EmailAPI.swift */,
 			);
-			path = PostAPIService;
+			path = MoyaAPI;
 			sourceTree = "<group>";
 		};
 		DA6278A128770EA1008255C6 /* View */ = {
@@ -2015,6 +1973,26 @@
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DA755FB22A93B99D002B6513 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				DA5745FA2A94F752007217C3 /* Network */,
+				DAEEEC4F2A939AAD00F8DD7A /* Firebase */,
+				DA5745FB2A94F760007217C3 /* KeyChain */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		DA755FB62A93B9F3002B6513 /* Protocol + Repository */ = {
+			isa = PBXGroup;
+			children = (
+				DA5745FF2A950D1F007217C3 /* Network */,
+				DA5746012A950D36007217C3 /* KeyChain */,
+				DA5746002A950D30007217C3 /* Firebase */,
+			);
+			path = "Protocol + Repository";
 			sourceTree = "<group>";
 		};
 		DA7E9712288BCCA90001BBDC /* JobChangeModal */ = {
@@ -2093,6 +2071,7 @@
 		DAEEEC4C2A9398F900F8DD7A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				DAEEEC502A939B4A00F8DD7A /* Common */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 			);
@@ -2103,6 +2082,8 @@
 			isa = PBXGroup;
 			children = (
 				DAEEEC512A939B5900F8DD7A /* Entities */,
+				DA5745FE2A950CB7007217C3 /* UseCases */,
+				DA755FB62A93B9F3002B6513 /* Protocol + Repository */,
 				C304C57D281E858000C24295 /* Service */,
 			);
 			path = Domain;
@@ -2111,10 +2092,8 @@
 		DAEEEC4E2A9399CA00F8DD7A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DAEEEC5A2A93B3CA00F8DD7A /* Repositories */,
-				DAEEEC4F2A939AAD00F8DD7A /* Firebase */,
-				DA60482D281E7C7C00A67568 /* Network */,
-				C304C57E281E863100C24295 /* KeyChain */,
+				DA60482D281E7C7C00A67568 /* MoyaAPI */,
+				DA755FB22A93B99D002B6513 /* Repositories */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -2122,8 +2101,8 @@
 		DAEEEC4F2A939AAD00F8DD7A /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				C3EB5CC827B8B62200775779 /* ImageUploadService */,
-				C379301A27B9FAEF0076AB85 /* DynamicLinkService */,
+				C3EB5CCB27B8B64D00775779 /* BasicImageUploadService.swift */,
+				C379301D27B9FB0C0076AB85 /* BasicDynamicLinkService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -2133,7 +2112,7 @@
 			children = (
 				C32C029827CB9F8E0011419E /* UserConfig.swift */,
 				C3F0968B27AEDDCF00959F9A /* CustomViews */,
-				DA60482B281E7AC600A67568 /* Component */,
+				DA60482B281E7AC600A67568 /* Feature */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2178,15 +2157,6 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
-		DAEEEC552A93A06100F8DD7A /* MessageAPIService */ = {
-			isa = PBXGroup;
-			children = (
-				DAA1EAE82977BB440070B90F /* MessageAPIService.swift */,
-				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
-			);
-			path = MessageAPIService;
-			sourceTree = "<group>";
-		};
 		DAEEEC562A93A0CB00F8DD7A /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -2226,13 +2196,6 @@
 				C38ABD8327D31EAD0025929E /* LoginType.swift */,
 			);
 			path = LoggedOut;
-			sourceTree = "<group>";
-		};
-		DAEEEC5A2A93B3CA00F8DD7A /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		F0AA0C2B455B8989027299B1 /* Pods */ = {
@@ -2641,8 +2604,9 @@
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
+				DA5745FD2A94F951007217C3 /* MessageAPIService.swift in Sources */,
 				432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */,
-				DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */,
+				DAA1EAE92977BB440070B90F /* BasicMessageAPIService.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */,
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
