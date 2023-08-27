@@ -11,13 +11,49 @@ import RxSwift
 final class MessageViewModel: BaseViewModel {
     var messageRoomList: [MessageRoom] = []
     var messageRoomId = 0
+    private let messageUseCase = MessageUseCase()
 
-    init(messageAPIService: MessageAPIService = BasicMessageAPIService()) {
+    override init() {
         super.init()
 
+        uiBusinessLogic()
+        requestDataToRepo()
+    }
+
+    // MARK: - INPUT, OUTPUT Modeling
+
+    struct Input {
+        var messageRoomId = PublishSubject<Int>()
+        var insertedMessage = PublishSubject<String>()
+    }
+
+    struct Output {
+        var messageRoomId = PublishSubject<Int>()
+        var messageRoomList = ReplaySubject<[MessageRoom]>.create(bufferSize: 1)
+    }
+
+    struct Route {
+        var goMessageRoom = PublishSubject<Int>()
+    }
+
+    struct RouteInput {
+        var needUpdate = PublishSubject<Bool>()
+    }
+
+    private var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+    var routeInputs = RouteInput()
+}
+
+// MARK: - Repository와 소통
+
+extension MessageViewModel {
+    func requestDataToRepo() {
         routeInputs.needUpdate
             .flatMap { _ in
-                messageAPIService.getMessageRoomList()
+                self.messageUseCase.getMessageRoomList()
             }
             .map { [weak self] result -> [MessageRoom]? in
                 switch result {
@@ -46,7 +82,13 @@ final class MessageViewModel: BaseViewModel {
 
             })
             .disposed(by: disposeBag)
+    }
+}
 
+// MARK: - UI 관련 비즈니스 로직
+
+extension MessageViewModel {
+    func uiBusinessLogic() {
         inputs.messageRoomId
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] roomId in
@@ -55,28 +97,4 @@ final class MessageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
-
-    struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
-        var messageRoomId = PublishSubject<Int>()
-        var insertedMessage = PublishSubject<String>()
-    }
-
-    struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
-        var messageRoomId = PublishSubject<Int>()
-        var messageRoomList = ReplaySubject<[MessageRoom]>.create(bufferSize: 1)
-    }
-
-    struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
-        var goMessageRoom = PublishSubject<Int>()
-    }
-
-    struct RouteInput { // 자식화면이 해제되면서 전달되어야하느 정보가 있을 경우, 전달되어야할 이벤트가 정의되어있는 구조체
-        var needUpdate = PublishSubject<Bool>()
-    }
-
-    private var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
-    var routeInputs = RouteInput()
 }

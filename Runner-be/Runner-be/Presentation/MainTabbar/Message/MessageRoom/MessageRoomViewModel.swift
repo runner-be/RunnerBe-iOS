@@ -11,12 +11,58 @@ import RxSwift
 final class MessageRoomViewModel: BaseViewModel {
     var messages: [MessageContent] = []
     var roomInfo: RoomInfo?
+    var roomId = 0
+    private let messageUseCase = MessageUseCase()
 
-    init(messageAPIService: MessageAPIService = BasicMessageAPIService(), roomId: Int) {
+    init(roomId: Int) {
         super.init()
 
+        self.roomId = roomId
+
+        uiBusinessLogic()
+        requestDataToRepo()
+    }
+
+    // MARK: - INPUT, OUTPUT Modeling
+
+    struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
+        var report = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
+        var detailPost = PublishSubject<Int>()
+        var sendMessage = PublishSubject<String>()
+    }
+
+    struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
+        var roomInfo = PublishSubject<RoomInfo>()
+        var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
+        var successSendMessage = PublishSubject<Bool>()
+    }
+
+    struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
+        var report = PublishSubject<Int>()
+        var backward = PublishSubject<Bool>()
+        var detailPost = PublishSubject<Int>()
+    }
+
+    struct RouteInput { // 자식화면이 해제되면서 전달되어야하느 정보가 있을 경우, 전달되어야할 이벤트가 정의되어있는 구조체
+        let report = PublishSubject<Int>()
+        var backward = PublishSubject<(id: Int, needUpdate: Bool)>()
+        var needUpdate = PublishSubject<Bool>()
+    }
+
+    private var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+    var routeInputs = RouteInput()
+}
+
+// MARK: - Repository와 소통
+
+extension MessageRoomViewModel {
+    func requestDataToRepo() {
         routeInputs.needUpdate
-            .flatMap { _ in messageAPIService.getMessageContents(roomId: roomId) }
+            .flatMap { _ in self.messageUseCase.getMessageContents(roomId: self.roomId) }
             .map { [weak self] result -> GetMessageRoomInfoResult? in
                 switch result {
                 case let .response(result: data):
@@ -52,7 +98,13 @@ final class MessageRoomViewModel: BaseViewModel {
 
             })
             .disposed(by: disposeBag)
+    }
+}
 
+// MARK: - UI 관련 비즈니스 로직
+
+extension MessageRoomViewModel {
+    func uiBusinessLogic() {
         inputs.backward
             .map { true }
             .subscribe(routes.backward)
@@ -60,7 +112,7 @@ final class MessageRoomViewModel: BaseViewModel {
 
         inputs.report
             .subscribe(onNext: { _ in
-                self.routes.report.onNext(roomId)
+                self.routes.report.onNext(self.roomId)
             })
             .disposed(by: disposeBag)
 
@@ -71,7 +123,7 @@ final class MessageRoomViewModel: BaseViewModel {
 
         inputs.sendMessage
             .throttle(.seconds(1), scheduler: MainScheduler.instance) // 누르고 1초 제한두기
-            .flatMap { messageAPIService.postMessage(roomId: roomId, content: $0) }
+            .flatMap { self.messageUseCase.postMessage(roomId: self.roomId, content: $0) }
             .map { result in
                 switch result {
                 case let .response(result: data):
@@ -91,35 +143,4 @@ final class MessageRoomViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
-
-    struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
-        var report = PublishSubject<Void>()
-        var backward = PublishSubject<Void>()
-        var detailPost = PublishSubject<Int>()
-        var sendMessage = PublishSubject<String>()
-    }
-
-    struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
-        var roomInfo = PublishSubject<RoomInfo>()
-        var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
-        var successSendMessage = PublishSubject<Bool>()
-    }
-
-    struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
-        var report = PublishSubject<Int>()
-        var backward = PublishSubject<Bool>()
-        var detailPost = PublishSubject<Int>()
-    }
-
-    struct RouteInput { // 자식화면이 해제되면서 전달되어야하느 정보가 있을 경우, 전달되어야할 이벤트가 정의되어있는 구조체
-        let report = PublishSubject<Int>()
-        var backward = PublishSubject<(id: Int, needUpdate: Bool)>()
-        var needUpdate = PublishSubject<Bool>()
-    }
-
-    private var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
-    var routeInputs = RouteInput()
 }

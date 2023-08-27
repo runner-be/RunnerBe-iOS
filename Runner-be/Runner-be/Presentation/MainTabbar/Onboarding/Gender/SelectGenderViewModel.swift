@@ -9,41 +9,15 @@ import Foundation
 import RxSwift
 
 final class SelectGenderViewModel: BaseViewModel {
-    var userKeyChainService: UserKeychainService
+    private let userUseCase = UserUseCase()
 
     // MARK: Lifecycle
 
-    init(userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
-        self.userKeyChainService = userKeyChainService
+    override init() {
         super.init()
 
-        inputs.tapCancel
-            .subscribe(routes.cancel)
-            .disposed(by: disposeBag)
-
-        inputs.tapBackward
-            .subscribe(routes.backward)
-            .disposed(by: disposeBag)
-
-        inputs.tapNext
-            .subscribe(routes.nextProcess)
-            .disposed(by: disposeBag)
-
-        inputs.tapGroup
-            .map { selected -> Gender in
-                if let idx = selected.first,
-                   idx < 2, idx >= 0
-                {
-                    return idx == 0 ? .female : .male
-                }
-                return .none
-            }
-            .do(onNext: { [weak self] gender in
-                self?.userKeyChainService.gender = gender
-            })
-            .map { $0 != .none }
-            .bind(to: outputs.enableNext)
-            .disposed(by: disposeBag)
+        uiBusinessLogic()
+        requestDataToRepo()
     }
 
     // MARK: Internal
@@ -72,4 +46,44 @@ final class SelectGenderViewModel: BaseViewModel {
     // MARK: Private
 
     private var disposeBag = DisposeBag()
+}
+
+// MARK: - Repository와 소통
+
+extension SelectGenderViewModel {
+    func requestDataToRepo() {
+        inputs.tapGroup
+            .map { selected -> Gender in
+                if let idx = selected.first,
+                   idx < 2, idx >= 0
+                {
+                    return idx == 0 ? .female : .male
+                }
+                return .none
+            }
+            .do(onNext: { [weak self] gender in
+                self?.userUseCase.setGender(gender: gender)
+            })
+            .map { $0 != .none }
+            .bind(to: outputs.enableNext)
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - UI 관련 비즈니스 로직
+
+extension SelectGenderViewModel {
+    func uiBusinessLogic() {
+        inputs.tapCancel
+            .subscribe(routes.cancel)
+            .disposed(by: disposeBag)
+
+        inputs.tapBackward
+            .subscribe(routes.backward)
+            .disposed(by: disposeBag)
+
+        inputs.tapNext
+            .subscribe(routes.nextProcess)
+            .disposed(by: disposeBag)
+    }
 }

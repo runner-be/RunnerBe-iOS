@@ -10,6 +10,7 @@ import RxSwift
 
 final class BookMarkViewModel: BaseViewModel {
     private var runningTag: RunningTag = .beforeWork
+    private let postUseCase = PostUseCase()
 
     var posts: [RunningTag: [Post]] = [
         .afterWork: [],
@@ -18,14 +19,51 @@ final class BookMarkViewModel: BaseViewModel {
         .error: [],
     ]
 
-    init(postAPIService: PostAPIService = BasicPostAPIService()) {
+    override init() {
         super.init()
 
+        uiBusinessLogic()
+        requestDataToRepo()
+    }
+
+    // MARK: - INPUT, OUTPUT Modeling
+
+    struct Input {
+        var tagChanged = PublishSubject<Int>()
+        var tapPostBookMark = PublishSubject<Int>()
+        var tapPost = PublishSubject<Int>()
+    }
+
+    struct Output {
+        var posts = ReplaySubject<[PostCellConfig]>.create(bufferSize: 1)
+        var toast = BehaviorSubject<String>(value: "")
+    }
+
+    struct Route {
+        var detailPost = PublishSubject<Int>()
+        var needUpdates = PublishSubject<Void>()
+    }
+
+    struct RouteInput {
+        var needUpdate = PublishSubject<Bool>()
+    }
+
+    var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+    var routeInputs = RouteInput()
+}
+
+// MARK: - Repository와 소통
+
+extension BookMarkViewModel {
+    func requestDataToRepo() {
         routeInputs.needUpdate
             .flatMap { _ in
-                postAPIService.fetchPostsBookMarked() // flatMap : Observable -> 변환 -> Observable들을 합쳐 하나의 Observable return
+                self.postUseCase.fetchPostBookMarked()
             }
-            .map { [weak self] result -> [Post]? in // weak self를 쓰는 이유? 메모리 누수의 원인인 순환 참조를 방지하기 위함!
+            .map { [weak self] result -> [Post]? in
                 switch result {
                 case let .response(result: data):
                     return data
@@ -56,7 +94,13 @@ final class BookMarkViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+    }
+}
 
+// MARK: - UI 관련 비즈니스 로직
+
+extension BookMarkViewModel {
+    func uiBusinessLogic() {
         inputs.tagChanged
             .subscribe(onNext: { [weak self] tagIdx in
                 guard let self = self else { return }
@@ -65,38 +109,6 @@ final class BookMarkViewModel: BaseViewModel {
                 if newTag != .error {
                     let posts = self.posts[newTag, default: []].map { PostCellConfig(from: $0) }
                     self.outputs.posts.onNext(posts)
-                }
-            })
-            .disposed(by: disposeBag)
-
-        inputs.tapPostBookMark
-            .throttle(.seconds(1), scheduler: MainScheduler.instance) // 1초동안 이벤트를 방출하고싶지 않을때! (클릭한 이후에 1초동안 이벤트를 전달안함)
-            .compactMap { [weak self] idx -> Post? in
-                guard let self = self,
-                      let posts = self.posts[self.runningTag],
-                      idx >= 0, idx < posts.count
-                else { return nil } // nil return하게 되면 그 아래가 실행 안됨
-                return posts[idx]
-            }
-            .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self,
-                      var posts = self.posts[self.runningTag]
-                else { return }
-
-                switch result {
-                case let .response(data):
-                    if let idx = posts.firstIndex(where: { $0.ID == data.postId }) {
-                        if !data.mark {
-                            posts.remove(at: idx)
-                            self.posts[self.runningTag] = posts
-                            self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
-                        }
-                    }
-                case let .error(alertMessage):
-                    if let alertMessage = alertMessage {
-                        self.toast.onNext(alertMessage)
-                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -113,30 +125,4 @@ final class BookMarkViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
-
-    struct Input {
-        var tagChanged = PublishSubject<Int>()
-        var tapPostBookMark = PublishSubject<Int>()
-        var tapPost = PublishSubject<Int>()
-    }
-
-    struct Output {
-        var posts = ReplaySubject<[PostCellConfig]>.create(bufferSize: 1)
-        var toast = BehaviorSubject<String>(value: "")
-    }
-
-    struct Route {
-        var detailPost = PublishSubject<Int>()
-        var needUpdates = PublishSubject<Void>()
-    }
-
-    struct RouteInput {
-        var needUpdate = PublishSubject<Bool>()
-    }
-
-    var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
-    var routeInputs = RouteInput()
 }
