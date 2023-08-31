@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
-		432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */; };
+		432B45E428C1C1D0001AB8A9 /* NotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* NotificationUseCase.swift */; };
 		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
 		433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */; };
 		433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */; };
@@ -327,7 +326,7 @@
 		C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F74B7E27B1270B002D5846 /* RunnerBeNavBar.swift */; };
 		C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C027C3B0370004CAB8 /* MKMapRect+.swift */; };
 		C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C327C421D80004CAB8 /* LocationService.swift */; };
-		C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */; };
+		C3F8D1C627C424770004CAB8 /* LocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1C527C424770004CAB8 /* LocationUseCase.swift */; };
 		C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */; };
 		C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
@@ -367,6 +366,8 @@
 		DAD8EC682A97AF0200ED1ECC /* MessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD8EC672A97AF0200ED1ECC /* MessageUseCase.swift */; };
 		DAD8EC6A2A9B994300ED1ECC /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD8EC692A9B994300ED1ECC /* UserUseCase.swift */; };
 		DAD8EC6C2A9BA24900ED1ECC /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD8EC6B2A9BA24900ED1ECC /* SignUpUseCase.swift */; };
+		DAD8EC6F2A9CDEB400ED1ECC /* HomeFilterInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD8EC6E2A9CDEB400ED1ECC /* HomeFilterInputData.swift */; };
+		DAD8EC732A9CE68B00ED1ECC /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD8EC722A9CE68B00ED1ECC /* LoginUseCase.swift */; };
 		DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */; };
 		DADD948D28A794AA0004F86F /* PostMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD948C28A794AA0004F86F /* PostMessageRequest.swift */; };
 		DADD949128A7CA9F0004F86F /* PostMessageReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */; };
@@ -382,8 +383,7 @@
 
 /* Begin PBXFileReference section */
 		3AEFA22A99ACC7FA29EDF246 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
-		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
-		432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRBNotificationService.swift; sourceTree = "<group>"; };
+		432B45E328C1C1D0001AB8A9 /* NotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUseCase.swift; sourceTree = "<group>"; };
 		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
 		433BD03028A131C7003B444E /* DetailOptionModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewModel.swift; sourceTree = "<group>"; };
 		433BD03228A131D0003B444E /* DetailOptionModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalComponent.swift; sourceTree = "<group>"; };
@@ -708,7 +708,7 @@
 		C3F74B7E27B1270B002D5846 /* RunnerBeNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBeNavBar.swift; sourceTree = "<group>"; };
 		C3F8D1C027C3B0370004CAB8 /* MKMapRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+.swift"; sourceTree = "<group>"; };
 		C3F8D1C327C421D80004CAB8 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLocationService.swift; sourceTree = "<group>"; };
+		C3F8D1C527C424770004CAB8 /* LocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUseCase.swift; sourceTree = "<group>"; };
 		C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
 		C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDelegate.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
@@ -748,6 +748,8 @@
 		DAD8EC672A97AF0200ED1ECC /* MessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUseCase.swift; sourceTree = "<group>"; };
 		DAD8EC692A9B994300ED1ECC /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		DAD8EC6B2A9BA24900ED1ECC /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		DAD8EC6E2A9CDEB400ED1ECC /* HomeFilterInputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterInputData.swift; sourceTree = "<group>"; };
+		DAD8EC722A9CE68B00ED1ECC /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchAttendanceRequest.swift; sourceTree = "<group>"; };
 		DADD948C28A794AA0004F86F /* PostMessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageRequest.swift; sourceTree = "<group>"; };
 		DADD949028A7CA9F0004F86F /* PostMessageReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageReportRequest.swift; sourceTree = "<group>"; };
@@ -773,15 +775,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		432B45E028C1C1B0001AB8A9 /* NotificationService */ = {
-			isa = PBXGroup;
-			children = (
-				432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */,
-				432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */,
-			);
-			path = NotificationService;
-			sourceTree = "<group>";
-		};
 		433BD02D28A13179003B444E /* DetailOptionModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -821,7 +814,6 @@
 				434635CB28910491007D8C10 /* PostOrderModalCoordinator.swift */,
 				434635CD28910497007D8C10 /* PostOrderModalViewModel.swift */,
 				434635CF289104A0007D8C10 /* PostOrderModalViewController.swift */,
-				434635D12891073E007D8C10 /* PostListOrder.swift */,
 			);
 			path = PostOrder;
 			sourceTree = "<group>";
@@ -896,7 +888,6 @@
 			children = (
 				C34FDA5C27AD5C83007718F8 /* SocialLoginService */,
 				C3432CAC27B8448400DEFF51 /* SignUpService */,
-				432B45E028C1C1B0001AB8A9 /* NotificationService */,
 				C3F8D1C227C421C30004CAB8 /* LocationService */,
 			);
 			path = Service;
@@ -1373,13 +1364,14 @@
 		C38F8F2627AD95FC0050137D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				43B1E6C528B1AD320057A1AF /* AlarmList */,
+				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				434635C728910435007D8C10 /* Modal */,
 				C304C5802826B39000C24295 /* View */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
 				C38F8F2A27AD963C0050137D /* HomeViewController.swift */,
-				C3CA2AF027BC4E5300AEF623 /* Filter */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1839,7 +1831,6 @@
 			isa = PBXGroup;
 			children = (
 				C3F8D1C327C421D80004CAB8 /* LocationService.swift */,
-				C3F8D1C527C424770004CAB8 /* BasicLocationService.swift */,
 			);
 			path = LocationService;
 			sourceTree = "<group>";
@@ -1886,6 +1877,9 @@
 				DAD8EC672A97AF0200ED1ECC /* MessageUseCase.swift */,
 				DAD8EC692A9B994300ED1ECC /* UserUseCase.swift */,
 				DAD8EC6B2A9BA24900ED1ECC /* SignUpUseCase.swift */,
+				DAD8EC722A9CE68B00ED1ECC /* LoginUseCase.swift */,
+				432B45E328C1C1D0001AB8A9 /* NotificationUseCase.swift */,
+				C3F8D1C527C424770004CAB8 /* LocationUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1940,7 +1934,6 @@
 		DA60482B281E7AC600A67568 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				DA60482C281E7ACA00A67568 /* PostDetail */,
 			);
@@ -2040,8 +2033,8 @@
 		DAA252C8287204EC0087FCA9 /* ManageAttendance */ = {
 			isa = PBXGroup;
 			children = (
-				DA7E9722288C35F70001BBDC /* ManageTimeExpiredModal */,
 				DA6278A128770EA1008255C6 /* View */,
+				DA7E9722288C35F70001BBDC /* ManageTimeExpiredModal */,
 				DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */,
 				DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */,
 				DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */,
@@ -2067,6 +2060,14 @@
 				DAC5FFFD282B89B3004CFF64 /* MessageRoomViewController.swift */,
 			);
 			path = MessageRoom;
+			sourceTree = "<group>";
+		};
+		DAD8EC6D2A9CDEA200ED1ECC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DAD8EC6E2A9CDEB400ED1ECC /* HomeFilterInputData.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		DADD949228A7CF210004F86F /* MessageReport */ = {
@@ -2132,6 +2133,7 @@
 		DAEEEC512A939B5900F8DD7A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				DAD8EC6D2A9CDEA200ED1ECC /* Home */,
 				DAEEEC582A93A17200F8DD7A /* Settings */,
 				DAEEEC572A93A0ED00F8DD7A /* MyPage */,
 				DAEEEC562A93A0CB00F8DD7A /* Message */,
@@ -2163,6 +2165,7 @@
 		DAEEEC542A939FDF00F8DD7A /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				434635D12891073E007D8C10 /* PostListOrder.swift */,
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
 				438AB20528C3875C00AD1AD3 /* WritingPostData.swift */,
 			);
@@ -2475,6 +2478,7 @@
 				C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
+				DAD8EC6F2A9CDEB400ED1ECC /* HomeFilterInputData.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3E0CEB42838E725007A0443 /* Log.swift in Sources */,
 				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
@@ -2556,7 +2560,7 @@
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
 				C38F8F2127AD88970050137D /* SocialLoginType.swift in Sources */,
 				C3F3C63927B201CB000A63BC /* SelectGenderViewController.swift in Sources */,
-				432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */,
+				432B45E428C1C1D0001AB8A9 /* NotificationUseCase.swift in Sources */,
 				C32C027827CB170F0011419E /* TakePhotoModalCoordinator.swift in Sources */,
 				C31C200F27AE678C00960E8A /* Font+.swift in Sources */,
 				43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */,
@@ -2619,7 +2623,6 @@
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				DA5745FD2A94F951007217C3 /* MessageAPIService.swift in Sources */,
 				DA5746032A96332F007217C3 /* PostUseCase.swift in Sources */,
-				432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */,
 				DAA1EAE92977BB440070B90F /* BasicMessageAPIService.swift in Sources */,
 				C38F8F2D27AD96480050137D /* BookMarkViewController.swift in Sources */,
 				C399FD1527C290E700396DC3 /* IconLabel.swift in Sources */,
@@ -2628,7 +2631,7 @@
 				DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
 				C3F1EBB827D13E0700207F35 /* OnboardingCoverCoordinator.swift in Sources */,
-				C3F8D1C627C424770004CAB8 /* BasicLocationService.swift in Sources */,
+				C3F8D1C627C424770004CAB8 /* LocationUseCase.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,
 				C3C9736A27CAF4FA00232251 /* SettingConfigItems.swift in Sources */,
 				C3F1EBB327D11EA100207F35 /* UIImage+Resize.swift in Sources */,
@@ -2642,6 +2645,7 @@
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
 				DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
+				DAD8EC732A9CE68B00ED1ECC /* LoginUseCase.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
 				DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */,
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,

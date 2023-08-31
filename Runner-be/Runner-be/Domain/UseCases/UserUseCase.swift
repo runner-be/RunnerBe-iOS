@@ -6,11 +6,21 @@
 //
 
 import Foundation
+import RxSwift
 
 final class UserUseCase {
     private var userKeyChainRepo: UserKeychainService = BasicUserKeyChainService.shared
+    private var userAPIRepo: UserAPIService = BasicUserAPIService()
 
     // MARK: - Network
+
+    func checkAlarms() -> Observable<Bool> {
+        return userAPIRepo.checkAlarms()
+    }
+
+    func fetchAlarms() -> Observable<[Alarm]?> {
+        return userAPIRepo.fetchAlarms()
+    }
 }
 
 // MARK: - Keychain

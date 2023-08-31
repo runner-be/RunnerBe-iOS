@@ -9,8 +9,8 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-class BasicLocationService: NSObject, LocationService {
-    static let shared = BasicLocationService()
+final class LocationUseCase: NSObject {
+    static let shared = LocationUseCase()
 
     private init(locationManager: CLLocationManager = CLLocationManager()) {
         self.locationManager = locationManager
@@ -67,7 +67,7 @@ class BasicLocationService: NSObject, LocationService {
     }
 }
 
-extension BasicLocationService: CLLocationManagerDelegate {
+extension LocationUseCase: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let enable: Bool
         switch manager.authorizationStatus {

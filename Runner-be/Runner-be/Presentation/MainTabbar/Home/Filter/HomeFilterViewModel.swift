@@ -9,23 +9,67 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-struct HomeFilterInputData {
-    let genderIdx: Int
-    let jobIdx: Int?
-    let minAge, maxAge: Int
-    let distance: Float
-}
-
 final class HomeFilterViewModel: BaseViewModel {
+    private let locationUseCase = LocationUseCase.shared
+    private var inputFilter: PostFilter
+
     typealias InputData = (
         genderIdx: Int?,
         jobIdx: Int?,
         minAge: Int, maxAge: Int
     )
 
-    init(inputFilter: PostFilter, locationService: LocationService = BasicLocationService.shared) {
+    init(inputFilter: PostFilter) {
+        self.inputFilter = inputFilter
         super.init()
 
+        uiBusinessLogic()
+        requestDataToRepo()
+    }
+
+    // MARK: - INPUT, OUTPUT Modeling
+
+    struct Input {
+        var backward = PublishSubject<InputData?>()
+        var reset = PublishSubject<Void>()
+    }
+
+    struct Output {
+        var locationDistance = ReplaySubject<(location: CLLocationCoordinate2D, distance: Float)>.create(bufferSize: 1)
+        var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
+        var gender = ReplaySubject<Int>.create(bufferSize: 1)
+        var job = ReplaySubject<Int>.create(bufferSize: 1)
+        var age = ReplaySubject<(min: Int, max: Int)>.create(bufferSize: 1)
+        var reset = PublishSubject<Void>()
+    }
+
+    struct Route {
+        var backward = PublishSubject<PostFilter>()
+    }
+
+    private var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+}
+
+// MARK: - Repository와 소통
+
+extension HomeFilterViewModel {
+    func requestDataToRepo() {
+        inputs.reset
+            .subscribe(onNext: {
+                self.outputs.locationDistance.onNext((location: self.locationUseCase.currentPlace, distance: 3000))
+                self.outputs.reset.onNext(())
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - UI 관련 비즈니스 로직
+
+extension HomeFilterViewModel {
+    func uiBusinessLogic() {
         outputs.locationDistance.onNext(
             (
                 location: CLLocationCoordinate2D(
@@ -74,35 +118,5 @@ final class HomeFilterViewModel: BaseViewModel {
             }
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
-
-        inputs.reset
-            .subscribe(onNext: { [weak self] in
-                self?.outputs.locationDistance.onNext((location: locationService.currentPlace, distance: 3000))
-                self?.outputs.reset.onNext(())
-            })
-            .disposed(by: disposeBag)
     }
-
-    struct Input {
-        var backward = PublishSubject<InputData?>()
-        var reset = PublishSubject<Void>()
-    }
-
-    struct Output {
-        var locationDistance = ReplaySubject<(location: CLLocationCoordinate2D, distance: Float)>.create(bufferSize: 1)
-        var boundaryLimit = ReplaySubject<[CLLocationCoordinate2D]>.create(bufferSize: 1)
-        var gender = ReplaySubject<Int>.create(bufferSize: 1)
-        var job = ReplaySubject<Int>.create(bufferSize: 1)
-        var age = ReplaySubject<(min: Int, max: Int)>.create(bufferSize: 1)
-        var reset = PublishSubject<Void>()
-    }
-
-    struct Route {
-        var backward = PublishSubject<PostFilter>()
-    }
-
-    private var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
 }

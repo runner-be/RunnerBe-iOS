@@ -49,7 +49,6 @@ class AlarmListViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-//        alarmCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         typealias AlarmListDataSource = RxTableViewSectionedAnimatedDataSource<AlarmListSection>
 
         viewModel.outputs.alarmList
@@ -87,13 +86,6 @@ class AlarmListViewController: BaseViewController {
     }
 
     private lazy var alarmListTableView: UITableView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//        layout.minimumLineSpacing = 0
-//        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.register(AlarmCell.self, forCellWithReuseIdentifier: AlarmCell.id)
-//        collectionView.backgroundColor = .clear
-//        return collectionView
         var tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(AlarmCell.self, forCellReuseIdentifier: AlarmCell.id)
         tableView.backgroundColor = .clear

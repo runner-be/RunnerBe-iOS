@@ -8,8 +8,13 @@
 import Foundation
 import RxSwift
 
-final class BasicRBNotificationService: RBNotificationService {
-    static let shared = BasicRBNotificationService()
+enum RBNotification {
+    case pushAlarm
+}
+
+final class NotificationUseCase {
+    static let shared = NotificationUseCase()
+    private var pushAlarm = PublishSubject<Void>()
 
     var pushAlarmReceived: Observable<Void> {
         pushAlarm.asObservable()
@@ -21,6 +26,4 @@ final class BasicRBNotificationService: RBNotificationService {
             pushAlarm.onNext(())
         }
     }
-
-    private var pushAlarm = PublishSubject<Void>()
 }

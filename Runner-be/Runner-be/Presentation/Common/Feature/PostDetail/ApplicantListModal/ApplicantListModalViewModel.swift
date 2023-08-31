@@ -11,11 +11,41 @@ import RxSwift
 final class ApplicantListModalViewModel: BaseViewModel {
     var applicants: [User]
     var changed = false
+    var postId = 0
+    private let postUseCase = PostUseCase()
 
-    init(postId: Int, applicants: [User], postAPIService: PostAPIService = BasicPostAPIService()) {
+    init(postId: Int, applicants: [User]) {
         self.applicants = applicants
+        self.postId = postId
+
         super.init()
 
+        uiBusinessLogic()
+        requestDataToUseCase()
+    }
+
+    struct Input {
+        var backward = PublishSubject<Void>()
+        var accept = PublishSubject<(idx: Int, accept: Bool)>()
+        var finishing = PublishSubject<Void>()
+    }
+
+    struct Output {
+        var participants = ReplaySubject<[UserConfig]>.create(bufferSize: 1)
+    }
+
+    struct Route {
+        var backward = PublishSubject<Bool>()
+    }
+
+    private var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+}
+
+extension ApplicantListModalViewModel {
+    func uiBusinessLogic() {
         inputs.backward
             .map { [weak self] in self?.changed ?? true }
             .bind(to: routes.backward)
@@ -31,12 +61,14 @@ final class ApplicantListModalViewModel: BaseViewModel {
                 self?.outputs.participants.onNext(applicants)
             })
             .disposed(by: disposeBag)
+    }
 
+    func requestDataToUseCase() {
         inputs.accept
             .flatMap {
-                postAPIService.accept(postId: postId,
-                                      applicantId: applicants[$0.idx].userID,
-                                      accept: $0.accept)
+                self.postUseCase.accept(postId: self.postId,
+                                        applicantId: self.applicants[$0.idx].userID,
+                                        accept: $0.accept)
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
@@ -67,7 +99,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
         inputs.finishing
             .flatMap {
-                postAPIService.close(postId: postId)
+                self.postUseCase.close(postId: self.postId)
             }
             .subscribe(onNext: { [weak self] result in
                 switch result {
@@ -84,24 +116,6 @@ final class ApplicantListModalViewModel: BaseViewModel {
                     }
                 }
             })
+            .disposed(by: disposeBag)
     }
-
-    struct Input {
-        var backward = PublishSubject<Void>()
-        var accept = PublishSubject<(idx: Int, accept: Bool)>()
-        var finishing = PublishSubject<Void>()
-    }
-
-    struct Output {
-        var participants = ReplaySubject<[UserConfig]>.create(bufferSize: 1)
-    }
-
-    struct Route {
-        var backward = PublishSubject<Bool>()
-    }
-
-    private var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
 }

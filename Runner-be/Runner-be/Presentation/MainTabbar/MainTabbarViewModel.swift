@@ -8,81 +8,13 @@ import Foundation
 import RxSwift
 
 final class MainTabViewModel: BaseViewModel {
-    var loginKeyChainService: LoginKeyChainService
+    private let loginUseCase = LoginUseCase()
 
-    init(loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
-        self.loginKeyChainService = loginKeyChainService
+    override init() {
         super.init()
-        outputs.loginType = loginKeyChainService.loginType
 
-        Observable.of(loginKeyChainService.loginType)
-            .subscribe(onNext: { [weak self] loginType in
-                switch loginType {
-                case .nonMember:
-                    self?.routes.onboardingCover.onNext(())
-                case .waitCertification:
-                    self?.routes.onboardingCover.onNext(())
-                case .member:
-                    break
-                case .stopped:
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
-
-        inputs.homeSelected
-            .subscribe(onNext: { [weak self] in
-                self?.changeSceneIfMember(to: 0)
-            })
-            .disposed(by: disposeBag)
-
-        inputs.bookMarkSelected
-            .subscribe(onNext: { [weak self] in
-                self?.changeSceneIfMember(to: 1)
-            })
-            .disposed(by: disposeBag)
-
-        inputs.messageSelected
-            .subscribe(onNext: { [weak self] in
-                self?.changeSceneIfMember(to: 2)
-            })
-            .disposed(by: disposeBag)
-
-        inputs.myPageSelected
-            .subscribe(onNext: { [weak self] in
-                self?.changeSceneIfMember(to: 3)
-            })
-            .disposed(by: disposeBag)
-
-        routeInputs.toHome
-            .map { 0 }
-            .bind(to: outputs.selectScene)
-            .disposed(by: disposeBag)
-
-        routeInputs.onboardingCoverClosed
-            .subscribe(onNext: { [weak self] in
-                self?.outputs.loginType = loginKeyChainService.loginType
-            })
-            .disposed(by: disposeBag)
-
-        routeInputs.needCover
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-
-                switch self.outputs.loginType {
-                case .nonMember:
-                    self.routes.onboardingCover.onNext(())
-                case .waitCertification:
-                    self.routes.onboardingCover.onNext(())
-                case .member:
-                    break
-                case .stopped:
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
+        requestDataToUseCase()
+        uiBusinessLogic()
     }
 
     private func changeSceneIfMember(to index: Int) {
@@ -136,4 +68,82 @@ final class MainTabViewModel: BaseViewModel {
     var outputs = Output()
     var routes = Route()
     var routeInputs = RouteInput()
+}
+
+extension MainTabViewModel {
+    func requestDataToUseCase() {
+        outputs.loginType = loginUseCase.loginType
+
+        routeInputs.onboardingCoverClosed
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.outputs.loginType = self.loginUseCase.loginType
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func uiBusinessLogic() {
+        Observable.of(loginUseCase.loginType)
+            .subscribe(onNext: { [weak self] loginType in
+                switch loginType {
+                case .nonMember:
+                    self?.routes.onboardingCover.onNext(())
+                case .waitCertification:
+                    self?.routes.onboardingCover.onNext(())
+                case .member:
+                    break
+                case .stopped:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
+        inputs.homeSelected
+            .subscribe(onNext: { [weak self] in
+                self?.changeSceneIfMember(to: 0)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.bookMarkSelected
+            .subscribe(onNext: { [weak self] in
+                self?.changeSceneIfMember(to: 1)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.messageSelected
+            .subscribe(onNext: { [weak self] in
+                self?.changeSceneIfMember(to: 2)
+            })
+            .disposed(by: disposeBag)
+
+        inputs.myPageSelected
+            .subscribe(onNext: { [weak self] in
+                self?.changeSceneIfMember(to: 3)
+            })
+            .disposed(by: disposeBag)
+
+        routeInputs.toHome
+            .map { 0 }
+            .bind(to: outputs.selectScene)
+            .disposed(by: disposeBag)
+
+        routeInputs.needCover
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+
+                switch self.outputs.loginType {
+                case .nonMember:
+                    self.routes.onboardingCover.onNext(())
+                case .waitCertification:
+                    self.routes.onboardingCover.onNext(())
+                case .member:
+                    break
+                case .stopped:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }

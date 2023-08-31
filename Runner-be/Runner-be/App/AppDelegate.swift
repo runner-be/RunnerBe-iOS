@@ -79,7 +79,7 @@ extension AppDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     // Push 알림 수신시 호출
     func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        BasicRBNotificationService.shared.sendNotification(type: .pushAlarm)
+        NotificationUseCase.shared.sendNotification(type: .pushAlarm)
         completionHandler([.badge, .sound, .alert])
     }
 

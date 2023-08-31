@@ -11,6 +11,7 @@ import RxSwift
 
 final class WritingDetailPostViewModel: BaseViewModel {
     var writingPostData: WritingPostData
+    private let postUseCase = PostUseCase()
 
     struct ViewInputData {
         let gender: Int
@@ -20,7 +21,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
         let textContent: String
     }
 
-    init(writingPostData: WritingPostData, postAPIService: PostAPIService = BasicPostAPIService()) {
+    init(writingPostData: WritingPostData) {
         self.writingPostData = writingPostData
         super.init()
 
@@ -63,7 +64,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
                 )
             }
             .compactMap { $0 }
-            .flatMap { postAPIService.posting(form: $0) }
+            .flatMap { self.postUseCase.posting(form: $0) }
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
