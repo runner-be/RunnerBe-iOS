@@ -13,10 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EditInfoViewController: BaseViewController {
-    var selectedJobCode = "" // 선택된 jobcode
-    var selectedJobIdx = -1 // 선택된 jobindex
-
+final class EditInfoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -24,10 +21,8 @@ class EditInfoViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-        viewInputs()
     }
 
-    // TODO: 유저 이미지 연결
     init(viewModel: EditInfoViewModel) {
         self.viewModel = viewModel
         super.init()
@@ -55,6 +50,50 @@ class EditInfoViewController: BaseViewController {
             .distinctUntilChanged()
             .compactMap { $0 }
             .bind(to: viewModel.inputs.nickNameText)
+            .disposed(by: disposeBag)
+
+        selectNickName.nickNameField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.layer.borderWidth = 1
+            })
+            .disposed(by: disposeBag)
+
+        selectNickName.nickNameField.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.layer.borderWidth = 0
+            })
+            .disposed(by: disposeBag)
+
+        view.rx.tapGesture()
+            .when(.recognized)
+            .filter { [weak self] recognizer in
+                guard let self = self else { return false }
+                return !self.selectNickName.nickNameField.frame.contains(recognizer.location(in: self.view))
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.selectNickName.nickNameField.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+
+        selectJobView.jobGroup.tap
+            .filter { numSelected in numSelected > 0 }
+            .filter { _ in
+                let idx = self.selectJobView.jobGroup.selected[0]
+
+                if idx != self.viewModel.userJobIdx, self.viewModel.user.jobChangePossible! == "Y" { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
+                    self.viewModel.selectedJobIdx = idx
+                    self.viewModel.selectedJobCode = Job(idx: idx).code
+                    return true
+                } else if self.viewModel.user.jobChangePossible! == "N" { // jobindex는 다르나 직업 수정이 불가능하다면, 안내라벨 띄우기
+                    self.selectJobGuideLabel.isHidden = false
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.jobSelected.onNext(())
+            })
             .disposed(by: disposeBag)
     }
 
@@ -104,7 +143,7 @@ class EditInfoViewController: BaseViewController {
         viewModel.outputs.jobChanged
             .subscribe(onNext: { isSuccess in
                 if isSuccess {
-                    self.selectJobView.select(idx: self.selectedJobIdx)
+                    self.selectJobView.select(idx: self.viewModel.selectedJobIdx)
                 }
             })
             .disposed(by: disposeBag)
@@ -123,51 +162,6 @@ class EditInfoViewController: BaseViewController {
                     AppContext.shared.hideToastActivity()
                 }
             })
-            .disposed(by: disposeBag)
-    }
-
-    private func viewInputs() {
-        selectNickName.nickNameField.rx.controlEvent(.editingDidBegin)
-            .subscribe(onNext: { [weak self] _ in
-                self?.selectNickName.nickNameField.layer.borderWidth = 1
-            })
-            .disposed(by: disposeBag)
-
-        selectNickName.nickNameField.rx.controlEvent(.editingDidEnd)
-            .subscribe(onNext: { [weak self] _ in
-                self?.selectNickName.nickNameField.layer.borderWidth = 0
-            })
-            .disposed(by: disposeBag)
-
-        view.rx.tapGesture()
-            .when(.recognized)
-            .filter { [weak self] recognizer in
-                guard let self = self else { return false }
-                return !self.selectNickName.nickNameField.frame.contains(recognizer.location(in: self.view))
-            }
-            .subscribe(onNext: { [weak self] _ in
-                self?.selectNickName.nickNameField.endEditing(true)
-            })
-            .disposed(by: disposeBag)
-
-        selectJobView.jobGroup.tap
-            .filter { numSelected in numSelected > 0 }
-            .filter { _ in
-                let idx = self.selectJobView.jobGroup.selected[0]
-
-                if idx != self.viewModel.userJobIdx, self.viewModel.user.jobChangePossible! == "Y" { // 여기서 jobindx가 다르고, 직업 수정이 가능하다면 true를 넘김 -> 아래 가 실행이 되고
-                    self.selectedJobIdx = idx
-                    self.selectedJobCode = Job(idx: idx).code
-                    return true
-                } else if self.viewModel.user.jobChangePossible! == "N" { // jobindex는 다르나 직업 수정이 불가능하다면, 안내라벨 띄우기
-                    self.selectJobGuideLabel.isHidden = false
-                    return false
-                } else {
-                    return false
-                }
-            }
-            .map { _ in self.selectedJobCode }
-            .bind(to: viewModel.inputs.jobSelected)
             .disposed(by: disposeBag)
     }
 

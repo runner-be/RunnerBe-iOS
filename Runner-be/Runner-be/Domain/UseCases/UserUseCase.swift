@@ -21,6 +21,14 @@ final class UserUseCase {
     func fetchAlarms() -> Observable<[Alarm]?> {
         return userAPIRepo.fetchAlarms()
     }
+
+    func setJob(to job: Job) -> Observable<Bool> {
+        return userAPIRepo.setJob(to: job)
+    }
+
+    func setNickName(to _: String) -> Observable<SetNickNameResult> {
+        return userAPIRepo.setNickName(to: nickName)
+    }
 }
 
 // MARK: - Keychain
