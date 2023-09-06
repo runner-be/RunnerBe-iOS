@@ -474,7 +474,7 @@ class HomeViewController: BaseViewController {
         view.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
         view.icon.image = Constants.BottomSheet.SelectionLabel.HighLighted.icon
 
-        view.label.text = "출근 전"
+        view.label.text = "전체"
     }
 
     private var orderTagView = SelectionLabel().then { view in
