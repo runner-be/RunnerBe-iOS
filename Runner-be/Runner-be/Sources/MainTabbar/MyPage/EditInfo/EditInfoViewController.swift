@@ -252,6 +252,16 @@ extension EditInfoViewController {
         ])
 
         selectJobView.select(idx: viewModel.userJobIdx)
+
+        if viewModel.user.nameChanged == "Y" {
+            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.alreadychanged
+            selectNickName.nickNameField.isEnabled = false
+            selectNickName.applyButton.isEnabled = false
+            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.NickNameChanged.title, for: .disabled)
+        } else {
+            nickNameGuideLabel.text = L10n.MyPage.EditInfo.NickName.InfoLabel.caution
+            selectNickName.applyButton.setTitle(L10n.MyPage.EditInfo.NickName.Button.apply, for: .normal)
+        }
     }
 
     private func initialLayout() {
