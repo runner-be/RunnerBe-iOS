@@ -8,21 +8,21 @@
 import Foundation
 import RxSwift
 
-enum LoggedOutResult {
+enum LoginCoordResult {
     case loginSuccess
 }
 
-final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
+final class LoginCoordinator: BasicCoordinator<LoginCoordResult> {
     // MARK: Lifecycle
 
-    init(component: LoggedOutComponent, navController: UINavigationController) {
+    init(component: LoginComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
 
     // MARK: Internal
 
-    var component: LoggedOutComponent
+    var component: LoginComponent
 
     override func start(animated: Bool = true) {
         let scene = component.scene
@@ -39,7 +39,7 @@ final class LoggedOutCoordinator: BasicCoordinator<LoggedOutResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.nonMember
-            .map { LoggedOutResult.loginSuccess }
+            .map { LoginCoordResult.loginSuccess }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 

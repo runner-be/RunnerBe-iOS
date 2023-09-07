@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class LoggedOutViewModel: BaseViewModel {
+final class LoginViewModel: BaseViewModel {
     let loginService: LoginService
     private var userKeyChainService: UserKeychainService
 

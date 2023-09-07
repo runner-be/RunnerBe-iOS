@@ -38,9 +38,9 @@ final class AppCoordinator: BasicCoordinator<Void> {
                 case .memberWaitCertification:
                     self.showMain(animated: false)
                 case .nonMember:
-                    self.showLoggedOut(animated: false)
+                    self.showLogin(animated: false)
                 case .stopped:
-                    self.showLoggedOut(animated: false)
+                    self.showLogin(animated: false)
                 }
             })
             .disposed(by: sceneDisposeBag)
@@ -53,14 +53,14 @@ final class AppCoordinator: BasicCoordinator<Void> {
         coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
             switch coordResult {
             case .logout:
-                self?.showLoggedOut(animated: false)
+                self?.showLogin(animated: false)
             }
         }
     }
 
-    func showLoggedOut(animated: Bool) {
-        let comp = component.loggedOutComponent
-        let coord = LoggedOutCoordinator(component: comp, navController: navigationController)
+    func showLogin(animated: Bool) {
+        let comp = component.loginComponent
+        let coord = LoginCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
             switch coordResult {

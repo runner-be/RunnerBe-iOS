@@ -8,8 +8,8 @@
 import UIKit
 
 final class AppComponent {
-    var loggedOutComponent: LoggedOutComponent {
-        return LoggedOutComponent()
+    var loginComponent: LoginComponent {
+        return LoginComponent()
     }
 
     var mainTabComponent: MainTabComponent {

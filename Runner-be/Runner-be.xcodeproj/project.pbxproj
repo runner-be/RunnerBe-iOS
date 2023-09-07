@@ -330,10 +330,10 @@
 		DA117B20283150A300158211 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA117B1F283150A300158211 /* Message.swift */; };
 		DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */; };
 		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
-		DA2A447F2AA9CA5C0037BD08 /* LoggedOutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447B2AA9CA5B0037BD08 /* LoggedOutCoordinator.swift */; };
-		DA2A44802AA9CA5C0037BD08 /* LoggedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447C2AA9CA5B0037BD08 /* LoggedOutViewController.swift */; };
-		DA2A44812AA9CA5C0037BD08 /* LoggedOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447D2AA9CA5B0037BD08 /* LoggedOutViewModel.swift */; };
-		DA2A44822AA9CA5C0037BD08 /* LoggedOutComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447E2AA9CA5C0037BD08 /* LoggedOutComponent.swift */; };
+		DA2A447F2AA9CA5C0037BD08 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447B2AA9CA5B0037BD08 /* LoginCoordinator.swift */; };
+		DA2A44802AA9CA5C0037BD08 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447C2AA9CA5B0037BD08 /* LoginViewController.swift */; };
+		DA2A44812AA9CA5C0037BD08 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447D2AA9CA5B0037BD08 /* LoginViewModel.swift */; };
+		DA2A44822AA9CA5C0037BD08 /* LoginComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A447E2AA9CA5C0037BD08 /* LoginComponent.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
 		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
@@ -712,10 +712,10 @@
 		DA117B1F283150A300158211 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
-		DA2A447B2AA9CA5B0037BD08 /* LoggedOutCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutCoordinator.swift; sourceTree = "<group>"; };
-		DA2A447C2AA9CA5B0037BD08 /* LoggedOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewController.swift; sourceTree = "<group>"; };
-		DA2A447D2AA9CA5B0037BD08 /* LoggedOutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutViewModel.swift; sourceTree = "<group>"; };
-		DA2A447E2AA9CA5C0037BD08 /* LoggedOutComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedOutComponent.swift; sourceTree = "<group>"; };
+		DA2A447B2AA9CA5B0037BD08 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		DA2A447C2AA9CA5B0037BD08 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA2A447D2AA9CA5B0037BD08 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		DA2A447E2AA9CA5C0037BD08 /* LoginComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginComponent.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
 		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
@@ -1823,15 +1823,15 @@
 			path = LocationService;
 			sourceTree = "<group>";
 		};
-		DA2A447A2AA9CA1D0037BD08 /* LoggedOut */ = {
+		DA2A447A2AA9CA1D0037BD08 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				DA2A447E2AA9CA5C0037BD08 /* LoggedOutComponent.swift */,
-				DA2A447B2AA9CA5B0037BD08 /* LoggedOutCoordinator.swift */,
-				DA2A447C2AA9CA5B0037BD08 /* LoggedOutViewController.swift */,
-				DA2A447D2AA9CA5B0037BD08 /* LoggedOutViewModel.swift */,
+				DA2A447E2AA9CA5C0037BD08 /* LoginComponent.swift */,
+				DA2A447B2AA9CA5B0037BD08 /* LoginCoordinator.swift */,
+				DA2A447C2AA9CA5B0037BD08 /* LoginViewController.swift */,
+				DA2A447D2AA9CA5B0037BD08 /* LoginViewModel.swift */,
 			);
-			path = LoggedOut;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		DA3067642826235A00543D74 /* Cell */ = {
@@ -2085,7 +2085,7 @@
 			children = (
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				DAEEEC502A939B4A00F8DD7A /* Common */,
-				DA2A447A2AA9CA1D0037BD08 /* LoggedOut */,
+				DA2A447A2AA9CA1D0037BD08 /* Login */,
 				C34FDA4F27AD5C82007718F8 /* MainTabbar */,
 			);
 			path = Presentation;
@@ -2437,7 +2437,7 @@
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
-				DA2A44822AA9CA5C0037BD08 /* LoggedOutComponent.swift in Sources */,
+				DA2A44822AA9CA5C0037BD08 /* LoginComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
@@ -2519,9 +2519,9 @@
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				433BD03828A13655003B444E /* DeleteConfirmModalViewController.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
-				DA2A44812AA9CA5C0037BD08 /* LoggedOutViewModel.swift in Sources */,
+				DA2A44812AA9CA5C0037BD08 /* LoginViewModel.swift in Sources */,
 				DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */,
-				DA2A44802AA9CA5C0037BD08 /* LoggedOutViewController.swift in Sources */,
+				DA2A44802AA9CA5C0037BD08 /* LoginViewController.swift in Sources */,
 				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
 				DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */,
 				C379302127BA012E0076AB85 /* String+Subscript.swift in Sources */,
@@ -2631,7 +2631,7 @@
 				C361B6BF27B285E600824ABE /* SelectJobGroupViewModel.swift in Sources */,
 				DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */,
 				C3F74B7627B125F4002D5846 /* BirthComponent.swift in Sources */,
-				DA2A447F2AA9CA5C0037BD08 /* LoggedOutCoordinator.swift in Sources */,
+				DA2A447F2AA9CA5C0037BD08 /* LoginCoordinator.swift in Sources */,
 				C3F1EBB827D13E0700207F35 /* OnboardingCoverCoordinator.swift in Sources */,
 				C3F8D1C627C424770004CAB8 /* LocationUseCase.swift in Sources */,
 				C3AD114F27B8140200A7044C /* LoginAPIService.swift in Sources */,

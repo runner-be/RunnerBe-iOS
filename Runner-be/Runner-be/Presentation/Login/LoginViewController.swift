@@ -14,10 +14,10 @@ import Then
 import Toast_Swift
 import UIKit
 
-final class LoggedOutViewController: BaseViewController {
+final class LoginViewController: BaseViewController {
     // MARK: Lifecycle
 
-    init(viewModel: LoggedOutViewModel) {
+    init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -33,15 +33,15 @@ final class LoggedOutViewController: BaseViewController {
         setupViews()
         initialLayout()
 
-        bindViewModelInput()
-        bindViewModelOutput()
+        viewModelInput()
+        viewModelOutput()
     }
 
     // MARK: ViewModel Binding
 
-    private var viewModel: LoggedOutViewModel
+    private var viewModel: LoginViewModel
 
-    private func bindViewModelInput() {
+    private func viewModelInput() {
         kakaoButton.rx.tapGesture()
             .debug()
             .when(.recognized).map { _ in }
@@ -68,9 +68,9 @@ final class LoggedOutViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func bindViewModelOutput() {
+    private func viewModelOutput() {
         viewModel.toast
-            .subscribe(onNext: { [weak self] message in
+            .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
@@ -108,7 +108,7 @@ final class LoggedOutViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension LoggedOutViewController {
+extension LoginViewController {
     private func setupViews() {
         setBackgroundColor()
 
@@ -135,7 +135,7 @@ extension LoggedOutViewController {
     }
 }
 
-extension LoggedOutViewController: ASAuthorizationControllerDelegate {
+extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller _: ASAuthorizationController, didCompleteWithError _: Error) {}
 
     func authorizationController(controller _: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
