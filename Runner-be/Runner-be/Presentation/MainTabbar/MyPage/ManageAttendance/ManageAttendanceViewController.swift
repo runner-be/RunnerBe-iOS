@@ -10,16 +10,12 @@ import RxCocoa
 import RxDataSources
 import RxGesture
 import RxSwift
-import SafariServices
 import SnapKit
 import Then
 import Toast_Swift
 import UIKit
 
-class ManageAttendanceViewController: BaseViewController {
-    var userIdList: [Int] = [] // 유저 id 리스트
-    var whetherAttendList: [String] = [] // 위 각각 유저 별로 참여 여부를 저장하는 리스트
-
+final class ManageAttendanceViewController: BaseViewController {
     let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
     var gatherDate = Date()
     var runningTime = TimeInterval()
@@ -35,12 +31,14 @@ class ManageAttendanceViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
 
+        setup()
+    }
+
+    private func setup() {
         manageAttendanceTableView.delegate = self
         manageAttendanceTableView.dataSource = self
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
-
-        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
     init(viewModel: ManageAttendanceViewModel) {
@@ -61,9 +59,10 @@ class ManageAttendanceViewController: BaseViewController {
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
 
+        // 모두 출석관리를 체크했을 경우에만 버튼이 눌리도록 (filter)
         saveButton.rx.tap
-            .filter { !self.whetherAttendList.contains("-") }
-            .map { (userIdList: self.userIdList.map { String($0) }.joined(separator: ","), whetherAttendList: self.whetherAttendList.joined(separator: ",")) }
+            .filter {  !self.viewModel.whetherAttendList.contains("-")
+            }
             .bind(to: viewModel.inputs.patchAttendance)
             .disposed(by: disposeBag)
     }
@@ -140,10 +139,7 @@ class ManageAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.runnerList
-            .subscribe(onNext: { runnerList in
-                self.userIdList = runnerList.map { $0.userID! }
-                self.whetherAttendList = Array(repeating: "-", count: runnerList.count)
-
+            .subscribe(onNext: {
                 self.manageAttendanceTableView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -299,7 +295,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
                         cell.acceptBtn.titleLabel?.font = .iosBody15R
 
-                        self.whetherAttendList[indexPath.row] = "N"
+                        self.viewModel.whetherAttendList[indexPath.row] = "N"
 
                     } else { // 활성 -> 비활성
                         cell.refusalBtn.isSelected = false
@@ -307,7 +303,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
                         cell.refusalBtn.titleLabel?.font = .iosBody15R
 
-                        self.whetherAttendList[indexPath.row] = "-"
+                        self.viewModel.whetherAttendList[indexPath.row] = "-"
                     }
 
                 })
@@ -327,7 +323,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.refusalBtn.setTitleColor(.darkG3, for: .normal)
                         cell.refusalBtn.titleLabel?.font = .iosBody15R
 
-                        self.whetherAttendList[indexPath.row] = "Y"
+                        self.viewModel.whetherAttendList[indexPath.row] = "Y"
 
                     } else { // 활성 -> 비활성
                         cell.acceptBtn.isSelected = false
@@ -335,7 +331,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
                         cell.acceptBtn.setTitleColor(.darkG3, for: .normal)
                         cell.acceptBtn.titleLabel?.font = .iosBody15R
 
-                        self.whetherAttendList[indexPath.row] = "-"
+                        self.viewModel.whetherAttendList[indexPath.row] = "-"
                     }
 
                 })

@@ -37,6 +37,10 @@ final class UserUseCase {
     func signout() -> Observable<Bool> {
         return userAPIRepo.signout()
     }
+
+    func setProfileImage(to image: Data?) -> Observable<SetProfileResult> {
+        return userAPIRepo.setProfileImage(to: image)
+    }
 }
 
 // MARK: - Keychain

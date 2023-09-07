@@ -53,8 +53,19 @@ final class PostUseCase {
         return postAPIRepo.report(postId: postId)
     }
 
-    //    func myPage() -> Observable<APIResult<MyPageAPIResult>>
-    //    func getRunnerList() -> Observable<APIResult<[MyPosting]?>>
-    //    func mangageAttendance(postId: Int, request: PatchAttendanceRequest) -> Observable<APIResult<Bool>>
-    //    func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>>
+    func myPage() -> Observable<APIResult<MyPageAPIResult>> {
+        return postAPIRepo.myPage()
+    }
+
+    func getRunnerList() -> Observable<APIResult<[MyPosting]?>> {
+        return postAPIRepo.getRunnerList()
+    }
+
+    func mangageAttendance(postId: Int, request: PatchAttendanceRequest) -> Observable<APIResult<Bool>> {
+        return postAPIRepo.mangageAttendance(postId: postId, request: request)
+    }
+
+    func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>> {
+        return postAPIRepo.attendance(postId: postId)
+    }
 }
