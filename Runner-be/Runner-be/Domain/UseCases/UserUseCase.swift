@@ -22,6 +22,10 @@ final class UserUseCase {
         return userAPIRepo.fetchAlarms()
     }
 
+    func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool> {
+        return userAPIRepo.patchPushAlaram(userId: userId, pushOn: pushOn)
+    }
+
     func setJob(to job: Job) -> Observable<Bool> {
         return userAPIRepo.setJob(to: job)
     }
@@ -29,12 +33,23 @@ final class UserUseCase {
     func setNickName(to _: String) -> Observable<SetNickNameResult> {
         return userAPIRepo.setNickName(to: nickName)
     }
+
+    func signout() -> Observable<Bool> {
+        return userAPIRepo.signout()
+    }
 }
 
 // MARK: - Keychain
 
 extension UserUseCase {
-    var uuid: String { return userKeyChainRepo.uuid }
+    var uuid: String {
+        get {
+            return userKeyChainRepo.uuid
+        }
+        set {
+            userKeyChainRepo.uuid = newValue
+        }
+    }
 
     var deviceToken: String { return userKeyChainRepo.deviceToken }
 

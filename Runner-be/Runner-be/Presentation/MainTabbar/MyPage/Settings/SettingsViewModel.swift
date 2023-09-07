@@ -9,14 +9,87 @@ import Foundation
 import RxSwift
 
 final class SettingsViewModel: BaseViewModel {
-    private let userAPIService: UserAPIService
-    private let loginService: LoginService
+    private let userUseCase = UserUseCase()
+    private let loginUseCase = LoginUseCase()
 
-    init(userAPIService: UserAPIService = BasicUserAPIService(), loginService: LoginService = BasicLoginService()) {
-        self.userAPIService = userAPIService
-        self.loginService = loginService
+    override init() {
         super.init()
 
+        requestDataToUseCase()
+        uiBusinessLogic()
+    }
+
+    struct Input {
+        var tapCell = PublishSubject<(section: Int, item: Int)>()
+        var backward = PublishSubject<Void>()
+        var switchChanged = PublishSubject<Bool>()
+    }
+
+    struct Output {
+        var menus = ReplaySubject<[[SettingCellConfig]]>.create(bufferSize: 1)
+    }
+
+    struct Route {
+        var backward = PublishSubject<Void>()
+        var terms = PublishSubject<Void>()
+        var privacy = PublishSubject<Void>()
+        var makers = PublishSubject<Void>()
+        var instagram = PublishSubject<Void>()
+        var logout = PublishSubject<Void>()
+        var logoutComplete = PublishSubject<Void>()
+        var signout = PublishSubject<Void>()
+        var signoutComplete = PublishSubject<Void>()
+    }
+
+    struct RouteInputs {
+        var logout = PublishSubject<Bool>()
+        var signout = PublishSubject<Bool>()
+    }
+
+    private var disposeBag = DisposeBag()
+    var inputs = Input()
+    var outputs = Output()
+    var routes = Route()
+    var routeInputs = RouteInputs()
+}
+
+extension SettingsViewModel {
+    func requestDataToUseCase() {
+        routeInputs.signout
+            .filter { $0 }
+            .flatMap { _ in self.userUseCase.signout() }
+            .subscribe(onNext: { [weak self] success in
+                if success {
+                    self?.toast.onNext("회원탈퇴가 완료되었습니다.")
+                    self?.routes.signoutComplete.onNext(())
+                } else {
+                    self?.toast.onNext("죄송합니다 다시 시도해주세요.")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        routeInputs.logout
+            .filter { $0 }
+            .subscribe(onNext: { [weak self] _ in
+                self?.loginUseCase.logout()
+                self?.routes.logoutComplete.onNext(())
+            })
+            .disposed(by: disposeBag)
+
+        inputs.switchChanged
+            .map { $0 ? "Y" : "N" }
+            .flatMap { self.userUseCase.patchPushAlaram(userId: String(BasicLoginKeyChainService.shared.userId!), pushOn: $0) }
+            .subscribe(onNext: { isOn in
+                if isOn {
+                    self.toast.onNext("푸시 알림 설정이 완료되었습니다.")
+                } else {
+                    self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요.")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func uiBusinessLogic() {
         let settingItems: [[SettingCellConfig]] = SettingCategory.allCases.reduce(into: []) { partialResult, category in
             let items: [SettingCellConfig]
             switch category {
@@ -77,71 +150,5 @@ final class SettingsViewModel: BaseViewModel {
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
-
-        routeInputs.signout
-            .filter { $0 }
-            .flatMap { _ in userAPIService.signout() }
-            .subscribe(onNext: { [weak self] success in
-                if success {
-                    self?.toast.onNext("회원탈퇴가 완료되었습니다.")
-                    self?.routes.signoutComplete.onNext(())
-                } else {
-                    self?.toast.onNext("죄송합니다 다시 시도해주세요.")
-                }
-            })
-            .disposed(by: disposeBag)
-
-        routeInputs.logout
-            .filter { $0 }
-            .subscribe(onNext: { [weak self] _ in
-                self?.loginService.logout()
-                self?.routes.logoutComplete.onNext(())
-            })
-            .disposed(by: disposeBag)
-
-        inputs.switchChanged
-            .map { $0 ? "Y" : "N" }
-            .flatMap { userAPIService.patchPushAlaram(userId: String(BasicLoginKeyChainService.shared.userId!), pushOn: $0) }
-            .subscribe(onNext: { isOn in
-                if isOn {
-                    self.toast.onNext("푸시 알림 설정이 완료되었습니다.")
-                } else {
-                    self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요.")
-                }
-            })
-            .disposed(by: disposeBag)
     }
-
-    struct Input {
-        var tapCell = PublishSubject<(section: Int, item: Int)>()
-        var backward = PublishSubject<Void>()
-        var switchChanged = PublishSubject<Bool>()
-    }
-
-    struct Output {
-        var menus = ReplaySubject<[[SettingCellConfig]]>.create(bufferSize: 1)
-    }
-
-    struct Route {
-        var backward = PublishSubject<Void>()
-        var terms = PublishSubject<Void>()
-        var privacy = PublishSubject<Void>()
-        var makers = PublishSubject<Void>()
-        var instagram = PublishSubject<Void>()
-        var logout = PublishSubject<Void>()
-        var logoutComplete = PublishSubject<Void>()
-        var signout = PublishSubject<Void>()
-        var signoutComplete = PublishSubject<Void>()
-    }
-
-    struct RouteInputs {
-        var logout = PublishSubject<Bool>()
-        var signout = PublishSubject<Bool>()
-    }
-
-    private var disposeBag = DisposeBag()
-    var inputs = Input()
-    var outputs = Output()
-    var routes = Route()
-    var routeInputs = RouteInputs()
 }

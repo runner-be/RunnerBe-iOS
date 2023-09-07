@@ -14,7 +14,7 @@ import SnapKit
 import Then
 import UIKit
 
-class SettingsViewController: BaseViewController {
+final class SettingsViewController: BaseViewController {
     private var viewModel: SettingsViewModel
     private var isOn: String
 

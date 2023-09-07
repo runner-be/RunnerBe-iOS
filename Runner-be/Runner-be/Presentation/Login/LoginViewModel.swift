@@ -9,86 +9,15 @@ import Foundation
 import RxSwift
 
 final class LoginViewModel: BaseViewModel {
-    let loginService: LoginService
-    private var userKeyChainService: UserKeychainService
+    private let loginUseCase = LoginUseCase()
+    private let userUseCase = UserUseCase()
 
     // MARK: Lifecycle
 
-    init(loginService: LoginService = BasicLoginService(), userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared) {
-        self.loginService = loginService
-        self.userKeyChainService = userKeyChainService
+    override init() {
         super.init()
 
-        inputs.kakaoLogin
-            .debug()
-            .map { [weak self] in self?.loginService.login(with: .kakao) }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { [weak self] result in
-                switch result {
-                case .member, .succeed:
-                    self?.routes.loginSuccess.onNext(true)
-                case .memberWaitCertification:
-                    self?.routes.loginSuccess.onNext(false)
-                case let .nonMember(uuid):
-                    print("KAKAO UUID \(uuid)")
-                    self?.userKeyChainService.uuid = uuid
-                    self?.routes.nonMember.onNext(())
-                case .loginFail, .socialLoginFail:
-                    self?.toast.onNext("로그인에 실패했습니다")
-                case .stopped:
-                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
-                }
-            })
-            .disposed(by: disposeBag)
-
-        inputs.naverLogin
-            .map { [weak self] in self?.loginService.login(with: .naver) }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { [weak self] result in
-                print(result)
-                switch result {
-                case .member, .succeed:
-                    self?.routes.loginSuccess.onNext(true)
-                case .memberWaitCertification:
-                    self?.routes.loginSuccess.onNext(false)
-                case let .nonMember(uuid):
-                    print("NAVER UUID \(uuid)")
-                    self?.userKeyChainService.uuid = uuid
-                    self?.routes.nonMember.onNext(())
-                case .loginFail, .socialLoginFail:
-                    self?.toast.onNext("로그인에 실패했습니다")
-                case .stopped:
-                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
-                }
-            })
-            .disposed(by: disposeBag)
-
-        inputs.appleLogin
-            .map { [weak self] in self?.loginService.login(with: .apple(identifier: $0)) }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .subscribe(onNext: { [weak self] result in
-                switch result {
-                case .member, .succeed:
-                    print("LoginWithApple succeed, member")
-                    self?.routes.loginSuccess.onNext(true)
-                case .memberWaitCertification:
-                    print("LoginWithApple memberWaitCertification")
-                    self?.routes.loginSuccess.onNext(false)
-                case let .nonMember(uuid):
-                    print("LoginWithApple nonMember")
-                    print("APPLE UUID \(uuid)")
-                    self?.userKeyChainService.uuid = uuid
-                    self?.routes.nonMember.onNext(())
-                case .loginFail, .socialLoginFail:
-                    self?.toast.onNext("로그인에 실패했습니다.")
-                case .stopped:
-                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
-                }
-            })
-            .disposed(by: disposeBag)
+        requestDataToUseCase()
     }
 
     // MARK: Internal
@@ -112,4 +41,79 @@ final class LoginViewModel: BaseViewModel {
     let inputs = Input()
     let outputs = Output()
     let routes = Route()
+}
+
+extension LoginViewModel {
+    func requestDataToUseCase() {
+        inputs.kakaoLogin
+            .debug()
+            .map { [weak self] in self?.loginUseCase.login(with: .kakao) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .member, .succeed:
+                    self?.routes.loginSuccess.onNext(true)
+                case .memberWaitCertification:
+                    self?.routes.loginSuccess.onNext(false)
+                case let .nonMember(uuid):
+                    print("KAKAO UUID \(uuid)")
+                    self?.userUseCase.uuid = uuid
+                    self?.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    self?.toast.onNext("로그인에 실패했습니다")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        inputs.naverLogin
+            .map { [weak self] in self?.loginUseCase.login(with: .naver) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                print(result)
+                switch result {
+                case .member, .succeed:
+                    self?.routes.loginSuccess.onNext(true)
+                case .memberWaitCertification:
+                    self?.routes.loginSuccess.onNext(false)
+                case let .nonMember(uuid):
+                    print("NAVER UUID \(uuid)")
+                    self?.userUseCase.uuid = uuid
+                    self?.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    self?.toast.onNext("로그인에 실패했습니다")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        inputs.appleLogin
+            .map { [weak self] in self?.loginUseCase.login(with: .apple(identifier: $0)) }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .member, .succeed:
+                    print("LoginWithApple succeed, member")
+                    self?.routes.loginSuccess.onNext(true)
+                case .memberWaitCertification:
+                    print("LoginWithApple memberWaitCertification")
+                    self?.routes.loginSuccess.onNext(false)
+                case let .nonMember(uuid):
+                    print("LoginWithApple nonMember")
+                    print("APPLE UUID \(uuid)")
+                    self?.userUseCase.uuid = uuid
+                    self?.routes.nonMember.onNext(())
+                case .loginFail, .socialLoginFail:
+                    self?.toast.onNext("로그인에 실패했습니다.")
+                case .stopped:
+                    self?.toast.onNext("신고가 접수되어 계정이 정지되었어요")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }
