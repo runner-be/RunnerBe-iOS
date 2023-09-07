@@ -20,6 +20,13 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
     var userIdList: [Int] = [] // 유저 id 리스트
     var whetherAttendList: [String] = [] // 위 각각 유저 별로 참여 여부를 저장하는 리스트
+    var runningInfo: MyPosting?
+
+    // 시간 관련
+    let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
+    var runningTime = TimeInterval()
+    var gatherDate = Date()
+    var finishedDate = Date()
 
     init(myRunningIdx: Int) {
         self.myRunningIdx = myRunningIdx
@@ -27,6 +34,27 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
         requestDataToUseCase()
         uiBusinessLogic()
+    }
+
+    func setDate() {
+        let formatter = DateUtil.shared.dateFormatter
+        formatter.dateFormat = DateFormat.apiDate.formatString
+
+        guard let info = runningInfo else { return }
+        let dateString = info.gatheringTime!
+        print("dateString : \(dateString)")
+        gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!.addingTimeInterval(TimeInterval(9 * 60 * 60))
+
+        let hms = info.runningTime?.components(separatedBy: ":") // hour miniute seconds
+        let hour = Int(hms![0])
+        let minute = Int(hms![1])
+
+        // 러닝 시간
+        print("runningTime: \(hour):\(minute)")
+
+        // 출석 마감 날짜
+        finishedDate = gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+        print("finishedDate \(finishedDate.description)")
     }
 
     struct Input {
@@ -67,6 +95,9 @@ extension ManageAttendanceViewModel {
                 switch result {
                 case let .response(result: result):
                     let myRunningIdx = self.myRunningIdx
+                    self.runningInfo = result![myRunningIdx]
+
+                    self.setDate()
 
                     self.outputs.info.onNext(result![myRunningIdx])
                     self.attendTimeOver = result![myRunningIdx].attendTimeOver!

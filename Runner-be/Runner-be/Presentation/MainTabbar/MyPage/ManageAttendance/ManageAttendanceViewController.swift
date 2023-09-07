@@ -16,10 +16,7 @@ import Toast_Swift
 import UIKit
 
 final class ManageAttendanceViewController: BaseViewController {
-    let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
-    var gatherDate = Date()
-    var runningTime = TimeInterval()
-    var time = 0
+    var time = 0  // Timer에 사용할 시간
     var timer: Timer?
 
     override func viewDidLoad() {
@@ -61,7 +58,7 @@ final class ManageAttendanceViewController: BaseViewController {
 
         // 모두 출석관리를 체크했을 경우에만 버튼이 눌리도록 (filter)
         saveButton.rx.tap
-            .filter {  !self.viewModel.whetherAttendList.contains("-")
+            .filter { !self.viewModel.whetherAttendList.contains("-")
             }
             .bind(to: viewModel.inputs.patchAttendance)
             .disposed(by: disposeBag)
@@ -108,30 +105,9 @@ final class ManageAttendanceViewController: BaseViewController {
                     }
                 }
 
-                let formatter = DateUtil.shared.dateFormatter
-                formatter.dateFormat = DateFormat.apiDate.formatString
-
-                let dateString = info.gatheringTime!
-                print("dateString : \(dateString)")
-                self.gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
-
-                let hms = info.runningTime?.components(separatedBy: ":") // hour miniute seconds
-                let hour = Int(hms![0])
-                let minute = Int(hms![1])
-
-                // 러닝 시간
-                print("runningTime: \(hour):\(minute)")
-
-                // 모임 날짜
-                self.gatherDate = self.gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
-
-                // 출석 마감 날짜
-                let finishedDate = self.gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
-                print("finishedDate \(finishedDate.description)")
-
                 // 현재 - 출석 마감 날짜 남은 분
-                print(self.currentDate.description)
-                let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: self.currentDate, to: finishedDate)
+                print(self.viewModel.currentDate.description)
+                let offsetComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: self.viewModel.currentDate, to: self.viewModel.finishedDate)
                 self.time = offsetComps.hour! * 60 * 60 + offsetComps.minute! * 60 + offsetComps.second! // 출석관리 마감까지 남은 초
                 //        time = 5 // 마이페이지 모달 이동 테스트용
                 print("hour \(offsetComps.hour!) minute \(offsetComps.minute!) second \(offsetComps.second!)")
