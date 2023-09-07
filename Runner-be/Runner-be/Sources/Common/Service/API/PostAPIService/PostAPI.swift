@@ -36,8 +36,8 @@ extension PostAPI: TargetType {
 
     var path: String {
         switch self {
-        case let .fetch(_, filter):
-            return "/users/main/v2/\(filter.runningTag.code)"
+        case .fetch:
+            return "/users/main/v2"
         case let .posting(_, id, _):
             return "/postings/\(id)"
         case let .bookmarking(_, userId, mark, _):
@@ -114,6 +114,7 @@ extension PostAPI: TargetType {
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
+                "runningTag": filter.runningTag.code,
             ]
 
             if let userId = userId {
