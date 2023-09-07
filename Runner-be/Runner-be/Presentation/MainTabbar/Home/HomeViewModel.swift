@@ -42,7 +42,7 @@ final class HomeViewModel: BaseViewModel {
 
         super.init()
 
-        requestDataToRepo()
+        requestDataToUseCase()
         uiBusinessLogic()
     }
 
@@ -112,7 +112,7 @@ final class HomeViewModel: BaseViewModel {
 // MARK: - UseCase에게 비즈니스 로직, 데이터 요청
 
 extension HomeViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         routeInputs.needUpdate
             .flatMap { _ in
                 self.userUseCase.checkAlarms()
@@ -312,11 +312,7 @@ extension HomeViewModel {
             .subscribe(onNext: { self.inputs.postReady.onNext($0) })
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension HomeViewModel {
     func uiBusinessLogic() {
         routeInputs.runningTagChanged
             .subscribe(onNext: { [unowned self] tag in

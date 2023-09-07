@@ -17,7 +17,7 @@ final class SelectGenderViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: Internal
@@ -42,16 +42,12 @@ final class SelectGenderViewModel: BaseViewModel {
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
-
-    // MARK: Private
-
     private var disposeBag = DisposeBag()
 }
 
-// MARK: - Repository와 소통
 
 extension SelectGenderViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         inputs.tapGroup
             .map { selected -> Gender in
                 if let idx = selected.first,
@@ -68,11 +64,7 @@ extension SelectGenderViewModel {
             .bind(to: outputs.enableNext)
             .disposed(by: disposeBag)
     }
-}
-
-// MARK: - UI 관련 비즈니스 로직
-
-extension SelectGenderViewModel {
+    
     func uiBusinessLogic() {
         inputs.tapCancel
             .subscribe(routes.cancel)

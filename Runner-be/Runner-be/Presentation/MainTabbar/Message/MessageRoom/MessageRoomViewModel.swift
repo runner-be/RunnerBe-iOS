@@ -20,7 +20,7 @@ final class MessageRoomViewModel: BaseViewModel {
         self.roomId = roomId
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: - INPUT, OUTPUT Modeling
@@ -60,7 +60,7 @@ final class MessageRoomViewModel: BaseViewModel {
 // MARK: - Repository와 소통
 
 extension MessageRoomViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         routeInputs.needUpdate
             .flatMap { _ in self.messageUseCase.getMessageContents(roomId: self.roomId) }
             .map { [weak self] result -> GetMessageRoomInfoResult? in
@@ -99,11 +99,7 @@ extension MessageRoomViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension MessageRoomViewModel {
     func uiBusinessLogic() {
         inputs.backward
             .map { true }

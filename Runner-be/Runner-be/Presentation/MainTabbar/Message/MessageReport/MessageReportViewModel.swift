@@ -24,7 +24,7 @@ final class MessageReportViewModel: BaseViewModel {
         self.roomId = roomId
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: - INPUT, OUTPUT Modeling
@@ -63,7 +63,7 @@ final class MessageReportViewModel: BaseViewModel {
 // MARK: - Repository와 소통
 
 extension MessageReportViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         messageUseCase.getMessageContents(roomId: roomId)
             .map { [weak self] result -> GetMessageRoomInfoResult? in
                 switch result {
@@ -125,11 +125,7 @@ extension MessageReportViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension MessageReportViewModel {
     func uiBusinessLogic() {
         inputs.detailPost
             .compactMap { $0 }

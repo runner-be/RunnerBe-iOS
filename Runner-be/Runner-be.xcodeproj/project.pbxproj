@@ -1104,13 +1104,13 @@
 			path = CG;
 			sourceTree = "<group>";
 		};
-		C34BA6AD27CD479C003E393A /* APIResponse */ = {
+		C34BA6AD27CD479C003E393A /* Post */ = {
 			isa = PBXGroup;
 			children = (
 				C34BA6B027CD47C9003E393A /* DetailPostResponse.swift */,
 				C342F9A5282D58420000E46C /* PostResponse.swift */,
 			);
-			path = APIResponse;
+			path = Post;
 			sourceTree = "<group>";
 		};
 		C34FDA1127AD5997007718F8 = {
@@ -1353,10 +1353,10 @@
 		C38F8F2627AD95FC0050137D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C304C5802826B39000C24295 /* View */,
 				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3CA2AF027BC4E5300AEF623 /* Filter */,
 				434635C728910435007D8C10 /* Modal */,
-				C304C5802826B39000C24295 /* View */,
 				C38F8F3B27AD99D70050137D /* HomeComponent.swift */,
 				C38F8F4327AD9DEA0050137D /* HomeCoordinator.swift */,
 				C38F8F3227AD96CD0050137D /* HomeViewModel.swift */,
@@ -1396,6 +1396,7 @@
 		C38F8F5127ADB3F60050137D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
 				C34FDA6127AD5C83007718F8 /* BasicCoordinator.swift */,
 				C34FDA4E27AD5C82007718F8 /* BaseViewController.swift */,
 				C3BA45C627B5AEB40048CA76 /* BaseViewModel.swift */,
@@ -1445,11 +1446,10 @@
 		C39E925F27BACC9E00798F3A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C3E0CEB22838E6DA007A0443 /* Log */,
-				C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */,
+				C3E0CEB32838E725007A0443 /* Log.swift */,
+				C3AD115527B81D7B00A7044C /* JSONError.swift */,
 				C34BA6AB27CD40BB003E393A /* DateUtil */,
 				C379302227BA20920076AB85 /* MoyaPlugin */,
-				C3AD115727B81EF600A7044C /* Error */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1472,14 +1472,6 @@
 				C3F74B6C27B0A846002D5846 /* CheckBoxView.swift */,
 			);
 			path = CheckBox;
-			sourceTree = "<group>";
-		};
-		C3AD115727B81EF600A7044C /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD115527B81D7B00A7044C /* JSONError.swift */,
-			);
-			path = Error;
 			sourceTree = "<group>";
 		};
 		C3BA459827B405060048CA76 /* Label */ = {
@@ -1690,14 +1682,6 @@
 				C3CA2AF827BC4EA300AEF623 /* HomeFilterViewController.swift */,
 			);
 			path = Filter;
-			sourceTree = "<group>";
-		};
-		C3E0CEB22838E6DA007A0443 /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				C3E0CEB32838E725007A0443 /* Log.swift */,
-			);
-			path = Log;
 			sourceTree = "<group>";
 		};
 		C3EB5CD927B8B76200775779 /* Signup */ = {
@@ -1958,7 +1942,6 @@
 		DA60482D281E7C7C00A67568 /* MoyaAPI */ = {
 			isa = PBXGroup;
 			children = (
-				C3AD114A27B8113000A7044C /* BaseAPI.swift */,
 				C3AD114827B8112500A7044C /* LoginAPI.swift */,
 				DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */,
 				C3EB5CD727B8B70900775779 /* SignupAPI.swift */,
@@ -2137,7 +2120,7 @@
 				DAEEEC582A93A17200F8DD7A /* Settings */,
 				DAEEEC572A93A0ED00F8DD7A /* MyPage */,
 				DAEEEC562A93A0CB00F8DD7A /* Message */,
-				C34BA6AD27CD479C003E393A /* APIResponse */,
+				C34BA6AD27CD479C003E393A /* Post */,
 				DAEEEC522A939B5F00F8DD7A /* Common */,
 				C3EB5CD927B8B76200775779 /* Signup */,
 			);
@@ -2187,6 +2170,7 @@
 		DAEEEC572A93A0ED00F8DD7A /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */,
 				DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */,
 				DADC897128B15C7900D728B9 /* PatchAttendanceRequest.swift */,
 			);

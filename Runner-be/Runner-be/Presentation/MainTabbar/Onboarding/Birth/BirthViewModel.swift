@@ -18,7 +18,7 @@ final class BirthViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
 
         ((thisYear - 80) ... thisYear).reversed()
             .forEach { self.outputs.items.append($0) }
@@ -51,16 +51,11 @@ final class BirthViewModel: BaseViewModel {
     var outputs = Output()
     var routes = Route()
     var routeInputs = RouteInput()
-
-    // MARK: Private
-
     private var disposeBag = DisposeBag()
 }
 
-// MARK: - Repository와 소통
-
 extension BirthViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         inputs.tapNext
             .map { [unowned self] in
                 guard let idx = try? self.inputs.itemSelected.value()
@@ -79,11 +74,7 @@ extension BirthViewModel {
             .subscribe(routes.nextProcess)
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension BirthViewModel {
     func uiBusinessLogic() {
         inputs.itemSelected
             .map { $0 >= 19 }

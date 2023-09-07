@@ -23,7 +23,7 @@ final class BookMarkViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: - INPUT, OUTPUT Modeling
@@ -58,7 +58,7 @@ final class BookMarkViewModel: BaseViewModel {
 // MARK: - Repository와 소통
 
 extension BookMarkViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         routeInputs.needUpdate
             .flatMap { _ in
                 self.postUseCase.fetchPostBookMarked()
@@ -95,11 +95,7 @@ extension BookMarkViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension BookMarkViewModel {
     func uiBusinessLogic() {
         inputs.tagChanged
             .subscribe(onNext: { [weak self] tagIdx in

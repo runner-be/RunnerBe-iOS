@@ -17,7 +17,7 @@ final class MessageViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: - INPUT, OUTPUT Modeling
@@ -50,7 +50,7 @@ final class MessageViewModel: BaseViewModel {
 // MARK: - Repository와 소통
 
 extension MessageViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         routeInputs.needUpdate
             .flatMap { _ in
                 self.messageUseCase.getMessageRoomList()
@@ -83,11 +83,7 @@ extension MessageViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension MessageViewModel {
     func uiBusinessLogic() {
         inputs.messageRoomId
             .compactMap { $0 }

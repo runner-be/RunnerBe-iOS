@@ -18,7 +18,7 @@ final class SelectJobGroupViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataRepo()
+        requestDataToUseCase()
     }
 
     // MARK: Internal
@@ -49,10 +49,9 @@ final class SelectJobGroupViewModel: BaseViewModel {
     private var disposeBag = DisposeBag()
 }
 
-// MARK: - Repository와 소통
 
 extension SelectJobGroupViewModel {
-    func requestDataRepo() {
+    func requestDataToUseCase() {
         inputs.tapComplete
             .flatMap { [unowned self] in
                 self.signUpUseCase.signup()
@@ -81,11 +80,7 @@ extension SelectJobGroupViewModel {
             .bind(to: outputs.enableComplete)
             .disposed(by: disposeBag)
     }
-}
 
-// MARK: - UI 관련 비즈니스 로직
-
-extension SelectJobGroupViewModel {
     func uiBusinessLogic() {
         inputs.tapCancel
             .bind(to: routes.cancel)

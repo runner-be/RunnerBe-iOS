@@ -24,7 +24,7 @@ final class HomeFilterViewModel: BaseViewModel {
         super.init()
 
         uiBusinessLogic()
-        requestDataToRepo()
+        requestDataToUseCase()
     }
 
     // MARK: - INPUT, OUTPUT Modeling
@@ -53,10 +53,9 @@ final class HomeFilterViewModel: BaseViewModel {
     var routes = Route()
 }
 
-// MARK: - Repository와 소통
 
 extension HomeFilterViewModel {
-    func requestDataToRepo() {
+    func requestDataToUseCase() {
         inputs.reset
             .subscribe(onNext: {
                 self.outputs.locationDistance.onNext((location: self.locationUseCase.currentPlace, distance: 3000))
@@ -64,11 +63,7 @@ extension HomeFilterViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
-
-// MARK: - UI 관련 비즈니스 로직
-
-extension HomeFilterViewModel {
+    
     func uiBusinessLogic() {
         outputs.locationDistance.onNext(
             (
