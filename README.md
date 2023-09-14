@@ -37,10 +37,11 @@
 <img width="800" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/47d7e3ac-7feb-48e4-8953-18d2021ead8a"/> <br/>
 
 - **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, CommonViews / 유용한 도구 모음 Util / Extension, Localization 등
-- **Base**: 앱의 ViewController, ViewModel, Coordinator와 APIService에 공통적으로 사용되는 속성을 정의하며, Feature의 각 요소는 해당 Base 클래스를 상속하여 재사용성을 높임
+  - 해당 그룹의 컴포넌트나 Common View, Extension, Util은 앱 공통적으로 사용하거나 자주 사용하는 코드 및 UI를 모듈화함으로써 코드 중복을 줄이고 재사용성을 높임 
+- **Base**: 앱의 ViewController, ViewModel, Coordinator와 APIService에 공통적으로 사용되는 속성을 정의하며, Feature의 각 요소는 해당 Base 클래스를 상속함으로써 코드 재사용성을 높임
 - **Feature**: 회원가입 시 초기 진입하는 Onboarding 화면 / 탭바 기준으로 Home, BookMark, Message, MyPage로 분리
   - 각 Feature는 ViewController, ViewModel, Component, Coordinator를 가짐
-  - 기존 MVVM 패턴에 Clean Architecture를 도입하여 Layer를 분리하고, ViewModel을 SRP(단일 책임 원칙)에 맞게 역할을 분리함으로써 유지보수를 용이하게 함
+  - 기존 MVVM 패턴에 Clean Architecture를 도입하여 Layer를 분리하고, ViewModel을 Solid의 SRP(단일 책임 원칙)에 맞게 역할을 분리함으로써 유지보수를 용이하게 함
  
   **[Presentation Layer]**
   - **Component**: 화면 별로 필요한 ViewController, ViewModel을 소유하며 화면 전환 가능성이 있는 Component를 생성 및 전달
@@ -59,9 +60,9 @@
 
 ## 주요 기능 설명
 **1) 회원가입**
-- 직장인이 타겟이므로, 성인 여부와 직군 정보를 회원가입 시 입력받습니다.
+- 직장인이 타겟이므로, 성인 여부와 직군 정보를 회원가입 시 입력받습니다. <br/>
 
-<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/431af36e-6e60-4f5d-98a7-73f3b92765dc" />  <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/844b0a14-b067-4497-ac74-0b95d87d4f2d" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/a686dc8d-63e5-4050-83b5-852b024576b1" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/970566ee-e63b-45b1-ae45-8e305dbcbb7d" />
+<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/431af36e-6e60-4f5d-98a7-73f3b92765dc" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/844b0a14-b067-4497-ac74-0b95d87d4f2d" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/a686dc8d-63e5-4050-83b5-852b024576b1" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/970566ee-e63b-45b1-ae45-8e305dbcbb7d" />
 
 **2) 러닝 모임 개설 및 신청**
 - 성별 / 나이대 / 위치 / 직군 별로 모임 개설 및 필터를 통한 신청이 가능합니다.
