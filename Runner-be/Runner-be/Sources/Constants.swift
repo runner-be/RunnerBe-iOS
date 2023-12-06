@@ -9,7 +9,11 @@ import Alamofire
 
 // 상수값 저장하는 클래스
 struct Constant {
-    static let BASE_URL = "https://www.runnerbe2.shop/"
+    #if DEBUG
+        static let BASE_URL = "https://new-runnerbe.shop/"
+    #else
+        static let BASE_URL = "https://new-runnerbe.shop/"
+    #endif
 
     static var HEADERS: HTTPHeaders = ["x-access-token": UserInfo().token]
 }
