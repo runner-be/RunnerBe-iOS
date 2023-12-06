@@ -10,7 +10,7 @@ import Alamofire
 // 상수값 저장하는 클래스
 struct Constant {
     #if DEBUG
-        static let BASE_URL = "https://new-runnerbe.shop/"
+        static let BASE_URL = "https://dev.runnerbe2.shop/"
     #else
         static let BASE_URL = "https://new-runnerbe.shop/"
     #endif
