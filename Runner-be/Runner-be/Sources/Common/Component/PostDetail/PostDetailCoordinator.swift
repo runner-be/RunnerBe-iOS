@@ -66,7 +66,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
         scene.VM.routes.message
             .map { (vm: scene.VM, roomID: $0) }
             .subscribe(onNext: { [weak self] result in
-                if self?.component.fromMessageChat == true {
+                if self?.component.fromMessageRoom == true {
                     self?.closeSignal.onNext(PostDetailResult.backward(id: 0, needUpdate: false))
                 } else {
                     self?.presentMessageRoom(vm: result.vm, roomID: result.roomID, animated: true)
@@ -132,7 +132,7 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
     }
 
     private func presentMessageRoom(vm _: PostDetailViewModel, roomID: Int, animated: Bool) {
-        let comp = component.messageChatComponent(roomID: roomID)
+        let comp = component.messageRoomComponent(roomID: roomID)
         let coord = MessageRoomCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { _ in

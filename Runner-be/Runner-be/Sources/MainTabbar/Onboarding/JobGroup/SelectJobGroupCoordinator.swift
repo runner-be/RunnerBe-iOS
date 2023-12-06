@@ -92,15 +92,5 @@ final class SelectJobGroupCoordinator: BasicCoordinator<SelectJobGroupResult> {
         }
     }
 
-    override func handleDeepLink(type _: DeepLinkType) {
-//        switch type {
-//        case .emailCertification:
-//            if let coord = childCoordinators["EmailCertificationCoordinator"] {
-//                coord.handleDeepLink(type: type)
-//            } else {
-//                pushEmailCertificationCoord(animated: false)
-//                childCoordinators["EmailCertificationCoordinator"]!.handleDeepLink(type: type)
-//            }
-//        }
-    }
+    override func handleDeepLink(type _: DeepLinkType) {}
 }

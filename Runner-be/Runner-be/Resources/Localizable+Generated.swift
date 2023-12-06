@@ -26,6 +26,10 @@ internal enum L10n {
           /// 찜한 퇴근 후 모임이 없어요!
           internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.after.title", fallback: "찜한 퇴근 후 모임이 없어요!")
         }
+        internal enum All {
+          /// 찜한 모임이 없어요!
+          internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.all.title", fallback: "찜한 모임이 없어요!")
+        }
         internal enum Before {
           /// 찜한 출근 전 모임이 없어요!
           internal static let title = L10n.tr("Localizable", "BookMark.Main.Empty.before.title", fallback: "찜한 출근 전 모임이 없어요!")
@@ -787,6 +791,8 @@ internal enum L10n {
     internal enum WorkTime {
       /// 퇴근 후
       internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork", fallback: "퇴근 후")
+      /// 전체
+      internal static let all = L10n.tr("Localizable", "Post.WorkTime.All", fallback: "전체")
       /// 출근 전
       internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork", fallback: "출근 전")
       /// 휴일

@@ -43,12 +43,14 @@ class MyInfoView: UIView {
         }
 
         badgeLabel.label.text = config.diligence
-
         // TODO: PROFILE
         if let url = config.profileURL,
+           !url.isEmpty,
            let profileURL = URL(string: url)
         {
             avatarView.kf.setImage(with: profileURL)
+        } else {
+            avatarView.image = Asset.profileEmptyIcon.uiImage
         }
     }
 

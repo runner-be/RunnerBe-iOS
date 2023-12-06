@@ -53,14 +53,17 @@ class RunningTagModalViewController: BaseViewController {
         afterWorkButton.rx.tap
             .map { RunningTag.afterWork }
             .bind(to: viewModel.inputs.tapOrder)
+            .disposed(by: disposeBag)
 
         beforeWorkButton.rx.tap
             .map { RunningTag.beforeWork }
             .bind(to: viewModel.inputs.tapOrder)
+            .disposed(by: disposeBag)
 
         dayOffButton.rx.tap
             .map { RunningTag.dayoff }
             .bind(to: viewModel.inputs.tapOrder)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -75,6 +78,20 @@ class RunningTagModalViewController: BaseViewController {
         view.backgroundColor = .darkG5
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
+    }
+
+    private var allButton = UIButton().then { button in
+        button.setTitle("전체", for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.setBackgroundColor(.clear, for: .normal)
+        button.titleLabel?.font = .iosBody17R
+    }
+
+    private var hDivider3 = UIView().then { view in
+        view.backgroundColor = .darkG45
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
     }
 
     private var beforeWorkButton = UIButton().then { button in
@@ -124,6 +141,8 @@ extension RunningTagModalViewController {
         ])
 
         sheet.addSubviews([
+            allButton,
+            hDivider3,
             beforeWorkButton,
             hDivider,
             afterWorkButton,
@@ -139,8 +158,21 @@ extension RunningTagModalViewController {
             make.width.equalTo(view.snp.width).offset(-100)
         }
 
-        beforeWorkButton.snp.makeConstraints { make in
+        allButton.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top)
+            make.leading.equalTo(sheet.snp.leading)
+            make.trailing.equalTo(sheet.snp.trailing)
+            make.height.equalTo(52)
+        }
+
+        hDivider3.snp.makeConstraints { make in
+            make.top.equalTo(allButton.snp.bottom)
+            make.leading.equalTo(sheet.snp.leading)
+            make.trailing.equalTo(sheet.snp.trailing)
+        }
+
+        beforeWorkButton.snp.makeConstraints { make in
+            make.top.equalTo(hDivider3.snp.top)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
             make.height.equalTo(52)

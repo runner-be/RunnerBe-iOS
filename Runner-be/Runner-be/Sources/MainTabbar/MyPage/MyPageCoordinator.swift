@@ -43,9 +43,9 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.settings // 설정으로 화면전환
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
-                self?.pushSettingsScene(vm: vm, animated: true)
+            .map { (scene.VM, $0) }
+            .subscribe(onNext: { [weak self] vm, isOn in
+                self?.pushSettingsScene(vm: vm, isOn: isOn)
             })
             .disposed(by: sceneDisposeBag)
 
@@ -94,18 +94,17 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward(id, needUpdate):
+            case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
-                vm.routeInputs.detailClosed.onNext(())
             }
         }
     }
 
-    func pushSettingsScene(vm _: MyPageViewModel, animated: Bool) {
-        let comp = component.settingsComponent
+    func pushSettingsScene(vm _: MyPageViewModel, isOn: String) {
+        let comp = component.settingsComponent(isOn: isOn)
         let coord = SettingsCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: animated) { [weak self] coordResult in
+        coordinate(coordinator: coord) { [weak self] coordResult in
             switch coordResult {
             case .backward:
                 break
@@ -140,10 +139,8 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 vm.routeInputs.photoTypeSelected.onNext(.library)
             case .cancel:
                 break
-//                case .chooseDefault:
-//                    vm.routeInputs.photoTypeSelected.onNext(.basic)
             case .chooseDefault:
-                vm.routeInputs.photoTypeSelected.onNext(.basic)
+                vm.inputs.changeToDefaultProfile.onNext(())
             }
         }
     }

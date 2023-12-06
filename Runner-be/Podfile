@@ -6,9 +6,6 @@ target 'Runner-be' do
   use_frameworks!
 
   # Pods for RunnerBe-iOS
-
-  # Needle
-  # pod 'NeedleFoundation'
   
   # SwiftGen
   pod 'SwiftGen', '~> 6.0'

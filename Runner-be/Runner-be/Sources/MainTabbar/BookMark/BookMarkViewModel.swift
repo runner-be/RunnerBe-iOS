@@ -9,9 +9,10 @@ import Foundation
 import RxSwift
 
 final class BookMarkViewModel: BaseViewModel {
-    private var runningTag: RunningTag = .beforeWork
+    private var runningTag: RunningTag = .all
 
     var posts: [RunningTag: [Post]] = [
+        .all: [],
         .afterWork: [],
         .beforeWork: [],
         .dayoff: [],
@@ -23,9 +24,9 @@ final class BookMarkViewModel: BaseViewModel {
 
         routeInputs.needUpdate
             .flatMap { _ in
-                postAPIService.fetchPostsBookMarked() // flatMap : Observable -> 변환 -> Observable들을 합쳐 하나의 Observable return
+                postAPIService.fetchPostsBookMarked()
             }
-            .map { [weak self] result -> [Post]? in // weak self를 쓰는 이유? 메모리 누수의 원인인 순환 참조를 방지하기 위함!
+            .map { [weak self] result -> [Post]? in
                 switch result {
                 case let .response(result: data):
                     return data
@@ -47,9 +48,10 @@ final class BookMarkViewModel: BaseViewModel {
                         post.marked = true
                         $0[runningTag, default: []].append(post)
                     }
+                    self.posts[.all, default: []].append(contentsOf: result) // 전체 조회 시 result 추가
 
                     if let posts = self.posts[self.runningTag] {
-                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) }) // onNext -> 값 추가 -> event 발생
+                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
                     } else {
                         self.outputs.posts.onNext([])
                     }
@@ -70,12 +72,12 @@ final class BookMarkViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPostBookMark
-            .throttle(.seconds(1), scheduler: MainScheduler.instance) // 1초동안 이벤트를 방출하고싶지 않을때! (클릭한 이후에 1초동안 이벤트를 전달안함)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
                       let posts = self.posts[self.runningTag],
                       idx >= 0, idx < posts.count
-                else { return nil } // nil return하게 되면 그 아래가 실행 안됨
+                else { return nil }
                 return posts[idx]
             }
             .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
@@ -112,23 +114,6 @@ final class BookMarkViewModel: BaseViewModel {
                 self.routes.detailPost.onNext(posts[idx].ID)
             })
             .disposed(by: disposeBag)
-
-//        routeInputs.detailClosed
-//            .filter { $0.marked == false }
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self,
-//                      var posts = self.posts[self.runningTag]
-//                else { return }
-//
-//                if let idx = posts.firstIndex(where: { $0.ID == result.id }) {
-//                    if !result.marked {
-//                        posts.remove(at: idx)
-//                        self.posts[self.runningTag] = posts
-//                        self.outputs.posts.onNext(posts.map { PostCellConfig(from: $0) })
-//                    }
-//                }
-//            })
-//            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -149,7 +134,6 @@ final class BookMarkViewModel: BaseViewModel {
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
-        var detailClosed = PublishSubject<Void>()
     }
 
     var disposeBag = DisposeBag()

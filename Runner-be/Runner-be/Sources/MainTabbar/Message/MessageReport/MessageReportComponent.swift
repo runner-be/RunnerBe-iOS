@@ -10,18 +10,18 @@ import UIKit
 final class MessageReportComponent {
     var scene: (VC: UIViewController, VM: MessageReportViewModel) {
         let viewModel = self.viewModel
-        return (MessageReportViewController(viewModel: viewModel, messageId: messageId), viewModel)
+        return (MessageReportViewController(viewModel: viewModel, roomId: roomId), viewModel)
     }
 
     var viewModel: MessageReportViewModel {
-        MessageReportViewModel(messageId: messageId)
+        MessageReportViewModel(roomId: roomId)
     }
 
-    init(messageId: Int) {
-        self.messageId = messageId
+    init(roomId: Int) {
+        self.roomId = roomId
     }
 
-    var messageId: Int
+    var roomId: Int
 
     var reportModalComponent: ReportModalComponent {
         return ReportModalComponent()

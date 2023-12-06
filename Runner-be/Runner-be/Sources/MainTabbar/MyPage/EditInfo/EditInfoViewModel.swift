@@ -9,36 +9,44 @@ import RxSwift
 
 final class EditInfoViewModel: BaseViewModel {
     var dirty: Bool = false
+    var user: User
+    var selectedJobcode = ""
 
-    init(user _: User, userAPIService: UserAPIService = BasicUserAPIService()) {
+    var userJobCode = ""
+    var userJobIdx = 0
+
+    init(user: User, userAPIService: UserAPIService = BasicUserAPIService()) {
+        self.user = user
+        userJobCode = Job(name: user.job).code
+        userJobIdx = Job(name: user.job).index
+
         super.init()
-
-//        Observable<String>.of(user.job)
-//            .map { Job(name: $0) }
-//            .filter { $0 != .none }
-//            .subscribe(onNext: { [weak self] job in
-//                self?.outputs.currentJob.onNext(job)
-//            })
-//            .disposed(by: disposeBag)
 
         inputs.nickNameText
             .subscribe(onNext: { [weak self] text in
                 // 영어 소문자, 한글, 숫자
                 let ruleOK = text.count > 0 && text.match(with: "[가-힣a-z0-9]{2,8}")
-//                print(ruleOK)
                 self?.outputs.nickNameRuleOK.onNext(ruleOK)
-//                self?.outputs.nickNameDup.onNext(false)    //버튼을 눌렀을 때 중복확인을 해야하므로 여기서 처리X
             })
             .disposed(by: disposeBag)
 
         inputs.jobSelected
-            .bind(to: routes.jobModal)
+            .subscribe(onNext: { jobCode in
+                self.selectedJobcode = jobCode
+                self.routes.jobModal.onNext(())
+            })
             .disposed(by: disposeBag)
 
         routeInputs.changeJob
-            .subscribe(onNext: { [weak self] isChangeJob in
-                if isChangeJob {
-                    self?.outputs.jobChanged.onNext(isChangeJob)
+            .filter { $0 }
+            .flatMap { _ in userAPIService.setJob(to: Job(code: self.selectedJobcode)) }
+            .subscribe(onNext: { isSuccess in
+                switch isSuccess {
+                case true:
+                    self.dirty = true
+                    self.outputs.jobChanged.onNext(true)
+                case false:
+                    self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
                 }
             })
             .disposed(by: disposeBag)
@@ -77,19 +85,16 @@ final class EditInfoViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var nickNameText = PublishSubject<String>()
         var nickNameApply = PublishSubject<String>()
-        var jobSelected = PublishSubject<Void>()
+        var jobSelected = PublishSubject<String>()
     }
 
     struct Output {
         var currentJob = PublishSubject<Job>()
-
         var jobChanged = PublishSubject<Bool>()
-
         var nickNameChanged = PublishSubject<String>()
         var nickNameDup = PublishSubject<Bool>()
         var nickNameRuleOK = PublishSubject<Bool>()
         var nickNameAlreadyChanged = PublishSubject<Bool>()
-
         var toastActivity = PublishSubject<Bool>()
     }
 

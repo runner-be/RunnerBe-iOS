@@ -38,11 +38,6 @@ class MessageChatLeftCell: UITableViewCell {
             .disposed(by: disposeBag)
     }
 
-//    @objc
-//    func tapCheckBox(_: UITapGestureRecognizer) {
-//        delegate?.checkButtonTap(cell: self)
-//    }
-
     var profileImage = UIImageView().then { view in
         view.image = UIImage(named: "iconsProfile48")
     }

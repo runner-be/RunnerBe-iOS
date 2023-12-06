@@ -8,12 +8,14 @@
 import Foundation
 
 enum RunningTag: CaseIterable {
-    case beforeWork, afterWork, dayoff, error
+    case all, beforeWork, afterWork, dayoff, error
 }
 
 extension RunningTag {
     var code: String {
         switch self {
+        case .all:
+            return "W"
         case .beforeWork:
             return "B"
         case .afterWork:
@@ -27,6 +29,8 @@ extension RunningTag {
 
     var name: String {
         switch self {
+        case .all:
+            return L10n.Post.WorkTime.all
         case .beforeWork:
             return L10n.Post.WorkTime.beforeWork
         case .afterWork:
@@ -40,12 +44,14 @@ extension RunningTag {
 
     var idx: Int {
         switch self {
-        case .beforeWork:
+        case .all:
             return 0
-        case .afterWork:
+        case .beforeWork:
             return 1
-        case .dayoff:
+        case .afterWork:
             return 2
+        case .dayoff:
+            return 3
         case .error:
             return 4
         }

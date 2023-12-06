@@ -13,8 +13,6 @@ import Then
 import UIKit
 
 class TakePhotoModalViewController: BaseViewController {
-    lazy var dataManager = SettinsDataManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,8 +20,6 @@ class TakePhotoModalViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-
-        chooseDefault.addTarget(self, action: #selector(selectDefault), for: UIControl.Event.touchUpInside)
     }
 
     init(viewModel: TakePhotoModalViewModel) {
@@ -34,10 +30,6 @@ class TakePhotoModalViewController: BaseViewController {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    @objc func selectDefault(sender _: UIButton) {
-        dataManager.patchProfileImageToDefault(viewController: self)
     }
 
     private var viewModel: TakePhotoModalViewModel
@@ -176,15 +168,5 @@ extension TakePhotoModalViewController {
             make.trailing.equalTo(sheet.snp.trailing)
             make.bottom.equalTo(sheet.snp.bottom)
         }
-    }
-}
-
-extension TakePhotoModalViewController {
-    func didSucessPatchProfile(_: BaseResponse) {
-        dismiss(animated: true)
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }

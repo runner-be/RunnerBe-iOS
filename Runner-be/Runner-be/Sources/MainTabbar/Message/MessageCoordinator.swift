@@ -32,12 +32,12 @@ final class MessageCoordinator: BasicCoordinator<MessageResult> {
         scene.VM.routes.goMessageRoom
             .map { (vm: scene.VM, roomId: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushMessageChatScene(vm: result.vm, roomId: result.roomId, animated: true)
+                self?.pushMessageRoomScene(vm: result.vm, roomId: result.roomId, animated: true)
             })
             .disposed(by: sceneDisposeBag)
     }
 
-    func pushMessageChatScene(vm: MessageViewModel, roomId: Int, animated: Bool) {
+    func pushMessageRoomScene(vm: MessageViewModel, roomId: Int, animated: Bool) {
         let comp = component.messageRoomComponent(roomId: roomId)
         let coord = MessageRoomCoordinator(component: comp, navController: navigationController)
 

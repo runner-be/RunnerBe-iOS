@@ -95,8 +95,7 @@ class MyPageViewController: BaseViewController {
             else { return UICollectionViewCell() }
             cell.configure(with: item)
             cell.postInfoView.bookMarkIcon.isHidden = true
-            cell.manageButton.rx.tapGesture() // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
-                .when(.recognized)
+            cell.manageButton.rx.tap // 해당 코드가 여러 셀에게 인식이 되어 무관한 화면까지 이동하여 순서가 안맞는것처럼 보이는것같음.
                 .map { _ in
                     indexPath.row
                 }
@@ -198,16 +197,7 @@ class MyPageViewController: BaseViewController {
 
         viewModel.toast
             .subscribe(onNext: { message in
-                AppContext.shared.makeToast(message)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.currentProfile
-            .take(1)
-            .compactMap { $0 }
-            .compactMap { URL(string: $0) }
-            .subscribe(onNext: { [weak self] _ in
-//                self?.kf.setImage(with: url)
+                self.view.makeToast(message, point: CGPoint(x: self.view.frame.center.x, y: self.view.frame.maxY - 50), title: nil, image: nil, completion: nil)
             })
             .disposed(by: disposeBag)
 
@@ -245,39 +235,16 @@ class MyPageViewController: BaseViewController {
                 default: // 기본 이미지로 변경
                     self.myInfoWithChevron.infoView.avatarView.image = Asset.iconsProfile48.uiImage
                 }
-                //                switch sourceType {
-                //                case .photoLibrary:
-                //                    if self.photoAuth() {
-                //                        self.present(picker, animated: true)
-                //                    } else {
-                //                        self.authSettingOpen(authString: "앨범 권한 설정")
-                //                    }
-                //                case .camera:
-                ////                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] ok in
-                ////                        DispatchQueue.main.async {
-                ////                            if ok {
-                ////                                self?.present(picker, animated: true)
-                ////                            } else {
-                ////                                AppContext.shared.makeToast("권한이 없어 카메라에 접근할 수 없습니다.")
-                ////                            }
-                ////                        }
-                ////                    })
-                //                    if self.cameraAuth() {
-                //                        self.present(picker, animated: true)
-                //                    } else {
-                //                        self.authSettingOpen(authString: "카메라 권한 설정")
-                //                    }
-                //                default:
-                //                    break
-                //                }
             })
             .disposed(by: disposeBag)
 
         viewModel.outputs.profileChanged
-            .compactMap { $0 }
             .subscribe(onNext: { [weak self] data in
-                self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
-//                self?.myInfoWithChevron.infoView.cameraIcon.isHidden = true
+                if let data = data {
+                    self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
+                } else {
+                    self?.myInfoWithChevron.infoView.avatarView.image = Asset.profileEmptyIcon.uiImage
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -465,8 +432,6 @@ extension MyPageViewController {
     }
 
     private func initialLayout() {
-        print("sequence \(5)")
-
         navBar.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)

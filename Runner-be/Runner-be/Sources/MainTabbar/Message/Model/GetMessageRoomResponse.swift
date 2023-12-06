@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Welcome
 
-struct GetMessageChatResponse: Decodable {
+struct GetMessageRoomResponse: Decodable {
     let isSuccess: Bool
     let code: Int
     let message: String

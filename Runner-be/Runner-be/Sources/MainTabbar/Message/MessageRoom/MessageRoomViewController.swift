@@ -13,13 +13,8 @@ import Then
 import UIKit
 
 class MessageRoomViewController: BaseViewController {
-    var messages: [MessageContent] = []
-    var postId = 0
-    var messageId = 0
     let formatter = DateUtil.shared.dateFormatter
     let dateUtil = DateUtil.shared
-
-    lazy var messageDataManager = MessageDataManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +27,11 @@ class MessageRoomViewController: BaseViewController {
 
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-//        tableView.delegate = self
-//        tableView.dataSource = self
-
         chatTextView.delegate = self
         dismissKeyboardWhenTappedAround()
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
-//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
-        viewModel.routeInputs.needUpdate.onNext(true)
     }
 
     init(viewModel: MessageRoomViewModel) {
@@ -58,19 +47,26 @@ class MessageRoomViewController: BaseViewController {
     private var viewModel: MessageRoomViewModel
 
     private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
+        viewModel.routeInputs.needUpdate.onNext(true)
+
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
-            .map { _ in self.messageId }
             .bind(to: viewModel.inputs.report)
             .disposed(by: disposeBag)
 
         postSection.rx.tapGesture()
             .when(.recognized)
-            .map { _ in self.postId }
+            .map { _ in self.viewModel.roomInfo?.postId ?? -1 }
             .bind(to: viewModel.inputs.detailPost)
+            .disposed(by: disposeBag)
+
+        sendButton.rx.tap
+            .map { self.chatTextView.text ?? "" }
+            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+            .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
     }
 
@@ -88,7 +84,14 @@ class MessageRoomViewController: BaseViewController {
             .subscribe(onNext: { roomInfo in
                 self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
-                self.postId = roomInfo.postId!
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.successSendMessage
+            .subscribe(onNext: { isSuccessSendMessage in
+                if isSuccessSendMessage {
+                    self.chatTextView.text.removeAll()
+                }
             })
             .disposed(by: disposeBag)
 
@@ -112,7 +115,7 @@ class MessageRoomViewController: BaseViewController {
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero // 구분선 제거
 
-                    cell.messageContent.text = item.content!
+                    cell.messageContent.text = item.content
                     cell.nickName.text = item.nickName
                     cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
 
@@ -131,7 +134,7 @@ class MessageRoomViewController: BaseViewController {
                     cell.selectionStyle = .none
                     cell.separatorInset = .zero
 
-                    cell.messageContent.text = item.content!
+                    cell.messageContent.text = item.content
                     cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
 
                     if item.whetherPostUser == "Y" {
@@ -145,9 +148,17 @@ class MessageRoomViewController: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
+
+        viewModel.outputs.messageContents
+            .filter { !$0.isEmpty }
+            .subscribe(onNext: { messages in
+                self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.backgroundColor = .darkG7
         navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.MessageList.NavBar.title
         navBar.titleLabel.textColor = .darkG35
@@ -159,8 +170,8 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "출근 전"
-        view.postTitle.text = "불금에 달리기하실분!"
+        view.badgeLabel.titleLabel?.text = "태그"
+        view.postTitle.text = "게시글 제목"
     }
 
     private var messageContentsTableView = UITableView().then { view in
@@ -168,7 +179,6 @@ class MessageRoomViewController: BaseViewController {
         view.register(MessageChatRightCell.self, forCellReuseIdentifier: MessageChatRightCell.id)
         view.backgroundColor = .darkG7
         view.separatorColor = .clear
-        view.showsVerticalScrollIndicator = false
     }
 
     var chatBackGround = UIView().then { view in
@@ -194,7 +204,7 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var sendButton = UIButton().then { view in
-        view.isUserInteractionEnabled = false
+        view.isEnabled = false
         view.setImage(Asset.iconsSend24.uiImage, for: .normal)
     }
 }
@@ -217,8 +227,8 @@ extension MessageRoomViewController {
             sendButton,
         ])
 
-        chatBackGround.bringSubviewToFront(chatTextView)
-        chatTextView.bringSubviewToFront(sendButton)
+        view.bringSubviewToFront(navBar)
+        view.bringSubviewToFront(postSection)
     }
 
     private func initialLayout() {
@@ -235,7 +245,7 @@ extension MessageRoomViewController {
         }
 
         messageContentsTableView.snp.makeConstraints { make in
-            make.top.equalTo(postSection.snp.bottom).offset(22)
+            make.top.equalTo(postSection.snp.bottom).offset(10) // postSection만큼 떨어뜨리기
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
             make.bottom.equalTo(self.chatBackGround.snp.top)
@@ -259,26 +269,20 @@ extension MessageRoomViewController {
             make.width.equalTo(24)
             make.height.equalTo(24)
             make.centerY.equalTo(chatTextView.snp.centerY)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
         }
-
-//        let tapSendMessage = UITapGestureRecognizer(target: self, action: #selector(tapSendMessage(_:)))
-//        sendButton.addGestureRecognizer(tapSendMessage)
     }
 
-//    // function
-//    @objc
-//    func tapSendMessage(_: UITapGestureRecognizer) {
-//        messageDataManager.postMessage(viewController: self, roomId: messageId, content: chatTextView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//        chatTextView.text = ""
-//    }
-
     @objc
-    func keyboardWillShow(_ notification: Notification) {
+    func keyboardWillShow(_ notification: Notification) { // keyboardFrameEndUserInfoKey : 키보드가 차지하는 frame의 CGRect값 반환
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y -= (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
+            chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
+            messageContentsTableView.contentInset.bottom = keyboardHeight - AppContext.shared.safeAreaInsets.bottom
+            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
+                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            }
         }
     }
 
@@ -287,76 +291,14 @@ extension MessageRoomViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y += (keyboardHeight + AppContext.shared.safeAreaInsets.bottom)
+            chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
+            messageContentsTableView.contentInset.bottom = 0
+            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
+                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            }
         }
     }
 }
-
-//
-// extension MessageChatViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-//        return messages.count
-//    }
-//
-//    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let formatter = DateUtil.shared.dateFormatter
-//        formatter.dateFormat = DateFormat.apiDate.formatString
-//        let dateUtil = DateUtil.shared
-//
-//        if !messages.isEmpty {
-//            //            let date = formatter.date(from: messages[indexPath.row].createdAt!)
-//            let date = dateUtil.apiDateStringToDate(messages[indexPath.row].createdAt!)
-//
-//            if messages[indexPath.row].messageFrom == "Others" {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
-//
-//                cell.selectionStyle = .none
-//                cell.separatorInset = .zero // 구분선 제거
-//
-//                cell.messageContent.text = messages[indexPath.row].content!
-//                cell.nickName.text = messages[indexPath.row].nickName
-//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-//
-//                if messages[indexPath.row].whetherPostUser == "Y" {
-//                    cell.bubbleBackground.backgroundColor = .primary
-//                    cell.messageContent.textColor = .black
-//                } else {
-//                    cell.bubbleBackground.backgroundColor = .darkG55
-//                    cell.messageContent.textColor = .darkG1
-//                }
-//
-//                return cell
-//            } else {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
-//
-//                cell.selectionStyle = .none
-//                cell.separatorInset = .zero
-//
-//                cell.messageContent.text = messages[indexPath.row].content!
-//                cell.messageDate.text = dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-//
-//                if messages[indexPath.row].whetherPostUser == "Y" {
-//                    cell.bubbleBackground.backgroundColor = .primary
-//                    cell.messageContent.textColor = .black
-//                } else {
-//                    cell.bubbleBackground.backgroundColor = .darkG55
-//                    cell.messageContent.textColor = .darkG1
-//                }
-//                return cell
-//            }
-//        } else {
-//            return UITableViewCell()
-//        }
-//    }
-//
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            <#code#>
-//        }
-//
-//        func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-//            return 76
-//        }
-// }
 
 extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
@@ -377,30 +319,8 @@ extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             sendButton.isEnabled = false
-//            sendButton.setImage(Asset.iconsSend24.uiImage, for: .normal) // 이부분때문에 textview 사라지는 현상 발생
         } else {
             sendButton.isEnabled = true
-//            sendButton.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
         }
-    }
-}
-
-extension MessageRoomViewController {
-    func didSucessGetMessageChat(_: GetMessageRoomInfoResult) {
-//        postSection.badgeLabel.setTitle(result.roomInfo?[0].runningTag, for: .normal)
-//        postSection.postTitle.text = result.roomInfo?[0].title
-//        postId = result.roomInfo?[0].postId! ?? 0
-//
-//        messages.removeAll()
-        ////        messages.append(contentsOf: result.messageList!)
-//        tableView.reloadData()
-    }
-
-    func didSuccessPostMessage(_: BaseResponse) {
-//        messageDataManager.getMessageChat(viewController: self, roomId: messageId)
-    }
-
-    func failedToRequest(message: String) {
-        print(message)
     }
 }

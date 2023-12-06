@@ -8,7 +8,8 @@
 import Foundation
 
 enum BaseAPI {
-    static var url = URL(string: "https://www.runnerbe2.shop")!
+//    static let url = URL(string: "https://www.runnerbe2.shop")!
+    static let url = URL(string: "https://dev.runnerbe2.shop")!
 }
 
 enum APIResult<T> {

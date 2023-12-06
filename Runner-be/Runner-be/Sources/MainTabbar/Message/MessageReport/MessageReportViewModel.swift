@@ -9,25 +9,91 @@ import Foundation
 import RxSwift
 
 final class MessageReportViewModel: BaseViewModel {
-    init(messageId _: Int) {
+    var messages: [MessageContent] = []
+    var roomInfo: RoomInfo?
+    var reportIntString = ""
+
+    var reportMessageList: [Int] = []
+    var reportMessageIndexString = ""
+
+    init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
         super.init()
 
+        messageAPIService.getMessageContents(roomId: roomId)
+            .map { [weak self] result -> GetMessageRoomInfoResult? in
+                switch result {
+                case let .response(result: data):
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                self.messages.removeAll()
+
+                if let result = result {
+                    self.messages = result.messageList ?? []
+
+                    guard let roomInfos = result.roomInfo else {
+                        self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                        return
+                    }
+                    self.roomInfo = roomInfos[0]
+
+                    if !self.messages.isEmpty {
+                        self.outputs.messageContents.onNext(self.messages)
+                    } else {
+                        self.outputs.messageContents.onNext([])
+                    }
+
+                    self.outputs.roomInfo.onNext(self.roomInfo!)
+                }
+
+            })
+            .disposed(by: disposeBag)
+
         inputs.backward
-            .map { [weak self] in true }
+            .map { true }
             .subscribe(routes.backward)
             .disposed(by: disposeBag)
 
         inputs.report
-            .subscribe(routes.report)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.reportIntString = self.reportMessageList.map { String($0) }.joined(separator: ",")
+                self.routes.report.onNext(())
+            })
             .disposed(by: disposeBag)
 
         routeInputs.report
-            .subscribe(onNext: { [weak self] report in
-                if report {
-                    self?.toast.onNext("신고가 접수되었습니다.")
+            .flatMap { _ in messageAPIService.reportMessages(reportMessageIndexString: self.reportIntString) }
+            .map { [weak self] result -> Bool? in
+                switch result {
+                case let .response(result: data):
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
                 }
-            })
-            .disposed(by: disposeBag)
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+
+                if let result = result {
+                    if result {
+                        self.toast.onNext("신고가 접수되었습니다.")
+                    } else {
+                        self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                }
+
+            }).disposed(by: disposeBag)
 
         inputs.detailPost
             .compactMap { $0 }
@@ -43,6 +109,8 @@ final class MessageReportViewModel: BaseViewModel {
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
         var detailPost = PublishSubject<Int>()
+        var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
+        var roomInfo = PublishSubject<RoomInfo>()
     }
 
     struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
@@ -55,7 +123,6 @@ final class MessageReportViewModel: BaseViewModel {
         let report = PublishSubject<Bool>()
         var backward = PublishSubject<(id: Int, needUpdate: Bool)>()
         var needUpdate = PublishSubject<Bool>()
-        var detailClosed = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()

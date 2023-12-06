@@ -98,11 +98,24 @@ final class SettingsViewModel: BaseViewModel {
                 self?.routes.logoutComplete.onNext(())
             })
             .disposed(by: disposeBag)
+
+        inputs.switchChanged
+            .map { $0 ? "Y" : "N" }
+            .flatMap { userAPIService.patchPushAlaram(userId: String(BasicLoginKeyChainService.shared.userId!), pushOn: $0) }
+            .subscribe(onNext: { isOn in
+                if isOn {
+                    self.toast.onNext("푸시 알림 설정이 완료되었습니다.")
+                } else {
+                    self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요.")
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var tapCell = PublishSubject<(section: Int, item: Int)>()
         var backward = PublishSubject<Void>()
+        var switchChanged = PublishSubject<Bool>()
     }
 
     struct Output {
@@ -113,7 +126,6 @@ final class SettingsViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var terms = PublishSubject<Void>()
         var privacy = PublishSubject<Void>()
-        var license = PublishSubject<Void>()
         var makers = PublishSubject<Void>()
         var instagram = PublishSubject<Void>()
         var logout = PublishSubject<Void>()

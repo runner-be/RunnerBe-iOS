@@ -39,7 +39,7 @@ class BookMarkViewController: BaseViewController {
 
     private func viewModelInput() {
         postCollectionView.rx.itemSelected
-            .map { $0.row } // 다른 자료형으로 형변환
+            .map { $0.row }
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBag)
     }
@@ -67,14 +67,16 @@ class BookMarkViewController: BaseViewController {
 
         viewModel.outputs.posts
             .do(onNext: { [weak self] configs in
-                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
+                self?.numPostLabel.text = "총 \(configs.count) 건"
 
                 if configs.isEmpty {
                     self?.noBookMarkLabel.isHidden = false
                     switch self?.runningTagInt {
                     case 0:
-                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.Before.title
+                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.All.title
                     case 1:
+                        self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.Before.title
+                    case 2:
                         self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.After.title
                     default:
                         self?.noBookMarkLabel.text = L10n.BookMark.Main.Empty.Holiday.title
@@ -136,7 +138,6 @@ class BookMarkViewController: BaseViewController {
     var noBookMarkLabel = UILabel().then { label in // 목록이 없을때 띄워줄 label
         label.font = .iosTitle19R
         label.textColor = .darkG4
-//        label.text = L10n.BookMark.Main.Empty.Before.title
         label.isHidden = true
     }
 

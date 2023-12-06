@@ -85,11 +85,20 @@ final class BasicUserAPIService: UserAPIService {
             })
     }
 
-    func setJob(to _: Job) -> Observable<SetJobResult> {
-        return .just(.succeed)
+    func setJob(to job: Job) -> Observable<Bool> {
+        guard let userId = loginKeyChainService.userId,
+              let token = loginKeyChainService.token
+        else {
+            return .just(false)
+        }
+
+        return provider.rx.request(.setJob(toJob: job, userId: userId, token: token))
+            .asObservable()
+            .mapResponse()
+            .map { $0?.basic.code == 1000 }
     }
 
-    func setProfileImage(to data: Data) -> Observable<SetProfileResult> {
+    func setProfileImage(to data: Data?) -> Observable<SetProfileResult> {
         guard let userId = loginKeyChainService.userId,
               let token = loginKeyChainService.token
         else {
@@ -102,16 +111,35 @@ final class BasicUserAPIService: UserAPIService {
 
         let path = "UserProfile/\(userId).png"
 
-        imageUploadService.uploadImage(data: data, path: path)
-            .subscribe(onNext: { url in
-                guard let url = url
-                else {
-                    functionResult.onNext(.error)
-                    return
-                }
-                imageUploaded.onNext(url)
-            })
-            .disposed(by: disposeBag)
+        if let data = data { // 프로필 이미지가 있을경우 (기본이미지x)
+            imageUploadService.uploadImage(data: data, path: path)
+                .subscribe(onNext: { url in
+                    guard let url = url
+                    else {
+                        functionResult.onNext(.error)
+                        return
+                    }
+                    imageUploaded.onNext(url)
+                })
+                .disposed(by: disposeBag)
+        } else {
+            provider.rx.request(.setProfile(profileURL: "", userId: userId, token: token))
+                .asObservable()
+                .mapResponse()
+                .subscribe(onNext: { response in
+                    guard let response = response else {
+                        functionResult.onNext(.error)
+                        return
+                    }
+                    switch response.basic.code {
+                    case 1000: // 성공
+                        functionResult.onNext(.succeed(data: nil))
+                    default:
+                        functionResult.onNext(.error)
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
 
         imageUploaded
             .map { [weak self] url in
@@ -132,17 +160,7 @@ final class BasicUserAPIService: UserAPIService {
                 }
                 switch response.basic.code {
                 case 1000: // 성공
-                    functionResult.onNext(.succeed(data: data))
-                case 2010: // jwt와 userID 불일치
-                    functionResult.onNext(.error)
-                case 2011: // userId 미입력
-                    functionResult.onNext(.error)
-                case 2012: // userId 형식 오류
-                    functionResult.onNext(.error)
-                case 2044: // 인증 대기중 회원
-                    functionResult.onNext(.error)
-                case 4000: // 데이터 베이스 에러
-                    functionResult.onNext(.error)
+                    functionResult.onNext(.succeed(data: data!))
                 default:
                     functionResult.onNext(.error)
                 }
@@ -238,5 +256,12 @@ final class BasicUserAPIService: UserAPIService {
             .asObservable()
             .mapResponse()
             .map { $0?.json["result"].string == "Y" }
+    }
+
+    func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool> {
+        return provider.rx.request(.patchPushAlaram(userID: userId, pushOn: pushOn))
+            .asObservable()
+            .mapResponse()
+            .map { $0?.basic.code == 1000 }
     }
 }

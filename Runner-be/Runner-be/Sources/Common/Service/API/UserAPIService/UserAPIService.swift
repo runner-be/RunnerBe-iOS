@@ -21,15 +21,16 @@ enum SetJobResult {
 }
 
 enum SetProfileResult {
-    case succeed(data: Data)
+    case succeed(data: Data?)
     case error
 }
 
 protocol UserAPIService {
     func setNickName(to name: String) -> Observable<SetNickNameResult>
-    func setJob(to job: Job) -> Observable<SetJobResult>
-    func setProfileImage(to image: Data) -> Observable<SetProfileResult>
+    func setJob(to job: Job) -> Observable<Bool>
+    func setProfileImage(to image: Data?) -> Observable<SetProfileResult>
     func signout() -> Observable<Bool>
     func fetchAlarms() -> Observable<[Alarm]?>
     func checkAlarms() -> Observable<Bool>
+    func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool>
 }

@@ -32,6 +32,7 @@ struct PostResponse: Decodable {
     let userID: Int?
     let bookMark: Int?
     let attendance: Int?
+    let whetherCheck: String?
     let distance: String?
     let profileURLList: [ProfileURL]?
 
@@ -57,6 +58,7 @@ struct PostResponse: Decodable {
         case userID = "userId"
         case bookMark
         case attendance
+        case whetherCheck
         case distance = "DISTANCE"
         case profileURLList = "profileUrlList"
     }
@@ -168,12 +170,14 @@ extension PostResponse {
             gender: genderType,
             locationInfo: locationInfo,
             coord: coords, // nullable
+            whetherCheck: whetherCheck ?? "N",
             attendanceProfiles: profileURLList ?? [],
             postingTime: postingTime
         )
 
         post.marked = marked
         post.attendance = attends
+        post.whetherCheck = whetherCheck ?? "N"
         post.open = open && post.gatherDate > Date()
 
         return post

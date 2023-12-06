@@ -10,11 +10,14 @@ import UIKit
 final class SettingsComponent {
     var scene: (VC: UIViewController, VM: SettingsViewModel) {
         let viewModel = self.viewModel
-        return (SettingsViewController(viewModel: viewModel), viewModel)
+        return (SettingsViewController(viewModel: viewModel, isOn: isOn), viewModel)
     }
 
-    var viewModel: SettingsViewModel {
-        return SettingsViewModel()
+    lazy var viewModel = SettingsViewModel()
+    var isOn: String
+
+    init(isOn: String) {
+        self.isOn = isOn
     }
 
     var makerComponent: MakerComponent {
@@ -24,10 +27,6 @@ final class SettingsComponent {
     var logoutModalComponent: LogoutModalComponent {
         return LogoutModalComponent()
     }
-
-//    var licenseComponent: LicenseComponent {
-//        return LicenseComponent(parent: self)
-//    }
 
     var signoutModalComponent: SignoutModalComponent {
         return SignoutModalComponent()

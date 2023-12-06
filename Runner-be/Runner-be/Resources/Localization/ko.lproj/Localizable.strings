@@ -113,6 +113,7 @@
 "Home.Filter.Age.all" = "모든연령";
 
 // MARK: - Post
+"Post.WorkTime.All" = "전체";
 "Post.WorkTime.BeforeWork" = "출근 전";
 "Post.WorkTime.AfterWork" = "퇴근 후";
 "Post.WorkTime.DayOff" = "휴일";
@@ -175,6 +176,7 @@
 
 // MARK: - BookMark
 "BookMark.Main.NavBar.title" = "찜 목록";
+"BookMark.Main.Empty.all.title" = "찜한 모임이 없어요!";
 "BookMark.Main.Empty.before.title" = "찜한 출근 전 모임이 없어요!";
 "BookMark.Main.Empty.after.title" = "찜한 퇴근 후 모임이 없어요!";
 "BookMark.Main.Empty.holiday.title" = "찜한 휴일 모임이 없어요!";

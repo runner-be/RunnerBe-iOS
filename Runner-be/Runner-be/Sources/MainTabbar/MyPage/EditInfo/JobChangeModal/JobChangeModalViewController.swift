@@ -13,8 +13,6 @@ import Then
 import UIKit
 
 class JobChangeModalViewController: BaseViewController {
-    lazy var editInfoDataManager = EditInfoDataManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

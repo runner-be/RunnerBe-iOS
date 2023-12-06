@@ -454,6 +454,43 @@ final class BasicPostAPIService: PostAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
+    func getRunnerList() -> Observable<APIResult<[MyPosting]?>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(APIResult.error(alertMessage: nil)) }
+
+        return provider.rx.request(.getRunnerList(userId: userId, token: token))
+            .asObservable()
+            .mapResponse()
+            .compactMap { (try? $0?.json["result"]["myPosting"].rawData()) ?? Data() }
+            .decode(type: [MyPosting]?.self, decoder: JSONDecoder())
+            .catch { error in
+                Log.e("\(error)")
+                return .just(nil)
+            } // 에러발생시 nil observable return
+            .map { APIResult.response(result: $0?.sorted(by: { $0.gatheringTime! > $1.gatheringTime! })) }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
+
+    func mangageAttendance(postId: Int, request: PatchAttendanceRequest) -> Observable<APIResult<Bool>> {
+        guard let token = loginKeyChain.token
+        else {
+            return .just(.error(alertMessage: nil))
+        }
+
+        return provider.rx.request(.manageAttendance(postId: postId, request: request, token: token))
+            .asObservable()
+            .mapResponse()
+            .catch { error in
+                Log.e("\(error)")
+                return .just(nil)
+            } // 에러발생시 nil observable return
+            .map { APIResult.response(result: $0?.basic.isSuccess ?? false) }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
+    }
+
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token

@@ -41,7 +41,6 @@ final class BookMarkCoordinator: BasicCoordinator<BookMarkResult> {
             switch coordResult {
             case let .backward(id, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
-                vm.routeInputs.detailClosed.onNext(())
             }
         }
     }

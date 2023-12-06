@@ -20,8 +20,8 @@ final class MyPageComponent {
         return EditInfoComponent(user: user)
     }
 
-    var settingsComponent: SettingsComponent {
-        return SettingsComponent()
+    func settingsComponent(isOn: String) -> SettingsComponent {
+        return SettingsComponent(isOn: isOn)
     }
 
     var writingPostComponent: WritingMainPostComponent {

@@ -32,6 +32,8 @@ protocol PostAPIService {
     func accept(postId: Int, applicantId: Int, accept: Bool) -> Observable<APIResult<(id: Int, accept: Bool, success: Bool)>>
     func close(postId: Int) -> Observable<APIResult<Bool>>
     func myPage() -> Observable<APIResult<MyPageAPIResult>>
+    func getRunnerList() -> Observable<APIResult<[MyPosting]?>>
+    func mangageAttendance(postId: Int, request: PatchAttendanceRequest) -> Observable<APIResult<Bool>>
     func delete(postId: Int) -> Observable<APIResult<Bool>>
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>>
     func report(postId: Int) -> Observable<APIResult<Bool>>

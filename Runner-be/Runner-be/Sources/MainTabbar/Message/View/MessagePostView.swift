@@ -25,7 +25,6 @@ class MessagePostView: UIView {
         view.sizeToFit()
         view.setTitleColor(.primarydark, for: .normal)
         view.titleLabel?.font = .iosBody13R
-//        view.setTitle(L10n.MyPage.MyPost.Manage.SaveButton.title, for: .normal)
         view.layer.borderColor = UIColor.primarydark.cgColor
         view.titleLabel?.textAlignment = .center
         view.layer.borderWidth = 1
