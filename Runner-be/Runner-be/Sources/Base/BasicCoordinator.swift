@@ -1,5 +1,5 @@
 //
-//  0_BasicCoordinator.swift
+//  BasicCoordinator.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/04.

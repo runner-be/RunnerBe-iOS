@@ -1,5 +1,5 @@
 //
-//  MessageViewController.swift
+//  MessageRoomViewController.swift
 //  Runner-be
 //
 //  Created by 이유리 on 2022/04/26.

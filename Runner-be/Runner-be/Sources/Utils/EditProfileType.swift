@@ -1,5 +1,5 @@
 //
-//  ImagePickerType+.swift
+//  EditProfileType.swift
 //  Runner-be
 //
 //  Created by 김신우 on 2022/04/19.

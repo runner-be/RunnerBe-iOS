@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Log {
+enum Log {
     enum Tag {
         case lifeCycle
         case network

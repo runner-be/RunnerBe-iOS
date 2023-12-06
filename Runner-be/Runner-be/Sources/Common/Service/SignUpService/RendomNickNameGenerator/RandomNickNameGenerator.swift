@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RandomNickNameGenerator {
+enum RandomNickNameGenerator {
     static func generate(numOfRandom: Int, prefix: String, suffix: String) -> String {
         let words = "0123456789"
 

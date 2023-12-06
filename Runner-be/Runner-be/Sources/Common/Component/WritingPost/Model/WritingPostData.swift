@@ -1,5 +1,5 @@
 //
-//  WritingPostConfig.swift
+//  WritingPostData.swift
 //  Runner-be
 //
 //  Created by 김신우 on 2022/09/03.

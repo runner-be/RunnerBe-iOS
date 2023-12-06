@@ -1,5 +1,5 @@
 //
-//  PostOrderComponent.swift
+//  PostOrderModalComponent.swift
 //  Runner-be
 //
 //  Created by 김신우 on 2022/07/27.

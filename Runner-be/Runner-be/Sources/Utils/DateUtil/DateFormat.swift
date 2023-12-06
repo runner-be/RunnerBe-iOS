@@ -1,5 +1,5 @@
 //
-//  DateFormatType.swift
+//  DateFormat.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/03/01.

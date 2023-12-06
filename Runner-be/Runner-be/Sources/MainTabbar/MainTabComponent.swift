@@ -1,5 +1,5 @@
 //
-//  2__MainTabComponent.swift
+//  MainTabComponent.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/05.

@@ -1,5 +1,5 @@
 //
-//  DetailOptionModalModalViewController.swift
+//  DetailOptionModalViewController.swift
 //  Runner-be
 //
 //  Created by 김신우 on 2022/08/08.
