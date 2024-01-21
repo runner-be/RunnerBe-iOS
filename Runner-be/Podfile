@@ -8,14 +8,14 @@ target 'Runner-be' do
   # Pods for RunnerBe-iOS
   
   # SwiftGen
-  pod 'SwiftGen', '~> 6.0'
+  pod 'SwiftGen', '~> 6.6.2'
   # SwiftFormat
   pod 'SwiftFormat/CLI'
   # Moya with rx
   pod 'Moya/RxSwift', '~> 15.0'
   # RxSwift & Cocoa
-  pod 'RxSwift', '~> 6.5.0'
-  pod 'RxCocoa', '~> 6.5.0'
+  pod 'RxSwift', '~> 6.6.0'
+  pod 'RxCocoa', '~> 6.6.0'
   # RxDataSource
   pod 'RxDataSources', '~> 5.0'
   # RxGesture
@@ -23,11 +23,11 @@ target 'Runner-be' do
   # RxKeyboard
   pod 'RxKeyboard'
   # SnapKit
-  pod 'SnapKit', '~> 5.0.0'
+  pod 'SnapKit', '~> 5.6.0'
   # Then
   pod 'Then'
   # SwiftyJson
-  pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwiftyJSON', '~> 5.0.1'
   # SwiftKeychainWrapper
   pod 'SwiftKeychainWrapper'
   # Alamofire
@@ -65,7 +65,7 @@ target 'Runner-be' do
   pod 'Toast-Swift', '~> 5.0.1'
 
   # Kingfisher
-  pod 'Kingfisher', '~> 7.0'
+  pod 'Kingfisher', '~> 7.10.1'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

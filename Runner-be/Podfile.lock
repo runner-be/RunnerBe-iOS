@@ -867,18 +867,18 @@ PODS:
     - gRPC-Core/Interface (= 1.49.1)
   - gRPC-Core/Interface (1.49.1)
   - GTMSessionFetcher/Core (3.2.0)
-  - KakaoSDKAuth (2.19.0):
-    - KakaoSDKCommon (= 2.19.0)
-  - KakaoSDKCommon (2.19.0):
-    - KakaoSDKCommon/Common (= 2.19.0)
-    - KakaoSDKCommon/Network (= 2.19.0)
-  - KakaoSDKCommon/Common (2.19.0)
-  - KakaoSDKCommon/Network (2.19.0):
+  - KakaoSDKAuth (2.20.0):
+    - KakaoSDKCommon (= 2.20.0)
+  - KakaoSDKCommon (2.20.0):
+    - KakaoSDKCommon/Common (= 2.20.0)
+    - KakaoSDKCommon/Network (= 2.20.0)
+  - KakaoSDKCommon/Common (2.20.0)
+  - KakaoSDKCommon/Network (2.20.0):
     - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.19.0)
-  - KakaoSDKUser (2.19.0):
-    - KakaoSDKAuth (= 2.19.0)
-  - Kingfisher (7.10.0)
+    - KakaoSDKCommon/Common (= 2.20.0)
+  - KakaoSDKUser (2.20.0):
+    - KakaoSDKAuth (= 2.20.0)
+  - Kingfisher (7.10.1)
   - leveldb-library (1.22.2)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
@@ -901,9 +901,9 @@ PODS:
   - RxAlamofire/Core (6.1.1):
     - Alamofire (~> 5.4)
     - RxSwift (~> 6.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
   - RxDataSources (5.0.0):
     - Differentiator (~> 5.0)
     - RxCocoa (~> 6.0)
@@ -911,34 +911,34 @@ PODS:
   - RxGesture (4.0.4):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxKakaoSDKAuth (2.19.0):
-    - KakaoSDKAuth (= 2.19.0)
-    - RxKakaoSDKCommon (= 2.19.0)
-  - RxKakaoSDKCommon (2.19.0):
-    - RxKakaoSDKCommon/Common (= 2.19.0)
-    - RxKakaoSDKCommon/Network (= 2.19.0)
-  - RxKakaoSDKCommon/Common (2.19.0):
-    - KakaoSDKCommon/Common (= 2.19.0)
+  - RxKakaoSDKAuth (2.20.0):
+    - KakaoSDKAuth (= 2.20.0)
+    - RxKakaoSDKCommon (= 2.20.0)
+  - RxKakaoSDKCommon (2.20.0):
+    - RxKakaoSDKCommon/Common (= 2.20.0)
+    - RxKakaoSDKCommon/Network (= 2.20.0)
+  - RxKakaoSDKCommon/Common (2.20.0):
+    - KakaoSDKCommon/Common (= 2.20.0)
     - RxCocoa
     - RxSwift (~> 6.0)
-  - RxKakaoSDKCommon/Network (2.19.0):
-    - KakaoSDKCommon/Network (= 2.19.0)
+  - RxKakaoSDKCommon/Network (2.20.0):
+    - KakaoSDKCommon/Network (= 2.20.0)
     - RxAlamofire (~> 6.0)
-    - RxKakaoSDKCommon/Common (= 2.19.0)
-  - RxKakaoSDKUser (2.19.0):
-    - KakaoSDKUser (= 2.19.0)
-    - RxKakaoSDKAuth (= 2.19.0)
+    - RxKakaoSDKCommon/Common (= 2.20.0)
+  - RxKakaoSDKUser (2.20.0):
+    - KakaoSDKUser (= 2.20.0)
+    - RxKakaoSDKAuth (= 2.20.0)
   - RxKeyboard (2.0.0):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - SnapKit (5.0.1)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
+  - SnapKit (5.6.0)
   - SwiftFormat/CLI (0.52.11)
   - SwiftGen (6.6.2)
   - SwiftKeychainWrapper (4.0.1)
-  - SwiftyJSON (4.3.0)
+  - SwiftyJSON (5.0.1)
   - Then (3.0.0)
   - Toast-Swift (5.0.1)
 
@@ -953,23 +953,23 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
-  - Kingfisher (~> 7.0)
+  - Kingfisher (~> 7.10.1)
   - Moya/RxSwift (~> 15.0)
   - naveridlogin-sdk-ios
   - PickerView
-  - RxCocoa (~> 6.5.0)
+  - RxCocoa (~> 6.6.0)
   - RxDataSources (~> 5.0)
   - RxGesture
   - RxKakaoSDKAuth
   - RxKakaoSDKCommon
   - RxKakaoSDKUser
   - RxKeyboard
-  - RxSwift (~> 6.5.0)
-  - SnapKit (~> 5.0.0)
+  - RxSwift (~> 6.6.0)
+  - SnapKit (~> 5.6.0)
   - SwiftFormat/CLI
-  - SwiftGen (~> 6.0)
+  - SwiftGen (~> 6.6.2)
   - SwiftKeychainWrapper
-  - SwiftyJSON (~> 4.0)
+  - SwiftyJSON (~> 5.0.1)
   - Then
   - Toast-Swift (~> 5.0.1)
 
@@ -1062,10 +1062,10 @@ SPEC CHECKSUMS:
   "gRPC-C++": 2df8cba576898bdacd29f0266d5236fa0e26ba6a
   gRPC-Core: a21a60aefc08c68c247b439a9ef97174b0c54f96
   GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
-  KakaoSDKAuth: a1b4c416e54fbfdf086db8591405a17f88ffea64
-  KakaoSDKCommon: d642a52ccf618036478643694212c072d5eceea6
-  KakaoSDKUser: f21d7c3baf7cf2d08784cafc97aa9d49f2141624
-  Kingfisher: a18f05d3b6d37d8650ee4a3e61d57a28fc6207f6
+  KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
+  KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
+  KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
+  Kingfisher: bc5abe80a8e0144537ef1dd5a0b2621b04f7f439
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
@@ -1075,23 +1075,23 @@ SPEC CHECKSUMS:
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
-  RxKakaoSDKAuth: 45b863d2d50dfb0f8182cdf872898e8df0c95765
-  RxKakaoSDKCommon: 780ffe181fc153f52e87b3598b3add84f9416709
-  RxKakaoSDKUser: 29e2e302ffe1cd2511fe101d1eb43f2f7a7a71c1
+  RxKakaoSDKAuth: b516c70a37074ad9b0f285e33f309d973f3c522c
+  RxKakaoSDKCommon: 61fb2457dcd90f0d4d984896fc3333518734f262
+  RxKakaoSDKUser: 21ac2e7b775e21310bb636c8d066f91221d3f12f
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftFormat: 2ca3d0b75754193f0f3ba532291f25ae08dd1e42
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
-  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 21a51eb7ec8ad3a236094dfb83d7724074af33d1
+PODFILE CHECKSUM: 224f6842847cd67ceacf8f2d0c0bcd93ef327756
 
 COCOAPODS: 1.14.3
