@@ -54,7 +54,7 @@ class SegmentedControl: UIControl {
     // MARK: Layers
 
     private var itemSize: CGSize = .zero
-    private var textHeight: CGFloat = 15
+    private var textHeight: CGFloat = 14
     private var defaultItemContainer = CAGradientLayer()
 
     private var itemLayers: [[CATextLayer]] = []
@@ -189,7 +189,6 @@ class SegmentedControl: UIControl {
 
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.12)
-//        CATransaction.setDisableActions(true)
         updateContainerPositions()
         CATransaction.commit()
 
@@ -231,7 +230,6 @@ class SegmentedControl: UIControl {
     }
 
     private func itemInRange(at point: CGPoint) -> Int {
-//        return Int((point.x + itemSize.width / 2.0) / itemSize.width)
         return Int((point.x) / itemSize.width)
     }
 }

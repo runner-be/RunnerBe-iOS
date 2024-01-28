@@ -39,7 +39,6 @@ class WritingDateView: SelectBaseView {
     var iconTextButtonGroup = IconTextButtonGroup().then { group in
         group.icon = Asset.scheduled.uiImage
         group.titleLabel.text = L10n.Post.Date.placeHolder
-        group.titleLabel.font = .iosBody15R
         group.titleLabel.textColor = .darkG1
         group.moreInfoButton.isEnabled = false
     }

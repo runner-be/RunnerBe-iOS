@@ -39,20 +39,11 @@ class WritingTimeView: SelectBaseView {
     var iconTextButtonGroup = IconTextButtonGroup().then { group in
         group.icon = Asset.time.uiImage
         group.titleLabel.text = L10n.Post.Time.placeHolder
-        group.titleLabel.font = .iosBody15R
         group.titleLabel.textColor = .darkG1
         group.moreInfoButton.isEnabled = false
     }
 
-//    private var errorLabel = UILabel().then { label in
-//        label.font = .iosBody13R
-//        label.textColor = .errorlight
-//        label.text = L10n.Post.Time.error
-//        label.isHidden = false
-//    }
-
     private lazy var vStackView = UIStackView.make(
-        //        with: [groupBackground, errorLabel],
         with: [groupBackground],
         axis: .vertical,
         alignment: .fill,
