@@ -99,6 +99,13 @@
 "Gender.female" = "여성";
 "Gender.none" = "전체";
 
+// MARK: - Running face
+"RunningFace.beginner" = "🐝 430 이하";
+"RunningFace.average" = "🦋 430 ~ 600";
+"RunningFace.high" = "🐛 600 ~ 700";
+"RunningFace.master" = "🐌 700 ~ 900";
+
+
 // MARK: - Home
 "Home.BottomSheet.title" = "러닝 목록";
 "Home.Map.RefreshButton.title" = "이 지역 재검색";
@@ -108,6 +115,7 @@
 "Home.Filter.NavBar.title" = "필터";
 "Home.Filter.Gender.title" = "모집 성별";
 "Home.Filter.Age.title" = "모집 연령";
+"Home.Filter.RunningFace.title" = "페이스 난이도";
 "Home.Filter.Job.title" = "모집 직군";
 "Home.Filter.Place.title" = "모임장소";
 "Home.Filter.Age.all" = "모든연령";
@@ -138,10 +146,10 @@
 
 // MARK: - Home.PostList
 "Home.PostList.Cell.Cover.Closed" = "모집을 마감했어요";
-"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감 포함";
+"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감";
 "Home.PostList.Filter.Order.Distance" = "거리순";
-"Home.PostList.Filter.Order.NumBookMark" = "찜순";
 "Home.PostList.Filter.Order.Newest" = "최신순";
+"Home.PostList.Filter.title" = "기타";
 "Home.PostList.NavBar.title" = "러너비";
 "Home.PostList.Empty.title" = "아직 진행중인 모임이 없어요";
 

@@ -85,6 +85,10 @@ internal enum L10n {
         /// 모임장소
         internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title", fallback: "모임장소")
       }
+      internal enum RunningFace {
+        /// 페이스 난이도
+        internal static let title = L10n.tr("Localizable", "Home.Filter.RunningFace.title", fallback: "페이스 난이도")
+      }
     }
     internal enum Map {
       internal enum RefreshButton {
@@ -142,17 +146,17 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.PostList.Empty.title", fallback: "아직 진행중인 모임이 없어요")
       }
       internal enum Filter {
+        /// 기타
+        internal static let title = L10n.tr("Localizable", "Home.PostList.Filter.title", fallback: "기타")
         internal enum CheckBox {
-          /// 마감 포함
-          internal static let includeClosedPost = L10n.tr("Localizable", "Home.PostList.Filter.CheckBox.IncludeClosedPost", fallback: "마감 포함")
+          /// 마감
+          internal static let includeClosedPost = L10n.tr("Localizable", "Home.PostList.Filter.CheckBox.IncludeClosedPost", fallback: "마감")
         }
         internal enum Order {
           /// 거리순
           internal static let distance = L10n.tr("Localizable", "Home.PostList.Filter.Order.Distance", fallback: "거리순")
           /// 최신순
           internal static let newest = L10n.tr("Localizable", "Home.PostList.Filter.Order.Newest", fallback: "최신순")
-          /// 찜순
-          internal static let numBookMark = L10n.tr("Localizable", "Home.PostList.Filter.Order.NumBookMark", fallback: "찜순")
         }
       }
       internal enum NavBar {
@@ -804,6 +808,16 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Post.Write.NavBar.title", fallback: "게시글 작성")
       }
     }
+  }
+  internal enum RunningFace {
+    /// 🦋 430 ~ 600
+    internal static let average = L10n.tr("Localizable", "RunningFace.average", fallback: "🦋 430 ~ 600")
+    /// 🐝 430 이하
+    internal static let beginner = L10n.tr("Localizable", "RunningFace.beginner", fallback: "🐝 430 이하")
+    /// 🐛 600 ~ 700
+    internal static let high = L10n.tr("Localizable", "RunningFace.high", fallback: "🐛 600 ~ 700")
+    /// 🐌 700 ~ 900
+    internal static let master = L10n.tr("Localizable", "RunningFace.master", fallback: "🐌 700 ~ 900")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

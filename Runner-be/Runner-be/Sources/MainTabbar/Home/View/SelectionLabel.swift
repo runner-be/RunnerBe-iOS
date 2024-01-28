@@ -11,27 +11,14 @@ import UIKit
 class SelectionLabel: UIView {
     var label = UILabel()
     var icon = UIImageView()
-    var iconSize: CGSize {
+    var iconSize: CGSize = .zero {
         didSet {
             setConstraints()
         }
     }
 
-    var spacing: CGFloat {
-        didSet {
-            setConstraints()
-        }
-    }
-
-    var padding: UIEdgeInsets = .zero {
-        didSet {
-            setConstraints()
-        }
-    }
-
-    init(iconSize: CGSize = .zero, spacing: CGFloat = 0) {
+    init(iconSize: CGSize = .zero) {
         self.iconSize = iconSize
-        self.spacing = spacing
         super.init(frame: .zero)
 
         addSubviews([label, icon])
@@ -45,18 +32,9 @@ class SelectionLabel: UIView {
     }
 
     private func setConstraints() {
-        label.snp.removeConstraints()
         icon.snp.removeConstraints()
 
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(self.snp.leading).offset(padding.left)
-            make.centerY.equalTo(self.snp.centerY)
-        }
-
         icon.snp.makeConstraints { make in
-            make.leading.equalTo(label.snp.trailing).offset(spacing)
-            make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
-            make.centerY.equalTo(self.snp.centerY)
             make.width.equalTo(iconSize.width)
             make.height.equalTo(iconSize.height)
         }

@@ -83,7 +83,7 @@ class HomeViewController: BaseViewController {
             .bind(to: viewModel.inputs.writingPost)
             .disposed(by: disposeBag)
 
-        filterIconView.rx.tapGesture(configuration: nil)
+        filterView.rx.tapGesture(configuration: nil)
             .map { _ in }
             .bind(to: viewModel.inputs.showDetailFilter)
             .disposed(by: disposeBag)
@@ -185,12 +185,6 @@ class HomeViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.highLightFilter
-            .subscribe(onNext: { [unowned self] highlight in
-                self.filterIconView.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
-            })
-            .disposed(by: disposeBag)
-
         viewModel.outputs.postListOrderChanged
             .subscribe(onNext: { [unowned self] listOrder in
                 self.orderTagView.label.text = listOrder.text
@@ -256,17 +250,17 @@ class HomeViewController: BaseViewController {
 
     private func showClosedPost(_ show: Bool) {
         if show {
-            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
-            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.HighLighted.textColor
-            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.HighLighted.backgroundColor
-            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.HighLighted.borderWidth
-            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
+            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.font
+            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.ClosedPostHighlited.textColor
+            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.ClosedPostHighlited.backgroundColor
+            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.ClosedPostHighlited.borderWidth
+            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.ClosedPostHighlited.borderColor
         } else {
-            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
-            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
-            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
-            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
-            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
+            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.font
+            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.textColor
+            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.backgroundColor
+            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderWidth
+            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderColor
         }
     }
 
@@ -341,40 +335,47 @@ class HomeViewController: BaseViewController {
 
             enum SelectionLabel {
                 static let iconSize: CGSize = .init(width: 16, height: 16)
-                static let height: CGFloat = 27
+                static let height: CGFloat = 36
                 static let cornerRadius: CGFloat = height / 2.0
-                static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 6)
+                static let padding: UIEdgeInsets = .init(top: 0, left: 12, bottom: 0, right: 12)
+                static let top: CGFloat = 16
+                static let leading: CGFloat = 8
+                static let trailing: CGFloat = 8
 
-                enum HighLighted {
-                    static let font: UIFont = .iosBody13B
+                // MARK: 여기 디자인 필요
+
+                enum ClosedPostHighlited {
                     static let backgroundColor: UIColor = .primarydark
                     static let textColor: UIColor = .darkBlack
                     static let borderWidth: CGFloat = 0
                     static let borderColor: CGColor = UIColor.primarydark.cgColor
-                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkBlack)
                 }
 
-                enum Normal {
-                    static let font: UIFont = .iosBody13R
+                enum ClosedPostNormal {
+                    static let font: UIFont = .pretendardRegular14
                     static let backgroundColor: UIColor = .clear
                     static let textColor: UIColor = .darkG3
                     static let borderWidth: CGFloat = 1
                     static let borderColor: CGColor = UIColor.darkG3.cgColor
-                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkG3)
+                    static let padding: UIEdgeInsets = .init(top: 7, left: 24, bottom: 7, right: 24)
                 }
 
-                enum RunningTag {
-                    static let leading: CGFloat = 16
-                    static let top: CGFloat = Title.top + Title.height + 23
+                enum RunningAndOrderTag {
+                    static let font: UIFont = .pretendardSemiBold14
+                    static let backgroundColor: UIColor = .darkG55
+                    static let icon: UIImage = Asset.chevronDown.uiImage
+                    static let textColor: UIColor = .darkG2
+                    static let padding: UIEdgeInsets = .init(top: 7, left: 12, bottom: 7, right: 12)
+                    static let spacing: CGFloat = 4
                 }
 
-                enum OrderTag {
-                    static let leading: CGFloat = 12
-                }
-
-                enum ShowClosedPost {
-                    static let leading: CGFloat = 12
-                    static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
+                enum Filter {
+                    static let font: UIFont = .pretendardSemiBold14
+                    static let backgroundColor: UIColor = .darkG55
+                    static let icon: UIImage = Asset.icHomeFilter.uiImage
+                    static let textColor: UIColor = .darkG2
+                    static let padding: UIEdgeInsets = .init(top: 7, left: 12, bottom: 7, right: 12)
+                    static let spacing: CGFloat = 4
                 }
             }
 
@@ -386,7 +387,7 @@ class HomeViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .aggroLight
+        navBar.titleLabel.font = .pretendardSemiBold18
         navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
         navBar.titleLabel.textColor = .primarydark
         navBar.rightBtnItem.setImage(Asset.alarmNew.uiImage, for: .normal)
@@ -461,57 +462,100 @@ class HomeViewController: BaseViewController {
         label.font = Constants.BottomSheet.Title.font
     }
 
-    private var runningTagView = SelectionLabel().then { view in
+    private var filterView = SelectionLabel().then { view in
 
-        view.padding = Constants.BottomSheet.SelectionLabel.padding
         view.iconSize = Constants.BottomSheet.SelectionLabel.iconSize
         view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
 
-        view.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
-        view.label.textColor = Constants.BottomSheet.SelectionLabel.HighLighted.textColor
-        view.backgroundColor = Constants.BottomSheet.SelectionLabel.HighLighted.backgroundColor
-        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.HighLighted.borderWidth
-        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
-        view.icon.image = Constants.BottomSheet.SelectionLabel.HighLighted.icon
+        view.label.font = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.backgroundColor
+        view.icon.image = Constants.BottomSheet.SelectionLabel.Filter.icon
 
-        view.label.text = "전체"
+        view.label.text = L10n.Home.PostList.Filter.title
+
+        view.icon.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(Constants.BottomSheet.SelectionLabel.Filter.padding.left)
+            make.centerY.equalTo(view.snp.centerY)
+            make.width.equalTo(view.iconSize.width)
+            make.height.equalTo(view.iconSize.height)
+        }
+
+        view.label.snp.makeConstraints { make in
+            make.leading.equalTo(view.icon.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.Filter.spacing)
+            make.trailing.equalTo(view.snp.trailing).offset(-Constants.BottomSheet.SelectionLabel.Filter.padding.right)
+            make.centerY.equalTo(view.snp.centerY)
+        }
     }
 
     private var orderTagView = SelectionLabel().then { view in
 
-        view.padding = Constants.BottomSheet.SelectionLabel.padding
         view.iconSize = Constants.BottomSheet.SelectionLabel.iconSize
         view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
 
-        view.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
-        view.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
-        view.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
-        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
-        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
-        view.icon.image = Constants.BottomSheet.SelectionLabel.Normal.icon
+        view.label.font = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.backgroundColor
+        view.icon.image = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.icon
 
         view.label.text = PostListOrder.distance.text
+
+        view.label.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.top)
+            make.bottom.equalTo(view.snp.bottom).offset(-Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.bottom)
+            make.leading.equalTo(view.snp.leading).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.left)
+            make.centerY.equalTo(view.snp.centerY)
+        }
+
+        view.icon.snp.makeConstraints { make in
+            make.leading.equalTo(view.label.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.spacing)
+            make.centerY.equalTo(view.snp.centerY)
+            make.trailing.equalTo(view.snp.trailing).offset(-Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.right)
+        }
+    }
+
+    private var runningTagView = SelectionLabel().then { view in
+
+        view.iconSize = Constants.BottomSheet.SelectionLabel.iconSize
+        view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
+
+        view.label.font = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.backgroundColor
+        view.icon.image = Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.icon
+
+        view.label.text = "전체"
+
+        view.label.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.top)
+            make.bottom.equalTo(view.snp.bottom).offset(-Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.bottom)
+            make.leading.equalTo(view.snp.leading).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.left)
+        }
+
+        view.icon.snp.makeConstraints { make in
+            make.leading.equalTo(view.label.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.spacing)
+            make.centerY.equalTo(view.label.snp.centerY)
+            make.trailing.equalTo(view.snp.trailing).offset(-Constants.BottomSheet.SelectionLabel.RunningAndOrderTag.padding.right)
+        }
     }
 
     private var showClosedPostView = SelectionLabel().then { view in
 
-        view.padding = Constants.BottomSheet.SelectionLabel.ShowClosedPost.padding
         view.layer.cornerRadius = Constants.BottomSheet.SelectionLabel.cornerRadius
 
-        view.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
-        view.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
-        view.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
-        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
-        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
+        view.label.font = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.font
+        view.label.textColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.textColor
+        view.backgroundColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.backgroundColor
+        view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderWidth
+        view.layer.borderColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderColor
 
-        view.label.text = "마감 포함"
-    }
+        view.label.text = "마감"
 
-    private var filterIconView = UIImageView().then { view in
-        view.image = Asset.filter.uiImage
-        view.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+        view.label.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(Constants.BottomSheet.SelectionLabel.ClosedPostNormal.padding.top)
+            make.bottom.equalTo(view.snp.bottom).offset(-Constants.BottomSheet.SelectionLabel.ClosedPostNormal.padding.bottom)
+            make.leading.equalTo(view.snp.leading).offset(Constants.BottomSheet.SelectionLabel.ClosedPostNormal.padding.left)
+            make.trailing.equalTo(view.snp.trailing).offset(-Constants.BottomSheet.SelectionLabel.ClosedPostNormal.padding.right)
         }
     }
 
@@ -537,7 +581,7 @@ class HomeViewController: BaseViewController {
     private var postEmptyGuideLabel = UILabel().then { label in
         label.text = "조건에 맞는 결과가 없어요"
         label.textColor = .darkG4
-        label.font = .iosTitle19R
+        label.font = .pretendardRegular18
     }
 
     private var adviseWritingPostView = UIImageView().then { view in
@@ -588,7 +632,7 @@ extension HomeViewController {
             sheetTitle,
             runningTagView,
             orderTagView,
-            filterIconView,
+            filterView,
             showClosedPostView,
             postCollectionView,
             selectedPostCollectionView,
@@ -646,26 +690,27 @@ extension HomeViewController {
             make.height.equalTo(Constants.BottomSheet.Title.height)
         }
 
-        runningTagView.snp.makeConstraints { make in
-            make.top.equalTo(bottomSheet.snp.top).offset(Constants.BottomSheet.SelectionLabel.RunningTag.top)
-            make.leading.equalTo(bottomSheet.snp.leading).offset(Constants.BottomSheet.SelectionLabel.RunningTag.leading)
+        filterView.snp.makeConstraints { make in
+            make.top.equalTo(sheetTitle.snp.bottom).offset(16)
+            make.leading.equalTo(sheetTitle.snp.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 
         orderTagView.snp.makeConstraints { make in
-            make.top.equalTo(runningTagView.snp.top)
-            make.leading.equalTo(runningTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.OrderTag.leading)
+            make.top.equalTo(sheetTitle.snp.bottom).offset(Constants.BottomSheet.SelectionLabel.top)
+            make.leading.equalTo(filterView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 
-        filterIconView.snp.makeConstraints { make in
-            make.centerY.equalTo(runningTagView.snp.centerY)
-            make.trailing.equalTo(bottomSheet.snp.trailing).offset(-16)
+        runningTagView.snp.makeConstraints { make in
+            make.top.equalTo(orderTagView.snp.top)
+            make.leading.equalTo(orderTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.leading)
+            make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 
         showClosedPostView.snp.makeConstraints { make in
             make.top.equalTo(runningTagView.snp.top)
-            make.leading.equalTo(orderTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.ShowClosedPost.leading)
+            make.leading.equalTo(runningTagView.snp.trailing).offset(Constants.BottomSheet.SelectionLabel.leading)
             make.height.equalTo(Constants.BottomSheet.SelectionLabel.height)
         }
 

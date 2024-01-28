@@ -298,7 +298,6 @@ final class HomeViewModel: BaseViewModel {
                     inputFilter.gender == initialFilter.gender &&
                     inputFilter.jobFilter == initialFilter.jobFilter
 
-                self?.outputs.highLightFilter.onNext(!notChanged)
             })
             .map { [weak self] inputFilter -> PostFilter? in
                 guard var newFilter = self?.filter
@@ -507,7 +506,6 @@ final class HomeViewModel: BaseViewModel {
         var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
         var refresh = PublishSubject<Void>()
         var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
-        var highLightFilter = PublishSubject<Bool>()
         var showClosedPost = PublishSubject<Bool>()
         var showRefreshRegion = PublishSubject<Bool>()
         var changeRegion = ReplaySubject<(location: CLLocationCoordinate2D, distance: CLLocationDistance)>.create(bufferSize: 1)

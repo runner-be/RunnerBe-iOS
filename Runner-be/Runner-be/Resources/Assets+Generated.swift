@@ -90,6 +90,7 @@ internal enum Asset {
   internal static let icBasicRunner = ImageAsset(name: "icBasicRunner")
   internal static let icEffortRunner = ImageAsset(name: "icEffortRunner")
   internal static let icGoodRunner = ImageAsset(name: "icGoodRunner")
+  internal static let icHomeFilter = ImageAsset(name: "ic_home_filter")
   internal static let iconsProfile28 = ImageAsset(name: "iconsProfile28")
   internal static let iconsProfile48 = ImageAsset(name: "iconsProfile48")
   internal static let iconsReport24 = ImageAsset(name: "iconsReport24")
