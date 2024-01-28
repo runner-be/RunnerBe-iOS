@@ -340,6 +340,7 @@
 		DA17F4842B653FD500CD237A /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */; };
 		DA17F4862B653FD500CD237A /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */; };
 		DA17F48A2B665BFE00CD237A /* SelectRunningFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */; };
+		DA17F48C2B6681C700CD237A /* SelectAfterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA17F48B2B6681C700CD237A /* SelectAfterPartyView.swift */; };
 		DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */; };
 		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
@@ -742,6 +743,7 @@
 		DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunningFaceView.swift; sourceTree = "<group>"; };
+		DA17F48B2B6681C700CD237A /* SelectAfterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAfterPartyView.swift; sourceTree = "<group>"; };
 		DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1074,11 +1076,13 @@
 				C343A34427BE3A8E008E6FA4 /* SelectJobView.swift */,
 				C343A34627BE4533008E6FA4 /* SelectPlaceView.swift */,
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
+				DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
 				DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */,
 				DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */,
 				DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */,
+				DA17F48B2B6681C700CD237A /* SelectAfterPartyView.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -2714,6 +2718,7 @@
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
+				DA17F48C2B6681C700CD237A /* SelectAfterPartyView.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */,
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,

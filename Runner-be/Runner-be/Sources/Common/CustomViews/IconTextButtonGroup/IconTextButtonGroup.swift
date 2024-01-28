@@ -38,7 +38,7 @@ final class IconTextButtonGroup: UIStackView {
     }
 
     var titleLabel = UILabel().then { label in
-        label.font = .iosBody15R
+        label.font = .pretendardRegular16
         label.textColor = .darkG1
         label.text = ""
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -47,7 +47,7 @@ final class IconTextButtonGroup: UIStackView {
     }
 
     lazy var moreInfoButton = UIButton().then { button in
-        button.setImage(Asset.chevronRight.uiImage.withTintColor(.darkG35), for: .normal)
+        button.setImage(Asset.chevronRightXs.uiImage.withTintColor(.darkG35), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
 
