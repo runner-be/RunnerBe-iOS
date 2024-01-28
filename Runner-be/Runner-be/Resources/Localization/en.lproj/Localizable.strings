@@ -146,10 +146,10 @@
 
 // MARK: - Home.PostList
 "Home.PostList.Cell.Cover.Closed" = "모집을 마감했어요";
-"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감";
+"Home.PostList.Filter.CheckBox.IncludeClosedPost" = "마감포함";
 "Home.PostList.Filter.Order.Distance" = "거리순";
 "Home.PostList.Filter.Order.Newest" = "최신순";
-"Home.PostList.Filter.title" = "기타";
+"Home.PostList.Filter.title" = "필터";
 "Home.PostList.NavBar.title" = "러너비";
 "Home.PostList.Empty.title" = "아직 진행중인 모임이 없어요";
 

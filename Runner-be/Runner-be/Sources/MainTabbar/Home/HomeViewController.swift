@@ -357,7 +357,7 @@ class HomeViewController: BaseViewController {
                     static let textColor: UIColor = .darkG3
                     static let borderWidth: CGFloat = 1
                     static let borderColor: CGColor = UIColor.darkG3.cgColor
-                    static let padding: UIEdgeInsets = .init(top: 7, left: 24, bottom: 7, right: 24)
+                    static let padding: UIEdgeInsets = .init(top: 7, left: 12, bottom: 7, right: 12)
                 }
 
                 enum RunningAndOrderTag {
@@ -549,7 +549,7 @@ class HomeViewController: BaseViewController {
         view.layer.borderWidth = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderWidth
         view.layer.borderColor = Constants.BottomSheet.SelectionLabel.ClosedPostNormal.borderColor
 
-        view.label.text = "마감"
+        view.label.text = L10n.Home.PostList.Filter.CheckBox.includeClosedPost
 
         view.label.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(Constants.BottomSheet.SelectionLabel.ClosedPostNormal.padding.top)

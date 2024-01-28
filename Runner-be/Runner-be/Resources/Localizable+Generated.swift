@@ -146,11 +146,11 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Home.PostList.Empty.title", fallback: "아직 진행중인 모임이 없어요")
       }
       internal enum Filter {
-        /// 기타
-        internal static let title = L10n.tr("Localizable", "Home.PostList.Filter.title", fallback: "기타")
+        /// 필터
+        internal static let title = L10n.tr("Localizable", "Home.PostList.Filter.title", fallback: "필터")
         internal enum CheckBox {
-          /// 마감
-          internal static let includeClosedPost = L10n.tr("Localizable", "Home.PostList.Filter.CheckBox.IncludeClosedPost", fallback: "마감")
+          /// 마감포함
+          internal static let includeClosedPost = L10n.tr("Localizable", "Home.PostList.Filter.CheckBox.IncludeClosedPost", fallback: "마감포함")
         }
         internal enum Order {
           /// 거리순
