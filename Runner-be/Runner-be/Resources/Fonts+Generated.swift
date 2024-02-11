@@ -56,13 +56,22 @@ internal enum FontFamily {
     internal static let regular = FontConvertible(name: "AppleSDGothicNeoUL00", family: "AppleSDGothicNeoUL00", path: "AppleSDGothicNeoUL.ttf")
     internal static let all: [FontConvertible] = [regular]
   }
+  internal enum Pretendard {
+    internal static let bold = FontConvertible(name: "Pretendard-Bold", family: "Pretendard", path: "Pretendard-Bold.otf")
+    internal static let extraBold = FontConvertible(name: "Pretendard-ExtraBold", family: "Pretendard", path: "Pretendard-ExtraBold.otf")
+    internal static let light = FontConvertible(name: "Pretendard-Light", family: "Pretendard", path: "Pretendard-Light.otf")
+    internal static let medium = FontConvertible(name: "Pretendard-Medium", family: "Pretendard", path: "Pretendard-Medium.otf")
+    internal static let regular = FontConvertible(name: "Pretendard-Regular", family: "Pretendard", path: "Pretendard-Regular.otf")
+    internal static let semiBold = FontConvertible(name: "Pretendard-SemiBold", family: "Pretendard", path: "Pretendard-SemiBold.otf")
+    internal static let all: [FontConvertible] = [bold, extraBold, light, medium, regular, semiBold]
+  }
   internal enum SBAggroOTF {
     internal static let bold = FontConvertible(name: "OTSBAggroB", family: "SB AggroOTF", path: "SBAggroOTFB.otf")
     internal static let light = FontConvertible(name: "OTSBAggroL", family: "SB AggroOTF", path: "SBAggroOTFL.otf")
     internal static let medium = FontConvertible(name: "OTSBAggroM", family: "SB AggroOTF", path: "SBAggroOTFM.otf")
     internal static let all: [FontConvertible] = [bold, light, medium]
   }
-  internal static let allCustomFonts: [FontConvertible] = [AppleSDGothicNeoB00.all, AppleSDGothicNeoEB00.all, AppleSDGothicNeoH00.all, AppleSDGothicNeoL00.all, AppleSDGothicNeoM00.all, AppleSDGothicNeoR00.all, AppleSDGothicNeoSB00.all, AppleSDGothicNeoT00.all, AppleSDGothicNeoUL00.all, SBAggroOTF.all].flatMap { $0 }
+  internal static let allCustomFonts: [FontConvertible] = [AppleSDGothicNeoB00.all, AppleSDGothicNeoEB00.all, AppleSDGothicNeoH00.all, AppleSDGothicNeoL00.all, AppleSDGothicNeoM00.all, AppleSDGothicNeoR00.all, AppleSDGothicNeoSB00.all, AppleSDGothicNeoT00.all, AppleSDGothicNeoUL00.all, Pretendard.all, SBAggroOTF.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

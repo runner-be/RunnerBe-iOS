@@ -60,4 +60,36 @@ extension UIFont {
     class var aggroLight: UIFont {
         return UIFont(font: FontFamily.SBAggroOTF.light, size: 17.0)!
     }
+
+    class var pretendardRegular21: UIFont {
+        return UIFont(font: FontFamily.Pretendard.regular, size: 21.0)!
+    }
+
+    class var pretendardRegular18: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 18.0)!
+    }
+
+    class var pretendardRegular16: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 15.0)!
+    }
+
+    class var pretendardSemiBold18: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 18.0)!
+    }
+
+    class var pretendardSemiBold16: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 16.0)!
+    }
+
+    class var pretendardRegular14: UIFont {
+        return UIFont(font: FontFamily.Pretendard.regular, size: 14.0)!
+    }
+
+    class var pretendardSemiBold14: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 14.0)!
+    }
+
+    class var pretendardRegular12: UIFont {
+        return UIFont(font: FontFamily.Pretendard.regular, size: 12.0)!
+    }
 }
