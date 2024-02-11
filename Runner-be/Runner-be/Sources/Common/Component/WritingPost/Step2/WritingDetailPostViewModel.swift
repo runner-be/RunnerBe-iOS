@@ -18,6 +18,8 @@ final class WritingDetailPostViewModel: BaseViewModel {
         let ageMax: Int
         let numPerson: Int
         let textContent: String
+        let paceGrade: String
+        let afterParty: Int
     }
 
     init(writingPostData: WritingPostData, postAPIService: PostAPIService = BasicPostAPIService()) {
@@ -59,7 +61,9 @@ final class WritingDetailPostViewModel: BaseViewModel {
                     ageMax: data.ageMax,
                     peopleNum: data.numPerson,
                     contents: data.textContent,
-                    runnerGender: gender
+                    runnerGender: gender,
+                    paceGrade: data.paceGrade,
+                    afterParty: data.afterParty
                 )
             }
             .compactMap { $0 }

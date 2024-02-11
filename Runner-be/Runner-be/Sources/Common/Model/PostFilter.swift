@@ -19,6 +19,7 @@ struct PostFilter {
     var runningTag: RunningTag
     var jobFilter: Job
     var keywordSearch: String
+    var afterPartyFilter: String
 }
 
 extension PostFilter: CustomDebugStringConvertible {

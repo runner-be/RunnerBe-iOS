@@ -24,6 +24,7 @@ final class HomeViewModel: BaseViewModel {
     ) {
         let searchLocation = loginKeyChainService.userId == 213 ? CLLocationCoordinate2D(latitude: 37.57191043904224, longitude: 126.96173755287116) : locationService.currentPlace
 
+        // TODO: 필터 뒷풀이 여부 추가 필요
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
             postState: .open,
@@ -32,9 +33,9 @@ final class HomeViewModel: BaseViewModel {
             gender: .none,
             ageMin: 20,
             ageMax: 65,
-            runningTag: .beforeWork,
+            runningTag: .all,
             jobFilter: .none,
-            keywordSearch: ""
+            keywordSearch: "", afterPartyFilter: "Y"
         )
         filter = initialFilter
         super.init()
@@ -122,6 +123,7 @@ final class HomeViewModel: BaseViewModel {
                     }
                     return nil
                 }
+                print(result)
             }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
@@ -291,12 +293,15 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        // TODO: 뒷풀이 필터 수정필요
+
         routeInputs.filterChanged
             .do(onNext: { [weak self] inputFilter in
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
-                    inputFilter.jobFilter == initialFilter.jobFilter
+                    inputFilter.jobFilter == initialFilter.jobFilter &&
+                    inputFilter.afterPartyFilter == initialFilter.afterPartyFilter
 
             })
             .map { [weak self] inputFilter -> PostFilter? in
@@ -306,6 +311,7 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMax = inputFilter.ageMax
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
+                newFilter.afterPartyFilter = inputFilter.afterPartyFilter
                 self?.filter = newFilter
                 return newFilter
             }
@@ -330,18 +336,6 @@ final class HomeViewModel: BaseViewModel {
             }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
-
-//        routeInputs.detailClosed
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self,
-//                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
-//                else { return }
-//                self.posts[index].marked = result.marked
-//                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
-//                self.outputs.posts.onNext(self.posts)
-//                self.outputs.focusSelectedPost.onNext(nil)
-//            })
-//            .disposed(by: disposeBag)
 
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in

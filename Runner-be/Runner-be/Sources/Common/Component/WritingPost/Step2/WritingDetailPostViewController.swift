@@ -53,12 +53,16 @@ class WritingDetailPostViewController: BaseViewController {
                     self.selectAgeView.slider.maxValue : self.selectAgeView.slider.selectedMaxValue
                 let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
                 let content = self.selectTextContentView.textField.text ?? ""
+
+                // TODO: 추후 뒷풀이 유무, 러닝페이스 더미데이터가 아닌 실제 데이터 추가 필요
                 return ViewInputData(
                     gender: genderIdx,
                     ageMin: Int(ageMin),
                     ageMax: Int(ageMax),
                     numPerson: numPerson,
-                    textContent: content
+                    textContent: content,
+                    paceGrade: "beginner",
+                    afterParty: 1
                 )
             }
             .subscribe(viewModel.inputs.posting)

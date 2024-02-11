@@ -40,6 +40,7 @@ final class HomeFilterViewModel: BaseViewModel {
         outputs.job.onNext(inputFilter.jobFilter.index)
         outputs.gender.onNext(inputFilter.gender.index)
 
+        // TODO: 필터 뒷풀이 여부 추가 필요
         inputs.backward
             .map { input in
                 guard let input = input
@@ -54,7 +55,7 @@ final class HomeFilterViewModel: BaseViewModel {
                         ageMin: 20, ageMax: 65,
                         runningTag: .error,
                         jobFilter: .none,
-                        keywordSearch: "N"
+                        keywordSearch: "N", afterPartyFilter: "Y"
                     )
                 }
                 let gender = Gender(idx: input.genderIdx ?? -1)
@@ -69,7 +70,7 @@ final class HomeFilterViewModel: BaseViewModel {
                     ageMax: input.maxAge,
                     runningTag: .error,
                     jobFilter: job,
-                    keywordSearch: "N"
+                    keywordSearch: "N", afterPartyFilter: "Y"
                 )
             }
             .bind(to: routes.backward)

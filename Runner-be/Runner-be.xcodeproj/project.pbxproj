@@ -339,7 +339,6 @@
 		DA17F4832B653FD500CD237A /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47A2B653FD400CD237A /* Pretendard-Regular.otf */; };
 		DA17F4842B653FD500CD237A /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */; };
 		DA17F4862B653FD500CD237A /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */; };
-		DA17F48A2B665BFE00CD237A /* SelectRunningFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */; };
 		DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */; };
 		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
@@ -722,7 +721,6 @@
 		DA17F47A2B653FD400CD237A /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunningFaceView.swift; sourceTree = "<group>"; };
 		DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1039,7 +1037,6 @@
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
-				DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -2680,7 +2677,6 @@
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
-				DA17F48A2B665BFE00CD237A /* SelectRunningFaceView.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,

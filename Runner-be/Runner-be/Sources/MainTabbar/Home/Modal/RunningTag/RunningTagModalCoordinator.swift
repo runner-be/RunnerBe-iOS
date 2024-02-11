@@ -33,14 +33,12 @@ final class RunningTagModalCoordinator: BasicCoordinator<RunningTagModalResult> 
 
         scene.VM
             .routes.backward
-            .debug()
             .map { RunningTagModalResult.cancel }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 
         scene.VM
             .routes.ok
-            .debug()
             .map { RunningTagModalResult.ok(tag: $0) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)

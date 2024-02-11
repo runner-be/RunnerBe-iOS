@@ -20,6 +20,8 @@ struct PostingForm {
     let peopleNum: Int
     let contents: String
     let runnerGender: Gender
+    let paceGrade: String
+    let afterParty: Int // 1: 있음, 2: 없음
 }
 
 extension PostingForm: Encodable {
@@ -37,6 +39,8 @@ extension PostingForm: Encodable {
         try container.encode(peopleNum, forKey: .peopleNum)
         try container.encode(contents, forKey: .contents)
         try container.encode(runnerGender.code, forKey: .runnerGender)
+        try container.encode(paceGrade, forKey: .paceGrade)
+        try container.encode(afterParty, forKey: .afterParty)
     }
 
     enum CodingKeys: CodingKey {
@@ -52,6 +56,8 @@ extension PostingForm: Encodable {
         case peopleNum
         case contents
         case runnerGender
+        case paceGrade
+        case afterParty
     }
 }
 

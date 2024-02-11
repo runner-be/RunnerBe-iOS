@@ -115,6 +115,9 @@ extension PostAPI: TargetType {
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
                 "runningTag": filter.runningTag.code,
+                "afterPartyFilter": filter.afterPartyFilter,
+                "page": 1,
+                "pageSize": 10, // TODO: 페이징 추가 필요
             ]
 
             if let userId = userId {
