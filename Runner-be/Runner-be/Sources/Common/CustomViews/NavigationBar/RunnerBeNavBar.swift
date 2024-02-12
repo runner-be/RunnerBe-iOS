@@ -44,7 +44,8 @@ final class RunnerbeNavBar: UIView {
     var rightSecondBtnItem = UIButton()
     var titleLabel = UILabel().then { label in
         label.text = ""
-        label.font = .iosBody17Sb
+        label.font = .pretendardRegular18
+        label.textColor = .darkG35
     }
 }
 

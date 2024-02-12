@@ -169,8 +169,6 @@ class ManageAttendanceViewController: BaseViewController {
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.backgroundColor = .darkG7
         navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.After.title
-        navBar.titleLabel.textColor = .darkG35
-        navBar.titleLabel.font = .iosBody17Sb
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true

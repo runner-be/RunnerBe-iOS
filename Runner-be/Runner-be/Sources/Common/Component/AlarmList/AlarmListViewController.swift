@@ -77,8 +77,6 @@ class AlarmListViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = "알림"
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
 
         navBar.rightBtnItem.isHidden = true
@@ -87,13 +85,6 @@ class AlarmListViewController: BaseViewController {
     }
 
     private lazy var alarmListTableView: UITableView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//        layout.minimumLineSpacing = 0
-//        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.register(AlarmCell.self, forCellWithReuseIdentifier: AlarmCell.id)
-//        collectionView.backgroundColor = .clear
-//        return collectionView
         var tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(AlarmCell.self, forCellReuseIdentifier: AlarmCell.id)
         tableView.backgroundColor = .clear

@@ -176,8 +176,6 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = ""
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.report.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true

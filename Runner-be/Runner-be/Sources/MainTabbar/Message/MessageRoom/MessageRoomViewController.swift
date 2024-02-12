@@ -159,9 +159,7 @@ class MessageRoomViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.backgroundColor = .darkG7
-        navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.MessageList.NavBar.title
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.isHidden = false
         navBar.rightBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)

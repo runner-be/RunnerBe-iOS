@@ -157,12 +157,9 @@ class WritingDetailPostViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.Post.Detail.NavBar.title
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setTitle(L10n.Post.Detail.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
-//        navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
         navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
         navBar.rightSecondBtnItem.isHidden = true
         navBar.titleSpacing = 12

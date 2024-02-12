@@ -87,8 +87,6 @@ final class MakerViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.MyPage.Maker.NavBar.title
-        navBar.titleLabel.textColor = .darkG35
-        navBar.titleLabel.font = .iosBody17Sb
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
