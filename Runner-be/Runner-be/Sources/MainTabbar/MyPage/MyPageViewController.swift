@@ -14,7 +14,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class MyPageViewController: BaseViewController {
+final class MyPageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -48,7 +48,9 @@ class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.typeChanged)
             .disposed(by: disposeBag)
 
-        myInfoWithChevron.chevronBtn.rx.tap
+        myProfileView.editProfileLabel.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
             .bind(to: viewModel.inputs.editInfo)
             .disposed(by: disposeBag)
 
@@ -56,7 +58,7 @@ class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.settings)
             .disposed(by: disposeBag)
 
-        myInfoWithChevron.infoView.avatarView.rx.tapGesture()
+        myProfileView.avatarView.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.changePhoto)
@@ -191,7 +193,7 @@ class MyPageViewController: BaseViewController {
 
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
-                self?.myInfoWithChevron.infoView.configure(with: config)
+                self?.myProfileView.configure(with: config)
             })
             .disposed(by: disposeBag)
 
@@ -233,7 +235,7 @@ class MyPageViewController: BaseViewController {
                         }
                     })
                 default: // 기본 이미지로 변경
-                    self.myInfoWithChevron.infoView.avatarView.image = Asset.iconsProfile48.uiImage
+                    self.myProfileView.avatarView.image = Asset.iconsProfile48.uiImage
                 }
             })
             .disposed(by: disposeBag)
@@ -241,9 +243,9 @@ class MyPageViewController: BaseViewController {
         viewModel.outputs.profileChanged
             .subscribe(onNext: { [weak self] data in
                 if let data = data {
-                    self?.myInfoWithChevron.infoView.avatarView.image = UIImage(data: data)
+                    self?.myProfileView.avatarView.image = UIImage(data: data)
                 } else {
-                    self?.myInfoWithChevron.infoView.avatarView.image = Asset.profileEmptyIcon.uiImage
+                    self?.myProfileView.avatarView.image = Asset.profileEmptyIcon.uiImage
                 }
             })
             .disposed(by: disposeBag)
@@ -289,7 +291,7 @@ class MyPageViewController: BaseViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    private var myInfoWithChevron = MyInfoViewWithChevron()
+    private var myProfileView = MyProfileView()
 
     private var hDivider = UIView().then { view in
         view.backgroundColor = .black
@@ -390,7 +392,7 @@ class MyPageViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = ""
+        navBar.titleLabel.text = "프로필"
         navBar.rightBtnItem.setImage(Asset.settings.uiImage, for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
     }
@@ -410,7 +412,7 @@ extension MyPageViewController {
         scrollView.addSubview(contentView)
 
         contentView.addSubviews([
-            myInfoWithChevron,
+            myProfileView,
             hDivider,
             writtenTab,
             participantTab,
@@ -454,20 +456,14 @@ extension MyPageViewController {
             make.height.equalTo(scrollView.snp.height).priority(.low)
         }
 
-        myInfoWithChevron.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(20)
+        myProfileView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
 
-        hDivider.snp.makeConstraints { make in
-            make.top.equalTo(myInfoWithChevron.snp.bottom).offset(26)
-            make.leading.equalTo(contentView.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing)
-        }
-
         writtenTab.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom).offset(16)
+            make.top.equalTo(myProfileView.snp.bottom).offset(16)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.centerX)
             make.height.equalTo(28)

@@ -39,7 +39,7 @@ class RunnerBadge: UIView {
     var label = UILabel().then { label in
         label.font = .iosCaption11R
         label.textColor = .darkG25
-        label.text = "성실러너"
+        label.text = "초보 출석"
     }
 
     func setupViews() {

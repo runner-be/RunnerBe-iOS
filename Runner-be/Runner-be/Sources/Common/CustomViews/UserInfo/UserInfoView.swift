@@ -31,13 +31,13 @@ class UserInfoView: UIView {
         badgeLabel.label.text = userInfo.diligence
 
         switch userInfo.diligence {
-        case "성실 러너":
+        case "성실 출석":
             badgeLabel.iconView.image = Asset.smile.uiImage
-        case "노력 러너":
+        case "노력 출석":
             badgeLabel.iconView.image = Asset.icEffortRunner.uiImage
-        case "불량 러너":
+        case "불량 출석":
             badgeLabel.iconView.image = Asset.icBadRunner.uiImage
-        case "초보 러너":
+        case "초보 출석":
             badgeLabel.iconView.image = Asset.icBasicRunner.uiImage
         default:
             break

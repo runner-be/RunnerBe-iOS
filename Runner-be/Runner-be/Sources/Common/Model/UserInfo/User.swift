@@ -14,13 +14,14 @@ struct User: Codable {
     let job: String
     let profileImageURL: String?
     var nameChanged, jobChangePossible: String?
+    var pace: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case nickName, gender, age, diligence, job
         case pushOn
         case profileImageURL = "profileImageUrl"
-        case nameChanged, jobChangePossible
+        case nameChanged, jobChangePossible, pace
     }
 }
 
@@ -30,12 +31,13 @@ struct UserResponse: Decodable {
     let job: String
     let profileImageURL: String?
     var nameChanged, jobChangePossible: String?
+    var pace: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case nickName, gender, age, diligence, job
         case profileImageURL = "profileImageUrl"
-        case nameChanged, jobChangePossible
+        case nameChanged, jobChangePossible, pace
     }
 
     var userInfo: User {
@@ -46,6 +48,7 @@ struct UserResponse: Decodable {
              diligence: diligence,
              pushOn: "Y",
              job: job,
-             profileImageURL: profileImageURL)
+             profileImageURL: profileImageURL,
+             pace: pace)
     }
 }

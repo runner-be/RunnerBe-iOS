@@ -17,6 +17,7 @@ struct UserConfig: Equatable, IdentifiableType {
     let pushOn: String
     let diligence: String
     let profileURL: String?
+    let pace: String?
 
     init(from user: User, owner: Bool) {
         nickName = user.nickName
@@ -27,6 +28,7 @@ struct UserConfig: Equatable, IdentifiableType {
         isPostOwner = owner
         profileURL = user.profileImageURL
         diligence = user.diligence
+        pace = user.pace
     }
 
     init(name: String) {
@@ -36,8 +38,9 @@ struct UserConfig: Equatable, IdentifiableType {
         job = "개발"
         isPostOwner = false
         profileURL = nil
-        diligence = "성실러너"
+        diligence = "초보 출석"
         pushOn = "N"
+        pace = nil
     }
 
     var identity: String { nickName }

@@ -66,6 +66,7 @@ internal enum Asset {
   internal static let placeInactive = ImageAsset(name: "Place_Inactive")
   internal static let placeInactiveSelected = ImageAsset(name: "Place_Inactive_Selected")
   internal static let plus = ImageAsset(name: "Plus")
+  internal static let plusDarkG4 = ImageAsset(name: "PlusDarkG4")
   internal static let postEmptyGuideBackground = ImageAsset(name: "PostEmptyGuideBackground")
   internal static let postOwner = ImageAsset(name: "PostOwner")
   internal static let profileEmptyIcon = ImageAsset(name: "ProfileEmptyIcon")
@@ -97,6 +98,7 @@ internal enum Asset {
   internal static let iconsSend24 = ImageAsset(name: "iconsSend24")
   internal static let iconsSendFilled24 = ImageAsset(name: "iconsSendFilled24")
   internal static let iconsWriter24 = ImageAsset(name: "iconsWriter24")
+  internal static let vDivider = ImageAsset(name: "vDivider")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

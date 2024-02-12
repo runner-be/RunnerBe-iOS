@@ -72,9 +72,9 @@
 		C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */; };
 		C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028127CB174A0011419E /* LogoutModalViewModel.swift */; };
 		C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028327CB17540011419E /* LogoutModalViewController.swift */; };
-		C32C028727CB24720011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyInfoView.swift */; };
+		C32C028727CB24720011419E /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyProfileView.swift */; };
 		C32C028927CB3A370011419E /* RunnerBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028827CB3A370011419E /* RunnerBadge.swift */; };
-		C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */; };
+		C32C028B27CB3A9C0011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoView.swift */; };
 		C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028F27CB46030011419E /* MyPagePostConfig.swift */; };
 		C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029127CB47470011419E /* BasicPostInfoView.swift */; };
 		C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029527CB63270011419E /* MyPagePostDataSource.swift */; };
@@ -339,7 +339,6 @@
 		DA17F4832B653FD500CD237A /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47A2B653FD400CD237A /* Pretendard-Regular.otf */; };
 		DA17F4842B653FD500CD237A /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */; };
 		DA17F4862B653FD500CD237A /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */; };
-		DA17F48A2B665BFE00CD237A /* SelectRunningFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */; };
 		DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */; };
 		DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */; };
 		DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3067602826235600543D74 /* MessageTableViewCell.swift */; };
@@ -348,6 +347,8 @@
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
 		DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
+		DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */; };
+		DA7E23E32B7A2892005D18A6 /* RunningFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
@@ -449,9 +450,9 @@
 		C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalCoordinator.swift; sourceTree = "<group>"; };
 		C32C028127CB174A0011419E /* LogoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewModel.swift; sourceTree = "<group>"; };
 		C32C028327CB17540011419E /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
-		C32C028627CB24720011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
+		C32C028627CB24720011419E /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		C32C028827CB3A370011419E /* RunnerBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBadge.swift; sourceTree = "<group>"; };
-		C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewWithChevron.swift; sourceTree = "<group>"; };
+		C32C028A27CB3A9C0011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
 		C32C028F27CB46030011419E /* MyPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostConfig.swift; sourceTree = "<group>"; };
 		C32C029127CB47470011419E /* BasicPostInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostInfoView.swift; sourceTree = "<group>"; };
 		C32C029527CB63270011419E /* MyPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostDataSource.swift; sourceTree = "<group>"; };
@@ -722,7 +723,6 @@
 		DA17F47A2B653FD400CD237A /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		DA17F47B2B653FD400CD237A /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		DA17F47D2B653FD400CD237A /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunningFaceView.swift; sourceTree = "<group>"; };
 		DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipatePostConfig.swift; sourceTree = "<group>"; };
 		DA284804288C44FC00A8F916 /* ManageAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCell.swift; sourceTree = "<group>"; };
 		DA3067602826235600543D74 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -731,6 +731,8 @@
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
 		DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageRoomResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
+		DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileLabel.swift; sourceTree = "<group>"; };
+		DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningFaceView.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -986,10 +988,11 @@
 		C32C028527CB24640011419E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C32C028627CB24720011419E /* MyInfoView.swift */,
-				C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */,
+				C32C028627CB24720011419E /* MyProfileView.swift */,
+				C32C028A27CB3A9C0011419E /* MyInfoView.swift */,
 				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
 				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
+				DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1039,7 +1042,6 @@
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
-				DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -1625,6 +1627,7 @@
 				C3BA459927B405210048CA76 /* BadgeLabel.swift */,
 				C399FD1427C290E700396DC3 /* IconLabel.swift */,
 				C32C028827CB3A370011419E /* RunnerBadge.swift */,
+				DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -2450,7 +2453,7 @@
 				43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */,
-				C32C028727CB24720011419E /* MyInfoView.swift in Sources */,
+				C32C028727CB24720011419E /* MyProfileView.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
@@ -2618,7 +2621,7 @@
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
 				DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */,
-				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
+				C32C028B27CB3A9C0011419E /* MyInfoView.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
 				DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */,
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
@@ -2680,7 +2683,6 @@
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
-				DA17F48A2B665BFE00CD237A /* SelectRunningFaceView.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
@@ -2709,10 +2711,12 @@
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
+				DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
+				DA7E23E32B7A2892005D18A6 /* RunningFaceView.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,

@@ -9,6 +9,7 @@
 /*
     "Key" = "localizing한 문자열"
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
+ MARK: 세미콜론 붙이지 않으면 빌드 오류가 발생하므로 유의해주세요!
  
  */
 // MARK: - Locale
@@ -301,4 +302,12 @@
 "Modal.TakePhoto.Button.default" = "기본 이미지로 변경하기";
 
 
-//
+// MARK: Running Pace
+"RunningPace.beginner.title" = "🐌 700 ~ 900";
+"RunningPace.beginner.description" = "1km당 7~9분 러닝하는 입문 러너";
+"RunningPace.average.title" = "🐛 600 ~ 700";
+"RunningPace.average.description" = "1km당 6~7분 러닝하는 평균 러너";
+"RunningPace.high.title" = "🦋 430 ~ 600";
+"RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
+"RunningPace.master.title" = "🐝 430 이하";
+"RunningPace.master.description" = "1km당 4.5분 미만으로 러닝하는 초고수 러너";
