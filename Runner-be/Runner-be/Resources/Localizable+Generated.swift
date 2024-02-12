@@ -831,6 +831,13 @@ internal enum L10n {
       /// 🐝 430 이하
       internal static let title = L10n.tr("Localizable", "RunningPace.master.title", fallback: "🐝 430 이하")
     }
+    internal enum Register {
+      /// 페이스는 1km당 달리는데 걸리는 시간에 대한
+      /// 나의 러닝 페이스를 의미해요.
+      internal static let subtitle = L10n.tr("Localizable", "RunningPace.register.subtitle", fallback: "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.")
+      /// 나의 러닝 페이스를 선택해주세요!
+      internal static let title = L10n.tr("Localizable", "RunningPace.register.title", fallback: "나의 러닝 페이스를 선택해주세요!")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

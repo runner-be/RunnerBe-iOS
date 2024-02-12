@@ -350,6 +350,10 @@
 		DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */; };
 		DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */; };
 		DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */; };
+		DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */; };
+		DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */; };
+		DA7E23ED2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */; };
+		DA7E23EF2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
@@ -735,6 +739,10 @@
 		DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileLabel.swift; sourceTree = "<group>"; };
 		DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPaceView.swift; sourceTree = "<group>"; };
 		DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceViewController.swift; sourceTree = "<group>"; };
+		DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceView.swift; sourceTree = "<group>"; };
+		DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceComponent.swift; sourceTree = "<group>"; };
+		DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCoordinator.swift; sourceTree = "<group>"; };
+		DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceViewModel.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -994,7 +1002,6 @@
 				C32C028A27CB3A9C0011419E /* MyInfoView.swift */,
 				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
 				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
-				DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2166,9 +2173,39 @@
 		DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E23F12B7A5861005D18A6 /* RegisteredModal */,
+				DA7E23F02B7A584D005D18A6 /* CancelModal */,
+				DA7E23E72B7A489E005D18A6 /* View */,
 				DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */,
+				DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */,
+				DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */,
+				DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */,
 			);
 			path = RegisterRunningPace;
+			sourceTree = "<group>";
+		};
+		DA7E23E72B7A489E005D18A6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */,
+				DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */,
+			);
+			name = View;
+			path = "퍋ㅈ";
+			sourceTree = "<group>";
+		};
+		DA7E23F02B7A584D005D18A6 /* CancelModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CancelModal;
+			sourceTree = "<group>";
+		};
+		DA7E23F12B7A5861005D18A6 /* RegisteredModal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RegisteredModal;
 			sourceTree = "<group>";
 		};
 		DA7E9712288BCCA90001BBDC /* JobChangeModal */ = {
@@ -2462,6 +2499,7 @@
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
 				43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */,
+				DA7E23ED2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */,
 				C32C028727CB24720011419E /* MyProfileView.swift in Sources */,
@@ -2712,6 +2750,7 @@
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
+				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
 				DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
@@ -2725,6 +2764,7 @@
 				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
 				DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
+				DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
@@ -2740,6 +2780,7 @@
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
 				434635D0289104A0007D8C10 /* PostOrderModalViewController.swift in Sources */,
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
+				DA7E23EF2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,

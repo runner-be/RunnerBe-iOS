@@ -39,4 +39,8 @@ final class MyPageComponent {
     func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
         return ManageAttendanceComponent(myRunningIdx: myRunningIdx)
     }
+
+    var registerRunningPaceComponent: RegisterRunningPaceComponent {
+        return RegisterRunningPaceComponent()
+    }
 }

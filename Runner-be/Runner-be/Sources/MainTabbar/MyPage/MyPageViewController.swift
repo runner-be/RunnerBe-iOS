@@ -81,6 +81,18 @@ final class MyPageViewController: BaseViewController {
         myRunningEmptyButton.rx.tap
             .bind(to: viewModel.inputs.toMain)
             .disposed(by: disposeBag)
+
+        myProfileView.myInfoView.registerPaceView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.registerRunningPace)
+            .disposed(by: disposeBag)
+
+        myProfileView.myInfoView.editPaceLabel.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.registerRunningPace)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {

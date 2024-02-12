@@ -74,6 +74,12 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self?.pushManageAttendanceScene(vm: result.vm, myRunningIdx: result.myRunningIdx, animated: true)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.registerRunningPace
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushRegisterRunningPaceScene(vm: scene.VM)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
@@ -152,6 +158,18 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case .backward:
+                break
+            }
+        }
+    }
+
+    func pushRegisterRunningPaceScene(vm _: MyPageViewModel) {
+        let comp = component.registerRunningPaceComponent
+        let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .close:
                 break
             }
         }

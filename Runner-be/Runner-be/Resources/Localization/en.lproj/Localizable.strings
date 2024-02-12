@@ -311,3 +311,6 @@
 "RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
 "RunningPace.master.title" = "🐝 430 이하";
 "RunningPace.master.description" = "1km당 4.5분 미만으로 러닝하는 초고수 러너";
+
+"RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";
+"RunningPace.register.subtitle" = "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.";
