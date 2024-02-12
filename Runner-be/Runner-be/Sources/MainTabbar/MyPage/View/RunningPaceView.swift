@@ -1,5 +1,5 @@
 //
-//  RunningFaceView.swift
+//  RunningPaceView.swift
 //  Runner-be
 //
 //  Created by 이유리 on 2/12/24.
@@ -9,7 +9,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class RunningFaceView: UIView {
+final class RunningPaceView: UIView {
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -27,7 +27,7 @@ final class RunningFaceView: UIView {
     }
 }
 
-extension RunningFaceView {
+extension RunningPaceView {
     func setupViews() {
         layer.cornerRadius = 4
         layer.masksToBounds = true

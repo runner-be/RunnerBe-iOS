@@ -348,7 +348,8 @@
 		DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
 		DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */; };
-		DA7E23E32B7A2892005D18A6 /* RunningFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */; };
+		DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */; };
+		DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
@@ -732,7 +733,8 @@
 		DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageRoomResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
 		DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileLabel.swift; sourceTree = "<group>"; };
-		DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningFaceView.swift; sourceTree = "<group>"; };
+		DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPaceView.swift; sourceTree = "<group>"; };
+		DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceViewController.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -992,7 +994,7 @@
 				C32C028A27CB3A9C0011419E /* MyInfoView.swift */,
 				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
 				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
-				DA7E23E22B7A2892005D18A6 /* RunningFaceView.swift */,
+				DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2068,6 +2070,7 @@
 		DA60482B281E7AC600A67568 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */,
 				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				DA60482C281E7ACA00A67568 /* PostDetail */,
@@ -2158,6 +2161,14 @@
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */,
+			);
+			path = RegisterRunningPace;
 			sourceTree = "<group>";
 		};
 		DA7E9712288BCCA90001BBDC /* JobChangeModal */ = {
@@ -2465,6 +2476,7 @@
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
 				DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */,
+				DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */,
 				DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C3347BF127C2D283006FB110 /* SummaryMainPostView.swift in Sources */,
@@ -2716,7 +2728,7 @@
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
-				DA7E23E32B7A2892005D18A6 /* RunningFaceView.swift in Sources */,
+				DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,

@@ -25,12 +25,12 @@ final class MyInfoView: UIView {
         view.backgroundColor = .black
     }
 
-    var registerFaceView = MyPageProfileLabel(iconPosition: .right).then { view in
+    var registerPaceView = MyPageProfileLabel(iconPosition: .right).then { view in
         view.icon.image = Asset.plusDarkG4.uiImage
         view.label.text = "👟 페이스 등록"
     }
 
-    var faceView = RunningFaceView()
+    var paceView = RunningPaceView()
 
     private var vDivider = UIImageView().then { view in
         view.image = Asset.vDivider.uiImage
@@ -61,10 +61,10 @@ extension MyInfoView {
         ])
 
         backgroundView.addSubviews([
-            registerFaceView,
+            registerPaceView,
             vDivider,
             levelView,
-            faceView,
+            paceView,
         ])
     }
 
@@ -78,12 +78,12 @@ extension MyInfoView {
             make.centerX.centerY.equalToSuperview()
         }
 
-        registerFaceView.snp.makeConstraints { make in
+        registerPaceView.snp.makeConstraints { make in
             make.trailing.equalTo(vDivider.snp.leading).offset(-24)
             make.centerY.equalToSuperview()
         }
 
-        faceView.snp.makeConstraints { make in
+        paceView.snp.makeConstraints { make in
             make.trailing.equalTo(vDivider.snp.leading).offset(-24)
             make.centerY.equalToSuperview()
         }
@@ -117,24 +117,24 @@ extension MyInfoView {
         }
 
         guard userConfig.pace != nil else {
-            registerFaceView.isHidden = false
-            faceView.isHidden = true
+            registerPaceView.isHidden = false
+            paceView.isHidden = true
             return
         }
 
-        registerFaceView.isHidden = true
-        faceView.isHidden = false
+        registerPaceView.isHidden = true
+        paceView.isHidden = false
         editPaceLabel.isHidden = false
 
         switch userConfig.pace {
         case "beginner":
-            faceView.label.text = L10n.RunningPace.Beginner.title
+            paceView.label.text = L10n.RunningPace.Beginner.title
         case "average":
-            faceView.label.text = L10n.RunningPace.Average.title
+            paceView.label.text = L10n.RunningPace.Average.title
         case "high":
-            faceView.label.text = L10n.RunningPace.High.title
+            paceView.label.text = L10n.RunningPace.High.title
         case "master":
-            faceView.label.text = L10n.RunningPace.Master.title
+            paceView.label.text = L10n.RunningPace.Master.title
         default:
             break
         }
