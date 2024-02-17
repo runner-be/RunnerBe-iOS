@@ -206,6 +206,7 @@ final class MyPageViewController: BaseViewController {
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
                 self?.myProfileView.configure(with: config)
+                self?.myProfileView.myInfoView.isHidden = false
             })
             .disposed(by: disposeBag)
 
@@ -303,7 +304,9 @@ final class MyPageViewController: BaseViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    private var myProfileView = MyProfileView()
+    private var myProfileView = MyProfileView().then { view in
+        view.myInfoView.isHidden = true
+    }
 
     private var hDivider = UIView().then { view in
         view.backgroundColor = .black

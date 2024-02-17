@@ -128,12 +128,16 @@ extension MyInfoView {
 
         switch userConfig.pace {
         case "beginner":
+            paceView.icon.image = .runningPaceBeginner
             paceView.label.text = L10n.RunningPace.Beginner.title
         case "average":
+            paceView.icon.image = .runningPaceAverage
             paceView.label.text = L10n.RunningPace.Average.title
         case "high":
+            paceView.icon.image = .runningPaceHigh
             paceView.label.text = L10n.RunningPace.High.title
         case "master":
+            paceView.icon.image = .runningPaceMaster
             paceView.label.text = L10n.RunningPace.Master.title
         default:
             break

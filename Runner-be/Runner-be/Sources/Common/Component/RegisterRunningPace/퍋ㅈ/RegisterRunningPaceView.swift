@@ -26,6 +26,13 @@ final class RegisterRunningPaceView: UIView {
         view.snp.makeConstraints { make in
             make.width.height.equalTo(24)
         }
+        view.isUserInteractionEnabled = false
+    }
+
+    var icon = UIImageView().then { view in
+        view.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
     }
 
     var titleLabel = UILabel().then { view in
@@ -47,6 +54,7 @@ extension RegisterRunningPaceView {
 
         addSubviews([
             radioButton,
+            icon,
             titleLabel,
             subTitleLabel,
         ])
@@ -62,14 +70,19 @@ extension RegisterRunningPaceView {
             make.leading.equalToSuperview().offset(16)
         }
 
-        titleLabel.snp.makeConstraints { make in
+        icon.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.equalTo(radioButton.snp.trailing).offset(16)
         }
 
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalTo(icon.snp.trailing).offset(4)
+        }
+
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.equalTo(titleLabel.snp.leading)
+            make.leading.equalTo(icon.snp.leading)
         }
     }
 }

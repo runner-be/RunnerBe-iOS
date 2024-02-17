@@ -303,13 +303,13 @@
 
 
 // MARK: Running Pace
-"RunningPace.beginner.title" = "🐌 700 ~ 900";
+"RunningPace.beginner.title" = "700 ~ 900";
 "RunningPace.beginner.description" = "1km당 7~9분 러닝하는 입문 러너";
-"RunningPace.average.title" = "🐛 600 ~ 700";
+"RunningPace.average.title" = "600 ~ 700";
 "RunningPace.average.description" = "1km당 6~7분 러닝하는 평균 러너";
-"RunningPace.high.title" = "🦋 430 ~ 600";
+"RunningPace.high.title" = "430 ~ 600";
 "RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
-"RunningPace.master.title" = "🐝 430 이하";
+"RunningPace.master.title" = "430 이하";
 "RunningPace.master.description" = "1km당 4.5분 미만으로 러닝하는 초고수 러너";
 
 "RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";

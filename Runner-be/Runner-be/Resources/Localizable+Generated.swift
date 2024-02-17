@@ -810,26 +810,26 @@ internal enum L10n {
     internal enum Average {
       /// 1km당 6~7분 러닝하는 평균 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.average.description", fallback: "1km당 6~7분 러닝하는 평균 러너")
-      /// 🐛 600 ~ 700
-      internal static let title = L10n.tr("Localizable", "RunningPace.average.title", fallback: "🐛 600 ~ 700")
+      /// 600 ~ 700
+      internal static let title = L10n.tr("Localizable", "RunningPace.average.title", fallback: "600 ~ 700")
     }
     internal enum Beginner {
       /// 1km당 7~9분 러닝하는 입문 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.beginner.description", fallback: "1km당 7~9분 러닝하는 입문 러너")
-      /// 🐌 700 ~ 900
-      internal static let title = L10n.tr("Localizable", "RunningPace.beginner.title", fallback: "🐌 700 ~ 900")
+      /// 700 ~ 900
+      internal static let title = L10n.tr("Localizable", "RunningPace.beginner.title", fallback: "700 ~ 900")
     }
     internal enum High {
       /// 1km당 4.5~6분 러닝하는 고수 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.high.description", fallback: "1km당 4.5~6분 러닝하는 고수 러너")
-      /// 🦋 430 ~ 600
-      internal static let title = L10n.tr("Localizable", "RunningPace.high.title", fallback: "🦋 430 ~ 600")
+      /// 430 ~ 600
+      internal static let title = L10n.tr("Localizable", "RunningPace.high.title", fallback: "430 ~ 600")
     }
     internal enum Master {
       /// 1km당 4.5분 미만으로 러닝하는 초고수 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.master.description", fallback: "1km당 4.5분 미만으로 러닝하는 초고수 러너")
-      /// 🐝 430 이하
-      internal static let title = L10n.tr("Localizable", "RunningPace.master.title", fallback: "🐝 430 이하")
+      /// 430 이하
+      internal static let title = L10n.tr("Localizable", "RunningPace.master.title", fallback: "430 이하")
     }
     internal enum Register {
       /// 페이스는 1km당 달리는데 걸리는 시간에 대한

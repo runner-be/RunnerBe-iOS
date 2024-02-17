@@ -21,6 +21,12 @@ final class RunningPaceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    var icon = UIImageView().then { view in
+        view.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+    }
+
     var label = UILabel().then { view in
         view.font = .pretendardRegular14
         view.textColor = .darkG1
@@ -34,15 +40,21 @@ extension RunningPaceView {
         backgroundColor = .darkG45
 
         addSubviews([
+            icon,
             label,
         ])
     }
 
     func initialLayout() {
-        label.snp.makeConstraints { make in
+        icon.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(4)
             make.bottom.equalTo(self.snp.bottom).offset(-4)
             make.leading.equalTo(self.snp.leading).offset(8)
+        }
+
+        label.snp.makeConstraints { make in
+            make.leading.equalTo(icon.snp.trailing).offset(2)
+            make.centerY.equalTo(icon.snp.centerY)
             make.trailing.equalTo(self.snp.trailing).offset(-8)
         }
     }
