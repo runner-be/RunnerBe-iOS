@@ -163,7 +163,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         }
     }
 
-    func pushRegisterRunningPaceScene(vm _: MyPageViewModel) {
+    func pushRegisterRunningPaceScene(vm: MyPageViewModel) {
         let comp = component.registerRunningPaceComponent
         let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
 
@@ -171,6 +171,8 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             switch coordResult {
             case .close:
                 break
+            case .registeredAndClose:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }

@@ -264,4 +264,21 @@ final class BasicUserAPIService: UserAPIService {
             .mapResponse()
             .map { $0?.basic.code == 1000 }
     }
+
+    func patchRunningPace(pace: String) -> Observable<Bool> {
+        guard let token = loginKeyChainService.token
+        else {
+            return .just(false)
+        }
+
+        guard let userId = loginKeyChainService.userId
+        else {
+            return .just(false)
+        }
+
+        return provider.rx.request(.patchRunningPace(userID: userId, token: token, pace: pace))
+            .asObservable()
+            .mapResponse()
+            .map { $0?.basic.code == 1000 }
+    }
 }

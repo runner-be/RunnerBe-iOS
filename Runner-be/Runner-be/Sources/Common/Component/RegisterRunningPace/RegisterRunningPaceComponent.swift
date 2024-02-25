@@ -8,12 +8,19 @@
 import UIKit
 
 final class RegisterRunningPaceComponent {
-    var scene: (VC: UIViewController, VM: RegisterRunningPaceViewModel) {
+    var scene: (VC: UINavigationController, VM: RegisterRunningPaceViewModel) {
         let viewModel = self.viewModel
-        return (RegisterRunningPaceViewController(viewModel: viewModel), viewModel)
+        let navigationController = UINavigationController(rootViewController: RegisterRunningPaceViewController(viewModel: viewModel))
+        navigationController.setNavigationBarHidden(true, animated: false)
+
+        return (navigationController, viewModel)
     }
 
     var viewModel: RegisterRunningPaceViewModel {
         return RegisterRunningPaceViewModel()
+    }
+
+    func confirmModal(pace: String) -> ConfirmModalComponent {
+        return ConfirmModalComponent(pace: pace)
     }
 }
