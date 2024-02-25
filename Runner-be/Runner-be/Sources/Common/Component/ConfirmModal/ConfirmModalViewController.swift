@@ -143,6 +143,8 @@ extension ConfirmModalViewController {
                 subImageView.image = .runningPaceHigh
             case .master:
                 subImageView.image = .runningPaceMaster
+            case .none:
+                break
             }
             titleLabel.text = "페이스 \(pace.value)\n등록 완료!"
         }

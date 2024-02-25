@@ -12,6 +12,7 @@ enum RunningPace: String {
     case average
     case high
     case master
+    case none
 }
 
 extension RunningPace {
@@ -25,10 +26,12 @@ extension RunningPace {
             return "430 ~ 600"
         case .master:
             return "430 이하"
+        case .none:
+            return ""
         }
     }
 
-    var image: UIImage {
+    var image: UIImage? {
         switch self {
         case .beginner:
             return .runningPaceBeginner
@@ -38,6 +41,8 @@ extension RunningPace {
             return .runningPaceHigh
         case .master:
             return .runningPaceMaster
+        case .none:
+            return nil
         }
     }
 }

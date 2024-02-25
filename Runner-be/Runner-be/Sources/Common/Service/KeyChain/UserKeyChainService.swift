@@ -14,6 +14,7 @@ protocol UserKeychainService {
     var birthDay: Int { get set }
     var job: Job { get set }
     var gender: Gender { get set }
+    var runningPace: RunningPace { get set }
 
     func clear()
 }

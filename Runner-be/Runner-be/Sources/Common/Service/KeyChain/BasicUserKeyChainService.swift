@@ -123,12 +123,31 @@ final class BasicUserKeyChainService: UserKeychainService {
         }
     }
 
+    var runningPace: RunningPace {
+        get {
+            guard let runningPace: String = keychainWrapper[.User.runningPace]
+            else {
+                Log.d(tag: .info, "get runningPace: none")
+                return RunningPace.none
+            }
+            Log.d(tag: .info, "get runningPace: \(runningPace)")
+            return RunningPace(rawValue: runningPace) ?? RunningPace.none
+        }
+
+        set {
+            Log.d(tag: .info, "set runningPace: \(newValue)")
+            keychainWrapper.remove(forKey: .User.gender)
+            keychainWrapper.set(newValue.rawValue, forKey: KeychainWrapper.Key.User.runningPace.rawValue)
+        }
+    }
+
     func clear() {
         uuid = ""
         nickName = ""
         birthDay = 0
         job = Job.none
         gender = Gender.none
+        runningPace = RunningPace.none
     }
 }
 
@@ -140,5 +159,6 @@ private extension KeychainWrapper.Key {
         static let birthday: KeychainWrapper.Key = "SignupInfo.Birthday"
         static let job: KeychainWrapper.Key = "SignupInfo.Job"
         static let gender: KeychainWrapper.Key = "SignupInfo.Gender"
+        static let runningPace: KeychainWrapper.Key = "SignupInfo.RunningPace"
     }
 }
