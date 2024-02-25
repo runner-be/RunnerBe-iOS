@@ -67,7 +67,7 @@ class BookMarkViewController: BaseViewController {
 
         viewModel.outputs.posts
             .do(onNext: { [weak self] configs in
-                self?.numPostLabel.text = "총 \(configs.count) 건"
+                self?.numPostLabel.text = "총 \(configs.count)건"
 
                 if configs.isEmpty {
                     self?.noBookMarkLabel.isHidden = false
@@ -97,7 +97,6 @@ class BookMarkViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.font = .iosBody17Sb
         navBar.titleLabel.text = L10n.BookMark.Main.NavBar.title
         navBar.titleLabel.textColor = .darkG35
         navBar.rightBtnItem.isHidden = true
@@ -106,15 +105,15 @@ class BookMarkViewController: BaseViewController {
     }
 
     private lazy var segmentedControl = SegmentedControl().then { control in
-        control.defaultTextFont = .iosBody15R
+        control.defaultTextFont = .pretendardSemiBold14
         control.defaultTextColor = .darkG45
-        control.highlightTextFont = .iosBody15B
+        control.highlightTextFont = .pretendardSemiBold14
         control.highlightTextColor = .darkG5
-        control.fontSize = 15
+        control.fontSize = 14
         control.boxColors = [.darkG6]
         control.highlightBoxColors = [.primary, .primary]
         control.highlightBoxPadding = .zero
-        control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
+        control.boxPadding = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)
 
         control.items = RunningTag.allCases.reduce(into: [String]()) {
             if !$1.name.isEmpty {
@@ -126,9 +125,9 @@ class BookMarkViewController: BaseViewController {
     }
 
     var numPostLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .darkG4
-        label.text = "총 0 건"
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
+        label.text = "총 0건"
     }
 
     var noBookMarkLabelContainerView = UIView().then { view in // 라벨을 가운데에 있게할 트릭 uiview
@@ -136,8 +135,8 @@ class BookMarkViewController: BaseViewController {
     }
 
     var noBookMarkLabel = UILabel().then { label in // 목록이 없을때 띄워줄 label
-        label.font = .iosTitle19R
-        label.textColor = .darkG4
+        label.font = .pretendardRegular18
+        label.textColor = .darkG3
         label.isHidden = true
     }
 
@@ -181,7 +180,7 @@ extension BookMarkViewController {
         }
 
         numPostLabel.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(14)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(24)
             make.leading.equalTo(view.snp.leading).offset(16)
         }
 
