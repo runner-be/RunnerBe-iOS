@@ -21,7 +21,7 @@ final class ConfirmModalCoordinator: BasicCoordinator<ConfirmModalResult> {
         super.init(navController: navController)
     }
 
-    override func start(animated: Bool = false) {
+    override func start(animated _: Bool = false) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
         navigationController.present(scene.VC, animated: false)

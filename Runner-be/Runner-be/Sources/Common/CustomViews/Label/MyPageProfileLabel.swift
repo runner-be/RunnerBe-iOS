@@ -44,7 +44,7 @@ class MyPageProfileLabel: UIView {
     private var padding: UIEdgeInsets
 
     private func setup() {
-        icon.contentMode = .scaleAspectFit
+        icon.contentMode = .center
         backgroundColor = .clear
         clipsToBounds = true
         layer.borderWidth = 0.6

@@ -207,6 +207,11 @@ final class MyPageViewController: BaseViewController {
             .subscribe(onNext: { [weak self] config in
                 self?.myProfileView.configure(with: config)
                 self?.myProfileView.myInfoView.isHidden = false
+                if config.pace == nil {
+                    self?.registerPaceWordBubble.isHidden = false
+                } else {
+                    self?.registerPaceWordBubble.isHidden = true
+                }
             })
             .disposed(by: disposeBag)
 
@@ -306,6 +311,27 @@ final class MyPageViewController: BaseViewController {
 
     private var myProfileView = MyProfileView().then { view in
         view.myInfoView.isHidden = true
+    }
+
+    private var registerPaceWordBubble = UIImageView().then { view in
+        view.image = Asset.myPageRegistserRunningPaceWordbubble.uiImage
+        view.snp.makeConstraints { make in
+            make.width.equalTo(124)
+            make.height.equalTo(48)
+        }
+        let label = UILabel()
+        label.text = "페이스를 등록하세요!"
+        label.textColor = .primary
+        label.font = .pretendardRegular12
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(12)
+            make.leading.equalTo(view.snp.leading).offset(12)
+            make.trailing.equalTo(view.snp.trailing).offset(-12)
+            make.bottom.equalTo(view.snp.bottom).offset(-20)
+        }
+
+        view.isHidden = true
     }
 
     private var hDivider = UIView().then { view in
@@ -428,6 +454,7 @@ extension MyPageViewController {
 
         contentView.addSubviews([
             myProfileView,
+            registerPaceWordBubble,
             hDivider,
             writtenTab,
             participantTab,
@@ -436,6 +463,8 @@ extension MyPageViewController {
             myPostCollectionView,
             myRunningCollectionView,
         ])
+
+        contentView.bringSubviewToFront(registerPaceWordBubble)
 
         myPostCollectionView.addSubviews([
             myPostEmptyLabel,
@@ -475,6 +504,11 @@ extension MyPageViewController {
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+        }
+
+        registerPaceWordBubble.snp.makeConstraints { make in
+            make.bottom.equalTo(myProfileView.myInfoView.snp.top).offset(12)
+            make.leading.equalTo(myProfileView.myInfoView.snp.leading).offset(13)
         }
 
         writtenTab.snp.makeConstraints { make in

@@ -110,7 +110,7 @@ final class ConfirmModalViewController: BaseViewController {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 24
 
-        button.titleLabel?.font = .pretendardSemiBold14
+        button.titleLabel?.font = .pretendardSemiBold16
     }
 }
 
@@ -178,7 +178,7 @@ extension ConfirmModalViewController {
             make.leading.equalTo(sheet.snp.leading).offset(16)
             make.trailing.equalTo(sheet.snp.trailing).offset(-16)
             make.bottom.equalTo(sheet.snp.bottom).offset(-16)
-            make.height.equalTo(56)
+            make.height.equalTo(40)
         }
     }
 }
