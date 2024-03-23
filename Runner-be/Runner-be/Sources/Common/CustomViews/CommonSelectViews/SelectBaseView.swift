@@ -15,8 +15,8 @@ class SelectBaseView: UIView {
 
     var titleLabel = UILabel().then { label in
         label.text = ""
-        label.font = .iosBody15R
-        label.textColor = .darkG3
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
     }
 
     var contentView = UIView().then { view in

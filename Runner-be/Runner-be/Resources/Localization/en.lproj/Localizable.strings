@@ -112,6 +112,8 @@
 "Home.Filter.Job.title" = "모집 직군";
 "Home.Filter.Place.title" = "모임장소";
 "Home.Filter.Age.all" = "모든연령";
+"Home.Filter.Afterparty.title" = "뒤풀이";
+"Home.Filter.RunningPace.title" = "페이스 난이도";
 
 // MARK: - Post
 "Post.WorkTime.All" = "전체";
@@ -314,3 +316,4 @@
 
 "RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";
 "RunningPace.register.subtitle" = "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.";
+"RunningPace.info.description" = "1km당 달리는데 걸리는 시간에 대한\n러닝 모임 페이스를 의미합니다.";

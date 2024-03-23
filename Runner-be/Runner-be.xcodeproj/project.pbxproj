@@ -371,6 +371,9 @@
 		DA8477AD28F1F36A006036CF /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8477AC28F1F36A006036CF /* UIScreen+.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
+		DA98F1862BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */; };
+		DA9C69532BAAA47D0063B43A /* SelectRunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */; };
+		DA9C69552BAAA5380063B43A /* SelectAfterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */; };
 		DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* MessageAPIService.swift */; };
 		DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
@@ -766,6 +769,9 @@
 		DA8477AC28F1F36A006036CF /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
+		DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithRadioButton.swift; sourceTree = "<group>"; };
+		DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunningPaceView.swift; sourceTree = "<group>"; };
+		DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAfterPartyView.swift; sourceTree = "<group>"; };
 		DAA1EAE82977BB440070B90F /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
 		DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
@@ -965,7 +971,6 @@
 			isa = PBXGroup;
 			children = (
 				438AB20428C3872600AD1AD3 /* Model */,
-				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3227C0DB8D003EDD0F /* Step1 */,
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
 			);
@@ -1063,6 +1068,8 @@
 				C3347BF427C2DA29006FB110 /* SelectNumParticipantView.swift */,
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
+				DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */,
+				DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -1127,6 +1134,7 @@
 		C3498F3227C0DB8D003EDD0F /* Step1 */ = {
 			isa = PBXGroup;
 			children = (
+				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3727C13C88003EDD0F /* SelectTime */,
 				C3498F3627C13C79003EDD0F /* SelectDate */,
 				C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */,
@@ -1657,6 +1665,7 @@
 			isa = PBXGroup;
 			children = (
 				C3BA459B27B4064E0048CA76 /* OnOffLabel.swift */,
+				DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */,
 				C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */,
 			);
 			path = OnOff;
@@ -2544,6 +2553,7 @@
 				DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C3347BF127C2D283006FB110 /* SummaryMainPostView.swift in Sources */,
+				DA9C69552BAAA5380063B43A /* SelectAfterPartyView.swift in Sources */,
 				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
@@ -2561,6 +2571,7 @@
 				C3C9734F27CA963B00232251 /* EditInfoViewController.swift in Sources */,
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
 				C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */,
+				DA98F1862BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift in Sources */,
 				DA4353472B8B61D5004C047A /* RunningPace.swift in Sources */,
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
@@ -2662,6 +2673,7 @@
 				DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
+				DA9C69532BAAA47D0063B43A /* SelectRunningPaceView.swift in Sources */,
 				C3C9736427CA9A5600232251 /* TextFieldWithButton.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,

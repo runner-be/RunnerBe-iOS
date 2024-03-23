@@ -64,6 +64,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Home.BottomSheet.title", fallback: "러닝 목록")
     }
     internal enum Filter {
+      internal enum Afterparty {
+        /// 뒤풀이
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Afterparty.title", fallback: "뒤풀이")
+      }
       internal enum Age {
         /// 모든연령
         internal static let all = L10n.tr("Localizable", "Home.Filter.Age.all", fallback: "모든연령")
@@ -85,6 +89,10 @@ internal enum L10n {
       internal enum Place {
         /// 모임장소
         internal static let title = L10n.tr("Localizable", "Home.Filter.Place.title", fallback: "모임장소")
+      }
+      internal enum RunningPace {
+        /// 페이스 난이도
+        internal static let title = L10n.tr("Localizable", "Home.Filter.RunningPace.title", fallback: "페이스 난이도")
       }
     }
     internal enum Map {
@@ -824,6 +832,11 @@ internal enum L10n {
       internal static let description = L10n.tr("Localizable", "RunningPace.high.description", fallback: "1km당 4.5~6분 러닝하는 고수 러너")
       /// 430 ~ 600
       internal static let title = L10n.tr("Localizable", "RunningPace.high.title", fallback: "430 ~ 600")
+    }
+    internal enum Info {
+      /// 1km당 달리는데 걸리는 시간에 대한
+      /// 러닝 모임 페이스를 의미합니다.
+      internal static let description = L10n.tr("Localizable", "RunningPace.info.description", fallback: "1km당 달리는데 걸리는 시간에 대한\n러닝 모임 페이스를 의미합니다.")
     }
     internal enum Master {
       /// 1km당 4.5분 미만으로 러닝하는 초고수 러너

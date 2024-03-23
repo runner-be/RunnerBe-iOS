@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class SelectGenderView: SelectBaseView {
+final class SelectGenderView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -26,9 +26,6 @@ class SelectGenderView: SelectBaseView {
     func select(idx: Int) {
         reset()
         switch idx {
-        case 0:
-//            genderLabelGroup.toggle(label: genderNonLabel)
-            break
         case 1:
             genderLabelGroup.toggle(label: genderFemaleLabel)
         case 2:
@@ -67,25 +64,25 @@ class SelectGenderView: SelectBaseView {
     var genderLabelGroup = OnOffLabelGroup().then { group in
 
         group.styleOn = OnOffLabel.Style(
-            font: .iosBody15B,
+            font: .pretendardSemiBold14,
             backgroundColor: .primary,
             textColor: .darkG6,
             borderWidth: 1,
             borderColor: .primary,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
         )
 
         group.styleOff = OnOffLabel.Style(
-            font: .iosBody15R,
+            font: .pretendardRegular14,
             backgroundColor: .clear,
             textColor: .darkG35,
             borderWidth: 1,
             borderColor: .darkG35,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 6, left: 19, bottom: 8, right: 19)
+            padding: UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
         )
 
         group.maxNumberOfOnState = 1

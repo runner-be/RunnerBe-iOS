@@ -1,5 +1,5 @@
 //
-//  WritingDateView.swift
+//  WritingTimeView.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/19.
@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class WritingDateView: SelectBaseView {
+class WritingTimeView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -37,19 +37,27 @@ class WritingDateView: SelectBaseView {
     }
 
     var iconTextButtonGroup = IconTextButtonGroup().then { group in
-        group.icon = Asset.scheduled.uiImage
-        group.titleLabel.text = L10n.Post.Date.placeHolder
-        group.titleLabel.font = .iosBody15R
+        group.icon = Asset.time.uiImage
+        group.titleLabel.text = L10n.Post.Time.placeHolder
+        group.titleLabel.font = .pretendardRegular16
         group.titleLabel.textColor = .darkG1
         group.moreInfoButton.isEnabled = false
     }
 
+    private lazy var vStackView = UIStackView.make(
+        with: [groupBackground],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 8
+    )
+
     override func setupViews() {
         super.setupViews()
-        titleLabel.text = L10n.Post.Date.title
+        titleLabel.text = L10n.Post.Time.title
 
         addSubviews([
-            groupBackground,
+            vStackView,
         ])
 
         groupBackground.addSubviews([
@@ -60,11 +68,11 @@ class WritingDateView: SelectBaseView {
     override func initialLayout() {
         super.initialLayout()
 
-        groupBackground.snp.makeConstraints { make in
+        vStackView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(12)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-3)
         }
 
         iconTextButtonGroup.snp.makeConstraints { make in

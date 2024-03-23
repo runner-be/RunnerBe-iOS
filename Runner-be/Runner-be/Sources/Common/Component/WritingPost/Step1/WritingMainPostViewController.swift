@@ -160,15 +160,15 @@ class WritingMainPostViewController: BaseViewController {
     }
 
     private var segmentedControl = SegmentedControl().then { control in
-        control.defaultTextFont = .iosBody15R
+        control.defaultTextFont = .pretendardSemiBold14
         control.defaultTextColor = .darkG45
-        control.highlightTextFont = .iosBody15B
+        control.highlightTextFont = .pretendardSemiBold14
         control.highlightTextColor = .darkG5
-        control.fontSize = 15
+        control.fontSize = 14
         control.boxColors = [.darkG6]
         control.highlightBoxColors = [.primary, .primary]
         control.highlightBoxPadding = .zero
-        control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
+        control.boxPadding = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)
 
         // 작성화면에서는 전체 필터 제외
         control.items = RunningTag.allCases.filter { $0.code != "W" }.reduce(into: [String]()) {
@@ -236,9 +236,9 @@ extension WritingMainPostViewController {
 
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(12)
-            make.leading.equalTo(view.snp.leading).offset(14)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
 
         segmentedControl.snp.makeConstraints { make in
@@ -248,9 +248,9 @@ extension WritingMainPostViewController {
         }
 
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(18)
-            make.leading.equalTo(scrollView.snp.leading).offset(2)
-            make.trailing.equalTo(scrollView.snp.trailing).offset(-2)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(28)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
 
