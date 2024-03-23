@@ -89,10 +89,8 @@ class MessageViewController: BaseViewController {
         navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
     }
 
     private var tableView = UITableView().then { view in

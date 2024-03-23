@@ -164,7 +164,6 @@ class MessageRoomViewController: BaseViewController {
         navBar.rightBtnItem.isHidden = false
         navBar.rightBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
     }
 
     var postSection = MessagePostView().then { view in

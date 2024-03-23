@@ -217,7 +217,6 @@ class WritingDetailPostViewController: BaseViewController {
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.isEnabled = false
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
     }
 }
 

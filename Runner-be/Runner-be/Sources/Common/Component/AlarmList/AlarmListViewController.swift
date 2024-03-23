@@ -81,7 +81,6 @@ class AlarmListViewController: BaseViewController {
 
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
     }
 
     private lazy var alarmListTableView: UITableView = {

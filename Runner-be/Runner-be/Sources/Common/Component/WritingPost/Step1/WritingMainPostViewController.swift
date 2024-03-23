@@ -153,10 +153,8 @@ class WritingMainPostViewController: BaseViewController {
         navBar.rightBtnItem.setTitle(L10n.NavBar.Right.First.next, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightSecondBtnItem.isHidden = true
         navBar.rightBtnItem.isEnabled = false
-        navBar.titleSpacing = 12
     }
 
     private var segmentedControl = SegmentedControl().then { control in
