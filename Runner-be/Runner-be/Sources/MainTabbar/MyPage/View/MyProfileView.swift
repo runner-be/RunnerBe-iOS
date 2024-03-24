@@ -98,9 +98,9 @@ final class MyProfileView: UIView {
 
     var jobLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(
-            font: .iosCaption11R,
+            font: .pretendardRegular10,
             backgroundColor: .darkG5,
-            textColor: .darkG25,
+            textColor: .darkG3,
             borderWidth: 0,
             borderColor: .clear,
             cornerRadiusRatio: 1,

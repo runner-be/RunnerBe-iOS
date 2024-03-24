@@ -120,9 +120,6 @@ class ManageAttendanceViewController: BaseViewController {
                 let hour = Int(hms![0])
                 let minute = Int(hms![1])
 
-                // 러닝 시간
-                print("runningTime: \(hour):\(minute)")
-
                 // 모임 날짜
                 self.gatherDate = self.gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
 
@@ -248,7 +245,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
         let runnerList = viewModel.runnerList
 
         // user 세팅하기 -> profileImageURL이 null인 경우가 있으니, null일 경우엔 빈값으로 두어서 대응
-        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL ?? "")
+        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL ?? "", pace: runnerList[indexPath.row].pace)
         var isUser = false
 
         if runnerList[indexPath.row].whetherPostUser == "Y" {

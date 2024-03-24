@@ -22,15 +22,15 @@ final class UserInfoHeader: UIStackView {
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosBody17Sb
-        label.textColor = .darkG1
-        label.text = "참여한 러너"
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
+        label.text = "참여 러너"
     }
 
     var numLabel = UILabel().then { label in
-        label.font = .iosBody17R
-        label.textColor = .darkG2
-        label.text = "(1/8)"
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
+        label.text = ""
     }
 
     private func setup() {
