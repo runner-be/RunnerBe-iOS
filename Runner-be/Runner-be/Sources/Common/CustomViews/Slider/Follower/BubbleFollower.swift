@@ -54,8 +54,8 @@ class BubbleFollower: CALayer, SliderHandleFollower {
     var textBoxCornerRadius: CGFloat = 4
 
     var textLayer = CATextLayer()
-    var textSize: CGSize = NSString(string: "00-00").size(withAttributes: [.font: UIFont.iosBody15R])
-    var textFont: UIFont = .iosBody15R
+    var textSize: CGSize = NSString(string: "00-00").size(withAttributes: [.font: UIFont.pretendardRegular16])
+    var textFont: UIFont = .pretendardRegular16
     var textFontSize: CGFloat = 15
     var textEnableColor: CGColor = UIColor.primary.cgColor
     var textDisableColor: CGColor = UIColor.darkG45.cgColor
@@ -80,7 +80,7 @@ class BubbleFollower: CALayer, SliderHandleFollower {
     func update() {
         guard let slider = slider else { return }
 
-        var text = "\(Int(slider.selectedMinValue))-\(Int(slider.selectedMaxValue))"
+        var text = "\(Int(slider.selectedMinValue)) - \(Int(slider.selectedMaxValue))세"
         if moreThanMax, slider.maxValue == slider.selectedMaxValue {
             text += "↑"
             textPadding = UIEdgeInsets(top: 3, left: 4, bottom: 3, right: 3)
