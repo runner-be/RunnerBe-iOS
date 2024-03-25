@@ -126,25 +126,25 @@ final class RegisterRunningPaceViewController: BaseViewController {
     }
 
     private var beginnerView = RegisterRunningPaceView().then { view in
-        view.icon.image = .runningPaceBeginner
+        view.icon.image = Asset.runningPaceBeginner.image
         view.titleLabel.text = L10n.RunningPace.Beginner.title
         view.subTitleLabel.text = L10n.RunningPace.Beginner.description
     }
 
     private var averageView = RegisterRunningPaceView().then { view in
-        view.icon.image = .runningPaceAverage
+        view.icon.image = Asset.runningPaceAverage.image
         view.titleLabel.text = L10n.RunningPace.Average.title
         view.subTitleLabel.text = L10n.RunningPace.Average.description
     }
 
     private var highView = RegisterRunningPaceView().then { view in
-        view.icon.image = .runningPaceHigh
+        view.icon.image = Asset.runningPaceHigh.image
         view.titleLabel.text = L10n.RunningPace.High.title
         view.subTitleLabel.text = L10n.RunningPace.High.description
     }
 
     private var masterView = RegisterRunningPaceView().then { view in
-        view.icon.image = .runningPaceMaster
+        view.icon.image = Asset.runningPaceMaster.image
         view.titleLabel.text = L10n.RunningPace.Master.title
         view.subTitleLabel.text = L10n.RunningPace.Master.description
     }

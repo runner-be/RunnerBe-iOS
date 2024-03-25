@@ -34,13 +34,13 @@ extension RunningPace {
     var image: UIImage? {
         switch self {
         case .beginner:
-            return .runningPaceBeginner
+            return Asset.runningPaceBeginner.image
         case .average:
-            return .runningPaceAverage
+            return Asset.runningPaceAverage.image
         case .high:
-            return .runningPaceHigh
+            return Asset.runningPaceHigh.image
         case .master:
-            return .runningPaceMaster
+            return Asset.runningPaceMaster.image
         case .none:
             return nil
         }

@@ -75,7 +75,7 @@ final class ConfirmModalViewController: BaseViewController {
     }
 
     private var imageView = UIImageView().then { view in
-        view.image = .whiteCircleBackground
+        view.image = Asset.whiteCircleBackground.image
         view.snp.makeConstraints { make in
             make.width.height.equalTo(48)
         }
@@ -136,13 +136,13 @@ extension ConfirmModalViewController {
         if let pace = pace {
             switch pace {
             case .beginner:
-                subImageView.image = .runningPaceBeginner
+                subImageView.image = Asset.runningPaceBeginner.image
             case .average:
-                subImageView.image = .runningPaceAverage
+                subImageView.image = Asset.runningPaceAverage.image
             case .high:
-                subImageView.image = .runningPaceHigh
+                subImageView.image = Asset.runningPaceHigh.image
             case .master:
-                subImageView.image = .runningPaceMaster
+                subImageView.image = Asset.runningPaceMaster.image
             case .none:
                 break
             }
