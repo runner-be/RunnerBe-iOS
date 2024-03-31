@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 final class PostDetailViewModel: BaseViewModel {
-//    private var marked: Bool = false
     private var isWriter: Bool = false
     private var applicants: [User] = []
     private var participants: [User] = []

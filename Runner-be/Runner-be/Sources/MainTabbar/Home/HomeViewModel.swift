@@ -301,7 +301,7 @@ final class HomeViewModel: BaseViewModel {
             .flatMap { _ in postAPIService.myPage() }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
-                
+
                 switch result {
                 case let .response(result: data):
                     switch data {

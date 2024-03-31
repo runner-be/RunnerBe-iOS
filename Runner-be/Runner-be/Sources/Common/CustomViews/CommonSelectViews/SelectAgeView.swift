@@ -71,7 +71,7 @@ final class SelectAgeView: SelectBaseView {
 
         slider.maxValue = 65
         slider.minValue = 20
-        
+
         slider.enable = false
     }
 

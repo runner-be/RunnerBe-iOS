@@ -12,6 +12,7 @@ import UIKit
 enum RunningPaceViewType {
     case userInfo
     case myPage
+    case postDetail
 }
 
 final class RunningPaceView: UIView {
@@ -54,7 +55,7 @@ final class RunningPaceView: UIView {
         }
 
         switch viewType {
-        case .myPage:
+        case .myPage, .postDetail:
             label.font = .pretendardRegular14
 
             icon.snp.makeConstraints { make in

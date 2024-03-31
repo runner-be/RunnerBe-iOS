@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class PostDetailViewController: BaseViewController, SkeletonDisplayable {
+final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -51,10 +51,10 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
         viewModel.outputs.detailData
             .subscribe(onNext: { [weak self] data in
                 self?.navBar.titleLabel.text = data.running.badge
-                self?.titleView.setup(title: data.running.title, tag: data.running.badge, finished: data.finished)
+                self?.titleView.configure(title: data.postDetail.post.title, runningPace: data.postDetail.post.pace, isFinished: data.finished)
                 self?.infoView.setup(
-                    place: data.running.placeInfo,
                     date: data.running.date,
+                    afterParty: data.running.afterParty,
                     time: data.running.time,
                     numLimit: data.running.numParticipant,
                     gender: data.running.gender,
@@ -98,7 +98,6 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
             .disposed(by: disposeBag)
     }
 
-    private var detailMapView = DetailMapView()
     private var titleView = DetailTitleView()
     private var hDivider1 = UIView().then { view in
         view.backgroundColor = .darkG55
@@ -119,8 +118,10 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     }
 
     private var hDivider3 = UIView().then { view in
-        view.backgroundColor = .darkG55
+        view.backgroundColor = .black
     }
+
+    private var detailMapView = DetailMapView()
 
     private lazy var vStackView = UIStackView.make(
         with: [
@@ -129,12 +130,13 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
             infoView,
             hDivider2,
             textView,
+            detailMapView,
             hDivider3,
         ],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
-        spacing: 15
+        spacing: 24
     )
 
     private var participantHeader = UserInfoHeader()
@@ -195,7 +197,6 @@ extension PostDetailViewController {
         ])
 
         scrollView.addSubviews([
-            detailMapView,
             vStackView,
             participantHeader,
             participantView,
@@ -218,18 +219,15 @@ extension PostDetailViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        detailMapView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
-            make.width.equalTo(view.snp.width)
-            make.height.equalTo(202)
-        }
-
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(detailMapView.snp.bottom).offset(24)
+            make.top.equalTo(scrollView.snp.top).offset(24)
             make.leading.equalTo(scrollView.snp.leading).offset(16)
             make.trailing.equalTo(scrollView.snp.trailing).offset(-16)
+        }
+
+        detailMapView.snp.makeConstraints { make in
+            make.width.equalTo(view.snp.width)
+            make.height.equalTo(202)
         }
 
         hDivider1.snp.makeConstraints { make in

@@ -27,6 +27,8 @@ struct DetailPostResponse: Decodable {
     let gender: String?
     let peopleNum: Int?
     let locationInfo: String?
+    let pace: String?
+    let afterParty: Int?
 
     enum CodingKeys: String, CodingKey {
         case whetherEnd
@@ -46,6 +48,8 @@ struct DetailPostResponse: Decodable {
         case age
         case gatherLongitude
         case postingTime
+        case pace
+        case afterParty
     }
 }
 
@@ -113,7 +117,9 @@ extension DetailPostResponse {
               let ageRange = ageRange,
               let coords = coords,
               let maximumNum = peopleNum,
-              let content = contents
+              let content = contents,
+              let pace = pace,
+              let afterParty = afterParty
         else { return nil }
 
         let writerName = ""
@@ -134,7 +140,9 @@ extension DetailPostResponse {
             locationInfo: locationInfo,
             coord: coords,
             attendanceProfiles: [],
-            postingTime: postingTime
+            postingTime: postingTime,
+            afterParty: afterParty,
+            pace: pace
         )
 
         post.open = open && post.gatherDate > Date()
