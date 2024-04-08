@@ -83,8 +83,8 @@ class SelectNumParticipantView: SelectBaseView {
     }
 
     private var plusBtn = UIButton().then { button in
-        button.setImage(Asset.plus.uiImage.withTintColor(.darkG35), for: .normal)
-        button.setImage(Asset.plus.uiImage.withTintColor(.darkG55), for: .disabled)
+        button.setImage(Asset.plusWithCircle.uiImage.withTintColor(.darkG35), for: .normal)
+        button.setImage(Asset.plusWithCircle.uiImage.withTintColor(.darkG55), for: .disabled)
     }
 
     private lazy var hStackView = UIStackView.make(
