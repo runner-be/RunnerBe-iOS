@@ -19,8 +19,8 @@ class MessageTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup() // cell 세팅
-        initialLayout() // cell 레이아웃 설정
+        setup()
+        initialLayout()
     }
 
     var messageProfile = UIImageView().then { view in
@@ -35,13 +35,13 @@ class MessageTableViewCell: UITableViewCell {
     }
 
     var nameLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .darkG3
+        label.font = .pretendardRegular14
+        label.textColor = .darkG35
         label.text = "글쓴이"
     }
 
     var postTitle = UILabel().then { label in
-        label.font = .iosBody17Sb
+        label.font = .pretendardRegular16
         label.textColor = .darkG1
         label.text = "제목"
     }

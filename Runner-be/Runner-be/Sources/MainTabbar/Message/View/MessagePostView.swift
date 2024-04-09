@@ -9,7 +9,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessagePostView: UIView {
+final class MessagePostView: UIView {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -21,21 +21,11 @@ class MessagePostView: UIView {
         initialLayout()
     }
 
-    var badgeLabel = UIButton().then { view in
-        view.sizeToFit()
-        view.setTitleColor(.primarydark, for: .normal)
-        view.titleLabel?.font = .iosBody13R
-        view.layer.borderColor = UIColor.primarydark.cgColor
-        view.titleLabel?.textAlignment = .center
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        view.isEnabled = false
-    }
+    var runningPaceBadge = RunningPaceView()
 
     var postTitle = UILabel().then { view in
         view.textColor = .darkG25
-        view.font = .iosBody17R
+        view.font = .pretendardRegular14
     }
 
     private var rightArrow = UIImageView().then { view in
@@ -45,7 +35,7 @@ class MessagePostView: UIView {
     private func setup() {
         backgroundColor = .darkG6
         addSubviews([
-            badgeLabel,
+            runningPaceBadge,
             postTitle,
             rightArrow,
         ])
@@ -53,25 +43,26 @@ class MessagePostView: UIView {
 
     private func initialLayout() {
         snp.makeConstraints { make in
-            make.height.equalTo(56)
+            make.height.equalTo(44)
         }
 
-        badgeLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(16)
+        runningPaceBadge.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(13)
             make.leading.equalTo(self.snp.leading).offset(16)
-            make.bottom.equalTo(self.snp.bottom).offset(-18)
-            make.height.equalTo(20)
-            make.width.equalTo(50)
+            make.bottom.equalTo(self.snp.bottom).offset(-13)
+            make.width.equalTo(69)
         }
 
         postTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(badgeLabel)
-            make.leading.equalTo(badgeLabel.snp.trailing).offset(12)
+            make.centerY.equalTo(runningPaceBadge.snp.centerY)
+            make.leading.equalTo(runningPaceBadge.snp.trailing).offset(8)
         }
 
         rightArrow.snp.makeConstraints { make in
             make.centerY.equalTo(self.snp.centerY)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.leading.equalTo(postTitle.snp.trailing).offset(2)
+            make.trailing.equalTo(self.snp.trailing).offset(-18)
+            make.width.height.equalTo(22)
         }
     }
 }

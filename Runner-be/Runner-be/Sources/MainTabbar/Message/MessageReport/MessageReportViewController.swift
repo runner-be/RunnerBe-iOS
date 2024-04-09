@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class MessageReportViewController: BaseViewController {
+final class MessageReportViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -36,7 +36,7 @@ class MessageReportViewController: BaseViewController {
 
     private var viewModel: MessageReportViewModel
 
-    private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
+    private func viewInputs() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
@@ -53,10 +53,9 @@ class MessageReportViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-    }
+    private func viewModelInput() {}
 
-    private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+    private func viewModelOutput() {
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
@@ -65,7 +64,7 @@ class MessageReportViewController: BaseViewController {
 
         viewModel.outputs.roomInfo
             .subscribe(onNext: { roomInfo in
-                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
+                self.postSection.runningPaceBadge.configure(pace: "beginner", viewType: .messageRoom) // TODO: API 반영 후 pace 부분 변경 필요
                 self.postSection.postTitle.text = roomInfo.title
             })
             .disposed(by: disposeBag)
@@ -122,18 +121,17 @@ class MessageReportViewController: BaseViewController {
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
+        navBar.backgroundColor = .darkG7
+        navBar.titleLabel.text = L10n.MessageList.NavBar.title
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.setImage(nil, for: .normal) // 버튼 지우기
-        navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
+        navBar.rightBtnItem.isHidden = false
+        navBar.rightBtnItem.setTitle("신고", for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG35, for: .normal)
-        navBar.rightBtnItem.isEnabled = false
-        navBar.titleLabel.text = L10n.MessageList.Chat.NavBar.title
+        navBar.rightBtnItem.titleLabel?.font = .pretendardRegular16
+        navBar.rightSecondBtnItem.isHidden = true
     }
 
-    var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "출근 전"
-        view.postTitle.text = "불금에 달리기하실분!"
-    }
+    var postSection = MessagePostView()
 
     private var messageReportTableView = UITableView().then { view in
         view.register(MessageChatLeftCell.self, forCellReuseIdentifier: MessageChatLeftCell.id) // 케이스에 따른 셀을 모두 등록
@@ -184,7 +182,7 @@ extension MessageReportViewController: MessageChatReportDelegate {
         if cell.checkBox.isSelected { // 선택한 것만 가져오기
             let index = viewModel.messages[messageReportTableView.indexPath(for: cell)!.row].messageId ?? 0
             viewModel.reportMessageList.append(index)
-        } else { // 제외하기
+        } else {
             viewModel.reportMessageList = viewModel.reportMessageList.filter { $0 != self.viewModel.messages[messageReportTableView.indexPath(for: cell)!.row].messageId }
         }
 

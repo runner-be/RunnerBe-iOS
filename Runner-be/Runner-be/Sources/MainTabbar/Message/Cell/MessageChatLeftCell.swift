@@ -25,8 +25,8 @@ class MessageChatLeftCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup() // cell 세팅
-        initialLayout() // cell 레이아웃 설정
+        setup()
+        initialLayout()
 
         checkBox.rx.tap
             .map {
@@ -44,12 +44,12 @@ class MessageChatLeftCell: UITableViewCell {
 
     var nickName = UILabel().then { view in
         view.textColor = .darkG35
-        view.font = .iosBody13R
+        view.font = .pretendardRegular12
         view.numberOfLines = 1
     }
 
     var messageContent = UILabel().then { label in
-        label.font = .iosBody15R
+        label.font = .pretendardRegular14
         label.textColor = .darkG1
         label.text = "메시지 내용"
         label.textColor = .black
@@ -81,7 +81,7 @@ class MessageChatLeftCell: UITableViewCell {
     }
 
     var messageDate = UILabel().then { view in
-        view.textColor = .darkG4
+        view.textColor = .darkG35
         view.font = .iosCaption11R
         view.numberOfLines = 1
     }
@@ -113,8 +113,8 @@ extension MessageChatLeftCell {
         profileImage.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
             make.leading.equalTo(self.contentView.snp.leading)
-            make.width.equalTo(28)
-            make.height.equalTo(28)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
         }
 
         nickName.snp.makeConstraints { make in
@@ -130,7 +130,6 @@ extension MessageChatLeftCell {
 
         messageContent.snp.makeConstraints { make in
             make.width.lessThanOrEqualTo(200)
-            make.height.lessThanOrEqualTo(200)
             make.top.equalTo(bubbleBackground.snp.top).offset(12)
             make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
             make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)

@@ -51,7 +51,6 @@ class SelectJobView: SelectBaseView {
         contentView.addSubviews([
             jobGroupView,
         ])
-
     }
 
     override func initialLayout() {

@@ -5,6 +5,7 @@
 //  Created by 이유리 on 2022/04/26.
 //
 
+import Photos
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -12,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class MessageRoomViewController: BaseViewController {
+final class MessageRoomViewController: BaseViewController {
     let formatter = DateUtil.shared.dateFormatter
     let dateUtil = DateUtil.shared
 
@@ -46,7 +47,7 @@ class MessageRoomViewController: BaseViewController {
 
     private var viewModel: MessageRoomViewModel
 
-    private func viewInputs() { // 얘는 이벤트가 들어오되 뷰모델을 거치지 않아도 되는애들
+    private func viewInputs() {
         viewModel.routeInputs.needUpdate.onNext(true)
 
         navBar.leftBtnItem.rx.tap
@@ -63,17 +64,20 @@ class MessageRoomViewController: BaseViewController {
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
 
+        plusImageButton.rx.tap
+            .bind(to: viewModel.inputs.tapPostImage)
+            .disposed(by: disposeBag)
+
         sendButton.rx.tap
             .map { self.chatTextView.text ?? "" }
-            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+            .filter { $0 != "" }
             .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
     }
 
-    private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
-    }
+    private func viewModelInput() {}
 
-    private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
+    private func viewModelOutput() {
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
@@ -82,7 +86,7 @@ class MessageRoomViewController: BaseViewController {
 
         viewModel.outputs.roomInfo
             .subscribe(onNext: { roomInfo in
-                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
+                self.postSection.runningPaceBadge.configure(pace: "beginner", viewType: .messageRoom) // TODO: API 반영 후 pace 부분 변경 필요
                 self.postSection.postTitle.text = roomInfo.title
             })
             .disposed(by: disposeBag)
@@ -152,7 +156,7 @@ class MessageRoomViewController: BaseViewController {
         viewModel.outputs.messageContents
             .filter { !$0.isEmpty }
             .subscribe(onNext: { messages in
-                self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+                self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -162,14 +166,13 @@ class MessageRoomViewController: BaseViewController {
         navBar.titleLabel.text = L10n.MessageList.NavBar.title
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.isHidden = false
-        navBar.rightBtnItem.setImage(Asset.iconsReport24.uiImage, for: .normal)
+        navBar.rightBtnItem.setTitle("신고", for: .normal)
+        navBar.rightBtnItem.setTitleColor(.darkG35, for: .normal)
+        navBar.rightBtnItem.titleLabel?.font = .pretendardRegular16
         navBar.rightSecondBtnItem.isHidden = true
     }
 
-    var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "태그"
-        view.postTitle.text = "게시글 제목"
-    }
+    var postSection = MessagePostView()
 
     private var messageContentsTableView = UITableView().then { view in
         view.register(MessageChatLeftCell.self, forCellReuseIdentifier: MessageChatLeftCell.id) // 케이스에 따른 셀을 모두 등록
@@ -178,8 +181,24 @@ class MessageRoomViewController: BaseViewController {
         view.separatorColor = .clear
     }
 
+    var imageBackground = UIView()
+
+    private var hDivider = UIView().then { view in
+        view.backgroundColor = .darkG35
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
+    }
+
     var chatBackGround = UIView().then { view in
         view.backgroundColor = .darkG6
+    }
+
+    var plusImageButton = UIButton().then { view in
+        view.setImage(Asset.plus.image, for: .normal)
+        view.snp.makeConstraints { make in
+            make.width.height.equalTo(24)
+        }
     }
 
     var chatTextView = UITextView().then { view in
@@ -192,7 +211,7 @@ class MessageRoomViewController: BaseViewController {
         // textview padding
         view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44)
 
-        view.font = .iosBody15R
+        view.font = .pretendardRegular14
 
         // place holder 설정
         view.text = L10n.MessageList.Chat.placeHolder
@@ -216,10 +235,14 @@ extension MessageRoomViewController {
             navBar,
             postSection,
             messageContentsTableView,
+            imageBackground,
             chatBackGround,
         ])
 
+        imageBackground.addSubview(hDivider)
+
         chatBackGround.addSubviews([
+            plusImageButton,
             chatTextView,
             sendButton,
         ])
@@ -242,10 +265,19 @@ extension MessageRoomViewController {
         }
 
         messageContentsTableView.snp.makeConstraints { make in
-            make.top.equalTo(postSection.snp.bottom).offset(10) // postSection만큼 떨어뜨리기
+            make.top.equalTo(postSection.snp.bottom).offset(10)
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
             make.bottom.equalTo(self.chatBackGround.snp.top)
+        }
+
+        imageBackground.snp.makeConstraints { make in
+            make.bottom.equalTo(chatBackGround.snp.top)
+            make.leading.trailing.equalToSuperview()
+        }
+
+        hDivider.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
         }
 
         chatBackGround.snp.makeConstraints { make in
@@ -255,8 +287,13 @@ extension MessageRoomViewController {
             make.height.equalTo(UIScreen.main.isWiderThan375pt ? 96 : 62)
         }
 
+        plusImageButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(12)
+            make.top.equalToSuperview().offset(19)
+        }
+
         chatTextView.snp.makeConstraints { make in
-            make.leading.equalTo(chatBackGround.snp.leading).offset(16)
+            make.leading.equalTo(plusImageButton.snp.trailing).offset(8)
             make.trailing.equalTo(chatBackGround.snp.trailing).offset(-52)
             make.top.equalTo(chatBackGround.snp.top).offset(12)
             make.height.equalTo(38)
@@ -316,8 +353,10 @@ extension MessageRoomViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             sendButton.isEnabled = false
+            sendButton.setImage(.iconsSend24, for: .normal)
         } else {
             sendButton.isEnabled = true
+            sendButton.setImage(.iconsSendFilled24, for: .normal)
         }
     }
 }

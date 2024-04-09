@@ -135,7 +135,6 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     private func presentPhotoModal(vm: MyPageViewModel, animated: Bool) {
         let comp = component.takePhotoModalComponent
         let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
-        let uuid = coord.identifier
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {

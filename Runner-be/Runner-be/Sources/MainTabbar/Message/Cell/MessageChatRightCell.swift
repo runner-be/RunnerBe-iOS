@@ -19,12 +19,12 @@ class MessageChatRightCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup() // cell 세팅
-        initialLayout() // cell 레이아웃 설정
+        setup()
+        initialLayout()
     }
 
     var messageContent = UILabel().then { label in
-        label.font = .iosBody15R
+        label.font = .pretendardRegular14
         label.textColor = .darkG1
         label.text = "메시지 내용"
         label.textColor = .black
@@ -71,8 +71,7 @@ extension MessageChatRightCell {
         }
 
         messageContent.snp.makeConstraints { make in
-            make.width.lessThanOrEqualTo(200)
-            make.height.lessThanOrEqualTo(200)
+            make.width.lessThanOrEqualTo(244)
             make.top.equalTo(bubbleBackground.snp.top).offset(12)
             make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
             make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)

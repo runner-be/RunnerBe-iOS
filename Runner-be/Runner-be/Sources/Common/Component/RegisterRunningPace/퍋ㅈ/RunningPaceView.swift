@@ -13,6 +13,7 @@ enum RunningPaceViewType {
     case userInfo
     case myPage
     case postDetail
+    case messageRoom
 }
 
 final class RunningPaceView: UIView {
@@ -69,13 +70,14 @@ final class RunningPaceView: UIView {
                 make.centerY.equalTo(icon.snp.centerY)
                 make.trailing.equalTo(self.snp.trailing).offset(-8)
             }
-        case .userInfo:
+        case .messageRoom, .userInfo:
             label.font = .pretendardRegular10
 
             icon.snp.makeConstraints { make in
                 make.top.equalTo(self.snp.top).offset(2)
                 make.bottom.equalTo(self.snp.bottom).offset(-2)
                 make.leading.equalTo(self.snp.leading).offset(2)
+                make.width.height.equalTo(14)
             }
 
             label.snp.makeConstraints { make in
