@@ -73,6 +73,12 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 }
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.registerRunningPace
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushRegisterRunningPaceScene()
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
@@ -135,8 +141,13 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
         let comp = component.messageRoomComponent(roomID: roomID)
         let coord = MessageRoomCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord, animated: animated) { _ in
-            //
-        }
+        coordinate(coordinator: coord, animated: animated)
+    }
+
+    func pushRegisterRunningPaceScene() {
+        let comp = component.registerRunningPaceComponent
+        let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord)
     }
 }

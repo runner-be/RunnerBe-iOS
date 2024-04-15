@@ -25,6 +25,7 @@ final class RegisterRunningPaceViewModel: BaseViewModel {
             .flatMap { userAPIService.patchRunningPace(pace: $0) }
             .subscribe(onNext: { isPatchRunningPaceCompleted in
                 if isPatchRunningPaceCompleted {
+                    BasicUserKeyChainService.shared.runningPace = RunningPace(rawValue: self.runningPace)!
                     self.inputs.showCompleteModal.onNext(self.runningPace)
                 } else {
                     self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")

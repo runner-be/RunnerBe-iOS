@@ -136,7 +136,7 @@ final class BasicUserKeyChainService: UserKeychainService {
 
         set {
             Log.d(tag: .info, "set runningPace: \(newValue)")
-            keychainWrapper.remove(forKey: .User.gender)
+            keychainWrapper.remove(forKey: .User.runningPace)
             keychainWrapper.set(newValue.rawValue, forKey: KeychainWrapper.Key.User.runningPace.rawValue)
         }
     }

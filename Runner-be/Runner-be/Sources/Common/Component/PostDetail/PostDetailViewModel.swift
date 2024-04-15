@@ -115,6 +115,14 @@ final class PostDetailViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.apply
+            .filter {
+                if userKeyChainService.runningPace == .none {
+                    self.routes.registerRunningPace.onNext(())
+                    return false
+                } else {
+                    return true
+                }
+            }
             .flatMap {
                 postAPIService.apply(postId: postId)
             }
@@ -261,6 +269,7 @@ final class PostDetailViewModel: BaseViewModel {
         var report = PublishSubject<Void>()
         var applicantsModal = PublishSubject<[User]>()
         var message = PublishSubject<Int>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct RouteInput {

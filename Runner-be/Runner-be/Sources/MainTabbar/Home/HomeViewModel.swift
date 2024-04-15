@@ -350,7 +350,6 @@ final class HomeViewModel: BaseViewModel {
                 case let .response(data):
                     if data == nil {
                         self?.toast.onNext("필터 적용에 실패했습니다.")
-                        // TODO: 필터 아이콘 다시 이전 상태로 돌리기
                     }
                     return data
                 case let .error(alertMessage):
