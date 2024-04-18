@@ -1,5 +1,5 @@
 //
-//  ConfirmModalViewModel.swift
+//  RegisterRunningPaceConfirmModalViewModel.swift
 //  Runner-be
 //
 //  Created by 이유리 on 2/16/24.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class ConfirmModalViewModel: BaseViewModel {
+final class RegisterRunningPaceConfirmModalViewModel: BaseViewModel {
     override init() {
         super.init()
 

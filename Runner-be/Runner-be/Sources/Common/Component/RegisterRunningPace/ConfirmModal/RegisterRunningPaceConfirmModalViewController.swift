@@ -1,5 +1,5 @@
 //
-//  ConfirmModalViewController.swift
+//  RegisterRunningPaceConfirmModalViewController.swift
 //  Runner-be
 //
 //  Created by 이유리 on 2/16/24.
@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class ConfirmModalViewController: BaseViewController {
+final class RegisterRunningPaceConfirmModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,7 +22,7 @@ final class ConfirmModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: ConfirmModalViewModel, pace: String) {
+    init(viewModel: RegisterRunningPaceConfirmModalViewModel, pace: String) {
         self.viewModel = viewModel
         self.pace = RunningPace(rawValue: pace)
         super.init()
@@ -33,7 +33,7 @@ final class ConfirmModalViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: ConfirmModalViewModel
+    private var viewModel: RegisterRunningPaceConfirmModalViewModel
     private var pace: RunningPace?
 
     private func viewModelInput() {
@@ -116,7 +116,7 @@ final class ConfirmModalViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension ConfirmModalViewController {
+extension RegisterRunningPaceConfirmModalViewController {
     private func setupViews() {
         view.backgroundColor = .bgSheet
 

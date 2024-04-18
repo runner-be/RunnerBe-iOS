@@ -1,5 +1,5 @@
 //
-//  ConfirmModalCoordinator.swift
+//  RegisterRunningPaceConfirmModalCoordinator.swift
 //  Runner-be
 //
 //  Created by 이유리 on 2/16/24.
@@ -8,15 +8,15 @@
 import Foundation
 import RxSwift
 
-enum ConfirmModalResult {
+enum RegisterRunningPaceConfirmModalResult {
     case ok
     case close
 }
 
-final class ConfirmModalCoordinator: BasicCoordinator<ConfirmModalResult> {
-    var component: ConfirmModalComponent
+final class RegisterRunningPaceConfirmModalCoordinator: BasicCoordinator<RegisterRunningPaceConfirmModalResult> {
+    var component: RegisterRunningPaceConfirmModalComponent
 
-    init(component: ConfirmModalComponent, navController: UINavigationController) {
+    init(component: RegisterRunningPaceConfirmModalComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
@@ -34,7 +34,7 @@ final class ConfirmModalCoordinator: BasicCoordinator<ConfirmModalResult> {
 
         scene.VM
             .routes.ok
-            .map { ConfirmModalResult.ok }
+            .map { RegisterRunningPaceConfirmModalResult.ok }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
     }
