@@ -850,6 +850,12 @@ internal enum L10n {
       internal static let subtitle = L10n.tr("Localizable", "RunningPace.register.subtitle", fallback: "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.")
       /// 나의 러닝 페이스를 선택해주세요!
       internal static let title = L10n.tr("Localizable", "RunningPace.register.title", fallback: "나의 러닝 페이스를 선택해주세요!")
+      internal enum Cancel {
+        internal enum Modal {
+          /// 페이스 등록을 중단하시겠어요?
+          internal static let title = L10n.tr("Localizable", "RunningPace.register.cancel.modal.title", fallback: "페이스 등록을 중단하시겠어요?")
+        }
+      }
     }
   }
 }

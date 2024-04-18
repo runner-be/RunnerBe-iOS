@@ -317,3 +317,4 @@
 "RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";
 "RunningPace.register.subtitle" = "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.";
 "RunningPace.info.description" = "1km당 달리는데 걸리는 시간에 대한\n러닝 모임 페이스를 의미합니다.";
+"RunningPace.register.cancel.modal.title" = "페이스 등록을 중단하시겠어요?";

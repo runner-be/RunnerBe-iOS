@@ -20,7 +20,11 @@ final class RegisterRunningPaceComponent {
         return RegisterRunningPaceViewModel()
     }
 
-    func confirmModal(pace: String) -> ConfirmModalComponent {
-        return ConfirmModalComponent(pace: pace)
+    func confirmModal(pace: String) -> RegisterRunningPaceConfirmModalComponent {
+        return RegisterRunningPaceConfirmModalComponent(pace: pace)
+    }
+
+    var cancelModal: RegisterRunningPaceCancelModalComponent {
+        return RegisterRunningPaceCancelModalComponent()
     }
 }

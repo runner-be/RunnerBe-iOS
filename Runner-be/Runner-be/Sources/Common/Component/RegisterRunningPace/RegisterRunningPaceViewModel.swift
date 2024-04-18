@@ -15,7 +15,7 @@ final class RegisterRunningPaceViewModel: BaseViewModel {
         super.init()
 
         inputs.close
-            .bind(to: routes.close)
+            .bind(to: routes.showCancelModal)
             .disposed(by: disposeBag)
 
         inputs.registerRunningPace
@@ -43,18 +43,17 @@ final class RegisterRunningPaceViewModel: BaseViewModel {
         var close = PublishSubject<Void>()
         var registerRunningPace = PublishSubject<String>()
         var showCompleteModal = PublishSubject<String>()
+        var showCancelModal = PublishSubject<Void>()
     }
-
-    struct Output {}
 
     struct Route {
         var registeredAndClose = PublishSubject<Void>()
-        var close = PublishSubject<Void>()
+        var showCancelModal = PublishSubject<Void>()
         var showCompleteModal = PublishSubject<String>()
+        var close = PublishSubject<Void>()
     }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
-    var outputs = Output()
     var routes = Route()
 }
