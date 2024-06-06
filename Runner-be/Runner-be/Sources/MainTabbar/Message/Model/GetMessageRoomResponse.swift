@@ -38,5 +38,5 @@ struct MessageContent: Decodable {
 
 struct RoomInfo: Decodable {
     let postId: Int?
-    let runningTag, title: String?
+    let runningTag, title, pace: String?
 }

@@ -66,7 +66,7 @@ extension MessageChatRightCell {
     private func initialLayout() {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
-            make.trailing.equalTo(self.contentView.snp.trailing)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-16)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
 

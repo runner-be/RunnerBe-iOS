@@ -112,7 +112,7 @@ extension MessageChatLeftCell {
     private func initialLayout() {
         profileImage.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
-            make.leading.equalTo(self.contentView.snp.leading)
+            make.leading.equalTo(self.contentView.snp.leading).offset(16)
             make.width.equalTo(36)
             make.height.equalTo(36)
         }

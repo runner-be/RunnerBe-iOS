@@ -65,6 +65,14 @@ final class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         plusImageButton.rx.tap
+            .filter {
+                if self.imageListView.hStackView.arrangedSubviews.count < 3 {
+                    return true
+                } else {
+                    AppContext.shared.makeToast("사진은 한 번에 최대 3장까지만 보낼 수 있어요!")
+                    return false
+                }
+            }
             .bind(to: viewModel.inputs.tapPostImage)
             .disposed(by: disposeBag)
 
@@ -159,6 +167,43 @@ final class MessageRoomViewController: BaseViewController {
                 self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true)
             })
             .disposed(by: disposeBag)
+
+        viewModel.outputs.showPicker
+            .map { $0.sourceType }
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.delegate = self
+
+                switch sourceType {
+                case "library": // 갤러리
+                    picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                    PHPhotoLibrary.requestAuthorization { [weak self] status in
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .authorized:
+                                self?.present(picker, animated: true)
+                            default:
+                                AppContext.shared.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                            }
+                        }
+                    }
+                case "camera": // 카메라
+                    picker.sourceType = UIImagePickerController.SourceType.camera
+                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { ok in
+                        DispatchQueue.main.async {
+                            if ok {
+                                AppContext.shared.rootNavigationController?.present(picker, animated: true)
+                            } else {
+                                AppContext.shared.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
+                            }
+                        }
+                    })
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -181,27 +226,30 @@ final class MessageRoomViewController: BaseViewController {
         view.separatorColor = .clear
     }
 
-    var imageBackground = UIView()
+    private lazy var chatAndImageVStackView = UIStackView.make(with: [
+        messageContentsTableView,
+        imageListView,
+    ], axis: .vertical)
 
-    private var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG35
+    private var imageListView = MeessageRoomImageListView().then { view in
         view.snp.makeConstraints { make in
-            make.height.equalTo(1)
+            make.height.equalTo(112)
         }
+        view.isHidden = true
     }
 
-    var chatBackGround = UIView().then { view in
+    private var chatBackGround = UIView().then { view in
         view.backgroundColor = .darkG6
     }
 
-    var plusImageButton = UIButton().then { view in
+    private var plusImageButton = UIButton().then { view in
         view.setImage(Asset.plus.image, for: .normal)
         view.snp.makeConstraints { make in
             make.width.height.equalTo(24)
         }
     }
 
-    var chatTextView = UITextView().then { view in
+    private var chatTextView = UITextView().then { view in
         // background
         view.backgroundColor = .darkG5
         view.layer.borderWidth = 0
@@ -219,7 +267,7 @@ final class MessageRoomViewController: BaseViewController {
         view.showsVerticalScrollIndicator = false
     }
 
-    var sendButton = UIButton().then { view in
+    private var sendButton = UIButton().then { view in
         view.isEnabled = false
         view.setImage(Asset.iconsSend24.uiImage, for: .normal)
     }
@@ -234,12 +282,9 @@ extension MessageRoomViewController {
         view.addSubviews([
             navBar,
             postSection,
-            messageContentsTableView,
-            imageBackground,
+            chatAndImageVStackView,
             chatBackGround,
         ])
-
-        imageBackground.addSubview(hDivider)
 
         chatBackGround.addSubviews([
             plusImageButton,
@@ -264,20 +309,11 @@ extension MessageRoomViewController {
             make.trailing.equalTo(self.view.snp.trailing)
         }
 
-        messageContentsTableView.snp.makeConstraints { make in
+        chatAndImageVStackView.snp.makeConstraints { make in
             make.top.equalTo(postSection.snp.bottom).offset(10)
-            make.leading.equalTo(self.view.snp.leading).offset(16)
-            make.trailing.equalTo(self.view.snp.trailing).offset(-16)
+            make.leading.equalTo(self.view.snp.leading)
+            make.trailing.equalTo(self.view.snp.trailing)
             make.bottom.equalTo(self.chatBackGround.snp.top)
-        }
-
-        imageBackground.snp.makeConstraints { make in
-            make.bottom.equalTo(chatBackGround.snp.top)
-            make.leading.trailing.equalToSuperview()
-        }
-
-        hDivider.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
         }
 
         chatBackGround.snp.makeConstraints { make in
@@ -357,6 +393,90 @@ extension MessageRoomViewController: UITextViewDelegate {
         } else {
             sendButton.isEnabled = true
             sendButton.setImage(.iconsSendFilled24, for: .normal)
+        }
+    }
+}
+
+// MARK: - UIImagePickerViewController Delegate
+
+extension MessageRoomViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let originalImage = info[.originalImage] as? UIImage
+        let originalResizedImage = originalImage?.resize(newWidth: 300)
+
+        if let image = originalResizedImage, let imageData = image.pngData() {
+            imageListView.isHidden = false
+
+            var imageView = MessageRoomImageView(image: UIImage(data: imageData)!)
+            imageView.xButton.rx.tap
+                .subscribe(onNext: {
+//                    self.imageListView.hStackView.removeArrangedSubview(imageView)
+//                    if self.imageListView.hStackView.arrangedSubviews.isEmpty {
+//                        self.imageListView.isHidden = true
+//                    }
+                })
+                .disposed(by: disposeBag)
+            imageListView.hStackView.addArrangedSubview(imageView)
+
+        } else {
+            AppContext.shared.makeToast("오류가 발생했습니다. 다시 시도해주세요")
+        }
+
+        picker.dismiss(animated: true)
+    }
+
+    func photoAuth() -> Bool {
+        let authorizationState = PHPhotoLibrary.authorizationStatus()
+        var isAuth = false
+
+        switch authorizationState {
+        case .authorized:
+            return true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { state in
+                if state == .authorized {
+                    isAuth = true
+                }
+            }
+            return isAuth
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+        return false
+    }
+
+    func cameraAuth() -> Bool {
+        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    }
+
+    func authSettingOpen(authString: String) {
+        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+                alert.dismiss(animated: true, completion: nil)
+                print("\(String(describing: action.title)) 클릭")
+            }
+
+            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+
+            present(alert, animated: true, completion: nil)
         }
     }
 }

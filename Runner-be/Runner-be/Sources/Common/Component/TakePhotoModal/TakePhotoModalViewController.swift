@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class TakePhotoModalViewController: BaseViewController {
+final class TakePhotoModalViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,8 +22,9 @@ class TakePhotoModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: TakePhotoModalViewModel) {
+    init(viewModel: TakePhotoModalViewModel, isShowDefaultImageOption: Bool) {
         self.viewModel = viewModel
+        self.isShowDefaultImageOption = isShowDefaultImageOption
         super.init()
     }
 
@@ -33,6 +34,7 @@ class TakePhotoModalViewController: BaseViewController {
     }
 
     private var viewModel: TakePhotoModalViewModel
+    private var isShowDefaultImageOption: Bool
 
     private func viewModelInput() {
         sheet.rx.tapGesture(configuration: { _, delegate in
@@ -81,7 +83,7 @@ class TakePhotoModalViewController: BaseViewController {
         view.backgroundColor = .darkG45
     }
 
-    private var hDivider2 = UIView().then { view in
+    var hDivider2 = UIView().then { view in
         view.backgroundColor = .darkG45
     }
 
@@ -89,21 +91,21 @@ class TakePhotoModalViewController: BaseViewController {
         button.setTitle(L10n.Modal.TakePhoto.Button.photo, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.titleLabel?.font = .iosBody17R
+        button.titleLabel?.font = .pretendardRegular16
     }
 
     private var chooseFromAlbumButton = UIButton().then { button in
         button.setTitle(L10n.Modal.TakePhoto.Button.album, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.titleLabel?.font = .iosBody17R
+        button.titleLabel?.font = .pretendardRegular16
     }
 
-    private var chooseDefault = UIButton().then { button in
+    var chooseDefault = UIButton().then { button in
         button.setTitle(L10n.Modal.TakePhoto.Button.default, for: .normal)
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
-        button.titleLabel?.font = .iosBody17R
+        button.titleLabel?.font = .pretendardRegular16
     }
 }
 
@@ -124,6 +126,11 @@ extension TakePhotoModalViewController {
             hDivider2,
             chooseDefault,
         ])
+
+        if !isShowDefaultImageOption {
+            hDivider2.isHidden = true
+            chooseDefault.isHidden = true
+        }
     }
 
     private func initialLayout() {
@@ -131,7 +138,11 @@ extension TakePhotoModalViewController {
             make.centerY.equalTo(view.snp.centerY)
             make.centerX.equalTo(view.snp.centerX)
             make.width.equalTo(270)
-            make.height.equalTo(158)
+            if !isShowDefaultImageOption {
+                make.height.equalTo(105)
+            } else {
+                make.height.equalTo(158)
+            }
         }
 
         takePhotoButton.snp.makeConstraints { make in

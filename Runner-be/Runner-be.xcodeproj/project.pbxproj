@@ -331,6 +331,7 @@
 		C3F8D1D227C436E00004CAB8 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D127C436E00004CAB8 /* MKMapView+.swift */; };
 		C3F8D1D627C4490C0004CAB8 /* SliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */; };
 		C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FEECAF27AD860C00135099 /* NaverLoginService.swift */; };
+		DA06376D2C11F0D10025D4BD /* MeessageRoomImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06376C2C11F0D10025D4BD /* MeessageRoomImageListView.swift */; };
 		DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA10361C2824413700F78F72 /* MessageViewController.swift */; };
 		DA117B20283150A300158211 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA117B1F283150A300158211 /* Message.swift */; };
 		DA17F4802B653FD500CD237A /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA17F4772B653FD400CD237A /* Pretendard-Bold.otf */; };
@@ -394,6 +395,7 @@
 		DADD94A128A7E87C0004F86F /* ManageAttendanceResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */; };
 		DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF932870790300E98E56 /* MyPagePostCell.swift */; };
 		DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */; };
+		DAF9C3952BFA01A0001275F8 /* MessageRoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9C3942BFA01A0001275F8 /* MessageRoomImageView.swift */; };
 		DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -729,6 +731,7 @@
 		C3F8D1D527C4490C0004CAB8 /* SliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDelegate.swift; sourceTree = "<group>"; };
 		C3FEECAF27AD860C00135099 /* NaverLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginService.swift; sourceTree = "<group>"; };
 		CBD0709B53705E623D5A6510 /* Pods-Runner-be.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.release.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.release.xcconfig"; sourceTree = "<group>"; };
+		DA06376C2C11F0D10025D4BD /* MeessageRoomImageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeessageRoomImageListView.swift; sourceTree = "<group>"; };
 		DA10361C2824413700F78F72 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		DA117B1F283150A300158211 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DA17F4772B653FD400CD237A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -792,6 +795,7 @@
 		DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceResultView.swift; sourceTree = "<group>"; };
 		DAF6BF932870790300E98E56 /* MyPagePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostCell.swift; sourceTree = "<group>"; };
 		DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageParticipateCell.swift; sourceTree = "<group>"; };
+		DAF9C3942BFA01A0001275F8 /* MessageRoomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomImageView.swift; sourceTree = "<group>"; };
 		DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatRightCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2194,13 +2198,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		DA760F202B7D12EC006207B2 /* CacelModal */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CacelModal;
-			sourceTree = "<group>";
-		};
 		DA760F752B7F6832006207B2 /* CancelModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -2212,7 +2209,6 @@
 		DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */ = {
 			isa = PBXGroup;
 			children = (
-				DA760F202B7D12EC006207B2 /* CacelModal */,
 				DA7E23E72B7A489E005D18A6 /* View */,
 				DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */,
 				DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */,
@@ -2300,6 +2296,8 @@
 			isa = PBXGroup;
 			children = (
 				DAB25440282E36C5005B78B6 /* MessagePostView.swift */,
+				DAF9C3942BFA01A0001275F8 /* MessageRoomImageView.swift */,
+				DA06376C2C11F0D10025D4BD /* MeessageRoomImageListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2775,6 +2773,7 @@
 				DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */,
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
+				DAF9C3952BFA01A0001275F8 /* MessageRoomImageView.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
@@ -2870,6 +2869,7 @@
 				DA117B20283150A300158211 /* Message.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
 				C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */,
+				DA06376D2C11F0D10025D4BD /* MeessageRoomImageListView.swift in Sources */,
 				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
 				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,
