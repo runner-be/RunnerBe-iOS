@@ -1,11 +1,11 @@
 # 🐝 러너비
-
+test
 ## 프로젝트 소개
 
 직장인 간 시간대/위치/직군/성별/나이 별로 러닝 모임을 결성하여 러닝을 뛸 수 있도록 돕는 서비스
 - 기간 : 2022.05 ~ 2022.10, 배포 및 운영중
 - 역할 : <br/>
-
+t
 - [@SHIVVVPP - 김신우](https://github.com/SHIVVVPP)
   - 글 작성 (Post), 로그인(Onboarding, LoggedOut), 홈(Home), 스켈레톤 화면 처리(Skeleton)
  
