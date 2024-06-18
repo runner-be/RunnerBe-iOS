@@ -74,7 +74,7 @@
 - 러닝 모임 참여자 간 실시간으로 소통할 수 있는 댓글 서비스입니다.
 
 <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/c87588f3-58f4-4410-818b-85d210a1e8c0" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/4a932f5d-810d-47c2-ad35-afc85a2d43cb" />
-
+ 
 **4) 러닝 모임 관리 및 현황 확인**
 - 러닝 모임 주최자는 러닝 참여자의 출석을 관리할 수 있으며, 참여자는 출석 여부를 확인할 수 있습니다.
 
