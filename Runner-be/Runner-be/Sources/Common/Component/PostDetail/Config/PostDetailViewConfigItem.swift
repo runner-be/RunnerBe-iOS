@@ -13,6 +13,7 @@ struct PostDetailRunningConfig {
     let title: String
     let placeInfo: String
     let date: String
+    let afterParty: String
     let time: String
     let gender: String
     let age: String
@@ -42,5 +43,11 @@ extension PostDetailRunningConfig {
         contents = postDetail.content
         numParticipant = "최대 \(postDetail.maximumNum)명"
         gender = postDetail.post.gender == .none ? postDetail.post.gender.name : (postDetail.post.gender.name + "만")
+
+        if postDetail.post.afterParty == 1 {
+            afterParty = "뒷풀이 있음"
+        } else {
+            afterParty = "뒷풀이 없음"
+        }
     }
 }

@@ -96,8 +96,8 @@ class ApplicantListModalViewController: BaseViewController {
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosBody17Sb
-        label.textColor = .darkG2
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
         label.text = L10n.Home.PostDetail.Participant.title
     }
 

@@ -17,6 +17,7 @@ enum UserAPI {
     case fetchAlarms(token: LoginToken)
     case checkAlarms(token: LoginToken)
     case patchPushAlaram(userID: String, pushOn: String)
+    case patchRunningPace(userID: Int, token: LoginToken, pace: String)
 }
 
 extension UserAPI: TargetType {
@@ -42,6 +43,8 @@ extension UserAPI: TargetType {
             return "/users/whether-new-alarms"
         case let .patchPushAlaram(userId, pushOn):
             return "users/\(userId)/push-alarm/\(pushOn)"
+        case let .patchRunningPace(userID, _, _):
+            return "users/\(userID)/pace"
         }
     }
 
@@ -62,6 +65,8 @@ extension UserAPI: TargetType {
         case .checkAlarms:
             return Method.get
         case .patchPushAlaram:
+            return Method.patch
+        case .patchRunningPace:
             return Method.patch
         }
     }
@@ -90,6 +95,9 @@ extension UserAPI: TargetType {
         case let .patchPushAlaram(userId, pushOn):
             let parameters: [String: Any] = ["userId": userId, "pushOn": pushOn]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case let .patchRunningPace(_, _, pace):
+            let parameters: [String: Any] = ["pace": pace]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 
@@ -114,6 +122,8 @@ extension UserAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case .patchPushAlaram:
             return nil
+        case let .patchRunningPace(_, token, _):
+            header["x-access-token"] = "\(token.jwt)"
         }
 
         return header

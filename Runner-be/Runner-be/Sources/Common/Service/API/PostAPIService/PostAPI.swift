@@ -100,6 +100,7 @@ extension PostAPI: TargetType {
         }
     }
 
+    // TODO: 이후에 러닝페이스, 뒷풀이 필터, 페이징 추가 작업 시 수정필요
     var task: Task {
         switch self {
         case let .fetch(userId, filter):
@@ -111,9 +112,13 @@ extension PostAPI: TargetType {
                 "ageFilterMax": "\(filter.ageMax)",
                 "ageFilterMin": "\(filter.ageMin)",
                 "jobFilter": filter.jobFilter.code,
+                "paceFilter": "beginner,average,high,master",
+                "afterPartyFilter": "A",
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
+                "page": 1,
+                "pageSize": 10,
                 "runningTag": filter.runningTag.code,
             ]
 

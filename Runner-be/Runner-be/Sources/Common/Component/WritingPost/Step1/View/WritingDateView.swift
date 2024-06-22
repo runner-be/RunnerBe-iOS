@@ -1,5 +1,5 @@
 //
-//  WritingTimeView.swift
+//  WritingDateView.swift
 //  RunnerBe-iOS
 //
 //  Created by 김신우 on 2022/02/19.
@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class WritingTimeView: SelectBaseView {
+class WritingDateView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -37,35 +37,19 @@ class WritingTimeView: SelectBaseView {
     }
 
     var iconTextButtonGroup = IconTextButtonGroup().then { group in
-        group.icon = Asset.time.uiImage
-        group.titleLabel.text = L10n.Post.Time.placeHolder
-        group.titleLabel.font = .iosBody15R
+        group.icon = Asset.scheduled.uiImage
+        group.titleLabel.text = L10n.Post.Date.placeHolder
+        group.titleLabel.font = .pretendardRegular16
         group.titleLabel.textColor = .darkG1
         group.moreInfoButton.isEnabled = false
     }
 
-//    private var errorLabel = UILabel().then { label in
-//        label.font = .iosBody13R
-//        label.textColor = .errorlight
-//        label.text = L10n.Post.Time.error
-//        label.isHidden = false
-//    }
-
-    private lazy var vStackView = UIStackView.make(
-        //        with: [groupBackground, errorLabel],
-        with: [groupBackground],
-        axis: .vertical,
-        alignment: .fill,
-        distribution: .equalSpacing,
-        spacing: 8
-    )
-
     override func setupViews() {
         super.setupViews()
-        titleLabel.text = L10n.Post.Time.title
+        titleLabel.text = L10n.Post.Date.title
 
         addSubviews([
-            vStackView,
+            groupBackground,
         ])
 
         groupBackground.addSubviews([
@@ -76,11 +60,11 @@ class WritingTimeView: SelectBaseView {
     override func initialLayout() {
         super.initialLayout()
 
-        vStackView.snp.makeConstraints { make in
+        groupBackground.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(12)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-3)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
 
         iconTextButtonGroup.snp.makeConstraints { make in

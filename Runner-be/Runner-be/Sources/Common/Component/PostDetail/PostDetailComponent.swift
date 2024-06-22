@@ -45,4 +45,8 @@ final class PostDetailComponent {
     var deleteConfirmModalComponent: DeleteConfirmModalComponent {
         return DeleteConfirmModalComponent()
     }
+
+    var registerRunningPaceComponent: RegisterRunningPaceComponent {
+        return RegisterRunningPaceComponent()
+    }
 }

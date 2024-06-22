@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import UIKit
 
-class UserInfoView: UIView {
+final class UserInfoView: UIView {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,16 +31,20 @@ class UserInfoView: UIView {
         badgeLabel.label.text = userInfo.diligence
 
         switch userInfo.diligence {
-        case "성실 러너":
+        case "성실 출석":
             badgeLabel.iconView.image = Asset.smile.uiImage
-        case "노력 러너":
+        case "노력 출석":
             badgeLabel.iconView.image = Asset.icEffortRunner.uiImage
-        case "불량 러너":
+        case "불량 출석":
             badgeLabel.iconView.image = Asset.icBadRunner.uiImage
-        case "초보 러너":
+        case "초보 출석":
             badgeLabel.iconView.image = Asset.icBasicRunner.uiImage
         default:
             break
+        }
+
+        if let pace = userInfo.pace {
+            runningPaceLabel.configure(pace: pace, viewType: .userInfo)
         }
 
         if let url = userInfo.profileURL,
@@ -66,14 +70,14 @@ class UserInfoView: UIView {
     }
 
     var nameLabel = UILabel().then { label in
-        label.font = .iosBody15B
-        label.textColor = .darkG2
+        label.font = .pretendardSemiBold14
+        label.textColor = .darkG1
         label.text = ""
     }
 
     var genderLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .darkG25
+        label.font = .pretendardRegular14
+        label.textColor = .darkG35
         label.text = ""
     }
 
@@ -83,14 +87,14 @@ class UserInfoView: UIView {
             make.height.equalTo(2)
         }
 
-        view.backgroundColor = .darkG25
+        view.backgroundColor = .darkG35
         view.clipsToBounds = true
         view.layer.cornerRadius = 1
     }
 
     var ageLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .darkG25
+        label.font = .pretendardRegular14
+        label.textColor = .darkG35
         label.text = ""
     }
 
@@ -104,44 +108,42 @@ class UserInfoView: UIView {
 
     var ownerMark = UIImageView().then { view in
         view.snp.makeConstraints { make in
-            make.width.equalTo(16)
-            make.height.equalTo(16)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
 
         view.image = Asset.postOwner.uiImage
     }
 
+    var runningPaceLabel = RunningPaceView()
+
     var badgeLabel = RunnerBadge()
 
     var jobTagLabel = BadgeLabel().then { label in
         let style = BadgeLabel.Style(
-            font: .iosBody13R,
+            font: .pretendardRegular10,
             backgroundColor: .darkG5,
-            textColor: .primary,
+            textColor: .darkG3,
             borderWidth: 0,
-            borderColor: .primarydark,
+            borderColor: .clear,
             cornerRadiusRatio: 1,
             useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
+            padding: UIEdgeInsets(top: 1, left: 6, bottom: 1, right: 6)
         )
 
         label.applyStyle(style)
-        label.text = ""
+        label.text = "JOB/JOB"
     }
-
-//    private var hDivider = UIView().then { view in
-//        view.backgroundColor = .darkG5
-//    }
 
     private func setup() {
         addSubviews([
             avatarView,
             nameLabel,
             genderDotAgeStack,
+            ownerMark,
+            runningPaceLabel,
             badgeLabel,
             jobTagLabel,
-            ownerMark,
-//            hDivider,
         ])
     }
 
@@ -162,27 +164,28 @@ class UserInfoView: UIView {
             make.leading.equalTo(nameLabel.snp.trailing).offset(8)
         }
 
-        badgeLabel.snp.makeConstraints { make in
+        runningPaceLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.leading)
             make.top.equalTo(nameLabel.snp.bottom).offset(8)
+            make.height.equalTo(18)
+            make.bottom.equalTo(self.snp.bottom)
+        }
+
+        badgeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(runningPaceLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(runningPaceLabel.snp.centerY)
+            make.height.equalTo(18)
         }
 
         jobTagLabel.snp.makeConstraints { make in
             make.leading.equalTo(badgeLabel.snp.trailing).offset(8)
             make.centerY.equalTo(badgeLabel.snp.centerY)
+            make.height.equalTo(18)
         }
 
         ownerMark.snp.makeConstraints { make in
             make.centerY.equalTo(genderDotAgeStack.snp.centerY)
             make.leading.equalTo(genderDotAgeStack.snp.trailing).offset(8)
         }
-
-//        hDivider.snp.makeConstraints { make in
-//            make.top.equalTo(avatarView.snp.bottom).offset(20)
-//            make.leading.equalTo(self.snp.leading)
-//            make.trailing.equalTo(self.snp.trailing)
-//            make.bottom.equalTo(self.snp.bottom)
-//            make.height.equalTo(1)
-//        }
     }
 }

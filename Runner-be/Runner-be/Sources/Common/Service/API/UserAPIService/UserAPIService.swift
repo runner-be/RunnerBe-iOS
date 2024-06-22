@@ -33,4 +33,5 @@ protocol UserAPIService {
     func fetchAlarms() -> Observable<[Alarm]?>
     func checkAlarms() -> Observable<Bool>
     func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool>
+    func patchRunningPace(pace: String) -> Observable<Bool>
 }

@@ -14,17 +14,17 @@ final class WritingDetailPostViewModel: BaseViewModel {
 
     struct ViewInputData {
         let gender: Int
+        let runningPace: String
         let ageMin: Int
         let ageMax: Int
         let numPerson: Int
+        let afterParty: Int
         let textContent: String
     }
 
     init(writingPostData: WritingPostData, postAPIService: PostAPIService = BasicPostAPIService()) {
         self.writingPostData = writingPostData
         super.init()
-
-        outputs.writingPostData.onNext(writingPostData)
 
         inputs.posting
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
@@ -59,7 +59,9 @@ final class WritingDetailPostViewModel: BaseViewModel {
                     ageMax: data.ageMax,
                     peopleNum: data.numPerson,
                     contents: data.textContent,
-                    runnerGender: gender
+                    runnerGender: gender,
+                    paceGrade: data.runningPace,
+                    afterParty: data.afterParty
                 )
             }
             .compactMap { $0 }
@@ -95,9 +97,7 @@ final class WritingDetailPostViewModel: BaseViewModel {
         var posting = PublishSubject<ViewInputData?>()
     }
 
-    struct Output {
-        var writingPostData = ReplaySubject<WritingPostData>.create(bufferSize: 1)
-    }
+    struct Output {}
 
     struct Route {
         var backward = PublishSubject<Void>()

@@ -45,7 +45,7 @@ class BasicSliderLabelGroup: CALayer, SliderLabelGroup {
     var spacing: CGSize = .zero
     var boxSize: CGSize = .zero
 
-    var textFont: UIFont = .iosBody13R
+    var textFont: UIFont = .pretendardRegular12
     var textSize: CGFloat = 13
     var textColor: CGColor = UIColor.darkG4.cgColor
     var moduloFactor: CGFloat = 2

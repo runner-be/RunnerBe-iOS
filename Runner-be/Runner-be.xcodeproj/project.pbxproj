@@ -72,9 +72,9 @@
 		C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */; };
 		C32C028227CB174A0011419E /* LogoutModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028127CB174A0011419E /* LogoutModalViewModel.swift */; };
 		C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028327CB17540011419E /* LogoutModalViewController.swift */; };
-		C32C028727CB24720011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyInfoView.swift */; };
+		C32C028727CB24720011419E /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028627CB24720011419E /* MyProfileView.swift */; };
 		C32C028927CB3A370011419E /* RunnerBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028827CB3A370011419E /* RunnerBadge.swift */; };
-		C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */; };
+		C32C028B27CB3A9C0011419E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028A27CB3A9C0011419E /* MyInfoView.swift */; };
 		C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C028F27CB46030011419E /* MyPagePostConfig.swift */; };
 		C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029127CB47470011419E /* BasicPostInfoView.swift */; };
 		C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C029527CB63270011419E /* MyPagePostDataSource.swift */; };
@@ -346,8 +346,20 @@
 		DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */; };
 		DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */; };
 		DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */; };
+		DA4353402B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43533C2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift */; };
+		DA4353412B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43533D2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewController.swift */; };
+		DA4353422B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43533E2B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift */; };
+		DA4353432B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43533F2B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift */; };
+		DA4353472B8B61D5004C047A /* RunningPace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4353462B8B61D5004C047A /* RunningPace.swift */; };
 		DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */; };
 		DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */; };
+		DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */; };
+		DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */; };
+		DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */; };
+		DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */; };
+		DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */; };
+		DA7E23ED2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */; };
+		DA7E23EF2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */; };
 		DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */; };
 		DA7E9716288BCCC80001BBDC /* JobChangeModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */; };
 		DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */; };
@@ -359,12 +371,19 @@
 		DA8477AD28F1F36A006036CF /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8477AC28F1F36A006036CF /* UIScreen+.swift */; };
 		DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */; };
 		DA8EC6B228899BC6007BF0DD /* GetMessageListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */; };
+		DA98F1862BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */; };
+		DA9C69532BAAA47D0063B43A /* SelectRunningPaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */; };
+		DA9C69552BAAA5380063B43A /* SelectAfterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */; };
 		DAA1EAE92977BB440070B90F /* MessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAE82977BB440070B90F /* MessageAPIService.swift */; };
 		DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */; };
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
 		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
 		DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */; };
 		DAB8F85C2B3BA92300729AC9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8F85B2B3BA92300729AC9 /* Keys.swift */; };
+		DABB51892BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB51882BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift */; };
+		DABB518B2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB518A2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift */; };
+		DABB518D2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB518C2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift */; };
+		DABB518F2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB518E2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift */; };
 		DAC50001282B8F30004CFF64 /* MessageRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFD282B89B3004CFF64 /* MessageRoomViewController.swift */; };
 		DAC50002282B8F38004CFF64 /* MessageRoomComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFF282B89B3004CFF64 /* MessageRoomComponent.swift */; };
 		DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5FFFE282B89B3004CFF64 /* MessageRoomCoordinator.swift */; };
@@ -449,9 +468,9 @@
 		C32C027F27CB17410011419E /* LogoutModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalCoordinator.swift; sourceTree = "<group>"; };
 		C32C028127CB174A0011419E /* LogoutModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewModel.swift; sourceTree = "<group>"; };
 		C32C028327CB17540011419E /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
-		C32C028627CB24720011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
+		C32C028627CB24720011419E /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		C32C028827CB3A370011419E /* RunnerBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerBadge.swift; sourceTree = "<group>"; };
-		C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewWithChevron.swift; sourceTree = "<group>"; };
+		C32C028A27CB3A9C0011419E /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
 		C32C028F27CB46030011419E /* MyPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostConfig.swift; sourceTree = "<group>"; };
 		C32C029127CB47470011419E /* BasicPostInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostInfoView.swift; sourceTree = "<group>"; };
 		C32C029527CB63270011419E /* MyPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostDataSource.swift; sourceTree = "<group>"; };
@@ -729,8 +748,20 @@
 		DA4183EB287270190008C0B6 /* ManageAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceComponent.swift; sourceTree = "<group>"; };
 		DA4183ED287270240008C0B6 /* ManageAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceCoordinator.swift; sourceTree = "<group>"; };
 		DA4183EF2872702D0008C0B6 /* ManageAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewModel.swift; sourceTree = "<group>"; };
+		DA43533C2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceConfirmModalViewModel.swift; sourceTree = "<group>"; };
+		DA43533D2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceConfirmModalViewController.swift; sourceTree = "<group>"; };
+		DA43533E2B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceConfirmModalComponent.swift; sourceTree = "<group>"; };
+		DA43533F2B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceConfirmModalCoordinator.swift; sourceTree = "<group>"; };
+		DA4353462B8B61D5004C047A /* RunningPace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPace.swift; sourceTree = "<group>"; };
 		DA48D8C3289D69AE0076638A /* GetMessageRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageRoomResponse.swift; sourceTree = "<group>"; };
 		DA5D5EF3288856B20038529B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
+		DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileLabel.swift; sourceTree = "<group>"; };
+		DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPaceView.swift; sourceTree = "<group>"; };
+		DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceViewController.swift; sourceTree = "<group>"; };
+		DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceView.swift; sourceTree = "<group>"; };
+		DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceComponent.swift; sourceTree = "<group>"; };
+		DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCoordinator.swift; sourceTree = "<group>"; };
+		DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceViewModel.swift; sourceTree = "<group>"; };
 		DA7E9713288BCCB90001BBDC /* JobChangeModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalComponent.swift; sourceTree = "<group>"; };
 		DA7E9715288BCCC80001BBDC /* JobChangeModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalCoordinator.swift; sourceTree = "<group>"; };
 		DA7E9717288BCCCF0001BBDC /* JobChangeModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobChangeModalViewModel.swift; sourceTree = "<group>"; };
@@ -742,12 +773,19 @@
 		DA8477AC28F1F36A006036CF /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		DA8EC6AF28898F84007BF0DD /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA8EC6B128899BC6007BF0DD /* GetMessageListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageListResponse.swift; sourceTree = "<group>"; };
+		DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithRadioButton.swift; sourceTree = "<group>"; };
+		DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRunningPaceView.swift; sourceTree = "<group>"; };
+		DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAfterPartyView.swift; sourceTree = "<group>"; };
 		DAA1EAE82977BB440070B90F /* MessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPIService.swift; sourceTree = "<group>"; };
 		DAA1EAEB2977C54B0070B90F /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
 		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
 		DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatLeftCell.swift; sourceTree = "<group>"; };
 		DAB8F85B2B3BA92300729AC9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		DABB51882BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalComponent.swift; sourceTree = "<group>"; };
+		DABB518A2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalCoordinator.swift; sourceTree = "<group>"; };
+		DABB518C2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalViewModel.swift; sourceTree = "<group>"; };
+		DABB518E2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalViewController.swift; sourceTree = "<group>"; };
 		DAC50000282B89B3004CFF64 /* MessageRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomViewModel.swift; sourceTree = "<group>"; };
 		DAC5FFFD282B89B3004CFF64 /* MessageRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomViewController.swift; sourceTree = "<group>"; };
 		DAC5FFFE282B89B3004CFF64 /* MessageRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRoomCoordinator.swift; sourceTree = "<group>"; };
@@ -941,7 +979,6 @@
 			isa = PBXGroup;
 			children = (
 				438AB20428C3872600AD1AD3 /* Model */,
-				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3227C0DB8D003EDD0F /* Step1 */,
 				C350CC7E27C2CC91000DEA15 /* Step2 */,
 			);
@@ -986,8 +1023,8 @@
 		C32C028527CB24640011419E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C32C028627CB24720011419E /* MyInfoView.swift */,
-				C32C028A27CB3A9C0011419E /* MyInfoViewWithChevron.swift */,
+				C32C028627CB24720011419E /* MyProfileView.swift */,
+				C32C028A27CB3A9C0011419E /* MyInfoView.swift */,
 				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
 				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
 			);
@@ -1040,6 +1077,8 @@
 				C3347BF627C2DE4D006FB110 /* SelectTextContentView.swift */,
 				C3C9736327CA9A5600232251 /* TextFieldWithButton.swift */,
 				DA17F4892B665BFE00CD237A /* SelectRunningFaceView.swift */,
+				DA9C69522BAAA47D0063B43A /* SelectRunningPaceView.swift */,
+				DA9C69542BAAA5380063B43A /* SelectAfterPartyView.swift */,
 			);
 			path = CommonSelectViews;
 			sourceTree = "<group>";
@@ -1104,6 +1143,7 @@
 		C3498F3227C0DB8D003EDD0F /* Step1 */ = {
 			isa = PBXGroup;
 			children = (
+				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3727C13C88003EDD0F /* SelectTime */,
 				C3498F3627C13C79003EDD0F /* SelectDate */,
 				C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */,
@@ -1625,6 +1665,7 @@
 				C3BA459927B405210048CA76 /* BadgeLabel.swift */,
 				C399FD1427C290E700396DC3 /* IconLabel.swift */,
 				C32C028827CB3A370011419E /* RunnerBadge.swift */,
+				DA7E23E02B7A230B005D18A6 /* MyPageProfileLabel.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -1633,6 +1674,7 @@
 			isa = PBXGroup;
 			children = (
 				C3BA459B27B4064E0048CA76 /* OnOffLabel.swift */,
+				DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */,
 				C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */,
 			);
 			path = OnOff;
@@ -2058,6 +2100,7 @@
 				C3A64F9027C54DBA0088E387 /* FilterType.swift */,
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
 				436D8A9B28B1B73100E3DA6C /* Alarm.swift */,
+				DA4353462B8B61D5004C047A /* RunningPace.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2065,6 +2108,7 @@
 		DA60482B281E7AC600A67568 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */,
 				43B1E6C528B1AD320057A1AF /* AlarmList */,
 				C3089AF227BF45C100884987 /* WritingPost */,
 				DA60482C281E7ACA00A67568 /* PostDetail */,
@@ -2155,6 +2199,52 @@
 				DADD94A028A7E87C0004F86F /* ManageAttendanceResultView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DA760F202B7D12EC006207B2 /* CacelModal */ = {
+			isa = PBXGroup;
+			children = (
+				DABB51882BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift */,
+				DABB518A2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift */,
+				DABB518C2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift */,
+				DABB518E2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift */,
+			);
+			path = CacelModal;
+			sourceTree = "<group>";
+		};
+		DA7E23E42B7A433D005D18A6 /* RegisterRunningPace */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E23F12B7A5861005D18A6 /* ConfirmModal */,
+				DA760F202B7D12EC006207B2 /* CacelModal */,
+				DA7E23E72B7A489E005D18A6 /* View */,
+				DA7E23EA2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift */,
+				DA7E23EC2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift */,
+				DA7E23EE2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift */,
+				DA7E23E52B7A4353005D18A6 /* RegisterRunningPaceViewController.swift */,
+			);
+			path = RegisterRunningPace;
+			sourceTree = "<group>";
+		};
+		DA7E23E72B7A489E005D18A6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E23E82B7A48D2005D18A6 /* RegisterRunningPaceView.swift */,
+				DA7E23E22B7A2892005D18A6 /* RunningPaceView.swift */,
+			);
+			name = View;
+			path = "퍋ㅈ";
+			sourceTree = "<group>";
+		};
+		DA7E23F12B7A5861005D18A6 /* ConfirmModal */ = {
+			isa = PBXGroup;
+			children = (
+				DA43533E2B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift */,
+				DA43533F2B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift */,
+				DA43533C2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift */,
+				DA43533D2B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewController.swift */,
+			);
+			path = ConfirmModal;
 			sourceTree = "<group>";
 		};
 		DA7E9712288BCCA90001BBDC /* JobChangeModal */ = {
@@ -2448,9 +2538,10 @@
 			files = (
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
 				43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */,
+				DA7E23ED2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */,
-				C32C028727CB24720011419E /* MyInfoView.swift in Sources */,
+				C32C028727CB24720011419E /* MyProfileView.swift in Sources */,
 				C3BA45B827B571140048CA76 /* OnboardingCancelModalCoordinator.swift in Sources */,
 				C38F8F4427AD9DEA0050137D /* HomeCoordinator.swift in Sources */,
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
@@ -2462,9 +2553,11 @@
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
 				DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */,
+				DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */,
 				DAF9F4A3289554DE0012892C /* MessageChatRightCell.swift in Sources */,
 				C38F8F4227AD9A0D0050137D /* MyPageComponent.swift in Sources */,
 				C3347BF127C2D283006FB110 /* SummaryMainPostView.swift in Sources */,
+				DA9C69552BAAA5380063B43A /* SelectAfterPartyView.swift in Sources */,
 				C379301C27B9FB010076AB85 /* DynamicLinkService.swift in Sources */,
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
@@ -2482,6 +2575,8 @@
 				C3C9734F27CA963B00232251 /* EditInfoViewController.swift in Sources */,
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
 				C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */,
+				DA98F1862BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift in Sources */,
+				DA4353472B8B61D5004C047A /* RunningPace.swift in Sources */,
 				C3AD114B27B8113000A7044C /* BaseAPI.swift in Sources */,
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
@@ -2490,6 +2585,7 @@
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
+				DA4353432B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
 				434635D528910F09007D8C10 /* RunningTagModalComponent.swift in Sources */,
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
@@ -2508,9 +2604,11 @@
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
 				C34FDA7B27AD5D45007718F8 /* Localizable+Generated.swift in Sources */,
 				C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */,
+				DA4353412B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewController.swift in Sources */,
 				C32C027227CB16EC0011419E /* NickNameChangeModalViewModel.swift in Sources */,
 				C3F74B6827B0A4AA002D5846 /* PolicyTermViewModel.swift in Sources */,
 				C3F74B7C27B1263B002D5846 /* BirthViewController.swift in Sources */,
+				DABB518D2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				C3E0CEB42838E725007A0443 /* Log.swift in Sources */,
 				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
@@ -2580,6 +2678,8 @@
 				DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
+				DA9C69532BAAA47D0063B43A /* SelectRunningPaceView.swift in Sources */,
+				DABB518B2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift in Sources */,
 				C3C9736427CA9A5600232251 /* TextFieldWithButton.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
@@ -2598,7 +2698,9 @@
 				43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */,
 				C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				DABB51892BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
+				DA4353402B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift in Sources */,
 				C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */,
 				C3C9735927CA968F00232251 /* MakerViewController.swift in Sources */,
 				C3CA2AF927BC4EA300AEF623 /* HomeFilterViewController.swift in Sources */,
@@ -2618,7 +2720,7 @@
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
 				DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */,
-				C32C028B27CB3A9C0011419E /* MyInfoViewWithChevron.swift in Sources */,
+				C32C028B27CB3A9C0011419E /* MyInfoView.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
 				DA7E9718288BCCCF0001BBDC /* JobChangeModalViewModel.swift in Sources */,
 				C35E34A527C83C860023C0F9 /* PostDetailCoordinator.swift in Sources */,
@@ -2698,6 +2800,7 @@
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
+				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
 				DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
@@ -2709,10 +2812,13 @@
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
+				DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
+				DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
+				DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,
@@ -2724,6 +2830,7 @@
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
 				434635D0289104A0007D8C10 /* PostOrderModalViewController.swift in Sources */,
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
+				DA7E23EF2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift in Sources */,
 				C38F8F3127AD965C0050137D /* MyPageViewController.swift in Sources */,
 				C361B6CD27B29FF700824ABE /* TextFieldWithPadding.swift in Sources */,
 				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,
@@ -2760,6 +2867,7 @@
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				DAC50002282B8F38004CFF64 /* MessageRoomComponent.swift in Sources */,
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
+				DA4353422B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
 				C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */,
@@ -2792,6 +2900,7 @@
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
+				DABB518F2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift in Sources */,
 				DA8EC6B028898F84007BF0DD /* BaseResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

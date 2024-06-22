@@ -35,6 +35,8 @@ struct PostResponse: Decodable {
     let whetherCheck: String?
     let distance: String?
     let profileURLList: [ProfileURL]?
+    let afterParty: Int?
+    let pace: String?
 
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
@@ -61,6 +63,8 @@ struct PostResponse: Decodable {
         case whetherCheck
         case distance = "DISTANCE"
         case profileURLList = "profileUrlList"
+        case afterParty
+        case pace
     }
 }
 
@@ -147,7 +151,9 @@ extension PostResponse {
               let nickName = nickName,
               let postTitle = title,
               let runningTagType = runningTagType,
-              let locationInformation = locationInfo
+              let locationInformation = locationInfo,
+              let pace = pace,
+              let afterParty = afterParty
         else { return nil }
 
         let id = postID
@@ -172,7 +178,9 @@ extension PostResponse {
             coord: coords, // nullable
             whetherCheck: whetherCheck ?? "N",
             attendanceProfiles: profileURLList ?? [],
-            postingTime: postingTime
+            postingTime: postingTime,
+            afterParty: afterParty,
+            pace: pace
         )
 
         post.marked = marked

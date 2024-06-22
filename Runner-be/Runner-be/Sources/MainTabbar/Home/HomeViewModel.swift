@@ -20,7 +20,9 @@ final class HomeViewModel: BaseViewModel {
         userAPIService: UserAPIService = BasicUserAPIService(),
         notificationService: RBNotificationService = BasicRBNotificationService.shared,
         locationService: LocationService = BasicLocationService.shared,
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService: UserKeychainService =
+            BasicUserKeyChainService.shared
     ) {
         let searchLocation = loginKeyChainService.userId == 213 ? CLLocationCoordinate2D(latitude: 37.57191043904224, longitude: 126.96173755287116) : locationService.currentPlace
 
@@ -178,14 +180,17 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.writingPost
-            // TODO: 시작시 이벤트가 바로 들어오는 현상이 있음 그래서 skip 1 해결방안 찾으면 수정할 것
             .skip(1)
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
                 } else {
-                    self.routes.writingPost.onNext(())
+                    if userKeyChainService.runningPace == .none {
+                        self.routes.registerRunningPace.onNext(())
+                    } else {
+                        self.routes.writingPost.onNext(())
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -291,6 +296,32 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        routeInputs.needUpdate
+            .filter { _ in loginKeyChainService.loginType == .member }
+            .flatMap { _ in postAPIService.myPage() }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+
+                switch result {
+                case let .response(result: data):
+                    switch data {
+                    case let .success(info, _, _):
+                        if info.pace != nil, let runningPace = RunningPace(rawValue: info.pace!) {
+                            BasicUserKeyChainService.shared.runningPace = runningPace
+                        } else {
+                            BasicUserKeyChainService.shared.runningPace = .none
+                        }
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    } else {
+                        self.toast.onNext("불러오기에 실패했습니다.")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+
         routeInputs.filterChanged
             .do(onNext: { [weak self] inputFilter in
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
@@ -319,7 +350,6 @@ final class HomeViewModel: BaseViewModel {
                 case let .response(data):
                     if data == nil {
                         self?.toast.onNext("필터 적용에 실패했습니다.")
-                        // TODO: 필터 아이콘 다시 이전 상태로 돌리기
                     }
                     return data
                 case let .error(alertMessage):
@@ -331,18 +361,6 @@ final class HomeViewModel: BaseViewModel {
             }
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
-
-//        routeInputs.detailClosed
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self,
-//                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
-//                else { return }
-//                self.posts[index].marked = result.marked
-//                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
-//                self.outputs.posts.onNext(self.posts)
-//                self.outputs.focusSelectedPost.onNext(nil)
-//            })
-//            .disposed(by: disposeBag)
 
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in
@@ -501,6 +519,7 @@ final class HomeViewModel: BaseViewModel {
         var tapRunningTag = PublishSubject<Void>()
 
         var tapAlarm = PublishSubject<Void>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct Output {
@@ -526,6 +545,7 @@ final class HomeViewModel: BaseViewModel {
         var postListOrder = PublishSubject<Void>()
         var runningTag = PublishSubject<Void>()
         var alarmList = PublishSubject<Void>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct RouteInput {

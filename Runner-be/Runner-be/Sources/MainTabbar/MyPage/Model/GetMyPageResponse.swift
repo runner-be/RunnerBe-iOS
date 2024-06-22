@@ -100,12 +100,13 @@ struct RunnerList: Codable {
     let whetherCheck: String?
     let attendance: Int?
     let whetherPostUser: String?
+    let pace: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case nickName, gender, age, diligence, job
         case profileImageURL = "profileImageUrl"
-        case whetherCheck, attendance, whetherPostUser
+        case whetherCheck, attendance, whetherPostUser, pace
     }
 }
 

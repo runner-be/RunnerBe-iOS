@@ -30,7 +30,6 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
     }
 
     func setup(userInfo: UserConfig) {
-        // TODO: avartarView
         userInfoView.setup(userInfo: userInfo)
     }
 
@@ -41,22 +40,22 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         button.setTitleColor(.darkG6, for: .normal)
         button.setBackgroundColor(.primary, for: .normal)
 
-        button.titleLabel?.font = .iosBody13B
+        button.titleLabel?.font = .pretendardSemiBold14
         button.clipsToBounds = true
     }
 
     var refusalBtn = UIButton().then { button in
         button.setTitle(L10n.Home.PostDetail.Writer.no, for: .normal)
-        button.setTitleColor(.darkG2, for: .normal)
+        button.setTitleColor(.darkG4, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.darkG2.cgColor
-        button.titleLabel?.font = .iosBody13B
+        button.layer.borderColor = UIColor.darkG4.cgColor
+        button.titleLabel?.font = .pretendardSemiBold14
         button.clipsToBounds = true
     }
 
     private var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG5
+        view.backgroundColor = .black
     }
 
     private func setup() {
@@ -71,13 +70,13 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
     private func initialLayout() {
         userInfoView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(20)
-            make.leading.equalTo(contentView.snp.leading)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing)
         }
 
         refusalBtn.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(userInfoView.snp.bottom).offset(10)
-            make.leading.equalTo(contentView.snp.leading)
+            make.top.equalTo(userInfoView.snp.bottom).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.centerX).offset(-6)
             make.height.equalTo(32)
         }
@@ -86,17 +85,17 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         acceptBtn.snp.makeConstraints { make in
             make.top.equalTo(refusalBtn.snp.top)
             make.leading.equalTo(contentView.snp.centerX).offset(6)
-            make.trailing.equalTo(contentView.snp.trailing)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
             make.height.equalTo(32)
         }
         acceptBtn.layer.cornerRadius = 16
 
         hDivider.snp.makeConstraints { make in
             make.top.equalTo(refusalBtn.snp.bottom).offset(20)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
 
-            make.height.equalTo(1)
+            make.height.equalTo(12)
             make.bottom.equalTo(contentView.snp.bottom)
         }
     }
@@ -105,8 +104,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
 extension UserInfoAcceptableCell {
     static let id = "\(UserInfoAcceptableCell.self)"
     static let size: CGSize = {
-        let hMargin: CGFloat = 16
-        let width: CGFloat = UIScreen.main.bounds.width - hMargin * 2
+        let width: CGFloat = UIScreen.main.bounds.width
         let height: CGFloat = 140
         return CGSize(width: width, height: height)
     }()

@@ -15,6 +15,12 @@ import UIKit
 
 class WritingDetailPostViewController: BaseViewController {
     typealias ViewInputData = WritingDetailPostViewModel.ViewInputData
+    var isRegisterButtonValid = false {
+        didSet {
+            self.navBar.rightBtnItem.isEnabled = true
+            self.navBar.rightBtnItem.titleLabel?.textColor = .primary
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,17 +53,22 @@ class WritingDetailPostViewController: BaseViewController {
             .map { [weak self] in
                 guard let self = self else { return nil }
                 let genderIdx = self.selectGenderView.genderLabelGroup.selected.first ?? 0
+                let runningPace =
+                    self.selectRunningPaceView.selected
                 let ageMin = self.selectAgeView.checkBox.isSelected ?
                     self.selectAgeView.slider.minValue : self.selectAgeView.slider.selectedMinValue
                 let ageMax = self.selectAgeView.checkBox.isSelected ?
                     self.selectAgeView.slider.maxValue : self.selectAgeView.slider.selectedMaxValue
                 let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
                 let content = self.selectTextContentView.textField.text ?? ""
+                let afterParty = self.selectAfterpartyView.afterPartyNonLabel.isOn ? 2 : 1
                 return ViewInputData(
                     gender: genderIdx,
+                    runningPace: runningPace,
                     ageMin: Int(ageMin),
                     ageMax: Int(ageMax),
                     numPerson: numPerson,
+                    afterParty: afterParty,
                     textContent: content
                 )
             }
@@ -66,13 +77,6 @@ class WritingDetailPostViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.writingPostData
-            .subscribe(onNext: { [weak self] data in
-                guard let self = self else { return }
-                self.summaryView.configure(with: data)
-            })
-            .disposed(by: disposeBag)
-
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
@@ -105,12 +109,47 @@ class WritingDetailPostViewController: BaseViewController {
                 self.scrollView.setContentOffset(bottomOffset, animated: true)
             })
             .disposed(by: disposeBag)
-    }
 
-    private var summaryView = SummaryMainPostView()
+        // TODO: 인식안되는 이슈 수정
+        selectRunningPaceView.infoLogo.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.infoWordBubble.isHidden.toggle()
+            })
+            .disposed(by: disposeBag)
 
-    private var hDivider1 = UIView().then { view in
-        view.backgroundColor = .darkG6
+        selectRunningPaceView.beginnerView.radio.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.selected = "beginner"
+                self.selectRunningPaceView.beginnerView.isOn = true
+                self.isRegisterButtonValid = true
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.averageView.radio.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.selected = "average"
+                self.selectRunningPaceView.averageView.isOn = true
+                self.isRegisterButtonValid = true
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.highView.radio.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.selected = "high"
+                self.selectRunningPaceView.highView.isOn = true
+                self.isRegisterButtonValid = true
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.masterView.radio.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.selected = "master"
+                self.selectRunningPaceView.masterView.isOn = true
+                self.isRegisterButtonValid = true
+            })
+            .disposed(by: disposeBag)
     }
 
     private var scrollView = UIScrollView().then { view in
@@ -120,6 +159,12 @@ class WritingDetailPostViewController: BaseViewController {
     }
 
     private var selectGenderView = SelectGenderView()
+
+    private var hDivider1 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var selectRunningPaceView = SelectRunningPaceView()
 
     private var hDivider2 = UIView().then { view in
         view.backgroundColor = .darkG6
@@ -137,16 +182,26 @@ class WritingDetailPostViewController: BaseViewController {
         view.backgroundColor = .darkG6
     }
 
+    private var selectAfterpartyView = SelectAfterPartyView()
+
+    private var hDivider5 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
     private var selectTextContentView = SelectTextContentView()
 
     private lazy var vStackView = UIStackView.make(
         with: [
             selectGenderView,
+            hDivider1,
+            selectRunningPaceView,
             hDivider2,
             selectAgeView,
             hDivider3,
             selectNumParticipantView,
             hDivider4,
+            selectAfterpartyView,
+            hDivider5,
             selectTextContentView,
         ],
         axis: .vertical,
@@ -157,15 +212,11 @@ class WritingDetailPostViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.Post.Detail.NavBar.title
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setTitle(L10n.Post.Detail.NavBar.rightItem, for: .normal)
-        navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
-//        navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
+        navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
+        navBar.rightBtnItem.isEnabled = false
         navBar.rightSecondBtnItem.isHidden = true
-        navBar.titleSpacing = 12
     }
 }
 
@@ -177,8 +228,6 @@ extension WritingDetailPostViewController {
 
         view.addSubviews([
             navBar,
-            summaryView,
-            hDivider1,
             scrollView,
         ])
 
@@ -192,21 +241,8 @@ extension WritingDetailPostViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
 
-        summaryView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(16)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-        }
-
-        hDivider1.snp.makeConstraints { make in
-            make.top.equalTo(summaryView.snp.bottom).offset(18)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(10)
-        }
-
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(hDivider1.snp.bottom).offset(16)
+            make.top.equalTo(navBar.snp.bottom).offset(24)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -219,9 +255,13 @@ extension WritingDetailPostViewController {
             make.bottom.equalTo(scrollView.snp.bottom)
         }
 
-        hDivider2.snp.makeConstraints { make in
+        hDivider1.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.height.equalTo(1)
+        }
+
+        hDivider2.snp.makeConstraints { make in
             make.height.equalTo(1)
         }
 
@@ -230,6 +270,10 @@ extension WritingDetailPostViewController {
         }
 
         hDivider4.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
+
+        hDivider5.snp.makeConstraints { make in
             make.height.equalTo(1)
         }
     }

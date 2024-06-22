@@ -28,9 +28,9 @@ class WritingTitleView: SelectBaseView {
     var textField = TextFieldWithPadding().then { field in
         field.textPadding = UIEdgeInsets(top: 18, left: 16, bottom: 18, right: 16)
         field.backgroundColor = .darkG55
-        field.font = .iosBody15R
+        field.font = .pretendardRegular16
         field.textAlignment = .left
-        field.textColor = .darkG2
+        field.textColor = .darkG1
         field.attributedPlaceholder = NSAttributedString(
             string: L10n.Post.Title.placeHolder,
             attributes: [.foregroundColor: UIColor.darkG35]

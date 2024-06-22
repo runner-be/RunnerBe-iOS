@@ -35,6 +35,8 @@ struct Post {
     var attendanceProfiles: [ProfileURL] = []
 
     var postingTime: Date
+    let afterParty: Int
+    let pace: String
 }
 
 struct PostDetail {

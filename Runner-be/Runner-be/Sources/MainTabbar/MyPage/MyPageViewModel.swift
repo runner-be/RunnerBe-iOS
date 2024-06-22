@@ -250,6 +250,10 @@ final class MyPageViewModel: BaseViewModel {
                 self?.toastActivity.onNext(false)
             })
             .disposed(by: disposeBag)
+
+        inputs.registerRunningPace
+            .bind(to: routes.registerRunningPace)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -265,6 +269,7 @@ final class MyPageViewModel: BaseViewModel {
         var photoSelected = PublishSubject<Data?>()
         var manageAttendance = PublishSubject<Int>()
         var changeToDefaultProfile = PublishSubject<Void>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct Output {
@@ -287,6 +292,7 @@ final class MyPageViewModel: BaseViewModel {
         var toMain = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
         var manageAttendance = PublishSubject<Int>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct RouteInput {
