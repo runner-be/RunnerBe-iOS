@@ -97,8 +97,6 @@ internal enum Asset {
   internal static let writePostRunningPaceWordbubble = ImageAsset(name: "WritePost_RunningPace_Wordbubble")
   internal static let x = ImageAsset(name: "X")
   internal static let checkBoxIconEmpty = ImageAsset(name: "checkBoxIconEmpty")
-  internal static let checkboxSquare1 = ImageAsset(name: "checkbox_square 1")
-  internal static let checkboxSquare = ImageAsset(name: "checkbox_square")
   internal static let icBadRunner = ImageAsset(name: "icBadRunner")
   internal static let icBasicRunner = ImageAsset(name: "icBasicRunner")
   internal static let icEffortRunner = ImageAsset(name: "icEffortRunner")
