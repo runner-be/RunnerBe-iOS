@@ -71,8 +71,8 @@ internal enum L10n {
       internal enum Age {
         /// 모든연령
         internal static let all = L10n.tr("Localizable", "Home.Filter.Age.all", fallback: "모든연령")
-        /// 모집 연령
-        internal static let title = L10n.tr("Localizable", "Home.Filter.Age.title", fallback: "모집 연령")
+        /// 연령
+        internal static let title = L10n.tr("Localizable", "Home.Filter.Age.title", fallback: "연령")
       }
       internal enum Gender {
         /// 모집 성별

@@ -70,7 +70,7 @@ extension UIFont {
     }
 
     class var pretendardRegular16: UIFont {
-        return UIFont(font: FontFamily.Pretendard.semiBold, size: 15.0)!
+        return UIFont(font: FontFamily.Pretendard.regular, size: 16.0)!
     }
 
     class var pretendardRegular12: UIFont {

@@ -47,8 +47,8 @@ final class CheckBoxView: UIStackView {
     var showMoreInfo = true
 
     var checkBoxButton = UIButton().then { button in
-        button.setImage(Asset.checkBoxIconEmpty.uiImage.withTintColor(.darkG35), for: .normal)
-        button.setImage(Asset.checkBoxIconChecked.uiImage.withTintColor(.primary), for: .selected)
+        button.setImage(Asset.checkBoxIconEmpty.uiImage, for: .normal)
+        button.setImage(Asset.checkBoxIconChecked.uiImage, for: .selected)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.backgroundColor = .clear
         button.isSelected = false

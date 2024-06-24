@@ -54,10 +54,8 @@ final class SelectAgeView: SelectBaseView {
 
     var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
 
-        let rightFollower = BubbleFollower()
-        rightFollower.moreThanMax = true
-        slider.showRightFollower = true
-        slider.rightHandleFollower = rightFollower
+        let textLayer = BasicSliderValueLabel()
+        slider.sliderValueLabel = textLayer
 
         var labelGroups = BasicSliderLabelGroup(valueFormatter: { "\(Int($0))" })
         labelGroups.maxValueFormatter = { "\(Int($0))↑" }

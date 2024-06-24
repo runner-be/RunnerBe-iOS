@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
+		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
+		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
 		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
 		432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */; };
 		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
@@ -380,7 +383,6 @@
 		DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */; };
 		DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25440282E36C5005B78B6 /* MessagePostView.swift */; };
 		DAB25445282E3F0F005B78B6 /* MessageChatLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */; };
-		DAB8F85C2B3BA92300729AC9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8F85B2B3BA92300729AC9 /* Keys.swift */; };
 		DABB51892BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB51882BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift */; };
 		DABB518B2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB518A2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift */; };
 		DABB518D2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB518C2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift */; };
@@ -405,6 +407,9 @@
 /* Begin PBXFileReference section */
 		15A8C03A0517F56BA2F628B5 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
 		18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
+		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
 		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
 		432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRBNotificationService.swift; sourceTree = "<group>"; };
 		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
@@ -783,7 +788,6 @@
 		DAA252C9287205050087FCA9 /* ManageAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAttendanceViewController.swift; sourceTree = "<group>"; };
 		DAB25440282E36C5005B78B6 /* MessagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePostView.swift; sourceTree = "<group>"; };
 		DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChatLeftCell.swift; sourceTree = "<group>"; };
-		DAB8F85B2B3BA92300729AC9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DABB51882BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalComponent.swift; sourceTree = "<group>"; };
 		DABB518A2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalCoordinator.swift; sourceTree = "<group>"; };
 		DABB518C2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRunningPaceCancelModalViewModel.swift; sourceTree = "<group>"; };
@@ -823,6 +827,23 @@
 				18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2BD73D842C27C91A0058D6E9 /* Ignore */ = {
+			isa = PBXGroup;
+			children = (
+				2BD73D852C27C92A0058D6E9 /* Keys.swift */,
+			);
+			path = Ignore;
+			sourceTree = "<group>";
+		};
+		2BD73D872C27EE080058D6E9 /* ValueLabel */ = {
+			isa = PBXGroup;
+			children = (
+				2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */,
+				2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */,
+			);
+			path = ValueLabel;
 			sourceTree = "<group>";
 		};
 		432B45E028C1C1B0001AB8A9 /* NotificationService */ = {
@@ -1238,7 +1259,7 @@
 		C34FDA1C27AD5997007718F8 /* Runner-be */ = {
 			isa = PBXGroup;
 			children = (
-				DAB8F85A2B3BA91600729AC9 /* Ignore */,
+				2BD73D842C27C91A0058D6E9 /* Ignore */,
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
 				C34FDA7527AD5C98007718F8 /* Sources */,
@@ -1616,6 +1637,7 @@
 		C39F2E9E27BC5E6D00A7D86B /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				2BD73D872C27EE080058D6E9 /* ValueLabel */,
 				C343A34127BE2294008E6FA4 /* LabelGroup */,
 				C343A33E27BE224B008E6FA4 /* Follower */,
 				C343A33B27BE2205008E6FA4 /* Handle */,
@@ -2295,14 +2317,6 @@
 			path = ManageAttendance;
 			sourceTree = "<group>";
 		};
-		DAB8F85A2B3BA91600729AC9 /* Ignore */ = {
-			isa = PBXGroup;
-			children = (
-				DAB8F85B2B3BA92300729AC9 /* Keys.swift */,
-			);
-			path = Ignore;
-			sourceTree = "<group>";
-		};
 		DAC50010282B9999004CFF64 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2585,6 +2599,7 @@
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
 				C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
+				2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
@@ -2632,7 +2647,6 @@
 				DA8477AD28F1F36A006036CF /* UIScreen+.swift in Sources */,
 				C3C9735327CA966900232251 /* SettingsCoordinator.swift in Sources */,
 				DA4183EE287270240008C0B6 /* ManageAttendanceCoordinator.swift in Sources */,
-				DAB8F85C2B3BA92300729AC9 /* Keys.swift in Sources */,
 				DADD948D28A794AA0004F86F /* PostMessageRequest.swift in Sources */,
 				43DDEC5E28CF2F20005741FE /* JobGroupView.swift in Sources */,
 				C35E34A327C83C7E0023C0F9 /* PostDetailComponent.swift in Sources */,
@@ -2701,6 +2715,7 @@
 				43B1E6C728B1AD4B0057A1AF /* AlarmListViewController.swift in Sources */,
 				C38ABDAB27D4F2DF0025929E /* SignoutCompletionModalViewModel.swift in Sources */,
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
+				2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */,
 				DABB51892BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
 				DA4353402B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift in Sources */,
@@ -2863,6 +2878,7 @@
 				C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */,
 				DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
+				2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */,
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
