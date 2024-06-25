@@ -19,6 +19,8 @@ struct PostFilter {
     var runningTag: RunningTag
     var jobFilter: Job
     var keywordSearch: String
+    var page: Int
+    var pageSize: Int
 }
 
 extension PostFilter: CustomDebugStringConvertible {
@@ -34,6 +36,8 @@ extension PostFilter: CustomDebugStringConvertible {
             jobFilter: \(jobFilter)
             gender: \(gender.name)
             keywordSearch: \(keywordSearch)
+            page: \(page)
+            pageSize: \(pageSize)
         }
         """
     }

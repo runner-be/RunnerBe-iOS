@@ -117,8 +117,8 @@ extension PostAPI: TargetType {
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
-                "page": 1,
-                "pageSize": 10,
+                "page": filter.page,
+                "pageSize": filter.pageSize,
                 "runningTag": filter.runningTag.code,
             ]
 

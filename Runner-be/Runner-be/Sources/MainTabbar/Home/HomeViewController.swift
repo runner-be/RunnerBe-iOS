@@ -51,6 +51,21 @@ class HomeViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBag)
 
+        postCollectionView.rx.contentOffset
+            .flatMap { [weak self] offset -> Observable<Void> in
+                guard let self = self else { return Observable.empty() }
+                let visibleHeight = self.postCollectionView.frame.height - self.postCollectionView.contentInset.top - self.postCollectionView.contentInset.bottom
+                let y = offset.y + self.postCollectionView.contentInset.top
+                let threshold = max(0.0, self.postCollectionView.contentSize.height - visibleHeight)
+
+                return y > threshold ? Observable.just(()) : Observable.empty()
+            }
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.inputs.loadNextPagePosts.onNext(true)
+            })
+            .disposed(by: disposeBag)
+
         selectedPostCollectionView.rx.itemSelected
             .map { _ in }
             .bind(to: viewModel.inputs.tapSelectedPost)

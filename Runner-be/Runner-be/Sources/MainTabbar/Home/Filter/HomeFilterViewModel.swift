@@ -54,7 +54,9 @@ final class HomeFilterViewModel: BaseViewModel {
                         ageMin: 20, ageMax: 65,
                         runningTag: .error,
                         jobFilter: .none,
-                        keywordSearch: "N"
+                        keywordSearch: "N",
+                        page: 1,
+                        pageSize: 10
                     )
                 }
                 let gender = Gender(idx: input.genderIdx ?? -1)
@@ -69,7 +71,9 @@ final class HomeFilterViewModel: BaseViewModel {
                     ageMax: input.maxAge,
                     runningTag: .error,
                     jobFilter: job,
-                    keywordSearch: "N"
+                    keywordSearch: "N",
+                    page: 1,
+                    pageSize: 10
                 )
             }
             .bind(to: routes.backward)

@@ -36,7 +36,9 @@ final class HomeViewModel: BaseViewModel {
             ageMax: 65,
             runningTag: .beforeWork,
             jobFilter: .none,
-            keywordSearch: ""
+            keywordSearch: "",
+            page: 1,
+            pageSize: 10
         )
         filter = initialFilter
         super.init()
@@ -254,6 +256,39 @@ final class HomeViewModel: BaseViewModel {
             })
             .compactMap { [unowned self] idx in self.posts[idx].ID }
             .subscribe(routes.detailPost)
+            .disposed(by: disposeBag)
+
+        inputs.loadNextPagePosts
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                let isLastPage = self.posts.count % self.filter.pageSize == 0
+                return isLastPage
+            }
+            .do(onNext: { [weak self] _ in
+                self?.filter.page += 1
+            })
+            .compactMap { [weak self] _ in
+                self?.filter
+            }
+            .flatMap { filter in
+                postAPIService.fetchPosts(with: filter)
+            }
+            .compactMap { [weak self] result in
+                guard let self = self else { return nil }
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self.toast.onNext("페이지 불러오기를 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+            }
+            .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
         // MARK: - RouteInput
@@ -510,6 +545,7 @@ final class HomeViewModel: BaseViewModel {
         var tapPostBookMarkWithId = PublishSubject<Int>()
         var tapPost = PublishSubject<Int>()
         var tapSelectedPost = PublishSubject<Void>()
+        var loadNextPagePosts = PublishSubject<Bool>()
         var regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
         var moveRegion = PublishSubject<Void>()
         var needUpdate = PublishSubject<Bool>()
@@ -553,6 +589,7 @@ final class HomeViewModel: BaseViewModel {
         var filterChanged = PublishSubject<PostFilter>()
         var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
+        var loadNextPagePosts = PublishSubject<Bool>()
         var runningTagChanged = PublishSubject<RunningTag>()
         var alarmChecked = PublishSubject<Void>()
     }
