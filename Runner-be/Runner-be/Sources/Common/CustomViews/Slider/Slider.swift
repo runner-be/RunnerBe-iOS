@@ -64,7 +64,7 @@ class Slider: UIControl {
 
         if let sliderValueLabel = sliderValueLabel {
             sliderValueLabel.update()
-            height += sliderValueLabel.frame.size.height + 50
+            height += sliderValueLabel.frame.size.height + valueLabelSpacing
         }
 
         if let sliderLabels = sliderLabels {
@@ -208,6 +208,7 @@ class Slider: UIControl {
     }
 
     // Label for Selected Value
+    var valueLabelSpacing: CGFloat = 18
     var sliderValueLabel: SliderValueLabel? {
         didSet {
             if let selectedValueText = sliderValueLabel {
@@ -247,9 +248,14 @@ class Slider: UIControl {
     }
 
     private func updateFixedPosition() {
-//        let middleY: CGFloat = lineHeight / 2.0 + (rightHandleFollower?.frame.height ?? 0) + (rightHandleFollower != nil ? followerSpacing : 0)
-//        sliderValueLabel?.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
-        let middleY: CGFloat = lineHeight / 2.0 + 50
+        var middleY: CGFloat = 0.0
+        if let rightHandleFollower = rightHandleFollower {
+            middleY = lineHeight / 2.0 + rightHandleFollower.frame.height + followerSpacing
+        } else if let sliderValueLabel = sliderValueLabel {
+            middleY = lineHeight / 2.0 + sliderValueLabel.frame.height + valueLabelSpacing
+        } else {
+            middleY = lineHeight / 2.0
+        }
 
         let leftPos = CGPoint(x: leftHandle.handleSize.width / 2.0, y: middleY)
         let rightPos = CGPoint(x: frame.width - rightHandle.handleSize.width / 2.0, y: middleY)
