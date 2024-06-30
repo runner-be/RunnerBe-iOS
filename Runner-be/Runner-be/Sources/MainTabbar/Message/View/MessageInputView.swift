@@ -32,6 +32,11 @@ final class MessageInputView: UIView {
         return sendButtonTappedSubject.asObservable()
     }
 
+    private let plusImageButtonTappedSubject = PublishSubject<Void>()
+    var plusImageButtonTapped: Observable<Void> {
+        return plusImageButtonTappedSubject.asObservable()
+    }
+
     var messageSendStatusSubject = PublishSubject<Bool>()
 
     var placeHolder: String = "" {
@@ -79,18 +84,17 @@ final class MessageInputView: UIView {
         $0.backgroundColor = .clear
     }
 
-    var sendButton = UIButton().then {
+    private var sendButton = UIButton().then {
         $0.isEnabled = false
         $0.setImage(Asset.iconsSend24.uiImage, for: .disabled)
         $0.setImage(Asset.iconsSendFilled24.uiImage, for: .normal)
     }
 
-    var addButton = UIButton().then {
+    private var plusImageButton = UIButton().then {
         $0.setImage(Asset.iconsPlus18.uiImage, for: .normal)
     }
 
     override func layoutSubviews() {
-        print("seijfeisljfilse")
         textView.centerVertically()
     }
 
@@ -99,6 +103,10 @@ final class MessageInputView: UIView {
             .map { self.textView.text ?? "" }
             .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
             .bind(to: sendButtonTappedSubject)
+            .disposed(by: disposeBag)
+
+        plusImageButton.rx.tap
+            .bind(to: plusImageButtonTappedSubject)
             .disposed(by: disposeBag)
 
         messageSendStatusSubject
@@ -169,7 +177,7 @@ extension MessageInputView {
         ])
 
         contentView.addSubviews([
-            addButton,
+            plusImageButton,
             textContainerView,
             sendButton,
         ])
@@ -187,7 +195,7 @@ extension MessageInputView {
             $0.height.equalTo(38 + bottomPadding) // TODO: safeArea bottom height
         }
 
-        addButton.snp.makeConstraints {
+        plusImageButton.snp.makeConstraints {
             $0.size.equalTo(18)
             $0.centerY.equalTo(textContainerView)
             $0.left.equalToSuperview().inset(12)
@@ -195,7 +203,7 @@ extension MessageInputView {
 
         textContainerView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
-            $0.left.equalTo(addButton.snp.right).offset(8)
+            $0.left.equalTo(plusImageButton.snp.right).offset(8)
             $0.right.equalTo(sendButton.snp.left).offset(-8)
         }
 

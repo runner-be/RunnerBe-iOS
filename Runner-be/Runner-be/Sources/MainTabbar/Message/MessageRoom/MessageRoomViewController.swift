@@ -65,6 +65,10 @@ class MessageRoomViewController: BaseViewController {
         messageInputView.sendButtonTapped
             .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
+
+        messageInputView.plusImageButtonTapped
+            .bind(to: viewModel.inputs.tapPostImage)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
@@ -148,6 +152,11 @@ class MessageRoomViewController: BaseViewController {
                 self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
             })
             .disposed(by: disposeBag)
+
+        viewModel.outputs.showPicker
+            .bind { type in
+                print("MessageRoomViewController - ShowPicker, \(type)")
+            }.disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in

@@ -25,6 +25,10 @@ final class MessageRoomComponent {
         self.fromPostDetail = fromPostDetail
     }
 
+    var takePhotoModalComponent: TakePhotoModalComponent {
+        return TakePhotoModalComponent(isShowBasicImageOption: false)
+    }
+
     func reportMessageComponent(roomId: Int) -> MessageReportComponent {
         return MessageReportComponent(roomId: roomId)
     }
