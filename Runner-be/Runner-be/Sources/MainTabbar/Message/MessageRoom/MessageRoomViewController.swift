@@ -62,11 +62,9 @@ class MessageRoomViewController: BaseViewController {
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
 
-//        sendButton.rx.tap
-//            .map { self.chatTextView.text ?? "" }
-//            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
-//            .bind(to: viewModel.inputs.sendMessage)
-//            .disposed(by: disposeBag)
+        messageInputView.sendButtonTapped
+            .bind(to: viewModel.inputs.sendMessage)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
@@ -86,13 +84,9 @@ class MessageRoomViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-//        viewModel.outputs.successSendMessage
-//            .subscribe(onNext: { isSuccessSendMessage in
-//                if isSuccessSendMessage {
-//                    self.chatTextView.text.removeAll()
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        viewModel.outputs.successSendMessage
+            .bind(to: messageInputView.messageSendStatusSubject)
+            .disposed(by: disposeBag)
 
         viewModel.outputs.messageContents
             .filter { [weak self] contents in
@@ -261,7 +255,7 @@ extension MessageRoomViewController {
     }
 }
 
-extension MessageRoomViewController: UITextViewDelegate {
+// extension MessageRoomViewController: UITextViewDelegate {
 //    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
 //        if textView.text == L10n.MessageList.Chat.placeHolder {
 //            textView.text = nil // placeholder 제거
@@ -284,4 +278,4 @@ extension MessageRoomViewController: UITextViewDelegate {
 //            sendButton.isEnabled = true
 //        }
 //    }
-}
+// }

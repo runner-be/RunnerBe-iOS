@@ -5,13 +5,16 @@
 //  Created by 김창규 on 6/29/24.
 //
 
+import RxSwift
 import UIKit
+
 // TODO: 외부에서 인터페스 사용하도록 리팩토링
 final class MessageInputView: UIView {
     init() {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
+        setupBindings()
         textView.delegate = self
     }
 
@@ -21,6 +24,15 @@ final class MessageInputView: UIView {
     }
 
     // MARK: - Properties
+
+    private let disposeBag = DisposeBag()
+
+    private let sendButtonTappedSubject = PublishSubject<String>()
+    var sendButtonTapped: Observable<String> {
+        return sendButtonTappedSubject.asObservable()
+    }
+
+    var messageSendStatusSubject = PublishSubject<Bool>()
 
     var placeHolder: String = "" {
         didSet {
@@ -82,9 +94,20 @@ final class MessageInputView: UIView {
         textView.centerVertically()
     }
 
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        print("s9ej0sjf90sjf90sej")
+    private func setupBindings() {
+        sendButton.rx.tap
+            .map { self.textView.text ?? "" }
+            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+            .bind(to: sendButtonTappedSubject)
+            .disposed(by: disposeBag)
+
+        messageSendStatusSubject
+            .filter { $0 }
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                self.textView.text.removeAll()
+                self.textViewDidChange(self.textView)
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -95,6 +118,13 @@ extension MessageInputView: UITextViewDelegate {
         if textView.text == placeHolder {
             textView.text = nil
             textView.textColor = .darkG1
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = placeHolder
+            textView.textColor = .darkG5
         }
     }
 
