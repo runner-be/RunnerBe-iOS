@@ -27,9 +27,8 @@ class MessageRoomViewController: BaseViewController {
 
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-        chatTextView.delegate = self
+//        messageInputView.delegate = self
         dismissKeyboardWhenTappedAround()
-
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -63,11 +62,11 @@ class MessageRoomViewController: BaseViewController {
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
 
-        sendButton.rx.tap
-            .map { self.chatTextView.text ?? "" }
-            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
-            .bind(to: viewModel.inputs.sendMessage)
-            .disposed(by: disposeBag)
+//        sendButton.rx.tap
+//            .map { self.chatTextView.text ?? "" }
+//            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+//            .bind(to: viewModel.inputs.sendMessage)
+//            .disposed(by: disposeBag)
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
@@ -87,13 +86,13 @@ class MessageRoomViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.outputs.successSendMessage
-            .subscribe(onNext: { isSuccessSendMessage in
-                if isSuccessSendMessage {
-                    self.chatTextView.text.removeAll()
-                }
-            })
-            .disposed(by: disposeBag)
+//        viewModel.outputs.successSendMessage
+//            .subscribe(onNext: { isSuccessSendMessage in
+//                if isSuccessSendMessage {
+//                    self.chatTextView.text.removeAll()
+//                }
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.messageContents
             .filter { [weak self] contents in
@@ -182,27 +181,16 @@ class MessageRoomViewController: BaseViewController {
         view.backgroundColor = .darkG6
     }
 
-    var chatTextView = UITextView().then { view in
-        // background
-        view.backgroundColor = .darkG5
-        view.layer.borderWidth = 0
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 19
+    private let messageInputView = MessageInputView().then {
+        // TODO: 색상코드이름
+        $0.backgroundColor = UIColor(white: 29.0 / 255.0, alpha: 1.0)
+        $0.cornerRadius = 19
+        $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
-        // textview padding
-        view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44)
+        $0.placeHolder = L10n.MessageList.Chat.placeHolder
 
-        view.font = .iosBody15R
-
-        // place holder 설정
-        view.text = L10n.MessageList.Chat.placeHolder
-        view.textColor = .darkG35
-        view.showsVerticalScrollIndicator = false
-    }
-
-    var sendButton = UIButton().then { view in
-        view.isEnabled = false
-        view.setImage(Asset.iconsSend24.uiImage, for: .normal)
+        $0.font = .pretendardRegular14
+        $0.textColor = .darkG35
     }
 }
 
@@ -216,12 +204,7 @@ extension MessageRoomViewController {
             navBar,
             postSection,
             messageContentsTableView,
-            chatBackGround,
-        ])
-
-        chatBackGround.addSubviews([
-            chatTextView,
-            sendButton,
+            messageInputView,
         ])
 
         view.bringSubviewToFront(navBar)
@@ -245,79 +228,60 @@ extension MessageRoomViewController {
             make.top.equalTo(postSection.snp.bottom).offset(10) // postSection만큼 떨어뜨리기
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.chatBackGround.snp.top)
+            make.bottom.equalTo(self.messageInputView.snp.top)
         }
 
-        chatBackGround.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.snp.leading)
-            make.trailing.equalTo(self.view.snp.trailing)
-            make.bottom.equalTo(self.view.snp.bottom)
-            make.height.equalTo(UIScreen.main.isWiderThan375pt ? 96 : 62)
-        }
-
-        chatTextView.snp.makeConstraints { make in
-            make.leading.equalTo(chatBackGround.snp.leading).offset(16)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-52)
-            make.top.equalTo(chatBackGround.snp.top).offset(12)
-            make.height.equalTo(38)
-        }
-
-        sendButton.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
-            make.centerY.equalTo(chatTextView.snp.centerY)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
+        messageInputView.snp.makeConstraints {
+            $0.top.equalTo(messageContentsTableView.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
         }
     }
 
     @objc
-    func keyboardWillShow(_ notification: Notification) { // keyboardFrameEndUserInfoKey : 키보드가 차지하는 frame의 CGRect값 반환
+    func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset.bottom = keyboardHeight - AppContext.shared.safeAreaInsets.bottom
-            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
-                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            UIView.animate(withDuration: 0.3) {
+                self.messageInputView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().inset(keyboardRectangle.height)
+                }
+                self.view.layoutIfNeeded()
             }
         }
     }
 
     @objc
-    func keyboardWillHide(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset.bottom = 0
-            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
-                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+    func keyboardWillHide(_: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.messageInputView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(0)
             }
+            self.view.layoutIfNeeded()
         }
     }
 }
 
 extension MessageRoomViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
-        if textView.text == L10n.MessageList.Chat.placeHolder {
-            textView.text = nil // placeholder 제거
-            textView.textColor = .darkG1
-        }
-    }
+//    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
+//        if textView.text == L10n.MessageList.Chat.placeHolder {
+//            textView.text = nil // placeholder 제거
+//            textView.textColor = .darkG1
+//        }
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+//            // 비어있을 경우 placeholder 노출
+//            textView.text = L10n.MessageList.Chat.placeHolder
+//            textView.textColor = .darkG35
+//        }
+//    }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            // 비어있을 경우 placeholder 노출
-            textView.text = L10n.MessageList.Chat.placeHolder
-            textView.textColor = .darkG35
-        }
-    }
-
-    func textViewDidChange(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.isEnabled = false
-        } else {
-            sendButton.isEnabled = true
-        }
-    }
+//    func textViewDidChange(_ textView: UITextView) {
+//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+//            sendButton.isEnabled = false
+//        } else {
+//            sendButton.isEnabled = true
+//        }
+//    }
 }

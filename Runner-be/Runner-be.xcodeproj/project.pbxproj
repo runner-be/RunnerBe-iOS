@@ -10,6 +10,8 @@
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
+		2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */; };
+		2BF9E1CC2C3047F70014D541 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1CB2C3047F70014D541 /* UITextView+.swift */; };
 		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
 		432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */; };
 		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
@@ -409,6 +411,8 @@
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
+		2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
+		2BF9E1CB2C3047F70014D541 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
 		432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRBNotificationService.swift; sourceTree = "<group>"; };
 		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
@@ -1338,6 +1342,7 @@
 				C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift */,
 				C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */,
 				DA8477AC28F1F36A006036CF /* UIScreen+.swift */,
+				2BF9E1CB2C3047F70014D541 /* UITextView+.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -2318,6 +2323,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB25440282E36C5005B78B6 /* MessagePostView.swift */,
+				2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2576,6 +2582,7 @@
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
+				2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
@@ -2794,6 +2801,7 @@
 				DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
+				2BF9E1CC2C3047F70014D541 /* UITextView+.swift in Sources */,
 				DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */,
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
