@@ -56,8 +56,7 @@ class HomeViewController: BaseViewController {
                 guard let self = self else { return Observable.empty() }
                 let visibleHeight = self.postCollectionView.frame.height - self.postCollectionView.contentInset.top - self.postCollectionView.contentInset.bottom
                 let y = offset.y + self.postCollectionView.contentInset.top
-                let threshold = max(0.0, self.postCollectionView.contentSize.height - visibleHeight)
-
+                let threshold = max(0.0, self.postCollectionView.contentSize.height - visibleHeight - (BasicPostCell.size.height))
                 return y > threshold ? Observable.just(()) : Observable.empty()
             }
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -89,7 +88,11 @@ class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         refreshPostListButton.rx.tapGesture(configuration: nil)
+            .skip(1) // 첫 번째 이벤트를 건너뛰기
             .map { _ in true }
+            .do(onNext: { [weak self] _ in
+                self?.postCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            })
             .bind(to: viewModel.inputs.needUpdate)
             .disposed(by: disposeBag)
 
@@ -121,7 +124,7 @@ class HomeViewController: BaseViewController {
     private func viewModelOutput() {
         postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         selectedPostCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        typealias PostSectionDataSource = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
+        typealias PostSectionDataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection>
 
         viewModel.outputs.posts
             .map {

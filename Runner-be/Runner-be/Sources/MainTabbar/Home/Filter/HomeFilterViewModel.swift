@@ -64,7 +64,8 @@ final class HomeFilterViewModel: BaseViewModel {
                 return PostFilter(
                     latitude: 0,
                     longitude: 0,
-                    postState: .error, filter: .error,
+                    postState: .error,
+                    filter: .error,
                     distanceFilter: 0,
                     gender: gender,
                     ageMin: input.minAge,

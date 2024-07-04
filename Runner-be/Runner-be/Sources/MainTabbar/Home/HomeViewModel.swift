@@ -13,7 +13,6 @@ final class HomeViewModel: BaseViewModel {
     private var posts: [Post] = []
     private var selectedPostID: Int?
     var filter: PostFilter
-    var listOrderType: PostListOrder = .distance
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
@@ -29,7 +28,7 @@ final class HomeViewModel: BaseViewModel {
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
             postState: .open,
-            filter: .newest,
+            filter: .distance,
             distanceFilter: 3,
             gender: .none,
             ageMin: 20,
@@ -74,31 +73,27 @@ final class HomeViewModel: BaseViewModel {
                 }
             }
             .subscribe(onNext: { [unowned self] posts in
-                let currentCenterLocation = CLLocation(latitude: self.filter.latitude, longitude: self.filter.longitude)
-                self.posts = posts.sorted(by: { pLeft, pRight in
-                    switch self.listOrderType {
-                    case .distance:
-                        guard let leftCoord = pLeft.coord,
-                              let rightCoord = pRight.coord
-                        else { return true }
-
-                        let pLeftLocation = CLLocation(
-                            latitude: Double(leftCoord.lat),
-                            longitude: Double(leftCoord.long)
-                        )
-                        let pRightLocation = CLLocation(
-                            latitude: Double(rightCoord.lat),
-                            longitude: Double(rightCoord.long)
-                        )
-                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
-                    case .latest:
-                        return pLeft.postingTime > pRight.postingTime
-                    }
-                })
+                self.posts = posts
                 self.outputs.posts.onNext(self.posts)
                 self.outputs.focusSelectedPost.onNext(nil)
                 self.outputs.refresh.onNext(())
                 self.outputs.showRefreshRegion.onNext(false)
+            })
+            .disposed(by: disposeBag)
+
+        let nextPostReady = PublishSubject<[Post]?>()
+        nextPostReady
+            .compactMap { $0 }
+            .map { [weak self] posts -> [Post] in
+                if self?.filter.postState == .open {
+                    return posts.filter { post in post.open }
+                } else {
+                    return posts
+                }
+            }
+            .subscribe(onNext: { [unowned self] posts in
+                self.posts.append(contentsOf: posts)
+                self.outputs.posts.onNext(self.posts)
             })
             .disposed(by: disposeBag)
 
@@ -151,6 +146,7 @@ final class HomeViewModel: BaseViewModel {
             .map { [unowned self] filterType -> PostFilter in
                 var newFilter = self.filter
                 newFilter.filter = filterType
+                newFilter.page = 1
                 self.filter = newFilter
                 return newFilter
             }
@@ -288,7 +284,7 @@ final class HomeViewModel: BaseViewModel {
                     return nil
                 }
             }
-            .subscribe(onNext: { postReady.onNext($0) })
+            .subscribe(onNext: { nextPostReady.onNext($0) })
             .disposed(by: disposeBag)
 
         // MARK: - RouteInput
@@ -298,6 +294,9 @@ final class HomeViewModel: BaseViewModel {
                 self?.outputs.showRefreshRegion.onNext(false)
             })
             .filter { $0 }
+            .do(onNext: { [weak self] _ in
+                self?.filter.page = 1
+            })
             .compactMap { [weak self] _ in
                 self?.filter
             }
@@ -474,31 +473,6 @@ final class HomeViewModel: BaseViewModel {
 
         routeInputs.postListOrderChanged
             .subscribe(onNext: { [unowned self] postListOrder in
-                self.listOrderType = postListOrder
-                let currentCenterLocation = CLLocation(
-                    latitude: self.filter.latitude,
-                    longitude: self.filter.longitude
-                )
-                self.posts = self.posts.sorted(by: { pLeft, pRight in
-                    switch self.listOrderType {
-                    case .distance:
-                        guard let leftCoord = pLeft.coord,
-                              let rightCoord = pRight.coord
-                        else { return true }
-
-                        let pLeftLocation = CLLocation(
-                            latitude: Double(leftCoord.lat),
-                            longitude: Double(leftCoord.long)
-                        )
-                        let pRightLocation = CLLocation(
-                            latitude: Double(rightCoord.lat),
-                            longitude: Double(rightCoord.long)
-                        )
-                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
-                    case .latest:
-                        return pLeft.postingTime > pRight.postingTime
-                    }
-                })
                 self.outputs.posts.onNext(self.posts)
                 self.outputs.postListOrderChanged.onNext(postListOrder)
             })
