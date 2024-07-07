@@ -14,7 +14,7 @@ final class MessageInputView: UIView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
-        setupBindings()
+        processingInputs()
         textView.delegate = self
     }
 
@@ -38,6 +38,8 @@ final class MessageInputView: UIView {
     }
 
     var messageSendStatusSubject = PublishSubject<Bool>()
+
+    var imageSubject = PublishSubject<[UIImage]>()
 
     var placeHolder: String = "" {
         didSet {
@@ -80,6 +82,29 @@ final class MessageInputView: UIView {
         $0.backgroundColor = UIColor(white: 41.0 / 255.0, alpha: 1.0)
     }
 
+    private let imageContainerView = UIView().then {
+        $0.backgroundColor = .darkG7
+        $0.isHidden = true
+    }
+
+    private let lineView = UIView().then {
+        $0.backgroundColor = .darkG6
+    }
+
+    private lazy var imageCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.contentInset = .init(top: 16, left: 16, bottom: 16, right: 16)
+        collectionView.register(
+            MessageSelectedImageCell.self,
+            forCellWithReuseIdentifier: MessageSelectedImageCell.id
+        )
+        collectionView.backgroundColor = .darkG7
+        return collectionView
+    }()
+
     private let textView = UITextView().then {
         $0.backgroundColor = .clear
     }
@@ -98,7 +123,9 @@ final class MessageInputView: UIView {
         textView.centerVertically()
     }
 
-    private func setupBindings() {
+    private func processingInputs() {
+        imageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
         sendButton.rx.tap
             .map { self.textView.text ?? "" }
             .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
@@ -116,6 +143,29 @@ final class MessageInputView: UIView {
                 self.textView.text.removeAll()
                 self.textViewDidChange(self.textView)
             }.disposed(by: disposeBag)
+
+        imageSubject
+            .filter { [weak self] images in
+                self?.imageContainerView.isHidden = images.isEmpty
+                return !images.isEmpty
+            }
+
+            .bind(to: imageCollectionView.rx.items(
+                cellIdentifier: MessageSelectedImageCell.id,
+                cellType: MessageSelectedImageCell.self
+            )
+            ) { _, image, cell in
+                cell.configure(image: image)
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - CollectionView Delegate
+
+extension MessageInputView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 80)
     }
 }
 
@@ -152,7 +202,8 @@ extension MessageInputView: UITextViewDelegate {
 
         // Update textView's height
         contentView.snp.updateConstraints {
-            $0.top.left.right.equalToSuperview()
+            $0.top.equalTo(imageContainerView.snp.bottom)
+            $0.left.right.equalToSuperview()
             $0.height.equalTo(38 + bottomPadding + addHeight) // TODO: safeArea bottom height
         }
 
@@ -174,6 +225,12 @@ extension MessageInputView {
     private func setupViews() {
         addSubviews([
             contentView,
+            imageContainerView,
+        ])
+
+        imageContainerView.addSubviews([
+            imageCollectionView,
+            lineView,
         ])
 
         contentView.addSubviews([
@@ -188,9 +245,24 @@ extension MessageInputView {
     }
 
     private func initialLayout() {
+        imageContainerView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(80 + 32 + 1)
+        }
+
+        lineView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+
+        imageCollectionView.snp.makeConstraints {
+            $0.top.left.bottom.right.equalToSuperview()
+        }
+
         contentView.snp.makeConstraints {
             let window = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
             let bottomPadding = window?.safeAreaInsets.bottom ?? 0.0
+            $0.top.equalTo(imageContainerView.snp.bottom)
             $0.top.left.bottom.right.equalToSuperview()
             $0.height.equalTo(38 + bottomPadding) // TODO: safeArea bottom height
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -408,6 +409,7 @@
 /* Begin PBXFileReference section */
 		15A8C03A0517F56BA2F628B5 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
 		18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -2076,6 +2078,7 @@
 				DA3067602826235600543D74 /* MessageTableViewCell.swift */,
 				DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */,
 				DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */,
+				2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2614,6 +2617,7 @@
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */,
+				2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,

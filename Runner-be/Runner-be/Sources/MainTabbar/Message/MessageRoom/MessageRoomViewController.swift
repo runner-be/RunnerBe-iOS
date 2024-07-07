@@ -5,6 +5,7 @@
 //  Created by 이유리 on 2022/04/26.
 //
 
+import Photos
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -154,9 +155,38 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.showPicker
-            .bind { type in
-                print("MessageRoomViewController - ShowPicker, \(type)")
-            }.disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.delegate = self
+
+                switch sourceType {
+                case .library: // 갤러리
+                    picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                    PHPhotoLibrary.requestAuthorization { [weak self] status in
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .authorized:
+                                self?.present(picker, animated: true)
+                            default:
+                                AppContext.shared.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                            }
+                        }
+                    }
+                case .camera: // 카메라
+                    picker.sourceType = UIImagePickerController.SourceType.camera
+                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { ok in
+                        DispatchQueue.main.async {
+                            if ok {
+                                AppContext.shared.rootNavigationController?.present(picker, animated: true)
+                            } else {
+                                AppContext.shared.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
+                            }
+                        }
+                    })
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -264,27 +294,77 @@ extension MessageRoomViewController {
     }
 }
 
-// extension MessageRoomViewController: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
-//        if textView.text == L10n.MessageList.Chat.placeHolder {
-//            textView.text = nil // placeholder 제거
-//            textView.textColor = .darkG1
-//        }
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//            // 비어있을 경우 placeholder 노출
-//            textView.text = L10n.MessageList.Chat.placeHolder
-//            textView.textColor = .darkG35
-//        }
-//    }
+extension MessageRoomViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 
-//    func textViewDidChange(_ textView: UITextView) {
-//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//            sendButton.isEnabled = false
-//        } else {
-//            sendButton.isEnabled = true
-//        }
-//    }
-// }
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        let originalImage = info[.originalImage] as? UIImage
+        let originalResizedImage = originalImage?.resize(newWidth: 300)
+
+        if let image = originalResizedImage,
+           let imageData = image.pngData()
+        {
+            messageInputView.imageSubject.onNext([image])
+        } else {
+            AppContext.shared.makeToast("오류가 발생했습니다. 다시 시도해주세요")
+        }
+
+        picker.dismiss(animated: true)
+    }
+
+    func photoAuth() -> Bool {
+        let authorizationState = PHPhotoLibrary.authorizationStatus()
+        var isAuth = false
+
+        switch authorizationState {
+        case .authorized:
+            return true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { state in
+                if state == .authorized {
+                    isAuth = true
+                }
+            }
+            return isAuth
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+        return false
+    }
+
+    func cameraAuth() -> Bool {
+        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    }
+
+    func authSettingOpen(authString: String) {
+        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+                alert.dismiss(animated: true, completion: nil)
+                print("\(String(describing: action.title)) 클릭")
+            }
+
+            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+
+            present(alert, animated: true, completion: nil)
+        }
+    }
+}
