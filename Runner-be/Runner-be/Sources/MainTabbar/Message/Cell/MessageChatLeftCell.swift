@@ -72,6 +72,17 @@ class MessageChatLeftCell: UITableViewCell {
         button.isHidden = true
     }
 
+    private let messageImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 12
+        $0.layer.maskedCorners = [
+            .layerMinXMaxYCorner,
+            .layerMaxXMaxYCorner,
+            .layerMaxXMinYCorner,
+        ] // 왼쪽 위 직각
+        $0.clipsToBounds = true
+    }
+
     override var isSelected: Bool {
         get { checkBox.isSelected }
         set {
@@ -92,6 +103,23 @@ class MessageChatLeftCell: UITableViewCell {
 
     var disposeBag = DisposeBag()
     var tapCheck = PublishSubject<Bool>()
+    private var imageSizeConstraint: Constraint?
+
+    func configure(
+        text: String?,
+        nickname: String?,
+        date: Date?,
+        imageUrls: [String]
+    ) {
+        selectionStyle = .none
+        separatorInset = .zero
+        messageContent.text = text
+        nickName.text = nickname
+        messageDate.text = DateUtil.shared.formattedString(for: date!, format: DateFormat.messageTime)
+
+        messageImage.kf.setImage(with: URL(string: imageUrls.first ?? ""))
+        imageSizeConstraint?.update(offset: imageUrls.isEmpty ? 0 : 200)
+    }
 }
 
 extension MessageChatLeftCell {
@@ -104,6 +132,7 @@ extension MessageChatLeftCell {
             bubbleBackground,
             nickName,
             messageContent,
+            messageImage,
             checkBox,
             messageDate,
         ])
@@ -125,7 +154,7 @@ extension MessageChatLeftCell {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(nickName.snp.bottom).offset(12)
             make.leading.equalTo(nickName.snp.leading)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
+//            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
 
         messageContent.snp.makeConstraints { make in
@@ -135,6 +164,13 @@ extension MessageChatLeftCell {
             make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
             make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
             make.bottom.equalTo(bubbleBackground.snp.bottom).offset(-12)
+        }
+
+        messageImage.snp.makeConstraints {
+            $0.top.equalTo(bubbleBackground.snp.bottom).offset(10)
+            $0.left.equalTo(bubbleBackground)
+            $0.bottom.equalToSuperview().offset(-12)
+            self.imageSizeConstraint = $0.size.equalTo(200).constraint
         }
 
         checkBox.snp.makeConstraints { make in

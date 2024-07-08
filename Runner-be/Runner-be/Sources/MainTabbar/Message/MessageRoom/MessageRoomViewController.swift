@@ -113,38 +113,24 @@ class MessageRoomViewController: BaseViewController {
                 if item.messageFrom == "Others" {
                     let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
 
-                    cell.selectionStyle = .none
-                    cell.separatorInset = .zero // 구분선 제거
+                    cell.configure(
+                        text: item.content,
+                        nickname: item.nickName,
+                        date: date,
+                        imageUrls: [] // TODO: 서버로부터 받아오는 URL을 사용
+                    )
 
-                    cell.messageContent.text = item.content
-                    cell.nickName.text = item.nickName
-                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-
-                    if item.whetherPostUser == "Y" {
-                        cell.bubbleBackground.backgroundColor = .primary
-                        cell.messageContent.textColor = .black
-                    } else {
-                        cell.bubbleBackground.backgroundColor = .darkG55
-                        cell.messageContent.textColor = .darkG1
-                    }
                     return cell
 
                 } else {
                     let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
 
-                    cell.selectionStyle = .none
-                    cell.separatorInset = .zero
+                    cell.configure(
+                        text: item.content,
+                        date: date,
+                        imageUrls: [] // TODO: 서버로부터 받아오는 URL을 사용
+                    )
 
-                    cell.messageContent.text = item.content
-                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-
-                    if item.whetherPostUser == "Y" {
-                        cell.bubbleBackground.backgroundColor = .primary
-                        cell.messageContent.textColor = .black
-                    } else {
-                        cell.bubbleBackground.backgroundColor = .darkG55
-                        cell.messageContent.textColor = .darkG1
-                    }
                     return cell
                 }
             }
