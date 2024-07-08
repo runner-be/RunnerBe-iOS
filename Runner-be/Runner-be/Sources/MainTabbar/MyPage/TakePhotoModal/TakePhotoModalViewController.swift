@@ -92,6 +92,8 @@ final class TakePhotoModalViewController: BaseViewController {
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.titleLabel?.font = .pretendardRegular16
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
     }
 
     private var chooseFromAlbumButton = UIButton().then { button in
@@ -99,6 +101,8 @@ final class TakePhotoModalViewController: BaseViewController {
         button.setTitleColor(.primary, for: .normal)
         button.setBackgroundColor(.clear, for: .normal)
         button.titleLabel?.font = .pretendardRegular16
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
     }
 
     var chooseDefault = UIButton().then { button in
@@ -145,7 +149,7 @@ extension TakePhotoModalViewController {
             }
         }
 
-        takePhotoButton.snp.makeConstraints { make in
+        chooseFromAlbumButton.snp.makeConstraints { make in
             make.top.equalTo(sheet.snp.top)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
@@ -153,13 +157,13 @@ extension TakePhotoModalViewController {
         }
 
         hDivider1.snp.makeConstraints { make in
-            make.top.equalTo(takePhotoButton.snp.bottom)
+            make.top.equalTo(chooseFromAlbumButton.snp.bottom)
             make.height.equalTo(1)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
         }
 
-        chooseFromAlbumButton.snp.makeConstraints { make in
+        takePhotoButton.snp.makeConstraints { make in
             make.top.equalTo(hDivider1.snp.bottom)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
@@ -167,7 +171,7 @@ extension TakePhotoModalViewController {
         }
 
         hDivider2.snp.makeConstraints { make in
-            make.top.equalTo(chooseFromAlbumButton.snp.bottom)
+            make.top.equalTo(takePhotoButton.snp.bottom)
             make.height.equalTo(1)
             make.leading.equalTo(sheet.snp.leading)
             make.trailing.equalTo(sheet.snp.trailing)
