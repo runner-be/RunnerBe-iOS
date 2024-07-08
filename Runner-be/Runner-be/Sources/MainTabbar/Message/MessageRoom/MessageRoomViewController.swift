@@ -73,6 +73,9 @@ class MessageRoomViewController: BaseViewController {
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
+        messageInputView.imageSelectedSubjectoutput
+            .bind(to: viewModel.inputs.deleteImage)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -187,6 +190,15 @@ class MessageRoomViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        //            messageInputView.imageSubject.onNext([image])
+        viewModel.outputs.selectedImages
+            .bind(to: messageInputView.imageSelectedSubject)
+            .disposed(by: disposeBag)
+
+        messageInputView.imageSelectedSubject
+            .bind { [weak self] index in
+                print("eje0jf9e0wjf \(index)")
+            }.disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -309,7 +321,7 @@ extension MessageRoomViewController: UIImagePickerControllerDelegate, UINavigati
         if let image = originalResizedImage,
            let imageData = image.pngData()
         {
-            messageInputView.imageSubject.onNext([image])
+            viewModel.inputs.selectImage.onNext(image)
         } else {
             AppContext.shared.makeToast("오류가 발생했습니다. 다시 시도해주세요")
         }

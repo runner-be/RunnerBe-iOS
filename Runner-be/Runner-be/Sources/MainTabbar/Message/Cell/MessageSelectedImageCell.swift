@@ -10,11 +10,11 @@ import UIKit
 
 class MessageSelectedImageCell: UICollectionViewCell {
     static let id = "MessageSelectedImageCell"
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
 
     // MARK: - UI
 
-    private let imageView = UIImageView().then {
+    let imageView = UIImageView().then {
         $0.layer.cornerRadius = 15
         $0.layer.borderColor = UIColor(white: 1, alpha: 0.2).cgColor
         $0.layer.borderWidth = 1
@@ -42,8 +42,13 @@ class MessageSelectedImageCell: UICollectionViewCell {
 
     // MARK: - Internal Methods
 
-    func configure(image: UIImage) {
+    func configure(
+        image: UIImage,
+        tag: Int
+    ) {
+        disposeBag = DisposeBag()
         imageView.image = image
+        self.tag = tag
     }
 }
 

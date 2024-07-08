@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import SnapKit
 import UIKit
 
 // TODO: 외부에서 인터페스 사용하도록 리팩토링
@@ -39,7 +40,8 @@ final class MessageInputView: UIView {
 
     var messageSendStatusSubject = PublishSubject<Bool>()
 
-    var imageSubject = PublishSubject<[UIImage]>()
+    var imageSelectedSubject = PublishSubject<[UIImage]>()
+    var imageSelectedSubjectoutput = PublishSubject<Int>()
 
     var placeHolder: String = "" {
         didSet {
@@ -75,6 +77,8 @@ final class MessageInputView: UIView {
 
     // MARK: - UI
 
+    private var imageContainerHeightConstraint: Constraint?
+
     private let contentView = UIView()
 
     private let textContainerView = UIView().then {
@@ -84,7 +88,7 @@ final class MessageInputView: UIView {
 
     private let imageContainerView = UIView().then {
         $0.backgroundColor = .darkG7
-        $0.isHidden = true
+//        $0.isHidden = true
     }
 
     private let lineView = UIView().then {
@@ -144,18 +148,33 @@ final class MessageInputView: UIView {
                 self.textViewDidChange(self.textView)
             }.disposed(by: disposeBag)
 
-        imageSubject
+        imageSelectedSubject
             .filter { [weak self] images in
-                self?.imageContainerView.isHidden = images.isEmpty
-                return !images.isEmpty
+                if images.isEmpty {
+                    self?.imageContainerHeightConstraint?.update(offset: 0)
+                    return false
+                } else {
+                    self?.imageContainerHeightConstraint?.update(offset: 80 + 32 + 1)
+                    return true
+                }
             }
-
             .bind(to: imageCollectionView.rx.items(
                 cellIdentifier: MessageSelectedImageCell.id,
                 cellType: MessageSelectedImageCell.self
-            )
-            ) { _, image, cell in
-                cell.configure(image: image)
+            )) { index, image, cell in
+
+                cell.configure(
+                    image: image,
+                    tag: index
+                )
+
+                cell.cancleButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in cell.tag }
+                    .bind { index in
+                        self.imageSelectedSubjectoutput.onNext(index)
+                    }
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
     }
@@ -246,8 +265,8 @@ extension MessageInputView {
 
     private func initialLayout() {
         imageContainerView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(80 + 32 + 1)
+            $0.top.left.right.equalToSuperview()
+            self.imageContainerHeightConstraint = $0.height.equalTo(0).constraint
         }
 
         lineView.snp.makeConstraints {
@@ -263,7 +282,7 @@ extension MessageInputView {
             let window = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
             let bottomPadding = window?.safeAreaInsets.bottom ?? 0.0
             $0.top.equalTo(imageContainerView.snp.bottom)
-            $0.top.left.bottom.right.equalToSuperview()
+            $0.left.bottom.right.equalToSuperview()
             $0.height.equalTo(38 + bottomPadding) // TODO: safeArea bottom height
         }
 

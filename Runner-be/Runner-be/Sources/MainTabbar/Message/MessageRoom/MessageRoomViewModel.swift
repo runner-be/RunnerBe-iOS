@@ -10,6 +10,7 @@ import RxSwift
 
 final class MessageRoomViewModel: BaseViewModel {
     var messages: [MessageContent] = []
+    var images: [UIImage] = []
     var roomInfo: RoomInfo?
 
     init(messageAPIService: MessageAPIService = MessageAPIService(), roomId: Int) {
@@ -95,6 +96,31 @@ final class MessageRoomViewModel: BaseViewModel {
             .bind(to: routes.photoModal)
             .disposed(by: disposeBag)
 
+        inputs.selectImage
+            .filter { _ in
+                if self.images.count < 3 {
+                    return true
+                } else {
+                    AppContext.shared.makeToast("이미지는 3개 이상을 초과할 수 없습니다.(문구 임시)")
+                    return false
+                }
+            }
+            .bind { [weak self] image in
+                guard let self = self else { return }
+                self.images.append(image)
+                self.outputs.selectedImages.onNext(self.images)
+            }.disposed(by: disposeBag)
+
+        inputs.deleteImage
+            .filter { index in
+                self.images.count > index
+            }
+            .bind { [weak self] index in
+                guard let self = self else { return }
+                self.images.remove(at: index)
+                self.outputs.selectedImages.onNext(self.images)
+            }.disposed(by: disposeBag)
+
         routeInputs.photoTypeSelected
             .compactMap { $0 }
             .bind(to: outputs.showPicker)
@@ -107,6 +133,8 @@ final class MessageRoomViewModel: BaseViewModel {
         var detailPost = PublishSubject<Int>()
         var sendMessage = PublishSubject<String>()
         var tapPostImage = PublishSubject<Void>()
+        var selectImage = PublishSubject<UIImage>()
+        var deleteImage = PublishSubject<Int>()
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
@@ -114,6 +142,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var messageContents = ReplaySubject<[MessageContent]>.create(bufferSize: 1)
         var successSendMessage = PublishSubject<Bool>()
         var showPicker = PublishSubject<EditProfileType>()
+        var selectedImages = PublishSubject<[UIImage]>()
     }
 
     struct Route { // 화면 전환이 필요한 경우 해당 이벤트를 Coordinator에 전달하는 구조체
