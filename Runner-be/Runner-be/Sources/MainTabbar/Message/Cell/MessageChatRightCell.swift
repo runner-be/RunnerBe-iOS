@@ -54,10 +54,14 @@ class MessageChatRightCell: UITableViewCell {
             .layerMaxXMaxYCorner,
         ] // 오른쪽 위 직각
         $0.clipsToBounds = true
+        $0.backgroundColor = UIColor(white: 217.0 / 255.0, alpha: 1.0)
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         disposeBag = DisposeBag()
+        messageImage.kf.cancelDownloadTask()
+        messageImage.image = nil
     }
 
     var disposeBag = DisposeBag()
@@ -67,15 +71,15 @@ class MessageChatRightCell: UITableViewCell {
     func configure(
         text: String?,
         date: Date?,
-        imageUrls: [String]
+        imageUrls: [String?]
     ) {
         selectionStyle = .none
         separatorInset = .zero
         messageContent.text = text
         messageDate.text = DateUtil.shared.formattedString(for: date!, format: DateFormat.messageTime)
 
-        messageImage.kf.setImage(with: URL(string: imageUrls.first ?? ""))
-        imageSizeConstraint?.update(offset: imageUrls.isEmpty ? 0 : 200)
+        messageImage.kf.setImage(with: URL(string: imageUrls.compactMap { $0 }.first ?? ""))
+        imageSizeConstraint?.update(offset: imageUrls.compactMap { $0 }.isEmpty ? 0 : 200)
     }
 }
 
@@ -96,12 +100,10 @@ extension MessageChatRightCell {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
             make.trailing.equalTo(self.contentView.snp.trailing)
-//            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
 
         messageContent.snp.makeConstraints { make in
             make.width.lessThanOrEqualTo(200)
-            make.height.lessThanOrEqualTo(200)
             make.top.equalTo(bubbleBackground.snp.top).offset(12)
             make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
             make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
@@ -112,7 +114,7 @@ extension MessageChatRightCell {
             $0.top.equalTo(bubbleBackground.snp.bottom).offset(10)
             $0.right.equalTo(bubbleBackground)
             $0.bottom.equalToSuperview().offset(-12)
-            self.imageSizeConstraint = $0.size.equalTo(200).constraint
+            self.imageSizeConstraint = $0.size.equalTo(0).constraint
         }
 
         messageDate.snp.makeConstraints { make in

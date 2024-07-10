@@ -81,6 +81,7 @@ class MessageChatLeftCell: UITableViewCell {
             .layerMaxXMinYCorner,
         ] // 왼쪽 위 직각
         $0.clipsToBounds = true
+        $0.backgroundColor = UIColor(white: 217.0 / 255.0, alpha: 1.0)
     }
 
     override var isSelected: Bool {
@@ -98,7 +99,10 @@ class MessageChatLeftCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         disposeBag = DisposeBag()
+        messageImage.kf.cancelDownloadTask()
+        messageImage.image = nil
     }
 
     var disposeBag = DisposeBag()
@@ -109,7 +113,7 @@ class MessageChatLeftCell: UITableViewCell {
         text: String?,
         nickname: String?,
         date: Date?,
-        imageUrls: [String]
+        imageUrls: [String?]
     ) {
         selectionStyle = .none
         separatorInset = .zero
@@ -117,8 +121,8 @@ class MessageChatLeftCell: UITableViewCell {
         nickName.text = nickname
         messageDate.text = DateUtil.shared.formattedString(for: date!, format: DateFormat.messageTime)
 
-        messageImage.kf.setImage(with: URL(string: imageUrls.first ?? ""))
-        imageSizeConstraint?.update(offset: imageUrls.isEmpty ? 0 : 200)
+        messageImage.kf.setImage(with: URL(string: imageUrls.compactMap { $0 }.first ?? ""))
+        imageSizeConstraint?.update(offset: imageUrls.compactMap { $0 }.isEmpty ? 0 : 200)
     }
 }
 
@@ -154,12 +158,10 @@ extension MessageChatLeftCell {
         bubbleBackground.snp.makeConstraints { make in
             make.top.equalTo(nickName.snp.bottom).offset(12)
             make.leading.equalTo(nickName.snp.leading)
-//            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
 
         messageContent.snp.makeConstraints { make in
             make.width.lessThanOrEqualTo(200)
-            make.height.lessThanOrEqualTo(200)
             make.top.equalTo(bubbleBackground.snp.top).offset(12)
             make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
             make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
@@ -170,7 +172,7 @@ extension MessageChatLeftCell {
             $0.top.equalTo(bubbleBackground.snp.bottom).offset(10)
             $0.left.equalTo(bubbleBackground)
             $0.bottom.equalToSuperview().offset(-12)
-            self.imageSizeConstraint = $0.size.equalTo(200).constraint
+            self.imageSizeConstraint = $0.size.equalTo(0).constraint
         }
 
         checkBox.snp.makeConstraints { make in

@@ -117,7 +117,7 @@ class MessageRoomViewController: BaseViewController {
                         text: item.content,
                         nickname: item.nickName,
                         date: date,
-                        imageUrls: [] // TODO: 서버로부터 받아오는 URL을 사용
+                        imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
                     )
 
                     return cell
@@ -128,7 +128,7 @@ class MessageRoomViewController: BaseViewController {
                     cell.configure(
                         text: item.content,
                         date: date,
-                        imageUrls: [] // TODO: 서버로부터 받아오는 URL을 사용
+                        imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
                     )
 
                     return cell
