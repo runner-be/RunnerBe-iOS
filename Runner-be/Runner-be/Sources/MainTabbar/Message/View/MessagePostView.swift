@@ -21,17 +21,7 @@ class MessagePostView: UIView {
         initialLayout()
     }
 
-    var badgeLabel = UIButton().then { view in
-        view.sizeToFit()
-        view.setTitleColor(.primarydark, for: .normal)
-        view.titleLabel?.font = .iosBody13R
-        view.layer.borderColor = UIColor.primarydark.cgColor
-        view.titleLabel?.textAlignment = .center
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        view.isEnabled = false
-    }
+    var paceView = RunningPaceView()
 
     var postTitle = UILabel().then { view in
         view.textColor = .darkG25
@@ -45,7 +35,7 @@ class MessagePostView: UIView {
     private func setup() {
         backgroundColor = .darkG6
         addSubviews([
-            badgeLabel,
+            paceView,
             postTitle,
             rightArrow,
         ])
@@ -56,17 +46,16 @@ class MessagePostView: UIView {
             make.height.equalTo(56)
         }
 
-        badgeLabel.snp.makeConstraints { make in
+        paceView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(16)
             make.leading.equalTo(self.snp.leading).offset(16)
             make.bottom.equalTo(self.snp.bottom).offset(-18)
             make.height.equalTo(20)
-            make.width.equalTo(50)
         }
 
         postTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(badgeLabel)
-            make.leading.equalTo(badgeLabel.snp.trailing).offset(12)
+            make.centerY.equalTo(paceView)
+            make.leading.equalTo(paceView.snp.trailing).offset(12)
         }
 
         rightArrow.snp.makeConstraints { make in

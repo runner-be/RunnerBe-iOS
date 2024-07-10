@@ -87,8 +87,8 @@ class MessageRoomViewController: BaseViewController {
 
         viewModel.outputs.roomInfo
             .subscribe(onNext: { roomInfo in
-                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
+                self.postSection.paceView.configure(pace: roomInfo.pace ?? "", viewType: .postDetail)
             })
             .disposed(by: disposeBag)
 
@@ -197,7 +197,6 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "태그"
         view.postTitle.text = "게시글 제목"
     }
 
