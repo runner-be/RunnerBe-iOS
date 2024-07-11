@@ -131,6 +131,10 @@ class MessageRoomViewController: BaseViewController {
                         imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
                     )
 
+                    cell.messageImageTapped
+                        .bind(to: self.viewModel.routes.imageViewer)
+                        .disposed(by: cell.disposeBag)
+
                     return cell
                 }
             }

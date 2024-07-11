@@ -150,6 +150,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var detailPost = PublishSubject<Int>()
         var photoModal = PublishSubject<Void>()
+        var imageViewer = PublishSubject<UIImage>()
     }
 
     struct RouteInput { // 자식화면이 해제되면서 전달되어야하느 정보가 있을 경우, 전달되어야할 이벤트가 정의되어있는 구조체

@@ -23,6 +23,11 @@ class MessageChatLeftCell: UITableViewCell {
 
     var delegate: MessageChatReportDelegate?
 
+    private let messageImageTappedSubject = PublishSubject<UIImage>()
+    var messageImageTapped: Observable<UIImage> {
+        return messageImageTappedSubject.asObservable()
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup() // cell 세팅
@@ -123,6 +128,13 @@ class MessageChatLeftCell: UITableViewCell {
 
         messageImage.kf.setImage(with: URL(string: imageUrls.compactMap { $0 }.first ?? ""))
         imageSizeConstraint?.update(offset: imageUrls.compactMap { $0 }.isEmpty ? 0 : 200)
+
+        messageImage.rx.tapGesture()
+            .compactMap { [weak self] _ in
+                self?.messageImage.image
+            }
+            .bind(to: messageImageTappedSubject)
+            .disposed(by: disposeBag)
     }
 }
 

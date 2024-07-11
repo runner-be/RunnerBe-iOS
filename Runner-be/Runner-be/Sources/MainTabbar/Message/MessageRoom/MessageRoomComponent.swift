@@ -36,4 +36,8 @@ final class MessageRoomComponent {
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(postId: postId, fromMessageRoom: true)
     }
+
+    func imageViewerComponent(image: UIImage) -> ImageViewerComponent {
+        return ImageViewerComponent(image: image)
+    }
 }
