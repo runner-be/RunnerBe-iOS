@@ -64,6 +64,10 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         messageInputView.sendButtonTapped
+            .map { text in
+                let imageData = self.viewModel.images.first?.jpegData(compressionQuality: 0.5)
+                return (text, imageData)
+            }
             .bind(to: viewModel.inputs.sendMessage)
             .disposed(by: disposeBag)
 

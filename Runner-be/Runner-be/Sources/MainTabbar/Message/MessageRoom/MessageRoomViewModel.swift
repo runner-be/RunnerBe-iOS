@@ -72,25 +72,24 @@ final class MessageRoomViewModel: BaseViewModel {
 
         inputs.sendMessage
             .throttle(.seconds(1), scheduler: MainScheduler.instance) // 누르고 1초 제한두기
-            .flatMap { messageAPIService.postMessage(roomId: roomId, content: $0) }
-            .map { result in
-                switch result {
-                case let .response(result: data):
-                    return data
-                case let .error(alertMessage):
-                    if let alertMessage = alertMessage {
-                        self.toast.onNext(alertMessage)
-                    }
-                    return false
-                }
+            .flatMap {
+                messageAPIService.postMessage(
+                    roomId: roomId,
+                    content: $0.0,
+                    imageData: $0.1
+                )
             }
-            .subscribe(onNext: { isPosted in
-                if isPosted {
-                    self.outputs.successSendMessage.onNext(true)
-                    self.routeInputs.needUpdate.onNext(true)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .succeed:
+                    self?.outputs.successSendMessage.onNext(true)
+                    self?.routeInputs.needUpdate.onNext(true)
+                    self?.images = []
+                case .error:
+                    // TODO: 실패원인 세분화
+                    self?.toast.onNext("메시지 전송에 실패했습니다.")
                 }
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
 
         inputs.tapPostImage
             .bind(to: routes.photoModal)
@@ -131,7 +130,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var report = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
-        var sendMessage = PublishSubject<String>()
+        var sendMessage = PublishSubject<(String?, Data?)>()
         var tapPostImage = PublishSubject<Void>()
         var selectImage = PublishSubject<UIImage>()
         var deleteImage = PublishSubject<Int>()

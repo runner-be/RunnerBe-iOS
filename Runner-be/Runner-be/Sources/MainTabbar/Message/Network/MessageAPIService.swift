@@ -10,16 +10,29 @@ import Moya
 import RxSwift
 import SwiftyJSON
 
+enum UploadImageMessageResult {
+    case succeed(data: Data?)
+    case error
+}
+
 final class MessageAPIService {
     private var disposableId: Int = 0
-    private var disposableDic: [Int: Disposable] = [:]
+    private var disposableDic: [Int: DisposeBag] = [:]
 
     let provider: MoyaProvider<MessageAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MessageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
+    private var imageUploadService: ImageUploadService
+
+    init(
+        provider: MoyaProvider<MessageAPI> = .init(plugins: [VerbosePlugin(verbose: true)]),
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        imageUploadService: ImageUploadService = BasicImageUploadService()
+
+    ) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
+        self.imageUploadService = imageUploadService
     }
 
     func getMessageRoomList() -> Observable<APIResult<[MessageRoom]?>> {
@@ -114,5 +127,99 @@ final class MessageAPIService {
             }
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
+
+    func postMessage(
+        roomId: Int,
+        content: String?,
+        imageData: Data? = nil
+    ) -> Observable<UploadImageMessageResult> {
+        guard let token = loginKeyChain.token
+        else {
+            return .just(.error)
+        }
+
+        let functionResult = ReplaySubject<UploadImageMessageResult>.create(bufferSize: 1)
+        let imageUploaded = ReplaySubject<String>.create(bufferSize: 1)
+        let disposeBag = DisposeBag()
+
+        let path = "MessageRoom/\(roomId)/test_image.png"
+
+        // 이미지 데이터가 포함되어 있으면 Firebase storage에 이미지를 업로드 합니다.
+        if let imageData = imageData {
+            imageUploadService.uploadImage(data: imageData, path: path)
+                .subscribe(onNext: { url in
+                    guard let url = url else {
+                        functionResult.onNext(.error)
+                        return
+                    }
+                    imageUploaded.onNext(url)
+                }).disposed(by: disposeBag)
+
+            imageUploaded
+                .bind { _ in
+
+                }.disposed(by: disposeBag)
+
+        } else { // 이미지 데이터가 없으면 이미지 업로드 없이 메시지전송 API를 호출합니다.
+            provider.rx.request(.postMessage(
+                roomId: roomId,
+                postMessageRequest: PostMessageRequest(
+                    content: content
+                ),
+                token: token
+            ))
+            .asObservable()
+            .mapResponse()
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(.error)
+                    return
+                }
+                switch response.basic.code {
+                case 1000: // 성공
+                    functionResult.onNext(.succeed(data: nil))
+                default:
+                    functionResult.onNext(.error)
+                    // FIXME: return .error(alertMessage: "오류가 발생했습니다. 다시 시도해주세요.")
+                }
+            }).disposed(by: disposeBag)
+        }
+
+        imageUploaded
+            .map { [weak self] url in
+                self?.provider.rx.request(.postMessage(
+                    roomId: roomId,
+                    postMessageRequest: PostMessageRequest(
+                        content: content,
+                        imageUrl: url
+                    ),
+                    token: token
+                ))
+            }
+            .compactMap { $0 }
+            .flatMap { $0 }
+            .mapResponse()
+            .subscribe(onNext: { response in
+                guard let response = response else {
+                    functionResult.onNext(.error)
+                    return
+                }
+                switch response.basic.code {
+                case 1000: // 설공
+                    functionResult.onNext(.succeed(data: imageData!))
+                default:
+                    functionResult.onNext(.error)
+                }
+            }).disposed(by: disposeBag)
+
+        let id = disposableId
+        disposableId += 1
+        disposableDic[disposableId] = disposeBag
+
+        return functionResult
+            .do(onNext: { [weak self] _ in
+                self?.disposableDic.removeValue(forKey: id)
+            })
     }
 }

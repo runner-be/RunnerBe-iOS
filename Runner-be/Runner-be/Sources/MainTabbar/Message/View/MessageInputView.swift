@@ -28,8 +28,8 @@ final class MessageInputView: UIView {
 
     private let disposeBag = DisposeBag()
 
-    private let sendButtonTappedSubject = PublishSubject<String>()
-    var sendButtonTapped: Observable<String> {
+    private let sendButtonTappedSubject = PublishSubject<String?>()
+    var sendButtonTapped: Observable<String?> {
         return sendButtonTappedSubject.asObservable()
     }
 
@@ -133,8 +133,13 @@ final class MessageInputView: UIView {
         imageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         sendButton.rx.tap
-            .map { self.textView.text ?? "" }
-            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+            .map {
+                if self.textView.text != "" && !self.isTextEmpty {
+                    return self.textView.text
+                } else {
+                    return nil
+                }
+            }
             .bind(to: sendButtonTappedSubject)
             .disposed(by: disposeBag)
 
@@ -148,6 +153,9 @@ final class MessageInputView: UIView {
                 guard let self = self else { return }
                 self.textView.text.removeAll()
                 self.textViewDidChange(self.textView)
+                self.textViewDidEndEditing(self.textView)
+                self.textView.resignFirstResponder()
+                self.imageSelectedSubject.onNext([])
             }.disposed(by: disposeBag)
 
         imageSelectedSubject
