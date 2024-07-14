@@ -75,6 +75,8 @@ final class MessageInputView: UIView {
         }
     }
 
+    var isTextEmpty: Bool = true
+
     // MARK: - UI
 
     private var imageContainerHeightConstraint: Constraint?
@@ -150,11 +152,14 @@ final class MessageInputView: UIView {
 
         imageSelectedSubject
             .filter { [weak self] images in
+                guard let self = self else { return false }
                 if images.isEmpty {
-                    self?.imageContainerHeightConstraint?.update(offset: 0)
+                    self.imageContainerHeightConstraint?.update(offset: 0)
+                    self.sendButton.isEnabled = !isTextEmpty
                     return false
                 } else {
-                    self?.imageContainerHeightConstraint?.update(offset: 80 + 32 + 1)
+                    self.imageContainerHeightConstraint?.update(offset: 80 + 32 + 1)
+                    self.sendButton.isEnabled = true
                     return true
                 }
             }
@@ -195,6 +200,7 @@ extension MessageInputView: UITextViewDelegate {
         if textView.text == placeHolder {
             textView.text = nil
             textView.textColor = .darkG1
+            isTextEmpty = false
         }
     }
 
@@ -202,12 +208,13 @@ extension MessageInputView: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = placeHolder
             textView.textColor = .darkG5
+            isTextEmpty = true
         }
     }
 
     func textViewDidChange(_ textView: UITextView) {
         let numberOfLine = textView.numberOfLines()
-        sendButton.isEnabled = !textView.text.isEmpty
+        sendButton.isEnabled = !textView.text.isEmpty || (!imageCollectionView.visibleCells.isEmpty)
 
         if numberOfLine >= 3 {
             return

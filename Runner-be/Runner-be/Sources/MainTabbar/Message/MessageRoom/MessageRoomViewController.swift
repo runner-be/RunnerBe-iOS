@@ -184,11 +184,6 @@ class MessageRoomViewController: BaseViewController {
         viewModel.outputs.selectedImages
             .bind(to: messageInputView.imageSelectedSubject)
             .disposed(by: disposeBag)
-
-        messageInputView.imageSelectedSubject
-            .bind { [weak self] index in
-                print("eje0jf9e0wjf \(index)")
-            }.disposed(by: disposeBag)
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
