@@ -272,6 +272,7 @@ extension WritingMainPostViewController {
 
 extension WritingMainPostViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from _: Int, to: Int) {
-        viewModel.inputs.editTag.onNext(to)
+        // 상단 러닝태그 "전체" 선택지를 뺐기 때문에 1을 더해줍니다.
+        viewModel.inputs.editTag.onNext(to + 1)
     }
 }

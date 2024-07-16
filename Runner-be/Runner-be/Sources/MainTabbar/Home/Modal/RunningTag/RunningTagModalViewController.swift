@@ -50,6 +50,11 @@ class RunningTagModalViewController: BaseViewController {
         .subscribe(viewModel.inputs.backward)
         .disposed(by: disposeBag)
 
+        allButton.rx.tap
+            .map { RunningTag.all }
+            .bind(to: viewModel.inputs.tapOrder)
+            .disposed(by: disposeBag)
+
         afterWorkButton.rx.tap
             .map { RunningTag.afterWork }
             .bind(to: viewModel.inputs.tapOrder)
