@@ -83,6 +83,35 @@ class MessageChatRightCell: UITableViewCell {
         messageContent.text = text
         messageDate.text = DateUtil.shared.formattedString(for: date!, format: DateFormat.messageTime)
 
+        if text == "" || text?.isEmpty ?? true {
+            messageContent.snp.updateConstraints { make in
+                make.top.equalTo(bubbleBackground.snp.top).offset(0)
+                make.leading.equalTo(bubbleBackground.snp.leading).offset(0)
+                make.trailing.equalTo(bubbleBackground.snp.trailing).offset(0)
+                make.bottom.equalTo(bubbleBackground.snp.bottom).offset(0)
+            }
+
+        } else {
+            messageContent.snp.updateConstraints { make in
+                make.top.equalTo(bubbleBackground.snp.top).offset(12)
+                make.leading.equalTo(bubbleBackground.snp.leading).offset(12)
+                make.trailing.equalTo(bubbleBackground.snp.trailing).offset(-12)
+                make.bottom.equalTo(bubbleBackground.snp.bottom).offset(-12)
+            }
+        }
+        
+        if imageUrls.compactMap({ $0 }).isEmpty {
+            messageDate.snp.remakeConstraints {
+                $0.trailing.equalTo(bubbleBackground.snp.leading).offset(-4)
+                $0.bottom.equalTo(bubbleBackground.snp.bottom)
+            }
+        } else {
+            messageDate.snp.remakeConstraints {
+                $0.trailing.equalTo(messageImage.snp.leading).offset(-4)
+                $0.bottom.equalTo(messageImage.snp.bottom)
+            }
+        }
+
         messageImage.kf.setImage(with: URL(string: imageUrls.compactMap { $0 }.first ?? ""))
         imageSizeConstraint?.update(offset: imageUrls.compactMap { $0 }.isEmpty ? 0 : 200)
 
