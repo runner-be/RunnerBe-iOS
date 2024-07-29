@@ -11,7 +11,7 @@ import RxSwift
 import SwiftyJSON
 
 enum UploadImageMessageResult {
-    case succeed(data: Data?)
+    case succeed
     case error
 }
 
@@ -129,10 +129,11 @@ final class MessageAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
+    //TODO: 역할이 3개이상 한 메서드에서 처리하는 부분을 분리시켜야할 필요가 있습니다.
     func postMessage(
         roomId: Int,
-        content: String?,
-        imageData: Data? = nil
+        content: [String?],
+        imageData: [Data?]
     ) -> Observable<UploadImageMessageResult> {
         guard let token = loginKeyChain.token
         else {
@@ -140,32 +141,41 @@ final class MessageAPIService {
         }
 
         let functionResult = ReplaySubject<UploadImageMessageResult>.create(bufferSize: 1)
-        let imageUploaded = ReplaySubject<String>.create(bufferSize: 1)
+        let imageUploaded = ReplaySubject<(Int, String)>.create(bufferSize: 1)
         let disposeBag = DisposeBag()
 
-        let path = "MessageRoom/\(roomId)/test_image.png"
-
         // 이미지 데이터가 포함되어 있으면 Firebase storage에 이미지를 업로드 합니다.
-        if let imageData = imageData {
-            imageUploadService.uploadImage(data: imageData, path: path)
-                .subscribe(onNext: { url in
-                    guard let url = url else {
-                        functionResult.onNext(.error)
-                        return
-                    }
-                    imageUploaded.onNext(url)
-                }).disposed(by: disposeBag)
+        if !imageData.isEmpty {
+            imageData.enumerated().forEach { index, imageData in
+                if let imageData = imageData {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyyMMdd_HHmmss"
+                    let uuid = UUID().uuidString
+                    let uniqueFileName = "\(dateFormatter.string(from: Date()))_\(uuid).png"
+                    let path = "MessageRoom/\(roomId)/\(uniqueFileName)"
 
-            imageUploaded
-                .bind { _ in
+                    imageUploadService.uploadImage(
+                        data: imageData,
+                        path: path
+                    )
+                    .subscribe(onNext: { url in
+                        guard let url = url else {
+                            functionResult.onNext(.error)
+                            return
+                        }
+                        imageUploaded.onNext((index, url))
+                    }).disposed(by: disposeBag)
 
-                }.disposed(by: disposeBag)
+                } else {
+                    print("imageDat nil")
+                }
+            }
 
         } else { // 이미지 데이터가 없으면 이미지 업로드 없이 메시지전송 API를 호출합니다.
             provider.rx.request(.postMessage(
                 roomId: roomId,
                 postMessageRequest: PostMessageRequest(
-                    content: content
+                    content: content.first ?? ""
                 ),
                 token: token
             ))
@@ -178,7 +188,7 @@ final class MessageAPIService {
                 }
                 switch response.basic.code {
                 case 1000: // 성공
-                    functionResult.onNext(.succeed(data: nil))
+                    functionResult.onNext(.succeed)
                 default:
                     functionResult.onNext(.error)
                     // FIXME: return .error(alertMessage: "오류가 발생했습니다. 다시 시도해주세요.")
@@ -187,13 +197,14 @@ final class MessageAPIService {
         }
 
         imageUploaded
-            .map { [weak self] url in
+            .map { [weak self] (index, url) in
                 self?.provider.rx.request(.postMessage(
                     roomId: roomId,
                     postMessageRequest: PostMessageRequest(
-                        content: content,
+                        content: content[index],
                         imageUrl: url
                     ),
+
                     token: token
                 ))
             }
@@ -207,7 +218,8 @@ final class MessageAPIService {
                 }
                 switch response.basic.code {
                 case 1000: // 설공
-                    functionResult.onNext(.succeed(data: imageData!))
+                    functionResult.onNext(.succeed)
+                    print("success")
                 default:
                     functionResult.onNext(.error)
                 }

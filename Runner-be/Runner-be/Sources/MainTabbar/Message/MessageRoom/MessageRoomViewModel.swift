@@ -130,7 +130,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var report = PublishSubject<Void>()
         var backward = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
-        var sendMessage = PublishSubject<(String?, Data?)>()
+        var sendMessage = PublishSubject<([String?], [Data?])>()
         var tapPostImage = PublishSubject<Void>()
         var selectImage = PublishSubject<UIImage>()
         var deleteImage = PublishSubject<Int>()
