@@ -5,6 +5,7 @@
 //  Created by 이유리 on 2022/04/26.
 //
 
+import Photos
 import RxCocoa
 import RxGesture
 import RxSwift
@@ -27,9 +28,8 @@ class MessageRoomViewController: BaseViewController {
 
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-        chatTextView.delegate = self
+//        messageInputView.delegate = self
         dismissKeyboardWhenTappedAround()
-
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -63,14 +63,25 @@ class MessageRoomViewController: BaseViewController {
             .bind(to: viewModel.inputs.detailPost)
             .disposed(by: disposeBag)
 
-        sendButton.rx.tap
-            .map { self.chatTextView.text ?? "" }
-            .filter { $0 != "" } // 입력창이 비어있으면 전송 요청이 안되도록
+        messageInputView.sendButtonTapped
+            .map { text in
+                let imageData = self.viewModel.images.compactMap { $0.jpegData(compressionQuality: 0.5) }
+                var contents: [String?] = Array(repeating: nil, count: imageData.count + 1)
+                contents[0] = text
+                return (contents, imageData)
+            }
             .bind(to: viewModel.inputs.sendMessage)
+            .disposed(by: disposeBag)
+
+        messageInputView.plusImageButtonTapped
+            .bind(to: viewModel.inputs.tapPostImage)
             .disposed(by: disposeBag)
     }
 
     private func viewModelInput() { // 얘는 이벤트가 뷰모델로 전달이 되어야할 때 쓰는 애들
+        messageInputView.imageSelectedSubjectoutput
+            .bind(to: viewModel.inputs.deleteImage)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() { // 뷰모델에서 뷰로 데이터가 전달되어 뷰의 변화가 반영되는 부분
@@ -82,17 +93,13 @@ class MessageRoomViewController: BaseViewController {
 
         viewModel.outputs.roomInfo
             .subscribe(onNext: { roomInfo in
-                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
+                self.postSection.paceView.configure(pace: roomInfo.pace ?? "", viewType: .postDetail)
             })
             .disposed(by: disposeBag)
 
         viewModel.outputs.successSendMessage
-            .subscribe(onNext: { isSuccessSendMessage in
-                if isSuccessSendMessage {
-                    self.chatTextView.text.removeAll()
-                }
-            })
+            .bind(to: messageInputView.messageSendStatusSubject)
             .disposed(by: disposeBag)
 
         viewModel.outputs.messageContents
@@ -112,38 +119,28 @@ class MessageRoomViewController: BaseViewController {
                 if item.messageFrom == "Others" {
                     let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell
 
-                    cell.selectionStyle = .none
-                    cell.separatorInset = .zero // 구분선 제거
+                    cell.configure(
+                        text: item.content,
+                        nickname: item.nickName,
+                        date: date,
+                        imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
+                    )
 
-                    cell.messageContent.text = item.content
-                    cell.nickName.text = item.nickName
-                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
-
-                    if item.whetherPostUser == "Y" {
-                        cell.bubbleBackground.backgroundColor = .primary
-                        cell.messageContent.textColor = .black
-                    } else {
-                        cell.bubbleBackground.backgroundColor = .darkG55
-                        cell.messageContent.textColor = .darkG1
-                    }
                     return cell
 
                 } else {
                     let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatRightCell.id) as! MessageChatRightCell
 
-                    cell.selectionStyle = .none
-                    cell.separatorInset = .zero
+                    cell.configure(
+                        text: item.content,
+                        date: date,
+                        imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
+                    )
 
-                    cell.messageContent.text = item.content
-                    cell.messageDate.text = self.dateUtil.formattedString(for: date!, format: DateFormat.messageTime)
+                    cell.messageImageTapped
+                        .bind(to: self.viewModel.routes.imageViewer)
+                        .disposed(by: cell.disposeBag)
 
-                    if item.whetherPostUser == "Y" {
-                        cell.bubbleBackground.backgroundColor = .primary
-                        cell.messageContent.textColor = .black
-                    } else {
-                        cell.bubbleBackground.backgroundColor = .darkG55
-                        cell.messageContent.textColor = .darkG1
-                    }
                     return cell
                 }
             }
@@ -154,6 +151,44 @@ class MessageRoomViewController: BaseViewController {
             .subscribe(onNext: { messages in
                 self.messageContentsTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
             })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.showPicker
+            .subscribe(onNext: { [weak self] sourceType in
+                guard let self = self else { return }
+                let picker = UIImagePickerController()
+                picker.delegate = self
+
+                switch sourceType {
+                case .library: // 갤러리
+                    picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                    PHPhotoLibrary.requestAuthorization { [weak self] status in
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .authorized:
+                                self?.present(picker, animated: true)
+                            default:
+                                AppContext.shared.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                            }
+                        }
+                    }
+                case .camera: // 카메라
+                    picker.sourceType = UIImagePickerController.SourceType.camera
+                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { ok in
+                        DispatchQueue.main.async {
+                            if ok {
+                                AppContext.shared.rootNavigationController?.present(picker, animated: true)
+                            } else {
+                                AppContext.shared.makeToast("설정화면에서 카메라 접근권한을 설정해주세요")
+                            }
+                        }
+                    })
+                }
+            })
+            .disposed(by: disposeBag)
+        //            messageInputView.imageSubject.onNext([image])
+        viewModel.outputs.selectedImages
+            .bind(to: messageInputView.imageSelectedSubject)
             .disposed(by: disposeBag)
     }
 
@@ -167,7 +202,6 @@ class MessageRoomViewController: BaseViewController {
     }
 
     var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "태그"
         view.postTitle.text = "게시글 제목"
     }
 
@@ -182,27 +216,16 @@ class MessageRoomViewController: BaseViewController {
         view.backgroundColor = .darkG6
     }
 
-    var chatTextView = UITextView().then { view in
-        // background
-        view.backgroundColor = .darkG5
-        view.layer.borderWidth = 0
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 19
+    private let messageInputView = MessageInputView().then {
+        // TODO: 색상코드이름
+        $0.backgroundColor = UIColor(white: 29.0 / 255.0, alpha: 1.0)
+        $0.cornerRadius = 19
+        $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
-        // textview padding
-        view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 18, right: 44)
+        $0.placeHolder = L10n.MessageList.Chat.placeHolder
 
-        view.font = .iosBody15R
-
-        // place holder 설정
-        view.text = L10n.MessageList.Chat.placeHolder
-        view.textColor = .darkG35
-        view.showsVerticalScrollIndicator = false
-    }
-
-    var sendButton = UIButton().then { view in
-        view.isEnabled = false
-        view.setImage(Asset.iconsSend24.uiImage, for: .normal)
+        $0.font = .pretendardRegular14
+        $0.textColor = .darkG35
     }
 }
 
@@ -216,12 +239,7 @@ extension MessageRoomViewController {
             navBar,
             postSection,
             messageContentsTableView,
-            chatBackGround,
-        ])
-
-        chatBackGround.addSubviews([
-            chatTextView,
-            sendButton,
+            messageInputView,
         ])
 
         view.bringSubviewToFront(navBar)
@@ -245,79 +263,110 @@ extension MessageRoomViewController {
             make.top.equalTo(postSection.snp.bottom).offset(10) // postSection만큼 떨어뜨리기
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.chatBackGround.snp.top)
+            make.bottom.equalTo(self.messageInputView.snp.top)
         }
 
-        chatBackGround.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.snp.leading)
-            make.trailing.equalTo(self.view.snp.trailing)
-            make.bottom.equalTo(self.view.snp.bottom)
-            make.height.equalTo(UIScreen.main.isWiderThan375pt ? 96 : 62)
-        }
-
-        chatTextView.snp.makeConstraints { make in
-            make.leading.equalTo(chatBackGround.snp.leading).offset(16)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-52)
-            make.top.equalTo(chatBackGround.snp.top).offset(12)
-            make.height.equalTo(38)
-        }
-
-        sendButton.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
-            make.centerY.equalTo(chatTextView.snp.centerY)
-            make.trailing.equalTo(chatBackGround.snp.trailing).offset(-16)
+        messageInputView.snp.makeConstraints {
+            $0.top.equalTo(messageContentsTableView.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
         }
     }
 
     @objc
-    func keyboardWillShow(_ notification: Notification) { // keyboardFrameEndUserInfoKey : 키보드가 차지하는 frame의 CGRect값 반환
+    func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y -= (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset.bottom = keyboardHeight - AppContext.shared.safeAreaInsets.bottom
-            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
-                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+            UIView.animate(withDuration: 0.3) {
+                self.messageInputView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().inset(keyboardRectangle.height)
+                }
+                self.view.layoutIfNeeded()
             }
         }
     }
 
     @objc
-    func keyboardWillHide(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            chatBackGround.frame.origin.y += (keyboardHeight - AppContext.shared.safeAreaInsets.bottom)
-            messageContentsTableView.contentInset.bottom = 0
-            if messageContentsTableView.numberOfRows(inSection: 0) != 0 {
-                messageContentsTableView.scrollToRow(at: IndexPath(row: messageContentsTableView.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true) // 맨 마지막 내용으로 이동하도록
+    func keyboardWillHide(_: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.messageInputView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(0)
             }
+            self.view.layoutIfNeeded()
         }
     }
 }
 
-extension MessageRoomViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
-        if textView.text == L10n.MessageList.Chat.placeHolder {
-            textView.text = nil // placeholder 제거
-            textView.textColor = .darkG1
-        }
+extension MessageRoomViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            // 비어있을 경우 placeholder 노출
-            textView.text = L10n.MessageList.Chat.placeHolder
-            textView.textColor = .darkG35
-        }
-    }
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        let originalImage = info[.originalImage] as? UIImage
+        let originalResizedImage = originalImage?.resize(newWidth: 300)
 
-    func textViewDidChange(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            sendButton.isEnabled = false
+        if let image = originalResizedImage,
+           let imageData = image.pngData()
+        {
+            viewModel.inputs.selectImage.onNext(image)
         } else {
-            sendButton.isEnabled = true
+            AppContext.shared.makeToast("오류가 발생했습니다. 다시 시도해주세요")
+        }
+
+        picker.dismiss(animated: true)
+    }
+
+    func photoAuth() -> Bool {
+        let authorizationState = PHPhotoLibrary.authorizationStatus()
+        var isAuth = false
+
+        switch authorizationState {
+        case .authorized:
+            return true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { state in
+                if state == .authorized {
+                    isAuth = true
+                }
+            }
+            return isAuth
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+        return false
+    }
+
+    func cameraAuth() -> Bool {
+        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    }
+
+    func authSettingOpen(authString: String) {
+        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+                alert.dismiss(animated: true, completion: nil)
+                print("\(String(describing: action.title)) 클릭")
+            }
+
+            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+
+            present(alert, animated: true, completion: nil)
         }
     }
 }

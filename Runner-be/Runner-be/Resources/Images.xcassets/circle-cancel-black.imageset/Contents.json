@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "iconsSend24.png",
+      "filename" : "circle-cancel-black.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iconsSend24@2x.png",
+      "filename" : "circle-cancel-black@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "iconsSend24@3x.png",
+      "filename" : "circle-cancel-black@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

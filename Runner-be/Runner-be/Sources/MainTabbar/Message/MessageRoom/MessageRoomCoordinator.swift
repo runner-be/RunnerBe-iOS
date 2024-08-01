@@ -53,6 +53,22 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
                 }
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.photoModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentPhotoModal(vm: vm, animated: false)
+            })
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.imageViewer
+            .map { (vm: scene.VM, image: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.presentImageViewer(
+                    vm: result.vm,
+                    image: result.image
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     func pushMessageReportScene(vm: MessageRoomViewModel, roomId: Int) {
@@ -77,6 +93,42 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
             switch coordResult {
             case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func presentPhotoModal(vm: MessageRoomViewModel, animated: Bool) {
+        let comp = component.takePhotoModalComponent
+        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .takePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.camera)
+            case .choosePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.library)
+            case .cancel:
+                break
+            default:
+                break
+            }
+        }
+    }
+
+    private func presentImageViewer(
+        vm: MessageRoomViewModel,
+        image: UIImage
+    ) {
+        let comp = component.imageViewerComponent(image: image)
+        let coord = ImageViewerCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }

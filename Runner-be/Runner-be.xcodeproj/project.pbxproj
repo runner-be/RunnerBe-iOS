@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
+		2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */; };
+		2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */; };
+		2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */; };
+		2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
+		2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */; };
+		2BF9E1CC2C3047F70014D541 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1CB2C3047F70014D541 /* UITextView+.swift */; };
 		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
 		432B45E428C1C1D0001AB8A9 /* BasicRBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */; };
 		433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */; };
@@ -406,9 +413,16 @@
 /* Begin PBXFileReference section */
 		15A8C03A0517F56BA2F628B5 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
 		18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
+		2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerComponent.swift; sourceTree = "<group>"; };
+		2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerCoordinator.swift; sourceTree = "<group>"; };
+		2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
+		2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
+		2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
+		2BF9E1CB2C3047F70014D541 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
 		432B45E328C1C1D0001AB8A9 /* BasicRBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRBNotificationService.swift; sourceTree = "<group>"; };
 		433BD02E28A131BF003B444E /* DetailOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOptionModalViewController.swift; sourceTree = "<group>"; };
@@ -827,6 +841,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2B8C9D5B2C3FECD90053913B /* ImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */,
+				2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */,
+				2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */,
+				2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */,
+			);
+			path = ImageViewer;
+			sourceTree = "<group>";
+		};
 		2BD73D842C27C91A0058D6E9 /* Ignore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1009,6 +1034,7 @@
 		C31E633028171CC000C6B5A0 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				2B8C9D5B2C3FECD90053913B /* ImageViewer */,
 				DAA1EAEA2977C53E0070B90F /* Network */,
 				DA117B1E2831508C00158211 /* Model */,
 				DAC50010282B9999004CFF64 /* View */,
@@ -1338,6 +1364,7 @@
 				C3F1EBB227D11EA100207F35 /* UIImage+Resize.swift */,
 				C31E632E28153BB500C6B5A0 /* UILabel+Extension.swift */,
 				DA8477AC28F1F36A006036CF /* UIScreen+.swift */,
+				2BF9E1CB2C3047F70014D541 /* UITextView+.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -2071,6 +2098,7 @@
 				DA3067602826235600543D74 /* MessageTableViewCell.swift */,
 				DAB25444282E3F0F005B78B6 /* MessageChatLeftCell.swift */,
 				DAF9F4A2289554DE0012892C /* MessageChatRightCell.swift */,
+				2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2318,6 +2346,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB25440282E36C5005B78B6 /* MessagePostView.swift */,
+				2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2576,8 +2605,11 @@
 				C35B832627B91E6600551AC5 /* Job.swift in Sources */,
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
+				2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
+				2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
+				2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3C9735527CA967000232251 /* SettingsViewModel.swift in Sources */,
@@ -2607,8 +2639,10 @@
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
 				4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */,
+				2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
+				2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
@@ -2758,6 +2792,7 @@
 				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
+				2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
@@ -2794,6 +2829,7 @@
 				DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
 				C3FEECB027AD860C00135099 /* NaverLoginService.swift in Sources */,
+				2BF9E1CC2C3047F70014D541 /* UITextView+.swift in Sources */,
 				DA5D5EF4288856B20038529B /* GetMyPageResponse.swift in Sources */,
 				433BD03328A131D0003B444E /* DetailOptionModalComponent.swift in Sources */,
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
