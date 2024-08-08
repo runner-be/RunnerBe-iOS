@@ -99,7 +99,7 @@ class MessageChatRightCell: UITableViewCell {
                 make.bottom.equalTo(bubbleBackground.snp.bottom).offset(-12)
             }
         }
-        
+
         if imageUrls.compactMap({ $0 }).isEmpty {
             messageDate.snp.remakeConstraints {
                 $0.trailing.equalTo(bubbleBackground.snp.leading).offset(-4)
