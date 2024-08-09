@@ -798,12 +798,12 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Post.Title.Title", fallback: "제목")
     }
     internal enum WorkTime {
-      /// 퇴근 후
-      internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork", fallback: "퇴근 후")
+      /// 퇴근후
+      internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork", fallback: "퇴근후")
       /// 전체
       internal static let all = L10n.tr("Localizable", "Post.WorkTime.All", fallback: "전체")
-      /// 출근 전
-      internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork", fallback: "출근 전")
+      /// 출근전
+      internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork", fallback: "출근전")
       /// 휴일
       internal static let dayOff = L10n.tr("Localizable", "Post.WorkTime.DayOff", fallback: "휴일")
     }

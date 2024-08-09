@@ -114,8 +114,8 @@
 
 // MARK: - Post
 "Post.WorkTime.All" = "전체";
-"Post.WorkTime.BeforeWork" = "출근 전";
-"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.BeforeWork" = "출근전";
+"Post.WorkTime.AfterWork" = "퇴근후";
 "Post.WorkTime.DayOff" = "휴일";
 "Post.Title.Title" = "제목";
 "Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
