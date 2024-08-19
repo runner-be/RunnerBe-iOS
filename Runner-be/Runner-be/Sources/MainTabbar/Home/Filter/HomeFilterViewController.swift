@@ -37,6 +37,17 @@ class HomeFilterViewController: BaseViewController {
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
+            .filter {
+                if self.selectRunningPaceView.selectedPaces.isEmpty {
+                    AppContext.shared.makeToastWithImage(
+                        "달리고 싶은 페이스 난이도를 선택해주세요!",
+                        image: Asset.iconWarning20.image
+                    )
+                    return false
+                } else {
+                    return true
+                }
+            }
             .map { [weak self] () -> (HomeFilterViewModel.InputData)? in
                 guard let self = self else { return nil }
                 let paceFilter = self.selectRunningPaceView.selectedPaces
