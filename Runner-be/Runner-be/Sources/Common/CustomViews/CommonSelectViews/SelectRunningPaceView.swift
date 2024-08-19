@@ -82,18 +82,19 @@ class SelectRunningPaceView: SelectBaseView {
         label.font = .pretendardRegular12
         label.textColor = .primary
         label.text = L10n.RunningPace.Info.description
+        label.numberOfLines = 0
 
         view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().offset(20)
-            make.bottom.trailing.equalToSuperview().offset(-12)
+        label.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12 + 8)
+            $0.left.bottom.right.equalToSuperview().inset(12)
         }
-        view.isHidden = true
+        view.snp.makeConstraints {
+            $0.width.equalTo(193)
+            $0.height.equalTo(64)
+        }
 
-        view.snp.makeConstraints { make in
-            make.width.equalTo(193)
-            make.height.equalTo(64)
-        }
+        view.isHidden = true
     }
 
     private var vStackView: UIStackView
@@ -205,6 +206,24 @@ class SelectRunningPaceView: SelectBaseView {
         ])
 
         contentView.bringSubviewToFront(infoWordBubble)
+        bringSubviewToFront(titleLabel)
+
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
+            tapGesture.cancelsTouchesInView = false
+            window.addGestureRecognizer(tapGesture)
+        }
+    }
+
+    @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: contentView)
+        let isTouchInfoLogo = infoLogo.frame.contains(location)
+
+        if isTouchInfoLogo {
+            infoWordBubble.isHidden.toggle()
+        } else {
+            infoWordBubble.isHidden = true
+        }
     }
 
     override func initialLayout() {

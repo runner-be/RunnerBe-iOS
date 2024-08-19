@@ -111,14 +111,6 @@ class WritingDetailPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        // TODO: 인식안되는 이슈 수정
-        selectRunningPaceView.infoLogo.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.selectRunningPaceView.infoWordBubble.isHidden.toggle()
-            })
-            .disposed(by: disposeBag)
-
         selectRunningPaceView.beginnerView.button.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
