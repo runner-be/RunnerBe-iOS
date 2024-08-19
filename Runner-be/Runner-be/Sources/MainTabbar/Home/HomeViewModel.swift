@@ -35,6 +35,7 @@ final class HomeViewModel: BaseViewModel {
             ageMax: 65,
             runningTag: .beforeWork,
             jobFilter: .none,
+            paceFilter: [],
             keywordSearch: "",
             page: 1,
             pageSize: 10
@@ -361,7 +362,8 @@ final class HomeViewModel: BaseViewModel {
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
-                    inputFilter.jobFilter == initialFilter.jobFilter
+                    inputFilter.jobFilter == initialFilter.jobFilter &&
+                    inputFilter.paceFilter == initialFilter.paceFilter
 
                 self?.outputs.highLightFilter.onNext(!notChanged)
             })
@@ -372,6 +374,7 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMax = inputFilter.ageMax
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
+                newFilter.paceFilter = inputFilter.paceFilter
                 self?.filter = newFilter
                 return newFilter
             }

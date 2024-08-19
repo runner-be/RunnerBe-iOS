@@ -20,6 +20,7 @@ class HomeFilterViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        viewInput()
     }
 
     init(viewModel: HomeFilterViewModel) {
@@ -38,6 +39,7 @@ class HomeFilterViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .map { [weak self] () -> (HomeFilterViewModel.InputData)? in
                 guard let self = self else { return nil }
+                let paceFilter = self.selectRunningPaceView.selectedPaces
                 let genderIdx = self.filterGenderView.genderLabelGroup.selected.first
                 let jobIdx = self.filterJobView.jobGroup.selected.first
                 var minAge = Int(self.filterAgeView.slider.selectedMinValue)
@@ -46,7 +48,7 @@ class HomeFilterViewController: BaseViewController {
                     minAge = 20
                     maxAge = 65
                 }
-                return (genderIdx, jobIdx, minAge, maxAge)
+                return (paceFilter, genderIdx, jobIdx, minAge, maxAge)
             }
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
@@ -93,13 +95,56 @@ class HomeFilterViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var filterGenderView = SelectGenderView()
+    private func viewInput() {
+        selectRunningPaceView.allView?.button.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.allView?.isOn.toggle()
+                self.selectRunningPaceView.selected = "all"
+            }).disposed(by: disposeBag)
+
+        selectRunningPaceView.beginnerView.button.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.beginnerView.isOn.toggle()
+                self.selectRunningPaceView.selected = "beginner"
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.averageView.button.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.averageView.isOn.toggle()
+                self.selectRunningPaceView.selected = "average"
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.highView.button.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.highView.isOn.toggle()
+                self.selectRunningPaceView.selected = "high"
+            })
+            .disposed(by: disposeBag)
+
+        selectRunningPaceView.masterView.button.rx.tap
+            .subscribe(onNext: { _ in
+                self.selectRunningPaceView.masterView.isOn.toggle()
+                self.selectRunningPaceView.selected = "master"
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private var selectRunningPaceView = SelectRunningPaceView(isCheckBox: true)
     private var hDivider1 = UIView().then { view in
         view.backgroundColor = .darkG6
     }
 
-    private var filterAgeView = SelectAgeView()
+    private var filterGenderView = SelectGenderView()
     private var hDivider2 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var filterAgeView = SelectAgeView()
+    private var hDivider3 = UIView().then { view in
         view.backgroundColor = .darkG6
     }
 
@@ -107,10 +152,12 @@ class HomeFilterViewController: BaseViewController {
 
     private lazy var vStackView = UIStackView.make(
         with: [
-            filterGenderView,
+            selectRunningPaceView,
             hDivider1,
-            filterAgeView,
+            filterGenderView,
             hDivider2,
+            filterAgeView,
+            hDivider3,
             filterJobView,
         ],
         axis: .vertical,
@@ -169,13 +216,20 @@ extension HomeFilterViewController {
         }
 
         hDivider1.snp.makeConstraints { make in
+            make.leading.equalTo(vStackView.snp.leading)
+            make.trailing.equalTo(vStackView.snp.trailing)
+            make.height.equalTo(1)
+        }
+
+        hDivider2.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(12)
             make.trailing.equalTo(view.snp.trailing).offset(-12)
             make.height.equalTo(1)
         }
-        hDivider2.snp.makeConstraints { make in
-            make.leading.equalTo(vStackView.snp.leading)
-            make.trailing.equalTo(vStackView.snp.trailing)
+
+        hDivider3.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(12)
+            make.trailing.equalTo(view.snp.trailing).offset(-12)
             make.height.equalTo(1)
         }
     }

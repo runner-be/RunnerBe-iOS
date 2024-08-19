@@ -18,9 +18,11 @@ struct HomeFilterInputData {
 
 final class HomeFilterViewModel: BaseViewModel {
     typealias InputData = (
+        paceFilter: [String],
         genderIdx: Int?,
         jobIdx: Int?,
-        minAge: Int, maxAge: Int
+        minAge: Int,
+        maxAge: Int
     )
 
     init(inputFilter: PostFilter, locationService: LocationService = BasicLocationService.shared) {
@@ -54,6 +56,7 @@ final class HomeFilterViewModel: BaseViewModel {
                         ageMin: 20, ageMax: 65,
                         runningTag: .error,
                         jobFilter: .none,
+                        paceFilter: ["beginner", "master", "average", "high"],
                         keywordSearch: "N",
                         page: 1,
                         pageSize: 10
@@ -72,6 +75,7 @@ final class HomeFilterViewModel: BaseViewModel {
                     ageMax: input.maxAge,
                     runningTag: .error,
                     jobFilter: job,
+                    paceFilter: input.paceFilter,
                     keywordSearch: "N",
                     page: 1,
                     pageSize: 10

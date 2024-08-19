@@ -62,6 +62,7 @@ class WritingDetailPostViewController: BaseViewController {
                 let numPerson = Int(self.selectNumParticipantView.numberLabel.text!) ?? 2
                 let content = self.selectTextContentView.textField.text ?? ""
                 let afterParty = self.selectAfterpartyView.afterPartyNonLabel.isOn ? 2 : 1
+
                 return ViewInputData(
                     gender: genderIdx,
                     runningPace: runningPace,
@@ -118,7 +119,7 @@ class WritingDetailPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectRunningPaceView.beginnerView.radio.rx.tapGesture()
+        selectRunningPaceView.beginnerView.button.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.selectRunningPaceView.selected = "beginner"
@@ -127,7 +128,7 @@ class WritingDetailPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectRunningPaceView.averageView.radio.rx.tap
+        selectRunningPaceView.averageView.button.rx.tap
             .subscribe(onNext: { _ in
                 self.selectRunningPaceView.selected = "average"
                 self.selectRunningPaceView.averageView.isOn = true
@@ -135,7 +136,7 @@ class WritingDetailPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectRunningPaceView.highView.radio.rx.tap
+        selectRunningPaceView.highView.button.rx.tap
             .subscribe(onNext: { _ in
                 self.selectRunningPaceView.selected = "high"
                 self.selectRunningPaceView.highView.isOn = true
@@ -143,7 +144,7 @@ class WritingDetailPostViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        selectRunningPaceView.masterView.radio.rx.tap
+        selectRunningPaceView.masterView.button.rx.tap
             .subscribe(onNext: { _ in
                 self.selectRunningPaceView.selected = "master"
                 self.selectRunningPaceView.masterView.isOn = true

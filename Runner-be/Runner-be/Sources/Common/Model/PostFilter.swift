@@ -18,6 +18,7 @@ struct PostFilter {
     var ageMax: Int
     var runningTag: RunningTag
     var jobFilter: Job
+    var paceFilter: [String]
     var keywordSearch: String
     var page: Int
     var pageSize: Int
@@ -34,6 +35,7 @@ extension PostFilter: CustomDebugStringConvertible {
             distanceFilter: \(distanceFilter)
             ageMin: \(ageMin) ageMax: \(ageMax)
             jobFilter: \(jobFilter)
+            paceFilter: \(paceFilter)
             gender: \(gender.name)
             keywordSearch: \(keywordSearch)
             page: \(page)
