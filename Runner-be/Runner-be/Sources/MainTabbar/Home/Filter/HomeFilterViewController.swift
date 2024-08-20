@@ -70,6 +70,46 @@ class HomeFilterViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
+        viewModel.outputs.paceFilter
+            .take(1)
+            .bind { [weak self] paceFilter in
+
+                if paceFilter.contains("beginner") &&
+                    paceFilter.contains("average") &&
+                    paceFilter.contains("high") &&
+                    paceFilter.contains("master")
+                {
+                    self?.selectRunningPaceView.allView?.isOn = true
+                    self?.selectRunningPaceView.beginnerView.isOn = true
+                    self?.selectRunningPaceView.averageView.isOn = true
+                    self?.selectRunningPaceView.highView.isOn = true
+                    self?.selectRunningPaceView.masterView.isOn = true
+                    self?.selectRunningPaceView.selected = "all"
+                    return
+                }
+
+                if paceFilter.contains("beginner") {
+                    self?.selectRunningPaceView.beginnerView.isOn = true
+                    self?.selectRunningPaceView.selected = "beginner"
+                }
+
+                if paceFilter.contains("average") {
+                    self?.selectRunningPaceView.averageView.isOn = true
+                    self?.selectRunningPaceView.selected = "average"
+                }
+
+                if paceFilter.contains("high") {
+                    self?.selectRunningPaceView.highView.isOn = true
+                    self?.selectRunningPaceView.selected = "high"
+                }
+
+                if paceFilter.contains("master") {
+                    self?.selectRunningPaceView.masterView.isOn = true
+                    self?.selectRunningPaceView.selected = "master"
+                }
+
+            }.disposed(by: disposeBag)
+
         viewModel.outputs.gender
             .take(1)
             .subscribe(onNext: { [weak self] idx in

@@ -35,7 +35,7 @@ final class HomeViewModel: BaseViewModel {
             ageMax: 65,
             runningTag: .beforeWork,
             jobFilter: .none,
-            paceFilter: [],
+            paceFilter: ["beginner", "average", "high", "master"],
             keywordSearch: "",
             page: 1,
             pageSize: 10

@@ -25,19 +25,21 @@ final class HomeFilterViewModel: BaseViewModel {
         maxAge: Int
     )
 
-    init(inputFilter: PostFilter, locationService: LocationService = BasicLocationService.shared) {
+    init(
+        inputFilter: PostFilter,
+        locationService: LocationService = BasicLocationService.shared
+    ) {
         super.init()
 
-        outputs.locationDistance.onNext(
-            (
-                location: CLLocationCoordinate2D(
-                    latitude: inputFilter.latitude,
-                    longitude: inputFilter.longitude
-                ),
-                distance: inputFilter.distanceFilter * 1000
-            )
-        )
+        outputs.locationDistance.onNext((
+            location: CLLocationCoordinate2D(
+                latitude: inputFilter.latitude,
+                longitude: inputFilter.longitude
+            ),
+            distance: inputFilter.distanceFilter * 1000
+        ))
 
+        outputs.paceFilter.onNext(inputFilter.paceFilter)
         outputs.age.onNext((min: inputFilter.ageMin, max: inputFilter.ageMax))
         outputs.job.onNext(inputFilter.jobFilter.index)
         outputs.gender.onNext(inputFilter.gender.index)
@@ -56,7 +58,12 @@ final class HomeFilterViewModel: BaseViewModel {
                         ageMin: 20, ageMax: 65,
                         runningTag: .error,
                         jobFilter: .none,
-                        paceFilter: ["beginner", "master", "average", "high"],
+                        paceFilter: [
+                            "beginner",
+                            "master",
+                            "average",
+                            "high",
+                        ],
                         keywordSearch: "N",
                         page: 1,
                         pageSize: 10
@@ -103,6 +110,7 @@ final class HomeFilterViewModel: BaseViewModel {
         var gender = ReplaySubject<Int>.create(bufferSize: 1)
         var job = ReplaySubject<Int>.create(bufferSize: 1)
         var age = ReplaySubject<(min: Int, max: Int)>.create(bufferSize: 1)
+        var paceFilter = ReplaySubject<[String]>.create(bufferSize: 1)
         var reset = PublishSubject<Void>()
     }
 

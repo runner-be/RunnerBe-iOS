@@ -25,38 +25,59 @@ class SelectRunningPaceView: SelectBaseView {
             switch selected {
             case "all":
                 if allView?.isOn ?? false {
-                    [beginnerView, averageView, highView, masterView].forEach {
-                        $0.isDisable = true
-                    }
-                    selectedPaces = ["beginner", "average", "high", "master"]
+                    setAllSelection()
                 } else {
                     [beginnerView, averageView, highView, masterView].forEach {
                         $0.isDisable = false
                     }
                     selectedPaces = []
+                    beginnerView.isOn = false
+                    averageView.isOn = false
+                    highView.isOn = false
+                    masterView.isOn = false
                 }
 
             case "beginner":
                 if beginnerView.isOn {
                     selectedPaces.append("beginner")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
                 } else {
                     selectedPaces = selectedPaces.filter { $0 != "beginner" }
                 }
             case "average":
                 if averageView.isOn {
                     selectedPaces.append("average")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
                 } else {
                     selectedPaces = selectedPaces.filter { $0 != "average" }
                 }
             case "high":
                 if highView.isOn {
                     selectedPaces.append("high")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
                 } else {
                     selectedPaces = selectedPaces.filter { $0 != "high" }
                 }
             case "master":
                 if masterView.isOn {
                     selectedPaces.append("master")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
                 } else {
                     selectedPaces = selectedPaces.filter { $0 != "master" }
                 }
@@ -68,6 +89,11 @@ class SelectRunningPaceView: SelectBaseView {
     }
 
     var selectedPaces: [String] = []
+
+    var isAll: Bool {
+        return beginnerView.isOn && averageView.isOn &&
+            highView.isOn && masterView.isOn
+    }
 
     var infoLogo = UIImageView().then { view in
         view.snp.makeConstraints { make in
@@ -244,5 +270,12 @@ class SelectRunningPaceView: SelectBaseView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-12)
         }
+    }
+
+    private func setAllSelection() {
+        [beginnerView, averageView, highView, masterView].forEach {
+            $0.isDisable = true
+        }
+        selectedPaces = ["beginner", "average", "high", "master"]
     }
 }
