@@ -5,30 +5,55 @@
 //  Created by 김창규 on 8/21/24.
 //
 
+import RxSwift
 import UIKit
 
 final class SearchBarView: UIView {
+    // MARK: - Properties
+
+    private let disposeBag = DisposeBag()
+
     // MARK: - UI
 
-    private let placeHolderLabel = IconLabel(
-        iconPosition: .left,
-        iconSize: CGSize(width: 18, height: 18),
-        spacing: 4,
-        padding: .zero
-    ).then {
-        $0.icon.image = Asset.iconSearch18.uiImage
-        $0.label.font = .pretendardRegular16
-        $0.label.textColor = .darkG35
-        $0.label.text = "PlaceHolder"
+    private let icon = UIImageView()
+
+    private let cancelButton = UIImageView(image: Asset.circleCancelGray.uiImage)
+
+    let textField = UITextField().then {
+        let placeholderText = "모임 장소 검색"
+        let placeholderFont = UIFont.pretendardRegular16
+        let placeholderColor = UIColor.darkG35 // 원하는 색상으로 변경
+
+        $0.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [
+                .font: placeholderFont,
+                .foregroundColor: placeholderColor,
+            ]
+        )
+
+        $0.font = .pretendardRegular16
+        $0.textColor = .darkG1
+        $0.tintColor = .primary
     }
 
     // MARK: - Init
 
-    init(placeHolder: String) {
-        placeHolderLabel.label.text = placeHolder
+    init(
+        iconImage: UIImage = Asset.iconSearch18.uiImage,
+        placeHolder: String
+    ) {
+        icon.image = iconImage
+        textField.placeholder = placeHolder
         super.init(frame: .zero)
         setupViews()
         initialLayout()
+
+        cancelButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                self?.textField.text = ""
+            }.disposed(by: disposeBag)
     }
 
     @available(*, unavailable)
@@ -44,14 +69,29 @@ extension SearchBarView {
         backgroundColor = .white.withAlphaComponent(0.04)
 
         addSubviews([
-            placeHolderLabel,
+            icon,
+            textField,
+            cancelButton,
         ])
     }
 
     private func initialLayout() {
-        placeHolderLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(14)
+        icon.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(14)
             $0.centerY.equalToSuperview()
+            $0.size.equalTo(18)
+        }
+
+        cancelButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(12)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
+        }
+
+        textField.snp.makeConstraints {
+            $0.left.equalTo(icon.snp.right).offset(4)
+            $0.top.bottom.equalToSuperview().inset(11)
+            $0.right.equalTo(cancelButton.snp.left).inset(-8)
         }
     }
 }

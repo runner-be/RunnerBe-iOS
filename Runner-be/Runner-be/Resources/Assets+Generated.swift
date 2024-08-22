@@ -103,6 +103,7 @@ internal enum Asset {
   internal static let checkBoxIconEmpty = ImageAsset(name: "checkBoxIconEmpty")
   internal static let chevronDownNew = ImageAsset(name: "chevron_down_new")
   internal static let circleCancelBlack = ImageAsset(name: "circle-cancel-black")
+  internal static let circleCancelGray = ImageAsset(name: "circle-cancel-gray")
   internal static let icBadRunner = ImageAsset(name: "icBadRunner")
   internal static let icBasicRunner = ImageAsset(name: "icBasicRunner")
   internal static let icEffortRunner = ImageAsset(name: "icEffortRunner")

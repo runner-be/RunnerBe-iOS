@@ -9,6 +9,7 @@ import RxDataSources
 import RxSwift
 import Then
 import UIKit
+import MapKit
 
 final class SelectPlaceViewController: BaseViewController {
     // MARK: - Properties
@@ -84,6 +85,16 @@ final class SelectPlaceViewController: BaseViewController {
             .debug()
             .bind(to: viewModel.routes.cancel)
             .disposed(by: disposeBag)
+
+        searchBarView.textField.rx.text
+            .bind { [weak self] inputText in
+                if inputText?.isEmpty ?? true || 
+                    inputText == "" {
+                    self?.selectPlaceGuideView.isHidden = false
+                } else {
+                    self?.selectPlaceGuideView.isHidden = true
+                }
+            }.disposed(by: disposeBag)
 
         selectPlaceResultsView.resultCollectionView.rx.itemSelected
             .map { $0.item }
