@@ -128,6 +128,7 @@
 "Post.Time.PlaceHolder" = "0시간 20분";
 "Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
 "Post.Place.Title" = "모임 장소";
+"Post.Place.PlaceHolder" = "위치 추가";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
 
 "Post.Write.NavBar.title" = "게시글 작성";
@@ -135,6 +136,8 @@
 "Post.Modal.Time.time" = "시간";
 "Post.Modal.Time.minute" = "분";
 
+// MARK: - Post.EditPlace
+"Post.Place.NavBar.Title" = "장소 정보 입력";
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";

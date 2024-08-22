@@ -69,29 +69,9 @@ final class WritingMainPostViewModel: BaseViewModel {
             .bind(to: routes.editTime)
             .disposed(by: disposeBag)
 
-        inputs.locationChanged
-            .subscribe(onNext: { [weak self] location in
-                self?.writingPostData.location = location
-            })
-            .disposed(by: disposeBag)
-
-        inputs.locationChanged
-            .map { coord in
-                locationService.geoCodeLocation(at: coord)
-            }
-            .compactMap { $0 }
-            .flatMap { $0 }
-            .map { placeInfo -> (city: String, detail: String) in
-                guard let info = placeInfo else { return ("", "") }
-                let city = info.locality ?? ""
-                let locality = info.subLocality ?? ""
-                let name = info.name ?? ""
-                return (city: city + " " + locality, detail: name)
-            }
-            .subscribe(onNext: { [weak self] placeInfo in
-                self?.writingPostData.placeInfo = placeInfo.detail
-                self?.outputs.placeInfo.onNext(placeInfo)
-            })
+        inputs.editPlace
+            .map { [unowned self] in self.writingPostData.time }
+            .bind(to: routes.editPlace)
             .disposed(by: disposeBag)
 
         routeInputs.editDateResult
@@ -116,6 +96,7 @@ final class WritingMainPostViewModel: BaseViewModel {
         var editTitle = PublishSubject<String>()
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
+        var editPlace = PublishSubject<Void>()
         var locationChanged = PublishSubject<CLLocationCoordinate2D>()
         var backward = PublishSubject<Void>()
         var next = PublishSubject<Void>()
@@ -132,6 +113,7 @@ final class WritingMainPostViewModel: BaseViewModel {
     struct Route {
         var editDate = PublishSubject<Double>()
         var editTime = PublishSubject<String>()
+        var editPlace = PublishSubject<String>()
         var backward = PublishSubject<Void>()
         var next = PublishSubject<WritingPostData>()
     }
@@ -139,6 +121,7 @@ final class WritingMainPostViewModel: BaseViewModel {
     struct RouteInput {
         var editDateResult = PublishSubject<Double>()
         var editTimeResult = PublishSubject<String>()
+        var editPlaceResult = PublishSubject<String>()
     }
 
     private var disposeBag = DisposeBag()

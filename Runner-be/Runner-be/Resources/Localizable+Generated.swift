@@ -776,11 +776,17 @@ internal enum L10n {
       }
     }
     internal enum Place {
+      /// 위치 추가
+      internal static let placeHolder = L10n.tr("Localizable", "Post.Place.PlaceHolder", fallback: "위치 추가")
       /// 모임 장소
       internal static let title = L10n.tr("Localizable", "Post.Place.Title", fallback: "모임 장소")
       internal enum Guide {
         /// * 정확한 위치는 참여 러너에게만 보여요!
         internal static let readable = L10n.tr("Localizable", "Post.Place.Guide.Readable", fallback: "* 정확한 위치는 참여 러너에게만 보여요!")
+      }
+      internal enum NavBar {
+        /// 장소 정보 입력
+        internal static let title = L10n.tr("Localizable", "Post.Place.NavBar.Title", fallback: "장소 정보 입력")
       }
     }
     internal enum Time {

@@ -282,7 +282,11 @@ class HomeViewController: BaseViewController {
         }
     }
 
-    private func configureCell(_ collectionView: UICollectionView, _ indexPath: IndexPath, _ item: BasicPostSection.Item) -> UICollectionViewCell {
+    private func configureCell(
+        _ collectionView: UICollectionView,
+        _ indexPath: IndexPath,
+        _ item: BasicPostSection.Item
+    ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
         else { return UICollectionViewCell() }
 

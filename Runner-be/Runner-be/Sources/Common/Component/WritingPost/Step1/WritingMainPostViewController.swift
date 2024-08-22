@@ -79,8 +79,10 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editTime)
             .disposed(by: disposeBag)
 
-        writePlaceView.locationChanged
-            .bind(to: viewModel.inputs.locationChanged)
+        writePlaceView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editPlace)
             .disposed(by: disposeBag)
     }
 
@@ -91,26 +93,6 @@ class WritingMainPostViewController: BaseViewController {
 
         viewModel.outputs.time
             .bind(to: writeTimeView.contentText)
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.boundaryLimit
-            .take(1)
-            .subscribe(onNext: { [weak self] coords in
-                self?.writePlaceView.setMapBoundary(with: coords)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.location
-            .take(1)
-            .subscribe(onNext: { [weak self] location in
-                self?.writePlaceView.mapView.centerToCoord(location, animated: false)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.placeInfo
-            .subscribe(onNext: { [weak self] placeInfo in
-                self?.writePlaceView.showPlaceInfo(city: placeInfo.city, name: placeInfo.detail)
-            })
             .disposed(by: disposeBag)
 
         viewModel.toast
