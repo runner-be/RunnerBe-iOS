@@ -23,4 +23,8 @@ final class SelectPlaceComponent {
     init(timeString: String) {
         self.timeString = timeString
     }
+
+    func detailSelectPlaceComponent(address: String) -> DetailSelectPlaceComponent {
+        return DetailSelectPlaceComponent(address: address)
+    }
 }

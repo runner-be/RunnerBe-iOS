@@ -94,9 +94,6 @@ final class SelectPlaceViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
 
-        selectPlaceResultsView.resultCollectionView.delegate = self
-        dismissKeyboardWhenTappedAround()
-
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
         searchCompleter?.resultTypes = .pointOfInterest
@@ -140,17 +137,17 @@ final class SelectPlaceViewController: BaseViewController {
                 selectPlaceGuideView.isHidden = true
                 selectPlaceResultsView.isHidden = false
                 searchCompleter?.queryFragment = inputText
-                print("sejfielsjfilsejf 222 \(selectPlaceEmptyView.isHidden)")
             }.disposed(by: disposeBag)
 
         selectPlaceResultsView.resultCollectionView.rx.itemSelected
             .map { $0.item }
-            .bind { _ in
-                print("selectPlaceReulst Item is Clicked")
-            }.disposed(by: disposeBag)
+            .bind(to: viewModel.inputs.tapPlace)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        selectPlaceResultsView.resultCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
         typealias SelectPlaceDataSource = RxCollectionViewSectionedAnimatedDataSource<SelectPlaceListSection>
 
         let dataSource = SelectPlaceDataSource(
@@ -259,8 +256,6 @@ extension SelectPlaceViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completerResults = completer.results
         viewModel.inputs.completerResults.onNext(completer.results)
-
-        print("sejfielsjfilsejf 333 \(selectPlaceEmptyView.isHidden)")
         selectPlaceEmptyView.isHidden = !(completerResults?.isEmpty ?? false)
     }
 

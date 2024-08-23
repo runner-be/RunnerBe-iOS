@@ -33,10 +33,15 @@ final class SelectPlaceViewModel: BaseViewModel {
             }
             .bind(to: outputs.placeList)
             .disposed(by: disposeBag)
+
+        inputs.tapPlace
+            .bind(to: routes.detailSelectPlace)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var completerResults = PublishSubject<[MKLocalSearchCompletion]>()
+        var tapPlace = PublishSubject<Int>()
     }
 
     struct Output {
@@ -46,6 +51,7 @@ final class SelectPlaceViewModel: BaseViewModel {
     struct Route {
         var cancel = PublishSubject<Void>()
         var apply = PublishSubject<String>()
+        var detailSelectPlace = PublishSubject<Int>()
     }
 
     private var disposeBag = DisposeBag()
