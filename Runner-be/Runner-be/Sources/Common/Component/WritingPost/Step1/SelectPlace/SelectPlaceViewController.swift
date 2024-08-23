@@ -5,14 +5,31 @@
 //  Created by 김창규 on 8/20/24.
 //
 
+import MapKit
 import RxDataSources
 import RxSwift
 import Then
 import UIKit
-import MapKit
 
 final class SelectPlaceViewController: BaseViewController {
     // MARK: - Properties
+
+    // 주소검색
+    private var searchCompleter: MKLocalSearchCompleter? // 검색을 도와주는 변수
+    private var searchRegion: MKCoordinateRegion = .init(MKMapRect.world) // 검색 지역 범위를 결정하는 변수
+    var completerResults: [MKLocalSearchCompletion]? // 검색한 결과를 담는 변수
+    private var places: MKMapItem? { // collectionView에서 선택한 Location의 정보를 담는 변수
+        didSet {
+            selectPlaceResultsView.resultCollectionView.reloadData()
+        }
+    }
+
+    private var localSearch: MKLocalSearch? {
+        willSet {
+            places = nil
+            localSearch?.cancel()
+        }
+    }
 
     private let viewModel: SelectPlaceViewModel
 
@@ -76,6 +93,19 @@ final class SelectPlaceViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+
+        selectPlaceResultsView.resultCollectionView.delegate = self
+        dismissKeyboardWhenTappedAround()
+
+        searchCompleter = MKLocalSearchCompleter()
+        searchCompleter?.delegate = self
+        searchCompleter?.resultTypes = .pointOfInterest
+        searchCompleter?.region = searchRegion
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        searchCompleter = nil
     }
 
     // MARK: - Methods
@@ -86,14 +116,31 @@ final class SelectPlaceViewController: BaseViewController {
             .bind(to: viewModel.routes.cancel)
             .disposed(by: disposeBag)
 
+        searchBarView.cancelButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                searchBarView.textField.text = ""
+                searchBarView.textField.sendActions(for: .editingChanged)
+            }.disposed(by: disposeBag)
+
         searchBarView.textField.rx.text
             .bind { [weak self] inputText in
-                if inputText?.isEmpty ?? true || 
-                    inputText == "" {
+                guard let self = self,
+                      let inputText = inputText,
+                      inputText != ""
+                else {
                     self?.selectPlaceGuideView.isHidden = false
-                } else {
-                    self?.selectPlaceGuideView.isHidden = true
+                    self?.selectPlaceResultsView.isHidden = true
+                    self?.selectPlaceEmptyView.isHidden = true
+                    self?.completerResults = nil
+                    self?.searchCompleter?.queryFragment = ""
+                    return
                 }
+                selectPlaceGuideView.isHidden = true
+                selectPlaceResultsView.isHidden = false
+                searchCompleter?.queryFragment = inputText
+                print("sejfielsjfilsejf 222 \(selectPlaceEmptyView.isHidden)")
             }.disposed(by: disposeBag)
 
         selectPlaceResultsView.resultCollectionView.rx.itemSelected
@@ -205,5 +252,34 @@ extension SelectPlaceViewController {
             $0.top.equalTo(setCurrentLocationView.snp.bottom)
             $0.left.bottom.right.equalToSuperview()
         }
+    }
+}
+
+extension SelectPlaceViewController: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        completerResults = completer.results
+        viewModel.inputs.completerResults.onNext(completer.results)
+
+        print("sejfielsjfilsejf 333 \(selectPlaceEmptyView.isHidden)")
+        selectPlaceEmptyView.isHidden = !(completerResults?.isEmpty ?? false)
+    }
+
+    func completer(_: MKLocalSearchCompleter, didFailWithError error: any Error) {
+        if let error = error as NSError? {
+            print("MKLocalSearchCompleter encountered an error : \(error.localizedDescription)")
+        }
+    }
+}
+
+extension SelectPlaceViewController: UICollectionViewDelegate,
+    UIScrollViewDelegate,
+    UICollectionViewDelegateFlowLayout
+{
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        return SelectPlaceResultCell.size
+    }
+
+    func scrollViewDidScroll(_: UIScrollView) {
+        view.endEditing(true)
     }
 }

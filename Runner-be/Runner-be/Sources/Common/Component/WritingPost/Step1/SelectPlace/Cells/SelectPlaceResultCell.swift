@@ -16,13 +16,13 @@ final class SelectPlaceResultCell: UICollectionViewCell {
     private let titleLabel = UILabel().then {
         $0.text = "Title"
         $0.font = .pretendardSemiBold16
-        $0.textColor = .darkG35
+        $0.textColor = .darkG2
     }
 
     private let subTitleLabel = UILabel().then {
         $0.text = "Sub Title"
         $0.font = .pretendardRegular14
-        $0.textColor = .darkG2
+        $0.textColor = .darkG35
     }
 
     // MARK: - Init

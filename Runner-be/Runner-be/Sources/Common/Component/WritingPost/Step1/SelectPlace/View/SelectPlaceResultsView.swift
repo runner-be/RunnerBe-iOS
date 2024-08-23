@@ -12,7 +12,7 @@ final class SelectPlaceResultsView: UIView {
 
     lazy var resultCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = 0
         var collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
@@ -22,7 +22,6 @@ final class SelectPlaceResultsView: UIView {
             forCellWithReuseIdentifier: SelectPlaceResultCell.id
         )
         collectionView.backgroundColor = .clear
-        collectionView.delegate = self
         return collectionView
     }()
 
@@ -53,11 +52,5 @@ extension SelectPlaceResultsView {
         resultCollectionView.snp.makeConstraints {
             $0.top.left.bottom.right.equalToSuperview()
         }
-    }
-}
-
-extension SelectPlaceResultsView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        return SelectPlaceResultCell.size
     }
 }

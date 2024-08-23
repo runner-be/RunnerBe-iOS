@@ -17,7 +17,7 @@ final class SearchBarView: UIView {
 
     private let icon = UIImageView()
 
-    private let cancelButton = UIImageView(image: Asset.circleCancelGray.uiImage)
+    let cancelButton = UIImageView(image: Asset.circleCancelGray.uiImage)
 
     let textField = UITextField().then {
         let placeholderText = "모임 장소 검색"
@@ -48,12 +48,6 @@ final class SearchBarView: UIView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
-
-        cancelButton.rx.tapGesture()
-            .when(.recognized)
-            .bind { [weak self] _ in
-                self?.textField.text = ""
-            }.disposed(by: disposeBag)
     }
 
     @available(*, unavailable)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 import RxSwift
 
 struct PlaceInfo {
@@ -14,65 +15,29 @@ struct PlaceInfo {
 }
 
 final class SelectPlaceViewModel: BaseViewModel {
+    // MARK: - Init
+
     init(timeString _: String) {
         super.init()
 
-        // example
-        let test = [
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 공원",
-                subTitle: "서울 영등포구 여의도동 2"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도공원인라인대여소",
-                subTitle: "서울 영등포구 여의공원로 68"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "씨유소나무 공원점",
-                subTitle: "서울 영등포구 여의도동 77"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 라운지",
-                subTitle: "서울 영등포구 여의도동 222"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 라운지",
-                subTitle: "서울 영등포구 여의도동 222"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 키즈 카페",
-                subTitle: "서울 영등포구 여의도동 231"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 공원",
-                subTitle: "서울 영등포구 여의도동 2"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도공원인라인대여소",
-                subTitle: "서울 영등포구 여의공원로 68"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "씨유소나무 공원점",
-                subTitle: "서울 영등포구 여의도동 77"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 라운지",
-                subTitle: "서울 영등포구 여의도동 222"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 라운지",
-                subTitle: "서울 영등포구 여의도동 222"
-            )),
-            SelectPlaceResultCellConfig(from: PlaceInfo(
-                title: "여의도 키즈 카페",
-                subTitle: "서울 영등포구 여의도동 231"
-            )),
-        ]
-
-        outputs.placeList.onNext(test)
+        inputs.completerResults
+            .map {
+                $0.map {
+                    SelectPlaceResultCellConfig(
+                        from: PlaceInfo(
+                            title: $0.title,
+                            subTitle: $0.subtitle
+                        )
+                    )
+                }
+            }
+            .bind(to: outputs.placeList)
+            .disposed(by: disposeBag)
     }
 
-    struct Input {}
+    struct Input {
+        var completerResults = PublishSubject<[MKLocalSearchCompletion]>()
+    }
 
     struct Output {
         var placeList = ReplaySubject<[SelectPlaceResultCellConfig]>.create(bufferSize: 1)
