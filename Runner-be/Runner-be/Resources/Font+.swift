@@ -85,6 +85,10 @@ extension UIFont {
         return UIFont(font: FontFamily.Pretendard.semiBold, size: 18.0)!
     }
 
+    class var pretendardSemiBold15: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 15.0)!
+    }
+
     class var pretendardSemiBold16: UIFont {
         return UIFont(font: FontFamily.Pretendard.semiBold, size: 16.0)!
     }

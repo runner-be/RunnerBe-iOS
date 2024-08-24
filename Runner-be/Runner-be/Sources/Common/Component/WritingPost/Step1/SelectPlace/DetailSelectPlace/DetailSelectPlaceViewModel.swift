@@ -9,7 +9,15 @@ import Foundation
 import RxSwift
 
 final class DetailSelectPlaceViewModel: BaseViewModel {
-    init(address _: String) {}
+    // MARK: - Properties
+
+    var placeInfo: PlaceInfo
+
+    // MARK: - Init
+
+    init(placeInfo: PlaceInfo) {
+        self.placeInfo = placeInfo
+    }
 
     struct Input {}
 

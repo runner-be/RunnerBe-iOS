@@ -15,14 +15,19 @@ struct PlaceInfo {
 }
 
 final class SelectPlaceViewModel: BaseViewModel {
+    // MARK: - Properties
+
+    var completerResults: [MKLocalSearchCompletion]? // 검색한 결과를 담는 변수
+
     // MARK: - Init
 
     init(timeString _: String) {
         super.init()
 
         inputs.completerResults
-            .map {
-                $0.map {
+            .map { [weak self] completerResults in
+                self?.completerResults = completerResults
+                return completerResults.map {
                     SelectPlaceResultCellConfig(
                         from: PlaceInfo(
                             title: $0.title,
@@ -35,6 +40,12 @@ final class SelectPlaceViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPlace
+            .compactMap { itemIndex in
+                guard let results = self.completerResults,
+                      itemIndex < results.count
+                else { return nil }
+                return results[itemIndex]
+            }
             .bind(to: routes.detailSelectPlace)
             .disposed(by: disposeBag)
     }
@@ -51,7 +62,7 @@ final class SelectPlaceViewModel: BaseViewModel {
     struct Route {
         var cancel = PublishSubject<Void>()
         var apply = PublishSubject<String>()
-        var detailSelectPlace = PublishSubject<Int>()
+        var detailSelectPlace = PublishSubject<MKLocalSearchCompletion>()
     }
 
     private var disposeBag = DisposeBag()

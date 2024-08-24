@@ -17,7 +17,7 @@ final class SelectPlaceViewController: BaseViewController {
     // 주소검색
     private var searchCompleter: MKLocalSearchCompleter? // 검색을 도와주는 변수
     private var searchRegion: MKCoordinateRegion = .init(MKMapRect.world) // 검색 지역 범위를 결정하는 변수
-    var completerResults: [MKLocalSearchCompletion]? // 검색한 결과를 담는 변수
+//    var completerResults: [MKLocalSearchCompletion]? // 검색한 결과를 담는 변수
     private var places: MKMapItem? { // collectionView에서 선택한 Location의 정보를 담는 변수
         didSet {
             selectPlaceResultsView.resultCollectionView.reloadData()
@@ -130,8 +130,8 @@ final class SelectPlaceViewController: BaseViewController {
                     self?.selectPlaceGuideView.isHidden = false
                     self?.selectPlaceResultsView.isHidden = true
                     self?.selectPlaceEmptyView.isHidden = true
-                    self?.completerResults = nil
                     self?.searchCompleter?.queryFragment = ""
+                    self?.viewModel.completerResults = nil
                     return
                 }
                 selectPlaceGuideView.isHidden = true
@@ -254,9 +254,8 @@ extension SelectPlaceViewController {
 
 extension SelectPlaceViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        completerResults = completer.results
         viewModel.inputs.completerResults.onNext(completer.results)
-        selectPlaceEmptyView.isHidden = !(completerResults?.isEmpty ?? false)
+        selectPlaceEmptyView.isHidden = !(viewModel.completerResults?.isEmpty ?? false)
     }
 
     func completer(_: MKLocalSearchCompleter, didFailWithError error: any Error) {

@@ -24,7 +24,7 @@ final class SelectPlaceComponent {
         self.timeString = timeString
     }
 
-    func detailSelectPlaceComponent(address: String) -> DetailSelectPlaceComponent {
-        return DetailSelectPlaceComponent(address: address)
+    func detailSelectPlaceComponent(placeInfo: PlaceInfo) -> DetailSelectPlaceComponent {
+        return DetailSelectPlaceComponent(placeInfo: placeInfo)
     }
 }

@@ -38,9 +38,12 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.detailSelectPlace
-            .subscribe(onNext: { [weak self] itemIndex in
+            .subscribe(onNext: { [weak self] completerResult in
                 self?.pushDetailSelectPlace(
-                    address: "테스트 주소입니다",
+                    placeInfo: PlaceInfo(
+                        title: completerResult.title,
+                        subTitle: completerResult.subtitle
+                    ),
                     animated: true
                 )
             })
@@ -48,10 +51,10 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
     }
 
     private func pushDetailSelectPlace(
-        address: String,
+        placeInfo: PlaceInfo,
         animated: Bool
     ) {
-        let comp = component.detailSelectPlaceComponent(address: address)
+        let comp = component.detailSelectPlaceComponent(placeInfo: placeInfo)
         let coord = DetailSelectPlaceCoordinator(
             component: comp,
             navController: navigationController

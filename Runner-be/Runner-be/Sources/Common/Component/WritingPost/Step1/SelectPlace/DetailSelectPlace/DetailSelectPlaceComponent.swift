@@ -15,12 +15,12 @@ final class DetailSelectPlaceComponent {
     }
 
     private var viewModel: DetailSelectPlaceViewModel {
-        return DetailSelectPlaceViewModel(address: address)
+        return DetailSelectPlaceViewModel(placeInfo: placeInfo)
     }
 
-    private let address: String
+    private let placeInfo: PlaceInfo
 
-    init(address: String) {
-        self.address = address
+    init(placeInfo: PlaceInfo) {
+        self.placeInfo = placeInfo
     }
 }
