@@ -23,7 +23,14 @@ class DetailMapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup(lat: Float, long: Float, range: Float, showMarker: Bool) {
+    func setup(
+        lat: Float,
+        long: Float,
+        range: Float,
+        showMarker: Bool,
+        title: String,
+        subTitle: String
+    ) {
         let coord = CLLocationCoordinate2D(latitude: CGFloat(lat), longitude: CGFloat(long))
         let radius = range * 2
         mapView.centerToCoord(coord, regionRadius: CLLocationDistance(radius), animated: false)
@@ -44,6 +51,9 @@ class DetailMapView: UIView {
 
             self.circleOverlay = circleOverlay
         }
+
+        titleLabel.text = title
+        subtitleLabel.text = subTitle
     }
 
     private var circleOverlay: MKCircle?
@@ -65,23 +75,75 @@ class DetailMapView: UIView {
         view.delegate = self
     }
 
+    private let detailInfoView = UIView().then {
+        $0.backgroundColor = .darkG5
+    }
+
+    private let titleLabel = UILabel().then {
+        $0.font = .pretendardSemiBold14
+        $0.textColor = .darkG2
+    }
+
+    private let subtitleLabel = UILabel().then {
+        $0.font = .pretendardRegular14
+        $0.textColor = .darkG35
+        $0.lineBreakMode = .byWordWrapping
+        $0.numberOfLines = 2
+    }
+
+    let copyButton = UIButton().then {
+        $0.layer.cornerRadius = 4
+        $0.backgroundColor = .darkG55
+        $0.setTitle("주소 복사", for: .normal)
+        $0.setTitleColor(.darkG2, for: .normal)
+        $0.titleLabel?.font = .pretendardSemiBold10
+    }
+
     private func setupViews() {
         addSubviews([
             mapView,
             marker,
+            detailInfoView,
+        ])
+
+        detailInfoView.addSubviews([
+            titleLabel,
+            subtitleLabel,
+            copyButton,
         ])
     }
 
     private func initialLayout() {
-        mapView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom)
+        mapView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(148)
         }
 
         marker.snp.makeConstraints { make in
             make.center.equalTo(mapView.snp.center)
+        }
+
+        detailInfoView.snp.makeConstraints {
+            $0.top.equalTo(mapView.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
+        }
+
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.left.equalToSuperview().inset(12)
+            $0.right.equalTo(copyButton.snp.left).offset(-8)
+        }
+
+        subtitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.left.right.bottom.equalToSuperview().inset(12)
+        }
+
+        copyButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(12)
+            $0.centerY.equalTo(titleLabel)
+            $0.width.equalTo(52)
+            $0.height.equalTo(22)
         }
     }
 }
