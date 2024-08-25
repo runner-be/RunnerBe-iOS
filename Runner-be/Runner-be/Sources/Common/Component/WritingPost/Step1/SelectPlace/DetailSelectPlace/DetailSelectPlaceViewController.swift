@@ -150,7 +150,8 @@ final class DetailSelectPlaceViewController: BaseViewController {
                 return PlaceInfo(
                     title: address,
                     subTitle: subAddress,
-                    daescription: description
+                    daescription: description,
+                    location: viewModel.placeInfo.location
                 )
             }
             .bind(to: viewModel.routes.apply)

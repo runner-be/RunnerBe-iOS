@@ -13,6 +13,7 @@ struct PlaceInfo {
     let title: String
     let subTitle: String
     var daescription: String? = nil
+    var location: CLLocationCoordinate2D
 }
 
 final class SelectPlaceViewModel: BaseViewModel {
@@ -32,7 +33,8 @@ final class SelectPlaceViewModel: BaseViewModel {
                     SelectPlaceResultCellConfig(
                         from: PlaceInfo(
                             title: $0.title,
-                            subTitle: $0.subtitle
+                            subTitle: $0.subtitle,
+                            location: CLLocationCoordinate2D()
                         )
                     )
                 }
@@ -41,13 +43,18 @@ final class SelectPlaceViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapPlace
-            .compactMap { itemIndex in
+            .compactMap { itemIndex -> MKLocalSearchCompletion? in
                 guard let results = self.completerResults,
                       itemIndex < results.count
-                else { return nil }
+                else {
+                    return nil
+                }
                 return results[itemIndex]
             }
-            .bind(to: routes.detailSelectPlace)
+            .bind { [weak self] completerResult in
+                guard let self = self else { return }
+                self.fetchLocation(for: completerResult)
+            }
             .disposed(by: disposeBag)
     }
 
@@ -63,11 +70,30 @@ final class SelectPlaceViewModel: BaseViewModel {
     struct Route {
         var cancel = PublishSubject<Void>()
         var apply = PublishSubject<PlaceInfo>()
-        var detailSelectPlace = PublishSubject<MKLocalSearchCompletion>()
+        var detailSelectPlace = PublishSubject<PlaceInfo>()
     }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+
+    // MARK: - Methods
+
+    private func fetchLocation(for completion: MKLocalSearchCompletion) {
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = completion.title + " " + completion.subtitle
+
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { response, error in
+            guard let mapItem = response?.mapItems.first, error == nil else {
+                return
+            }
+            self.routes.detailSelectPlace.onNext(PlaceInfo(
+                title: completion.title,
+                subTitle: completion.subtitle,
+                location: mapItem.placemark.coordinate
+            ))
+        }
+    }
 }
