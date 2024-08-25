@@ -10,7 +10,7 @@ import RxSwift
 
 enum DetailSelectPlaceResult {
     case cancel
-    case apply(String)
+    case apply(PlaceInfo)
 }
 
 final class DetailSelectPlaceCoordinator: BasicCoordinator<DetailSelectPlaceResult> {
@@ -29,12 +29,24 @@ final class DetailSelectPlaceCoordinator: BasicCoordinator<DetailSelectPlaceResu
         navigationController.pushViewController(scene.VC, animated: animated)
 
         closeSignal
-            .bind { [weak self] _ in
-                self?.navigationController.popViewController(animated: true)
+            .bind { [weak self] result in
+                switch result {
+                case let .apply(placeInfo):
+                    self?.navigationController.popViewController(animated: true)
+                case .cancel:
+                    self?.navigationController.popViewController(animated: true)
+                }
             }.disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .map { DetailSelectPlaceResult.cancel }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.apply
+            .map { placeInfo in
+                DetailSelectPlaceResult.apply(placeInfo)
+            }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
     }

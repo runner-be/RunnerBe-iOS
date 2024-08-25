@@ -25,7 +25,7 @@ final class DetailSelectPlaceViewModel: BaseViewModel {
 
     struct Route {
         var cancel = PublishSubject<Void>()
-        var apply = PublishSubject<String>()
+        var apply = PublishSubject<PlaceInfo>()
     }
 
     private var disposeBag = DisposeBag()

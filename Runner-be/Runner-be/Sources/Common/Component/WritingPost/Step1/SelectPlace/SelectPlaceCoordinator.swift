@@ -10,7 +10,7 @@ import RxSwift
 
 enum SelectPlaceResult {
     case cancel
-    case apply(String)
+    case apply(PlaceInfo)
 }
 
 final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
@@ -28,9 +28,21 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
         let scene = component.scene
         navigationController.pushViewController(scene.VC, animated: animated)
         closeSignal
-            .bind { [weak self] _ in
-                self?.navigationController.popViewController(animated: true)
+            .bind { [weak self] result in
+                switch result {
+                case let .apply(placeInfo):
+                    self?.navigationController.popViewController(animated: true)
+                case .cancel:
+                    self?.navigationController.popViewController(animated: true)
+                }
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.apply
+            .map { resultPlaceInfo in
+                SelectPlaceResult.apply(resultPlaceInfo)
+            }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.cancel
             .map { SelectPlaceResult.cancel }
@@ -38,11 +50,13 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.detailSelectPlace
-            .subscribe(onNext: { [weak self] completerResult in
+            .map { (vm: scene.VM, completerResult: $0) }
+            .subscribe(onNext: { [weak self] result in
                 self?.pushDetailSelectPlace(
+                    vm: result.vm,
                     placeInfo: PlaceInfo(
-                        title: completerResult.title,
-                        subTitle: completerResult.subtitle
+                        title: result.completerResult.title,
+                        subTitle: result.completerResult.subtitle
                     ),
                     animated: true
                 )
@@ -51,6 +65,7 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
     }
 
     private func pushDetailSelectPlace(
+        vm: SelectPlaceViewModel,
         placeInfo: PlaceInfo,
         animated: Bool
     ) {
@@ -65,10 +80,10 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
             animated: animated
         ) { coordResult in
             switch coordResult {
-            case let .apply(address):
-                print("cancel BBB Address : \(address)")
+            case let .apply(resultPlaceInfo):
+                vm.routes.apply.onNext(resultPlaceInfo)
             case .cancel:
-                print("cancel AAA")
+                break
             }
         }
     }

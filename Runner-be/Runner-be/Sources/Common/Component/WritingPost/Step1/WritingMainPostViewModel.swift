@@ -89,6 +89,15 @@ final class WritingMainPostViewModel: BaseViewModel {
                 self.outputs.time.onNext(time)
             })
             .disposed(by: disposeBag)
+
+        routeInputs.editPlaceResult
+            .subscribe(onNext: { [weak self] placeInfo in
+                guard let self = self else { return }
+                self.outputs.placeInfo.onNext((
+                    city: placeInfo.title,
+                    detail: placeInfo.daescription ?? ""
+                ))
+            }).disposed(by: disposeBag)
     }
 
     struct Input {
@@ -121,7 +130,7 @@ final class WritingMainPostViewModel: BaseViewModel {
     struct RouteInput {
         var editDateResult = PublishSubject<Double>()
         var editTimeResult = PublishSubject<String>()
-        var editPlaceResult = PublishSubject<String>()
+        var editPlaceResult = PublishSubject<PlaceInfo>()
     }
 
     private var disposeBag = DisposeBag()

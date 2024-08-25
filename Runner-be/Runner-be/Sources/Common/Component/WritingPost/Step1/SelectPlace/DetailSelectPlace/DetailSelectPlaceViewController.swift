@@ -42,7 +42,7 @@ final class DetailSelectPlaceViewController: BaseViewController {
         $0.layer.cornerRadius = 4
     }
 
-    private let textField = UITextField().then {
+    private lazy var textField = UITextField().then {
         let placeholderText = "모임 장소 상세 설명을 입력하세요."
         let placeholderFont = UIFont.pretendardRegular14
         let placeholderColor = UIColor.darkG35 // 원하는 색상으로 변경
@@ -101,16 +101,59 @@ final class DetailSelectPlaceViewController: BaseViewController {
         setupViews()
         initialLayout()
 
+        viewInput()
+
         viewModelInput()
         viewModelOutput()
+
+        dismissKeyboardWhenTappedAround()
     }
 
     // MARK: - Methods
+
+    private func viewInput() {
+        textField.rx.text.orEmpty
+            .map { text in
+                if text.count > 35 {
+                    return String(text.prefix(35))
+                }
+                return text
+            }
+            .bind(to: textField.rx.text)
+            .disposed(by: disposeBag)
+
+        textField.rx.text.orEmpty
+            .map { "\($0.count)/35" }
+            .bind(to: limitCountLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .debug()
             .bind(to: viewModel.routes.cancel)
+            .disposed(by: disposeBag)
+
+        editButton.rx.tap
+            .bind(to: viewModel.routes.cancel)
+            .disposed(by: disposeBag)
+
+        registerButton.rx.tap
+            .compactMap { [weak self] _ in
+                guard let self = self,
+                      let address = titleLabel.text,
+                      let subAddress = subTitleLabel.text,
+                      let description = self.textField.text
+                else {
+                    return nil
+                }
+                return PlaceInfo(
+                    title: address,
+                    subTitle: subAddress,
+                    daescription: description
+                )
+            }
+            .bind(to: viewModel.routes.apply)
             .disposed(by: disposeBag)
     }
 
@@ -178,13 +221,14 @@ extension DetailSelectPlaceViewController {
         }
 
         textField.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(12)
-            $0.centerY.equalToSuperview()
         }
 
         limitCountLabel.snp.makeConstraints {
             $0.top.equalTo(textFieldContainerView.snp.bottom).offset(2)
             $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
 }

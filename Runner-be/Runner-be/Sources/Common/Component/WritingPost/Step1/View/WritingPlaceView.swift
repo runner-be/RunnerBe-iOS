@@ -25,6 +25,11 @@ class WritingPlaceView: SelectBaseView {
 
     private func processingInputs() {}
 
+    // TODO: rx.으로 빼기
+    var contentText: Binder<String?> {
+        iconTextButtonGroup.titleLabel.rx.text
+    }
+
     private var groupBackground = UIView().then { view in
         view.backgroundColor = .darkG55
         view.clipsToBounds = true
@@ -37,6 +42,17 @@ class WritingPlaceView: SelectBaseView {
         group.titleLabel.font = .pretendardRegular16
         group.titleLabel.textColor = .darkG1
         group.moreInfoButton.isEnabled = false
+        group.titleLabel.layer.opacity = 1.0
+    }
+
+    let setCityLabel = UILabel().then {
+        $0.textColor = .darkG1
+        $0.font = .pretendardRegular16
+    }
+
+    let setDetailLabel = UILabel().then {
+        $0.textColor = .darkG35
+        $0.font = .pretendardRegular14
     }
 
     private lazy var vStackView = UIStackView.make(
@@ -57,6 +73,8 @@ class WritingPlaceView: SelectBaseView {
 
         groupBackground.addSubviews([
             iconTextButtonGroup,
+            setCityLabel,
+            setDetailLabel,
         ])
     }
 
@@ -74,7 +92,19 @@ class WritingPlaceView: SelectBaseView {
             make.top.equalTo(groupBackground.snp.top).offset(18)
             make.leading.equalTo(groupBackground.snp.leading).offset(16)
             make.trailing.equalTo(groupBackground.snp.trailing).offset(-16)
-            make.bottom.equalTo(groupBackground.snp.bottom).offset(-18)
+            make.bottom.equalTo(groupBackground.snp.bottom).offset(-18).priority(.required)
+        }
+
+        setCityLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(19)
+            $0.left.equalToSuperview().offset(47)
+        }
+
+        setDetailLabel.snp.makeConstraints {
+            $0.top.equalTo(setCityLabel.snp.bottom).offset(4)
+            $0.left.equalTo(setCityLabel)
+            $0.right.equalTo(iconTextButtonGroup.moreInfoButton.snp.left).offset(-8)
+            $0.bottom.equalTo(groupBackground.snp.bottom).offset(-18).priority(.high)
         }
     }
 }

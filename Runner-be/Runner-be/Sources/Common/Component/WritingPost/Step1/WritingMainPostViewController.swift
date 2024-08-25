@@ -95,6 +95,16 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: writeTimeView.contentText)
             .disposed(by: disposeBag)
 
+        viewModel.outputs.placeInfo
+            .bind { [weak self] result in
+                self?.writePlaceView.iconTextButtonGroup.titleLabel.layer.opacity = 0.0
+                self?.writePlaceView.setCityLabel.isHidden = false
+                self?.writePlaceView.setDetailLabel.isHidden = false
+                self?.writePlaceView.setCityLabel.text = result.city
+                self?.writePlaceView.setDetailLabel.text = result.detail
+            }
+            .disposed(by: disposeBag)
+
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)

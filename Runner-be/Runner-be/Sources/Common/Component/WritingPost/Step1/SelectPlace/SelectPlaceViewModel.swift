@@ -12,6 +12,7 @@ import RxSwift
 struct PlaceInfo {
     let title: String
     let subTitle: String
+    var daescription: String? = nil
 }
 
 final class SelectPlaceViewModel: BaseViewModel {
@@ -61,7 +62,7 @@ final class SelectPlaceViewModel: BaseViewModel {
 
     struct Route {
         var cancel = PublishSubject<Void>()
-        var apply = PublishSubject<String>()
+        var apply = PublishSubject<PlaceInfo>()
         var detailSelectPlace = PublishSubject<MKLocalSearchCompletion>()
     }
 
