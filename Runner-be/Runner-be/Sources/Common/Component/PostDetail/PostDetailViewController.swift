@@ -45,6 +45,10 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.rightOptionItem)
             .disposed(by: disposeBag)
+
+        detailMapView.copyButton.rx.tap
+            .bind(to: viewModel.inputs.copyPlaceName)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
