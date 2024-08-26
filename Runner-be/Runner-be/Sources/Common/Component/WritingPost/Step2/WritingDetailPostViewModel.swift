@@ -54,6 +54,8 @@ final class WritingDetailPostViewModel: BaseViewModel {
                     gatherLongitude: Float(writingPostData.location.longitude),
                     gatherLatitude: Float(writingPostData.location.latitude),
                     locationInfo: writingPostData.placeInfo,
+                    placeName: writingPostData.placeName,
+                    placeExplain: writingPostData.placeExplain,
                     runningTag: runningTag,
                     ageMin: data.ageMin,
                     ageMax: data.ageMax,

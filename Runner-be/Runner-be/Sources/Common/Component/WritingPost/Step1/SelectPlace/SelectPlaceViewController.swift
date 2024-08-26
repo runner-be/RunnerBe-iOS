@@ -162,8 +162,8 @@ final class SelectPlaceViewController: BaseViewController {
                 }
 
                 cell.configure(
-                    title: element.title,
-                    subTitle: element.subTitle
+                    locationInfo: element.locationInfo,
+                    placeName: element.placeName
                 )
 
                 return cell

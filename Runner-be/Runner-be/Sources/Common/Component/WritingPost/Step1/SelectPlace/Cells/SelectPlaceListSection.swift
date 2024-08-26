@@ -10,16 +10,18 @@ import RxDataSources
 
 struct SelectPlaceResultCellConfig: Equatable, IdentifiableType {
     let id = UUID()
-    let title: String
-    let subTitle: String
+    let locationInfo: String
+    let placeName: String
+    let placeExplain: String
 
     var identity: String {
         "\(id)"
     }
 
     init(from: PlaceInfo) {
-        title = from.title
-        subTitle = from.subTitle
+        locationInfo = from.locationInfo
+        placeName = from.placeName
+        placeExplain = from.placeExplain ?? ""
     }
 }
 

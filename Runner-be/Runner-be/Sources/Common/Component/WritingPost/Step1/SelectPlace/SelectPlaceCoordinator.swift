@@ -55,8 +55,8 @@ final class SelectPlaceCoordinator: BasicCoordinator<SelectPlaceResult> {
                 self?.pushDetailSelectPlace(
                     vm: result.vm,
                     placeInfo: PlaceInfo(
-                        title: result.completerResult.title,
-                        subTitle: result.completerResult.subTitle,
+                        locationInfo: result.completerResult.locationInfo,
+                        placeName: result.completerResult.placeName,
                         location: result.completerResult.location
                     ),
                     animated: true

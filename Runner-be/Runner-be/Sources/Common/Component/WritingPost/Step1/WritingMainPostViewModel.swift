@@ -93,11 +93,14 @@ final class WritingMainPostViewModel: BaseViewModel {
         routeInputs.editPlaceResult
             .subscribe(onNext: { [weak self] placeInfo in
                 guard let self = self else { return }
+                self.writingPostData.placeInfo = placeInfo.locationInfo
+                self.writingPostData.placeName = placeInfo.placeName
+                self.writingPostData.placeExplain = placeInfo.placeExplain ?? ""
                 self.writingPostData.location = placeInfo.location
-                self.writingPostData.placeInfo = placeInfo.title
+
                 self.outputs.placeInfo.onNext((
-                    city: placeInfo.title,
-                    detail: placeInfo.daescription ?? ""
+                    city: placeInfo.locationInfo,
+                    detail: placeInfo.placeExplain ?? ""
                 ))
                 self.outputs.location.onNext(self.writingPostData.location)
             }).disposed(by: disposeBag)

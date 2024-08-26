@@ -10,10 +10,10 @@ import MapKit
 import RxSwift
 
 struct PlaceInfo {
-    let title: String
-    let subTitle: String
-    var daescription: String? = nil
-    var location: CLLocationCoordinate2D
+    let locationInfo: String // 위치 이름(거리, 상호, 장소명)
+    let placeName: String // 위치 주소
+    var placeExplain: String? = nil
+    var location: CLLocationCoordinate2D // 위도, 경도
 }
 
 final class SelectPlaceViewModel: BaseViewModel {
@@ -32,8 +32,8 @@ final class SelectPlaceViewModel: BaseViewModel {
                 return completerResults.map {
                     SelectPlaceResultCellConfig(
                         from: PlaceInfo(
-                            title: $0.title,
-                            subTitle: $0.subtitle,
+                            locationInfo: $0.title,
+                            placeName: $0.subtitle,
                             location: CLLocationCoordinate2D()
                         )
                     )
@@ -90,8 +90,8 @@ final class SelectPlaceViewModel: BaseViewModel {
                 return
             }
             self.routes.detailSelectPlace.onNext(PlaceInfo(
-                title: completion.title,
-                subTitle: completion.subtitle,
+                locationInfo: completion.title,
+                placeName: completion.subtitle,
                 location: mapItem.placemark.coordinate
             ))
         }

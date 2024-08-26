@@ -13,13 +13,13 @@ final class SelectPlaceResultCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private let titleLabel = UILabel().then {
+    private let locationInfoLabel = UILabel().then {
         $0.text = "Title"
         $0.font = .pretendardSemiBold16
         $0.textColor = .darkG2
     }
 
-    private let subTitleLabel = UILabel().then {
+    private let placeNameLabel = UILabel().then {
         $0.text = "Sub Title"
         $0.font = .pretendardRegular14
         $0.textColor = .darkG35
@@ -41,11 +41,11 @@ final class SelectPlaceResultCell: UICollectionViewCell {
     // MARK: - Methods
 
     func configure(
-        title: String,
-        subTitle: String
+        locationInfo: String,
+        placeName: String
     ) {
-        titleLabel.text = title
-        subTitleLabel.text = subTitle
+        locationInfoLabel.text = locationInfo
+        placeNameLabel.text = placeName
     }
 }
 
@@ -54,19 +54,19 @@ final class SelectPlaceResultCell: UICollectionViewCell {
 extension SelectPlaceResultCell {
     private func setup() {
         contentView.addSubviews([
-            titleLabel,
-            subTitleLabel,
+            locationInfoLabel,
+            placeNameLabel,
         ])
     }
 
     private func initialLayout() {
-        titleLabel.snp.makeConstraints {
+        locationInfoLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().inset(19)
         }
 
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.left.equalTo(titleLabel)
+        placeNameLabel.snp.makeConstraints {
+            $0.top.equalTo(locationInfoLabel.snp.bottom).offset(4)
+            $0.left.equalTo(locationInfoLabel)
         }
     }
 }
