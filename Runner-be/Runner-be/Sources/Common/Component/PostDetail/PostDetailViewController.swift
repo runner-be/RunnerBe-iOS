@@ -66,8 +66,8 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
                     long: data.running.long,
                     range: data.participated ? data.running.range / 3 : data.running.range,
                     showMarker: data.participated,
-                    title: "주소 제목",
-                    subTitle: "주소 설명"
+                    locationInfo: data.running.locationInfo,
+                    placeExplain: data.running.placeExplain
                 )
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {

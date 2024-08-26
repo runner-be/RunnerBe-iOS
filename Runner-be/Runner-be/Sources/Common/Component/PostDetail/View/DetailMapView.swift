@@ -28,8 +28,8 @@ class DetailMapView: UIView {
         long: Float,
         range: Float,
         showMarker: Bool,
-        title: String,
-        subTitle: String
+        locationInfo: String,
+        placeExplain: String
     ) {
         let coord = CLLocationCoordinate2D(latitude: CGFloat(lat), longitude: CGFloat(long))
         let radius = range * 2
@@ -52,8 +52,8 @@ class DetailMapView: UIView {
             self.circleOverlay = circleOverlay
         }
 
-        titleLabel.text = title
-        subtitleLabel.text = subTitle
+        locationInfoLabel.text = locationInfo
+        placeExplainLabel.text = placeExplain
     }
 
     private var circleOverlay: MKCircle?
@@ -79,12 +79,12 @@ class DetailMapView: UIView {
         $0.backgroundColor = .darkG5
     }
 
-    private let titleLabel = UILabel().then {
+    private let locationInfoLabel = UILabel().then {
         $0.font = .pretendardSemiBold14
         $0.textColor = .darkG2
     }
 
-    private let subtitleLabel = UILabel().then {
+    private let placeExplainLabel = UILabel().then {
         $0.font = .pretendardRegular14
         $0.textColor = .darkG35
         $0.lineBreakMode = .byWordWrapping
@@ -107,8 +107,8 @@ class DetailMapView: UIView {
         ])
 
         detailInfoView.addSubviews([
-            titleLabel,
-            subtitleLabel,
+            locationInfoLabel,
+            placeExplainLabel,
             copyButton,
         ])
     }
@@ -128,20 +128,20 @@ class DetailMapView: UIView {
             $0.left.bottom.right.equalToSuperview()
         }
 
-        titleLabel.snp.makeConstraints {
+        locationInfoLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.left.equalToSuperview().inset(12)
             $0.right.equalTo(copyButton.snp.left).offset(-8)
         }
 
-        subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+        placeExplainLabel.snp.makeConstraints {
+            $0.top.equalTo(locationInfoLabel.snp.bottom).offset(4)
             $0.left.right.bottom.equalToSuperview().inset(12)
         }
 
         copyButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(12)
-            $0.centerY.equalTo(titleLabel)
+            $0.centerY.equalTo(locationInfoLabel)
             $0.width.equalTo(52)
             $0.height.equalTo(22)
         }
