@@ -27,6 +27,8 @@ struct DetailPostResponse: Decodable {
     let gender: String?
     let peopleNum: Int?
     let locationInfo: String?
+    let placeName: String?
+    let placeExplain: String?
     let pace: String?
     let afterParty: Int?
 
@@ -42,6 +44,8 @@ struct DetailPostResponse: Decodable {
         case contents
         case gender
         case locationInfo
+        case placeName
+        case placeExplain
         case peopleNum
         case postUserID = "postUserId"
         case runningTime
@@ -111,6 +115,7 @@ extension DetailPostResponse {
               let writerID = postUserID,
               let title = title,
               let locationInfo = locationInfo,
+              let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
               let postingTime = createTime,
@@ -138,6 +143,8 @@ extension DetailPostResponse {
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
+            placeName: placeName,
+            placeExplain: placeExplain,
             coord: coords,
             attendanceProfiles: [],
             postingTime: postingTime,

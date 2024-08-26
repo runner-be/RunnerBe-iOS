@@ -66,7 +66,7 @@ extension UIFont {
     }
 
     class var pretendardRegular18: UIFont {
-        return UIFont(font: FontFamily.Pretendard.semiBold, size: 18.0)!
+        return UIFont(font: FontFamily.Pretendard.regular, size: 18.0)!
     }
 
     class var pretendardRegular16: UIFont {
@@ -85,6 +85,10 @@ extension UIFont {
         return UIFont(font: FontFamily.Pretendard.semiBold, size: 18.0)!
     }
 
+    class var pretendardSemiBold15: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 15.0)!
+    }
+
     class var pretendardSemiBold16: UIFont {
         return UIFont(font: FontFamily.Pretendard.semiBold, size: 16.0)!
     }
@@ -93,7 +97,19 @@ extension UIFont {
         return UIFont(font: FontFamily.Pretendard.regular, size: 14.0)!
     }
 
+    class var pretendardSemiBold10: UIFont {
+        return UIFont(font: FontFamily.Pretendard.semiBold, size: 10.0)!
+    }
+
     class var pretendardSemiBold14: UIFont {
         return UIFont(font: FontFamily.Pretendard.semiBold, size: 14.0)!
+    }
+
+    class var pretendardBold14: UIFont {
+        return UIFont(font: FontFamily.Pretendard.bold, size: 14.0)!
+    }
+
+    class var pretendardBold16: UIFont {
+        return UIFont(font: FontFamily.Pretendard.bold, size: 16.0)!
     }
 }

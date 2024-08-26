@@ -13,12 +13,86 @@ import UIKit
 class SelectRunningPaceView: SelectBaseView {
     var selected = "" {
         didSet {
-            [beginnerView, averageView, highView, masterView].forEach { view in
-                if view.isOn {
-                    view.isOn = false
+            if !isCheckBox {
+                [beginnerView, averageView, highView, masterView].forEach { view in
+                    if view.isOn {
+                        view.isOn = false
+                    }
                 }
+                return
+            }
+
+            switch selected {
+            case "all":
+                if allView?.isOn ?? false {
+                    setAllSelection()
+                } else {
+                    [beginnerView, averageView, highView, masterView].forEach {
+                        $0.isDisable = false
+                    }
+                    selectedPaces = []
+                    beginnerView.isOn = false
+                    averageView.isOn = false
+                    highView.isOn = false
+                    masterView.isOn = false
+                }
+
+            case "beginner":
+                if beginnerView.isOn {
+                    selectedPaces.append("beginner")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
+                } else {
+                    selectedPaces = selectedPaces.filter { $0 != "beginner" }
+                }
+            case "average":
+                if averageView.isOn {
+                    selectedPaces.append("average")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
+                } else {
+                    selectedPaces = selectedPaces.filter { $0 != "average" }
+                }
+            case "high":
+                if highView.isOn {
+                    selectedPaces.append("high")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
+                } else {
+                    selectedPaces = selectedPaces.filter { $0 != "high" }
+                }
+            case "master":
+                if masterView.isOn {
+                    selectedPaces.append("master")
+                    if isAll {
+                        allView?.isOn = true
+                        selected = "all"
+                        setAllSelection()
+                    }
+                } else {
+                    selectedPaces = selectedPaces.filter { $0 != "master" }
+                }
+
+            default:
+                break
             }
         }
+    }
+
+    var selectedPaces: [String] = []
+
+    var isAll: Bool {
+        return beginnerView.isOn && averageView.isOn &&
+            highView.isOn && masterView.isOn
     }
 
     var infoLogo = UIImageView().then { view in
@@ -34,54 +108,109 @@ class SelectRunningPaceView: SelectBaseView {
         label.font = .pretendardRegular12
         label.textColor = .primary
         label.text = L10n.RunningPace.Info.description
+        label.numberOfLines = 0
 
         view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().offset(20)
-            make.bottom.trailing.equalToSuperview().offset(-12)
+        label.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12 + 8)
+            $0.left.bottom.right.equalToSuperview().inset(12)
         }
+        view.snp.makeConstraints {
+            $0.width.equalTo(193)
+            $0.height.equalTo(64)
+        }
+
         view.isHidden = true
+    }
 
-        view.snp.makeConstraints { make in
-            make.width.equalTo(193)
-            make.height.equalTo(64)
+    private var vStackView: UIStackView
+
+    var allView: OnOffLabelButtonBase?
+    var beginnerView: OnOffLabelButtonBase
+    var averageView: OnOffLabelButtonBase
+    var highView: OnOffLabelButtonBase
+    var masterView: OnOffLabelButtonBase
+
+    var isCheckBox: Bool
+
+    init(isCheckBox: Bool = false) {
+        self.isCheckBox = isCheckBox
+
+        if isCheckBox {
+            allView = OnOffLabelWithCheckBoxButton(
+                iconSize: .zero,
+                spacing: 0
+            ).then { view in
+                view.label.icon.image = nil
+                view.label.label.text = "전체 선택"
+            }
+
+            beginnerView = OnOffLabelWithCheckBoxButton().then { view in
+                view.label.icon.image = Asset.runningPaceBeginner.image
+                view.label.label.text = L10n.RunningPace.Beginner.title
+            }
+
+            averageView = OnOffLabelWithCheckBoxButton().then { view in
+                view.label.icon.image = Asset.runningPaceAverage.image
+                view.label.label.text = L10n.RunningPace.Average.title
+            }
+
+            highView = OnOffLabelWithCheckBoxButton().then { view in
+                view.label.icon.image = Asset.runningPaceHigh.image
+                view.label.label.text = L10n.RunningPace.High.title
+            }
+
+            masterView = OnOffLabelWithCheckBoxButton().then { view in
+                view.label.icon.image = Asset.runningPaceMaster.image
+                view.label.label.text = L10n.RunningPace.Master.title
+            }
+
+            vStackView = UIStackView.make(
+                with: [
+                    allView ?? UIView(),
+                    masterView,
+                    highView,
+                    averageView,
+                    beginnerView,
+                ],
+                axis: .vertical,
+                alignment: .fill,
+                distribution: .equalSpacing,
+                spacing: 32
+            )
+        } else {
+            beginnerView = OnOffLabelWithRadioButton().then { view in
+                view.label.icon.image = Asset.runningPaceBeginner.image
+                view.label.label.text = L10n.RunningPace.Beginner.title
+            }
+
+            averageView = OnOffLabelWithRadioButton().then { view in
+                view.label.icon.image = Asset.runningPaceAverage.image
+                view.label.label.text = L10n.RunningPace.Average.title
+            }
+
+            highView = OnOffLabelWithRadioButton().then { view in
+                view.label.icon.image = Asset.runningPaceHigh.image
+                view.label.label.text = L10n.RunningPace.High.title
+            }
+
+            masterView = OnOffLabelWithRadioButton().then { view in
+                view.label.icon.image = Asset.runningPaceMaster.image
+                view.label.label.text = L10n.RunningPace.Master.title
+            }
+            vStackView = UIStackView.make(
+                with: [
+                    beginnerView,
+                    averageView,
+                    highView,
+                    masterView,
+                ],
+                axis: .vertical,
+                alignment: .fill,
+                distribution: .equalSpacing,
+                spacing: 32
+            )
         }
-    }
-
-    private lazy var vStackView = UIStackView.make(
-        with: [
-            beginnerView,
-            averageView,
-            highView,
-            masterView,
-        ],
-        axis: .vertical,
-        alignment: .fill,
-        distribution: .equalSpacing,
-        spacing: 32
-    )
-
-    var beginnerView = OnOffLabelWithRadioButton().then { view in
-        view.label.icon.image = Asset.runningPaceBeginner.image
-        view.label.label.text = L10n.RunningPace.Beginner.title
-    }
-
-    var averageView = OnOffLabelWithRadioButton().then { view in
-        view.label.icon.image = Asset.runningPaceAverage.image
-        view.label.label.text = L10n.RunningPace.Average.title
-    }
-
-    var highView = OnOffLabelWithRadioButton().then { view in
-        view.label.icon.image = Asset.runningPaceHigh.image
-        view.label.label.text = L10n.RunningPace.High.title
-    }
-
-    var masterView = OnOffLabelWithRadioButton().then { view in
-        view.label.icon.image = Asset.runningPaceMaster.image
-        view.label.label.text = L10n.RunningPace.Master.title
-    }
-
-    init() {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
@@ -103,6 +232,24 @@ class SelectRunningPaceView: SelectBaseView {
         ])
 
         contentView.bringSubviewToFront(infoWordBubble)
+        bringSubviewToFront(titleLabel)
+
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
+            tapGesture.cancelsTouchesInView = false
+            window.addGestureRecognizer(tapGesture)
+        }
+    }
+
+    @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: contentView)
+        let isTouchInfoLogo = infoLogo.frame.contains(location)
+
+        if isTouchInfoLogo {
+            infoWordBubble.isHidden.toggle()
+        } else {
+            infoWordBubble.isHidden = true
+        }
     }
 
     override func initialLayout() {
@@ -123,5 +270,12 @@ class SelectRunningPaceView: SelectBaseView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-12)
         }
+    }
+
+    private func setAllSelection() {
+        [beginnerView, averageView, highView, masterView].forEach {
+            $0.isDisable = true
+        }
+        selectedPaces = ["beginner", "average", "high", "master"]
     }
 }

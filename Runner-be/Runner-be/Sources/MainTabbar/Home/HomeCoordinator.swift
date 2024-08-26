@@ -116,6 +116,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
         ) { coordResult in
             switch coordResult {
             case let .backward(filter):
+
                 vm.routeInputs.filterChanged.onNext(filter)
             }
         }

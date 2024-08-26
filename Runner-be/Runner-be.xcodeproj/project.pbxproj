@@ -7,11 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0A758D2C75FF2D00818710 /* SelectPlaceGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A758C2C75FF2D00818710 /* SelectPlaceGuideView.swift */; };
+		2B0A758F2C75FF4300818710 /* SelectPlaceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A758E2C75FF4300818710 /* SelectPlaceResultsView.swift */; };
+		2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */; };
+		2B0A75942C76C54200818710 /* SelectPlaceResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */; };
+		2B0A75962C76CB6000818710 /* SelectPlaceListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */; };
+		2B4263A42C7835E100455B8C /* DetailSelectPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A32C7835E100455B8C /* DetailSelectPlaceComponent.swift */; };
+		2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */; };
+		2B4263A82C7835F700455B8C /* DetailSelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */; };
+		2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */; };
+		2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */; };
+		2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */; };
+		2B66A0F32C746A12002542D5 /* SelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */; };
+		2B66A0F52C746A1B002542D5 /* SelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F42C746A1B002542D5 /* SelectPlaceViewController.swift */; };
+		2B66A0F72C758098002542D5 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F62C758098002542D5 /* SearchBarView.swift */; };
 		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
 		2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */; };
 		2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */; };
 		2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */; };
 		2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */; };
+		2B9ACF552C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */; };
+		2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -413,11 +429,27 @@
 /* Begin PBXFileReference section */
 		15A8C03A0517F56BA2F628B5 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
 		18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B0A758C2C75FF2D00818710 /* SelectPlaceGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceGuideView.swift; sourceTree = "<group>"; };
+		2B0A758E2C75FF4300818710 /* SelectPlaceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceResultsView.swift; sourceTree = "<group>"; };
+		2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceEmptyView.swift; sourceTree = "<group>"; };
+		2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceResultCell.swift; sourceTree = "<group>"; };
+		2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceListSection.swift; sourceTree = "<group>"; };
+		2B4263A32C7835E100455B8C /* DetailSelectPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceComponent.swift; sourceTree = "<group>"; };
+		2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceCoordinator.swift; sourceTree = "<group>"; };
+		2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewModel.swift; sourceTree = "<group>"; };
+		2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewController.swift; sourceTree = "<group>"; };
+		2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceComponent.swift; sourceTree = "<group>"; };
+		2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceCoordinator.swift; sourceTree = "<group>"; };
+		2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewModel.swift; sourceTree = "<group>"; };
+		2B66A0F42C746A1B002542D5 /* SelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewController.swift; sourceTree = "<group>"; };
+		2B66A0F62C758098002542D5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
 		2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerComponent.swift; sourceTree = "<group>"; };
 		2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerCoordinator.swift; sourceTree = "<group>"; };
 		2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
 		2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithCheckBoxButton.swift; sourceTree = "<group>"; };
+		2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelButtonBase.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -841,6 +873,58 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2B0A758B2C75FE2C00818710 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2B0A758C2C75FF2D00818710 /* SelectPlaceGuideView.swift */,
+				2B0A758E2C75FF4300818710 /* SelectPlaceResultsView.swift */,
+				2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2B0A75922C76C52800818710 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */,
+				2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2B4263A22C7835AB00455B8C /* DetailSelectPlace */ = {
+			isa = PBXGroup;
+			children = (
+				2B4263A32C7835E100455B8C /* DetailSelectPlaceComponent.swift */,
+				2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */,
+				2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */,
+				2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */,
+			);
+			path = DetailSelectPlace;
+			sourceTree = "<group>";
+		};
+		2B66A0ED2C7469E7002542D5 /* SelectPlace */ = {
+			isa = PBXGroup;
+			children = (
+				2B4263A22C7835AB00455B8C /* DetailSelectPlace */,
+				2B0A75922C76C52800818710 /* Cells */,
+				2B0A758B2C75FE2C00818710 /* View */,
+				2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */,
+				2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */,
+				2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */,
+				2B66A0F42C746A1B002542D5 /* SelectPlaceViewController.swift */,
+			);
+			path = SelectPlace;
+			sourceTree = "<group>";
+		};
+		2B66A0F82C75809F002542D5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2B66A0F62C758098002542D5 /* SearchBarView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2B8C9D5B2C3FECD90053913B /* ImageViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1192,6 +1276,7 @@
 			children = (
 				C3498F2927C0DB2A003EDD0F /* View */,
 				C3498F3727C13C88003EDD0F /* SelectTime */,
+				2B66A0ED2C7469E7002542D5 /* SelectPlace */,
 				C3498F3627C13C79003EDD0F /* SelectDate */,
 				C3089AF327BF45F700884987 /* WritingMainPostComponent.swift */,
 				C3089AF527BF45FE00884987 /* WritingMainPostCoordinator.swift */,
@@ -1723,8 +1808,10 @@
 			isa = PBXGroup;
 			children = (
 				C3BA459B27B4064E0048CA76 /* OnOffLabel.swift */,
-				DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */,
 				C3BA459D27B408930048CA76 /* OnOffLabelGroup.swift */,
+				2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */,
+				2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */,
+				DA98F1852BAF320B00D88CB6 /* OnOffLabelWithRadioButton.swift */,
 			);
 			path = OnOff;
 			sourceTree = "<group>";
@@ -1984,6 +2071,7 @@
 		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				2B66A0F82C75809F002542D5 /* Search */,
 				43D8F20828E9E22800EB3B92 /* Skeleton */,
 				434ED1FA286007DA00F6EF69 /* Map */,
 				C399FD1127C2833400396DC3 /* PostCell */,
@@ -2592,6 +2680,7 @@
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
+				2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */,
 				43D8F20A28E9E25100EB3B92 /* Skeleton.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
@@ -2631,6 +2720,7 @@
 				2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
+				2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
 				DA4353432B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
@@ -2689,6 +2779,7 @@
 				C32C027027CB16E50011419E /* NickNameChangeModalCoordinator.swift in Sources */,
 				C3AD115A27B8261000A7044C /* LoginService.swift in Sources */,
 				C3256B6027CE801F009B16DA /* PolicyAPIService.swift in Sources */,
+				2B4263A82C7835F700455B8C /* DetailSelectPlaceViewModel.swift in Sources */,
 				C3CA2AF727BC4E9A00AEF623 /* HomeFilterViewModel.swift in Sources */,
 				C34FDA7327AD5C83007718F8 /* AppComponent.swift in Sources */,
 				DAC50004282B8F3C004CFF64 /* MessageRoomViewModel.swift in Sources */,
@@ -2697,6 +2788,7 @@
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
 				433BD03828A13655003B444E /* DeleteConfirmModalViewController.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
+				2B4263A42C7835E100455B8C /* DetailSelectPlaceComponent.swift in Sources */,
 				DA7E9726288C36290001BBDC /* ManageTimeExpiredModalCoordinator.swift in Sources */,
 				C38ABD9927D336170025929E /* ReportModalViewModel.swift in Sources */,
 				DA7E971A288BCCD70001BBDC /* JobChangeModalViewController.swift in Sources */,
@@ -2729,9 +2821,11 @@
 				DA9C69532BAAA47D0063B43A /* SelectRunningPaceView.swift in Sources */,
 				DABB518B2BCE92DE008AFCD2 /* RegisterRunningPaceCancelModalCoordinator.swift in Sources */,
 				C3C9736427CA9A5600232251 /* TextFieldWithButton.swift in Sources */,
+				2B66A0F52C746A1B002542D5 /* SelectPlaceViewController.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
+				2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */,
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
 				C3C9732527C9373900232251 /* User.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
@@ -2787,8 +2881,10 @@
 				C3C9733127C9E0FD00232251 /* ApplicantListModalViewModel.swift in Sources */,
 				C3C43BF227CC384800D36D46 /* BasicUserAPIService.swift in Sources */,
 				C34FDA6D27AD5C83007718F8 /* AppDelegate.swift in Sources */,
+				2B0A75942C76C54200818710 /* SelectPlaceResultCell.swift in Sources */,
 				DA10361E2824413700F78F72 /* MessageViewController.swift in Sources */,
 				434635D22891073E007D8C10 /* PostListOrder.swift in Sources */,
+				2B66A0F72C758098002542D5 /* SearchBarView.swift in Sources */,
 				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
@@ -2800,6 +2896,7 @@
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
+				2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
 				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
@@ -2854,10 +2951,13 @@
 				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
 				DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
+				2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */,
 				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
 				C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */,
+				2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */,
 				DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
+				2B66A0F32C746A12002542D5 /* SelectPlaceViewModel.swift in Sources */,
 				DAF6BF9A287097B000E98E56 /* MyPageParticipateCell.swift in Sources */,
 				C3498F2D27C0DB5C003EDD0F /* WritingDateView.swift in Sources */,
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
@@ -2879,6 +2979,7 @@
 				C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */,
 				C3D3937F27BBAE6A00D47C9C /* DeepLinkType.swift in Sources */,
 				C3AD115627B81D7B00A7044C /* JSONError.swift in Sources */,
+				2B9ACF552C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift in Sources */,
 				434635D0289104A0007D8C10 /* PostOrderModalViewController.swift in Sources */,
 				C3432CA627B830FA00DEFF51 /* BasicLoginKeyChainService.swift in Sources */,
 				DA7E23EF2B7A4D3D005D18A6 /* RegisterRunningPaceViewModel.swift in Sources */,
@@ -2901,6 +3002,7 @@
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
 				DADD949128A7CA9F0004F86F /* PostMessageReportRequest.swift in Sources */,
+				2B0A758F2C75FF4300818710 /* SelectPlaceResultsView.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
 				C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
@@ -2928,7 +3030,9 @@
 				C34FDA7227AD5C83007718F8 /* LoggedOutCoordinator.swift in Sources */,
 				DA117B20283150A300158211 /* Message.swift in Sources */,
 				C34FDA6C27AD5C83007718F8 /* SceneDelegate.swift in Sources */,
+				2B0A75962C76CB6000818710 /* SelectPlaceListSection.swift in Sources */,
 				C38F8F1F27AD88700050137D /* SocialLoginResult.swift in Sources */,
+				2B0A758D2C75FF2D00818710 /* SelectPlaceGuideView.swift in Sources */,
 				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
 				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,

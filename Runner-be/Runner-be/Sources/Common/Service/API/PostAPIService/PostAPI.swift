@@ -112,7 +112,7 @@ extension PostAPI: TargetType {
                 "ageFilterMax": "\(filter.ageMax)",
                 "ageFilterMin": "\(filter.ageMin)",
                 "jobFilter": filter.jobFilter.code,
-                "paceFilter": "beginner,average,high,master",
+                "paceFilter": filter.paceFilter.joined(separator: ","),
                 "afterPartyFilter": "A",
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",

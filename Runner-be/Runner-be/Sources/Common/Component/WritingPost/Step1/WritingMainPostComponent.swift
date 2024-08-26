@@ -25,6 +25,10 @@ final class WritingMainPostComponent {
         return SelectDateModalComponent(dateInterval: dateInterval)
     }
 
+    func selectPlaceComponent(timeString: String) -> SelectPlaceComponent {
+        return SelectPlaceComponent(timeString: timeString)
+    }
+
     func BuildWritingDetailPostComponent(with data: WritingPostData) -> WritingDetailPostComponent {
         return WritingDetailPostComponent(writingPostData: data)
     }

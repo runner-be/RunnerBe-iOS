@@ -22,6 +22,8 @@ struct PostResponse: Decodable {
     let gatherLongitude: String?
     let gatherLatitude: String?
     let locationInfo: String?
+    let placeName: String?
+    let placeExplain: String?
     let runningTag: String?
     let age: String?
     let gender: String?
@@ -50,6 +52,8 @@ struct PostResponse: Decodable {
         case gatherLongitude
         case gatherLatitude
         case locationInfo
+        case placeName
+        case placeExplain
         case runningTag
         case age
         case gender
@@ -175,6 +179,8 @@ extension PostResponse {
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
+            placeName: placeName,
+            placeExplain: placeExplain,
             coord: coords, // nullable
             whetherCheck: whetherCheck ?? "N",
             attendanceProfiles: profileURLList ?? [],

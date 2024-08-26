@@ -776,11 +776,17 @@ internal enum L10n {
       }
     }
     internal enum Place {
+      /// 위치 추가
+      internal static let placeHolder = L10n.tr("Localizable", "Post.Place.PlaceHolder", fallback: "위치 추가")
       /// 모임 장소
       internal static let title = L10n.tr("Localizable", "Post.Place.Title", fallback: "모임 장소")
       internal enum Guide {
         /// * 정확한 위치는 참여 러너에게만 보여요!
         internal static let readable = L10n.tr("Localizable", "Post.Place.Guide.Readable", fallback: "* 정확한 위치는 참여 러너에게만 보여요!")
+      }
+      internal enum NavBar {
+        /// 장소 정보 입력
+        internal static let title = L10n.tr("Localizable", "Post.Place.NavBar.Title", fallback: "장소 정보 입력")
       }
     }
     internal enum Time {
@@ -798,12 +804,12 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Post.Title.Title", fallback: "제목")
     }
     internal enum WorkTime {
-      /// 퇴근 후
-      internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork", fallback: "퇴근 후")
+      /// 퇴근후
+      internal static let afterWork = L10n.tr("Localizable", "Post.WorkTime.AfterWork", fallback: "퇴근후")
       /// 전체
       internal static let all = L10n.tr("Localizable", "Post.WorkTime.All", fallback: "전체")
-      /// 출근 전
-      internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork", fallback: "출근 전")
+      /// 출근전
+      internal static let beforeWork = L10n.tr("Localizable", "Post.WorkTime.BeforeWork", fallback: "출근전")
       /// 휴일
       internal static let dayOff = L10n.tr("Localizable", "Post.WorkTime.DayOff", fallback: "휴일")
     }
@@ -818,20 +824,20 @@ internal enum L10n {
     internal enum Average {
       /// 1km당 6~7분 러닝하는 평균 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.average.description", fallback: "1km당 6~7분 러닝하는 평균 러너")
-      /// 600 ~ 700
-      internal static let title = L10n.tr("Localizable", "RunningPace.average.title", fallback: "600 ~ 700")
+      /// 430 ~ 600
+      internal static let title = L10n.tr("Localizable", "RunningPace.average.title", fallback: "430 ~ 600")
     }
     internal enum Beginner {
       /// 1km당 7~9분 러닝하는 입문 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.beginner.description", fallback: "1km당 7~9분 러닝하는 입문 러너")
-      /// 700 ~ 900
-      internal static let title = L10n.tr("Localizable", "RunningPace.beginner.title", fallback: "700 ~ 900")
+      /// 430 이하
+      internal static let title = L10n.tr("Localizable", "RunningPace.beginner.title", fallback: "430 이하")
     }
     internal enum High {
       /// 1km당 4.5~6분 러닝하는 고수 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.high.description", fallback: "1km당 4.5~6분 러닝하는 고수 러너")
-      /// 430 ~ 600
-      internal static let title = L10n.tr("Localizable", "RunningPace.high.title", fallback: "430 ~ 600")
+      /// 600 ~ 700
+      internal static let title = L10n.tr("Localizable", "RunningPace.high.title", fallback: "600 ~ 700")
     }
     internal enum Info {
       /// 1km당 달리는데 걸리는 시간에 대한
@@ -841,8 +847,8 @@ internal enum L10n {
     internal enum Master {
       /// 1km당 4.5분 미만으로 러닝하는 초고수 러너
       internal static let description = L10n.tr("Localizable", "RunningPace.master.description", fallback: "1km당 4.5분 미만으로 러닝하는 초고수 러너")
-      /// 430 이하
-      internal static let title = L10n.tr("Localizable", "RunningPace.master.title", fallback: "430 이하")
+      /// 700 ~ 900
+      internal static let title = L10n.tr("Localizable", "RunningPace.master.title", fallback: "700 ~ 900")
     }
     internal enum Register {
       /// 페이스는 1km당 달리는데 걸리는 시간에 대한

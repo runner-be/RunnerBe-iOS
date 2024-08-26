@@ -5,7 +5,6 @@
 //  Created by 김신우 on 2022/02/19.
 //
 
-import MapKit
 import RxCocoa
 import RxSwift
 import Then
@@ -26,97 +25,86 @@ class WritingPlaceView: SelectBaseView {
 
     private func processingInputs() {}
 
-    func setMapBoundary(with _: [CLLocationCoordinate2D]) {
-//        mapView.cameraBoundary = MKMapView.CameraBoundary(mapRect: MKMapRect.makeRect(coordinates: coords))
+    // TODO: rx.으로 빼기
+    var contentText: Binder<String?> {
+        iconTextButtonGroup.titleLabel.rx.text
     }
 
-    func setMapCoord(_ coord: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000, animated: Bool) {
-        mapView.centerToCoord(coord, regionRadius: regionRadius, animated: animated)
-    }
-
-    func showPlaceInfo(city: String, name: String) {
-        placeLabel.isHidden = city.isEmpty && name.isEmpty
-        placeLabel.text = city + "\n" + name
-    }
-
-    lazy var locationChanged = PublishSubject<CLLocationCoordinate2D>()
-
-    lazy var mapView = MKMapView().then { view in
+    private var groupBackground = UIView().then { view in
+        view.backgroundColor = .darkG55
         view.clipsToBounds = true
-        view.layer.cornerRadius = 8
-        view.delegate = self
-        view.isRotateEnabled = false
-        view.isPitchEnabled = false
+        view.layer.cornerRadius = 6
     }
 
-    var placeMark = UIImageView().then { view in
-        view.image = Asset.placeImage.uiImage
-        view.contentMode = .scaleAspectFit
+    var iconTextButtonGroup = IconTextButtonGroup().then { group in
+        group.icon = Asset.place.uiImage
+        group.titleLabel.text = L10n.Post.Place.placeHolder
+        group.titleLabel.font = .pretendardRegular16
+        group.titleLabel.textColor = .darkG1
+        group.moreInfoButton.isEnabled = false
+        group.titleLabel.layer.opacity = 1.0
     }
 
-    var placeLabel = UILabel().then { label in
-        label.font = .iosBody13R
-        label.textColor = .darkG1
-        label.numberOfLines = 0
+    let setCityLabel = UILabel().then {
+        $0.textColor = .darkG1
+        $0.font = .pretendardRegular16
     }
 
-    lazy var placeLabelBackground = UIView().then { view in
-        view.backgroundColor = .darkG6
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 5
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-
-        view.addSubviews([placeLabel])
-        placeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(9)
-            make.trailing.equalTo(view.snp.trailing).offset(-8)
-            make.top.equalTo(view.snp.top).offset(6)
-            make.bottom.equalTo(view.snp.bottom).offset(-9)
-        }
+    let setDetailLabel = UILabel().then {
+        $0.textColor = .darkG35
+        $0.font = .pretendardRegular14
     }
+
+    private lazy var vStackView = UIStackView.make(
+        with: [groupBackground],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 8
+    )
 
     override func setupViews() {
         super.setupViews()
         titleLabel.text = L10n.Home.Filter.Place.title
 
-        contentView.addSubviews([
-            mapView,
+        addSubviews([
+            vStackView,
         ])
 
-        mapView.addSubviews([
-            placeMark,
-            placeLabelBackground,
+        groupBackground.addSubviews([
+            iconTextButtonGroup,
+            setCityLabel,
+            setDetailLabel,
         ])
     }
 
     override func initialLayout() {
         super.initialLayout()
 
-        mapView.snp.makeConstraints { make in
+        vStackView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(12)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.height.equalTo(228)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-3)
         }
 
-        placeMark.snp.makeConstraints { make in
-            make.centerX.equalTo(mapView.snp.centerX)
-            make.centerY.equalTo(mapView.snp.centerY)
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+        iconTextButtonGroup.snp.makeConstraints { make in
+            make.top.equalTo(groupBackground.snp.top).offset(18)
+            make.leading.equalTo(groupBackground.snp.leading).offset(16)
+            make.trailing.equalTo(groupBackground.snp.trailing).offset(-16)
+            make.bottom.equalTo(groupBackground.snp.bottom).offset(-18).priority(.required)
         }
 
-        placeLabelBackground.snp.makeConstraints { make in
-            make.leading.equalTo(placeMark.snp.trailing)
-            make.bottom.equalTo(placeMark.snp.top)
-            make.trailing.lessThanOrEqualTo(mapView.snp.trailing).offset(-30)
+        setCityLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(19)
+            $0.left.equalToSuperview().offset(47)
         }
-    }
-}
 
-extension WritingPlaceView: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated _: Bool) {
-        locationChanged.onNext(mapView.centerCoordinate)
+        setDetailLabel.snp.makeConstraints {
+            $0.top.equalTo(setCityLabel.snp.bottom).offset(4)
+            $0.left.equalTo(setCityLabel)
+            $0.right.equalTo(iconTextButtonGroup.moreInfoButton.snp.left).offset(-8)
+            $0.bottom.equalTo(groupBackground.snp.bottom).offset(-18).priority(.high)
+        }
     }
 }

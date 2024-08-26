@@ -129,7 +129,7 @@ final class MessageAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    //TODO: 역할이 3개이상 한 메서드에서 처리하는 부분을 분리시켜야할 필요가 있습니다.
+    // TODO: 역할이 3개이상 한 메서드에서 처리하는 부분을 분리시켜야할 필요가 있습니다.
     func postMessage(
         roomId: Int,
         content: [String?],
@@ -197,7 +197,7 @@ final class MessageAPIService {
         }
 
         imageUploaded
-            .map { [weak self] (index, url) in
+            .map { [weak self] index, url in
                 self?.provider.rx.request(.postMessage(
                     roomId: roomId,
                     postMessageRequest: PostMessageRequest(

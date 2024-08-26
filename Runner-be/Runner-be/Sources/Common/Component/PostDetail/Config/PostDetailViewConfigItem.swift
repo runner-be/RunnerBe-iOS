@@ -12,6 +12,9 @@ struct PostDetailRunningConfig {
     let badge: String
     let title: String
     let placeInfo: String
+    let locationInfo: String
+    let placeName: String
+    let placeExplain: String
     let date: String
     let afterParty: String
     let time: String
@@ -49,5 +52,9 @@ extension PostDetailRunningConfig {
         } else {
             afterParty = "뒷풀이 없음"
         }
+
+        locationInfo = postDetail.post.locationInfo
+        placeName = postDetail.post.placeName ?? ""
+        placeExplain = postDetail.post.placeExplain ?? ""
     }
 }

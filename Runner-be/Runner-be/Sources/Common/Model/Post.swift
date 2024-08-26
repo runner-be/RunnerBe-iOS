@@ -25,6 +25,8 @@ struct Post {
     let gender: Gender
 
     let locationInfo: String
+    let placeName: String?
+    let placeExplain: String?
     let coord: (lat: Float, long: Float)?
 
     var open: Bool = false
@@ -62,6 +64,8 @@ extension Post: CustomStringConvertible {
             ageRange: \(ageRange.min) ~ \(ageRange.max),
             gender: \(gender.name),
             locationInfo: \(locationInfo),
+            placeName: \(placeName ?? "nil"),
+            placeExplain: \(placeExplain ?? "nil"),
             coord: lat - \(coord?.lat), long - \(coord?.long),
             open: \(open),
             marked: \(marked),

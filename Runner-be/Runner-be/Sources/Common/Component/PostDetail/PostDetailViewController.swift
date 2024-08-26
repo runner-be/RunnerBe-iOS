@@ -45,6 +45,10 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.rightOptionItem)
             .disposed(by: disposeBag)
+
+        detailMapView.copyButton.rx.tap
+            .bind(to: viewModel.inputs.copyPlaceName)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -65,7 +69,9 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
                     lat: data.running.lat,
                     long: data.running.long,
                     range: data.participated ? data.running.range / 3 : data.running.range,
-                    showMarker: data.participated
+                    showMarker: data.participated,
+                    locationInfo: data.running.locationInfo,
+                    placeExplain: data.running.placeExplain
                 )
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {
@@ -121,7 +127,10 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
         view.backgroundColor = .black
     }
 
-    private var detailMapView = DetailMapView()
+    private var detailMapView = DetailMapView().then {
+        $0.layer.cornerRadius = 12
+        $0.layer.masksToBounds = true
+    }
 
     private lazy var vStackView = UIStackView.make(
         with: [
@@ -226,8 +235,7 @@ extension PostDetailViewController {
         }
 
         detailMapView.snp.makeConstraints { make in
-            make.width.equalTo(view.snp.width)
-            make.height.equalTo(202)
+            make.left.right.equalToSuperview()
         }
 
         hDivider1.snp.makeConstraints { make in

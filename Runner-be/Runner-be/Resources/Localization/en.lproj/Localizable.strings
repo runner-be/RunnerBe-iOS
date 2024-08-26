@@ -117,8 +117,8 @@
 
 // MARK: - Post
 "Post.WorkTime.All" = "전체";
-"Post.WorkTime.BeforeWork" = "출근 전";
-"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.BeforeWork" = "출근전";
+"Post.WorkTime.AfterWork" = "퇴근후";
 "Post.WorkTime.DayOff" = "휴일";
 "Post.Title.Title" = "제목";
 "Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
@@ -128,6 +128,7 @@
 "Post.Time.PlaceHolder" = "0시간 20분";
 "Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
 "Post.Place.Title" = "모임 장소";
+"Post.Place.PlaceHolder" = "위치 추가";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
 
 "Post.Write.NavBar.title" = "게시글 작성";
@@ -135,6 +136,8 @@
 "Post.Modal.Time.time" = "시간";
 "Post.Modal.Time.minute" = "분";
 
+// MARK: - Post.EditPlace
+"Post.Place.NavBar.Title" = "장소 정보 입력";
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";
@@ -305,14 +308,15 @@
 
 
 // MARK: Running Pace
-"RunningPace.beginner.title" = "700 ~ 900";
-"RunningPace.beginner.description" = "1km당 7~9분 러닝하는 입문 러너";
-"RunningPace.average.title" = "600 ~ 700";
-"RunningPace.average.description" = "1km당 6~7분 러닝하는 평균 러너";
-"RunningPace.high.title" = "430 ~ 600";
-"RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
-"RunningPace.master.title" = "430 이하";
+"RunningPace.master.title" = "700 ~ 900";
 "RunningPace.master.description" = "1km당 4.5분 미만으로 러닝하는 초고수 러너";
+"RunningPace.high.title" = "600 ~ 700";
+"RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
+"RunningPace.average.title" = "430 ~ 600";
+"RunningPace.average.description" = "1km당 6~7분 러닝하는 평균 러너";
+"RunningPace.beginner.title" = "430 이하";
+"RunningPace.beginner.description" = "1km당 7~9분 러닝하는 입문 러너";
+
 
 "RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";
 "RunningPace.register.subtitle" = "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.";

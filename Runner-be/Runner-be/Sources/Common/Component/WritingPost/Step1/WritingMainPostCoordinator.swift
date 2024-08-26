@@ -60,6 +60,17 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 self?.presentSelectDateModal(vm: result.vm, dateInterval: result.dateInterval, animated: false)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.editPlace
+            .map { (vm: scene.VM, timeString: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushSelectPlace(
+                    vm: result.vm,
+                    timeString: result.timeString,
+                    animated: true
+                )
+
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func pushWritingDetailPost(data: WritingPostData, animated: Bool) {
@@ -72,6 +83,30 @@ final class WritingMainPostCoordinator: BasicCoordinator<WritingMainPostResult> 
                 break
             case .apply:
                 self?.closeSignal.onNext(.backward(needUpdate: true))
+            }
+        }
+    }
+
+    private func pushSelectPlace(
+        vm: WritingMainPostViewModel,
+        timeString: String,
+        animated: Bool
+    ) {
+        let comp = component.selectPlaceComponent(timeString: timeString)
+        let coord = SelectPlaceCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case let .apply(resultString):
+                vm.routeInputs.editPlaceResult.onNext(resultString)
+            case .cancel:
+                break
             }
         }
     }

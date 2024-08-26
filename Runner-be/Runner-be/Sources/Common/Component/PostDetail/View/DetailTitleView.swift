@@ -38,7 +38,7 @@ final class DetailTitleView: UIView {
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .pretendardRegular18
+        label.font = .pretendardSemiBold18
         label.textColor = .darkG1
         label.text = "게시글 제목"
     }

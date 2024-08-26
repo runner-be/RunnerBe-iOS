@@ -21,7 +21,12 @@ class IconLabel: UIView {
 
     private let iconPosition: IconPosition
 
-    init(iconPosition: IconPosition = .left, iconSize: CGSize = CGSize(width: 14, height: 14), spacing: CGFloat = 6, padding: UIEdgeInsets = .zero) {
+    init(
+        iconPosition: IconPosition = .left,
+        iconSize: CGSize = CGSize(width: 14, height: 14),
+        spacing: CGFloat = 6,
+        padding: UIEdgeInsets = .zero
+    ) {
         self.iconPosition = iconPosition
         self.iconSize = iconSize
         self.spacing = spacing
@@ -57,7 +62,7 @@ class IconLabel: UIView {
                 make.top.equalTo(self.snp.top).offset(padding.top)
                 make.bottom.equalTo(self.snp.bottom).offset(-padding.bottom)
                 make.height.equalTo(iconSize.height)
-                make.width.equalTo(icon.snp.height)
+                make.width.equalTo(iconSize.width)
             }
 
             label.snp.makeConstraints { make in
