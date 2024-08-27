@@ -98,11 +98,35 @@ final class MyPageViewController: BaseViewController {
     private func viewModelOutput() {
         myPostCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         myRunningCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        myLogStampView.logStampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
+        // 나의 로그 스탬프
+        typealias MyLogStampDataSource = RxCollectionViewSectionedAnimatedDataSource<MyLogStampSection>
+
+        let myLogStampDatasource = MyLogStampDataSource(
+            configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
+                guard let _ = self,
+                      let cell = collectionView.dequeueReusableCell(
+                          withReuseIdentifier: MyLogStampCell.id,
+                          for: indexPath
+                      ) as? MyLogStampCell
+                else {
+                    return UICollectionViewCell()
+                }
+
+                cell.configure(
+                    dayOfWeek: element.dayOfWeek,
+                    date: element.date
+                )
+
+                return cell
+            }
+        )
+
+        // 작성한 글 탭
         typealias MyPagePostDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
-        // 작성한 글 탭
         let myPostDatasource = MyPagePostDataSource { [self] _, collectionView, indexPath, item in
 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPagePostCell.id, for: indexPath) as? MyPagePostCell
@@ -118,6 +142,12 @@ final class MyPageViewController: BaseViewController {
 
             return cell
         }
+
+        viewModel.outputs.logStamps
+            .debug("logStamps")
+//            .map { [MyLogStampSection(items: $0)] }
+            .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .filter { [unowned self] _ in self.viewModel.outputs.postType == .myPost }
@@ -334,6 +364,8 @@ final class MyPageViewController: BaseViewController {
         view.isHidden = true
     }
 
+    private let myLogStampView = MyLogStampView()
+
     private var hDivider = UIView().then { view in
         view.backgroundColor = .black
         view.snp.makeConstraints { make in
@@ -455,6 +487,7 @@ extension MyPageViewController {
         contentView.addSubviews([
             myProfileView,
             registerPaceWordBubble,
+            myLogStampView,
             hDivider,
             writtenTab,
             participantTab,
@@ -511,8 +544,13 @@ extension MyPageViewController {
             make.leading.equalTo(myProfileView.myInfoView.snp.leading).offset(13)
         }
 
+        myLogStampView.snp.makeConstraints {
+            $0.top.equalTo(myProfileView.snp.bottom).offset(28)
+            $0.left.right.equalToSuperview()
+        }
+
         writtenTab.snp.makeConstraints { make in
-            make.top.equalTo(myProfileView.snp.bottom).offset(16)
+            make.top.equalTo(myLogStampView.snp.bottom).offset(16)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.centerX)
             make.height.equalTo(28)
@@ -657,8 +695,34 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
             return MyPageParticipateCell.size
         case let c where c == myPostCollectionView:
             return MyPagePostCell.size
+        case let c where c == myLogStampView.logStampCollectionView:
+            return MyLogStampCell.size
         default:
             return .zero
         }
+    }
+
+    func scrollViewWillEndDragging(_: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let layout = myLogStampView.logStampCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+
+        let estimatedIndex = targetContentOffset.pointee.x / cellWidthIncludingSpacing
+        let index: CGFloat
+
+        if velocity.x > 0 {
+            index = round(estimatedIndex)
+        } else if velocity.x < 0 {
+            index = round(estimatedIndex)
+        } else {
+            index = round(estimatedIndex)
+        }
+
+        let sectionsCount = myLogStampView.logStampCollectionView.numberOfSections
+        let cellsPerSection = myLogStampView.logStampCollectionView.numberOfItems(inSection: 0)
+        let sectionIndex = min(max(Int(index) / cellsPerSection, 0), sectionsCount - 1)
+
+        let offsetX = CGFloat(sectionIndex) * myLogStampView.logStampCollectionView.bounds.width - 32
+        targetContentOffset.pointee = CGPoint(x: offsetX, y: 0)
+        myLogStampView.pageControl.currentPage = sectionIndex
     }
 }

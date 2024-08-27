@@ -35,9 +35,6 @@ class BasicPostInfoView: UIView {
         participantLabel.text = "\(item.gender) · \(item.ageText)"
         bookMarkIcon.isSelected = item.bookmarked
         afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
-
-        print("seifjsljfeislfj: \(item.closed)")
-
         runningPaceView.configure(
             pace: item.pace,
             viewType: .postDetail

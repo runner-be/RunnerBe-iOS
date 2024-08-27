@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0278862C7CAE7F00305118 /* MyLogStampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0278852C7CAE7F00305118 /* MyLogStampView.swift */; };
+		2B0278882C7D5C7B00305118 /* MyLogStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0278872C7D5C7B00305118 /* MyLogStampCell.swift */; };
+		2B02788A2C7D664800305118 /* MyLogStampConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0278892C7D664800305118 /* MyLogStampConfig.swift */; };
+		2B02788C2C7D665300305118 /* MyLogStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B02788B2C7D665300305118 /* MyLogStampDataSource.swift */; };
 		2B0A758D2C75FF2D00818710 /* SelectPlaceGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A758C2C75FF2D00818710 /* SelectPlaceGuideView.swift */; };
 		2B0A758F2C75FF4300818710 /* SelectPlaceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A758E2C75FF4300818710 /* SelectPlaceResultsView.swift */; };
 		2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */; };
 		2B0A75942C76C54200818710 /* SelectPlaceResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */; };
 		2B0A75962C76CB6000818710 /* SelectPlaceListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */; };
+		2B1797642C7DE1D00001C354 /* CalendarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797632C7DE1D00001C354 /* CalendarComponent.swift */; };
+		2B1797662C7DE1DB0001C354 /* CalendarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */; };
+		2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */; };
+		2B17976A2C7DE1EB0001C354 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797692C7DE1EB0001C354 /* CalendarViewController.swift */; };
 		2B4263A42C7835E100455B8C /* DetailSelectPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A32C7835E100455B8C /* DetailSelectPlaceComponent.swift */; };
 		2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */; };
 		2B4263A82C7835F700455B8C /* DetailSelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */; };
@@ -429,11 +437,19 @@
 /* Begin PBXFileReference section */
 		15A8C03A0517F56BA2F628B5 /* Pods-Runner-be.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-be.debug.xcconfig"; path = "Target Support Files/Pods-Runner-be/Pods-Runner-be.debug.xcconfig"; sourceTree = "<group>"; };
 		18105ECC7609A295B9731B3A /* Pods_Runner_be.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_be.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B0278852C7CAE7F00305118 /* MyLogStampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogStampView.swift; sourceTree = "<group>"; };
+		2B0278872C7D5C7B00305118 /* MyLogStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogStampCell.swift; sourceTree = "<group>"; };
+		2B0278892C7D664800305118 /* MyLogStampConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogStampConfig.swift; sourceTree = "<group>"; };
+		2B02788B2C7D665300305118 /* MyLogStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogStampDataSource.swift; sourceTree = "<group>"; };
 		2B0A758C2C75FF2D00818710 /* SelectPlaceGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceGuideView.swift; sourceTree = "<group>"; };
 		2B0A758E2C75FF4300818710 /* SelectPlaceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceResultsView.swift; sourceTree = "<group>"; };
 		2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceEmptyView.swift; sourceTree = "<group>"; };
 		2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceResultCell.swift; sourceTree = "<group>"; };
 		2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceListSection.swift; sourceTree = "<group>"; };
+		2B1797632C7DE1D00001C354 /* CalendarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarComponent.swift; sourceTree = "<group>"; };
+		2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCoordinator.swift; sourceTree = "<group>"; };
+		2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		2B1797692C7DE1EB0001C354 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		2B4263A32C7835E100455B8C /* DetailSelectPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceComponent.swift; sourceTree = "<group>"; };
 		2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewModel.swift; sourceTree = "<group>"; };
@@ -892,6 +908,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		2B1797622C7DE1290001C354 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				2B1797632C7DE1D00001C354 /* CalendarComponent.swift */,
+				2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */,
+				2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */,
+				2B1797692C7DE1EB0001C354 /* CalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		2B4263A22C7835AB00455B8C /* DetailSelectPlace */ = {
 			isa = PBXGroup;
 			children = (
@@ -1158,6 +1185,8 @@
 				C32C028A27CB3A9C0011419E /* MyInfoView.swift */,
 				DAF6BF932870790300E98E56 /* MyPagePostCell.swift */,
 				DAF6BF99287097B000E98E56 /* MyPageParticipateCell.swift */,
+				2B0278852C7CAE7F00305118 /* MyLogStampView.swift */,
+				2B0278872C7D5C7B00305118 /* MyLogStampCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1168,6 +1197,8 @@
 				C32C028F27CB46030011419E /* MyPagePostConfig.swift */,
 				C32C029527CB63270011419E /* MyPagePostDataSource.swift */,
 				DA1A5F8528C455550073A30C /* MyPageParticipatePostConfig.swift */,
+				2B0278892C7D664800305118 /* MyLogStampConfig.swift */,
+				2B02788B2C7D665300305118 /* MyLogStampDataSource.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1659,6 +1690,7 @@
 				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				C3C9734727CA95D800232251 /* EditInfo */,
 				C3C9734527CA95B700232251 /* Settings */,
+				2B1797622C7DE1290001C354 /* Calendar */,
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
@@ -2825,10 +2857,12 @@
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
+				2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */,
 				2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */,
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
 				C3C9732527C9373900232251 /* User.swift in Sources */,
 				C3F74B6627B0A477002D5846 /* PolicyTermComponent.swift in Sources */,
+				2B02788C2C7D665300305118 /* MyLogStampDataSource.swift in Sources */,
 				DA1A5F8628C455550073A30C /* MyPageParticipatePostConfig.swift in Sources */,
 				C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */,
 				C3C9733627C9E6FE00232251 /* UserInfoAcceptableCell.swift in Sources */,
@@ -2842,6 +2876,7 @@
 				C34FDA7927AD5D45007718F8 /* Assets+Generated.swift in Sources */,
 				2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */,
 				DABB51892BCE92AB008AFCD2 /* RegisterRunningPaceCancelModalComponent.swift in Sources */,
+				2B0278862C7CAE7F00305118 /* MyLogStampView.swift in Sources */,
 				C32C027627CB17060011419E /* TakePhotoModalComponent.swift in Sources */,
 				DA4353402B8B31A5004C047A /* RegisterRunningPaceConfirmModalViewModel.swift in Sources */,
 				C38ABD9727D3360A0025929E /* ReportModalCoordinator.swift in Sources */,
@@ -3004,6 +3039,7 @@
 				DADD949128A7CA9F0004F86F /* PostMessageReportRequest.swift in Sources */,
 				2B0A758F2C75FF4300818710 /* SelectPlaceResultsView.swift in Sources */,
 				C38F8F4C27ADA0B90050137D /* UITabbarController+.swift in Sources */,
+				2B0278882C7D5C7B00305118 /* MyLogStampCell.swift in Sources */,
 				C31E633628171CFD00C6B5A0 /* MessageViewModel.swift in Sources */,
 				C3498F2827BF728D003EDD0F /* SegmentedControl.swift in Sources */,
 				C3AB6B61280EBFCC00D58AEC /* EditProfileType.swift in Sources */,
@@ -3013,11 +3049,14 @@
 				DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,
 				2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */,
+				2B02788A2C7D664800305118 /* MyLogStampConfig.swift in Sources */,
 				C343A33627BD103C008E6FA4 /* RunnerbeSliderHandleFollower.swift in Sources */,
+				2B1797642C7DE1D00001C354 /* CalendarComponent.swift in Sources */,
 				C3BA45DF27B621910048CA76 /* OnboardingCompletionCoordinator.swift in Sources */,
 				C3F74B7F27B1270B002D5846 /* RunnerBeNavBar.swift in Sources */,
 				C3498F3127C0DB81003EDD0F /* WritingPlaceView.swift in Sources */,
 				DA284805288C44FC00A8F916 /* ManageAttendanceCell.swift in Sources */,
+				2B1797662C7DE1DB0001C354 /* CalendarCoordinator.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				DAC50002282B8F38004CFF64 /* MessageRoomComponent.swift in Sources */,
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
@@ -3050,6 +3089,7 @@
 				C38ABD8427D31EAD0025929E /* LoginType.swift in Sources */,
 				43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */,
 				C38ABDA227D4E3E70025929E /* SignoutModalViewModel.swift in Sources */,
+				2B17976A2C7DE1EB0001C354 /* CalendarViewController.swift in Sources */,
 				C34BA6A827CD3FCF003E393A /* DateUtil.swift in Sources */,
 				C38ABDAD27D4F2E60025929E /* SignoutCompletionModalViewController.swift in Sources */,
 				C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */,

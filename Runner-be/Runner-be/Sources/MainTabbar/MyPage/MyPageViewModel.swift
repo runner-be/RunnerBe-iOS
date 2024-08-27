@@ -21,6 +21,40 @@ final class MyPageViewModel: BaseViewModel {
     init(postAPIService: PostAPIService = BasicPostAPIService(), userAPIService: UserAPIService = BasicUserAPIService()) {
         super.init()
 
+        let allItems = [
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 12)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 13)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 14)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 15)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 16)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 17)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 18)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 19)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 20)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 21)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 22)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 23)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 24)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 25)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 26)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 27)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 28)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 29)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 30)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 31)),
+            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 1)),
+        ]
+
+        // 7개씩 끊어서 섹션 만들기
+        let sections = stride(from: 0, to: allItems.count, by: 7).map { startIndex -> MyLogStampSection in
+            let endIndex = min(startIndex + 7, allItems.count)
+            let items = Array(allItems[startIndex ..< endIndex])
+            return MyLogStampSection(items: items)
+        }
+
+        // ViewModel Output에 섹션 전달
+        outputs.logStamps.onNext(sections)
+
         routeInputs.needUpdate
             .filter { $0 }
             .flatMap { _ in postAPIService.myPage() }
@@ -276,6 +310,7 @@ final class MyPageViewModel: BaseViewModel {
         var postType: PostType = .myPost
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
         var profileChanged = PublishSubject<Data?>()
