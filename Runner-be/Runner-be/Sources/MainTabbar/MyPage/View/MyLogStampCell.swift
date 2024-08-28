@@ -29,6 +29,8 @@ final class MyLogStampCell: UICollectionViewCell {
         $0.text = "00"
         $0.textColor = .darkG5
         $0.font = .pretendardSemiBold14
+        $0.layer.cornerRadius = 10
+        $0.textAlignment = .center
     }
 
     // MARK: - Init
@@ -46,9 +48,12 @@ final class MyLogStampCell: UICollectionViewCell {
 
     func configure(
         dayOfWeek _: String,
-        date: Int
+        date: Int,
+        isToday: Bool
     ) {
         dayLabel.text = "\(date)"
+        dayLabel.layer.backgroundColor = isToday ? UIColor.darkG6.cgColor : UIColor.clear.cgColor
+        dayLabel.textColor = isToday ? .darkG2 : .darkG5
     }
 }
 
@@ -78,7 +83,7 @@ extension MyLogStampCell {
             $0.top.equalTo(stampIcon.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(20)
+            $0.size.equalTo(20)
         }
     }
 }

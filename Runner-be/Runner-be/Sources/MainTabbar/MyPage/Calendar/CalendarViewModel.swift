@@ -88,9 +88,16 @@ final class CalendarViewModel: BaseViewModel {
                 let date = previousMonth.with(day: dayOfPreviousMonth)!
                 let dayOfWeek = calendar.component(.weekday, from: date)
                 let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2] // 요일 이름 가져오기
-                dates.append(MyLogStampConfig(from: LogStamp(dayOfWeek: weekdayString, date: dayOfPreviousMonth)))
+                dates.append(MyLogStampConfig(from: LogStamp(
+                    dayOfWeek: weekdayString,
+                    date: dayOfPreviousMonth,
+                    isToday: false
+                )))
             }
         }
+
+        let calendar = Calendar.current
+        let components = Calendar.current.dateComponents([.day], from: Date())
 
         // 이번 달의 날짜 추가
         let rangeOfCurrentMonth = calendar.range(of: .day, in: .month, for: date)!
@@ -98,7 +105,11 @@ final class CalendarViewModel: BaseViewModel {
             let date = startOfMonth.with(day: day)!
             let dayOfWeek = calendar.component(.weekday, from: date)
             let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2] // 월요일부터 시작하도록 조정
-            dates.append(MyLogStampConfig(from: LogStamp(dayOfWeek: weekdayString, date: day)))
+            dates.append(MyLogStampConfig(from: LogStamp(
+                dayOfWeek: weekdayString,
+                date: day,
+                isToday: components.day == day
+            )))
         }
 
         // 남은 칸을 다음 달의 날짜로 채우기
@@ -110,7 +121,11 @@ final class CalendarViewModel: BaseViewModel {
                 let date = nextMonth.with(day: day)!
                 let dayOfWeek = calendar.component(.weekday, from: date)
                 let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2]
-                dates.append(MyLogStampConfig(from: LogStamp(dayOfWeek: weekdayString, date: day)))
+                dates.append(MyLogStampConfig(from: LogStamp(
+                    dayOfWeek: weekdayString,
+                    date: day,
+                    isToday: false
+                )))
             }
         }
 

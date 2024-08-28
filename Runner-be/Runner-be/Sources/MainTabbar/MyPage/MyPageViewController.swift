@@ -131,7 +131,8 @@ final class MyPageViewController: BaseViewController {
 
                 cell.configure(
                     dayOfWeek: element.dayOfWeek,
-                    date: element.date
+                    date: element.date,
+                    isToday: element.isToday
                 )
 
                 return cell
