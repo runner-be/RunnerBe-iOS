@@ -65,7 +65,7 @@ final class CalendarViewController: BaseViewController {
         $0.icon.image = Asset.chevronDownNew.uiImage
         $0.label.font = .pretendardSemiBold16
         $0.label.textColor = .darkG35
-        $0.label.text = "2024년 3월"
+        $0.label.text = "2000년 00월"
     }
 
     private let logCountView = UIView().then {
@@ -84,6 +84,7 @@ final class CalendarViewController: BaseViewController {
     init(viewModel: CalendarViewModel) {
         self.viewModel = viewModel
         super.init()
+        dateLabel.label.text = "\(viewModel.year)년 \(viewModel.month)월"
     }
 
     @available(*, unavailable)
@@ -112,7 +113,17 @@ final class CalendarViewController: BaseViewController {
 
     // MARK: - Methods
 
-    private func viewModelInput() {}
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.routes.backward)
+            .disposed(by: disposeBag)
+
+        dateLabel.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.showSelectDate)
+            .disposed(by: disposeBag)
+    }
 
     private func viewModelOutput() {
         calendarCollectionView.rx.setDelegate(self).disposed(by: disposeBag)

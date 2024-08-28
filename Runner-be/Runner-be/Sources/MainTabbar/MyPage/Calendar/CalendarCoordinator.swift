@@ -38,5 +38,13 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
             .map { CalendarResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.dateBottomSheet
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] _ in
+
+            }).disposed(by: sceneDisposeBag)
     }
+
+    private func showDateBottomSheet(vm _: CalendarViewModel, animated _: Bool) {}
 }
