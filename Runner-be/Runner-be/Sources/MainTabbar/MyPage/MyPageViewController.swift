@@ -25,6 +25,16 @@ final class MyPageViewController: BaseViewController {
         viewInputs()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        myLogStampView.logStampCollectionView.scrollToItem(
+            at: IndexPath(item: 0, section: 2),
+            at: .left,
+            animated: false
+        )
+        myLogStampView.pageControl.currentPage = 2
+    }
+
     init(viewModel: MyPageViewModel) {
         self.viewModel = viewModel
         super.init()
@@ -62,6 +72,11 @@ final class MyPageViewController: BaseViewController {
             .when(.recognized)
             .map { _ in }
             .bind(to: viewModel.inputs.changePhoto)
+            .disposed(by: disposeBag)
+
+        myLogStampView.logStampCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 
         myPostCollectionView.rx.itemSelected
@@ -145,7 +160,6 @@ final class MyPageViewController: BaseViewController {
 
         viewModel.outputs.logStamps
             .debug("logStamps")
-//            .map { [MyLogStampSection(items: $0)] }
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
 
@@ -156,8 +170,7 @@ final class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self
-            else { return UICollectionViewCell() }
+            guard let self = self else { return UICollectionViewCell() }
 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
             else { return UICollectionViewCell() }
@@ -702,27 +715,13 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 
-    func scrollViewWillEndDragging(_: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let layout = myLogStampView.logStampCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
-
-        let estimatedIndex = targetContentOffset.pointee.x / cellWidthIncludingSpacing
+    func scrollViewWillEndDragging(_: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let estimatedIndex = targetContentOffset.pointee.x / myLogStampView.logStampCollectionView.bounds.width
         let index: CGFloat
 
-        if velocity.x > 0 {
-            index = round(estimatedIndex)
-        } else if velocity.x < 0 {
-            index = round(estimatedIndex)
-        } else {
-            index = round(estimatedIndex)
-        }
-
-        let sectionsCount = myLogStampView.logStampCollectionView.numberOfSections
-        let cellsPerSection = myLogStampView.logStampCollectionView.numberOfItems(inSection: 0)
-        let sectionIndex = min(max(Int(index) / cellsPerSection, 0), sectionsCount - 1)
-
-        let offsetX = CGFloat(sectionIndex) * myLogStampView.logStampCollectionView.bounds.width - 32
+        index = round(estimatedIndex)
+        let offsetX = CGFloat(index) * myLogStampView.logStampCollectionView.bounds.width - 32
         targetContentOffset.pointee = CGPoint(x: offsetX, y: 0)
-        myLogStampView.pageControl.currentPage = sectionIndex
+        myLogStampView.pageControl.currentPage = Int(index)
     }
 }

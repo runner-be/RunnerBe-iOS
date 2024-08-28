@@ -27,6 +27,21 @@ final class MyLogStampView: UIView {
         $0.image = Asset.scheduled.uiImage
     }
 
+    private let hStackView = UIStackView.make(
+        with: ["월", "화", "수", "목", "금", "토", "일"].map { text in
+            UILabel().then { label in
+                label.font = .pretendardSemiBold16
+                label.text = text
+                label.textColor = .darkG45
+                label.textAlignment = .center
+            }
+        },
+        axis: .horizontal,
+        alignment: .center,
+        distribution: .fillEqually,
+        spacing: 0
+    )
+
     lazy var logStampCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -40,7 +55,7 @@ final class MyLogStampView: UIView {
             MyLogStampCell.self,
             forCellWithReuseIdentifier: MyLogStampCell.id
         )
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 0)
 
         collectionView.backgroundColor = .clear
         collectionView.decelerationRate = .fast
@@ -81,6 +96,7 @@ extension MyLogStampView {
         addSubviews([
             dateLabel,
             titleIcon,
+            hStackView,
             logStampCollectionView,
             pageControl,
             logCountView,
@@ -102,16 +118,22 @@ extension MyLogStampView {
             $0.right.equalToSuperview().inset(16)
         }
 
+        hStackView.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(22)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(22)
+        }
+
         logStampCollectionView.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.top.equalTo(hStackView.snp.bottom)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(122)
+            $0.height.equalTo(56 + 16)
         }
 
         pageControl.snp.makeConstraints {
-            $0.top.equalTo(logStampCollectionView.snp.bottom)
+            $0.top.equalTo(logStampCollectionView.snp.bottom).offset(14)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(10)
+            $0.height.equalTo(6)
         }
 
         logCountView.snp.makeConstraints {

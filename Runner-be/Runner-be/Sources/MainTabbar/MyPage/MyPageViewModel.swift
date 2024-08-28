@@ -107,6 +107,10 @@ final class MyPageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.tapLogStamp
+            .bind(to: routes.calendar)
+            .disposed(by: disposeBag)
+
         inputs.tapPost
             .compactMap { [weak self] idx in
                 guard let self = self,
@@ -295,6 +299,7 @@ final class MyPageViewModel: BaseViewModel {
         var settings = PublishSubject<Void>()
         var editInfo = PublishSubject<Void>()
         var tapPost = PublishSubject<Int>()
+        var tapLogStamp = PublishSubject<Int>()
         var bookMark = PublishSubject<Int>()
         var attend = PublishSubject<Int>()
         var toMain = PublishSubject<Void>()
@@ -319,6 +324,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Route {
+        var calendar = PublishSubject<Int>()
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
         var editInfo = PublishSubject<User>()

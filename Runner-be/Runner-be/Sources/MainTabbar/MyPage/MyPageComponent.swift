@@ -12,6 +12,10 @@ final class MyPageComponent {
 
     lazy var viewModel = MyPageViewModel()
 
+    func calendarComponent() -> CalendarComponent {
+        return CalendarComponent()
+    }
+
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(postId: postId)
     }

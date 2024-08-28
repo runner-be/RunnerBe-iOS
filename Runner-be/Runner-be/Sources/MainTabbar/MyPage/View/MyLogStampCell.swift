@@ -14,13 +14,6 @@ final class MyLogStampCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private let dayOfWeekLabel = UILabel().then {
-        $0.text = "월"
-        $0.textColor = .darkG45
-        $0.font = .pretendardSemiBold16
-        $0.contentMode = .center
-    }
-
     private let stampIcon = UIImageView().then {
         $0.image = Asset.iconLogEmpty30.uiImage
     }
@@ -52,10 +45,9 @@ final class MyLogStampCell: UICollectionViewCell {
     }
 
     func configure(
-        dayOfWeek: String,
+        dayOfWeek _: String,
         date: Int
     ) {
-        dayOfWeekLabel.text = dayOfWeek
         dayLabel.text = "\(date)"
     }
 }
@@ -65,7 +57,6 @@ final class MyLogStampCell: UICollectionViewCell {
 extension MyLogStampCell {
     private func setup() {
         contentView.addSubviews([
-            dayOfWeekLabel,
             stampIcon,
             futureDayLabel,
             dayLabel,
@@ -73,14 +64,8 @@ extension MyLogStampCell {
     }
 
     private func initialLayout() {
-        dayOfWeekLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(22)
-        }
-
         stampIcon.snp.makeConstraints {
-            $0.top.equalTo(dayOfWeekLabel.snp.bottom).offset(10)
+            $0.top.equalToSuperview().inset(2)
             $0.centerX.equalToSuperview()
             $0.size.equalTo(30)
         }
@@ -90,8 +75,9 @@ extension MyLogStampCell {
         }
 
         dayLabel.snp.makeConstraints {
+            $0.top.equalTo(stampIcon.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(20)
         }
     }
@@ -100,6 +86,6 @@ extension MyLogStampCell {
 extension MyLogStampCell {
     static let size: CGSize = .init(
         width: (UIScreen.main.bounds.width - 32) / 7,
-        height: 102 // FIXME: magic number
+        height: 56 // FIXME: magic number
     )
 }
