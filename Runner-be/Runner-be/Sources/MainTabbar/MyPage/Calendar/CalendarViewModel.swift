@@ -33,7 +33,7 @@ final class CalendarViewModel: BaseViewModel {
             year: components.year ?? 0,
             month: components.month ?? 0
         )
-        
+
         inputs.showSelectDate
             .map { [weak self] _ in
                 guard let self = self else { return (year: 2024, month: 8) }
@@ -102,7 +102,7 @@ final class CalendarViewModel: BaseViewModel {
         }
 
         // 남은 칸을 다음 달의 날짜로 채우기
-        let totalCells = 35
+        let totalCells = dates.count > 35 ? 42 : 35
         if dates.count < totalCells {
             let remainingDays = totalCells - dates.count
             let nextMonth = calendar.date(byAdding: .month, value: 1, to: date)!
