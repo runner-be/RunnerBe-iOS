@@ -30,8 +30,8 @@ final class CalendarViewModel: BaseViewModel {
     override init() {
         super.init()
         changeTargetDate(
-            year: components.year ?? 0,
-            month: components.month ?? 0
+            year: Int(year) ?? 0,
+            month: Int(month) ?? 0
         )
 
         inputs.showSelectDate
@@ -62,8 +62,8 @@ final class CalendarViewModel: BaseViewModel {
         if let targetDate = calendar.date(from: components) {
             outputs.days.onNext(generateCalendarDates(for: targetDate))
             outputs.changeTargetDate.onNext((
-                year: components.year ?? 0,
-                month: components.month ?? 0
+                year: Int(year),
+                month: month
             ))
         }
     }
@@ -97,8 +97,8 @@ final class CalendarViewModel: BaseViewModel {
         }
 
         let calendar = Calendar.current
-        let components = Calendar.current.dateComponents([.day], from: Date())
-
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        let currentComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
         // 이번 달의 날짜 추가
         let rangeOfCurrentMonth = calendar.range(of: .day, in: .month, for: date)!
         for day in rangeOfCurrentMonth {
@@ -108,7 +108,9 @@ final class CalendarViewModel: BaseViewModel {
             dates.append(MyLogStampConfig(from: LogStamp(
                 dayOfWeek: weekdayString,
                 date: day,
-                isToday: components.day == day
+                isToday: components.year == currentComponents.year &&
+                    components.month == currentComponents.month &&
+                    day == currentComponents.day
             )))
         }
 

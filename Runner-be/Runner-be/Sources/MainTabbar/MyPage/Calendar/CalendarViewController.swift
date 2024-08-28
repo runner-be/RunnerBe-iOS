@@ -84,7 +84,7 @@ final class CalendarViewController: BaseViewController {
     init(viewModel: CalendarViewModel) {
         self.viewModel = viewModel
         super.init()
-        dateLabel.label.text = "\(viewModel.year)년 \(viewModel.month)월"
+        dateLabel.label.text = "\(viewModel.year)년 \(Int(viewModel.month) ?? 00)월"
     }
 
     @available(*, unavailable)
