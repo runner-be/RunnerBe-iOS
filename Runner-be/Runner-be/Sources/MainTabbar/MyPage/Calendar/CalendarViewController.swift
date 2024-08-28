@@ -154,6 +154,11 @@ final class CalendarViewController: BaseViewController {
             .map { [MyLogStampSection(items: $0)] }
             .bind(to: calendarCollectionView.rx.items(dataSource: calendarDatasource))
             .disposed(by: disposeBag)
+
+        viewModel.outputs.changeTargetDate
+            .bind { [weak self] targetDate in
+                self?.dateLabel.label.text = "\(targetDate.year)년 \(targetDate.month)월"
+            }.disposed(by: disposeBag)
     }
 }
 

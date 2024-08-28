@@ -14,4 +14,8 @@ final class CalendarComponent {
     }
 
     lazy var viewModel = CalendarViewModel()
+
+    func selectDateComponent(year: Int, month: Int) -> SelectDateBottomSheetComponent {
+        return SelectDateBottomSheetComponent(year: year, month: month)
+    }
 }

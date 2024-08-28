@@ -30,6 +30,10 @@
 		2B66A0F52C746A1B002542D5 /* SelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F42C746A1B002542D5 /* SelectPlaceViewController.swift */; };
 		2B66A0F72C758098002542D5 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F62C758098002542D5 /* SearchBarView.swift */; };
 		2B6D00202C7EE4AE00B50930 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D001F2C7EE4AE00B50930 /* Date+.swift */; };
+		2B6D00362C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00352C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift */; };
+		2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */; };
+		2B6D003A2C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */; };
+		2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */; };
 		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
 		2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */; };
 		2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */; };
@@ -461,6 +465,10 @@
 		2B66A0F42C746A1B002542D5 /* SelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewController.swift; sourceTree = "<group>"; };
 		2B66A0F62C758098002542D5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		2B6D001F2C7EE4AE00B50930 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		2B6D00352C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetComponent.swift; sourceTree = "<group>"; };
+		2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetCoordinator.swift; sourceTree = "<group>"; };
+		2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewModel.swift; sourceTree = "<group>"; };
+		2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewController.swift; sourceTree = "<group>"; };
 		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
 		2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerComponent.swift; sourceTree = "<group>"; };
 		2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerCoordinator.swift; sourceTree = "<group>"; };
@@ -960,6 +968,17 @@
 				2B6D001F2C7EE4AE00B50930 /* Date+.swift */,
 			);
 			path = "Foundation+";
+			sourceTree = "<group>";
+		};
+		2B6D00342C7EF0BC00B50930 /* SelectDateBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				2B6D00352C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift */,
+				2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */,
+				2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */,
+				2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */,
+			);
+			path = SelectDateBottomSheet;
 			sourceTree = "<group>";
 		};
 		2B8C9D5B2C3FECD90053913B /* ImageViewer */ = {
@@ -1697,6 +1716,7 @@
 				C32C028527CB24640011419E /* View */,
 				DA5D5EF2288856A10038529B /* Model */,
 				C32C028C27CB45E00011419E /* Config */,
+				2B6D00342C7EF0BC00B50930 /* SelectDateBottomSheet */,
 				C3C9736227CA979500232251 /* TakePhotoModal */,
 				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				C3C9734727CA95D800232251 /* EditInfo */,
@@ -2759,6 +2779,7 @@
 				C3AD115C27B8262900A7044C /* BasicLoginService.swift in Sources */,
 				C3089AF827BF460500884987 /* WritingMainPostViewModel.swift in Sources */,
 				C3C9734227CA5EAF00232251 /* MainTabbarViewModel.swift in Sources */,
+				2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
@@ -2939,10 +2960,12 @@
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
 				C3BA45D027B5FEEC0048CA76 /* PolicyDetailViewController.swift in Sources */,
 				C3EB5CDB27B8B79800775779 /* SignupForm.swift in Sources */,
+				2B6D003A2C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift in Sources */,
 				C3EB5CE027B8BBAC00775779 /* SignupAPIResult.swift in Sources */,
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
+				2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */,
 				2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
 				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
@@ -2991,6 +3014,7 @@
 				C3256B5C27CE7E03009B16DA /* PolicyAPI.swift in Sources */,
 				C3089AFA27BF461400884987 /* WritingMainPostViewController.swift in Sources */,
 				C35E34AC27C83D620023C0F9 /* DetailTitleView.swift in Sources */,
+				2B6D00362C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift in Sources */,
 				433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,

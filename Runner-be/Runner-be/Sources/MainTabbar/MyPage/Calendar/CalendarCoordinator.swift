@@ -40,11 +40,36 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.dateBottomSheet
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] _ in
-
+            .map { (vm: scene.VM, year: $0.year, month: $0.month) }
+            .subscribe(onNext: { [weak self] input in
+                self?.showDateBottomSheet(
+                    vm: input.vm,
+                    year: input.year,
+                    month: input.month,
+                    animated: false
+                )
             }).disposed(by: sceneDisposeBag)
     }
 
-    private func showDateBottomSheet(vm _: CalendarViewModel, animated _: Bool) {}
+    private func showDateBottomSheet(
+        vm: CalendarViewModel,
+        year: Int,
+        month: Int,
+        animated: Bool
+    ) {
+        let comp = component.selectDateComponent(year: year, month: month)
+        let coord = SelectDateBottomSheetCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .apply(year, month):
+                vm.routeInputs.needUpdate.onNext((year, month, true))
+            case .cancel:
+                break
+            }
+        }
+    }
 }

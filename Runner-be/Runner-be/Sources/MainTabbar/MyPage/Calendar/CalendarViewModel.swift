@@ -29,16 +29,43 @@ final class CalendarViewModel: BaseViewModel {
 
     override init() {
         super.init()
-        components.year = 2024
-        components.month = 7
-        components.day = 1 // 해당 월의 첫 번째 날을 설정
-        if let targetDate = calendar.date(from: components) {
-            outputs.days.onNext(generateCalendarDates(for: targetDate))
-        }
-
+        changeTargetDate(
+            year: components.year ?? 0,
+            month: components.month ?? 0
+        )
+        
         inputs.showSelectDate
+            .map { [weak self] _ in
+                guard let self = self else { return (year: 2024, month: 8) }
+                return (year: components.year!, month: components.month!)
+            }
             .bind(to: routes.dateBottomSheet)
             .disposed(by: disposeBag)
+
+        routeInputs.needUpdate
+            .filter { $0.needUpdate }
+            .bind { [weak self] result in
+
+                self?.changeTargetDate(year: result.year, month: result.month)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func changeTargetDate(
+        year: Int,
+        month: Int,
+        day: Int = 1
+    ) {
+        components.year = year
+        components.month = month
+        components.day = day // 해당 월의 첫 번째 날을 설정
+        if let targetDate = calendar.date(from: components) {
+            outputs.days.onNext(generateCalendarDates(for: targetDate))
+            outputs.changeTargetDate.onNext((
+                year: components.year ?? 0,
+                month: components.month ?? 0
+            ))
+        }
     }
 
     func generateCalendarDates(for date: Date) -> [MyLogStampConfig] {
@@ -96,15 +123,21 @@ final class CalendarViewModel: BaseViewModel {
 
     struct Output {
         var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
+        var changeTargetDate = PublishSubject<(year: Int, month: Int)>()
     }
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var dateBottomSheet = PublishSubject<Void>()
+        var dateBottomSheet = PublishSubject<(year: Int, month: Int)>()
+    }
+
+    struct RouteInput {
+        var needUpdate = PublishSubject<(year: Int, month: Int, needUpdate: Bool)>()
     }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
     var outputs = Output()
     var routes = Route()
+    var routeInputs = RouteInput()
 }
