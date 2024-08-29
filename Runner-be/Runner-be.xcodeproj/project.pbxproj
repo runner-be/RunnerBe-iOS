@@ -24,6 +24,10 @@
 		2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */; };
 		2B4263A82C7835F700455B8C /* DetailSelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */; };
 		2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */; };
+		2B57EA6D2C80226E00C696FF /* MyRunningListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */; };
+		2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */; };
+		2B57EA712C80228A00C696FF /* MyRunningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */; };
+		2B57EA732C80229900C696FF /* MyRunningListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA722C80229900C696FF /* MyRunningListViewController.swift */; };
 		2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */; };
 		2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */; };
 		2B66A0F32C746A12002542D5 /* SelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */; };
@@ -459,6 +463,10 @@
 		2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewModel.swift; sourceTree = "<group>"; };
 		2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewController.swift; sourceTree = "<group>"; };
+		2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListComponent.swift; sourceTree = "<group>"; };
+		2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListCoordinator.swift; sourceTree = "<group>"; };
+		2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewModel.swift; sourceTree = "<group>"; };
+		2B57EA722C80229900C696FF /* MyRunningListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewController.swift; sourceTree = "<group>"; };
 		2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceComponent.swift; sourceTree = "<group>"; };
 		2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewModel.swift; sourceTree = "<group>"; };
@@ -938,6 +946,17 @@
 				2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */,
 			);
 			path = DetailSelectPlace;
+			sourceTree = "<group>";
+		};
+		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
+			isa = PBXGroup;
+			children = (
+				2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */,
+				2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */,
+				2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */,
+				2B57EA722C80229900C696FF /* MyRunningListViewController.swift */,
+			);
+			path = MyRunningList;
 			sourceTree = "<group>";
 		};
 		2B66A0ED2C7469E7002542D5 /* SelectPlace */ = {
@@ -1722,6 +1741,7 @@
 				C3C9734727CA95D800232251 /* EditInfo */,
 				C3C9734527CA95B700232251 /* Settings */,
 				2B1797622C7DE1290001C354 /* Calendar */,
+				2B57EA6B2C8020E900C696FF /* MyRunningList */,
 				C38F8F4127AD9A0D0050137D /* MyPageComponent.swift */,
 				C38F8F4927AD9EBA0050137D /* MyPageCoordinator.swift */,
 				C38F8F3827AD96E90050137D /* MyPageViewModel.swift */,
@@ -2800,6 +2820,7 @@
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
+				2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
@@ -3026,6 +3047,7 @@
 				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
 				C32C029027CB46030011419E /* MyPagePostConfig.swift in Sources */,
 				2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */,
+				2B57EA712C80228A00C696FF /* MyRunningListViewModel.swift in Sources */,
 				DA4183EC287270190008C0B6 /* ManageAttendanceComponent.swift in Sources */,
 				C34FDA6827AD5C83007718F8 /* LoggedOutViewModel.swift in Sources */,
 				2B66A0F32C746A12002542D5 /* SelectPlaceViewModel.swift in Sources */,
@@ -3099,6 +3121,7 @@
 				DA4353422B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
+				2B57EA6D2C80226E00C696FF /* MyRunningListComponent.swift in Sources */,
 				C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */,
 				C361B6BD27B285E600824ABE /* SelectJobGroupComponent.swift in Sources */,
 				C3C9735D27CA96AD00232251 /* MakerCoordinator.swift in Sources */,
@@ -3121,6 +3144,7 @@
 				436D8A9C28B1B73100E3DA6C /* Alarm.swift in Sources */,
 				C379301927B9FAC40076AB85 /* RandomNickNameGenerator.swift in Sources */,
 				C3F8D1C127C3B0370004CAB8 /* MKMapRect+.swift in Sources */,
+				2B57EA732C80229900C696FF /* MyRunningListViewController.swift in Sources */,
 				C3BA45BA27B5711F0048CA76 /* OnboardingCancelModalViewModel.swift in Sources */,
 				C38ABD8427D31EAD0025929E /* LoginType.swift in Sources */,
 				43B1E6CB28B1AD670057A1AF /* AlarmListCoordinator.swift in Sources */,

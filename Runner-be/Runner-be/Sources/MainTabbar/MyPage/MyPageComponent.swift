@@ -47,4 +47,8 @@ final class MyPageComponent {
     var registerRunningPaceComponent: RegisterRunningPaceComponent {
         return RegisterRunningPaceComponent()
     }
+
+    var myRunningListComponent: MyRunningListComponent {
+        return MyRunningListComponent()
+    }
 }

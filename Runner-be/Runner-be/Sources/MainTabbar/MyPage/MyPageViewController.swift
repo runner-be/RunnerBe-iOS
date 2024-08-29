@@ -69,6 +69,12 @@ final class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 
+        myPostHeaderView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapMyRunning)
+            .disposed(by: disposeBag)
+
         myRunningCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
