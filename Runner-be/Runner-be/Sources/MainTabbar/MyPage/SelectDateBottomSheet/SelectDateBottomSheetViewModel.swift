@@ -8,6 +8,47 @@
 import Foundation
 import RxSwift
 
+enum RunningLogStatus {
+    case RUN001 // 체크
+    case RUN002 // 성취
+    case RUN003 // 사교
+    case RUN004 // 지속
+    case RUN005 // 흥미
+    case RUN006 // 성장
+    case RUN007 // 독기
+    case RUN008 // 감성
+    case RUN009 // 쾌락
+    case RUN010 // 질주
+    case FUTURE // 미래(아이콘 없이 숫자만 표시합니다.)
+    
+    var icon: UIImage? {
+        switch self {
+        case .RUN001:
+            return Asset.runningLogRUN001.uiImage
+        case .RUN002:
+            return Asset.runningLogRUN002.uiImage
+        case .RUN003:
+            return Asset.runningLogRUN003.uiImage
+        case .RUN004:
+            return Asset.runningLogRUN004.uiImage
+        case .RUN005:
+            return Asset.runningLogRUN005.uiImage
+        case .RUN006:
+            return Asset.runningLogRUN006.uiImage
+        case .RUN007:
+            return Asset.runningLogRUN007.uiImage
+        case .RUN008:
+            return Asset.runningLogRUN008.uiImage
+        case .RUN009:
+            return Asset.runningLogRUN009.uiImage
+        case .RUN010:
+            return Asset.runningLogRUN010.uiImage
+        case .FUTURE:
+            return nil
+        }
+    }
+}
+
 final class SelectDateBottomSheetViewModel: BaseViewModel {
     init(year _: Int, month: Int) {
         super.init()
