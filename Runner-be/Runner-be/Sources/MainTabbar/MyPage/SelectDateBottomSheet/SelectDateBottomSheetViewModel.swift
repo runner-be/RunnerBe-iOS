@@ -20,7 +20,7 @@ enum RunningLogStatus {
     case RUN009 // 쾌락
     case RUN010 // 질주
     case FUTURE // 미래(아이콘 없이 숫자만 표시합니다.)
-    
+
     var icon: UIImage? {
         switch self {
         case .RUN001:

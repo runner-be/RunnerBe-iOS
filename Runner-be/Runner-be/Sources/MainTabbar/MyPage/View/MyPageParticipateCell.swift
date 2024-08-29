@@ -60,14 +60,12 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     var postInfoView = BasicPostInfoView()
 
-    var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG6
-    }
-
-    var statusLabel = UILabel().then { make in
-        make.font = .iosBody15R
-//        make.text = "hi"
-        make.textColor = .darkG35
+    var statusLabel = UILabel().then {
+        $0.font = .pretendardSemiBold14
+        $0.textColor = .darkG4
+        $0.layer.backgroundColor = UIColor.darkG5.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
     }
 }
 
@@ -76,7 +74,6 @@ extension MyPageParticipateCell {
         backgroundColor = Constants.backgroundColor
         contentView.addSubviews([
             postInfoView,
-            hDivider,
             statusLabel,
         ])
     }
@@ -91,17 +88,10 @@ extension MyPageParticipateCell {
             make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
         }
 
-        hDivider.snp.makeConstraints { make in
-            make.top.equalTo(postInfoView.snp.bottom).offset(Constants.hDivider.top)
-            make.leading.equalTo(contentView.snp.leading).offset(Constants.hDivider.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.hDivider.trailing)
-            make.height.equalTo(1)
-        }
-
-        statusLabel.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom).offset(Constants.statusLabel.top)
-            make.centerX.equalTo(hDivider.snp.centerX)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-12)
+        statusLabel.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 
@@ -127,7 +117,7 @@ extension MyPageParticipateCell {
     static let id: String = "\(MyPageParticipateCell.self)"
 
     static let size: CGSize = {
-        let width = UIScreen.main.bounds.width - Constants.marginX * 2
+        let width = UIScreen.main.bounds.width - 40
         let height: CGFloat = Constants.PostInfo.top
             + BasicPostInfoView.height
             + Constants.hDivider.top
@@ -135,7 +125,7 @@ extension MyPageParticipateCell {
             + Constants.statusLabel.bottom
             + 15 // 폰트크기
             + 1
-
-        return CGSize(width: width, height: height)
+        print("seijfsoefesf: \(height)")
+        return CGSize(width: width, height: 208)
     }()
 }

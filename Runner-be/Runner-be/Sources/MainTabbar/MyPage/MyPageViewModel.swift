@@ -312,7 +312,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Output {
-        var postType: PostType = .myPost
+        var postType: PostType = .attendable
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
