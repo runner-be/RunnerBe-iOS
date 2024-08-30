@@ -114,6 +114,7 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapMyRunning
             .bind(to: routes.myRunningList)
             .disposed(by: disposeBag)
+
         inputs.tapPost
             .compactMap { [weak self] idx in
                 guard let self = self,

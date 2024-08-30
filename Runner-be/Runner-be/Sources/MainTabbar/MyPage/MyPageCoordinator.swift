@@ -132,6 +132,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 vm.routeInputs.needUpdate.onNext(true)
             }
         }
+        comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
 
     func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
