@@ -14,4 +14,8 @@ final class MyRunningListComponent {
     }
 
     var viewModel = MyRunningListViewModel()
+
+    func writeLogComponent(postId: Int) -> WriteLogComponent {
+        return WriteLogComponent(postId: postId)
+    }
 }

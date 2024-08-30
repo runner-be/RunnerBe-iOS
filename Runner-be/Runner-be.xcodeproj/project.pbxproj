@@ -45,6 +45,14 @@
 		2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */; };
 		2B9ACF552C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */; };
 		2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */; };
+		2BA664062C81964A00966D64 /* WriteLogComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664052C81964A00966D64 /* WriteLogComponent.swift */; };
+		2BA664082C81965100966D64 /* WriteLogCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664072C81965100966D64 /* WriteLogCoordinator.swift */; };
+		2BA6640A2C81965800966D64 /* WriteLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664092C81965800966D64 /* WriteLogViewModel.swift */; };
+		2BA6640C2C81966000966D64 /* WriteLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6640B2C81966000966D64 /* WriteLogViewController.swift */; };
+		2BA6640E2C81966D00966D64 /* ConfirmLogComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6640D2C81966D00966D64 /* ConfirmLogComponent.swift */; };
+		2BA664102C81967400966D64 /* ConfirmLogCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */; };
+		2BA664122C81967C00966D64 /* ConfirmLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */; };
+		2BA664142C81968500966D64 /* ConfirmLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664132C81968500966D64 /* ConfirmLogViewController.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -484,6 +492,14 @@
 		2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithCheckBoxButton.swift; sourceTree = "<group>"; };
 		2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelButtonBase.swift; sourceTree = "<group>"; };
+		2BA664052C81964A00966D64 /* WriteLogComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogComponent.swift; sourceTree = "<group>"; };
+		2BA664072C81965100966D64 /* WriteLogCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogCoordinator.swift; sourceTree = "<group>"; };
+		2BA664092C81965800966D64 /* WriteLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogViewModel.swift; sourceTree = "<group>"; };
+		2BA6640B2C81966000966D64 /* WriteLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogViewController.swift; sourceTree = "<group>"; };
+		2BA6640D2C81966D00966D64 /* ConfirmLogComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogComponent.swift; sourceTree = "<group>"; };
+		2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogCoordinator.swift; sourceTree = "<group>"; };
+		2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewModel.swift; sourceTree = "<group>"; };
+		2BA664132C81968500966D64 /* ConfirmLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewController.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -951,6 +967,8 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2BA663F32C8195C300966D64 /* WriteLog */,
+				2BA663F42C8195C900966D64 /* ConfirmLog */,
 				2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */,
 				2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */,
 				2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */,
@@ -1009,6 +1027,28 @@
 				2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */,
 			);
 			path = ImageViewer;
+			sourceTree = "<group>";
+		};
+		2BA663F32C8195C300966D64 /* WriteLog */ = {
+			isa = PBXGroup;
+			children = (
+				2BA664052C81964A00966D64 /* WriteLogComponent.swift */,
+				2BA664072C81965100966D64 /* WriteLogCoordinator.swift */,
+				2BA664092C81965800966D64 /* WriteLogViewModel.swift */,
+				2BA6640B2C81966000966D64 /* WriteLogViewController.swift */,
+			);
+			path = WriteLog;
+			sourceTree = "<group>";
+		};
+		2BA663F42C8195C900966D64 /* ConfirmLog */ = {
+			isa = PBXGroup;
+			children = (
+				2BA6640D2C81966D00966D64 /* ConfirmLogComponent.swift */,
+				2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */,
+				2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */,
+				2BA664132C81968500966D64 /* ConfirmLogViewController.swift */,
+			);
+			path = ConfirmLog;
 			sourceTree = "<group>";
 		};
 		2BD73D842C27C91A0058D6E9 /* Ignore */ = {
@@ -2753,6 +2793,7 @@
 				C3BA45B127B4A76B0048CA76 /* JobGroupCollectionViewLayout.swift in Sources */,
 				43B1E6C928B1AD550057A1AF /* AlarmListViewModel.swift in Sources */,
 				DA7E23ED2B7A4D39005D18A6 /* RegisterRunningPaceCoordinator.swift in Sources */,
+				2BA6640C2C81966000966D64 /* WriteLogViewController.swift in Sources */,
 				C3498F3D27C13D53003EDD0F /* SelectTimeModalViewModel.swift in Sources */,
 				436D8AA128B1BFB100E3DA6C /* AlarmCell.swift in Sources */,
 				C32C028727CB24720011419E /* MyProfileView.swift in Sources */,
@@ -2782,6 +2823,7 @@
 				2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
 				2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */,
+				2BA664122C81967C00966D64 /* ConfirmLogViewModel.swift in Sources */,
 				C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */,
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3C9735527CA967000232251 /* SettingsViewModel.swift in Sources */,
@@ -2805,6 +2847,7 @@
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */,
+				2BA6640A2C81965800966D64 /* WriteLogViewModel.swift in Sources */,
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
 				DA4353432B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
@@ -2817,6 +2860,7 @@
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
 				C3C43BED27CC34A600D36D46 /* UserAPI.swift in Sources */,
 				2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */,
+				2BA6640E2C81966D00966D64 /* ConfirmLogComponent.swift in Sources */,
 				C3498F4527C13D5D003EDD0F /* SelectDateModalViewController.swift in Sources */,
 				C3F3C63727B20186000A63BC /* SelectGenderViewModel.swift in Sources */,
 				C3347BF527C2DA29006FB110 /* SelectNumParticipantView.swift in Sources */,
@@ -3027,6 +3071,7 @@
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
 				DADD949728A7CF5C0004F86F /* MessageReportCoordinator.swift in Sources */,
 				436D8A9A28B1B6E700E3DA6C /* AlarmListSection.swift in Sources */,
+				2BA664062C81964A00966D64 /* WriteLogComponent.swift in Sources */,
 				C3498F4727C13D5D003EDD0F /* SelectDateModalComponent.swift in Sources */,
 				C3C9734B27CA962A00232251 /* EditInfoCoordinator.swift in Sources */,
 				C34BA6B127CD47C9003E393A /* DetailPostResponse.swift in Sources */,
@@ -3081,6 +3126,7 @@
 				C304C584282708A100C24295 /* SelectionLabel.swift in Sources */,
 				C3A64F8727C54A7F0088E387 /* PostState.swift in Sources */,
 				C3C9735B27CA96A400232251 /* MakerComponent.swift in Sources */,
+				2BA664102C81967400966D64 /* ConfirmLogCoordinator.swift in Sources */,
 				C32C028027CB17410011419E /* LogoutModalCoordinator.swift in Sources */,
 				C35E34AE27C840220023C0F9 /* DetailInfoView.swift in Sources */,
 				C3C9734927CA962200232251 /* EditInfoComponent.swift in Sources */,
@@ -3136,6 +3182,7 @@
 				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
+				2BA664142C81968500966D64 /* ConfirmLogViewController.swift in Sources */,
 				C343A34527BE3A8E008E6FA4 /* SelectJobView.swift in Sources */,
 				DA7E9714288BCCB90001BBDC /* JobChangeModalComponent.swift in Sources */,
 				C3C9733B27CA1CC500232251 /* UserInfoAcceptableDataSource.swift in Sources */,
@@ -3154,6 +3201,7 @@
 				C38ABDAD27D4F2E60025929E /* SignoutCompletionModalViewController.swift in Sources */,
 				C38ABD9E27D4E3DA0025929E /* SignoutModalComponent.swift in Sources */,
 				C3C9733327C9E10500232251 /* ApplicantListModalViewController.swift in Sources */,
+				2BA664082C81965100966D64 /* WriteLogCoordinator.swift in Sources */,
 				C3347BF727C2DE4D006FB110 /* SelectTextContentView.swift in Sources */,
 				C38F8F3927AD96E90050137D /* MyPageViewModel.swift in Sources */,
 				DABB518F2BCE931A008AFCD2 /* RegisterRunningPaceCancelModalViewController.swift in Sources */,

@@ -137,6 +137,12 @@ final class MyRunningListViewController: BaseViewController {
             .map { MyRunningListViewModel.PostType.myPost }
             .bind(to: viewModel.inputs.typeChanged)
             .disposed(by: disposeBag)
+
+        // TODO: 페이지 이동 임시 기능
+        allRunningCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapWriteLog)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {

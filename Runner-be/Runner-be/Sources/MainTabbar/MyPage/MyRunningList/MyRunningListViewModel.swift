@@ -72,12 +72,17 @@ final class MyRunningListViewModel: BaseViewModel {
                 self.outputs.posts.onNext(postConfigs)
             })
             .disposed(by: disposeBag)
+
+        inputs.tapWriteLog
+            .bind(to: routes.writeLog)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
 
     struct Input {
         var typeChanged = PublishSubject<PostType>()
+        var tapWriteLog = PublishSubject<Int>()
     }
 
     struct Output {
@@ -87,6 +92,7 @@ final class MyRunningListViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
+        var writeLog = PublishSubject<Int>()
     }
 
     struct RouteInput {

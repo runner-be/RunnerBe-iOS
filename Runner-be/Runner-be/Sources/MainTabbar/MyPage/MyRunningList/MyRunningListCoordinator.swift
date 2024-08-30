@@ -35,5 +35,34 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
             .map { MyRunningListResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.writeLog
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushWriteLog(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+    }
+
+    private func pushWriteLog(
+        vm: MyRunningListViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.writeLogComponent(postId: postId)
+        let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 }
