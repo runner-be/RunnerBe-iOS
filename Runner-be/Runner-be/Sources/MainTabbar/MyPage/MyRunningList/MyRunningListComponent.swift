@@ -18,4 +18,8 @@ final class MyRunningListComponent {
     func writeLogComponent(postId: Int) -> WriteLogComponent {
         return WriteLogComponent(postId: postId)
     }
+
+    func confirmLogComponent(postId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(postId: postId)
+    }
 }

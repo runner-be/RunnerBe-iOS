@@ -45,6 +45,16 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmLog
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushConfirmLog(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func pushWriteLog(
@@ -54,6 +64,25 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
     ) {
         let comp = component.writeLogComponent(postId: postId)
         let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushConfirmLog(
+        vm: MyRunningListViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.writeLogComponent(postId: postId)
+        let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController
         )

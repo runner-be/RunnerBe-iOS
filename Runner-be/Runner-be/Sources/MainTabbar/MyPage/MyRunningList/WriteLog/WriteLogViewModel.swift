@@ -5,7 +5,6 @@
 //  Created by 김창규 on 8/30/24.
 //
 
-import Foundation
 import RxSwift
 
 final class WriteLogViewModel: BaseViewModel {

@@ -76,6 +76,10 @@ final class MyRunningListViewModel: BaseViewModel {
         inputs.tapWriteLog
             .bind(to: routes.writeLog)
             .disposed(by: disposeBag)
+
+        inputs.tapConfirmLog
+            .bind(to: routes.confirmLog)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
@@ -83,6 +87,7 @@ final class MyRunningListViewModel: BaseViewModel {
     struct Input {
         var typeChanged = PublishSubject<PostType>()
         var tapWriteLog = PublishSubject<Int>()
+        var tapConfirmLog = PublishSubject<Int>()
     }
 
     struct Output {
@@ -93,6 +98,7 @@ final class MyRunningListViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var writeLog = PublishSubject<Int>()
+        var confirmLog = PublishSubject<Int>()
     }
 
     struct RouteInput {
