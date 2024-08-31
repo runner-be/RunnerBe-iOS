@@ -81,7 +81,7 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
         postId: Int,
         animated: Bool
     ) {
-        let comp = component.writeLogComponent(postId: postId)
+        let comp = component.confirmLogComponent(postId: postId)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

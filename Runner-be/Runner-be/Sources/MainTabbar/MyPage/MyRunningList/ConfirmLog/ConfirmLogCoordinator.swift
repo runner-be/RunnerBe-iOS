@@ -12,10 +12,10 @@ enum ConfirmLogResult {
 }
 
 final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
-    var component: WriteLogComponent
+    var component: ConfirmLogComponent
 
     init(
-        component: WriteLogComponent,
+        component: ConfirmLogComponent,
         navController: UINavigationController
     ) {
         self.component = component

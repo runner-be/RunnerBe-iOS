@@ -18,13 +18,35 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(postId _: Int) {}
+    init(postId _: Int) {
+        let testReceivedStamps = [
+            ReceivedStampConfig(from: ReceivedStamp(
+                userName: "지현",
+                userProfileURL: "",
+                stampStatus: .RUN001
+            )),
+            ReceivedStampConfig(from: ReceivedStamp(
+                userName: "러닝이",
+                userProfileURL: "",
+                stampStatus: .RUN004
+            )),
+            ReceivedStampConfig(from: ReceivedStamp(
+                userName: "스피듀광",
+                userProfileURL: "",
+                stampStatus: .RUN010
+            )),
+        ]
+
+        outputs.receivedStamps.onNext(testReceivedStamps)
+    }
 
     // MARK: - Methods
 
     struct Input {}
 
-    struct Output {}
+    struct Output {
+        var receivedStamps = ReplaySubject<[ReceivedStampConfig]>.create(bufferSize: 1)
+    }
 
     struct Route {
         var backward = PublishSubject<Bool>()

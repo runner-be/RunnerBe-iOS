@@ -56,6 +56,9 @@
 		2BA664122C81967C00966D64 /* ConfirmLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */; };
 		2BA664142C81968500966D64 /* ConfirmLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664132C81968500966D64 /* ConfirmLogViewController.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
+		2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */; };
+		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
+		2BC6A59F2C8382BA00CCE73F /* ReceivedStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -506,6 +509,9 @@
 		2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewModel.swift; sourceTree = "<group>"; };
 		2BA664132C81968500966D64 /* ConfirmLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewController.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
+		2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampListView.swift; sourceTree = "<group>"; };
+		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
+		2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampCell.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -1060,12 +1066,31 @@
 		2BA663F42C8195C900966D64 /* ConfirmLog */ = {
 			isa = PBXGroup;
 			children = (
+				2BC6A59D2C83829900CCE73F /* Cell */,
+				2BC6A59A2C83815600CCE73F /* Config */,
 				2BA6640D2C81966D00966D64 /* ConfirmLogComponent.swift */,
 				2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */,
 				2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */,
 				2BA664132C81968500966D64 /* ConfirmLogViewController.swift */,
+				2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */,
 			);
 			path = ConfirmLog;
+			sourceTree = "<group>";
+		};
+		2BC6A59A2C83815600CCE73F /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		2BC6A59D2C83829900CCE73F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2BD73D842C27C91A0058D6E9 /* Ignore */ = {
@@ -2972,6 +2997,7 @@
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
+				2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */,
 				2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */,
 				2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */,
 				C39F2E9D27BC56FC00A7D86B /* SelectGenderView.swift in Sources */,
@@ -3052,6 +3078,8 @@
 				2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */,
 				2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
+				2BC6A59F2C8382BA00CCE73F /* ReceivedStampCell.swift in Sources */,
+				2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */,
 				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,

@@ -49,7 +49,7 @@ final class WriteLogViewController: BaseViewController {
         }
     }
 
-    private let logDiaryView = WriteLogDiaryView()
+    private let logDiaryView = WriteLogDiaryView(type: .write)
 
     private let hDivider2 = UIView().then {
         $0.backgroundColor = .darkG6

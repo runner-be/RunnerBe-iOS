@@ -8,8 +8,15 @@
 import RxSwift
 import UIKit
 
+enum LogDiaryType {
+    case write
+    case confirm
+}
+
 final class WriteLogDiaryView: UIView {
     // MARK: - Properties
+
+    private var logDiaryType: LogDiaryType = .write
 
     // MARK: - UI
 
@@ -61,6 +68,12 @@ final class WriteLogDiaryView: UIView {
     private let selectedImageView = UIImageView().then {
         $0.layer.cornerRadius = 12
         $0.backgroundColor = .black
+    }
+
+    private let confirmImageView = UIImageView().then {
+        $0.layer.cornerRadius = 12
+        $0.backgroundColor = .black
+        $0.isHidden = true
     }
 
     private let selectedImageCancle = UIImageView().then {
@@ -142,8 +155,14 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - Init
 
-    init() {
+    init(type: LogDiaryType) {
+        logDiaryType = type
+        imageButton.isHidden = logDiaryType == .confirm
+        selectedImageView.isHidden = logDiaryType == .confirm
+        confirmImageView.isHidden = logDiaryType == .write
+
         super.init(frame: .zero)
+
         setupViews()
         initialLayout()
 
@@ -187,6 +206,7 @@ extension WriteLogDiaryView {
         editView.addSubviews([
             textView,
             selectedImageView,
+            confirmImageView,
             imageButton,
         ])
 
@@ -233,7 +253,7 @@ extension WriteLogDiaryView {
         editView.snp.makeConstraints {
             $0.top.equalTo(countLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(242)
+            $0.height.equalTo(self.logDiaryType == .write ? 242 : 473)
         }
 
         textView.snp.makeConstraints {
@@ -251,6 +271,12 @@ extension WriteLogDiaryView {
         selectedImageCancle.snp.makeConstraints {
             $0.top.right.equalToSuperview().inset(4)
             $0.size.equalTo(20)
+        }
+
+        confirmImageView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(12)
+            $0.size.equalTo(311)
         }
 
         imageButton.snp.makeConstraints {
