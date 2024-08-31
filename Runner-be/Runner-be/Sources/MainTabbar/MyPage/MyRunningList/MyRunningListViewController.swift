@@ -141,7 +141,7 @@ final class MyRunningListViewController: BaseViewController {
         // TODO: 페이지 이동 임시 기능
         allRunningCollectionView.rx.itemSelected
             .map { $0.item }
-            .bind(to: viewModel.inputs.tapConfirmLog)
+            .bind(to: viewModel.inputs.tapWriteLog)
             .disposed(by: disposeBag)
     }
 
