@@ -17,9 +17,10 @@ final class ReceivedStampCell: UICollectionViewCell {
     }
 
     private let stampIconView = UIImageView().then {
-        $0.layer.cornerRadius = 15
+        $0.layer.cornerRadius = 10
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.darkG3.cgColor
+        $0.backgroundColor = .darkG45
     }
 
     private let userNameLabel = UILabel().then {
