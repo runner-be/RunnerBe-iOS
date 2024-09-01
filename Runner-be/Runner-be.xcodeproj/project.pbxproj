@@ -59,6 +59,11 @@
 		2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
 		2BC6A59F2C8382BA00CCE73F /* ReceivedStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */; };
+		2BC6A5A22C84091000CCE73F /* ConfirmAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A12C84091000CCE73F /* ConfirmAttendanceComponent.swift */; };
+		2BC6A5A42C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A32C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift */; };
+		2BC6A5A62C84093900CCE73F /* ConfirmAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A52C84093900CCE73F /* ConfirmAttendanceViewModel.swift */; };
+		2BC6A5A82C84094500CCE73F /* ConfirmAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A72C84094500CCE73F /* ConfirmAttendanceViewController.swift */; };
+		2BD4F2492C841377005F5C11 /* ConfirmAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -512,6 +517,11 @@
 		2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
 		2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampCell.swift; sourceTree = "<group>"; };
+		2BC6A5A12C84091000CCE73F /* ConfirmAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceComponent.swift; sourceTree = "<group>"; };
+		2BC6A5A32C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceCoordinator.swift; sourceTree = "<group>"; };
+		2BC6A5A52C84093900CCE73F /* ConfirmAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceViewModel.swift; sourceTree = "<group>"; };
+		2BC6A5A72C84094500CCE73F /* ConfirmAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceViewController.swift; sourceTree = "<group>"; };
+		2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceCell.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -989,6 +999,8 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2BC6A5A02C8408EC00CCE73F /* ConfirmAteendance */,
+				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				2BA663F32C8195C300966D64 /* WriteLog */,
 				2BA663F42C8195C900966D64 /* ConfirmLog */,
 				2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */,
@@ -1089,6 +1101,34 @@
 			isa = PBXGroup;
 			children = (
 				2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2BC6A5A02C8408EC00CCE73F /* ConfirmAteendance */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4F2462C841358005F5C11 /* Config */,
+				2BD4F2472C841360005F5C11 /* Cell */,
+				2BC6A5A12C84091000CCE73F /* ConfirmAttendanceComponent.swift */,
+				2BC6A5A32C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift */,
+				2BC6A5A52C84093900CCE73F /* ConfirmAttendanceViewModel.swift */,
+				2BC6A5A72C84094500CCE73F /* ConfirmAttendanceViewController.swift */,
+			);
+			path = ConfirmAteendance;
+			sourceTree = "<group>";
+		};
+		2BD4F2462C841358005F5C11 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		2BD4F2472C841360005F5C11 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1819,7 +1859,6 @@
 				C32C028C27CB45E00011419E /* Config */,
 				2B6D00342C7EF0BC00B50930 /* SelectDateBottomSheet */,
 				C3C9736227CA979500232251 /* TakePhotoModal */,
-				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				C3C9734727CA95D800232251 /* EditInfo */,
 				C3C9734527CA95B700232251 /* Settings */,
 				2B1797622C7DE1290001C354 /* Calendar */,
@@ -2886,6 +2925,7 @@
 				2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */,
 				C38F8F2327AD929D0050137D /* MainTabbarCoordinator.swift in Sources */,
 				2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */,
+				2BC6A5A42C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */,
@@ -2997,6 +3037,7 @@
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
+				2BC6A5A22C84091000CCE73F /* ConfirmAttendanceComponent.swift in Sources */,
 				2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */,
 				2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */,
 				2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */,
@@ -3036,6 +3077,7 @@
 				DA17F48C2B6681C700CD237A /* SelectAfterPartyView.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,
 				2B28F54B2C81C7DB00181446 /* WriteLogStampView.swift in Sources */,
+				2BC6A5A82C84094500CCE73F /* ConfirmAttendanceViewController.swift in Sources */,
 				DAA1EAEC2977C54B0070B90F /* MessageAPI.swift in Sources */,
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
@@ -3104,6 +3146,7 @@
 				C308AB3727C6E68700CD9198 /* SegmentedControlDelegate.swift in Sources */,
 				C32C027427CB16F40011419E /* NickNameChangeModalViewController.swift in Sources */,
 				C343A34027BE225B008E6FA4 /* BubbleFollower.swift in Sources */,
+				2BD4F2492C841377005F5C11 /* ConfirmAttendanceCell.swift in Sources */,
 				C3498F4627C13D5D003EDD0F /* SelectDateModalCoordinator.swift in Sources */,
 				DAC50003282B8F3A004CFF64 /* MessageRoomCoordinator.swift in Sources */,
 				C31E633428171CF600C6B5A0 /* MessageCoordinator.swift in Sources */,
@@ -3149,6 +3192,7 @@
 				C3C9736D27CB084400232251 /* SettingCell.swift in Sources */,
 				C38F8F3527AD96D90050137D /* BookMarkViewModel.swift in Sources */,
 				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
+				2BC6A5A62C84093900CCE73F /* ConfirmAttendanceViewModel.swift in Sources */,
 				DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */,

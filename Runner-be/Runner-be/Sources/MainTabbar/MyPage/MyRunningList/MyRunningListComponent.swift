@@ -22,4 +22,12 @@ final class MyRunningListComponent {
     func confirmLogComponent(postId: Int) -> ConfirmLogComponent {
         return ConfirmLogComponent(postId: postId)
     }
+
+    func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(myRunningIdx: postId)
+    }
+
+    func confirmAttendanceComponent(postId: Int) -> ConfirmAttendanceComponent {
+        return ConfirmAttendanceComponent(postId: postId)
+    }
 }

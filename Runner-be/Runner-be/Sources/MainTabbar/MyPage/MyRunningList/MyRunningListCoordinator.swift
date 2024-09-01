@@ -55,6 +55,26 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.manageAttendance
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushManageAttendanceScene(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmAttendance
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushConfirmAttendanceScene(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func pushWriteLog(
@@ -91,6 +111,44 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
             switch coordResult {
             case let .backward(needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushManageAttendanceScene(
+        vm: MyRunningListViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.manageAttendanceComponent(postId: postId)
+        let coord = ManageAttendanceCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+
+    private func pushConfirmAttendanceScene(
+        vm: MyRunningListViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.confirmAttendanceComponent(postId: postId)
+        let coord = ConfirmAttendanceCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }
