@@ -22,4 +22,8 @@ final class WriteLogComponent {
     init(postId: Int) {
         self.postId = postId
     }
+
+    func logStampBottomSheetComponent(selectedLogStamp: LogStamp2) -> LogStampBottomSheetComponent {
+        return LogStampBottomSheetComponent(selectedLogStamp: selectedLogStamp)
+    }
 }

@@ -83,6 +83,7 @@ final class WriteLogViewController: BaseViewController {
         initialLayout()
 
         viewModelInput()
+        viewModelOutput()
     }
 
     // MARK: - Methods
@@ -92,6 +93,19 @@ final class WriteLogViewController: BaseViewController {
             .map { true }
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
+
+        logStampView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.showLogStampBottomSheet)
+            .disposed(by: disposeBag)
+    }
+
+    private func viewModelOutput() {
+        viewModel.outputs.selectedLogStamp
+            .bind { [weak self] selectedLogStamp in
+                self?.logStampView.update(logStamp: selectedLogStamp)
+            }.disposed(by: disposeBag)
     }
 }
 

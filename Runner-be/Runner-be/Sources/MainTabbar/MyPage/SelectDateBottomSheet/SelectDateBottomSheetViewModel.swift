@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-enum RunningLogStatus {
+enum RunningLogStatus: String {
     case RUN001 // 체크
     case RUN002 // 성취
     case RUN003 // 사교

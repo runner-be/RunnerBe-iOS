@@ -64,6 +64,12 @@
 		2BC6A5A62C84093900CCE73F /* ConfirmAttendanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A52C84093900CCE73F /* ConfirmAttendanceViewModel.swift */; };
 		2BC6A5A82C84094500CCE73F /* ConfirmAttendanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A72C84094500CCE73F /* ConfirmAttendanceViewController.swift */; };
 		2BD4F2492C841377005F5C11 /* ConfirmAttendanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */; };
+		2BD4F24C2C842543005F5C11 /* LogStampBottomSheetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F24B2C842543005F5C11 /* LogStampBottomSheetComponent.swift */; };
+		2BD4F24E2C842558005F5C11 /* LogStampBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F24D2C842558005F5C11 /* LogStampBottomSheetCoordinator.swift */; };
+		2BD4F2502C84255E005F5C11 /* LogStampBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F24F2C84255E005F5C11 /* LogStampBottomSheetViewModel.swift */; };
+		2BD4F2522C842565005F5C11 /* LogStampBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F2512C842565005F5C11 /* LogStampBottomSheetViewController.swift */; };
+		2BD4F2552C8439A3005F5C11 /* LogStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F2542C8439A3005F5C11 /* LogStampCell.swift */; };
+		2BD4F2582C84622A005F5C11 /* LogStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4F2572C84622A005F5C11 /* LogStampDataSource.swift */; };
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
@@ -522,6 +528,12 @@
 		2BC6A5A52C84093900CCE73F /* ConfirmAttendanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceViewModel.swift; sourceTree = "<group>"; };
 		2BC6A5A72C84094500CCE73F /* ConfirmAttendanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceViewController.swift; sourceTree = "<group>"; };
 		2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceCell.swift; sourceTree = "<group>"; };
+		2BD4F24B2C842543005F5C11 /* LogStampBottomSheetComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampBottomSheetComponent.swift; sourceTree = "<group>"; };
+		2BD4F24D2C842558005F5C11 /* LogStampBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampBottomSheetCoordinator.swift; sourceTree = "<group>"; };
+		2BD4F24F2C84255E005F5C11 /* LogStampBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampBottomSheetViewModel.swift; sourceTree = "<group>"; };
+		2BD4F2512C842565005F5C11 /* LogStampBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampBottomSheetViewController.swift; sourceTree = "<group>"; };
+		2BD4F2542C8439A3005F5C11 /* LogStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampCell.swift; sourceTree = "<group>"; };
+		2BD4F2572C84622A005F5C11 /* LogStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStampDataSource.swift; sourceTree = "<group>"; };
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
@@ -999,6 +1011,7 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2BD4F24A2C8424A3005F5C11 /* LogStampBottomSheet */,
 				2BC6A5A02C8408EC00CCE73F /* ConfirmAteendance */,
 				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
 				2BA663F32C8195C300966D64 /* WriteLog */,
@@ -1131,6 +1144,35 @@
 				2BD4F2482C841377005F5C11 /* ConfirmAttendanceCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		2BD4F24A2C8424A3005F5C11 /* LogStampBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4F2562C8461FC005F5C11 /* Config */,
+				2BD4F2532C843995005F5C11 /* Cell */,
+				2BD4F24B2C842543005F5C11 /* LogStampBottomSheetComponent.swift */,
+				2BD4F24D2C842558005F5C11 /* LogStampBottomSheetCoordinator.swift */,
+				2BD4F24F2C84255E005F5C11 /* LogStampBottomSheetViewModel.swift */,
+				2BD4F2512C842565005F5C11 /* LogStampBottomSheetViewController.swift */,
+			);
+			path = LogStampBottomSheet;
+			sourceTree = "<group>";
+		};
+		2BD4F2532C843995005F5C11 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4F2542C8439A3005F5C11 /* LogStampCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2BD4F2562C8461FC005F5C11 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4F2572C84622A005F5C11 /* LogStampDataSource.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		2BD73D842C27C91A0058D6E9 /* Ignore */ = {
@@ -2913,6 +2955,7 @@
 				C3BA459A27B405210048CA76 /* BadgeLabel.swift in Sources */,
 				C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */,
 				C3347BED27C2D122006FB110 /* WritingDetailPostViewModel.swift in Sources */,
+				2BD4F2582C84622A005F5C11 /* LogStampDataSource.swift in Sources */,
 				C3C9734F27CA963B00232251 /* EditInfoViewController.swift in Sources */,
 				C3BA45B327B4A7D10048CA76 /* JobGroupCollectionViewCell.swift in Sources */,
 				C3F8D1C427C421D80004CAB8 /* LocationService.swift in Sources */,
@@ -2971,6 +3014,7 @@
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
+				2BD4F2502C84255E005F5C11 /* LogStampBottomSheetViewModel.swift in Sources */,
 				433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
 				DA48D8C4289D69AE0076638A /* GetMessageRoomResponse.swift in Sources */,
@@ -3082,6 +3126,7 @@
 				434ED1FC2860080700F6EF69 /* RunnerBeMapView.swift in Sources */,
 				C39F2EB027BCF3FB00A7D86B /* SelectAgeView.swift in Sources */,
 				434635D728910F13007D8C10 /* RunningTagModalCoordinator.swift in Sources */,
+				2BD4F2552C8439A3005F5C11 /* LogStampCell.swift in Sources */,
 				DADC897228B15C7900D728B9 /* PatchAttendanceRequest.swift in Sources */,
 				C32C028B27CB3A9C0011419E /* MyInfoView.swift in Sources */,
 				C3A64F8227C5487F0088E387 /* PostAPI.swift in Sources */,
@@ -3124,6 +3169,7 @@
 				2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */,
 				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
+				2BD4F24C2C842543005F5C11 /* LogStampBottomSheetComponent.swift in Sources */,
 				C379302427BA20A30076AB85 /* VerbosePlugin.swift in Sources */,
 				C3BA45CC27B5FED40048CA76 /* PolicyDetailCoordinator.swift in Sources */,
 				432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */,
@@ -3229,6 +3275,7 @@
 				C3347BEF27C2D12B006FB110 /* WritingDetailPostViewController.swift in Sources */,
 				DADD94A128A7E87C0004F86F /* ManageAttendanceResultView.swift in Sources */,
 				C3F1EBBA27D13E0D00207F35 /* OnboardingCoverViewModel.swift in Sources */,
+				2BD4F24E2C842558005F5C11 /* LogStampBottomSheetCoordinator.swift in Sources */,
 				C38ABD9527D336010025929E /* ReportModalComponent.swift in Sources */,
 				C35B832127B9176100551AC5 /* BasicSignupAPIService.swift in Sources */,
 				C3256B5527CDBB79009B16DA /* String+regex.swift in Sources */,
@@ -3241,6 +3288,7 @@
 				C3AB6B61280EBFCC00D58AEC /* EditProfileType.swift in Sources */,
 				C39F2EAA27BC9AC500A7D86B /* CGFloat+.swift in Sources */,
 				DADD949528A7CF4B0004F86F /* MessageReportComponent.swift in Sources */,
+				2BD4F2522C842565005F5C11 /* LogStampBottomSheetViewController.swift in Sources */,
 				C3BB13C627C908F3004954EB /* UserInfoView.swift in Sources */,
 				DAF6BF942870790300E98E56 /* MyPagePostCell.swift in Sources */,
 				C34FDA8027AD5DB1007718F8 /* Assets+.swift in Sources */,

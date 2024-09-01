@@ -99,7 +99,7 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - [START] Weather
 
-    private let weatherView = UIView().then {
+    let weatherView = UIView().then {
         $0.backgroundColor = .darkG6
         $0.layer.cornerRadius = 12
     }

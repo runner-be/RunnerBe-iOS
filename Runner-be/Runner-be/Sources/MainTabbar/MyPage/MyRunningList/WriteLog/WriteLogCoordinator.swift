@@ -35,5 +35,39 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             .map { WriteLogResult.backward($0) }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.logStampBottomSheet
+            .map { (vm: scene.VM, selectedLogStamp: $0) }
+            .bind { [weak self] inputs in
+                self?.pushLogStampBottomSheetScene(
+                    vm: inputs.vm,
+                    selectedLogStamp: inputs.selectedLogStamp,
+                    animated: false
+                )
+            }.disposed(by: sceneDisposeBag)
+    }
+
+    private func pushLogStampBottomSheetScene(
+        vm: WriteLogViewModel,
+        selectedLogStamp: LogStamp2,
+        animated: Bool
+    ) {
+        let comp = component.logStampBottomSheetComponent(selectedLogStamp: selectedLogStamp)
+        let coord = LogStampBottomSheetCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case let .apply(logStamp):
+                vm.routeInputs.selectedLogStamp.onNext(logStamp)
+            }
+        }
     }
 }
