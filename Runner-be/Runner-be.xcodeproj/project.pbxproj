@@ -55,6 +55,7 @@
 		2BA664102C81967400966D64 /* ConfirmLogCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */; };
 		2BA664122C81967C00966D64 /* ConfirmLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */; };
 		2BA664142C81968500966D64 /* ConfirmLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664132C81968500966D64 /* ConfirmLogViewController.swift */; };
+		2BBA6E472C85577900E6CE40 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
 		2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
@@ -519,6 +520,7 @@
 		2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogCoordinator.swift; sourceTree = "<group>"; };
 		2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewModel.swift; sourceTree = "<group>"; };
 		2BA664132C81968500966D64 /* ConfirmLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewController.swift; sourceTree = "<group>"; };
+		2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
 		2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
@@ -1100,6 +1102,14 @@
 				2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */,
 			);
 			path = ConfirmLog;
+			sourceTree = "<group>";
+		};
+		2BBA6E452C85576800E6CE40 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */,
+			);
+			path = TextView;
 			sourceTree = "<group>";
 		};
 		2BC6A59A2C83815600CCE73F /* Config */ = {
@@ -2330,6 +2340,7 @@
 				C3BA45AF27B4A61E0048CA76 /* JobGroupCollection */,
 				C3BA459827B405060048CA76 /* Label */,
 				C361B6CB27B29FE200824ABE /* TextField */,
+				2BBA6E452C85576800E6CE40 /* TextView */,
 				C3F74B7D27B126E9002D5846 /* NavigationBar */,
 			);
 			path = CustomViews;
@@ -3162,6 +3173,7 @@
 				C3498F3E27C13D53003EDD0F /* SelectTimeModalCoordinator.swift in Sources */,
 				C3432CA427B830E000DEFF51 /* LoginKeyChainService.swift in Sources */,
 				C3BA459C27B4064E0048CA76 /* OnOffLabel.swift in Sources */,
+				2BBA6E472C85577900E6CE40 /* PlaceHolderTextView.swift in Sources */,
 				2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */,
 				2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,

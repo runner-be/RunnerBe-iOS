@@ -45,6 +45,12 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.photoModal
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.presentPhotoModal(vm: vm, animated: false)
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func pushLogStampBottomSheetScene(
@@ -67,6 +73,25 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
                 break
             case let .apply(logStamp):
                 vm.routeInputs.selectedLogStamp.onNext(logStamp)
+            }
+        }
+    }
+
+    private func presentPhotoModal(vm: WriteLogViewModel, animated: Bool) {
+        let comp = component.takePhotoModalComponent
+        let coord = TakePhotoModalCoordinator(component: comp, navController: navigationController)
+        let uuid = coord.identifier
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .takePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.camera)
+            case .choosePhoto:
+                vm.routeInputs.photoTypeSelected.onNext(.library)
+            case .cancel:
+                break
+            case .chooseDefault:
+                break
             }
         }
     }

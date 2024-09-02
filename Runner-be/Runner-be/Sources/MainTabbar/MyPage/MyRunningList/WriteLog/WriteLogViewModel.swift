@@ -12,19 +12,26 @@ final class WriteLogViewModel: BaseViewModel {
 
     struct Input {
         var showLogStampBottomSheet = PublishSubject<Void>()
+        var tapPhotoButton = PublishSubject<Void>()
+        var tapPhotoCancel = PublishSubject<Void>()
+        var photoSelected = PublishSubject<Data?>()
     }
 
     struct Output {
         var selectedLogStamp = PublishSubject<LogStamp2>()
+        var showPicker = PublishSubject<EditProfileType>()
+        var selectedImageChanged = PublishSubject<Data?>()
     }
 
     struct Route {
         var backward = PublishSubject<Bool>()
         var logStampBottomSheet = PublishSubject<LogStamp2>()
+        var photoModal = PublishSubject<Void>()
     }
 
     struct RouteInput {
         var selectedLogStamp = PublishSubject<LogStamp2>()
+        var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 
     private var disposeBag = DisposeBag()
@@ -55,12 +62,42 @@ final class WriteLogViewModel: BaseViewModel {
             .bind(to: routes.logStampBottomSheet)
             .disposed(by: disposeBag)
 
+        inputs.tapPhotoButton
+            .bind(to: routes.photoModal)
+            .disposed(by: disposeBag)
+
+        inputs.tapPhotoCancel
+            .bind { [weak self] _ in
+                print("sejfosliejfi")
+                self?.outputs.selectedImageChanged.onNext(nil)
+            }
+            .disposed(by: disposeBag)
+
+        inputs.photoSelected
+            .do(onNext: { [weak self] _ in
+                self?.toastActivity.onNext(true)
+            })
+            .compactMap { [weak self] data in
+                if data == nil {
+                    self?.toastActivity.onNext(false)
+                    self?.toast.onNext("이미지 불러오기에 실패했어요")
+                }
+                return data
+            }
+            .bind(to: outputs.selectedImageChanged)
+            .disposed(by: disposeBag)
+
         routeInputs.selectedLogStamp
             .map { [weak self] selectedLogStamp in
                 self?.selectedLogStamp = selectedLogStamp
                 return selectedLogStamp
             }
             .bind(to: outputs.selectedLogStamp)
+            .disposed(by: disposeBag)
+
+        routeInputs.photoTypeSelected
+            .compactMap { $0 }
+            .bind(to: outputs.showPicker)
             .disposed(by: disposeBag)
     }
 

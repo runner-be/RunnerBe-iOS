@@ -32,7 +32,7 @@ final class WriteLogDiaryView: UIView {
         $0.font = .pretendardSemiBold16
     }
 
-    private let countLabel = UILabel().then {
+    let countLabel = UILabel().then {
         $0.text = "0/500"
         $0.textColor = .darkG35
         $0.font = .pretendardRegular14
@@ -45,38 +45,54 @@ final class WriteLogDiaryView: UIView {
         $0.layer.cornerRadius = 12
     }
 
-    private let textView = UITextView().then {
+    let textView = PlaceholderTextView().then {
         $0.backgroundColor = .clear
         $0.font = .pretendardRegular16
+        $0.textColor = .darkG35
         $0.textContainerInset = .zero
         $0.textContainer.lineFragmentPadding = 0
 
-        // NSMutableParagraphStyle 설정
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 22.0 / $0.font!.lineHeight
-
-        // 기존 텍스트에 paragraphStyle 적용
-        let attributedString = NSMutableAttributedString(string: "5줄 일기로 오늘 하루 러닝을 표현해보세요.", attributes: [
-            .font: $0.font!,
-            .paragraphStyle: paragraphStyle,
-            .foregroundColor: UIColor.darkG35,
-        ])
-
-        $0.attributedText = attributedString
+        $0.placeholder = "5줄 일기로 오늘 하루 러닝을 표현해보세요."
+        $0.placeholderColor = .darkG35
     }
 
-    private let selectedImageView = UIImageView().then {
+//    let textView = PlaceholderTextView().then {
+//        $0.backgroundColor = .clear
+//        $0.font = .pretendardRegular16
+//        $0.textContainerInset = .zero
+//        $0.textContainer.lineFragmentPadding = 0
+//
+//        // Placeholder 설정
+//        $0.placeholder = "여기에 텍스트를 입력하세요..."
+//
+//        // NSMutableParagraphStyle 설정
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineHeightMultiple = 22.0 / $0.font!.lineHeight
+//
+//        // 기존 텍스트에 paragraphStyle 적용
+//        let attributedString = NSMutableAttributedString(string: "5줄 일기로 오늘 하루 러닝을 표현해보세요.", attributes: [
+//            .font: $0.font!,
+//            .paragraphStyle: paragraphStyle,
+//            .foregroundColor: UIColor.darkG35,
+//        ])
+//
+//        $0.attributedText = attributedString
+//    }
+
+    let selectedImageView = UIImageView().then {
         $0.layer.cornerRadius = 12
         $0.backgroundColor = .black
+        $0.clipsToBounds = true
+        $0.isHidden = true
     }
 
-    private let confirmImageView = UIImageView().then {
+    let confirmImageView = UIImageView().then {
         $0.layer.cornerRadius = 12
         $0.backgroundColor = .black
         $0.isHidden = true
     }
 
-    private let selectedImageCancle = UIImageView().then {
+    let selectedImageCancle = UIImageView().then {
         $0.image = Asset.circleCancelBlack.uiImage
     }
 
@@ -158,15 +174,12 @@ final class WriteLogDiaryView: UIView {
     init(type: LogDiaryType) {
         logDiaryType = type
         imageButton.isHidden = logDiaryType == .confirm
-        selectedImageView.isHidden = logDiaryType == .confirm
         confirmImageView.isHidden = logDiaryType == .write
 
         super.init(frame: .zero)
 
         setupViews()
         initialLayout()
-
-        textView.delegate = self
     }
 
     @available(*, unavailable)
@@ -175,20 +188,6 @@ final class WriteLogDiaryView: UIView {
     }
 
     // MARK: - Methods
-}
-
-// MARK: - TextViewDelegate
-
-extension WriteLogDiaryView: UITextViewDelegate {
-    func textViewDidChange(_: UITextView) {
-//        let lineHeight = textView.font?.lineHeight ?? 0
-//        let maxHeight = lineHeight * 5 // 최대 5줄까지만 입력 허용
-//
-//        if textView.contentSize.height > maxHeight {
-//            // 텍스트가 최대 라인 수를 초과할 경우 마지막 입력을 제거
-//            textView.text = String(textView.text.dropLast())
-//        }
-    }
 }
 
 // MARK: - Layout
@@ -253,13 +252,13 @@ extension WriteLogDiaryView {
         editView.snp.makeConstraints {
             $0.top.equalTo(countLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(self.logDiaryType == .write ? 242 : 473)
+//            $0.height.greaterThanOrEqualTo(self.logDiaryType == .write ? 154 : 473)
         }
 
         textView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(110)
+            $0.height.equalTo(22)
         }
 
         selectedImageView.snp.makeConstraints {
@@ -280,6 +279,7 @@ extension WriteLogDiaryView {
         }
 
         imageButton.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom).offset(24 + 42)
             $0.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(12)
             $0.width.equalTo(82)
