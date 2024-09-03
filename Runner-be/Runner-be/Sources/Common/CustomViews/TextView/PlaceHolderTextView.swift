@@ -92,7 +92,8 @@ extension PlaceholderTextView {
 
     private func initialLayout() {
         placeholderLabel.snp.makeConstraints {
-            $0.top.left.equalToSuperview()
+            $0.top.left.bottom.equalToSuperview()
+            $0.height.equalTo(22)
         }
     }
 }

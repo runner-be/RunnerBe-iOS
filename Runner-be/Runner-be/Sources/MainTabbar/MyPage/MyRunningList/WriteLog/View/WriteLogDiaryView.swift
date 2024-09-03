@@ -56,29 +56,6 @@ final class WriteLogDiaryView: UIView {
         $0.placeholderColor = .darkG35
     }
 
-//    let textView = PlaceholderTextView().then {
-//        $0.backgroundColor = .clear
-//        $0.font = .pretendardRegular16
-//        $0.textContainerInset = .zero
-//        $0.textContainer.lineFragmentPadding = 0
-//
-//        // Placeholder 설정
-//        $0.placeholder = "여기에 텍스트를 입력하세요..."
-//
-//        // NSMutableParagraphStyle 설정
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineHeightMultiple = 22.0 / $0.font!.lineHeight
-//
-//        // 기존 텍스트에 paragraphStyle 적용
-//        let attributedString = NSMutableAttributedString(string: "5줄 일기로 오늘 하루 러닝을 표현해보세요.", attributes: [
-//            .font: $0.font!,
-//            .paragraphStyle: paragraphStyle,
-//            .foregroundColor: UIColor.darkG35,
-//        ])
-//
-//        $0.attributedText = attributedString
-//    }
-
     let selectedImageView = UIImageView().then {
         $0.layer.cornerRadius = 12
         $0.backgroundColor = .black
@@ -126,8 +103,8 @@ final class WriteLogDiaryView: UIView {
         $0.font = .pretendardSemiBold16
     }
 
-    private let weatherTempLabel = UILabel().then {
-        $0.text = "+24 C"
+    let weatherTempLabel = UILabel().then {
+        $0.text = "- ℃"
         $0.textColor = .darkG4
         $0.font = .pretendardRegular16
     }
@@ -137,8 +114,8 @@ final class WriteLogDiaryView: UIView {
         $0.backgroundColor = .darkG55
     }
 
-    private let weatherIcon = UIImageView().then {
-        $0.image = Asset.runningWeatherSunny.uiImage
+    let weatherIcon = UIImageView().then {
+        $0.image = Asset.runningWeatherDefault.uiImage
     }
 
     // MARK: - [END] Weather
@@ -188,6 +165,11 @@ final class WriteLogDiaryView: UIView {
     }
 
     // MARK: - Methods
+
+    func update(with: LogStamp2, temp: String) {
+        weatherIcon.image = with.status?.icon
+        weatherTempLabel.text = temp + " ℃"
+    }
 }
 
 // MARK: - Layout

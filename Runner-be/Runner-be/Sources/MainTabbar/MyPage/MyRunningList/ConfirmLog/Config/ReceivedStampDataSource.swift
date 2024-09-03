@@ -11,14 +11,14 @@ import RxDataSources
 struct ReceivedStamp {
     var userName: String
     var userProfileURL: String
-    var stampStatus: RunningLogStatus
+    var stampStatus: StampType
 }
 
 struct ReceivedStampConfig: Equatable, IdentifiableType {
     let id = UUID() // FIXME: userid로 변경
     var userName: String
     var userProfileURL: String
-    var stampStatus: RunningLogStatus
+    var stampStatus: StampType
 
     var identity: String {
         "\(id)"

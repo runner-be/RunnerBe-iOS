@@ -14,11 +14,13 @@ final class WriteLogViewModel: BaseViewModel {
         var showLogStampBottomSheet = PublishSubject<Void>()
         var tapPhotoButton = PublishSubject<Void>()
         var tapPhotoCancel = PublishSubject<Void>()
+        var tapWeather = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
     }
 
     struct Output {
         var selectedLogStamp = PublishSubject<LogStamp2>()
+        var selectedWeather = PublishSubject<(LogStamp2, String)>()
         var showPicker = PublishSubject<EditProfileType>()
         var selectedImageChanged = PublishSubject<Data?>()
     }
@@ -26,11 +28,13 @@ final class WriteLogViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Bool>()
         var logStampBottomSheet = PublishSubject<LogStamp2>()
+        var stampBottomSheet = PublishSubject<(stamp: LogStamp2, temp: String)>()
         var photoModal = PublishSubject<Void>()
     }
 
     struct RouteInput {
         var selectedLogStamp = PublishSubject<LogStamp2>()
+        var selectedWeather = PublishSubject<(stamp: LogStamp2, temp: String)>()
         var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 
@@ -41,6 +45,8 @@ final class WriteLogViewModel: BaseViewModel {
     var routeInputs = RouteInput()
 
     var selectedLogStamp: LogStamp2?
+    var weatherStamp: LogStamp2?
+    var weatherTemp: String?
 
     // MARK: - Init
 
@@ -73,6 +79,22 @@ final class WriteLogViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
 
+        inputs.tapWeather
+            .map { [weak self] _ in
+                guard let selectedStamp = self?.weatherStamp,
+                      let selectedTemp = self?.weatherTemp
+                else { // FIXME: - 하드코딩
+                    return (stamp: LogStamp2(
+                        stampType: 2,
+                        stampCode: "WEA001",
+                        stampName: "맑음"
+                    ), temp: "-")
+                }
+                return (stamp: selectedStamp, temp: selectedTemp)
+            }
+            .bind(to: routes.stampBottomSheet)
+            .disposed(by: disposeBag)
+
         inputs.photoSelected
             .do(onNext: { [weak self] _ in
                 self?.toastActivity.onNext(true)
@@ -93,6 +115,15 @@ final class WriteLogViewModel: BaseViewModel {
                 return selectedLogStamp
             }
             .bind(to: outputs.selectedLogStamp)
+            .disposed(by: disposeBag)
+
+        routeInputs.selectedWeather
+            .map { [weak self] selectedStamp, selecteTemp in
+                self?.weatherStamp = selectedStamp
+                self?.weatherTemp = selecteTemp
+                return (selectedStamp, selecteTemp)
+            }
+            .bind(to: outputs.selectedWeather)
             .disposed(by: disposeBag)
 
         routeInputs.photoTypeSelected

@@ -128,12 +128,26 @@ final class WriteLogViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.tapPhotoCancel)
             .disposed(by: disposeBag)
+
+        logDiaryView.weatherView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapWeather)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         viewModel.outputs.selectedLogStamp
             .bind { [weak self] selectedLogStamp in
                 self?.logStampView.update(logStamp: selectedLogStamp)
+            }.disposed(by: disposeBag)
+
+        viewModel.outputs.selectedWeather
+            .bind { [weak self] selectedLogStamp, selectedTemp in
+                self?.logDiaryView.update(
+                    with: selectedLogStamp,
+                    temp: selectedTemp
+                )
             }.disposed(by: disposeBag)
 
         viewModel.outputs.showPicker

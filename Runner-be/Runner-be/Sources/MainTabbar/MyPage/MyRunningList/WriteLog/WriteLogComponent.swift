@@ -27,6 +27,16 @@ final class WriteLogComponent {
         return LogStampBottomSheetComponent(selectedLogStamp: selectedLogStamp)
     }
 
+    func stampBottomSheetComponent(
+        selectedStamp: LogStamp2,
+        selectedTemp: String
+    ) -> StampBottomSheetComponent {
+        return StampBottomSheetComponent(
+            selectedStamp: selectedStamp,
+            selectedTemp: selectedTemp
+        )
+    }
+
     var takePhotoModalComponent: TakePhotoModalComponent {
         return TakePhotoModalComponent()
     }

@@ -101,6 +101,7 @@ internal enum Asset {
   internal static let runningPaceHigh = ImageAsset(name: "RunningPace_High")
   internal static let runningPaceMaster = ImageAsset(name: "RunningPace_Master")
   internal static let runningWeatherCloudy = ImageAsset(name: "RunningWeather_Cloudy")
+  internal static let runningWeatherDefault = ImageAsset(name: "RunningWeather_Default")
   internal static let runningWeatherNight = ImageAsset(name: "RunningWeather_Night")
   internal static let runningWeatherRainy = ImageAsset(name: "RunningWeather_Rainy")
   internal static let runningWeatherSnowy = ImageAsset(name: "RunningWeather_Snowy")

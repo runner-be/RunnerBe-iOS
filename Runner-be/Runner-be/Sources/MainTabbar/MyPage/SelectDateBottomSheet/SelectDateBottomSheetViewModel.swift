@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-enum RunningLogStatus: String {
+enum StampType: String {
     case RUN001 // 체크
     case RUN002 // 성취
     case RUN003 // 사교
@@ -19,6 +19,11 @@ enum RunningLogStatus: String {
     case RUN008 // 감성
     case RUN009 // 쾌락
     case RUN010 // 질주
+    case WEA001 // 맑음
+    case WEA002 // 흐림
+    case WEA003 // 야간
+    case WEA004 // 비
+    case WEA005 // 눈
     case FUTURE // 미래(아이콘 없이 숫자만 표시합니다.)
 
     var icon: UIImage? {
@@ -43,6 +48,16 @@ enum RunningLogStatus: String {
             return Asset.runningLogRUN009.uiImage
         case .RUN010:
             return Asset.runningLogRUN010.uiImage
+        case .WEA001:
+            return Asset.runningWeatherSunny.uiImage
+        case .WEA002:
+            return Asset.runningWeatherCloudy.uiImage
+        case .WEA003:
+            return Asset.runningWeatherNight.uiImage
+        case .WEA004:
+            return Asset.runningWeatherRainy.uiImage
+        case .WEA005:
+            return Asset.runningWeatherSnowy.uiImage
         case .FUTURE:
             return nil
         }
@@ -70,6 +85,16 @@ enum RunningLogStatus: String {
             return "쾌락"
         case .RUN010:
             return "질주"
+        case .WEA001:
+            return "맑음"
+        case .WEA002:
+            return "흐림"
+        case .WEA003:
+            return "야간"
+        case .WEA004:
+            return "비"
+        case .WEA005:
+            return "눈"
         case .FUTURE:
             return ""
         }
@@ -97,7 +122,7 @@ enum RunningLogStatus: String {
             return "달리는 도중 심장이 터지도록 즐거움을 느꼈어요!"
         case .RUN010:
             return "속도를 내며 누구보다 빠르게 달린 날이에요!"
-        case .FUTURE:
+        case .FUTURE, .WEA001, .WEA002, .WEA003, .WEA004, .WEA005:
             return ""
         }
     }

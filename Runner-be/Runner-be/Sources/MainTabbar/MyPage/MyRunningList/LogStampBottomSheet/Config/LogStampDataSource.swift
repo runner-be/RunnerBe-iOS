@@ -12,8 +12,8 @@ struct LogStamp2 {
     let stampType: Int
     let stampCode: String
     let stampName: String
-    var status: RunningLogStatus? {
-        RunningLogStatus(rawValue: stampCode)
+    var status: StampType? {
+        StampType(rawValue: stampCode)
     }
 }
 

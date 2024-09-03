@@ -56,6 +56,10 @@
 		2BA664122C81967C00966D64 /* ConfirmLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */; };
 		2BA664142C81968500966D64 /* ConfirmLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664132C81968500966D64 /* ConfirmLogViewController.swift */; };
 		2BBA6E472C85577900E6CE40 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */; };
+		2BBA6E522C8562BE00E6CE40 /* StampBottomSheetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E512C8562BE00E6CE40 /* StampBottomSheetComponent.swift */; };
+		2BBA6E542C8562CA00E6CE40 /* StampBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E532C8562CA00E6CE40 /* StampBottomSheetCoordinator.swift */; };
+		2BBA6E562C8562D000E6CE40 /* StampBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E552C8562D000E6CE40 /* StampBottomSheetViewModel.swift */; };
+		2BBA6E582C8562D800E6CE40 /* StampBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E572C8562D800E6CE40 /* StampBottomSheetViewController.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
 		2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
@@ -521,6 +525,10 @@
 		2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewModel.swift; sourceTree = "<group>"; };
 		2BA664132C81968500966D64 /* ConfirmLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLogViewController.swift; sourceTree = "<group>"; };
 		2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
+		2BBA6E512C8562BE00E6CE40 /* StampBottomSheetComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBottomSheetComponent.swift; sourceTree = "<group>"; };
+		2BBA6E532C8562CA00E6CE40 /* StampBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBottomSheetCoordinator.swift; sourceTree = "<group>"; };
+		2BBA6E552C8562D000E6CE40 /* StampBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBottomSheetViewModel.swift; sourceTree = "<group>"; };
+		2BBA6E572C8562D800E6CE40 /* StampBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBottomSheetViewController.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
 		2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
@@ -1013,6 +1021,7 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2BBA6E482C855F9F00E6CE40 /* StampBottomSheet */,
 				2BD4F24A2C8424A3005F5C11 /* LogStampBottomSheet */,
 				2BC6A5A02C8408EC00CCE73F /* ConfirmAteendance */,
 				DAA252C8287204EC0087FCA9 /* ManageAttendance */,
@@ -1110,6 +1119,17 @@
 				2BBA6E462C85577800E6CE40 /* PlaceHolderTextView.swift */,
 			);
 			path = TextView;
+			sourceTree = "<group>";
+		};
+		2BBA6E482C855F9F00E6CE40 /* StampBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				2BBA6E512C8562BE00E6CE40 /* StampBottomSheetComponent.swift */,
+				2BBA6E532C8562CA00E6CE40 /* StampBottomSheetCoordinator.swift */,
+				2BBA6E552C8562D000E6CE40 /* StampBottomSheetViewModel.swift */,
+				2BBA6E572C8562D800E6CE40 /* StampBottomSheetViewController.swift */,
+			);
+			path = StampBottomSheet;
 			sourceTree = "<group>";
 		};
 		2BC6A59A2C83815600CCE73F /* Config */ = {
@@ -2953,6 +2973,7 @@
 				C3F1EBB627D13DF600207F35 /* OnboardingCoverComponent.swift in Sources */,
 				C38ABD9B27D336220025929E /* ReportModalViewController.swift in Sources */,
 				2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */,
+				2BBA6E582C8562D800E6CE40 /* StampBottomSheetViewController.swift in Sources */,
 				C3C9732D27C9E0D900232251 /* ApplicantListModalComponent.swift in Sources */,
 				2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */,
 				C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */,
@@ -3068,6 +3089,7 @@
 				C38F8F4627AD9E990050137D /* BookMarkCoordinator.swift in Sources */,
 				C3F74B7827B12614002D5846 /* BirthCoordinator.swift in Sources */,
 				C34FDA6E27AD5C83007718F8 /* KakaoLoginService.swift in Sources */,
+				2BBA6E522C8562BE00E6CE40 /* StampBottomSheetComponent.swift in Sources */,
 				C3CA2AF527BC4E9200AEF623 /* HomeFilterCoordinator.swift in Sources */,
 				DADD949C28A7CF6F0004F86F /* MessageReportViewController.swift in Sources */,
 				DADD949928A7CF630004F86F /* MessageReportViewModel.swift in Sources */,
@@ -3082,6 +3104,7 @@
 				C3498F2B27C0DB41003EDD0F /* WritingTitleView.swift in Sources */,
 				438AB20628C3875C00AD1AD3 /* WritingPostData.swift in Sources */,
 				C342F9A6282D58420000E46C /* PostResponse.swift in Sources */,
+				2BBA6E562C8562D000E6CE40 /* StampBottomSheetViewModel.swift in Sources */,
 				DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
@@ -3128,6 +3151,7 @@
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
+				2BBA6E542C8562CA00E6CE40 /* StampBottomSheetCoordinator.swift in Sources */,
 				C31C201127AE6AEE00960E8A /* UIColor+Zeplin.swift in Sources */,
 				DA17F48C2B6681C700CD237A /* SelectAfterPartyView.swift in Sources */,
 				C39F2EA827BC71FD00A7D86B /* CGRect+.swift in Sources */,

@@ -46,6 +46,17 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
                 )
             }.disposed(by: sceneDisposeBag)
 
+        scene.VM.routes.stampBottomSheet
+            .map { (vm: scene.VM, selectedStamp: $0.stamp, selectedTemp: $0.temp) }
+            .bind { [weak self] inputs in
+                self?.pushStampBottomSheetScene(
+                    vm: inputs.vm,
+                    selectedStamp: inputs.selectedStamp,
+                    selectedTemp: inputs.selectedTemp,
+                    animated: false
+                )
+            }.disposed(by: sceneDisposeBag)
+
         scene.VM.routes.photoModal
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
@@ -73,6 +84,37 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
                 break
             case let .apply(logStamp):
                 vm.routeInputs.selectedLogStamp.onNext(logStamp)
+            }
+        }
+    }
+
+    private func pushStampBottomSheetScene(
+        vm: WriteLogViewModel,
+        selectedStamp: LogStamp2,
+        selectedTemp: String,
+        animated: Bool
+    ) {
+        let comp = component.stampBottomSheetComponent(
+            selectedStamp: selectedStamp,
+            selectedTemp: selectedTemp
+        )
+        let coord = StampBottomSheetCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case let .apply(selectedStamp, selectedTemp):
+                vm.routeInputs.selectedWeather.onNext((
+                    stamp: selectedStamp,
+                    temp: selectedTemp
+                ))
             }
         }
     }

@@ -55,7 +55,7 @@ extension BaseViewController: UIGestureRecognizerDelegate {
     func dismissKeyboardWhenTappedAround() {
         let tap =
             UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//        tap.cancelsTouchesInView = false
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
