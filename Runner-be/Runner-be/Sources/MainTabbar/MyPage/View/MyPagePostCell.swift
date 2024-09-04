@@ -25,7 +25,7 @@ class MyPagePostCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.myRunningState)
+        update(with: item.runningState)
     }
 
     override func prepareForReuse() {
@@ -102,18 +102,30 @@ extension MyPagePostCell {
         manageButton.layer.cornerRadius = Constants.ManageButton.cornerRadius
     }
 
-    func update(with state: MyRunningState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
         switch state {
-        case .beforeManagable:
-            manageButton.isEnabled = false
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Before.title, for: .disabled)
-        case .managable:
-            manageButton.isEnabled = true
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.After.title, for: .normal)
-        case .confirmManage:
-            manageButton.isEnabled = true
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
+        case .attendanceClosed:
+            break
+        case .creatorBeforeMeetingStart:
+            break
+        case .creatorDuringMeetingBeforeEnd:
+            break
+        case .logSubmissionClosed:
+            break
+        case .participantDuringMeeting:
+            break
         }
+//        switch state {
+//        case .beforeManagable:
+//            manageButton.isEnabled = false
+//            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Before.title, for: .disabled)
+//        case .managable:
+//            manageButton.isEnabled = true
+//            manageButton.setTitle(L10n.MyPage.MyPost.Manage.After.title, for: .normal)
+//        case .confirmManage:
+//            manageButton.isEnabled = true
+//            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
+//        }
     }
 }
 

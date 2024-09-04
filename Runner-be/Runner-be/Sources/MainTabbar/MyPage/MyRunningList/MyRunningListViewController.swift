@@ -139,10 +139,10 @@ final class MyRunningListViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         // TODO: 페이지 이동 임시 기능
-        allRunningCollectionView.rx.itemSelected
-            .map { $0.item }
-            .bind(to: viewModel.inputs.tapWriteLog)
-            .disposed(by: disposeBag)
+//        allRunningCollectionView.rx.itemSelected
+//            .map { $0.item }
+//            .bind(to: viewModel.inputs.tapWriteLog)
+//            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -152,12 +152,38 @@ final class MyRunningListViewController: BaseViewController {
         typealias RunningDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
-        let allRunningDatasource = RunningDataSource { _, collectionView, indexPath, item in
+        let allRunningDatasource = RunningDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self
+            else { return UICollectionViewCell() }
+
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
 
+            cell.manageAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapManageAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.writeLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapWriteLog)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmLog)
+                .disposed(by: cell.disposeBag)
             return cell
         }
 
@@ -175,6 +201,30 @@ final class MyRunningListViewController: BaseViewController {
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
+
+            cell.manageAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapManageAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.writeLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapWriteLog)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmLog)
+                .disposed(by: cell.disposeBag)
 
             return cell
         }

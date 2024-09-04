@@ -25,7 +25,7 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.myParticipateState)
+        update(with: item.runningState)
     }
 
     override func prepareForReuse() {
@@ -67,6 +67,42 @@ class MyPageParticipateCell: UICollectionViewCell {
         $0.layer.cornerRadius = 17
         $0.textAlignment = .center
     }
+
+    let manageAttendanceButton = UILabel().then {
+        $0.text = "출석 관리"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let confirmAttendanceButton = UILabel().then {
+        $0.text = "출석 확인하기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let writeLogButton = UILabel().then {
+        $0.text = "로그 쓰기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let confirmLogButton = UILabel().then {
+        $0.text = "로그 보기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
 }
 
 extension MyPageParticipateCell {
@@ -75,6 +111,10 @@ extension MyPageParticipateCell {
         contentView.addSubviews([
             postInfoView,
             statusLabel,
+            manageAttendanceButton,
+            confirmAttendanceButton,
+            writeLogButton,
+            confirmLogButton,
         ])
     }
 
@@ -93,22 +133,57 @@ extension MyPageParticipateCell {
             $0.left.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(16)
         }
+
+        manageAttendanceButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        confirmAttendanceButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.equalToSuperview().inset(16)
+            $0.right.equalTo(contentView.snp.centerX).offset(-4)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        writeLogButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.right.equalToSuperview().inset(16)
+            $0.left.equalTo(contentView.snp.centerX).offset(4)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        confirmLogButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.right.equalToSuperview().inset(16)
+            $0.left.equalTo(contentView.snp.centerX).offset(4)
+            $0.bottom.equalToSuperview().inset(16)
+        }
     }
 
-    func update(with state: MyParticipateState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
+        statusLabel.isHidden = true
+        manageAttendanceButton.isHidden = true
+        confirmAttendanceButton.isHidden = true
+        writeLogButton.isHidden = true
+        confirmLogButton.isHidden = true
+
         switch state {
-        case .memberbeforeManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.Before.title
-        case .writerbeforeManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.Before.title
-        case .attendance:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Attendance.title
-        case .absence:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Absence.title
-        case .membernotManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.NotCheck.title
-        case .writernotManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.NotCheck.title
+        case .participantDuringMeeting:
+            statusLabel.text = "모임 후 로그를 관리할 수 있어요"
+            statusLabel.isHidden = false
+        case .creatorBeforeMeetingStart:
+            statusLabel.text = "모임 후 출석/로그를 관리할 수 있어요"
+            statusLabel.isHidden = false
+        case .creatorDuringMeetingBeforeEnd:
+            manageAttendanceButton.isHidden = false
+        case .attendanceClosed:
+            confirmAttendanceButton.isHidden = false
+            writeLogButton.isHidden = false
+        case .logSubmissionClosed:
+            confirmAttendanceButton.isHidden = false
+            confirmLogButton.isHidden = false
         }
     }
 }
