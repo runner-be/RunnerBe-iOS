@@ -13,6 +13,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
     struct Input {
         var tapRunner = PublishSubject<Int>()
+        var tapShowLogButton = PublishSubject<Int>()
     }
 
     struct Output {
@@ -22,10 +23,12 @@ final class TogetherRunnerViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var logStampBottomSheet = PublishSubject<(stamp: LogStamp2, title: String)>()
+        var confirmLog = PublishSubject<Int>()
     }
 
     struct RouteInputs {
         var selectedLogStamp = PublishSubject<LogStamp2>()
+        var needUpdate = PublishSubject<Bool>()
     }
 
     private var disposeBag = DisposeBag()
@@ -77,6 +80,15 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
         outputs.togetherRunnerList.onNext(runnerList)
 
+        routeInputs.needUpdate
+            .filter { $0 }
+            .compactMap { [weak self] _ in
+                guard let self = self else { return nil }
+                return runnerList
+            }
+            .bind(to: outputs.togetherRunnerList)
+            .disposed(by: disposeBag)
+
         inputs.tapRunner
             .compactMap { [weak self] itemIndex in
                 self?.selectedIndex = itemIndex
@@ -97,6 +109,11 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 )
             }
             .bind(to: routes.logStampBottomSheet)
+            .disposed(by: disposeBag)
+
+        inputs.tapShowLogButton
+            .do { print("tapped Item index: \($0)") }
+            .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
         routeInputs.selectedLogStamp

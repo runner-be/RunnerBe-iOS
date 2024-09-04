@@ -234,7 +234,6 @@ extension WriteLogDiaryView {
         editView.snp.makeConstraints {
             $0.top.equalTo(countLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
-//            $0.height.greaterThanOrEqualTo(self.logDiaryType == .write ? 154 : 473)
         }
 
         textView.snp.makeConstraints {
@@ -255,6 +254,7 @@ extension WriteLogDiaryView {
         }
 
         confirmImageView.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(311)

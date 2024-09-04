@@ -5,16 +5,21 @@
 //  Created by 김창규 on 9/3/24.
 //
 
+import RxSwift
 import UIKit
 
 final class TogetherRunnerCell: UITableViewCell {
-    // MARK: - Properties
-
     static let id: String = "\(TogetherRunnerCell.self)"
 
-    override var isHighlighted: Bool {
+    // MARK: - Properties
+
+    var disposeBag = DisposeBag()
+
+    override var isSelected: Bool {
         didSet {
-            profileImage.layer.borderColor = isHighlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
+            // 셀이 선택된 상태인지 확인
+            profileImage.layer.borderColor = isSelected ? UIColor.primary.cgColor : UIColor.clear.cgColor
+            contentView.backgroundColor = isSelected ? .primary.withAlphaComponent(0.2) : .clear
         }
     }
 
@@ -25,6 +30,7 @@ final class TogetherRunnerCell: UITableViewCell {
     private let profileImage = UIImageView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 28
     }
 
     private let nameLabel = UILabel().then {
@@ -49,7 +55,7 @@ final class TogetherRunnerCell: UITableViewCell {
         $0.image = Asset.runningLogRUN001.uiImage
     }
 
-    private let showLogButton = UIButton().then {
+    let showLogButton = UIButton().then {
         $0.setTitle("로그 보기", for: .normal)
         $0.setTitleColor(.darkG2, for: .normal)
         $0.titleLabel?.font = .pretendardSemiBold12
@@ -78,6 +84,8 @@ final class TogetherRunnerCell: UITableViewCell {
     // MARK: - Methods
 
     func configure(with config: TogetherRunnerConfig) {
+        disposeBag = DisposeBag()
+
         profileImage.kf.setImage(
             with: URL(string: config.usetProfileURL),
             placeholder: Asset.profileEmptyIcon.uiImage

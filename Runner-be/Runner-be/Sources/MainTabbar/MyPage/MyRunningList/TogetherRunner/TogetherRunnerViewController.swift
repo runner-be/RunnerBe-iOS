@@ -73,19 +73,32 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
     // MARK: - Methods
 
     private func viewModelInput() {
-        togetherRunnerTableView.rx.setDelegate(self).disposed(by: disposeBag)
-
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
 
         togetherRunnerTableView.rx.itemSelected
+            .do {
+                // 이전에 선택된 셀의 isSelected를 false로 설정
+                if let selectedIndexPaths = self.togetherRunnerTableView.indexPathsForVisibleRows {
+                    selectedIndexPaths.forEach { indexPath in
+                        if let cell = self.togetherRunnerTableView.cellForRow(at: indexPath) {
+                            cell.isSelected = false
+                        }
+                    }
+                }
+
+                if let cell = self.togetherRunnerTableView.cellForRow(at: $0) as? TogetherRunnerCell {
+                    cell.isSelected = true
+                }
+            }
             .map { $0.item }
             .bind(to: viewModel.inputs.tapRunner)
             .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        togetherRunnerTableView.rx.setDelegate(self).disposed(by: disposeBag)
         typealias TogetherRunnerDataSource = RxTableViewSectionedReloadDataSource<TogetherRunnerSection>
 
         viewModel.outputs.togetherRunnerList
@@ -96,14 +109,20 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
             }
             .map { [TogetherRunnerSection(items: $0)] }
             .bind(to: togetherRunnerTableView.rx.items(
-                dataSource: TogetherRunnerDataSource { _, tableView, indexPath, item in
-                    guard let cell = tableView.dequeueReusableCell(
-                        withIdentifier: TogetherRunnerCell.id,
-                        for: indexPath
-                    ) as? TogetherRunnerCell
+                dataSource: TogetherRunnerDataSource { [weak self] _, tableView, indexPath, item in
+                    guard let self = self,
+                          let cell = tableView.dequeueReusableCell(
+                              withIdentifier: TogetherRunnerCell.id,
+                              for: indexPath
+                          ) as? TogetherRunnerCell
                     else { return UITableViewCell() }
 
                     cell.configure(with: item)
+
+                    cell.showLogButton.rx.tap
+                        .map { indexPath.item }
+                        .bind(to: self.viewModel.inputs.tapShowLogButton)
+                        .disposed(by: cell.disposeBag)
 
                     return cell
                 }

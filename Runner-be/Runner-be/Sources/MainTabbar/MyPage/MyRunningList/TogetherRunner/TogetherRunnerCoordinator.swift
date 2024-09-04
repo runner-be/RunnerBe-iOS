@@ -50,6 +50,16 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmLog
+            .map { (vm: scene.VM, result: $0) }
+            .bind { [weak self] inputs in
+                self?.pushConfirmLogScene(
+                    vm: inputs.vm,
+                    postId: inputs.result,
+                    animated: true
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func pushLogStampBottomSheetScene(
@@ -73,9 +83,28 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
         ) { coordResult in
             switch coordResult {
             case .backward:
-                break
+                vm.routeInputs.needUpdate.onNext(true)
             case let .apply(logStamp):
                 vm.routeInputs.selectedLogStamp.onNext(logStamp)
+            }
+        }
+    }
+
+    private func pushConfirmLogScene(
+        vm _: TogetherRunnerViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.confirmLogComponent(postId: postId)
+        let coord = ConfirmLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
             }
         }
     }
