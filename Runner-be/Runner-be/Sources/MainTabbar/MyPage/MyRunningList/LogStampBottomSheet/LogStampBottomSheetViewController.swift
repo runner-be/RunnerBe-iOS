@@ -33,6 +33,7 @@ final class LogStampBottomSheetViewController: BaseViewController {
         $0.textColor = .darkG2
         $0.font = .pretendardSemiBold20
         $0.textAlignment = .center
+        $0.numberOfLines = 2
     }
 
     private lazy var stampCollectionView: UICollectionView = {
@@ -82,8 +83,12 @@ final class LogStampBottomSheetViewController: BaseViewController {
 
     // MARK: - Init
 
-    init(viewModel: LogStampBottomSheetViewModel) {
+    init(
+        viewModel: LogStampBottomSheetViewModel,
+        title: String
+    ) {
         self.viewModel = viewModel
+        titleLabel.text = title
         super.init()
     }
 
@@ -176,10 +181,10 @@ final class LogStampBottomSheetViewController: BaseViewController {
     }
 
     private func animateBottomSheet() {
-        // Update the constraint to animate the bottom sheet coming up
+        let bottomSheetHeight = bottomSheetBg.frame.height
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
             self.bottomSheetBg.snp.updateConstraints {
-                $0.top.equalTo(self.view.snp.bottom).offset(-369)
+                $0.top.equalTo(self.view.snp.bottom).offset(-bottomSheetHeight)
             }
             self.view.layoutIfNeeded()
         })
@@ -220,7 +225,7 @@ extension LogStampBottomSheetViewController {
         bottomSheetBg.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(view.snp.bottom)
-            $0.height.equalTo(369)
+            $0.height.greaterThanOrEqualTo(369)
         }
 
         bottomHandle.snp.makeConstraints {
@@ -233,7 +238,6 @@ extension LogStampBottomSheetViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(bottomHandle.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(28)
         }
 
         stampCollectionView.snp.makeConstraints {
@@ -256,6 +260,7 @@ extension LogStampBottomSheetViewController {
         registerButton.snp.makeConstraints {
             $0.top.equalTo(stampSubTitleLabel.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(38)
             $0.height.equalTo(48)
         }
     }

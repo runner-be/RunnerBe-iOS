@@ -120,7 +120,7 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - [END] Weather
 
-    private let participantView = UIView().then {
+    let participantView = UIView().then {
         $0.backgroundColor = .darkG6
         $0.layer.cornerRadius = 12
     }
@@ -132,7 +132,7 @@ final class WriteLogDiaryView: UIView {
     }
 
     private let participantTempLabel = UILabel().then {
-        $0.text = "8명"
+        $0.text = "0명"
         $0.textColor = .darkG4
         $0.font = .pretendardRegular16
     }

@@ -134,6 +134,12 @@ final class WriteLogViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.tapWeather)
             .disposed(by: disposeBag)
+
+        logDiaryView.participantView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapTogether)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {

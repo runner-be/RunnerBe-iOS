@@ -8,7 +8,7 @@
 import Foundation
 import RxDataSources
 
-struct LogStamp2 {
+struct LogStamp2: Equatable {
     let stampType: Int
     let stampCode: String
     let stampName: String

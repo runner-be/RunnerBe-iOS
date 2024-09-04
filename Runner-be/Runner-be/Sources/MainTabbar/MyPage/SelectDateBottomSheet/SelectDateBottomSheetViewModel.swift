@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-enum StampType: String {
+enum StampType: String, Equatable {
     case RUN001 // 체크
     case RUN002 // 성취
     case RUN003 // 사교

@@ -15,6 +15,7 @@ final class WriteLogViewModel: BaseViewModel {
         var tapPhotoButton = PublishSubject<Void>()
         var tapPhotoCancel = PublishSubject<Void>()
         var tapWeather = PublishSubject<Void>()
+        var tapTogether = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
     }
 
@@ -27,8 +28,9 @@ final class WriteLogViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Bool>()
-        var logStampBottomSheet = PublishSubject<LogStamp2>()
+        var logStampBottomSheet = PublishSubject<(stamp: LogStamp2, title: String)>()
         var stampBottomSheet = PublishSubject<(stamp: LogStamp2, temp: String)>()
+        var togetherRunner = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
     }
 
@@ -57,13 +59,13 @@ final class WriteLogViewModel: BaseViewModel {
             .map { [weak self] _ in
                 guard let selectedLogStamp = self?.selectedLogStamp
                 else { // FIXME: - 하드코딩
-                    return LogStamp2(
+                    return (stamp: LogStamp2(
                         stampType: 1,
                         stampCode: "RUN001",
                         stampName: "Check!"
-                    )
+                    ), title: "스탬프")
                 }
-                return selectedLogStamp
+                return (selectedLogStamp, "스탬프")
             }
             .bind(to: routes.logStampBottomSheet)
             .disposed(by: disposeBag)
@@ -93,6 +95,10 @@ final class WriteLogViewModel: BaseViewModel {
                 return (stamp: selectedStamp, temp: selectedTemp)
             }
             .bind(to: routes.stampBottomSheet)
+            .disposed(by: disposeBag)
+
+        inputs.tapTogether
+            .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
 
         inputs.photoSelected

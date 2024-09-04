@@ -37,11 +37,14 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.logStampBottomSheet
-            .map { (vm: scene.VM, selectedLogStamp: $0) }
+            .map { (vm: scene.VM, result: $0) }
             .bind { [weak self] inputs in
+                let selectedLogStamp = inputs.result.stamp
+                let title = inputs.result.title
                 self?.pushLogStampBottomSheetScene(
                     vm: inputs.vm,
-                    selectedLogStamp: inputs.selectedLogStamp,
+                    selectedLogStamp: selectedLogStamp,
+                    title: title,
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
@@ -62,14 +65,24 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             .subscribe(onNext: { [weak self] vm in
                 self?.presentPhotoModal(vm: vm, animated: false)
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.togetherRunner
+            .map { scene.VM }
+            .bind { [weak self] vm in
+                self?.pushTogetherRunnerScene(vm: vm, animated: true)
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func pushLogStampBottomSheetScene(
         vm: WriteLogViewModel,
         selectedLogStamp: LogStamp2,
+        title: String,
         animated: Bool
     ) {
-        let comp = component.logStampBottomSheetComponent(selectedLogStamp: selectedLogStamp)
+        let comp = component.logStampBottomSheetComponent(
+            selectedLogStamp: selectedLogStamp,
+            title: title
+        )
         let coord = LogStampBottomSheetCoordinator(
             component: comp,
             navController: navigationController
@@ -133,6 +146,27 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             case .cancel:
                 break
             case .chooseDefault:
+                break
+            }
+        }
+    }
+
+    private func pushTogetherRunnerScene(
+        vm _: WriteLogViewModel,
+        animated: Bool
+    ) {
+        let comp = component.togetherRunnerComponent
+        let coord = TogetherRunnerCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
                 break
             }
         }

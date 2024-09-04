@@ -23,8 +23,14 @@ final class WriteLogComponent {
         self.postId = postId
     }
 
-    func logStampBottomSheetComponent(selectedLogStamp: LogStamp2) -> LogStampBottomSheetComponent {
-        return LogStampBottomSheetComponent(selectedLogStamp: selectedLogStamp)
+    func logStampBottomSheetComponent(
+        selectedLogStamp: LogStamp2,
+        title: String
+    ) -> LogStampBottomSheetComponent {
+        return LogStampBottomSheetComponent(
+            selectedLogStamp: selectedLogStamp,
+            title: title
+        )
     }
 
     func stampBottomSheetComponent(
@@ -39,5 +45,9 @@ final class WriteLogComponent {
 
     var takePhotoModalComponent: TakePhotoModalComponent {
         return TakePhotoModalComponent()
+    }
+
+    var togetherRunnerComponent: TogetherRunnerComponent {
+        return TogetherRunnerComponent()
     }
 }

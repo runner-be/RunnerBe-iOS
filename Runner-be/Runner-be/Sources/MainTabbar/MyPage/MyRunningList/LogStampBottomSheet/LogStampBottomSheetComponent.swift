@@ -10,7 +10,11 @@ import UIKit
 final class LogStampBottomSheetComponent {
     var scene: (VC: UIViewController, VM: LogStampBottomSheetViewModel) {
         let viewModel = self.viewModel
-        return (LogStampBottomSheetViewController(viewModel: viewModel), viewModel)
+        let title = self.title
+        return (LogStampBottomSheetViewController(
+            viewModel: viewModel,
+            title: title
+        ), viewModel)
     }
 
     var viewModel: LogStampBottomSheetViewModel {
@@ -18,8 +22,13 @@ final class LogStampBottomSheetComponent {
     }
 
     var selectedStamp: LogStamp2
+    var title: String
 
-    init(selectedLogStamp: LogStamp2) {
+    init(
+        selectedLogStamp: LogStamp2,
+        title: String
+    ) {
         selectedStamp = selectedLogStamp
+        self.title = title
     }
 }
