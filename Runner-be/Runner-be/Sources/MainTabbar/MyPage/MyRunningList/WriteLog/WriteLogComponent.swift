@@ -44,7 +44,7 @@ final class WriteLogComponent {
     }
 
     var takePhotoModalComponent: TakePhotoModalComponent {
-        return TakePhotoModalComponent()
+        return TakePhotoModalComponent(isShowBasicImageOption: false)
     }
 
     var togetherRunnerComponent: TogetherRunnerComponent {
