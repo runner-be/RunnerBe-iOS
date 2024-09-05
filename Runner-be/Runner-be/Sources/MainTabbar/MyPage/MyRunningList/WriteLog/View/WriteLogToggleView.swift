@@ -24,13 +24,7 @@ final class WriteLogToggleView: UIView {
         $0.font = .pretendardRegular14
     }
 
-    private var onOffSwitch = UISwitch().then { view in
-        view.onTintColor = .primary
-        view.tintColor = .darkG2
-        view.backgroundColor = .darkG2
-        view.layer.cornerRadius = view.frame.height / 2
-        view.clipsToBounds = true
-    }
+    var toggleButton = ToggleSwitch()
 
     // MARK: - Init
 
@@ -55,7 +49,7 @@ extension WriteLogToggleView {
         addSubviews([
             titleLabel,
             subTitleLabel,
-            onOffSwitch,
+            toggleButton,
         ])
     }
 
@@ -66,12 +60,15 @@ extension WriteLogToggleView {
 
         subTitleLabel.snp.makeConstraints {
             $0.left.equalTo(titleLabel.snp.right).offset(8)
+            $0.top.bottom.equalToSuperview()
             $0.centerY.equalTo(titleLabel)
         }
 
-        onOffSwitch.snp.makeConstraints {
-            $0.top.right.bottom.equalToSuperview()
+        toggleButton.snp.makeConstraints {
+            $0.right.equalToSuperview()
             $0.centerY.equalToSuperview()
+            $0.width.equalTo(38)
+            $0.height.equalTo(24)
         }
     }
 }

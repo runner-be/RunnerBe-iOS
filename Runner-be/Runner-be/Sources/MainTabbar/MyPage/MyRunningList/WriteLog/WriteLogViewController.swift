@@ -145,6 +145,13 @@ final class WriteLogViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapTogether)
             .disposed(by: disposeBag)
 
+        privacyToggleView.toggleButton.toggleObservable
+            .map {
+                $0 ? 1 : 2
+            }
+            .bind(to: viewModel.inputs.isPrivacyOn)
+            .disposed(by: disposeBag)
+
         registerButton.rx.tap
             .bind(to: viewModel.inputs.createLog)
             .disposed(by: disposeBag)

@@ -19,6 +19,7 @@ final class WriteLogViewModel: BaseViewModel {
         var photoSelected = PublishSubject<Data?>()
         var createLog = PublishSubject<Void>()
         var contents = PublishSubject<String?>()
+        var isPrivacyOn = PublishSubject<Int>()
     }
 
     struct Output {
@@ -156,6 +157,11 @@ final class WriteLogViewModel: BaseViewModel {
                     }
                 }
             }).disposed(by: disposeBag)
+
+        inputs.isPrivacyOn
+            .bind { [weak self] isOn in
+                self?.logForm.isOpened = isOn
+            }.disposed(by: disposeBag)
 
         routeInputs.selectedLogStamp
             .map { [weak self] selectedLogStamp in

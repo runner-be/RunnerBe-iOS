@@ -50,6 +50,7 @@
 		2B9ACC6B2C88797700E2B16D /* LogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */; };
 		2B9ACC6D2C887ADE00E2B16D /* BasicLogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6C2C887ADE00E2B16D /* BasicLogAPIService.swift */; };
 		2B9ACC712C89558900E2B16D /* LogForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC702C89558900E2B16D /* LogForm.swift */; };
+		2B9ACC742C89FEC000E2B16D /* Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC732C89FEC000E2B16D /* Toggle.swift */; };
 		2B9ACF552C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */; };
 		2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */; };
 		2BA664062C81964A00966D64 /* WriteLogComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664052C81964A00966D64 /* WriteLogComponent.swift */; };
@@ -529,6 +530,7 @@
 		2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPIService.swift; sourceTree = "<group>"; };
 		2B9ACC6C2C887ADE00E2B16D /* BasicLogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLogAPIService.swift; sourceTree = "<group>"; };
 		2B9ACC702C89558900E2B16D /* LogForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogForm.swift; sourceTree = "<group>"; };
+		2B9ACC732C89FEC000E2B16D /* Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle.swift; sourceTree = "<group>"; };
 		2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithCheckBoxButton.swift; sourceTree = "<group>"; };
 		2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelButtonBase.swift; sourceTree = "<group>"; };
 		2BA664052C81964A00966D64 /* WriteLogComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogComponent.swift; sourceTree = "<group>"; };
@@ -1124,6 +1126,14 @@
 				2B9ACC6C2C887ADE00E2B16D /* BasicLogAPIService.swift */,
 			);
 			path = LogAPIService;
+			sourceTree = "<group>";
+		};
+		2B9ACC722C89FEB100E2B16D /* Toggle */ = {
+			isa = PBXGroup;
+			children = (
+				2B9ACC732C89FEC000E2B16D /* Toggle.swift */,
+			);
+			path = Toggle;
 			sourceTree = "<group>";
 		};
 		2BA663F32C8195C300966D64 /* WriteLog */ = {
@@ -2407,6 +2417,7 @@
 		C3F0968B27AEDDCF00959F9A /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				2B9ACC722C89FEB100E2B16D /* Toggle */,
 				2B66A0F82C75809F002542D5 /* Search */,
 				43D8F20828E9E22800EB3B92 /* Skeleton */,
 				434ED1FA286007DA00F6EF69 /* Map */,
@@ -3347,6 +3358,7 @@
 				433BD03A28A1365D003B444E /* DeleteConfirmModalViewModel.swift in Sources */,
 				2BC6A5A62C84093900CCE73F /* ConfirmAttendanceViewModel.swift in Sources */,
 				DA7E23E12B7A230B005D18A6 /* MyPageProfileLabel.swift in Sources */,
+				2B9ACC742C89FEC000E2B16D /* Toggle.swift in Sources */,
 				C361B6BC27B285E600824ABE /* SelectJobGroupCoordinator.swift in Sources */,
 				DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
