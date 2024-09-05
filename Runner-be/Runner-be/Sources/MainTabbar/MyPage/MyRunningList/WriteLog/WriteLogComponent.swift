@@ -14,13 +14,13 @@ final class WriteLogComponent {
     }
 
     var viewModel: WriteLogViewModel {
-        return WriteLogViewModel(gatheringId: postId)
+        return WriteLogViewModel(logForm: logForm)
     }
 
-    var postId: Int
+    var logForm: LogForm
 
-    init(postId: Int) {
-        self.postId = postId
+    init(logForm: LogForm) {
+        self.logForm = logForm
     }
 
     func logStampBottomSheetComponent(

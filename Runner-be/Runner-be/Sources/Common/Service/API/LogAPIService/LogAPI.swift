@@ -11,7 +11,7 @@ import Moya
 enum LogAPI {
     case fetchLog(userId: Int, year: String, month: String, token: LoginToken)
     case fetchStamp(token: LoginToken)
-    case create(token: LoginToken)
+    case create(createLogRequest: LogForm, userId: Int, token: LoginToken)
     case edit(token: LoginToken)
     case delete(token: LoginToken)
     case detail(token: LoginToken)
@@ -28,8 +28,8 @@ extension LogAPI: TargetType {
             return "/runningLogs/\(userId)"
         case .fetchStamp:
             return ""
-        case .create:
-            return ""
+        case let .create(_, userId, _):
+            return "/runningLogs/\(userId)"
         case .edit:
             return ""
         case .delete:
@@ -66,8 +66,23 @@ extension LogAPI: TargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .fetchStamp(token: token):
             return .requestPlain
-        case let .create(token: token):
-            return .requestPlain
+        case let .create(logForm, _, _):
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedDate = dateFormatter.string(from: logForm.runningDate)
+            print("senfiosiefjos : \(formattedDate)")
+            let parameters: [String: Any] = [
+                "runningDate": formattedDate,
+                "gatheringId": logForm.gatheringId ?? "",
+                "stampCode": logForm.stampCode ?? "",
+                "contents": logForm.contents ?? "",
+                "imageUrl": logForm.imageUrl ?? "",
+                "weatherDegree": logForm.weatherDegree ?? "",
+                "weatherIcon": logForm.weatherIcon ?? "",
+                "isOpened": logForm.isOpened,
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .edit(token: token):
             return .requestPlain
         case let .delete(token: token):
@@ -85,7 +100,7 @@ extension LogAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .fetchStamp(token: token):
             header["x-access-token"] = "\(token.jwt)"
-        case let .create(token: token):
+        case let .create(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .edit(token: token):
             header["x-access-token"] = "\(token.jwt)"

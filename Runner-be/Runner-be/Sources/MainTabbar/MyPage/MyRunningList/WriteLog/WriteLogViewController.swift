@@ -140,9 +140,17 @@ final class WriteLogViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.tapTogether)
             .disposed(by: disposeBag)
+
+        registerButton.rx.tap
+            .bind(to: viewModel.inputs.createLog)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
+        viewModel.outputs.logDate
+            .bind(to: navBar.titleLabel.rx.text)
+            .disposed(by: disposeBag)
+
         viewModel.outputs.selectedLogStamp
             .bind { [weak self] selectedLogStamp in
                 self?.logStampView.update(logStamp: selectedLogStamp)

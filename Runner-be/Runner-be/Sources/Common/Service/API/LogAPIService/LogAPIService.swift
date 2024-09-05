@@ -20,7 +20,7 @@ struct LogResponse {
 protocol LogAPIService {
     func fetchLog(year: String, month: String) -> Observable<APIResult<(year: String, month: String)>>
     func fetchStamp()
-    func create()
+    func create(form: LogForm) -> Observable<APIResult<LogResult>>
     func eidt()
     func delete()
     func detail()

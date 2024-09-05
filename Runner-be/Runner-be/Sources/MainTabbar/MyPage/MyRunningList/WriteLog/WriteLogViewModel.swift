@@ -17,6 +17,7 @@ final class WriteLogViewModel: BaseViewModel {
         var tapWeather = PublishSubject<Void>()
         var tapTogether = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
+        var createLog = PublishSubject<Void>()
     }
 
     struct Output {
@@ -24,6 +25,7 @@ final class WriteLogViewModel: BaseViewModel {
         var selectedWeather = PublishSubject<(LogStamp2, String)>()
         var showPicker = PublishSubject<EditProfileType>()
         var selectedImageChanged = PublishSubject<Data?>()
+        var logDate = ReplaySubject<String>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -49,14 +51,22 @@ final class WriteLogViewModel: BaseViewModel {
     var selectedLogStamp: LogStamp2?
     var weatherStamp: LogStamp2?
     var weatherTemp: String?
+    var logForm: LogForm
 
     // MARK: - Init
 
     init(
-        gatheringId _: Int,
-        logAPIService _: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService(),
+        logForm: LogForm
     ) {
+        self.logForm = logForm
         super.init()
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
+        let formattedDate = dateFormatter.string(from: logForm.runningDate)
+        outputs.logDate.onNext(formattedDate)
 
         inputs.showLogStampBottomSheet
             .map { [weak self] _ in
@@ -118,9 +128,33 @@ final class WriteLogViewModel: BaseViewModel {
             .bind(to: outputs.selectedImageChanged)
             .disposed(by: disposeBag)
 
+        inputs.createLog
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .compactMap { [weak self] _ in
+                self?.logForm
+            }.flatMap { logAPIService.create(form: $0) }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    switch data {
+                    case .succeed:
+                        break
+                    case .fail:
+                        self?.toast.onNext("다시 시도해주세요!")
+                    case .needLogin:
+                        self?.toast.onNext("로그인이 필요합니다")
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            }).disposed(by: disposeBag)
+
         routeInputs.selectedLogStamp
             .map { [weak self] selectedLogStamp in
                 self?.selectedLogStamp = selectedLogStamp
+                self?.logForm.stampCode = selectedLogStamp.stampCode
                 return selectedLogStamp
             }
             .bind(to: outputs.selectedLogStamp)
@@ -130,6 +164,8 @@ final class WriteLogViewModel: BaseViewModel {
             .map { [weak self] selectedStamp, selecteTemp in
                 self?.weatherStamp = selectedStamp
                 self?.weatherTemp = selecteTemp
+                self?.logForm.weatherIcon = selectedStamp.stampCode
+                self?.logForm.weatherDegree = Int(selecteTemp)
                 return (selectedStamp, selecteTemp)
             }
             .bind(to: outputs.selectedWeather)

@@ -37,11 +37,11 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.writeLog
-            .map { (vm: scene.VM, postId: $0) }
+            .map { (vm: scene.VM, logForm: $0) }
             .subscribe(onNext: { [weak self] inputs in
                 self?.pushWriteLog(
                     vm: inputs.vm,
-                    postId: inputs.postId,
+                    logForm: inputs.logForm,
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
@@ -79,10 +79,10 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
 
     private func pushWriteLog(
         vm: MyRunningListViewModel,
-        postId: Int,
+        logForm: LogForm,
         animated: Bool
     ) {
-        let comp = component.writeLogComponent(postId: postId)
+        let comp = component.writeLogComponent(logForm: logForm)
         let coord = WriteLogCoordinator(
             component: comp,
             navController: navigationController

@@ -49,6 +49,7 @@
 		2B9ACC692C88766000E2B16D /* LogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC682C88766000E2B16D /* LogAPI.swift */; };
 		2B9ACC6B2C88797700E2B16D /* LogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */; };
 		2B9ACC6D2C887ADE00E2B16D /* BasicLogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6C2C887ADE00E2B16D /* BasicLogAPIService.swift */; };
+		2B9ACC712C89558900E2B16D /* LogForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC702C89558900E2B16D /* LogForm.swift */; };
 		2B9ACF552C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */; };
 		2B9ACF572C675FE40074A5B1 /* OnOffLabelButtonBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */; };
 		2BA664062C81964A00966D64 /* WriteLogComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA664052C81964A00966D64 /* WriteLogComponent.swift */; };
@@ -527,6 +528,7 @@
 		2B9ACC682C88766000E2B16D /* LogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPI.swift; sourceTree = "<group>"; };
 		2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPIService.swift; sourceTree = "<group>"; };
 		2B9ACC6C2C887ADE00E2B16D /* BasicLogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLogAPIService.swift; sourceTree = "<group>"; };
+		2B9ACC702C89558900E2B16D /* LogForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogForm.swift; sourceTree = "<group>"; };
 		2B9ACF542C67503D0074A5B1 /* OnOffLabelWithCheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelWithCheckBoxButton.swift; sourceTree = "<group>"; };
 		2B9ACF562C675FE40074A5B1 /* OnOffLabelButtonBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffLabelButtonBase.swift; sourceTree = "<group>"; };
 		2BA664052C81964A00966D64 /* WriteLogComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogComponent.swift; sourceTree = "<group>"; };
@@ -2574,6 +2576,7 @@
 				C3A64F9627C57F5A0088E387 /* PostingForm.swift */,
 				436D8A9B28B1B73100E3DA6C /* Alarm.swift */,
 				DA4353462B8B61D5004C047A /* RunningPace.swift */,
+				2B9ACC702C89558900E2B16D /* LogForm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3348,6 +3351,7 @@
 				DA7E23EB2B7A4D33005D18A6 /* RegisterRunningPaceComponent.swift in Sources */,
 				C35B832327B9176700551AC5 /* BasicSignupService.swift in Sources */,
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
+				2B9ACC712C89558900E2B16D /* LogForm.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
 				DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,

@@ -74,6 +74,24 @@ final class MyRunningListViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapWriteLog
+            .compactMap { [weak self] itemIndex in
+                guard let self = self,
+                      let selectedPost = self.posts[.all]?[itemIndex]
+                else {
+                    return nil
+                }
+
+                return LogForm(
+                    runningDate: selectedPost.gatherDate,
+                    gatheringId: selectedPost.ID,
+                    stampCode: nil,
+                    contents: nil,
+                    imageUrl: nil,
+                    weatherDegree: nil,
+                    weatherIcon: nil,
+                    isOpened: 1
+                )
+            }
             .bind(to: routes.writeLog)
             .disposed(by: disposeBag)
 
@@ -107,7 +125,7 @@ final class MyRunningListViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var writeLog = PublishSubject<Int>()
+        var writeLog = PublishSubject<LogForm>()
         var confirmLog = PublishSubject<Int>()
         var manageAttendance = PublishSubject<Int>()
         var confirmAttendance = PublishSubject<Int>()
