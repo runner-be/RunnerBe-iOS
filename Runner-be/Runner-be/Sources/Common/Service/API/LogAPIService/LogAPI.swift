@@ -71,7 +71,7 @@ extension LogAPI: TargetType {
             dateFormatter.locale = Locale(identifier: "ko_KR")
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let formattedDate = dateFormatter.string(from: logForm.runningDate)
-            print("senfiosiefjos : \(formattedDate)")
+
             let parameters: [String: Any] = [
                 "runningDate": formattedDate,
                 "gatheringId": logForm.gatheringId ?? "",

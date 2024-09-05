@@ -18,6 +18,7 @@ final class WriteLogViewModel: BaseViewModel {
         var tapTogether = PublishSubject<Void>()
         var photoSelected = PublishSubject<Data?>()
         var createLog = PublishSubject<Void>()
+        var contents = PublishSubject<String?>()
     }
 
     struct Output {
@@ -83,13 +84,17 @@ final class WriteLogViewModel: BaseViewModel {
             .bind(to: routes.logStampBottomSheet)
             .disposed(by: disposeBag)
 
+        inputs.contents
+            .bind { [weak self] contents in
+                self?.logForm.contents = contents
+            }.disposed(by: disposeBag)
+
         inputs.tapPhotoButton
             .bind(to: routes.photoModal)
             .disposed(by: disposeBag)
 
         inputs.tapPhotoCancel
             .bind { [weak self] _ in
-                print("sejfosliejfi")
                 self?.outputs.selectedImageChanged.onNext(nil)
             }
             .disposed(by: disposeBag)
@@ -123,6 +128,7 @@ final class WriteLogViewModel: BaseViewModel {
                     self?.toastActivity.onNext(false)
                     self?.toast.onNext("이미지 불러오기에 실패했어요")
                 }
+                self?.logForm.imageData = data
                 return data
             }
             .bind(to: outputs.selectedImageChanged)
@@ -138,7 +144,7 @@ final class WriteLogViewModel: BaseViewModel {
                 case let .response(data):
                     switch data {
                     case .succeed:
-                        break
+                        self?.routes.backward.onNext(true)
                     case .fail:
                         self?.toast.onNext("다시 시도해주세요!")
                     case .needLogin:

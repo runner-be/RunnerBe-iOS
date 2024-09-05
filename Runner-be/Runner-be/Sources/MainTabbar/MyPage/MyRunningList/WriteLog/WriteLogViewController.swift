@@ -117,6 +117,10 @@ final class WriteLogViewController: BaseViewController {
             .bind(to: viewModel.inputs.showLogStampBottomSheet)
             .disposed(by: disposeBag)
 
+        logDiaryView.textView.rx.text
+            .bind(to: viewModel.inputs.contents)
+            .disposed(by: disposeBag)
+
         logDiaryView.imageButton.rx.tapGesture()
             .when(.recognized)
             .map { _ in }

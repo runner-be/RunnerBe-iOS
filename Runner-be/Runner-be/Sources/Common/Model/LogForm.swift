@@ -13,6 +13,7 @@ struct LogForm {
     var stampCode: String?
     var contents: String?
     var imageUrl: String?
+    var imageData: Data?
     var weatherDegree: Int?
     var weatherIcon: String?
     var isOpened: Int
@@ -49,10 +50,10 @@ extension LogForm: CustomDebugStringConvertible {
         LogForm {
         runningDate: \(runningDate)
         gatheringId: \(gatheringId ?? 0)
-        stampCode: \(stampCode)
+        stampCode: \(stampCode ?? "nil")
         contents: \(contents ?? "nil")
         imageUrl: \(imageUrl ?? "nil")
-        weatherDegree: \(weatherDegree)
+        weatherDegree: \(weatherDegree ?? 0)
         weatherIcon: \(weatherIcon ?? "nil")
         isOpened: \(isOpened)
         }
