@@ -52,7 +52,10 @@ final class WriteLogViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(postId _: Int) {
+    init(
+        gatheringId _: Int,
+        logAPIService _: LogAPIService = BasicLogAPIService()
+    ) {
         super.init()
 
         inputs.showLogStampBottomSheet

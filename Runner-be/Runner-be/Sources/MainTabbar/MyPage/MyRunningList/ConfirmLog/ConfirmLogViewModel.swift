@@ -18,7 +18,15 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(postId _: Int) {
+    init(
+        postId _: Int,
+        logAPIService: LogAPIService = BasicLogAPIService()
+    ) {
+        logAPIService.fetchLog(year: "2024", month: "8")
+            .bind { detailLog in
+                print("sejfilsefj detailLog: \(detailLog)")
+            }.disposed(by: disposeBag)
+
         let testReceivedStamps = [
             ReceivedStampConfig(from: ReceivedStamp(
                 userName: "지현",

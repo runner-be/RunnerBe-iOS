@@ -27,8 +27,14 @@ final class CalendarViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    override init() {
+    init(logAPIService: LogAPIService = BasicLogAPIService()) {
         super.init()
+
+        logAPIService.fetchLog(year: year, month: month)
+            .bind { detailLog in
+                print("sejfilsefj detailLog: \(detailLog)")
+            }.disposed(by: disposeBag)
+
         changeTargetDate(
             year: Int(year) ?? 0,
             month: Int(month) ?? 0

@@ -14,7 +14,7 @@ final class WriteLogComponent {
     }
 
     var viewModel: WriteLogViewModel {
-        return WriteLogViewModel(postId: postId)
+        return WriteLogViewModel(gatheringId: postId)
     }
 
     var postId: Int
