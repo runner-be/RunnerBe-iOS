@@ -296,6 +296,40 @@ final class MyPageViewModel: BaseViewModel {
         inputs.registerRunningPace
             .bind(to: routes.registerRunningPace)
             .disposed(by: disposeBag)
+
+        inputs.tapWriteLog
+            .compactMap { [weak self] itemIndex in
+                guard let self = self,
+                      let selectedPost = self.posts[.attendable]?[itemIndex]
+                else {
+                    return nil
+                }
+
+                return LogForm(
+                    runningDate: selectedPost.gatherDate,
+                    gatheringId: selectedPost.ID,
+                    stampCode: nil,
+                    contents: nil,
+                    imageUrl: nil,
+                    weatherDegree: nil,
+                    weatherIcon: nil,
+                    isOpened: 1
+                )
+            }
+            .bind(to: routes.writeLog)
+            .disposed(by: disposeBag)
+
+        inputs.tapConfirmLog
+            .bind(to: routes.confirmLog)
+            .disposed(by: disposeBag)
+
+        inputs.tapManageAttendance
+            .bind(to: routes.manageAttendance)
+            .disposed(by: disposeBag)
+
+        inputs.tapConfirmAttendance
+            .bind(to: routes.confirmAttendance)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -314,6 +348,11 @@ final class MyPageViewModel: BaseViewModel {
         var manageAttendance = PublishSubject<Int>()
         var changeToDefaultProfile = PublishSubject<Void>()
         var registerRunningPace = PublishSubject<Void>()
+
+        var tapWriteLog = PublishSubject<Int>()
+        var tapConfirmLog = PublishSubject<Int>()
+        var tapManageAttendance = PublishSubject<Int>()
+        var tapConfirmAttendance = PublishSubject<Int>()
     }
 
     struct Output {
@@ -338,8 +377,12 @@ final class MyPageViewModel: BaseViewModel {
         var writePost = PublishSubject<Void>()
         var toMain = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
-        var manageAttendance = PublishSubject<Int>()
         var registerRunningPace = PublishSubject<Void>()
+
+        var writeLog = PublishSubject<LogForm>()
+        var confirmLog = PublishSubject<Int>()
+        var manageAttendance = PublishSubject<Int>()
+        var confirmAttendance = PublishSubject<Int>()
     }
 
     struct RouteInput {

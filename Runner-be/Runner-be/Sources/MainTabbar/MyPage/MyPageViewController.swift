@@ -145,6 +145,30 @@ final class MyPageViewController: BaseViewController {
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
+
+            cell.manageAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapManageAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.writeLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapWriteLog)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmLog)
+                .disposed(by: cell.disposeBag)
             return cell
         }
 
