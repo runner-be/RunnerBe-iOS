@@ -16,6 +16,10 @@
 		2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */; };
 		2B0A75942C76C54200818710 /* SelectPlaceResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */; };
 		2B0A75962C76CB6000818710 /* SelectPlaceListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */; };
+		2B0D55A32C8AB293004D74D2 /* LogModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A22C8AB293004D74D2 /* LogModalComponent.swift */; };
+		2B0D55A52C8AB29E004D74D2 /* LogModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A42C8AB29E004D74D2 /* LogModalCoordinator.swift */; };
+		2B0D55A72C8AB2A5004D74D2 /* LogModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A62C8AB2A5004D74D2 /* LogModalViewModel.swift */; };
+		2B0D55A92C8AB2AE004D74D2 /* LogModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A82C8AB2AE004D74D2 /* LogModalViewController.swift */; };
 		2B1797642C7DE1D00001C354 /* CalendarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797632C7DE1D00001C354 /* CalendarComponent.swift */; };
 		2B1797662C7DE1DB0001C354 /* CalendarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */; };
 		2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */; };
@@ -496,6 +500,10 @@
 		2B0A75902C75FF5200818710 /* SelectPlaceEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceEmptyView.swift; sourceTree = "<group>"; };
 		2B0A75932C76C54200818710 /* SelectPlaceResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceResultCell.swift; sourceTree = "<group>"; };
 		2B0A75952C76CB6000818710 /* SelectPlaceListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceListSection.swift; sourceTree = "<group>"; };
+		2B0D55A22C8AB293004D74D2 /* LogModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalComponent.swift; sourceTree = "<group>"; };
+		2B0D55A42C8AB29E004D74D2 /* LogModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalCoordinator.swift; sourceTree = "<group>"; };
+		2B0D55A62C8AB2A5004D74D2 /* LogModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalViewModel.swift; sourceTree = "<group>"; };
+		2B0D55A82C8AB2AE004D74D2 /* LogModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalViewController.swift; sourceTree = "<group>"; };
 		2B1797632C7DE1D00001C354 /* CalendarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarComponent.swift; sourceTree = "<group>"; };
 		2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCoordinator.swift; sourceTree = "<group>"; };
 		2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -1008,6 +1016,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		2B0D55A12C8AB279004D74D2 /* LogModal */ = {
+			isa = PBXGroup;
+			children = (
+				2B0D55A22C8AB293004D74D2 /* LogModalComponent.swift */,
+				2B0D55A42C8AB29E004D74D2 /* LogModalCoordinator.swift */,
+				2B0D55A62C8AB2A5004D74D2 /* LogModalViewModel.swift */,
+				2B0D55A82C8AB2AE004D74D2 /* LogModalViewController.swift */,
+			);
+			path = LogModal;
+			sourceTree = "<group>";
+		};
 		2B1797622C7DE1290001C354 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1062,7 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2B0D55A12C8AB279004D74D2 /* LogModal */,
 				2BBA6E482C855F9F00E6CE40 /* StampBottomSheet */,
 				2BD4F24A2C8424A3005F5C11 /* LogStampBottomSheet */,
 				2BC6A5A02C8408EC00CCE73F /* ConfirmAteendance */,
@@ -3083,6 +3103,7 @@
 				C3C9734D27CA963200232251 /* EditInfoViewModel.swift in Sources */,
 				DA4353432B8B31A5004C047A /* RegisterRunningPaceConfirmModalCoordinator.swift in Sources */,
 				C38ABDA027D4E3E00025929E /* SignoutModalCoordinator.swift in Sources */,
+				2B0D55A32C8AB293004D74D2 /* LogModalComponent.swift in Sources */,
 				434635D528910F09007D8C10 /* RunningTagModalComponent.swift in Sources */,
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
@@ -3229,6 +3250,7 @@
 				C3C9735F27CA96C900232251 /* MakerViewModel.swift in Sources */,
 				DA7E972A288C363B0001BBDC /* ManageTimeExpiredViewController.swift in Sources */,
 				C3C9735127CA965F00232251 /* SettingsComponent.swift in Sources */,
+				2B0D55A52C8AB29E004D74D2 /* LogModalCoordinator.swift in Sources */,
 				C3498F3F27C13D53003EDD0F /* SelectTimeModalComponent.swift in Sources */,
 				2BBA6E5B2C87103700E6CE40 /* TogetherRunnerComponent.swift in Sources */,
 				C32C026E27CB16DD0011419E /* NickNameChangeModalComponent.swift in Sources */,
@@ -3268,6 +3290,7 @@
 				2B66A0F72C758098002542D5 /* SearchBarView.swift in Sources */,
 				4358CB2D288E0E58005099E9 /* PostAnnotationView.swift in Sources */,
 				C39E926727BACFC200798F3A /* BasicMailingAPIService.swift in Sources */,
+				2B0D55A72C8AB2A5004D74D2 /* LogModalViewModel.swift in Sources */,
 				C3C9734427CA5EBA00232251 /* MainTabbarController.swift in Sources */,
 				2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */,
 				C3BB13C827C91140004954EB /* UserInfoHeader.swift in Sources */,
@@ -3426,6 +3449,7 @@
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
 				DA4353422B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,
+				2B0D55A92C8AB2AE004D74D2 /* LogModalViewController.swift in Sources */,
 				C35E34B227C849050023C0F9 /* DetailMapView.swift in Sources */,
 				2B57EA6D2C80226E00C696FF /* MyRunningListComponent.swift in Sources */,
 				C3C9733927C9E7C300232251 /* UserInfoWithSingleDivider.swift in Sources */,

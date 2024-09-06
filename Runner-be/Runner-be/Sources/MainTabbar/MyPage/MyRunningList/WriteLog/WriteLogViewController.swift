@@ -17,7 +17,7 @@ final class WriteLogViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = "2024년 0월 0일 월요일"
-        navBar.leftBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
+        navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.isHidden = true
         navBar.rightSecondBtnItem.isHidden = true
     }
@@ -108,7 +108,7 @@ final class WriteLogViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .map { true }
-            .bind(to: viewModel.routes.backward)
+            .bind(to: viewModel.routes.backwardModal)
             .disposed(by: disposeBag)
 
         logStampView.rx.tapGesture()

@@ -36,6 +36,7 @@ final class WriteLogViewModel: BaseViewModel {
         var stampBottomSheet = PublishSubject<(stamp: LogStamp2, temp: String)>()
         var togetherRunner = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
+        var backwardModal = PublishSubject<Void>()
     }
 
     struct RouteInput {

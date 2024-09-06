@@ -71,6 +71,15 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             .bind { [weak self] vm in
                 self?.pushTogetherRunnerScene(vm: vm, animated: true)
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.backwardModal
+            .map { scene.VM }
+            .bind { [weak self] vm in
+                self?.showLogModalScene(
+                    vm: vm,
+                    animated: false
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func pushLogStampBottomSheetScene(
@@ -166,6 +175,29 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             animated: animated
         ) { coordResult in
             switch coordResult {
+            case .backward:
+                break
+            }
+        }
+    }
+
+    private func showLogModalScene(
+        vm: WriteLogViewModel,
+        animated: Bool
+    ) {
+        let comp = component.logModalComponent
+        let coord = LogModalCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .agree:
+                vm.routes.backward.onNext(true)
             case .backward:
                 break
             }

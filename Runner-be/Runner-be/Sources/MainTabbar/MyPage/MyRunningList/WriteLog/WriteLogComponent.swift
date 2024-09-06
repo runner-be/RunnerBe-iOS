@@ -50,4 +50,8 @@ final class WriteLogComponent {
     var togetherRunnerComponent: TogetherRunnerComponent {
         return TogetherRunnerComponent()
     }
+
+    var logModalComponent: LogModalComponent {
+        return LogModalComponent()
+    }
 }
