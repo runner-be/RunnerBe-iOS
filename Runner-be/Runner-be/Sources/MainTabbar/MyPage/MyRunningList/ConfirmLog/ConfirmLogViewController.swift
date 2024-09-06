@@ -16,11 +16,11 @@ final class ConfirmLogViewController: BaseViewController {
 
     // MARK: - UI
 
-    private var navBar = RunnerbeNavBar().then { navBar in
-        navBar.titleLabel.text = "2024년 0월 0일 월요일 22 "
-        navBar.leftBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
-        navBar.rightBtnItem.isHidden = true
-        navBar.rightSecondBtnItem.isHidden = true
+    private var navBar = RunnerbeNavBar().then {
+        $0.titleLabel.text = "2024년 0월 0일 월요일 22 "
+        $0.leftBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
+        $0.rightBtnItem.setImage(Asset.moreVertical.uiImage.withTintColor(.darkG3).resize(newWidth: 24), for: .normal)
+        $0.rightSecondBtnItem.isHidden = true
     }
 
     private let scrollView = UIScrollView().then {
@@ -109,6 +109,10 @@ final class ConfirmLogViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
+        viewModel.outputs.logDate
+            .bind(to: navBar.titleLabel.rx.text)
+            .disposed(by: disposeBag)
+
         receivedStampListView.stampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         // 나의 로그 스탬프

@@ -24,7 +24,7 @@ final class TogetherRunnerComponent {
         )
     }
 
-    func confirmLogComponent(postId: Int) -> ConfirmLogComponent {
-        return ConfirmLogComponent(postId: postId)
+    func confirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logForm: logForm)
     }
 }

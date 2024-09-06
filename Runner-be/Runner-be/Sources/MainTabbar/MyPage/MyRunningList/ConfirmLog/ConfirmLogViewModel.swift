@@ -16,12 +16,23 @@ final class ConfirmLogViewModel: BaseViewModel {
     var routes = Route()
     var routeInputs = RouteInput()
 
+    var logForm: LogForm
+
     // MARK: - Init
 
     init(
-        postId _: Int,
+        logForm: LogForm,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
+        self.logForm = logForm
+        super.init()
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
+        let formattedDate = dateFormatter.string(from: logForm.runningDate)
+        outputs.logDate.onNext(formattedDate)
+
         logAPIService.fetchLog(year: "2024", month: "8")
             .bind { detailLog in
                 print("sejfilsefj detailLog: \(detailLog)")
@@ -54,6 +65,7 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     struct Output {
         var receivedStamps = ReplaySubject<[ReceivedStampConfig]>.create(bufferSize: 1)
+        var logDate = ReplaySubject<String>.create(bufferSize: 1)
     }
 
     struct Route {

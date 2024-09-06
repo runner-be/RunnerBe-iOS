@@ -14,12 +14,12 @@ final class ConfirmLogComponent {
     }
 
     var viewModel: ConfirmLogViewModel {
-        return ConfirmLogViewModel(postId: postId)
+        return ConfirmLogViewModel(logForm: logForm)
     }
 
-    var postId: Int
+    var logForm: LogForm
 
-    init(postId: Int) {
-        self.postId = postId
+    init(logForm: LogForm) {
+        self.logForm = logForm
     }
 }

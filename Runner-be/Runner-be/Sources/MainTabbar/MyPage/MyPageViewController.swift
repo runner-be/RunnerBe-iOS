@@ -161,7 +161,7 @@ final class MyPageViewController: BaseViewController {
             cell.writeLogButton.rx.tapGesture()
                 .when(.recognized)
                 .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapWriteLog)
+                .bind(to: viewModel.inputs.tapConfirmLog)
                 .disposed(by: cell.disposeBag)
 
             cell.confirmLogButton.rx.tapGesture()

@@ -19,8 +19,8 @@ final class MyRunningListComponent {
         return WriteLogComponent(logForm: logForm)
     }
 
-    func confirmLogComponent(postId: Int) -> ConfirmLogComponent {
-        return ConfirmLogComponent(postId: postId)
+    func confirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logForm: logForm)
     }
 
     func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {
