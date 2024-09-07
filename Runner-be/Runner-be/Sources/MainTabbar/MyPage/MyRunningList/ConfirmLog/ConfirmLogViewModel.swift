@@ -70,6 +70,7 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Bool>()
+        var modal = PublishSubject<Void>()
     }
 
     struct RouteInput {}

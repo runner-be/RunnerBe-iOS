@@ -52,11 +52,11 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
             }.disposed(by: sceneDisposeBag)
 
         scene.VM.routes.confirmLog
-            .map { (vm: scene.VM, result: $0) }
+            .map { (vm: scene.VM, logForm: $0) }
             .bind { [weak self] inputs in
                 self?.pushConfirmLogScene(
                     vm: inputs.vm,
-                    postId: inputs.result,
+                    logForm: inputs.logForm,
                     animated: true
                 )
             }.disposed(by: sceneDisposeBag)
@@ -92,10 +92,10 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
 
     private func pushConfirmLogScene(
         vm _: TogetherRunnerViewModel,
-        postId: Int,
+        logForm: LogForm,
         animated: Bool
     ) {
-        let comp = component.confirmLogComponent(postId: postId)
+        let comp = component.confirmLogComponent(logForm: logForm)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

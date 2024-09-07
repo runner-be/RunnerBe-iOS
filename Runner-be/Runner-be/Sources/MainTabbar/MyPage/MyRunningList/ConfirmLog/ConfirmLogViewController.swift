@@ -19,7 +19,7 @@ final class ConfirmLogViewController: BaseViewController {
     private var navBar = RunnerbeNavBar().then {
         $0.titleLabel.text = "2024년 0월 0일 월요일 22 "
         $0.leftBtnItem.setImage(Asset.x.uiImage.withTintColor(.darkG3), for: .normal)
-        $0.rightBtnItem.setImage(Asset.moreVertical.uiImage.withTintColor(.darkG3).resize(newWidth: 24), for: .normal)
+        $0.rightBtnItem.setImage(Asset.iconMoreButton24.uiImage.withTintColor(.darkG3), for: .normal)
         $0.rightSecondBtnItem.isHidden = true
     }
 
@@ -71,7 +71,10 @@ final class ConfirmLogViewController: BaseViewController {
         }
     }
 
-    private let privacyToggleView = WriteLogToggleView()
+    private let privacyToggleView = WriteLogToggleView().then {
+        $0.toggleButton.layer.opacity = 0.3
+        $0.isUserInteractionEnabled = false
+    }
 
     private let registerButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
@@ -105,6 +108,10 @@ final class ConfirmLogViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .map { true }
             .bind(to: viewModel.routes.backward)
+            .disposed(by: disposeBag)
+
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.routes.modal)
             .disposed(by: disposeBag)
     }
 

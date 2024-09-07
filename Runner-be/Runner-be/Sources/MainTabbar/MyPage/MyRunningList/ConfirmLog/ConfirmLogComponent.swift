@@ -22,4 +22,8 @@ final class ConfirmLogComponent {
     init(logForm: LogForm) {
         self.logForm = logForm
     }
+
+    var menuModalComponent: MenuModalComponent {
+        return MenuModalComponent()
+    }
 }

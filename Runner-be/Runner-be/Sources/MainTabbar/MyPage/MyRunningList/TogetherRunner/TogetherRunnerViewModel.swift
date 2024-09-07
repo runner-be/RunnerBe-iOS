@@ -23,7 +23,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var logStampBottomSheet = PublishSubject<(stamp: LogStamp2, title: String)>()
-        var confirmLog = PublishSubject<Int>()
+        var confirmLog = PublishSubject<LogForm>()
     }
 
     struct RouteInputs {
@@ -112,7 +112,23 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapShowLogButton
-            .do { print("tapped Item index: \($0)") }
+            .compactMap { [weak self] _ in
+                guard let self = self
+                else {
+                    return nil
+                }
+
+                return LogForm(
+                    runningDate: Date(),
+                    gatheringId: 0,
+                    stampCode: nil,
+                    contents: nil,
+                    imageUrl: nil,
+                    weatherDegree: nil,
+                    weatherIcon: nil,
+                    isOpened: 1
+                )
+            }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 

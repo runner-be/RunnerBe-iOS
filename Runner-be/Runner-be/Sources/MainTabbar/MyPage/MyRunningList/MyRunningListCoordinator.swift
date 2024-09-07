@@ -47,11 +47,11 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.confirmLog
-            .map { (vm: scene.VM, postId: $0) }
+            .map { (vm: scene.VM, logForm: $0) }
             .subscribe(onNext: { [weak self] inputs in
                 self?.pushConfirmLog(
                     vm: inputs.vm,
-                    postId: inputs.postId,
+                    logForm: inputs.logForm,
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
@@ -98,10 +98,10 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
 
     private func pushConfirmLog(
         vm: MyRunningListViewModel,
-        postId: Int,
+        logForm: LogForm,
         animated: Bool
     ) {
-        let comp = component.confirmLogComponent(postId: postId)
+        let comp = component.confirmLogComponent(logForm: logForm)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

@@ -20,6 +20,10 @@
 		2B0D55A52C8AB29E004D74D2 /* LogModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A42C8AB29E004D74D2 /* LogModalCoordinator.swift */; };
 		2B0D55A72C8AB2A5004D74D2 /* LogModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A62C8AB2A5004D74D2 /* LogModalViewModel.swift */; };
 		2B0D55A92C8AB2AE004D74D2 /* LogModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55A82C8AB2AE004D74D2 /* LogModalViewController.swift */; };
+		2B0D55AC2C8ADD08004D74D2 /* MenuModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55AB2C8ADD08004D74D2 /* MenuModalComponent.swift */; };
+		2B0D55AE2C8ADD0F004D74D2 /* MenuModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55AD2C8ADD0F004D74D2 /* MenuModalCoordinator.swift */; };
+		2B0D55B02C8ADD17004D74D2 /* MenuModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55AF2C8ADD17004D74D2 /* MenuModalViewModel.swift */; };
+		2B0D55B22C8ADD1F004D74D2 /* MenuModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D55B12C8ADD1F004D74D2 /* MenuModalViewController.swift */; };
 		2B1797642C7DE1D00001C354 /* CalendarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797632C7DE1D00001C354 /* CalendarComponent.swift */; };
 		2B1797662C7DE1DB0001C354 /* CalendarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */; };
 		2B1797682C7DE1E30001C354 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */; };
@@ -504,6 +508,10 @@
 		2B0D55A42C8AB29E004D74D2 /* LogModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalCoordinator.swift; sourceTree = "<group>"; };
 		2B0D55A62C8AB2A5004D74D2 /* LogModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalViewModel.swift; sourceTree = "<group>"; };
 		2B0D55A82C8AB2AE004D74D2 /* LogModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModalViewController.swift; sourceTree = "<group>"; };
+		2B0D55AB2C8ADD08004D74D2 /* MenuModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalComponent.swift; sourceTree = "<group>"; };
+		2B0D55AD2C8ADD0F004D74D2 /* MenuModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalCoordinator.swift; sourceTree = "<group>"; };
+		2B0D55AF2C8ADD17004D74D2 /* MenuModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewModel.swift; sourceTree = "<group>"; };
+		2B0D55B12C8ADD1F004D74D2 /* MenuModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewController.swift; sourceTree = "<group>"; };
 		2B1797632C7DE1D00001C354 /* CalendarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarComponent.swift; sourceTree = "<group>"; };
 		2B1797652C7DE1DB0001C354 /* CalendarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCoordinator.swift; sourceTree = "<group>"; };
 		2B1797672C7DE1E30001C354 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -1027,6 +1035,17 @@
 			path = LogModal;
 			sourceTree = "<group>";
 		};
+		2B0D55AA2C8ADCF4004D74D2 /* MenuModal */ = {
+			isa = PBXGroup;
+			children = (
+				2B0D55AB2C8ADD08004D74D2 /* MenuModalComponent.swift */,
+				2B0D55AD2C8ADD0F004D74D2 /* MenuModalCoordinator.swift */,
+				2B0D55AF2C8ADD17004D74D2 /* MenuModalViewModel.swift */,
+				2B0D55B12C8ADD1F004D74D2 /* MenuModalViewController.swift */,
+			);
+			path = MenuModal;
+			sourceTree = "<group>";
+		};
 		2B1797622C7DE1290001C354 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1062,6 +1081,7 @@
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
+				2B0D55AA2C8ADCF4004D74D2 /* MenuModal */,
 				2B0D55A12C8AB279004D74D2 /* LogModal */,
 				2BBA6E482C855F9F00E6CE40 /* StampBottomSheet */,
 				2BD4F24A2C8424A3005F5C11 /* LogStampBottomSheet */,
@@ -3144,6 +3164,7 @@
 				C38F8F2527AD947E0050137D /* MainTabComponent.swift in Sources */,
 				C3CA2AF327BC4E8800AEF623 /* HomeFilterComponent.swift in Sources */,
 				C3F3C63327B2014C000A63BC /* SelectGenderComponent.swift in Sources */,
+				2B0D55B22C8ADD1F004D74D2 /* MenuModalViewController.swift in Sources */,
 				2BD4F2502C84255E005F5C11 /* LogStampBottomSheetViewModel.swift in Sources */,
 				433BD02F28A131BF003B444E /* DetailOptionModalViewController.swift in Sources */,
 				C34FDA7127AD5C83007718F8 /* BasicCoordinator.swift in Sources */,
@@ -3215,6 +3236,7 @@
 				2B66A0F52C746A1B002542D5 /* SelectPlaceViewController.swift in Sources */,
 				C3432CAB27B8317500DEFF51 /* LoginAPIResult.swift in Sources */,
 				C39E926527BACFB100798F3A /* MailingAPIService.swift in Sources */,
+				2B0D55AE2C8ADD0F004D74D2 /* MenuModalCoordinator.swift in Sources */,
 				C343A34727BE4533008E6FA4 /* SelectPlaceView.swift in Sources */,
 				2BC6A5A22C84091000CCE73F /* ConfirmAttendanceComponent.swift in Sources */,
 				2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */,
@@ -3363,7 +3385,9 @@
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
+				2B0D55AC2C8ADD08004D74D2 /* MenuModalComponent.swift in Sources */,
 				DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */,
+				2B0D55B02C8ADD17004D74D2 /* MenuModalViewModel.swift in Sources */,
 				C3EB5CD827B8B70900775779 /* SignupAPI.swift in Sources */,
 				2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */,
 				43B1E6CD28B1AD6C0057A1AF /* AlarmListComponent.swift in Sources */,
