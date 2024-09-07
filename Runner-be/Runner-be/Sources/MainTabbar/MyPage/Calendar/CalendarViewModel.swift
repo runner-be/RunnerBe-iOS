@@ -31,9 +31,25 @@ final class CalendarViewModel: BaseViewModel {
         super.init()
 
         logAPIService.fetchLog(year: year, month: month)
-            .bind { detailLog in
-                print("sejfilsefj detailLog: \(detailLog)")
-            }.disposed(by: disposeBag)
+            .compactMap { [weak self] result -> LogResponse? in
+                switch result {
+                case let .response(data):
+                    if let data = data {
+                        return data
+                    }
+                    self?.toast.onNext("로그 스탬프 조회에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+                return nil
+            }
+            .subscribe(onNext: { [weak self] logResponse in
+                self?.outputs.logTotalCount.onNext(logResponse.totalCount)
+            })
+            .disposed(by: disposeBag)
 
         changeTargetDate(
             year: Int(year) ?? 0,
@@ -147,6 +163,7 @@ final class CalendarViewModel: BaseViewModel {
     struct Output {
         var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
         var changeTargetDate = PublishSubject<(year: Int, month: Int)>()
+        var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
     }
 
     struct Route {

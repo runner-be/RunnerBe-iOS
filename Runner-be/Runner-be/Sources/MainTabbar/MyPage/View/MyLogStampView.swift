@@ -87,6 +87,42 @@ final class MyLogStampView: UIView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Methods
+
+    func updateCountLabel(with logTotalCount: LogTotalCount) {
+        if logTotalCount.groupRunningCount == 0 &&
+            logTotalCount.personalRunningCount == 0
+        {
+            logCountEmptyLabel.text = "이달의 스탬프를 채워봐요!"
+            return
+        }
+
+        // 기본 텍스트 설정
+        let groupText = "크루 \(logTotalCount.groupRunningCount)회"
+        let personalText = "개인 \(logTotalCount.personalRunningCount)회"
+        let fullText = "\(groupText) ㆍ \(personalText)"
+
+        // NSMutableAttributedString으로 변환
+        let attributedText = NSMutableAttributedString(string: fullText)
+
+        // 숫자 부분의 범위 계산
+        let groupCountRange = (fullText as NSString).range(of: "\(logTotalCount.groupRunningCount)회")
+        let personalCountRange = (fullText as NSString).range(of: "\(logTotalCount.personalRunningCount)회")
+
+        // 원하는 폰트와 색상 설정
+        let highlightAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.pretendardSemiBold14,
+            .foregroundColor: UIColor.darkG2,
+        ]
+
+        // 숫자 부분에 스타일 적용
+        attributedText.addAttributes(highlightAttributes, range: groupCountRange)
+        attributedText.addAttributes(highlightAttributes, range: personalCountRange)
+
+        // 라벨에 적용
+        logCountEmptyLabel.attributedText = attributedText
+    }
 }
 
 // MARK: - Layout

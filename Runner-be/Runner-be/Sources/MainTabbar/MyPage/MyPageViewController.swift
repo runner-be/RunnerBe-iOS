@@ -138,6 +138,12 @@ final class MyPageViewController: BaseViewController {
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
 
+        viewModel.outputs.logTotalCount
+            .bind { [weak self] logTotalCount in
+                self?.myLogStampView.updateCountLabel(with: logTotalCount)
+            }
+            .disposed(by: disposeBag)
+
         let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self else { return UICollectionViewCell() }
 

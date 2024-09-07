@@ -12,13 +12,8 @@ enum LogResult {
     case succeed, fail, needLogin
 }
 
-struct LogResponse {
-    let runningDate: String
-    let stampCode: String
-}
-
 protocol LogAPIService {
-    func fetchLog(year: String, month: String) -> Observable<APIResult<(year: String, month: String)>>
+    func fetchLog(year: String, month: String) -> Observable<APIResult<LogResponse?>>
     func fetchStamp()
     func create(form: LogForm) -> Observable<APIResult<LogResult>>
     func eidt()

@@ -39,11 +39,11 @@ final class BasicLogAPIService: LogAPIService {
     func fetchLog(
         year: String,
         month: String
-    ) -> Observable<APIResult<(year: String, month: String)>> {
+    ) -> Observable<APIResult<LogResponse?>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
-            return .just(APIResult.response(result: (year: year, month: month)))
+            return .just(APIResult.response(result: nil))
         }
         return provider.rx.request(.fetchLog(
             userId: userId,
@@ -53,26 +53,9 @@ final class BasicLogAPIService: LogAPIService {
         ))
         .asObservable()
         .mapResponse()
-        .map { response in
-            guard let response = response else {
-                Log.d(tag: .network, "res")
-                return APIResult.response(result: (year: year, month: month))
-            }
-
-            Log.d(tag: .network, "response message: \(response.basic.message)")
-            switch response.basic.code {
-            case 1000: // 성공
-                return APIResult.response(result: (year: year, month: month))
-            case 2010: // jwt의 userId와 userId가 일치하지 않습니다.
-                return APIResult.response(result: (year: year, month: month))
-            case 2115: // 연도를 입력해 주세요.
-                return APIResult.response(result: (year: year, month: month))
-            case 2116: // 월 단위를 입력해 주세요.
-                return APIResult.response(result: (year: year, month: month))
-            default:
-                return APIResult.response(result: (year: year, month: month))
-            }
-        }
+        .compactMap { try? $0?.json["result"].rawData() }
+        .decode(type: LogResponse.self, decoder: JSONDecoder())
+        .map { APIResult.response(result: $0) }
         .timeout(.seconds(2), scheduler: MainScheduler.instance)
         .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }

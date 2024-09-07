@@ -18,8 +18,45 @@ final class MyPageViewModel: BaseViewModel {
     var user: User?
     var posts = [PostType: [Post]]()
 
-    init(postAPIService: PostAPIService = BasicPostAPIService(), userAPIService: UserAPIService = BasicUserAPIService()) {
+    var year: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        return formatter.string(from: Date())
+    }
+
+    var month: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        return formatter.string(from: Date())
+    }
+
+    init(
+        postAPIService: PostAPIService = BasicPostAPIService(),
+        userAPIService: UserAPIService = BasicUserAPIService(),
+        logAPIService: LogAPIService = BasicLogAPIService()
+    ) {
         super.init()
+
+        logAPIService.fetchLog(year: year, month: month)
+            .compactMap { [weak self] result -> LogResponse? in
+                switch result {
+                case let .response(data):
+                    if let data = data {
+                        return data
+                    }
+                    self?.toast.onNext("로그 스탬프 조회에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+                return nil
+            }
+            .subscribe(onNext: { [weak self] logResponse in
+                self?.outputs.logTotalCount.onNext(logResponse.totalCount)
+            })
+            .disposed(by: disposeBag)
 
         let allItems = [
             MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 12, isToday: false)),
@@ -378,6 +415,7 @@ final class MyPageViewModel: BaseViewModel {
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
+        var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
         var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
         var profileChanged = PublishSubject<Data?>()
