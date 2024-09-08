@@ -84,7 +84,6 @@ final class CalendarViewController: BaseViewController {
     init(viewModel: CalendarViewModel) {
         self.viewModel = viewModel
         super.init()
-        dateLabel.label.text = "\(viewModel.year)년 \(Int(viewModel.month) ?? 00)월"
     }
 
     @available(*, unavailable)
@@ -141,11 +140,10 @@ final class CalendarViewController: BaseViewController {
                     return UICollectionViewCell()
                 }
 
-                cell.configure(
-                    dayOfWeek: element.dayOfWeek,
+                cell.configure(with: LogStamp(
                     date: element.date,
-                    isToday: element.isToday
-                )
+                    stampType: element.stampType
+                ))
 
                 return cell
             })
@@ -156,7 +154,7 @@ final class CalendarViewController: BaseViewController {
             .bind(to: calendarCollectionView.rx.items(dataSource: calendarDatasource))
             .disposed(by: disposeBag)
 
-        viewModel.outputs.changeTargetDate
+        viewModel.outputs.changedTargetDate
             .bind { [weak self] targetDate in
                 self?.dateLabel.label.text = "\(targetDate.year)년 \(targetDate.month)월"
             }.disposed(by: disposeBag)

@@ -157,6 +157,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 vm.routeInputs.needUpdate.onNext(true)
             }
         }
+
+        comp.viewModel.routeInputs.needUpdate.onNext((
+            targetDate: nil,
+            needUpdate: true
+        ))
     }
 
     func pushMyRunningListScene(vm: MyPageViewModel, animated: Bool) {

@@ -119,11 +119,10 @@ final class MyPageViewController: BaseViewController {
                     return UICollectionViewCell()
                 }
 
-                cell.configure(
-                    dayOfWeek: element.dayOfWeek,
+                cell.configure(with: LogStamp(
                     date: element.date,
-                    isToday: element.isToday
-                )
+                    stampType: element.stampType
+                ))
 
                 return cell
             }
@@ -257,6 +256,11 @@ final class MyPageViewController: BaseViewController {
                     self?.myProfileView.avatarView.image = Asset.profileEmptyIcon.uiImage
                 }
             })
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.changeTargetDate
+            .map { "\($0.year)년 \($0.month)월" }
+            .bind(to: myLogStampView.dateLabel.rx.text)
             .disposed(by: disposeBag)
     }
 

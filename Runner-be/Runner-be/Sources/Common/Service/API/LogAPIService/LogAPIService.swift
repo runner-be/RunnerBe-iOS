@@ -13,7 +13,7 @@ enum LogResult {
 }
 
 protocol LogAPIService {
-    func fetchLog(year: String, month: String) -> Observable<APIResult<LogResponse?>>
+    func fetchLog(targetDate: Date) -> Observable<APIResult<LogResponse?>>
     func fetchStamp()
     func create(form: LogForm) -> Observable<APIResult<LogResult>>
     func eidt()

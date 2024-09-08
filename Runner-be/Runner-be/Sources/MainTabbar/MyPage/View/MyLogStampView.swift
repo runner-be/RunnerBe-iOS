@@ -17,7 +17,7 @@ final class MyLogStampView: UIView {
         $0.currentPageIndicatorTintColor = .darkG2
     }
 
-    private let dateLabel = UILabel().then {
+    let dateLabel = UILabel().then {
         $0.text = "2024년 3월"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16

@@ -8,7 +8,7 @@
 import UIKit
 
 enum SelectDateBottomSheetResult {
-    case apply(year: Int, month: Int)
+    case apply(selectedDate: Date)
     case cancel
 }
 
@@ -31,7 +31,7 @@ final class SelectDateBottomSheetCoordinator: BasicCoordinator<SelectDateBottomS
         closeSignal
             .subscribe(onNext: { result in
                 switch result {
-                case let .apply(year, month):
+                case .apply:
                     scene.VC.dismiss(animated: false)
                 case .cancel:
                     scene.VC.dismiss(animated: false)
@@ -45,13 +45,7 @@ final class SelectDateBottomSheetCoordinator: BasicCoordinator<SelectDateBottomS
 
         scene.VM.routes.apply
             .map { selectedDate -> SelectDateBottomSheetResult in
-                guard let selectedDate = selectedDate else {
-                    return .apply(year: 0, month: 0)
-                }
-                return .apply(
-                    year: selectedDate.year,
-                    month: selectedDate.month
-                )
+                .apply(selectedDate: selectedDate)
             }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)

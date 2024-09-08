@@ -22,7 +22,7 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     init(
         logForm: LogForm,
-        logAPIService: LogAPIService = BasicLogAPIService()
+        logAPIService _: LogAPIService = BasicLogAPIService()
     ) {
         self.logForm = logForm
         super.init()
@@ -32,11 +32,6 @@ final class ConfirmLogViewModel: BaseViewModel {
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
         let formattedDate = dateFormatter.string(from: logForm.runningDate)
         outputs.logDate.onNext(formattedDate)
-
-        logAPIService.fetchLog(year: "2024", month: "8")
-            .bind { detailLog in
-                print("sejfilsefj detailLog: \(detailLog)")
-            }.disposed(by: disposeBag)
 
         let testReceivedStamps = [
             ReceivedStampConfig(from: ReceivedStamp(

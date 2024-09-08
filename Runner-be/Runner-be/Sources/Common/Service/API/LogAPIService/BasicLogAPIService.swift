@@ -36,19 +36,23 @@ final class BasicLogAPIService: LogAPIService {
 
     // MARK: - Methods
 
-    func fetchLog(
-        year: String,
-        month: String
-    ) -> Observable<APIResult<LogResponse?>> {
+    func fetchLog(targetDate: Date) -> Observable<APIResult<LogResponse?>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
             return .just(APIResult.response(result: nil))
         }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let targetYear = formatter.string(from: targetDate)
+        formatter.dateFormat = "MM"
+        let targetMonth = formatter.string(from: targetDate)
+
         return provider.rx.request(.fetchLog(
             userId: userId,
-            year: year,
-            month: month,
+            year: targetYear,
+            month: targetMonth,
             token: token
         ))
         .asObservable()

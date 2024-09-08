@@ -46,14 +46,35 @@ final class MyLogStampCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(
-        dayOfWeek _: String,
-        date: Int,
-        isToday: Bool
-    ) {
-        dayLabel.text = "\(date)"
+    func configure(with logStamp: LogStamp) {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+
+        formatter.dateFormat = "dd"
+        var formattedCurrentDate = formatter.string(from: currentDate)
+        var formattedLogDate = formatter.string(from: logStamp.date)
+        dayLabel.text = formattedLogDate
+        futureDayLabel.text = formattedLogDate
+
+        formatter.dateFormat = "yyyy-MM-dd"
+        formattedCurrentDate = formatter.string(from: currentDate)
+        formattedLogDate = formatter.string(from: logStamp.date)
+        let isToday = formattedCurrentDate == formattedLogDate
         dayLabel.layer.backgroundColor = isToday ? UIColor.darkG6.cgColor : UIColor.clear.cgColor
         dayLabel.textColor = isToday ? .darkG2 : .darkG5
+
+        let isFuture = currentDate.timeIntervalSince1970 < logStamp.date.timeIntervalSince1970
+
+        futureDayLabel.isHidden = !isFuture
+        stampIcon.isHidden = isFuture
+        dayLabel.isHidden = isFuture
+
+        if let stampIcon = logStamp.stampType?.icon {
+            self.stampIcon.image = stampIcon
+        } else {
+            stampIcon.image = Asset.iconLogEmpty30.uiImage
+        }
     }
 }
 
@@ -76,7 +97,7 @@ extension MyLogStampCell {
         }
 
         futureDayLabel.snp.makeConstraints {
-            $0.center.equalTo(stampIcon)
+            $0.center.equalToSuperview()
         }
 
         dayLabel.snp.makeConstraints {

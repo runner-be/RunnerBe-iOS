@@ -13,88 +13,89 @@ final class CalendarViewModel: BaseViewModel {
 
     private let calendar = Calendar.current
     private var components = DateComponents()
-    var year: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter.string(from: Date())
+    var targetDate: Date {
+        didSet {
+            components.year = targetYear
+            components.month = targetMonth
+            components.day = 1
+        }
     }
 
-    var month: String {
+    var targetYear: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let yearString = formatter.string(from: targetDate)
+        return Int(yearString) ?? 0000
+    }
+
+    var targetMonth: Int {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM"
-        return formatter.string(from: Date())
+        let monthString = formatter.string(from: targetDate)
+        return Int(monthString) ?? 00
     }
 
     // MARK: - Init
 
     init(logAPIService: LogAPIService = BasicLogAPIService()) {
+        targetDate = Date()
         super.init()
 
-        logAPIService.fetchLog(year: year, month: month)
-            .compactMap { [weak self] result -> LogResponse? in
+        inputs.changedTargetDate
+            .flatMap { logAPIService.fetchLog(targetDate: $0) }
+            .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
                     if let data = data {
-                        return data
+                        self?.outputs.logTotalCount.onNext(data.totalCount)
+                        self?.changeTargetDate(runningLog: data.myRunningLog)
                     }
-                    self?.toast.onNext("로그 스탬프 조회에 실패했습니다.")
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
                     }
-                    return nil
+                    return
                 }
-                return nil
-            }
-            .subscribe(onNext: { [weak self] logResponse in
-                self?.outputs.logTotalCount.onNext(logResponse.totalCount)
             })
             .disposed(by: disposeBag)
 
-        changeTargetDate(
-            year: Int(year) ?? 0,
-            month: Int(month) ?? 0
-        )
-
         inputs.showSelectDate
             .map { [weak self] _ in
-                guard let self = self else { return (year: 2024, month: 8) }
-                return (year: components.year!, month: components.month!)
+                guard let self = self else { return Date() }
+                return targetDate
             }
             .bind(to: routes.dateBottomSheet)
             .disposed(by: disposeBag)
 
         routeInputs.needUpdate
             .filter { $0.needUpdate }
-            .bind { [weak self] result in
-
-                self?.changeTargetDate(year: result.year, month: result.month)
+            .compactMap { [weak self] targetDate, _ in
+                self?.targetDate = targetDate ?? Date()
+                return self?.targetDate
             }
+            .bind(to: inputs.changedTargetDate)
             .disposed(by: disposeBag)
     }
 
-    func changeTargetDate(
-        year: Int,
-        month: Int,
-        day: Int = 1
-    ) {
-        components.year = year
-        components.month = month
-        components.day = day // 해당 월의 첫 번째 날을 설정
+    func changeTargetDate(runningLog: [MyRunningLog]) {
         if let targetDate = calendar.date(from: components) {
-            outputs.days.onNext(generateCalendarDates(for: targetDate))
-            outputs.changeTargetDate.onNext((
-                year: Int(year),
-                month: month
+            outputs.days.onNext(generateCalendarDates(runningLog: runningLog))
+            outputs.changedTargetDate.onNext((
+                year: targetYear,
+                month: targetMonth
             ))
         }
     }
 
-    func generateCalendarDates(for date: Date) -> [MyLogStampConfig] {
+    func generateCalendarDates(runningLog: [MyRunningLog]) -> [MyLogStampConfig] {
         var dates: [MyLogStampConfig] = []
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 
         // 오늘 날짜의 요일 계산 (1 = 일요일, 2 = 월요일, ..., 7 = 토요일)
-        let startOfMonth = date.startOfMonth()
+        let startOfMonth = targetDate.startOfMonth()
         let weekdayOfFirstDayInMonth = calendar.component(.weekday, from: startOfMonth)
 
         // 달력은 월요일부터 시작하므로 월요일이 첫 번째가 되도록 조정
@@ -102,37 +103,41 @@ final class CalendarViewModel: BaseViewModel {
 
         // 이전 달의 날짜 계산
         if adjustedWeekdayOfFirstDay > 1 {
-            let previousMonth = calendar.date(byAdding: .month, value: -1, to: date)!
+            let previousMonth = calendar.date(byAdding: .month, value: -1, to: targetDate)!
             let rangeOfPreviousMonth = calendar.range(of: .day, in: .month, for: previousMonth)!
 
             for i in stride(from: adjustedWeekdayOfFirstDay - 1, through: 1, by: -1) {
                 let dayOfPreviousMonth = rangeOfPreviousMonth.count - i + 1
                 let date = previousMonth.with(day: dayOfPreviousMonth)!
-                let dayOfWeek = calendar.component(.weekday, from: date)
-                let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2] // 요일 이름 가져오기
                 dates.append(MyLogStampConfig(from: LogStamp(
-                    dayOfWeek: weekdayString,
-                    date: dayOfPreviousMonth,
-                    isToday: false
+                    date: date,
+                    stampType: nil
                 )))
             }
         }
 
+        // 이번달
         let calendar = Calendar.current
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        let currentComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        // 이번 달의 날짜 추가
-        let rangeOfCurrentMonth = calendar.range(of: .day, in: .month, for: date)!
+        let rangeOfCurrentMonth = calendar.range(of: .day, in: .month, for: targetDate)!
         for day in rangeOfCurrentMonth {
             let date = startOfMonth.with(day: day)!
-            let dayOfWeek = calendar.component(.weekday, from: date)
-            let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2] // 월요일부터 시작하도록 조정
+            var stampType: StampType?
+
+            // runningLog와 동일한 날짜가 있는지 확인
+            for log in runningLog {
+                if let logDate = dateFormatter.date(from: log.runnedDate) {
+                    if calendar.isDate(logDate, inSameDayAs: date) {
+                        stampType = StampType(rawValue: log.stampCode)
+                        break
+                    } else {
+                        stampType = nil
+                    }
+                }
+            }
+
             dates.append(MyLogStampConfig(from: LogStamp(
-                dayOfWeek: weekdayString,
-                date: day,
-                isToday: components.year == currentComponents.year &&
-                    components.month == currentComponents.month &&
-                    day == currentComponents.day
+                date: date,
+                stampType: stampType
             )))
         }
 
@@ -140,15 +145,12 @@ final class CalendarViewModel: BaseViewModel {
         let totalCells = dates.count > 35 ? 42 : 35
         if dates.count < totalCells {
             let remainingDays = totalCells - dates.count
-            let nextMonth = calendar.date(byAdding: .month, value: 1, to: date)!
+            let nextMonth = calendar.date(byAdding: .month, value: 1, to: targetDate)!
             for day in 1 ... remainingDays {
                 let date = nextMonth.with(day: day)!
-                let dayOfWeek = calendar.component(.weekday, from: date)
-                let weekdayString = calendar.shortWeekdaySymbols[(dayOfWeek == 1) ? 6 : dayOfWeek - 2]
                 dates.append(MyLogStampConfig(from: LogStamp(
-                    dayOfWeek: weekdayString,
-                    date: day,
-                    isToday: false
+                    date: date,
+                    stampType: nil
                 )))
             }
         }
@@ -158,21 +160,22 @@ final class CalendarViewModel: BaseViewModel {
 
     struct Input {
         var showSelectDate = PublishSubject<Void>()
+        var changedTargetDate = ReplaySubject<Date>.create(bufferSize: 1)
     }
 
     struct Output {
         var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
-        var changeTargetDate = PublishSubject<(year: Int, month: Int)>()
+        var changedTargetDate = PublishSubject<(year: Int, month: Int)>()
         var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
     }
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var dateBottomSheet = PublishSubject<(year: Int, month: Int)>()
+        var dateBottomSheet = PublishSubject<Date>()
     }
 
     struct RouteInput {
-        var needUpdate = PublishSubject<(year: Int, month: Int, needUpdate: Bool)>()
+        var needUpdate = PublishSubject<(targetDate: Date?, needUpdate: Bool)>()
     }
 
     private var disposeBag = DisposeBag()

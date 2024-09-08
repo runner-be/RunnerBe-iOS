@@ -9,16 +9,14 @@ import Foundation
 import RxDataSources
 
 struct LogStamp {
-    var dayOfWeek: String
-    var date: Int
-    var isToday: Bool
+    let date: Date
+    let stampType: StampType?
 }
 
 struct MyLogStampConfig: Equatable, IdentifiableType {
     let id = UUID()
-    let dayOfWeek: String
-    let date: Int
-    var isToday: Bool
+    var date: Date
+    var stampType: StampType?
 
     var identity: String {
         "\(id)"
@@ -26,8 +24,7 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
 
     init(from: LogStamp) {
         date = from.date
-        dayOfWeek = from.dayOfWeek
-        isToday = from.isToday
+        stampType = from.stampType
     }
 }
 

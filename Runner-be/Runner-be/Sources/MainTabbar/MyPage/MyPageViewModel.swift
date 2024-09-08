@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 
 final class MyPageViewModel: BaseViewModel {
+    // MARK: - Properties
+
     var dirty: Bool = false
 
     enum PostType {
@@ -18,17 +20,31 @@ final class MyPageViewModel: BaseViewModel {
     var user: User?
     var posts = [PostType: [Post]]()
 
-    var year: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter.string(from: Date())
+    private let calendar = Calendar.current
+    private var components = DateComponents()
+    private var targetDate: Date = .init() {
+        didSet {
+            components.year = targetYear
+            components.month = targetMonth
+            components.day = 1
+        }
     }
 
-    var month: String {
+    var targetYear: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let yearString = formatter.string(from: targetDate)
+        return Int(yearString) ?? 0000
+    }
+
+    var targetMonth: Int {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM"
-        return formatter.string(from: Date())
+        let monthString = formatter.string(from: targetDate)
+        return Int(monthString) ?? 00
     }
+
+    // MARK: - Init
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
@@ -37,7 +53,7 @@ final class MyPageViewModel: BaseViewModel {
     ) {
         super.init()
 
-        logAPIService.fetchLog(year: year, month: month)
+        logAPIService.fetchLog(targetDate: Date())
             .compactMap { [weak self] result -> LogResponse? in
                 switch result {
                 case let .response(data):
@@ -55,42 +71,9 @@ final class MyPageViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [weak self] logResponse in
                 self?.outputs.logTotalCount.onNext(logResponse.totalCount)
+                self?.changeTargetDate(runningLog: logResponse.myRunningLog)
             })
             .disposed(by: disposeBag)
-
-        let allItems = [
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 12, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 13, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 14, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 15, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 16, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 17, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 18, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 19, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 20, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 21, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 22, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 23, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 24, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 25, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "월", date: 26, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "화", date: 27, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "수", date: 28, isToday: true)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "목", date: 29, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "금", date: 30, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "토", date: 31, isToday: false)),
-            MyLogStampConfig(from: LogStamp(dayOfWeek: "일", date: 1, isToday: false)),
-        ]
-
-        // 7개씩 끊어서 섹션 만들기
-        let sections = stride(from: 0, to: allItems.count, by: 7).map { startIndex -> MyLogStampSection in
-            let endIndex = min(startIndex + 7, allItems.count)
-            let items = Array(allItems[startIndex ..< endIndex])
-            return MyLogStampSection(items: items)
-        }
-
-        // ViewModel Output에 섹션 전달
-        outputs.logStamps.onNext(sections)
 
         routeInputs.needUpdate
             .filter { $0 }
@@ -387,6 +370,82 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
 
+    // MARK: - Methods
+
+    private func changeTargetDate(runningLog: [MyRunningLog]) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let daysPerWeek = 7
+        // 현재 주와 이전 2주의 날짜들을 가져옴
+        let currentWeek = getWeek(for: Date())
+        let previousWeek = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -1, to: Date())!)
+        let twoWeeksAgo = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -2, to: Date())!)
+
+        // 날짜 배열 합치기
+        let weeks: [Date] = twoWeeksAgo + previousWeek + currentWeek
+
+        // `weeks` 배열을 `MyLogStampConfig` 배열로 변환
+        let myLogStampConfigs: [MyLogStampConfig] = weeks.map { date in
+            var stampType: StampType?
+
+            for log in runningLog {
+                if let logDate = dateFormatter.date(from: log.runnedDate) {
+                    if calendar.isDate(logDate, inSameDayAs: date) {
+                        stampType = StampType(rawValue: log.stampCode)
+                        break
+                    } else {
+                        stampType = nil
+                    }
+                }
+            }
+
+            return MyLogStampConfig(from: LogStamp(
+                date: date,
+                stampType: stampType
+            ))
+        }
+
+        // 7개씩 끊어서 `MyLogStampSection`을 만듦
+        let sections = stride(from: 0, to: myLogStampConfigs.count, by: daysPerWeek).map { startIndex -> MyLogStampSection in
+            let endIndex = min(startIndex + daysPerWeek, myLogStampConfigs.count)
+            let items = Array(myLogStampConfigs[startIndex ..< endIndex])
+            return MyLogStampSection(items: items)
+        }
+
+        // ViewModel Output에 섹션 전달
+        outputs.logStamps.onNext(sections)
+
+//        components.year = target.ΩΩΩ
+//        components.month = month
+//        components.day = day // 해당 월의 첫 번째 날을 설정
+
+//        outputs.changeTargetDate.onNext((year: year, month: month))
+    }
+
+    private func getWeek(for date: Date) -> [Date] {
+        let calendar = Calendar.current
+
+        // 날짜의 요일을 가져옵니다. 1은 일요일, 2는 월요일, ..., 7은 토요일입니다.
+        let weekDay = calendar.component(.weekday, from: date)
+
+        // 주의 시작을 월요일로 가정하고, 해당 주의 월요일로 이동하기 위한 오프셋 계산
+        let startOfWeekOffset = (weekDay == 1 ? -6 : 2 - weekDay)
+        let startOfWeek = calendar.date(byAdding: .day, value: startOfWeekOffset, to: date)!
+
+        // 월요일부터 일요일까지의 날짜 리스트 생성
+        var weekDates: [Date] = []
+        for i in 0 ..< 7 {
+            if let weekDate = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
+                weekDates.append(weekDate)
+            }
+        }
+
+        return weekDates
+    }
+
     struct Input {
         var typeChanged = PublishSubject<PostType>() // subscribe 된 시점 이후부터 발생한 이벤트를 전달
         var settings = PublishSubject<Void>()
@@ -421,6 +480,8 @@ final class MyPageViewModel: BaseViewModel {
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
         var showPicker = PublishSubject<EditProfileType>()
+        var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
+        var changeTargetDate = ReplaySubject<(year: Int, month: Int)>.create(bufferSize: 1)
     }
 
     struct Route {

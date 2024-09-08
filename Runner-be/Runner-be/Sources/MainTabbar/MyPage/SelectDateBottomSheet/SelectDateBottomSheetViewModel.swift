@@ -129,24 +129,65 @@ enum StampType: String, Equatable {
 }
 
 final class SelectDateBottomSheetViewModel: BaseViewModel {
-    init(year _: Int, month: Int) {
+    // MARK: - Properties
+
+    private var targetDate: Date
+
+    var targetYear: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let yearString = formatter.string(from: targetDate)
+        return Int(yearString) ?? 0000
+    }
+
+    var targetMonth: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        let monthString = formatter.string(from: targetDate)
+        return Int(monthString) ?? 00
+    }
+
+    // MARK: - Init
+
+    init(selectedDate: Date) {
+        targetDate = selectedDate
         super.init()
 
-        inputs.yearSelected = 0
-        inputs.monthSelected = outputs.monthItems.map { item in
-            Int(item.replacingOccurrences(of: "월", with: "")) ?? 0
-        }.firstIndex(of: month) ?? 0
+        outputs = Output(
+            yearItems: Array(2024 ... targetYear),
+            monthItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM"
+                let monthString = formatter.string(from: Date())
+                let monthInt = Int(monthString) ?? 00
+                return $0 <= monthInt
+            }
+        )
 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        let monthString = formatter.string(from: selectedDate)
+        inputs.yearSelected = 0
+        inputs.monthSelected = outputs.monthItems.firstIndex(of: targetMonth) ?? 0
         inputs.selectDate
-            .map { [weak self] _ in
+            .compactMap { [weak self] _ in
                 guard let yearIndex = self?.inputs.yearSelected,
                       let monthIndex = self?.inputs.monthSelected,
-                      let yearItem = self?.outputs.yearItems[yearIndex],
-                      let year = Int(yearItem)
+                      let year = self?.outputs.yearItems[yearIndex]
                 else { return nil }
 
-                return (year: year,
-                        month: monthIndex + 1)
+                var dateComponents = DateComponents()
+                dateComponents.year = year
+                dateComponents.month = monthIndex + 1 // monthIndex는 0 기반이므로 1을 더해줌
+                dateComponents.day = 1 // 필요에 따라 기본 일(day)을 설정
+
+                // Calendar를 사용하여 Date로 변환
+                let calendar = Calendar.current
+                if let date = calendar.date(from: dateComponents) {
+                    return date
+                }
+
+                return nil
             }
             .bind(to: routes.apply)
             .disposed(by: disposeBag)
@@ -159,13 +200,13 @@ final class SelectDateBottomSheetViewModel: BaseViewModel {
     }
 
     struct Output {
-        var yearItems: [String] = ["2024"]
-        var monthItems: [String] = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+        var yearItems: [Int] = []
+        var monthItems: [Int] = []
     }
 
     struct Route {
         var cancel = PublishSubject<Void>()
-        var apply = PublishSubject<(year: Int, month: Int)?>()
+        var apply = PublishSubject<Date>()
     }
 
     private var disposeBag = DisposeBag()

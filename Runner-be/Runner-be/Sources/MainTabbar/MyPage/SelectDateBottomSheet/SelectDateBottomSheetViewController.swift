@@ -142,9 +142,9 @@ extension SelectDateBottomSheetViewController: PickerViewDelegate, PickerViewDat
     func pickerView(_ picker: PickerView, titleForRow row: Int) -> String {
         switch picker {
         case let c where c == yearPickerView:
-            return viewModel.outputs.yearItems[row]
+            return "\(viewModel.outputs.yearItems[row])"
         case let c where c == monthPickerView:
-            return viewModel.outputs.monthItems[row]
+            return "\(viewModel.outputs.monthItems[row])월"
         default:
             return ""
         }

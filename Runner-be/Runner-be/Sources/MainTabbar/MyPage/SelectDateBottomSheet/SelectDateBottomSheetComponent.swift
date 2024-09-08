@@ -14,14 +14,12 @@ final class SelectDateBottomSheetComponent {
     }
 
     var viewModel: SelectDateBottomSheetViewModel {
-        return SelectDateBottomSheetViewModel(year: year, month: month)
+        return SelectDateBottomSheetViewModel(selectedDate: selectedDate)
     }
 
-    var year: Int
-    var month: Int
+    var selectedDate: Date
 
-    init(year: Int, month: Int) {
-        self.year = year
-        self.month = month
+    init(selectedDate: Date) {
+        self.selectedDate = selectedDate
     }
 }
