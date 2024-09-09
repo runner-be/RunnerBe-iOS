@@ -139,6 +139,12 @@ final class SelectPlaceViewController: BaseViewController {
                 searchCompleter?.queryFragment = inputText
             }.disposed(by: disposeBag)
 
+        setCurrentLocationView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapCurrentPlace)
+            .disposed(by: disposeBag)
+
         selectPlaceResultsView.resultCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPlace)
