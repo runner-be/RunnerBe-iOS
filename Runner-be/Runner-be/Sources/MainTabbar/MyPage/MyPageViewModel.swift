@@ -53,6 +53,11 @@ final class MyPageViewModel: BaseViewModel {
     ) {
         super.init()
 
+        outputs.changeTargetDate.onNext((
+            year: targetYear,
+            month: targetMonth
+        ))
+
         logAPIService.fetchLog(targetDate: Date())
             .compactMap { [weak self] result -> LogResponse? in
                 switch result {
@@ -417,12 +422,6 @@ final class MyPageViewModel: BaseViewModel {
 
         // ViewModel Output에 섹션 전달
         outputs.logStamps.onNext(sections)
-
-//        components.year = target.ΩΩΩ
-//        components.month = month
-//        components.day = day // 해당 월의 첫 번째 날을 설정
-
-//        outputs.changeTargetDate.onNext((year: year, month: month))
     }
 
     private func getWeek(for date: Date) -> [Date] {
