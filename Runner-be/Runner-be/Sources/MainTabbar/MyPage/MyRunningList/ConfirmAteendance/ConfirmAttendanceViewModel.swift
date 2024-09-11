@@ -13,7 +13,9 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
 
     struct Input {}
 
-    struct Output {}
+    struct Output {
+        var runnerList = ReplaySubject<[RunnerList]>.create(bufferSize: 1)
+    }
 
     struct Route {
         var backward = PublishSubject<Void>()
@@ -32,14 +34,26 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(postId: Int) {
+    init(
+        postId: Int,
+        postAPIService: PostAPIService = BasicPostAPIService()
+    ) {
+        print("seiflsnilf postID: \(postId)")
         self.postId = postId
         super.init()
-        runnerList = [
-            RunnerList(userID: 0, nickName: "A", gender: "", age: nil, diligence: nil, job: nil, profileImageURL: nil, whetherCheck: nil, attendance: nil, whetherPostUser: nil, pace: nil),
-            RunnerList(userID: 1, nickName: "B", gender: "", age: nil, diligence: nil, job: nil, profileImageURL: nil, whetherCheck: nil, attendance: nil, whetherPostUser: nil, pace: nil),
-            RunnerList(userID: 2, nickName: "C", gender: "", age: nil, diligence: nil, job: nil, profileImageURL: nil, whetherCheck: nil, attendance: nil, whetherPostUser: nil, pace: nil),
-        ]
+
+        postAPIService.getRunnerList()
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(data):
+                    self?.runnerList = data![postId].runnerList!
+                    self?.outputs.runnerList.onNext(data![postId].runnerList!)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
 
     // MARK: - Methods

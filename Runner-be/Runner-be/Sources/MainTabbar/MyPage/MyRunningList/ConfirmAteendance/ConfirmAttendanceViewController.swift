@@ -65,7 +65,13 @@ final class ConfirmAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private func viewModelOutput() {}
+    private func viewModelOutput() {
+        viewModel.outputs.runnerList
+            .bind { [weak self] _ in
+                self?.confirmAttendanceTableView.reloadData()
+
+            }.disposed(by: disposeBag)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -80,17 +86,16 @@ extension ConfirmAttendanceViewController: UITableViewDelegate, UITableViewDataS
 
     func tableView(
         _ tableView: UITableView,
-        cellForRowAt _: IndexPath
+        cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: ConfirmAttendanceCell.id
         ) as? ConfirmAttendanceCell
         else { return .init() }
         cell.selectionStyle = .none
+        let runner = viewModel.runnerList[indexPath.item]
 
-        let runnerList = viewModel.runnerList
-
-        cell.configure(status: 1)
+        cell.configure(with: runner)
 
         return cell
     }

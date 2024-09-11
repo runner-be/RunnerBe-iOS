@@ -48,20 +48,38 @@ final class ConfirmAttendanceCell: UITableViewCell {
 
     // MARK: - Methods
 
-    func configure(status: Int) { // FIXME: 임시
-        switch status {
+    func configure(with runner: RunnerList) { // FIXME: 임시
+        switch runner.attendance {
+        case 0:
+            resultLabel.text = "출석을 체크하지 않았어요"
+            resultLabel.textColor = .darkG35
         case 1:
             resultLabel.text = "출석을 완료 했어요"
             resultLabel.textColor = .primary
-        case 2:
-            resultLabel.text = "출석을 체크하지 않았어요"
-            resultLabel.textColor = .darkG35
-        case 3:
+        default:
             resultLabel.text = "불참했어요"
             resultLabel.textColor = .darkG35
-        default:
-            return
         }
+
+        let user = User(
+            userID: runner.userID!,
+            nickName: runner.nickName!,
+            gender: runner.gender!,
+            age: runner.age!,
+            diligence: runner.diligence!,
+            pushOn: "Y",
+            job: runner.job!,
+            profileImageURL: runner.profileImageURL,
+            pace: runner.pace
+        )
+        var isUser = false
+
+        if runner.whetherPostUser == "Y" {
+            isUser = true
+        } else {
+            isUser = false
+        }
+        userInfoView.setup(userInfo: UserConfig(from: user, owner: isUser))
     }
 }
 
