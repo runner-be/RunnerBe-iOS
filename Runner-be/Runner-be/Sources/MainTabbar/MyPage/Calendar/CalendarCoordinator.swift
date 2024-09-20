@@ -48,6 +48,21 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
                     animated: false
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmLog
+            .map { (vm: scene.VM, logId: $0.logId, runnedDate: $0.runnedDate) }
+            .subscribe(onNext: { [weak self] input in
+                self?.pushConfirmLogScene(
+                    vm: input.vm,
+                    logForm: LogForm(
+                        runningDate: input.runnedDate,
+                        logId: input.logId,
+                        isOpened: 1
+                    ),
+                    animated: true
+                )
+
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func showDateBottomSheet(
@@ -67,6 +82,28 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
                 vm.routeInputs.needUpdate.onNext((date, true))
             case .cancel:
                 break
+            }
+        }
+    }
+
+    private func pushConfirmLogScene(
+        vm: CalendarViewModel,
+        logForm: LogForm,
+        animated: Bool
+    ) {
+        let comp = component.confirmLogComponent(logForm: logForm)
+        let coord = ConfirmLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext((nil, true))
             }
         }
     }

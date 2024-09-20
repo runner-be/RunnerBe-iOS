@@ -9,7 +9,7 @@ import Foundation
 
 struct LogForm {
     let runningDate: Date
-    var gatheringId: Int?
+    var logId: Int?
     var stampCode: String?
     var contents: String?
     var imageUrl: String?
@@ -23,7 +23,7 @@ extension LogForm: Encodable {
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(runningDate, forKey: .runningDate)
-        try container.encode(gatheringId, forKey: .gatheringId)
+        try container.encode(logId, forKey: .gatheringId)
         try container.encode(stampCode, forKey: .stampCode)
         try container.encode(contents, forKey: .contents)
         try container.encode(imageUrl, forKey: .imageUrl)
@@ -49,7 +49,7 @@ extension LogForm: CustomDebugStringConvertible {
         """
         LogForm {
         runningDate: \(runningDate)
-        gatheringId: \(gatheringId ?? 0)
+        logId: \(logId ?? 0)
         stampCode: \(stampCode ?? "nil")
         contents: \(contents ?? "nil")
         imageUrl: \(imageUrl ?? "nil")

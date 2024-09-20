@@ -120,7 +120,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
                 return LogForm(
                     runningDate: Date(),
-                    gatheringId: 0,
+                    logId: 0,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,

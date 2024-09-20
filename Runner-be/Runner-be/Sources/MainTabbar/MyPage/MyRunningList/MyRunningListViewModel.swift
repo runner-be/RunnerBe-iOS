@@ -83,7 +83,7 @@ final class MyRunningListViewModel: BaseViewModel {
 
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
-                    gatheringId: selectedPost.ID,
+                    logId: selectedPost.ID,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,
@@ -105,7 +105,7 @@ final class MyRunningListViewModel: BaseViewModel {
 
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
-                    gatheringId: selectedPost.ID,
+                    logId: selectedPost.ID,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,

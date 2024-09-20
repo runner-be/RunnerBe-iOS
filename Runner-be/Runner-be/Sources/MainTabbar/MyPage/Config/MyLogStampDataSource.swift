@@ -9,12 +9,16 @@ import Foundation
 import RxDataSources
 
 struct LogStamp {
+    let logId: Int?
+    let gatheringId: Int?
     let date: Date
     let stampType: StampType?
 }
 
 struct MyLogStampConfig: Equatable, IdentifiableType {
     let id = UUID()
+    let logId: Int?
+    let gatheringId: Int?
     var date: Date
     var stampType: StampType?
 
@@ -23,6 +27,8 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
     }
 
     init(from: LogStamp) {
+        logId = from.logId
+        gatheringId = from.gatheringId
         date = from.date
         stampType = from.stampType
     }

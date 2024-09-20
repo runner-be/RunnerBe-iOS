@@ -120,6 +120,8 @@ final class MyPageViewController: BaseViewController {
                 }
 
                 cell.configure(with: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
                     date: element.date,
                     stampType: element.stampType
                 ))

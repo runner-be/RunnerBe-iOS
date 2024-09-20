@@ -122,6 +122,11 @@ final class CalendarViewController: BaseViewController {
             .map { _ in }
             .bind(to: viewModel.inputs.showSelectDate)
             .disposed(by: disposeBag)
+
+        calendarCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tappedDate)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -141,6 +146,8 @@ final class CalendarViewController: BaseViewController {
                 }
 
                 cell.configure(with: LogStamp(
+                    logId: element.logId,
+                    gatheringId: element.gatheringId,
                     date: element.date,
                     stampType: element.stampType
                 ))
@@ -260,7 +267,6 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         layout _: UICollectionViewLayout,
         sizeForItemAt _: IndexPath
     ) -> CGSize {
-        print("feisjflnse9fjesf :\((UIScreen.main.bounds.width - 32) / 7)")
         switch collectionView {
         case let c where c == calendarCollectionView:
             return MyLogStampCell.size

@@ -23,6 +23,8 @@ struct LogTotalCount: Decodable {
 }
 
 struct MyRunningLog: Decodable {
+    let logId: Int?
+    let gatheringId: Int?
     let runnedDate: String
-    let stampCode: String
+    let stampCode: String?
 }

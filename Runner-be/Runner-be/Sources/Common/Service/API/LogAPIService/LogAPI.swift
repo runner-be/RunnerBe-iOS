@@ -74,7 +74,7 @@ extension LogAPI: TargetType {
 
             let parameters: [String: Any] = [
                 "runningDate": formattedDate,
-                "gatheringId": logForm.gatheringId ?? "",
+                "gatheringId": logForm.logId ?? "",
                 "stampCode": logForm.stampCode ?? "",
                 "contents": logForm.contents ?? "",
                 "imageUrl": logForm.imageUrl ?? "",

@@ -80,7 +80,7 @@ final class BasicLogAPIService: LogAPIService {
         dateFormatter.dateFormat = "yyyyMMdd_HHmmss"
         let uuid = UUID().uuidString
         let uniqueFileName = "\(dateFormatter.string(from: Date()))_\(uuid).png"
-        let path = "RunningLogs/\(form.gatheringId ?? 0)/\(uniqueFileName)"
+        let path = "RunningLogs/\(form.logId ?? 0)/\(uniqueFileName)"
 
         // 이미지 데이터가 존재하면 이미지 업로드를 시도합니다.
         if let imageData = form.imageData {
@@ -138,7 +138,7 @@ final class BasicLogAPIService: LogAPIService {
                 self?.provider.rx.request(.create(
                     createLogRequest: LogForm(
                         runningDate: form.runningDate,
-                        gatheringId: form.gatheringId,
+                        logId: form.logId,
                         stampCode: form.stampCode,
                         contents: form.contents,
                         imageUrl: uploadedURL,

@@ -11,6 +11,7 @@ import RxSwift
 final class CalendarViewModel: BaseViewModel {
     // MARK: - Properties
 
+    private var myRunningLogs: [MyRunningLog?] = []
     private let calendar = Calendar.current
     private var components = DateComponents()
     var targetDate: Date {
@@ -59,6 +60,27 @@ final class CalendarViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.tappedDate
+            .compactMap { [weak self] index in
+                guard let self = self,
+                      let logId = self.myRunningLogs[index]?.logId,
+                      let runnedDate = self.myRunningLogs[index]?.runnedDate
+                else { return nil }
+
+                let dateFormatter = DateFormatter()
+
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+                // Convert the string to a Date object
+                if let date = dateFormatter.date(from: runnedDate) {
+                    return (logId, date)
+                } else {
+                    return nil
+                }
+            }
+            .bind(to: routes.confirmLog)
+            .disposed(by: disposeBag)
+
         inputs.showSelectDate
             .map { [weak self] _ in
                 guard let self = self else { return Date() }
@@ -78,7 +100,7 @@ final class CalendarViewModel: BaseViewModel {
     }
 
     func changeTargetDate(runningLog: [MyRunningLog]) {
-        if let targetDate = calendar.date(from: components) {
+        if let _ = calendar.date(from: components) {
             outputs.days.onNext(generateCalendarDates(runningLog: runningLog))
             outputs.changedTargetDate.onNext((
                 year: targetYear,
@@ -110,9 +132,13 @@ final class CalendarViewModel: BaseViewModel {
                 let dayOfPreviousMonth = rangeOfPreviousMonth.count - i + 1
                 let date = previousMonth.with(day: dayOfPreviousMonth)!
                 dates.append(MyLogStampConfig(from: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
                     date: date,
                     stampType: nil
                 )))
+
+                myRunningLogs.append(nil)
             }
         }
 
@@ -122,12 +148,16 @@ final class CalendarViewModel: BaseViewModel {
         for day in rangeOfCurrentMonth {
             let date = startOfMonth.with(day: day)!
             var stampType: StampType?
+            var logId: Int?
+            var gatheringId: Int?
 
-            // runningLog와 동일한 날짜가 있는지 확인
             for log in runningLog {
+                // runningLog와 동일한 날짜가 있는지 확인
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
                     if calendar.isDate(logDate, inSameDayAs: date) {
-                        stampType = StampType(rawValue: log.stampCode)
+                        stampType = StampType(rawValue: log.stampCode ?? "")
+                        logId = log.logId
+                        gatheringId = log.gatheringId
                         break
                     } else {
                         stampType = nil
@@ -136,9 +166,18 @@ final class CalendarViewModel: BaseViewModel {
             }
 
             dates.append(MyLogStampConfig(from: LogStamp(
+                logId: logId,
+                gatheringId: gatheringId,
                 date: date,
                 stampType: stampType
             )))
+
+            myRunningLogs.append(MyRunningLog(
+                logId: logId,
+                gatheringId: gatheringId,
+                runnedDate: date.description,
+                stampCode: stampType?.rawValue
+            ))
         }
 
         // 남은 칸을 다음 달의 날짜로 채우기
@@ -149,9 +188,13 @@ final class CalendarViewModel: BaseViewModel {
             for day in 1 ... remainingDays {
                 let date = nextMonth.with(day: day)!
                 dates.append(MyLogStampConfig(from: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
                     date: date,
                     stampType: nil
                 )))
+
+                myRunningLogs.append(nil)
             }
         }
 
@@ -161,6 +204,7 @@ final class CalendarViewModel: BaseViewModel {
     struct Input {
         var showSelectDate = PublishSubject<Void>()
         var changedTargetDate = ReplaySubject<Date>.create(bufferSize: 1)
+        var tappedDate = PublishSubject<Int>()
     }
 
     struct Output {
@@ -172,6 +216,7 @@ final class CalendarViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var dateBottomSheet = PublishSubject<Date>()
+        var confirmLog = PublishSubject<(logId: Int, runnedDate: Date)>()
     }
 
     struct RouteInput {

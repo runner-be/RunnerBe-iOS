@@ -332,7 +332,7 @@ final class MyPageViewModel: BaseViewModel {
 
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
-                    gatheringId: selectedPost.ID,
+                    logId: selectedPost.ID,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,
@@ -354,7 +354,7 @@ final class MyPageViewModel: BaseViewModel {
 
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
-                    gatheringId: selectedPost.ID,
+                    logId: selectedPost.ID,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,
@@ -399,7 +399,7 @@ final class MyPageViewModel: BaseViewModel {
             for log in runningLog {
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
                     if calendar.isDate(logDate, inSameDayAs: date) {
-                        stampType = StampType(rawValue: log.stampCode)
+                        stampType = StampType(rawValue: log.stampCode ?? "")
                         break
                     } else {
                         stampType = nil
@@ -408,6 +408,8 @@ final class MyPageViewModel: BaseViewModel {
             }
 
             return MyLogStampConfig(from: LogStamp(
+                logId: nil,
+                gatheringId: nil,
                 date: date,
                 stampType: stampType
             ))
