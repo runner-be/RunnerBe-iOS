@@ -164,7 +164,9 @@ final class WriteLogViewController: BaseViewController {
 
         viewModel.outputs.selectedLogStamp
             .bind { [weak self] selectedLogStamp in
-                self?.logStampView.update(logStamp: selectedLogStamp)
+                if let stampType = StampType(rawValue: selectedLogStamp.stampCode) {
+                    self?.logStampView.update(stampType: stampType)
+                }
             }.disposed(by: disposeBag)
 
         viewModel.outputs.selectedWeather

@@ -39,9 +39,9 @@ final class WriteLogStampView: UIView {
 
     // MARK: - Methods
 
-    func update(logStamp: LogStamp2) {
-        stampIcon.image = logStamp.status?.icon
-        stampLabel.text = logStamp.status?.title
+    func update(stampType: StampType?) {
+        stampIcon.image = stampType?.icon
+        stampLabel.text = stampType?.title
     }
 }
 

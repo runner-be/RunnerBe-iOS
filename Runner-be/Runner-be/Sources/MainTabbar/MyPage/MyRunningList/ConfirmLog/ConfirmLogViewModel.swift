@@ -22,36 +22,38 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     init(
         logForm: LogForm,
-        logAPIService _: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService()
     ) {
         self.logForm = logForm
         super.init()
+
+        logAPIService.detail(logId: logForm.logId ?? 0)
+            .compactMap { [weak self] result -> LogDetail? in
+                switch result {
+                case let .response(data):
+                    if let data = data {
+                        return data
+                    }
+                    self?.toast.onNext("로그 상세 조회에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+                return nil
+            }
+            .subscribe(onNext: { [weak self] logDetail in
+                self?.outputs.logDetail.onNext(logDetail)
+                let test: [GotStampConfig] = logDetail.gotStamp.compactMap { GotStampConfig(from: $0) }
+                self?.outputs.gotStamps.onNext(test)
+            }).disposed(by: disposeBag)
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
         let formattedDate = dateFormatter.string(from: logForm.runningDate)
         outputs.logDate.onNext(formattedDate)
-
-        let testReceivedStamps = [
-            ReceivedStampConfig(from: ReceivedStamp(
-                userName: "지현",
-                userProfileURL: "",
-                stampStatus: .RUN001
-            )),
-            ReceivedStampConfig(from: ReceivedStamp(
-                userName: "러닝이",
-                userProfileURL: "",
-                stampStatus: .RUN004
-            )),
-            ReceivedStampConfig(from: ReceivedStamp(
-                userName: "스피듀광",
-                userProfileURL: "",
-                stampStatus: .RUN010
-            )),
-        ]
-
-        outputs.receivedStamps.onNext(testReceivedStamps)
     }
 
     // MARK: - Methods
@@ -59,8 +61,9 @@ final class ConfirmLogViewModel: BaseViewModel {
     struct Input {}
 
     struct Output {
-        var receivedStamps = ReplaySubject<[ReceivedStampConfig]>.create(bufferSize: 1)
+        var gotStamps = ReplaySubject<[GotStampConfig]>.create(bufferSize: 1)
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
+        var logDetail = ReplaySubject<LogDetail>.create(bufferSize: 1)
     }
 
     struct Route {

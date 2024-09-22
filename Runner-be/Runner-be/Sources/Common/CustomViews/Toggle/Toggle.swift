@@ -21,7 +21,7 @@ final class ToggleSwitch: UIView {
     // 토글 상태 방출용 Relay
     private let toggleRelay = PublishRelay<Bool>()
 
-    private var isOn: Bool = true {
+    var isOn: Bool = true {
         didSet {
             print("ToggleSwitch Status: \(isOn ? "ON" : "OFF")")
             toggleRelay.accept(isOn)

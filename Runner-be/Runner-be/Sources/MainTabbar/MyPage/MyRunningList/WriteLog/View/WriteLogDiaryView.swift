@@ -17,6 +17,7 @@ final class WriteLogDiaryView: UIView {
     // MARK: - Properties
 
     private var logDiaryType: LogDiaryType = .write
+    private var isPersonalGather: Bool = true
 
     // MARK: - UI
 
@@ -65,7 +66,7 @@ final class WriteLogDiaryView: UIView {
 
     let confirmImageView = UIImageView().then {
         $0.layer.cornerRadius = 12
-        $0.backgroundColor = .black
+        $0.clipsToBounds = true
         $0.isHidden = true
     }
 
@@ -103,7 +104,7 @@ final class WriteLogDiaryView: UIView {
         $0.font = .pretendardSemiBold16
     }
 
-    let weatherTempLabel = UILabel().then {
+    let weatherDegreeLabel = UILabel().then {
         $0.text = "- ℃"
         $0.textColor = .darkG4
         $0.font = .pretendardRegular16
@@ -146,12 +147,30 @@ final class WriteLogDiaryView: UIView {
         $0.image = Asset.group.uiImage
     }
 
+    private let infoWordBubble = UIImageView().then {
+        $0.image = Asset.logGatheringWordbubble.image
+        let label = UILabel()
+        label.font = .pretendardRegular12
+        label.textColor = .primary
+        label.text = "같이 뛰면 사용할 수 있어요!"
+        label.numberOfLines = 0
+
+        $0.addSubview(label)
+        label.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(12 + 8)
+        }
+
+        $0.isHidden = true
+    }
+
     // MARK: - Init
 
     init(type: LogDiaryType) {
         logDiaryType = type
         imageButton.isHidden = logDiaryType == .confirm
         confirmImageView.isHidden = logDiaryType == .write
+        countLabel.isHidden = logDiaryType == .confirm
 
         super.init(frame: .zero)
 
@@ -168,7 +187,35 @@ final class WriteLogDiaryView: UIView {
 
     func update(with: LogStamp2, temp: String) {
         weatherIcon.image = with.status?.icon
-        weatherTempLabel.text = temp + " ℃"
+        weatherDegreeLabel.text = temp + " ℃"
+    }
+
+    func updateConfirmImage(imageURL: String) {
+        confirmImageView.kf.setImage(with: URL(string: imageURL))
+    }
+
+    func updateWeather(
+        stamp: StampType?,
+        degree: String
+    ) {
+        weatherIcon.image = stamp?.icon
+        weatherDegreeLabel.text = degree + " ℃"
+    }
+
+    func updateGathering(gatheringCount: Int) {
+        isPersonalGather = gatheringCount <= 0
+        let gatheringCount = isPersonalGather ? 0 : gatheringCount
+        participantTempLabel.text = "\(gatheringCount) 명"
+        participantIcon.image = isPersonalGather ? Asset.iconLock24.uiImage : Asset.group.uiImage
+        participantView.isUserInteractionEnabled = !isPersonalGather
+
+        if isPersonalGather {
+            if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
+                tapGesture.cancelsTouchesInView = false
+                window.addGestureRecognizer(tapGesture)
+            }
+        }
     }
 }
 
@@ -202,7 +249,7 @@ extension WriteLogDiaryView {
 
         weatherView.addSubviews([
             weatherTitleLabel,
-            weatherTempLabel,
+            weatherDegreeLabel,
             weatherIconBg,
         ])
 
@@ -214,11 +261,22 @@ extension WriteLogDiaryView {
             participantTitleLabel,
             participantTempLabel,
             participantIconBg,
+            infoWordBubble,
         ])
 
         participantIconBg.addSubviews([
             participantIcon,
         ])
+    }
+
+    @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: participantView)
+        let isTouchInfoLogo = participantIconBg.frame.contains(location)
+        if isTouchInfoLogo {
+            infoWordBubble.isHidden.toggle()
+        } else {
+            infoWordBubble.isHidden = true
+        }
     }
 
     private func initialLayout() {
@@ -256,14 +314,17 @@ extension WriteLogDiaryView {
         confirmImageView.snp.makeConstraints {
             $0.top.equalTo(textView.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(12)
-            $0.size.equalTo(311)
+            if logDiaryType == .confirm {
+                $0.bottom.equalToSuperview().inset(12)
+            }
         }
 
         imageButton.snp.makeConstraints {
             $0.top.equalTo(textView.snp.bottom).offset(24 + 42)
             $0.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(12)
+            if logDiaryType == .write {
+                $0.bottom.equalToSuperview().inset(12)
+            }
             $0.width.equalTo(82)
             $0.height.equalTo(38)
         }
@@ -292,7 +353,7 @@ extension WriteLogDiaryView {
             $0.left.equalToSuperview().inset(16)
         }
 
-        weatherTempLabel.snp.makeConstraints {
+        weatherDegreeLabel.snp.makeConstraints {
             $0.top.equalTo(weatherTitleLabel.snp.bottom).offset(2)
             $0.left.equalTo(weatherTitleLabel)
         }
@@ -333,6 +394,13 @@ extension WriteLogDiaryView {
 
         participantIcon.snp.makeConstraints {
             $0.top.left.bottom.right.equalToSuperview().inset(8)
+        }
+
+        infoWordBubble.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(8)
+            $0.bottom.equalTo(participantIconBg.snp.top).offset(-4)
+            $0.width.equalTo(154)
+            $0.height.equalTo(48)
         }
     }
 }

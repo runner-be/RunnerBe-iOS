@@ -191,5 +191,28 @@ final class BasicLogAPIService: LogAPIService {
 
     func delete() {}
 
-    func detail() {}
+    func detail(logId: Int) -> Observable<APIResult<LogDetail?>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(APIResult.response(result: nil))
+        }
+
+        return provider.rx.request(.detail(
+            userId: userId,
+            logId: logId,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .compactMap {
+            try? $0?.json["result"].rawData()
+        }
+        .decode(type: LogDetail.self, decoder: JSONDecoder())
+        .map {
+            APIResult.response(result: $0)
+        }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }

@@ -8,34 +8,30 @@
 import Foundation
 import RxDataSources
 
-struct ReceivedStamp {
-    var userName: String
-    var userProfileURL: String
-    var stampStatus: StampType
-}
-
-struct ReceivedStampConfig: Equatable, IdentifiableType {
+struct GotStampConfig: Equatable, IdentifiableType {
     let id = UUID() // FIXME: userid로 변경
-    var userName: String
-    var userProfileURL: String
-    var stampStatus: StampType
+    let userId: Int
+    let nickname: String
+    let profileImageUrl: String?
+    let stampCode: String
 
     var identity: String {
-        "\(id)"
+        "\(userId)"
     }
 
-    init(from: ReceivedStamp) {
-        userName = from.userName
-        userProfileURL = from.userProfileURL
-        stampStatus = from.stampStatus
+    init(from: GotStamp) {
+        userId = from.userId
+        nickname = from.nickname
+        profileImageUrl = from.profileImageUrl
+        stampCode = from.stampCode
     }
 }
 
 struct ReceivedStampSection {
-    var items: [ReceivedStampConfig]
+    var items: [GotStampConfig]
     var identity: String
 
-    init(items: [ReceivedStampConfig]) {
+    init(items: [GotStampConfig]) {
         self.items = items
         identity = items.map { $0.identity }.joined(separator: ",")
     }
@@ -44,7 +40,7 @@ struct ReceivedStampSection {
 extension ReceivedStampSection: AnimatableSectionModelType {
     init(
         original: ReceivedStampSection,
-        items: [ReceivedStampConfig]
+        items: [GotStampConfig]
     ) {
         self = original
         self.items = items

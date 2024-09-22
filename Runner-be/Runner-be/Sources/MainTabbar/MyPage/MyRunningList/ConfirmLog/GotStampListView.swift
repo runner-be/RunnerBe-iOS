@@ -1,5 +1,5 @@
 //
-//  ReceivedStampListView.swift
+//  GotStampListView.swift
 //  Runner-be
 //
 //  Created by 김창규 on 9/1/24.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class ReceivedStampListView: UIView {
+final class GotStampListView: UIView {
     // MARK: - Properties
 
     // MARK: - UI
 
     private let titleLabel = UILabel().then {
-        $0.text = " 님이 받은 스탬프"
+        $0.text = "\(BasicUserKeyChainService.shared.nickName)님이 받은 스탬프"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16
     }
@@ -59,7 +59,7 @@ final class ReceivedStampListView: UIView {
 
 // MARK: - Layout
 
-extension ReceivedStampListView {
+extension GotStampListView {
     private func setupViews() {
         addSubviews([
             titleLabel,

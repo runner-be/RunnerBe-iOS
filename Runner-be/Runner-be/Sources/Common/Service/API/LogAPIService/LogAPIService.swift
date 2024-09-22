@@ -18,5 +18,5 @@ protocol LogAPIService {
     func create(form: LogForm) -> Observable<APIResult<LogResult>>
     func eidt()
     func delete()
-    func detail()
+    func detail(logId: Int) -> Observable<APIResult<LogDetail?>>
 }

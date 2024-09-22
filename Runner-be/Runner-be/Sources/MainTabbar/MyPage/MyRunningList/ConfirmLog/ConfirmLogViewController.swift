@@ -34,10 +34,9 @@ final class ConfirmLogViewController: BaseViewController {
             hDivider1,
             logDiaryView,
             hDivider2,
-            receivedStampListView,
+            gotStampListView,
             hDivider3,
             privacyToggleView,
-            registerButton,
             UIView(),
         ],
         axis: .vertical,
@@ -62,7 +61,7 @@ final class ConfirmLogViewController: BaseViewController {
         }
     }
 
-    private let receivedStampListView = ReceivedStampListView()
+    private let gotStampListView = GotStampListView()
 
     private let hDivider3 = UIView().then {
         $0.backgroundColor = .darkG6
@@ -74,14 +73,7 @@ final class ConfirmLogViewController: BaseViewController {
     private let privacyToggleView = WriteLogToggleView().then {
         $0.toggleButton.layer.opacity = 0.3
         $0.isUserInteractionEnabled = false
-    }
-
-    private let registerButton = UIButton().then {
-        $0.setTitle("저장", for: .normal)
-        $0.setTitleColor(.darkG6, for: .normal)
-        $0.titleLabel?.font = UIFont.pretendardSemiBold15
-        $0.layer.cornerRadius = 24
-        $0.backgroundColor = .primary
+        $0.toggleButton.isOn = false
     }
 
     // MARK: - Init
@@ -120,34 +112,69 @@ final class ConfirmLogViewController: BaseViewController {
             .bind(to: navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
 
-        receivedStampListView.stampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        gotStampListView.stampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         // 나의 로그 스탬프
         typealias ReceivedStampDataSource = RxCollectionViewSectionedAnimatedDataSource<ReceivedStampSection>
 
-        let receivedStampDatasource = ReceivedStampDataSource(
+        let gotStampDatasource = ReceivedStampDataSource(
             configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
                 guard let self = self else { return UICollectionViewCell() }
 
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReceivedStampCell.id, for: indexPath) as? ReceivedStampCell
                 else { return UICollectionViewCell() }
-                print("seijfsljf 123114214")
-                cell.configure(receivedStamp: .init(
-                    userName: element.userName,
-                    userProfileURL: element.userProfileURL,
-                    stampStatus: element.stampStatus
+
+                cell.configure(with: GotStamp(
+                    userId: element.userId,
+                    nickname: element.nickname,
+                    profileImageUrl: element.profileImageUrl,
+                    stampCode: element.stampCode
                 ))
+
                 return cell
             }
         )
 
-        viewModel.outputs.receivedStamps
-            .map {
-                print("seijfsljf :: \($0)")
-                return [ReceivedStampSection(items: $0)]
-            }
-            .bind(to: receivedStampListView.stampCollectionView.rx.items(dataSource: receivedStampDatasource))
+        viewModel.outputs.logDetail
+            .bind { [weak self] logDetail in
+                self?.update(with: logDetail)
+            }.disposed(by: disposeBag)
+
+        viewModel.outputs.gotStamps
+            .map { [ReceivedStampSection(items: $0)] }
+            .bind(to: gotStampListView.stampCollectionView.rx.items(dataSource: gotStampDatasource))
             .disposed(by: disposeBag)
+    }
+
+    private func update(with logDetail: LogDetail) {
+        // 러닝 로그
+        logStampView.update(stampType: logDetail.runningStamp)
+
+        // 러닝 일기 작성 글
+        logDiaryView.textView.text = logDetail.contents
+        logDiaryView.textView.placeholder = ""
+        // 러닝 일기 사진
+        logDiaryView.confirmImageView.kf.setImage(with: URL(string: logDetail.imageURL))
+
+        // 날씨
+        logDiaryView.updateWeather(
+            stamp: logDetail.weatherStamp,
+            degree: logDetail.weatherDegree
+        )
+
+        // 함께한 러너
+        logDiaryView.updateGathering(gatheringCount: logDetail.gatheringCount)
+
+        // 받은 스탬프
+        if logDetail.gotStamp.isEmpty {
+            vStackView.removeArrangedSubview(gotStampListView)
+            gotStampListView.removeFromSuperview() // 실제 뷰도 제거
+            vStackView.removeArrangedSubview(hDivider3)
+            hDivider3.removeFromSuperview() // 실제 뷰도 제거
+        }
+
+        // 공개 설정
+        privacyToggleView.toggleButton.isOn = logDetail.isOpened
     }
 }
 
@@ -192,12 +219,8 @@ extension ConfirmLogViewController {
             $0.left.right.equalToSuperview().inset(16)
         }
 
-        receivedStampListView.snp.makeConstraints {
+        gotStampListView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(16)
-        }
-
-        registerButton.snp.makeConstraints {
-            $0.height.equalTo(48)
         }
 
         privacyToggleView.snp.makeConstraints {

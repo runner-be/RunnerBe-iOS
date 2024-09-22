@@ -39,6 +39,7 @@
 		2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */; };
 		2B57EA712C80228A00C696FF /* MyRunningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */; };
 		2B57EA732C80229900C696FF /* MyRunningListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA722C80229900C696FF /* MyRunningListViewController.swift */; };
+		2B6324C12C9D29AB006C86D9 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6324C02C9D29AB006C86D9 /* LogDetail.swift */; };
 		2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */; };
 		2B66A0F12C746A09002542D5 /* SelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */; };
 		2B66A0F32C746A12002542D5 /* SelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */; };
@@ -81,7 +82,7 @@
 		2BBA6E612C87104C00E6CE40 /* TogetherRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */; };
 		2BBA6E642C871F0200E6CE40 /* TogetherRunnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
-		2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */; };
+		2BC6A5992C837EB100CCE73F /* GotStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* GotStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
 		2BC6A59F2C8382BA00CCE73F /* ReceivedStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */; };
 		2BC6A5A22C84091000CCE73F /* ConfirmAttendanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5A12C84091000CCE73F /* ConfirmAttendanceComponent.swift */; };
@@ -528,6 +529,7 @@
 		2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListCoordinator.swift; sourceTree = "<group>"; };
 		2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewModel.swift; sourceTree = "<group>"; };
 		2B57EA722C80229900C696FF /* MyRunningListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewController.swift; sourceTree = "<group>"; };
+		2B6324C02C9D29AB006C86D9 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		2B66A0EE2C746A00002542D5 /* SelectPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceComponent.swift; sourceTree = "<group>"; };
 		2B66A0F02C746A09002542D5 /* SelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B66A0F22C746A12002542D5 /* SelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewModel.swift; sourceTree = "<group>"; };
@@ -570,7 +572,7 @@
 		2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerViewController.swift; sourceTree = "<group>"; };
 		2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerCell.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
-		2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampListView.swift; sourceTree = "<group>"; };
+		2BC6A5982C837EB100CCE73F /* GotStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
 		2BC6A59E2C8382BA00CCE73F /* ReceivedStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampCell.swift; sourceTree = "<group>"; };
 		2BC6A5A12C84091000CCE73F /* ConfirmAttendanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAttendanceComponent.swift; sourceTree = "<group>"; };
@@ -1100,6 +1102,14 @@
 			path = MyRunningList;
 			sourceTree = "<group>";
 		};
+		2B6324BF2C9D2999006C86D9 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				2B6324C02C9D29AB006C86D9 /* LogDetail.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		2B66A0ED2C7469E7002542D5 /* SelectPlace */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,7 +1209,7 @@
 				2BA6640F2C81967400966D64 /* ConfirmLogCoordinator.swift */,
 				2BA664112C81967C00966D64 /* ConfirmLogViewModel.swift */,
 				2BA664132C81968500966D64 /* ConfirmLogViewController.swift */,
-				2BC6A5982C837EB100CCE73F /* ReceivedStampListView.swift */,
+				2BC6A5982C837EB100CCE73F /* GotStampListView.swift */,
 			);
 			path = ConfirmLog;
 			sourceTree = "<group>";
@@ -2618,6 +2628,7 @@
 		DA604829281E6B1600A67568 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2B6324BF2C9D2999006C86D9 /* Log */,
 				C3256B5D27CE7EA7009B16DA /* Policy */,
 				C39E925A27BACA8400798F3A /* Mail */,
 				C35B832427B91E5B00551AC5 /* UserInfo */,
@@ -3331,7 +3342,7 @@
 				2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */,
 				C32C028427CB17540011419E /* LogoutModalViewController.swift in Sources */,
 				2BC6A59F2C8382BA00CCE73F /* ReceivedStampCell.swift in Sources */,
-				2BC6A5992C837EB100CCE73F /* ReceivedStampListView.swift in Sources */,
+				2BC6A5992C837EB100CCE73F /* GotStampListView.swift in Sources */,
 				433BD03528A131DD003B444E /* DetailOptionModalCoordinator.swift in Sources */,
 				433BD03128A131C7003B444E /* DetailOptionModalViewModel.swift in Sources */,
 				2BD4F24C2C842543005F5C11 /* LogStampBottomSheetComponent.swift in Sources */,
@@ -3419,6 +3430,7 @@
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,
 				C3C43BF027CC37B400D36D46 /* UserAPIService.swift in Sources */,
+				2B6324C12C9D29AB006C86D9 /* LogDetail.swift in Sources */,
 				C3C9732F27C9E0F600232251 /* ApplicantListModalCoordinator.swift in Sources */,
 				C3A64F9127C54DBA0088E387 /* FilterType.swift in Sources */,
 				C32C029927CB9F8E0011419E /* UserConfig.swift in Sources */,
