@@ -39,8 +39,8 @@ final class LogStampCell: UICollectionViewCell {
 
     // MARK: - Methods
 
-    func configure(with: LogStamp2) {
-        stampIcon.image = with.status?.icon
+    func configure(with stampType: StampType) {
+        stampIcon.image = stampType.icon
     }
 }
 

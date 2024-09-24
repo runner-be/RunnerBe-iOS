@@ -91,7 +91,7 @@ final class TogetherRunnerCell: UITableViewCell {
             placeholder: Asset.profileEmptyIcon.uiImage
         )
         stampBg.isHidden = config.stamp == nil
-        stampIcon.image = config.stamp?.status?.icon
+        stampIcon.image = config.stamp?.icon
     }
 }
 

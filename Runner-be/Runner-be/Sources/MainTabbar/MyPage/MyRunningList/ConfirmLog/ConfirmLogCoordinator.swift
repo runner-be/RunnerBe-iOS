@@ -43,10 +43,20 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.writeLog
+            .bind { [weak self] logForm in
+                self?.pushWriteLogScene(
+                    logForm: logForm,
+                    writeLogMode: .edit,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func showMenuModalScene(
-        vm _: ConfirmLogViewModel,
+        vm: ConfirmLogViewModel,
         animated: Bool
     ) {
         let comp = component.menuModalComponent
@@ -61,11 +71,37 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
         ) { coordResult in
             switch coordResult {
             case .edit:
-                print("로그 작성화면(수정)으로 이동합니다.")
+                vm.routeInputs.editLog.onNext(())
             case .delete:
-                print("로그 삭제 후 성공하면 해당 구간이 호출됩니다.")
+                vm.routeInputs.deleteLog.onNext(())
             case .backward:
                 print("모달을 종료합니다.")
+            }
+        }
+    }
+
+    private func pushWriteLogScene(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode,
+        vm: ConfirmLogViewModel,
+        animated: Bool
+    ) {
+        let comp = component.writeLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+        let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
     }

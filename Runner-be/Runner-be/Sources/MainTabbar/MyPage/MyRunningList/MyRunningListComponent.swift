@@ -15,8 +15,14 @@ final class MyRunningListComponent {
 
     var viewModel = MyRunningListViewModel()
 
-    func writeLogComponent(logForm: LogForm) -> WriteLogComponent {
-        return WriteLogComponent(logForm: logForm)
+    func writeLogComponent(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
+    ) -> WriteLogComponent {
+        return WriteLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
     }
 
     func confirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {

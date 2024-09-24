@@ -4,6 +4,7 @@
 //
 //  Created by 김창규 on 9/20/24.
 //
+import Foundation
 
 struct DetailRunningLog: Decodable {
     let status: String
@@ -37,6 +38,42 @@ struct LogDetail: Decodable {
 
     var detailRunningLog: DetailRunningLog? {
         detailRunningLogs.first
+    }
+
+    var runningDate: Date? {
+        guard let detailRunningLog = detailRunningLog else {
+            return nil
+        }
+        let isoDateFormatter = DateFormatter()
+        isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        isoDateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 Locale 설정
+        isoDateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Z가 GMT 0을 의미하므로, TimeZone을 맞춰줍니다.
+        return isoDateFormatter.date(from: detailRunningLog.runnedDate)
+    }
+
+    // ex) 2024년 09월 23일 월요일
+    var runningDateString: String? {
+        guard let detailRunningLog = detailRunningLog else {
+            return nil
+        }
+
+        let isoDateFormatter = DateFormatter()
+        isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        isoDateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 Locale 설정
+        isoDateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Z가 GMT 0을 의미하므로, TimeZone을 맞춰줍니다.
+
+        if let date = isoDateFormatter.date(from: detailRunningLog.runnedDate) {
+            // 3. 원하는 형식으로 변환하기 위한 DateFormatter
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
+            outputDateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 요일 표기를 위한 Locale 설정
+
+            // 4. Date를 원하는 형식으로 변환하여 출력
+            let formattedDate = outputDateFormatter.string(from: date)
+            return formattedDate // 출력: 2024년 07월 05일 금요일
+        }
+
+        return nil
     }
 
     var runningStamp: StampType? {

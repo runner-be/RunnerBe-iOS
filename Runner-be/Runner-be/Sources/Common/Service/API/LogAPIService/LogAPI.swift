@@ -12,7 +12,7 @@ enum LogAPI {
     case fetchLog(userId: Int, year: String, month: String, token: LoginToken)
     case fetchStamp(token: LoginToken)
     case create(createLogRequest: LogForm, userId: Int, token: LoginToken)
-    case edit(token: LoginToken)
+    case edit(editLogForm: LogForm, userId: Int, token: LoginToken)
     case delete(token: LoginToken)
     case detail(userId: Int, logId: Int, token: LoginToken)
 }
@@ -30,8 +30,8 @@ extension LogAPI: TargetType {
             return ""
         case let .create(_, userId, _):
             return "/runningLogs/\(userId)"
-        case .edit:
-            return ""
+        case let .edit(editLogForm, userId, _):
+            return "/runningLogs/\(userId)/\(editLogForm.logId ?? 0)"
         case .delete:
             return ""
         case let .detail(userId, logId, _):
@@ -83,8 +83,24 @@ extension LogAPI: TargetType {
                 "isOpened": logForm.isOpened,
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
-        case let .edit(token: token):
-            return .requestPlain
+        case let .edit(editLogForm, _, _):
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedDate = dateFormatter.string(from: editLogForm.runningDate)
+
+            let parameters: [String: Any] = [
+                "runningDate": formattedDate,
+                "stampCode": editLogForm.stampCode ?? "",
+                "contents": editLogForm.contents ?? "",
+                "imageUrl": editLogForm.imageUrl ?? "",
+                "weatherDegree": editLogForm.weatherDegree ?? "",
+                "weatherIcon": editLogForm.weatherIcon ?? "",
+                "isOpened": editLogForm.isOpened,
+            ]
+
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+
         case let .delete(token: token):
             return .requestPlain
         case .detail:
@@ -102,7 +118,7 @@ extension LogAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .create(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
-        case let .edit(token: token):
+        case let .edit(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .delete(token: token):
             header["x-access-token"] = "\(token.jwt)"

@@ -42,6 +42,7 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
                 self?.pushWriteLog(
                     vm: inputs.vm,
                     logForm: inputs.logForm,
+                    writeLogMode: .create,
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
@@ -80,9 +81,13 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
     private func pushWriteLog(
         vm: MyRunningListViewModel,
         logForm: LogForm,
+        writeLogMode: WriteLogMode,
         animated: Bool
     ) {
-        let comp = component.writeLogComponent(logForm: logForm)
+        let comp = component.writeLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
         let coord = WriteLogCoordinator(
             component: comp,
             navController: navigationController

@@ -19,13 +19,13 @@ final class StampBottomSheetViewModel: BaseViewModel {
 
     struct Output {
         var logStamps = ReplaySubject<[LogStampConfig]>.create(bufferSize: 1)
-        var selectedStamp = ReplaySubject<(index: Int, logStamp: LogStamp2)>.create(bufferSize: 1)
+        var selectedStamp = ReplaySubject<(index: Int, stampType: StampType)>.create(bufferSize: 1)
         var selectedTemp = ReplaySubject<String>.create(bufferSize: 1)
     }
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var apply = PublishSubject<(stamp: LogStamp2, temp: String)>()
+        var apply = PublishSubject<(stamp: StampType, temp: String)>()
     }
 
     struct RouteInputs {}
@@ -37,7 +37,7 @@ final class StampBottomSheetViewModel: BaseViewModel {
     var routeInputs = RouteInputs()
 
     var stamps: [LogStampConfig] = []
-    var selectedStamp: LogStamp2
+    var selectedStamp: StampType
     var selectedTemp: String? {
         didSet {
             if selectedTemp == nil || selectedTemp == "" {
@@ -48,52 +48,49 @@ final class StampBottomSheetViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(selectedStamp: LogStamp2, selectedTemp: String?) {
+    init(selectedStamp: StampType, selectedTemp: String?) {
         self.selectedStamp = selectedStamp
         self.selectedTemp = selectedTemp
 
         super.init()
         let defaultStamps = [ // FIXME: - 하드코딩
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN001", stampName: "체크")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN002", stampName: "성취")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN003", stampName: "사교")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN004", stampName: "지속")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN005", stampName: "흥미")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN006", stampName: "성장")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN007", stampName: "독기")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN008", stampName: "감성")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN009", stampName: "쾌락")),
-            LogStampConfig(from: LogStamp2(stampType: 1, stampCode: "RUN010", stampName: "질주")),
-            LogStampConfig(from: LogStamp2(stampType: 2, stampCode: "WEA001", stampName: "맑음")),
-            LogStampConfig(from: LogStamp2(stampType: 2, stampCode: "WEA002", stampName: "흐림")),
-            LogStampConfig(from: LogStamp2(stampType: 2, stampCode: "WEA003", stampName: "야간")),
-            LogStampConfig(from: LogStamp2(stampType: 2, stampCode: "WEA004", stampName: "비")),
-            LogStampConfig(from: LogStamp2(stampType: 2, stampCode: "WEA005", stampName: "눈")),
+            //            LogStampConfig(from: StampType(rawValue: "RUN001")),
+//            LogStampConfig(from: StampType(rawValue: "RUN002")),
+//            LogStampConfig(from: StampType(rawValue: "RUN003")),
+//            LogStampConfig(from: StampType(rawValue: "RUN004")),
+//            LogStampConfig(from: StampType(rawValue: "RUN005")),
+//            LogStampConfig(from: StampType(rawValue: "RUN006")),
+//            LogStampConfig(from: StampType(rawValue: "RUN007")),
+//            LogStampConfig(from: StampType(rawValue: "RUN008")),
+//            LogStampConfig(from: StampType(rawValue: "RUN009")),
+//            LogStampConfig(from: StampType(rawValue: "RUN010")),
+            LogStampConfig(from: StampType(rawValue: "WEA001")),
+            LogStampConfig(from: StampType(rawValue: "WEA002")),
+            LogStampConfig(from: StampType(rawValue: "WEA003")),
+            LogStampConfig(from: StampType(rawValue: "WEA004")),
+            LogStampConfig(from: StampType(rawValue: "WEA005")),
         ]
 
-        stamps = defaultStamps.filter { $0.stampType == 2 }
+        stamps = defaultStamps // .filter { $0.stampType == 2 }
 
         outputs.logStamps.onNext(stamps)
 
         // 초기 `selectedStamp`의 인덱스 계산
-        if let selectedIndex = stamps.firstIndex(where: { $0.stampCode == selectedStamp.stampCode }),
+        if let selectedIndex = stamps.firstIndex(where: { $0.stampType == selectedStamp }),
            let selectedTemp = self.selectedTemp
         {
-            outputs.selectedStamp.onNext((index: selectedIndex, logStamp: selectedStamp))
+            outputs.selectedStamp.onNext((index: selectedIndex, stampType: selectedStamp))
             outputs.selectedTemp.onNext(selectedTemp == "-" ? "" : selectedTemp)
         }
 
         inputs.tapStamp
             .compactMap { [weak self] itemIndex in
-                guard let self = self else { return nil }
-                let selectedStamp = LogStamp2(
-                    stampType: stamps[itemIndex].stampType,
-                    stampCode: stamps[itemIndex].stampCode,
-                    stampName: stamps[itemIndex].stampName
-                )
+                guard let self = self,
+                      let selectedStamp = stamps[itemIndex].stampType
+                else { return nil }
                 self.selectedStamp = selectedStamp
 
-                return (index: itemIndex, logStamp: selectedStamp)
+                return (index: itemIndex, stampType: selectedStamp)
             }
             .bind(to: outputs.selectedStamp)
             .disposed(by: disposeBag)

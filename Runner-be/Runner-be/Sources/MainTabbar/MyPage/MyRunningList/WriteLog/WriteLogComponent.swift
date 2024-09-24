@@ -14,17 +14,25 @@ final class WriteLogComponent {
     }
 
     var viewModel: WriteLogViewModel {
-        return WriteLogViewModel(logForm: logForm)
+        return WriteLogViewModel(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
     }
 
     var logForm: LogForm
+    var writeLogMode: WriteLogMode
 
-    init(logForm: LogForm) {
+    init(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
+    ) {
         self.logForm = logForm
+        self.writeLogMode = writeLogMode
     }
 
     func logStampBottomSheetComponent(
-        selectedLogStamp: LogStamp2,
+        selectedLogStamp: StampType,
         title: String
     ) -> LogStampBottomSheetComponent {
         return LogStampBottomSheetComponent(
@@ -34,7 +42,7 @@ final class WriteLogComponent {
     }
 
     func stampBottomSheetComponent(
-        selectedStamp: LogStamp2,
+        selectedStamp: StampType,
         selectedTemp: String
     ) -> StampBottomSheetComponent {
         return StampBottomSheetComponent(

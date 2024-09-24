@@ -185,8 +185,8 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - Methods
 
-    func update(with: LogStamp2, temp: String) {
-        weatherIcon.image = with.status?.icon
+    func update(with stampType: StampType, temp: String) {
+        weatherIcon.image = stampType.icon
         weatherDegreeLabel.text = temp + " ℃"
     }
 

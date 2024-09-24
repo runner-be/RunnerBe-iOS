@@ -97,6 +97,8 @@ final class ConfirmLogViewController: BaseViewController {
     // MARK: - Methods
 
     private func viewModelInput() {
+        viewModel.routeInputs.needUpdate.onNext(true)
+
         navBar.leftBtnItem.rx.tap
             .map { true }
             .bind(to: viewModel.routes.backward)
@@ -118,8 +120,7 @@ final class ConfirmLogViewController: BaseViewController {
         typealias ReceivedStampDataSource = RxCollectionViewSectionedAnimatedDataSource<ReceivedStampSection>
 
         let gotStampDatasource = ReceivedStampDataSource(
-            configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
-                guard let self = self else { return UICollectionViewCell() }
+            configureCell: { _, collectionView, indexPath, element -> UICollectionViewCell in
 
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReceivedStampCell.id, for: indexPath) as? ReceivedStampCell
                 else { return UICollectionViewCell() }
@@ -147,6 +148,9 @@ final class ConfirmLogViewController: BaseViewController {
     }
 
     private func update(with logDetail: LogDetail) {
+        // navbar 날짜 타이틀
+        navBar.titleLabel.text = logDetail.runningDateString
+
         // 러닝 로그
         logStampView.update(stampType: logDetail.runningStamp)
 

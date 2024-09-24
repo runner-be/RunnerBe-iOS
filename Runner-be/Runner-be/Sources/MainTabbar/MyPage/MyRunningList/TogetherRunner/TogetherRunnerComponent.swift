@@ -17,7 +17,7 @@ final class TogetherRunnerComponent {
         return TogetherRunnerViewModel()
     }
 
-    func logStampBottomSheetComponent(selectedLogStamp: LogStamp2, title: String) -> LogStampBottomSheetComponent {
+    func logStampBottomSheetComponent(selectedLogStamp: StampType, title: String) -> LogStampBottomSheetComponent {
         return LogStampBottomSheetComponent(
             selectedLogStamp: selectedLogStamp,
             title: title

@@ -21,11 +21,11 @@ final class LogStampBottomSheetComponent {
         return LogStampBottomSheetViewModel(selectedStamp: selectedStamp)
     }
 
-    var selectedStamp: LogStamp2
+    var selectedStamp: StampType
     var title: String
 
     init(
-        selectedLogStamp: LogStamp2,
+        selectedLogStamp: StampType,
         title: String
     ) {
         selectedStamp = selectedLogStamp

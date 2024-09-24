@@ -7,8 +7,16 @@
 
 import RxSwift
 
+enum WriteLogMode {
+    case create
+    case edit
+}
+
 final class WriteLogViewModel: BaseViewModel {
     // MARK: - Properties
+
+    // 로그 작성/수정 구별
+    private let writeLogMode: WriteLogMode
 
     struct Input {
         var showLogStampBottomSheet = PublishSubject<Void>()
@@ -23,8 +31,9 @@ final class WriteLogViewModel: BaseViewModel {
     }
 
     struct Output {
-        var selectedLogStamp = PublishSubject<LogStamp2>()
-        var selectedWeather = PublishSubject<(LogStamp2, String)>()
+        var initialLogForm = ReplaySubject<LogForm>.create(bufferSize: 1)
+        var selectedLogStamp = PublishSubject<StampType>()
+        var selectedWeather = PublishSubject<(StampType, String)>()
         var showPicker = PublishSubject<EditProfileType>()
         var selectedImageChanged = PublishSubject<Data?>()
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
@@ -32,16 +41,16 @@ final class WriteLogViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Bool>()
-        var logStampBottomSheet = PublishSubject<(stamp: LogStamp2, title: String)>()
-        var stampBottomSheet = PublishSubject<(stamp: LogStamp2, temp: String)>()
+        var logStampBottomSheet = PublishSubject<StampType>()
+        var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
         var togetherRunner = PublishSubject<Void>()
         var photoModal = PublishSubject<Void>()
         var backwardModal = PublishSubject<Void>()
     }
 
     struct RouteInput {
-        var selectedLogStamp = PublishSubject<LogStamp2>()
-        var selectedWeather = PublishSubject<(stamp: LogStamp2, temp: String)>()
+        var selectedLogStamp = PublishSubject<StampType>()
+        var selectedWeather = PublishSubject<(stamp: StampType, temp: String)>()
         var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 
@@ -51,8 +60,8 @@ final class WriteLogViewModel: BaseViewModel {
     var routes = Route()
     var routeInputs = RouteInput()
 
-    var selectedLogStamp: LogStamp2?
-    var weatherStamp: LogStamp2?
+    var selectedLogStamp: StampType?
+    var weatherStamp: StampType?
     var weatherTemp: String?
     var logForm: LogForm
 
@@ -60,28 +69,30 @@ final class WriteLogViewModel: BaseViewModel {
 
     init(
         logAPIService: LogAPIService = BasicLogAPIService(),
-        logForm: LogForm
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
     ) {
         self.logForm = logForm
+        self.writeLogMode = writeLogMode
         super.init()
 
+        // ++ 초기 설정
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
         let formattedDate = dateFormatter.string(from: logForm.runningDate)
         outputs.logDate.onNext(formattedDate)
+        outputs.initialLogForm.onNext(logForm)
+        selectedLogStamp = StampType(rawValue: logForm.stampCode ?? "")
+        // -- 초기 설정
 
         inputs.showLogStampBottomSheet
-            .map { [weak self] _ in
-                guard let selectedLogStamp = self?.selectedLogStamp
-                else { // FIXME: - 하드코딩
-                    return (stamp: LogStamp2(
-                        stampType: 1,
-                        stampCode: "RUN001",
-                        stampName: "Check!"
-                    ), title: "스탬프")
+            .compactMap { [weak self] _ in
+                if let selectedLogStamp = self?.selectedLogStamp {
+                    return selectedLogStamp
+                } else {
+                    return StampType(rawValue: "RUN001")
                 }
-                return (selectedLogStamp, "스탬프")
             }
             .bind(to: routes.logStampBottomSheet)
             .disposed(by: disposeBag)
@@ -97,20 +108,17 @@ final class WriteLogViewModel: BaseViewModel {
 
         inputs.tapPhotoCancel
             .bind { [weak self] _ in
+                self?.logForm.imageUrl = ""
                 self?.outputs.selectedImageChanged.onNext(nil)
             }
             .disposed(by: disposeBag)
 
         inputs.tapWeather
-            .map { [weak self] _ in
+            .compactMap { [weak self] _ in
                 guard let selectedStamp = self?.weatherStamp,
                       let selectedTemp = self?.weatherTemp
                 else { // FIXME: - 하드코딩
-                    return (stamp: LogStamp2(
-                        stampType: 2,
-                        stampCode: "WEA001",
-                        stampName: "맑음"
-                    ), temp: "-")
+                    return nil
                 }
                 return (stamp: selectedStamp, temp: selectedTemp)
             }
@@ -140,7 +148,13 @@ final class WriteLogViewModel: BaseViewModel {
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .compactMap { [weak self] _ in
                 self?.logForm
-            }.flatMap { logAPIService.create(form: $0) }
+            }.flatMap { [weak self] logForm in
+                if self?.writeLogMode == WriteLogMode.create {
+                    return logAPIService.create(form: logForm)
+                } else {
+                    return logAPIService.edit(form: logForm)
+                }
+            }
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
@@ -167,7 +181,7 @@ final class WriteLogViewModel: BaseViewModel {
         routeInputs.selectedLogStamp
             .map { [weak self] selectedLogStamp in
                 self?.selectedLogStamp = selectedLogStamp
-                self?.logForm.stampCode = selectedLogStamp.stampCode
+                self?.logForm.stampCode = selectedLogStamp.rawValue
                 return selectedLogStamp
             }
             .bind(to: outputs.selectedLogStamp)
@@ -177,7 +191,7 @@ final class WriteLogViewModel: BaseViewModel {
             .map { [weak self] selectedStamp, selecteTemp in
                 self?.weatherStamp = selectedStamp
                 self?.weatherTemp = selecteTemp
-                self?.logForm.weatherIcon = selectedStamp.stampCode
+                self?.logForm.weatherIcon = selectedStamp.rawValue
                 self?.logForm.weatherDegree = Int(selecteTemp)
                 return (selectedStamp, selecteTemp)
             }

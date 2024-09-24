@@ -9,7 +9,7 @@ import UIKit
 
 enum LogStampBottomSheetResult {
     case backward
-    case apply(LogStamp2)
+    case apply(StampType)
 }
 
 final class LogStampBottomSheetCoordinator: BasicCoordinator<LogStampBottomSheetResult> {

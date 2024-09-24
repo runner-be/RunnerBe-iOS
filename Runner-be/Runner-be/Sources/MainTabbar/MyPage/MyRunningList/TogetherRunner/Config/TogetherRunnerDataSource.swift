@@ -11,14 +11,14 @@ import RxDataSources
 struct TogetherRunner: Equatable {
     let usetProfileURL: String
     let userNickname: String
-    var stamp: LogStamp2?
+    var stamp: StampType?
 }
 
 struct TogetherRunnerConfig: Equatable, IdentifiableType {
     let id = UUID()
     let usetProfileURL: String
     let userNickname: String
-    let stamp: LogStamp2?
+    let stamp: StampType?
 
     var identity: String {
         "\(id)"

@@ -8,29 +8,16 @@
 import Foundation
 import RxDataSources
 
-struct LogStamp2: Equatable {
-    let stampType: Int
-    let stampCode: String
-    let stampName: String
-    var status: StampType? {
-        StampType(rawValue: stampCode)
-    }
-}
-
 struct LogStampConfig: Equatable, IdentifiableType {
     let id = UUID()
-    let stampType: Int
-    let stampCode: String
-    let stampName: String
+    let stampType: StampType?
 
     var identity: String {
         "\(id)"
     }
 
-    init(from: LogStamp2) {
-        stampType = from.stampType
-        stampCode = from.stampCode
-        stampName = from.stampName
+    init(from: StampType?) {
+        stampType = from
     }
 }
 

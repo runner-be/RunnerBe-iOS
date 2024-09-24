@@ -64,7 +64,7 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
 
     private func pushLogStampBottomSheetScene(
         vm: TogetherRunnerViewModel,
-        selectedLogStamp: LogStamp2,
+        selectedLogStamp: StampType,
         title: String,
         animated: Bool
     ) {
@@ -84,8 +84,8 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
             switch coordResult {
             case .backward:
                 vm.routeInputs.needUpdate.onNext(true)
-            case let .apply(logStamp):
-                vm.routeInputs.selectedLogStamp.onNext(logStamp)
+            case let .apply(stampType):
+                vm.routeInputs.selectedLogStamp.onNext(stampType)
             }
         }
     }

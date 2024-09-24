@@ -103,7 +103,7 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
         ) { coordResult in
             switch coordResult {
             case let .backward(needUpdate):
-                vm.routeInputs.needUpdate.onNext((nil, true))
+                vm.routeInputs.needUpdate.onNext((nil, needUpdate))
             }
         }
     }

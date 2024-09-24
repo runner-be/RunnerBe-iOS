@@ -39,7 +39,7 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
         scene.VM.routes.logStampBottomSheet
             .map { (vm: scene.VM, result: $0) }
             .bind { [weak self] inputs in
-                let selectedLogStamp = inputs.result.stamp
+                let selectedLogStamp = inputs.result
                 let title = inputs.result.title
                 self?.pushLogStampBottomSheetScene(
                     vm: inputs.vm,
@@ -84,7 +84,7 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
 
     private func pushLogStampBottomSheetScene(
         vm: WriteLogViewModel,
-        selectedLogStamp: LogStamp2,
+        selectedLogStamp: StampType,
         title: String,
         animated: Bool
     ) {
@@ -112,7 +112,7 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
 
     private func pushStampBottomSheetScene(
         vm: WriteLogViewModel,
-        selectedStamp: LogStamp2,
+        selectedStamp: StampType,
         selectedTemp: String,
         animated: Bool
     ) {

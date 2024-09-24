@@ -26,4 +26,14 @@ final class ConfirmLogComponent {
     var menuModalComponent: MenuModalComponent {
         return MenuModalComponent()
     }
+
+    func writeLogComponent(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
+    ) -> WriteLogComponent {
+        return WriteLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+    }
 }

@@ -20,11 +20,11 @@ final class StampBottomSheetComponent {
         )
     }
 
-    var selectedStamp: LogStamp2
+    var selectedStamp: StampType
     var selectedTemp: String
 
     init(
-        selectedStamp: LogStamp2,
+        selectedStamp: StampType,
         selectedTemp: String
     ) {
         self.selectedStamp = selectedStamp

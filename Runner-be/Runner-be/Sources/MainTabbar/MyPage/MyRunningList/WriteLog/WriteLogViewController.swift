@@ -71,7 +71,9 @@ final class WriteLogViewController: BaseViewController {
 
     // MARK: - Init
 
-    init(viewModel: WriteLogViewModel) {
+    init(
+        viewModel: WriteLogViewModel
+    ) {
         self.viewModel = viewModel
         super.init()
     }
@@ -107,7 +109,6 @@ final class WriteLogViewController: BaseViewController {
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
-            .map { true }
             .bind(to: viewModel.routes.backwardModal)
             .disposed(by: disposeBag)
 
@@ -162,11 +163,14 @@ final class WriteLogViewController: BaseViewController {
             .bind(to: navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
 
+        viewModel.outputs.initialLogForm
+            .subscribe(onNext: { [weak self] logForm in
+                self?.setupInitialUI(with: logForm)
+            }).disposed(by: disposeBag)
+
         viewModel.outputs.selectedLogStamp
             .bind { [weak self] selectedLogStamp in
-                if let stampType = StampType(rawValue: selectedLogStamp.stampCode) {
-                    self?.logStampView.update(stampType: stampType)
-                }
+                self?.logStampView.update(stampType: selectedLogStamp)
             }.disposed(by: disposeBag)
 
         viewModel.outputs.selectedWeather
@@ -225,6 +229,36 @@ final class WriteLogViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
+
+    private func setupInitialUI(with logForm: LogForm) {
+        if let contents = logForm.contents,
+           !contents.isEmpty,
+           contents != ""
+        {
+            logDiaryView.textView.text = contents
+            logDiaryView.textView.placeholder = ""
+        }
+
+        // 이미지 URL에서 이미지를 로드하여 selectedImageView에 설정
+        if let imageURLString = logForm.imageUrl,
+           let imageURL = URL(string: imageURLString)
+        {
+            logDiaryView.selectedImageView.kf.setImage(with: imageURL)
+            logDiaryView.selectedImageView.isHidden = false
+        }
+
+        if let runningStamp = StampType(rawValue: logForm.stampCode ?? "") {
+            logStampView.update(stampType: runningStamp)
+        }
+
+        if let weatherStamp = StampType(rawValue: logForm.weatherIcon ?? ""),
+           let weatherDegree = logForm.weatherDegree
+        {
+            logDiaryView.updateWeather(stamp: weatherStamp, degree: "\(weatherDegree)")
+        }
+
+        privacyToggleView.toggleButton.isOn = logForm.isOpened == 1
     }
 }
 

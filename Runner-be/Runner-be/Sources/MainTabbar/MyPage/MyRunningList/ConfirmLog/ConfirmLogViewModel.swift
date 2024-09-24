@@ -17,6 +17,7 @@ final class ConfirmLogViewModel: BaseViewModel {
     var routeInputs = RouteInput()
 
     var logForm: LogForm
+    var logDetail: LogDetail?
 
     // MARK: - Init
 
@@ -27,7 +28,11 @@ final class ConfirmLogViewModel: BaseViewModel {
         self.logForm = logForm
         super.init()
 
-        logAPIService.detail(logId: logForm.logId ?? 0)
+        routeInputs.needUpdate
+            .filter { $0 }
+            .flatMap { _ in
+                logAPIService.detail(logId: logForm.logId ?? 0)
+            }
             .compactMap { [weak self] result -> LogDetail? in
                 switch result {
                 case let .response(data):
@@ -45,15 +50,34 @@ final class ConfirmLogViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [weak self] logDetail in
                 self?.outputs.logDetail.onNext(logDetail)
-                let test: [GotStampConfig] = logDetail.gotStamp.compactMap { GotStampConfig(from: $0) }
-                self?.outputs.gotStamps.onNext(test)
+
+                let gotStamps: [GotStampConfig] = logDetail.gotStamp.compactMap { GotStampConfig(from: $0) }
+                self?.outputs.gotStamps.onNext(gotStamps)
+
+                self?.logDetail = logDetail
+
             }).disposed(by: disposeBag)
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEEE"
-        let formattedDate = dateFormatter.string(from: logForm.runningDate)
-        outputs.logDate.onNext(formattedDate)
+        // 로그 수정
+        routeInputs.editLog
+            .compactMap { [weak self] _ in
+                guard let logDetail = self?.logDetail else { return nil }
+                return LogForm(
+                    runningDate: logDetail.runningDate ?? Date(),
+                    logId: self?.logForm.logId,
+                    stampCode: logDetail.detailRunningLog?.stampCode,
+                    contents: logDetail.contents,
+                    imageUrl: logDetail.imageURL,
+                    imageData: nil,
+                    weatherDegree: logDetail.detailRunningLog?.weatherDegree,
+                    weatherIcon: logDetail.weatherStamp?.rawValue,
+                    isOpened: logDetail.isOpened ? 1 : 2
+                )
+            }
+            .bind(to: routes.writeLog)
+            .disposed(by: disposeBag)
+
+        // 로그 삭제
     }
 
     // MARK: - Methods
@@ -69,7 +93,12 @@ final class ConfirmLogViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Bool>()
         var modal = PublishSubject<Void>()
+        var writeLog = PublishSubject<LogForm>()
     }
 
-    struct RouteInput {}
+    struct RouteInput {
+        var needUpdate = PublishSubject<Bool>()
+        var editLog = PublishSubject<Void>()
+        var deleteLog = PublishSubject<Void>()
+    }
 }

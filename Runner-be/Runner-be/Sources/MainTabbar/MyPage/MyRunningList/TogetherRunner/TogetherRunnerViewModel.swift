@@ -22,12 +22,12 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var logStampBottomSheet = PublishSubject<(stamp: LogStamp2, title: String)>()
+        var logStampBottomSheet = PublishSubject<(stamp: StampType, title: String)>()
         var confirmLog = PublishSubject<LogForm>()
     }
 
     struct RouteInputs {
-        var selectedLogStamp = PublishSubject<LogStamp2>()
+        var selectedLogStamp = PublishSubject<StampType>()
         var needUpdate = PublishSubject<Bool>()
     }
 
@@ -95,12 +95,12 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
                 guard let self = self,
                       let selectedStamp = self.runnerList[itemIndex].stamp
-                else { // FIXME: 하드코딩
-                    return (stamp: LogStamp2(
-                        stampType: 1,
-                        stampCode: "RUN001",
-                        stampName: "Check!"
-                    ), title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!")
+                else {
+                    return (
+                        // FIXME: 강제 언래핑
+                        stamp: StampType(rawValue: "RUN001")!,
+                        title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
+                    )
                 }
 
                 return (

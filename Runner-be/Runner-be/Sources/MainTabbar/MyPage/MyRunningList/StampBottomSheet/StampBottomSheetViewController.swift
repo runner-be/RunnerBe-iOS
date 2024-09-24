@@ -192,11 +192,9 @@ final class StampBottomSheetViewController: BaseViewController {
                     return UICollectionViewCell()
                 }
 
-                cell.configure(with: LogStamp2(
-                    stampType: element.stampType,
-                    stampCode: element.stampCode,
-                    stampName: element.stampName
-                ))
+                if let stampType = element.stampType {
+                    cell.configure(with: stampType)
+                }
                 return cell
             }
         )
@@ -215,8 +213,8 @@ final class StampBottomSheetViewController: BaseViewController {
                     animated: true,
                     scrollPosition: .centeredHorizontally
                 )
-                self.stampTitleLabel.text = outputs.logStamp.stampName
-                self.stampSubTitleLabel.text = outputs.logStamp.status?.subTitle
+                self.stampTitleLabel.text = outputs.stampType.title
+                self.stampSubTitleLabel.text = outputs.stampType.subTitle
             }.disposed(by: disposeBag)
 
         viewModel.outputs.selectedTemp
