@@ -118,7 +118,7 @@ final class WriteLogViewModel: BaseViewModel {
                 guard let selectedStamp = self?.weatherStamp,
                       let selectedTemp = self?.weatherTemp
                 else { // FIXME: - 하드코딩
-                    return nil
+                    return (stamp: StampType(rawValue: "WEA001")!, temp: "")
                 }
                 return (stamp: selectedStamp, temp: selectedTemp)
             }
