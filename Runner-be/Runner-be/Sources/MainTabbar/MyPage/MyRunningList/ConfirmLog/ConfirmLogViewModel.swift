@@ -25,6 +25,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         logForm: LogForm,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
+        print("j3902jfn0dnjisdf logForm: \(logForm)")
         self.logForm = logForm
         super.init()
 
@@ -78,6 +79,24 @@ final class ConfirmLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         // 로그 삭제
+        routeInputs.deleteLog
+            .flatMap { // TODO: 0으로 logId를 사용하게되면, 진짜 에러원인을 찾기 어려움
+                logAPIService.delete(logId: self.logForm.logId ?? 0)
+            }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    self?.toast.onNext("게시글이 삭제되었습니다.")
+                    self?.routes.backward.onNext(true)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생해 게시글 삭제되지 않았습니다.")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods

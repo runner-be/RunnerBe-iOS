@@ -17,6 +17,6 @@ protocol LogAPIService {
     func fetchStamp()
     func create(form: LogForm) -> Observable<APIResult<LogResult>>
     func edit(form: LogForm) -> Observable<APIResult<LogResult>>
-    func delete()
+    func delete(logId: Int) -> Observable<APIResult<LogResult>>
     func detail(logId: Int) -> Observable<APIResult<LogDetail?>>
 }

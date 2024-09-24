@@ -308,7 +308,54 @@ final class BasicLogAPIService: LogAPIService {
         return functionResult
     }
 
-    func delete() {}
+    func delete(logId: Int) -> Observable<APIResult<LogResult>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(APIResult.response(result: LogResult.fail))
+        }
+
+        let functionResult = ReplaySubject<APIResult<LogResult>>.create(bufferSize: 1)
+
+        provider.rx.request(.delete(
+            userId: userId,
+            logId: logId,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .subscribe(onNext: { response in
+            guard let response = response else {
+                Log.d(tag: .network, "res")
+                functionResult.onNext(APIResult.response(result: LogResult.fail))
+                return
+            }
+
+            Log.d(tag: .network, "response message: \(response.basic.message)")
+            switch response.basic.code {
+            case 1000: // 성공
+                return functionResult.onNext(APIResult.response(result: LogResult.succeed))
+            case 2010: // jwt의 userId와 userId가 일치하지 않습니다.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2011: // userId 값을 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2109: // 러닝로그 날짜를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2110: // 러닝 스탬프 코드를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2111: // 러닝 날씨 기온을 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2026: // 자유 내용은 500자 이내로 입력해줴요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2112: // 러닝 날짜는 YYYY-MM-DD 형태로 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            default:
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            }
+        }).disposed(by: disposeBag)
+
+        return functionResult
+    }
 
     func detail(logId: Int) -> Observable<APIResult<LogDetail?>> {
         guard let userId = loginKeyChain.userId,

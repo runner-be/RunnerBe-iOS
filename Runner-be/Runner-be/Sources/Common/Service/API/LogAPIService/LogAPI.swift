@@ -13,7 +13,7 @@ enum LogAPI {
     case fetchStamp(token: LoginToken)
     case create(createLogRequest: LogForm, userId: Int, token: LoginToken)
     case edit(editLogForm: LogForm, userId: Int, token: LoginToken)
-    case delete(token: LoginToken)
+    case delete(userId: Int, logId: Int, token: LoginToken)
     case detail(userId: Int, logId: Int, token: LoginToken)
 }
 
@@ -32,8 +32,8 @@ extension LogAPI: TargetType {
             return "/runningLogs/\(userId)"
         case let .edit(editLogForm, userId, _):
             return "/runningLogs/\(userId)/\(editLogForm.logId ?? 0)"
-        case .delete:
-            return ""
+        case let .delete(userId, logId, _):
+            return "/runningLogs/\(userId)/\(logId)"
         case let .detail(userId, logId, _):
             return "/runningLogs/\(userId)/detail/\(logId)"
         }
@@ -101,7 +101,7 @@ extension LogAPI: TargetType {
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
 
-        case let .delete(token: token):
+        case let .delete(_, _, token):
             return .requestPlain
         case .detail:
             return .requestPlain
@@ -120,7 +120,7 @@ extension LogAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .edit(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
-        case let .delete(token: token):
+        case let .delete(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .detail(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
