@@ -25,7 +25,6 @@ final class ConfirmLogViewModel: BaseViewModel {
         logForm: LogForm,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
-        print("j3902jfn0dnjisdf logForm: \(logForm)")
         self.logForm = logForm
         super.init()
 
@@ -97,11 +96,21 @@ final class ConfirmLogViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        inputs.tapGotStamp
+            .compactMap { [weak self] index in
+                guard let self = self else { return nil }
+                return self.logDetail?.gotStamp[index].logId
+            }
+            .bind(to: routes.newConfirmLog)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
 
-    struct Input {}
+    struct Input {
+        var tapGotStamp = PublishSubject<Int>()
+    }
 
     struct Output {
         var gotStamps = ReplaySubject<[GotStampConfig]>.create(bufferSize: 1)
@@ -113,6 +122,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var modal = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
+        var newConfirmLog = PublishSubject<Int>()
     }
 
     struct RouteInput {

@@ -11,6 +11,7 @@ import RxDataSources
 struct GotStampConfig: Equatable, IdentifiableType {
     let id = UUID() // FIXME: userid로 변경
     let userId: Int
+    let logId: Int?
     let nickname: String
     let profileImageUrl: String?
     let stampCode: String
@@ -21,6 +22,7 @@ struct GotStampConfig: Equatable, IdentifiableType {
 
     init(from: GotStamp) {
         userId = from.userId
+        logId = from.logId
         nickname = from.nickname
         profileImageUrl = from.profileImageUrl
         stampCode = from.stampCode

@@ -107,6 +107,11 @@ final class ConfirmLogViewController: BaseViewController {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.routes.modal)
             .disposed(by: disposeBag)
+
+        gotStampListView.stampCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapGotStamp)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -127,6 +132,7 @@ final class ConfirmLogViewController: BaseViewController {
 
                 cell.configure(with: GotStamp(
                     userId: element.userId,
+                    logId: element.logId,
                     nickname: element.nickname,
                     profileImageUrl: element.profileImageUrl,
                     stampCode: element.stampCode

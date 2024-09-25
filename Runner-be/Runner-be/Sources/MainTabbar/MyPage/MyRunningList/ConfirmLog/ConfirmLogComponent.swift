@@ -36,4 +36,8 @@ final class ConfirmLogComponent {
             writeLogMode: writeLogMode
         )
     }
+
+    func newConfirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logForm: logForm)
+    }
 }

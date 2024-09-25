@@ -53,6 +53,19 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
                     animated: true
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.newConfirmLog
+            .bind { [weak self] logId in
+                self?.pushNewConfirmLogScene(
+                    logForm: LogForm(
+                        runningDate: Date(),
+                        logId: logId,
+                        isOpened: 1
+                    ),
+                    vm: scene.VM,
+                    animated: true
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func showMenuModalScene(
@@ -91,6 +104,28 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
             writeLogMode: writeLogMode
         )
         let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushNewConfirmLogScene(
+        logForm: LogForm,
+        vm: ConfirmLogViewModel,
+        animated: Bool
+    ) {
+        let comp = component.newConfirmLogComponent(logForm: logForm)
+        let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController
         )
