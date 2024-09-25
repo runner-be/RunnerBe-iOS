@@ -58,7 +58,9 @@ final class MyPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        logAPIService.fetchLog(targetDate: Date())
+        routeInputs.needUpdate
+            .filter { $0 }
+            .flatMap { _ in logAPIService.fetchLog(targetDate: Date()) }
             .compactMap { [weak self] result -> LogResponse? in
                 switch result {
                 case let .response(data):
@@ -512,7 +514,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct RouteInput {
-        var needUpdate = PublishSubject<Bool>()
+        var needUpdate = ReplaySubject<Bool>.create(bufferSize: 1)
         var photoTypeSelected = PublishSubject<EditProfileType?>()
     }
 

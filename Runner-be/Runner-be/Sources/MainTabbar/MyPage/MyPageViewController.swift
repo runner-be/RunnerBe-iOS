@@ -25,16 +25,6 @@ final class MyPageViewController: BaseViewController {
         viewInputs()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        myLogStampView.logStampCollectionView.scrollToItem(
-            at: IndexPath(item: 0, section: 2),
-            at: .left,
-            animated: false
-        )
-        myLogStampView.pageControl.currentPage = 2
-    }
-
     init(viewModel: MyPageViewModel) {
         self.viewModel = viewModel
         super.init()
@@ -48,6 +38,7 @@ final class MyPageViewController: BaseViewController {
     private var viewModel: MyPageViewModel
 
     private func viewModelInput() {
+        viewModel.routeInputs.needUpdate.onNext(true)
         myProfileView.editProfileLabel.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
@@ -137,6 +128,26 @@ final class MyPageViewController: BaseViewController {
         viewModel.outputs.logStamps
             .debug("logStamps")
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.logStamps
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+
+                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
+                DispatchQueue.main.async {
+                    self.myLogStampView.logStampCollectionView.scrollToItem(
+                        at: IndexPath(
+                            item: 0,
+                            section: self.myLogStampView.logStampCollectionView.numberOfSections - 1
+                        ),
+                        at: .left,
+                        animated: true
+                    )
+                    self.myLogStampView.pageControl.currentPage = 2
+                }
+            })
             .disposed(by: disposeBag)
 
         viewModel.outputs.logTotalCount
