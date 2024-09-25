@@ -63,20 +63,10 @@ final class CalendarViewModel: BaseViewModel {
         inputs.tappedDate
             .compactMap { [weak self] index in
                 guard let self = self,
-                      let logId = self.myRunningLogs[index]?.logId,
-                      let runnedDate = self.myRunningLogs[index]?.runnedDate
+                      let logId = self.myRunningLogs[index]?.logId
                 else { return nil }
 
-                let dateFormatter = DateFormatter()
-
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-
-                // Convert the string to a Date object
-                if let date = dateFormatter.date(from: runnedDate) {
-                    return (logId, date)
-                } else {
-                    return nil
-                }
+                return logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -216,7 +206,7 @@ final class CalendarViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var dateBottomSheet = PublishSubject<Date>()
-        var confirmLog = PublishSubject<(logId: Int, runnedDate: Date)>()
+        var confirmLog = PublishSubject<Int>()
     }
 
     struct RouteInput {

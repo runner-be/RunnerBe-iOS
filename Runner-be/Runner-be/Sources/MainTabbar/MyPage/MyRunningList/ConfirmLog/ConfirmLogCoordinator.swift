@@ -57,11 +57,7 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
         scene.VM.routes.newConfirmLog
             .bind { [weak self] logId in
                 self?.pushNewConfirmLogScene(
-                    logForm: LogForm(
-                        runningDate: Date(),
-                        logId: logId,
-                        isOpened: 1
-                    ),
+                    logId: logId,
                     vm: scene.VM,
                     animated: true
                 )
@@ -120,11 +116,11 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
     }
 
     private func pushNewConfirmLogScene(
-        logForm: LogForm,
+        logId: Int,
         vm: ConfirmLogViewModel,
         animated: Bool
     ) {
-        let comp = component.newConfirmLogComponent(logForm: logForm)
+        let comp = component.newConfirmLogComponent(logId: logId)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

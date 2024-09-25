@@ -62,8 +62,8 @@ final class MyPageComponent {
         )
     }
 
-    func confirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
-        return ConfirmLogComponent(logForm: logForm)
+    func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logId: logId)
     }
 
     func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {

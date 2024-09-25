@@ -14,13 +14,13 @@ final class ConfirmLogComponent {
     }
 
     var viewModel: ConfirmLogViewModel {
-        return ConfirmLogViewModel(logForm: logForm)
+        return ConfirmLogViewModel(logId: logId)
     }
 
-    var logForm: LogForm
+    var logId: Int
 
-    init(logForm: LogForm) {
-        self.logForm = logForm
+    init(logId: Int) {
+        self.logId = logId
     }
 
     var menuModalComponent: MenuModalComponent {
@@ -37,7 +37,7 @@ final class ConfirmLogComponent {
         )
     }
 
-    func newConfirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
-        return ConfirmLogComponent(logForm: logForm)
+    func newConfirmLogComponent(logId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logId: logId)
     }
 }

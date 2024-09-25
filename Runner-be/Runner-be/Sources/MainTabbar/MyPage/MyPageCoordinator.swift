@@ -103,11 +103,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.confirmLog
-            .map { (vm: scene.VM, logForm: $0) }
+            .map { (vm: scene.VM, logId: $0) }
             .subscribe(onNext: { [weak self] inputs in
                 self?.pushConfirmLog(
                     vm: inputs.vm,
-                    logForm: inputs.logForm,
+                    logId: inputs.logId,
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
@@ -289,10 +289,10 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
 
     private func pushConfirmLog(
         vm: MyPageViewModel,
-        logForm: LogForm,
+        logId: Int,
         animated: Bool
     ) {
-        let comp = component.confirmLogComponent(logForm: logForm)
+        let comp = component.confirmLogComponent(logId: logId)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

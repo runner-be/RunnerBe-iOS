@@ -23,7 +23,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var logStampBottomSheet = PublishSubject<(stamp: StampType, title: String)>()
-        var confirmLog = PublishSubject<LogForm>()
+        var confirmLog = PublishSubject<Int>()
     }
 
     struct RouteInputs {
@@ -118,16 +118,8 @@ final class TogetherRunnerViewModel: BaseViewModel {
                     return nil
                 }
 
-                return LogForm(
-                    runningDate: Date(),
-                    logId: 0,
-                    stampCode: nil,
-                    contents: nil,
-                    imageUrl: nil,
-                    weatherDegree: nil,
-                    weatherIcon: nil,
-                    isOpened: 1
-                )
+                // FIXME: 함께한 러너 API 완료되면 수정
+                return 0
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)

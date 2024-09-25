@@ -50,15 +50,11 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.confirmLog
-            .map { (vm: scene.VM, logId: $0.logId, runnedDate: $0.runnedDate) }
+            .map { (vm: scene.VM, logId: $0) }
             .subscribe(onNext: { [weak self] input in
                 self?.pushConfirmLogScene(
                     vm: input.vm,
-                    logForm: LogForm(
-                        runningDate: input.runnedDate,
-                        logId: input.logId,
-                        isOpened: 1
-                    ),
+                    logId: input.logId,
                     animated: true
                 )
 
@@ -88,10 +84,10 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
 
     private func pushConfirmLogScene(
         vm: CalendarViewModel,
-        logForm: LogForm,
+        logId: Int,
         animated: Bool
     ) {
-        let comp = component.confirmLogComponent(logForm: logForm)
+        let comp = component.confirmLogComponent(logId: logId)
         let coord = ConfirmLogCoordinator(
             component: comp,
             navController: navigationController

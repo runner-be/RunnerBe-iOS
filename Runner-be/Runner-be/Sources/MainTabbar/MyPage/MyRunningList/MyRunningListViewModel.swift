@@ -103,16 +103,7 @@ final class MyRunningListViewModel: BaseViewModel {
                     return nil
                 }
 
-                return LogForm(
-                    runningDate: selectedPost.gatherDate,
-                    logId: selectedPost.ID,
-                    stampCode: nil,
-                    contents: nil,
-                    imageUrl: nil,
-                    weatherDegree: nil,
-                    weatherIcon: nil,
-                    isOpened: 1
-                )
+                return selectedPost.ID
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -152,7 +143,7 @@ final class MyRunningListViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
-        var confirmLog = PublishSubject<LogForm>()
+        var confirmLog = PublishSubject<Int>()
         var manageAttendance = PublishSubject<Int>()
         var confirmAttendance = PublishSubject<Int>()
     }

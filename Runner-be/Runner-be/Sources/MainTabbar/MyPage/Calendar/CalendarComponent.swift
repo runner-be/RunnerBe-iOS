@@ -19,7 +19,7 @@ final class CalendarComponent {
         return SelectDateBottomSheetComponent(selectedDate: selectedDate)
     }
 
-    func confirmLogComponent(logForm: LogForm) -> ConfirmLogComponent {
-        return ConfirmLogComponent(logForm: logForm)
+    func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logId: logId)
     }
 }

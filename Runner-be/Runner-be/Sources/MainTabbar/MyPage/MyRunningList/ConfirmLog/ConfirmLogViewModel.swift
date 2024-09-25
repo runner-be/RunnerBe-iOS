@@ -16,22 +16,20 @@ final class ConfirmLogViewModel: BaseViewModel {
     var routes = Route()
     var routeInputs = RouteInput()
 
-    var logForm: LogForm
     var logDetail: LogDetail?
 
     // MARK: - Init
 
     init(
-        logForm: LogForm,
+        logId: Int,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
-        self.logForm = logForm
         super.init()
 
         routeInputs.needUpdate
             .filter { $0 }
             .flatMap { _ in
-                logAPIService.detail(logId: logForm.logId ?? 0)
+                logAPIService.detail(logId: logId)
             }
             .compactMap { [weak self] result -> LogDetail? in
                 switch result {
@@ -64,7 +62,7 @@ final class ConfirmLogViewModel: BaseViewModel {
                 guard let logDetail = self?.logDetail else { return nil }
                 return LogForm(
                     runningDate: logDetail.runningDate ?? Date(),
-                    logId: self?.logForm.logId,
+                    logId: logId,
                     stampCode: logDetail.detailRunningLog?.stampCode,
                     contents: logDetail.contents,
                     imageUrl: logDetail.imageURL,
@@ -80,7 +78,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         // 로그 삭제
         routeInputs.deleteLog
             .flatMap { // TODO: 0으로 logId를 사용하게되면, 진짜 에러원인을 찾기 어려움
-                logAPIService.delete(logId: self.logForm.logId ?? 0)
+                logAPIService.delete(logId: logId)
             }
             .subscribe(onNext: { [weak self] result in
                 switch result {
