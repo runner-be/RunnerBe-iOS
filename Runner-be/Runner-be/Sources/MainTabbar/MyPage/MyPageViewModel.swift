@@ -367,10 +367,18 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapManageAttendance
+            .compactMap { [weak self] index in
+                guard let self = self else { return nil }
+                return posts[outputs.postType]?[index].ID
+            }
             .bind(to: routes.manageAttendance)
             .disposed(by: disposeBag)
 
         inputs.tapConfirmAttendance
+            .compactMap { [weak self] index in
+                guard let self = self else { return nil }
+                return posts[outputs.postType]?[index].ID
+            }
             .bind(to: routes.confirmAttendance)
             .disposed(by: disposeBag)
     }

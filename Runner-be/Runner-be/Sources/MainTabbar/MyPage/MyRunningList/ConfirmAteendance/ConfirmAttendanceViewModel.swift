@@ -46,8 +46,14 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
-                    self?.runnerList = data![postId].runnerList!
-                    self?.outputs.runnerList.onNext(data![postId].runnerList!)
+                    if let data = data,
+                       let runnerList = data[postId].runnerList
+                    {
+                        self?.runnerList = runnerList
+                        self?.outputs.runnerList.onNext(runnerList)
+                    }
+                    self?.toast.onNext("출석 조회에 실패했습니다.")
+
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)

@@ -317,6 +317,7 @@ extension WriteLogDiaryView {
             if logDiaryType == .confirm {
                 $0.bottom.equalToSuperview().inset(12)
             }
+            $0.height.lessThanOrEqualTo(311)
         }
 
         imageButton.snp.makeConstraints {
