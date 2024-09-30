@@ -40,4 +40,8 @@ final class ConfirmLogComponent {
     func newConfirmLogComponent(logId: Int) -> ConfirmLogComponent {
         return ConfirmLogComponent(logId: logId)
     }
+
+    var togetherRunnerComponent: TogetherRunnerComponent {
+        return TogetherRunnerComponent()
+    }
 }

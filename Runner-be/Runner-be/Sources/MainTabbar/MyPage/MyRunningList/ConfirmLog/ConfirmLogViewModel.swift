@@ -95,6 +95,10 @@ final class ConfirmLogViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.tapTogether
+            .bind(to: routes.togetherRunner)
+            .disposed(by: disposeBag)
+
         inputs.tapGotStamp
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
@@ -108,6 +112,7 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     struct Input {
         var tapGotStamp = PublishSubject<Int>()
+        var tapTogether = PublishSubject<Void>()
     }
 
     struct Output {
@@ -121,6 +126,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var modal = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
         var newConfirmLog = PublishSubject<Int>()
+        var togetherRunner = PublishSubject<Void>()
     }
 
     struct RouteInput {

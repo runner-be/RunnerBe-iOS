@@ -108,6 +108,12 @@ final class ConfirmLogViewController: BaseViewController {
             .bind(to: viewModel.routes.modal)
             .disposed(by: disposeBag)
 
+        logDiaryView.participantView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapTogether)
+            .disposed(by: disposeBag)
+
         gotStampListView.stampCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapGotStamp)

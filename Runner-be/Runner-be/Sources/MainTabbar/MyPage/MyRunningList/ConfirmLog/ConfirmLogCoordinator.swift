@@ -62,6 +62,12 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
                     animated: true
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.togetherRunner
+            .map { scene.VM }
+            .bind { [weak self] vm in
+                self?.pushTogetherRunnerScene(vm: vm, animated: true)
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func showMenuModalScene(
@@ -133,6 +139,27 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
             switch coordResult {
             case let .backward(needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushTogetherRunnerScene(
+        vm _: ConfirmLogViewModel,
+        animated: Bool
+    ) {
+        let comp = component.togetherRunnerComponent
+        let coord = TogetherRunnerCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
             }
         }
     }
