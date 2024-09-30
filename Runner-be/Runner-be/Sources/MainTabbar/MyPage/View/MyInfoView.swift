@@ -23,6 +23,7 @@ final class MyInfoView: UIView {
 
     private var backgroundView = UIView().then { view in
         view.backgroundColor = .black
+        view.layer.cornerRadius = 4
     }
 
     var registerPaceView = MyPageProfileLabel(iconPosition: .right).then { view in
@@ -33,7 +34,7 @@ final class MyInfoView: UIView {
     var paceView = RunningPaceView()
 
     private var vDivider = UIImageView().then { view in
-        view.image = Asset.vDivider.uiImage
+        view.backgroundColor = .darkG55
         view.snp.makeConstraints { make in
             make.width.equalTo(1)
             make.height.equalTo(30)
@@ -47,7 +48,7 @@ final class MyInfoView: UIView {
 
     var editPaceLabel = UILabel().then { view in
         view.text = "페이스 수정하기"
-        view.font = .pretendardRegular12
+        view.font = .pretendardRegular14
         view.textColor = .darkG25
         view.isHidden = true
     }
@@ -71,7 +72,7 @@ extension MyInfoView {
     func initialLayout() {
         backgroundView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(70)
+            make.height.equalTo(48)
         }
 
         vDivider.snp.makeConstraints { make in
@@ -84,18 +85,18 @@ extension MyInfoView {
         }
 
         paceView.snp.makeConstraints { make in
-            make.trailing.equalTo(vDivider.snp.leading).offset(-24)
+            make.centerX.equalTo(backgroundView.snp.trailing).multipliedBy(0.25)
             make.centerY.equalToSuperview()
         }
 
         levelView.snp.makeConstraints { make in
-            make.leading.equalTo(vDivider.snp.trailing).offset(24)
+            make.centerX.equalTo(backgroundView.snp.trailing).multipliedBy(0.75)
             make.centerY.equalToSuperview()
         }
 
         editPaceLabel.snp.makeConstraints { make in
             make.trailing.equalTo(backgroundView.snp.trailing)
-            make.top.equalTo(backgroundView.snp.bottom).offset(8)
+            make.top.equalTo(backgroundView.snp.bottom).offset(4)
             make.bottom.equalToSuperview()
         }
     }
