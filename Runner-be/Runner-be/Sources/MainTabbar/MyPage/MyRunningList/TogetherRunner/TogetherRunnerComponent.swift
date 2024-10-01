@@ -14,7 +14,13 @@ final class TogetherRunnerComponent {
     }
 
     var viewModel: TogetherRunnerViewModel {
-        return TogetherRunnerViewModel()
+        return TogetherRunnerViewModel(gatheringId: gatheringId)
+    }
+
+    let gatheringId: Int
+
+    init(gatheringId: Int) {
+        self.gatheringId = gatheringId
     }
 
     func logStampBottomSheetComponent(selectedLogStamp: StampType, title: String) -> LogStampBottomSheetComponent {

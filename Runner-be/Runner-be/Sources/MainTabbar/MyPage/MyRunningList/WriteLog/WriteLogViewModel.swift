@@ -43,7 +43,7 @@ final class WriteLogViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var logStampBottomSheet = PublishSubject<StampType>()
         var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
-        var togetherRunner = PublishSubject<Void>()
+        var togetherRunner = PublishSubject<Int>()
         var photoModal = PublishSubject<Void>()
         var backwardModal = PublishSubject<Void>()
     }
@@ -126,7 +126,10 @@ final class WriteLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapTogether
-            .bind(to: routes.togetherRunner)
+//            .bind(to: routes.togetherRunner)
+            .bind {
+                print("WriteLogViewModel - 로그 작성 시 외부에서 gatheringId를 받아 사용하도록 수정해야합니다.")
+            }
             .disposed(by: disposeBag)
 
         inputs.photoSelected

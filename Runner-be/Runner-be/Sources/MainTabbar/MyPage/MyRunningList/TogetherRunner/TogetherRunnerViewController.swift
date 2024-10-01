@@ -117,7 +117,10 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
                           ) as? TogetherRunnerCell
                     else { return UITableViewCell() }
 
-                    cell.configure(with: item)
+                    cell.configure(
+                        with: item,
+                        index: indexPath.item
+                    )
 
                     cell.showLogButton.rx.tap
                         .map { indexPath.item }

@@ -67,9 +67,13 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.togetherRunner
-            .map { scene.VM }
-            .bind { [weak self] vm in
-                self?.pushTogetherRunnerScene(vm: vm, animated: true)
+            .map { (vm: scene.VM, gatheringId: $0) }
+            .bind { [weak self] inputs in
+                self?.pushTogetherRunnerScene(
+                    vm: inputs.vm,
+                    gatheringId: inputs.gatheringId,
+                    animated: true
+                )
             }.disposed(by: sceneDisposeBag)
 
         scene.VM.routes.backwardModal
@@ -162,9 +166,10 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
 
     private func pushTogetherRunnerScene(
         vm _: WriteLogViewModel,
+        gatheringId: Int,
         animated: Bool
     ) {
-        let comp = component.togetherRunnerComponent
+        let comp = component.togetherRunnerComponent(gatheringId: gatheringId)
         let coord = TogetherRunnerCoordinator(
             component: comp,
             navController: navigationController

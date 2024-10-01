@@ -8,26 +8,23 @@
 import Foundation
 import RxDataSources
 
-struct TogetherRunner: Equatable {
-    let usetProfileURL: String
-    let userNickname: String
-    var stamp: StampType?
-}
-
 struct TogetherRunnerConfig: Equatable, IdentifiableType {
-    let id = UUID()
-    let usetProfileURL: String
-    let userNickname: String
-    let stamp: StampType?
+    let userId: Int
+    let nickname: String
+    let profileImageUrl: String?
+    let isOpened: Int?
+    let stampCode: String?
 
     var identity: String {
-        "\(id)"
+        "\(userId)"
     }
 
-    init(from togetherRunner: TogetherRunner) {
-        usetProfileURL = togetherRunner.usetProfileURL
-        userNickname = togetherRunner.userNickname
-        stamp = togetherRunner.stamp
+    init(from: LogPartners) {
+        userId = from.userId
+        nickname = from.nickname
+        profileImageUrl = from.profileImageUrl
+        isOpened = from.isOpened
+        stampCode = from.stampCode
     }
 }
 

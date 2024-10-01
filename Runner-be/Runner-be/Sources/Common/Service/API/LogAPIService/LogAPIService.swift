@@ -19,4 +19,5 @@ protocol LogAPIService {
     func edit(form: LogForm) -> Observable<APIResult<LogResult>>
     func delete(logId: Int) -> Observable<APIResult<LogResult>>
     func detail(logId: Int) -> Observable<APIResult<LogDetail?>>
+    func partners(gatheringId: Int) -> Observable<APIResult<[LogPartners]?>>
 }

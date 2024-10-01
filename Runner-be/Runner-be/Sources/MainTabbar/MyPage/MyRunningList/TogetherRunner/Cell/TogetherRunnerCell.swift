@@ -31,6 +31,7 @@ final class TogetherRunnerCell: UITableViewCell {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.primary.cgColor
         $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
     }
 
     private let nameLabel = UILabel().then {
@@ -83,15 +84,26 @@ final class TogetherRunnerCell: UITableViewCell {
 
     // MARK: - Methods
 
-    func configure(with config: TogetherRunnerConfig) {
+    // FIXME: 조장을 인덱스 첫번째일 경우로 임시 설정됨 API수정후 앱적용
+    func configure(
+        with config: TogetherRunnerConfig,
+        index: Int
+    ) {
         disposeBag = DisposeBag()
-
+        nameLabel.text = config.nickname
+        readerIcon.isHidden = index != 0
         profileImage.kf.setImage(
-            with: URL(string: config.usetProfileURL),
+            with: URL(string: config.profileImageUrl ?? ""),
             placeholder: Asset.profileEmptyIcon.uiImage
         )
-        stampBg.isHidden = config.stamp == nil
-        stampIcon.image = config.stamp?.icon
+        if let stampCode = config.stampCode,
+           let stamp = StampType(rawValue: stampCode)
+        {
+            stampBg.isHidden = false
+            stampIcon.image = stamp.icon
+        } else {
+            stampBg.isHidden = true
+        }
     }
 }
 

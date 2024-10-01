@@ -55,8 +55,8 @@ final class WriteLogComponent {
         return TakePhotoModalComponent(isShowBasicImageOption: false)
     }
 
-    var togetherRunnerComponent: TogetherRunnerComponent {
-        return TogetherRunnerComponent()
+    func togetherRunnerComponent(gatheringId: Int) -> TogetherRunnerComponent {
+        return TogetherRunnerComponent(gatheringId: gatheringId)
     }
 
     var logModalComponent: LogModalComponent {

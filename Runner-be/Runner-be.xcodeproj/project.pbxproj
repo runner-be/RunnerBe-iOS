@@ -100,6 +100,7 @@
 		2BD73D862C27C92A0058D6E9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D852C27C92A0058D6E9 /* Keys.swift */; };
 		2BD73D892C27EEA80058D6E9 /* SliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */; };
 		2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */; };
+		2BF70C192CAC357D0029409D /* LogPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF70C182CAC357D0029409D /* LogPartners.swift */; };
 		2BF9E1CA2C2FAE650014D541 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */; };
 		2BF9E1CC2C3047F70014D541 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9E1CB2C3047F70014D541 /* UITextView+.swift */; };
 		432B45E228C1C1C6001AB8A9 /* RBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */; };
@@ -591,6 +592,7 @@
 		2BD73D852C27C92A0058D6E9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		2BD73D882C27EEA80058D6E9 /* SliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderValueLabel.swift; sourceTree = "<group>"; };
 		2BD73D8A2C27EED10058D6E9 /* BasicSliderValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSliderValueLabel.swift; sourceTree = "<group>"; };
+		2BF70C182CAC357D0029409D /* LogPartners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPartners.swift; sourceTree = "<group>"; };
 		2BF9E1C92C2FAE650014D541 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		2BF9E1CB2C3047F70014D541 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		432B45E128C1C1C6001AB8A9 /* RBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBNotificationService.swift; sourceTree = "<group>"; };
@@ -1108,6 +1110,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6324C02C9D29AB006C86D9 /* LogDetail.swift */,
+				2BF70C182CAC357D0029409D /* LogPartners.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -3134,6 +3137,7 @@
 				2BD73D8B2C27EED10058D6E9 /* BasicSliderValueLabel.swift in Sources */,
 				2BC6A5A42C84092E00CCE73F /* ConfirmAttendanceCoordinator.swift in Sources */,
 				C3EE147427E650BA00AFC185 /* BasicUserKeyChainService.swift in Sources */,
+				2BF70C192CAC357D0029409D /* LogPartners.swift in Sources */,
 				C343A33D27BE2227008E6FA4 /* CircularHandle.swift in Sources */,
 				2B0A75912C75FF5200818710 /* SelectPlaceEmptyView.swift in Sources */,
 				2BA6640A2C81965800966D64 /* WriteLogViewModel.swift in Sources */,

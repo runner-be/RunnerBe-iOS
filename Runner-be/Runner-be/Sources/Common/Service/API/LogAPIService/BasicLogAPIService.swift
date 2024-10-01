@@ -381,4 +381,29 @@ final class BasicLogAPIService: LogAPIService {
         .timeout(.seconds(2), scheduler: MainScheduler.instance)
         .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+
+    func partners(gatheringId: Int) -> Observable<APIResult<[LogPartners]?>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(APIResult.response(result: nil))
+        }
+
+        return provider.rx.request(.partners(
+            userId: userId,
+            gatheringId: gatheringId,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .compactMap {
+            try? $0?.json["result"].rawData()
+        }
+        .decode(type: [LogPartners].self, decoder: JSONDecoder())
+        .map {
+            APIResult.response(result: $0)
+        }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }

@@ -17,7 +17,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     }
 
     struct Output {
-        var togetherRunnerList = ReplaySubject<[TogetherRunner]>.create(bufferSize: 1)
+        var togetherRunnerList = ReplaySubject<[LogPartners]>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -37,79 +37,70 @@ final class TogetherRunnerViewModel: BaseViewModel {
     var routes = Route()
     var routeInputs = RouteInputs()
 
-    var runnerList: [TogetherRunner] = []
+    var partnerList: [LogPartners] = []
     var selectedIndex: Int?
 
     // MARK: - Init
 
-    override init() {
+    init(
+        gatheringId: Int,
+        logAPIService: LogAPIService = BasicLogAPIService()
+    ) {
         super.init()
 
-        runnerList = [
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "김조장",
-                stamp: nil
-            ),
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "쥬쥬",
-                stamp: nil
-            ),
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "맹고",
-                stamp: nil
-            ),
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "정",
-                stamp: nil
-            ),
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "스탬프 안주고 싶은사람",
-                stamp: nil
-            ),
-            TogetherRunner(
-                usetProfileURL: "",
-                userNickname: "수정",
-                stamp: nil
-            ),
-        ]
+        logAPIService.partners(gatheringId: gatheringId)
+            .compactMap { [weak self] result -> [LogPartners]? in
+                switch result {
+                case let .response(data):
+                    if let data = data {
+                        return data
+                    }
+                    self?.toast.onNext("함께한 러너 프로필 조회에 실패했습니다.")
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+                return nil
+            }
+            .subscribe(onNext: { [weak self] logPartners in
+                self?.partnerList = logPartners
+                self?.outputs.togetherRunnerList.onNext(logPartners)
 
-        outputs.togetherRunnerList.onNext(runnerList)
+            })
+            .disposed(by: disposeBag)
 
         routeInputs.needUpdate
             .filter { $0 }
             .compactMap { [weak self] _ in
                 guard let self = self else { return nil }
-                return runnerList
+                return partnerList
             }
             .bind(to: outputs.togetherRunnerList)
             .disposed(by: disposeBag)
 
-        inputs.tapRunner
-            .compactMap { [weak self] itemIndex in
-                self?.selectedIndex = itemIndex
-
-                guard let self = self,
-                      let selectedStamp = self.runnerList[itemIndex].stamp
-                else {
-                    return (
-                        // FIXME: 강제 언래핑
-                        stamp: StampType(rawValue: "RUN001")!,
-                        title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
-                    )
-                }
-
-                return (
-                    stamp: selectedStamp,
-                    title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
-                )
-            }
-            .bind(to: routes.logStampBottomSheet)
-            .disposed(by: disposeBag)
+//        inputs.tapRunner
+//            .compactMap { [weak self] itemIndex in
+//                self?.selectedIndex = itemIndex
+//
+//                guard let self = self,
+//                      let selectedStamp = self.runnerList[itemIndex].stampCode
+//                else {
+//                    return (
+//                        // FIXME: 강제 언래핑
+//                        stamp: StampType(rawValue: "RUN001")!,
+//                        title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
+//                    )
+//                }
+//
+//                return (
+//                    stamp: selectedStamp,
+//                    title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
+//                )
+//            }
+//            .bind(to: routes.logStampBottomSheet)
+//            .disposed(by: disposeBag)
 
         inputs.tapShowLogButton
             .compactMap { [weak self] _ in
@@ -124,15 +115,15 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
-        routeInputs.selectedLogStamp
-            .compactMap { [weak self] stamp in
-                guard let self = self,
-                      let selectedIndex = selectedIndex
-                else { return nil }
-                runnerList[selectedIndex].stamp = stamp
-                return self.runnerList
-            }.bind(to: outputs.togetherRunnerList)
-            .disposed(by: disposeBag)
+//        routeInputs.selectedLogStamp
+//            .compactMap { [weak self] stamp in
+//                guard let self = self,
+//                      let selectedIndex = selectedIndex
+//                else { return nil }
+//                runnerList[selectedIndex].stamp = stamp
+//                return self.runnerList
+//            }.bind(to: outputs.togetherRunnerList)
+//            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods

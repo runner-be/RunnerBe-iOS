@@ -10,6 +10,7 @@ struct DetailRunningLog: Decodable {
     let status: String
     let runnedDate: String
     let userId: Int
+    let gatheringId: Int?
     let stampCode: String
     let contents: String?
     let imageUrl: String?

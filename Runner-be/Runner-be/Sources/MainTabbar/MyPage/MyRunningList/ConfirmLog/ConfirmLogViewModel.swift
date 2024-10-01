@@ -96,6 +96,14 @@ final class ConfirmLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapTogether
+            .compactMap { [weak self] _ in
+                guard let self = self,
+                      let gatheringId = logDetail?.detailRunningLog?.gatheringId
+                else {
+                    return nil
+                }
+                return gatheringId
+            }
             .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
 
@@ -126,7 +134,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var modal = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
         var newConfirmLog = PublishSubject<Int>()
-        var togetherRunner = PublishSubject<Void>()
+        var togetherRunner = PublishSubject<Int>()
     }
 
     struct RouteInput {
