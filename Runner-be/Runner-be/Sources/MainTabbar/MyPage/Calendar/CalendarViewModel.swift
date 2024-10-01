@@ -64,7 +64,9 @@ final class CalendarViewModel: BaseViewModel {
             .compactMap { [weak self] index in
                 guard let self = self,
                       let logId = self.myRunningLogs[index]?.logId
-                else { return nil }
+                else {
+                    return nil
+                }
 
                 return logId
             }
@@ -91,6 +93,7 @@ final class CalendarViewModel: BaseViewModel {
 
     func changeTargetDate(runningLog: [MyRunningLog]) {
         if let _ = calendar.date(from: components) {
+            myRunningLogs.removeAll()
             outputs.days.onNext(generateCalendarDates(runningLog: runningLog))
             outputs.changedTargetDate.onNext((
                 year: targetYear,
