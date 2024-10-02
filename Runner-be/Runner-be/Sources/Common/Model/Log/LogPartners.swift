@@ -12,5 +12,5 @@ struct LogPartners: Decodable {
     let nickname: String
     let profileImageUrl: String?
     let isOpened: Int?
-    let stampCode: String?
+    var stampCode: String?
 }

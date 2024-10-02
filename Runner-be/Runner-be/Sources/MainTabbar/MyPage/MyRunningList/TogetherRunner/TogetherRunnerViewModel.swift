@@ -80,27 +80,23 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .bind(to: outputs.togetherRunnerList)
             .disposed(by: disposeBag)
 
-//        inputs.tapRunner
-//            .compactMap { [weak self] itemIndex in
-//                self?.selectedIndex = itemIndex
-//
-//                guard let self = self,
-//                      let selectedStamp = self.runnerList[itemIndex].stampCode
-//                else {
-//                    return (
-//                        // FIXME: 강제 언래핑
-//                        stamp: StampType(rawValue: "RUN001")!,
-//                        title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
-//                    )
-//                }
-//
-//                return (
-//                    stamp: selectedStamp,
-//                    title: "{닉네임}에게 \n 러닝 스탬프를 찍어봐요!"
-//                )
-//            }
-//            .bind(to: routes.logStampBottomSheet)
-//            .disposed(by: disposeBag)
+        inputs.tapRunner
+            .compactMap { [weak self] itemIndex in
+                self?.selectedIndex = itemIndex
+                guard let self = self,
+                      let stampCode = self.partnerList[itemIndex].stampCode,
+                      let selectedLogStamp = StampType(rawValue: stampCode)
+                else {
+                    return nil
+                }
+
+                return (
+                    stamp: selectedLogStamp,
+                    title: "\(self.partnerList[itemIndex].nickname)에게 \n 러닝 스탬프를 찍어봐요!"
+                )
+            }
+            .bind(to: routes.logStampBottomSheet)
+            .disposed(by: disposeBag)
 
         inputs.tapShowLogButton
             .compactMap { [weak self] _ in
@@ -115,15 +111,17 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
-//        routeInputs.selectedLogStamp
-//            .compactMap { [weak self] stamp in
-//                guard let self = self,
-//                      let selectedIndex = selectedIndex
-//                else { return nil }
-//                runnerList[selectedIndex].stamp = stamp
-//                return self.runnerList
-//            }.bind(to: outputs.togetherRunnerList)
-//            .disposed(by: disposeBag)
+        routeInputs.selectedLogStamp
+            .compactMap { [weak self] stamp in
+                guard let self = self,
+                      let selectedIndex = selectedIndex
+                else {
+                    return nil
+                }
+                partnerList[selectedIndex].stampCode = stamp.rawValue
+                return self.partnerList
+            }.bind(to: outputs.togetherRunnerList)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
