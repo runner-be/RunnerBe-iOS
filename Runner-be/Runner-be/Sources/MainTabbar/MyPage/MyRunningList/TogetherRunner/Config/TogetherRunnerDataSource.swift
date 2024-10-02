@@ -10,6 +10,7 @@ import RxDataSources
 
 struct TogetherRunnerConfig: Equatable, IdentifiableType {
     let userId: Int
+    let logId: Int?
     let nickname: String
     let profileImageUrl: String?
     let isOpened: Int?
@@ -21,6 +22,7 @@ struct TogetherRunnerConfig: Equatable, IdentifiableType {
 
     init(from: LogPartners) {
         userId = from.userId
+        logId = from.logId
         nickname = from.nickname
         profileImageUrl = from.profileImageUrl
         isOpened = from.isOpened

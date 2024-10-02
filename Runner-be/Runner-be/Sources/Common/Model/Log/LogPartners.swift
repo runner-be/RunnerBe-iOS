@@ -9,6 +9,7 @@ import Foundation
 
 struct LogPartners: Decodable {
     let userId: Int
+    let logId: Int?
     let nickname: String
     let profileImageUrl: String?
     let isOpened: Int?

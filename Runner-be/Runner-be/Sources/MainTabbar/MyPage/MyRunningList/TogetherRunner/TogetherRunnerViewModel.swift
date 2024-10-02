@@ -103,14 +103,13 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapShowLogButton
-            .compactMap { [weak self] _ in
+            .compactMap { [weak self] itemIndex in
                 guard let self = self
                 else {
                     return nil
                 }
-
-                // FIXME: 함께한 러너 API 완료되면 수정
-                return 0
+                print("snei0fjs90ejfes: \(self.partnerList[itemIndex].logId)")
+                return self.partnerList[itemIndex].logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
