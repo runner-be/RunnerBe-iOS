@@ -108,23 +108,22 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 else {
                     return nil
                 }
-                print("snei0fjs90ejfes: \(self.partnerList[itemIndex].logId)")
                 return self.partnerList[itemIndex].logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
-        routeInputs.selectedLogStamp
-            .compactMap { [weak self] stampType in
-                guard let self = self,
-                      let selectedIndex = selectedIndex
-                else {
-                    return nil
-                }
-                partnerList[selectedIndex].stampCode = stampType.rawValue
-                return self.partnerList
-            }.bind(to: outputs.togetherRunnerList)
-            .disposed(by: disposeBag)
+//        routeInputs.selectedLogStamp
+//            .compactMap { [weak self] stampType in
+//                guard let self = self,
+//                      let selectedIndex = selectedIndex
+//                else {
+//                    return nil
+//                }
+//                partnerList[selectedIndex].stampCode = stampType.rawValue
+//                return self.partnerList
+//            }.bind(to: outputs.togetherRunnerList)
+//            .disposed(by: disposeBag)
 
         routeInputs.selectedLogStamp
             .flatMap { [weak self] stampType -> Observable<APIResult<LogResult>> in
