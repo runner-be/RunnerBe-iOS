@@ -102,7 +102,7 @@ final class ConfirmLogViewModel: BaseViewModel {
                 else {
                     return nil
                 }
-                return gatheringId
+                return (logId, gatheringId)
             }
             .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
@@ -134,7 +134,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var modal = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
         var newConfirmLog = PublishSubject<Int>()
-        var togetherRunner = PublishSubject<Int>()
+        var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
     }
 
     struct RouteInput {

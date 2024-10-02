@@ -14,12 +14,20 @@ final class TogetherRunnerComponent {
     }
 
     var viewModel: TogetherRunnerViewModel {
-        return TogetherRunnerViewModel(gatheringId: gatheringId)
+        return TogetherRunnerViewModel(
+            logId: logId,
+            gatheringId: gatheringId
+        )
     }
 
+    let logId: Int
     let gatheringId: Int
 
-    init(gatheringId: Int) {
+    init(
+        logId: Int,
+        gatheringId: Int
+    ) {
+        self.logId = logId
         self.gatheringId = gatheringId
     }
 

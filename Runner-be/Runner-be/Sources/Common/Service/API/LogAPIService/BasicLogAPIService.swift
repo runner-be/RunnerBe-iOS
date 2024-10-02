@@ -406,4 +406,104 @@ final class BasicLogAPIService: LogAPIService {
         .timeout(.seconds(2), scheduler: MainScheduler.instance)
         .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+
+    func postPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(APIResult.response(result: LogResult.fail))
+        }
+
+        let functionResult = ReplaySubject<APIResult<LogResult>>.create(bufferSize: 1)
+
+        provider.rx.request(.postPartnerStamp(
+            userId: userId,
+            logId: logId,
+            targetId: targetId,
+            stampCode: stampCode,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .subscribe(onNext: { response in
+            guard let response = response else {
+                Log.d(tag: .network, "res")
+                functionResult.onNext(APIResult.response(result: LogResult.fail))
+                return
+            }
+            Log.d(tag: .network, "response message: \(response.basic.message)")
+            switch response.basic.code {
+            case 1000: // 성공
+                return functionResult.onNext(APIResult.response(result: LogResult.succeed))
+            case 2010: // jwt의 userId와 userId가 일치하지 않습니다.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2011: // userId 값을 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2109: // 러닝로그 날짜를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2110: // 러닝 스탬프 코드를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2113: // 존재하지 않느 러닝로그 ID입니다.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2114: // 러닝로그 ID를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2117: // 함께한 러너 ID를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            default:
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            }
+        }).disposed(by: disposeBag)
+
+        return functionResult
+    }
+
+    func editPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else {
+            return .just(APIResult.response(result: LogResult.fail))
+        }
+
+        let functionResult = ReplaySubject<APIResult<LogResult>>.create(bufferSize: 1)
+
+        provider.rx.request(.editPartnerStamp(
+            userId: userId,
+            logId: logId,
+            targetId: targetId,
+            stampCode: stampCode,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .subscribe(onNext: { response in
+            guard let response = response else {
+                Log.d(tag: .network, "res")
+                functionResult.onNext(APIResult.response(result: LogResult.fail))
+                return
+            }
+            Log.d(tag: .network, "response message: \(response.basic.message)")
+            switch response.basic.code {
+            case 1000: // 성공
+                return functionResult.onNext(APIResult.response(result: LogResult.succeed))
+            case 2010: // jwt의 userId와 userId가 일치하지 않습니다.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2011: // userId 값을 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2109: // 러닝로그 날짜를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2110: // 러닝 스탬프 코드를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2113: // 존재하지 않느 러닝로그 ID입니다.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2114: // 러닝로그 ID를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            case 2117: // 함께한 러너 ID를 입력해주세요.
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            default:
+                return functionResult.onNext(APIResult.response(result: LogResult.fail))
+            }
+        }).disposed(by: disposeBag)
+
+        return functionResult
+    }
 }

@@ -43,6 +43,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     // MARK: - Init
 
     init(
+        logId: Int,
         gatheringId: Int,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
@@ -87,7 +88,10 @@ final class TogetherRunnerViewModel: BaseViewModel {
                       let stampCode = self.partnerList[itemIndex].stampCode,
                       let selectedLogStamp = StampType(rawValue: stampCode)
                 else {
-                    return nil
+                    return (
+                        stamp: StampType(rawValue: "RUN001")!,
+                        title: "에게 \n 러닝 스탬프를 찍어봐요!"
+                    )
                 }
 
                 return (
@@ -112,15 +116,57 @@ final class TogetherRunnerViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         routeInputs.selectedLogStamp
-            .compactMap { [weak self] stamp in
+            .compactMap { [weak self] stampType in
                 guard let self = self,
                       let selectedIndex = selectedIndex
                 else {
                     return nil
                 }
-                partnerList[selectedIndex].stampCode = stamp.rawValue
+                partnerList[selectedIndex].stampCode = stampType.rawValue
                 return self.partnerList
             }.bind(to: outputs.togetherRunnerList)
+            .disposed(by: disposeBag)
+
+        routeInputs.selectedLogStamp
+            .flatMap { [weak self] stampType -> Observable<APIResult<LogResult>> in
+                guard let self = self,
+                      let selectedIndex = self.selectedIndex
+                else {
+                    // TODO: 에러 원인 더 명확하게
+                    return Observable.empty()
+                }
+
+                let targetId = self.partnerList[selectedIndex].userId
+                if let currentStampCode = self.partnerList[selectedIndex].stampCode {
+                    self.partnerList[selectedIndex].stampCode = stampType.rawValue
+                    return logAPIService.editPartnerStamp(
+                        logId: logId,
+                        targetId: targetId,
+                        stampCode: stampType.rawValue
+                    )
+                } else {
+                    self.partnerList[selectedIndex].stampCode = stampType.rawValue
+                    return logAPIService.postPartnerStamp(
+                        logId: logId,
+                        targetId: targetId,
+                        stampCode: stampType.rawValue
+                    )
+                }
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .response:
+                    toast.onNext("스탬프를 주었습니다.")
+                    outputs.togetherRunnerList.onNext(partnerList)
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        toast.onNext(alertMessage)
+                    } else {
+                        toast.onNext("오류가 발생해 게시글 삭제되지 않았습니다.")
+                    }
+                }
+            })
             .disposed(by: disposeBag)
     }
 

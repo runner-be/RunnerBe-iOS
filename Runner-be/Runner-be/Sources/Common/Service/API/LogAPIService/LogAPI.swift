@@ -16,6 +16,8 @@ enum LogAPI {
     case delete(userId: Int, logId: Int, token: LoginToken)
     case detail(userId: Int, logId: Int, token: LoginToken)
     case partners(userId: Int, gatheringId: Int, token: LoginToken)
+    case postPartnerStamp(userId: Int, logId: Int, targetId: Int, stampCode: String, token: LoginToken)
+    case editPartnerStamp(userId: Int, logId: Int, targetId: Int, stampCode: String, token: LoginToken)
 }
 
 extension LogAPI: TargetType {
@@ -39,6 +41,10 @@ extension LogAPI: TargetType {
             return "/runningLogs/\(userId)/detail/\(logId)"
         case let .partners(userId, gatheringId, _):
             return "/runningLogs/\(userId)/partners/\(gatheringId)"
+        case let .postPartnerStamp(userId, logId, _, _, _):
+            return "/runningLogs/\(userId)/partners/\(logId)"
+        case let .editPartnerStamp(userId, logId, _, _, _):
+            return "/runningLogs/\(userId)/partners/\(logId)"
         }
     }
 
@@ -58,6 +64,10 @@ extension LogAPI: TargetType {
             return Method.get
         case .partners:
             return Method.get
+        case .postPartnerStamp:
+            return Method.post
+        case .editPartnerStamp:
+            return Method.patch
         }
     }
 
@@ -112,6 +122,20 @@ extension LogAPI: TargetType {
             return .requestPlain
         case .partners:
             return .requestPlain
+        case let .postPartnerStamp(_, _, targetId, stampCode, _):
+            let parameters: [String: Any] = [
+                "targetId": targetId,
+                "stampCode": stampCode,
+            ]
+
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+        case let .editPartnerStamp(_, _, targetId, stampCode, _):
+            let parameters: [String: Any] = [
+                "targetId": targetId,
+                "stampCode": stampCode,
+            ]
+
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
 
@@ -132,6 +156,10 @@ extension LogAPI: TargetType {
         case let .detail(_, _, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .partners(_, _, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .postPartnerStamp(_, _, _, _, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .editPartnerStamp(_, _, _, _, token):
             header["x-access-token"] = "\(token.jwt)"
         }
 

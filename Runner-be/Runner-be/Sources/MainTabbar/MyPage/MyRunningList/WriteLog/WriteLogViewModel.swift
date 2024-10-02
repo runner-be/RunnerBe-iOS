@@ -43,7 +43,7 @@ final class WriteLogViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var logStampBottomSheet = PublishSubject<StampType>()
         var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
-        var togetherRunner = PublishSubject<Int>()
+        var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
         var photoModal = PublishSubject<Void>()
         var backwardModal = PublishSubject<Void>()
     }

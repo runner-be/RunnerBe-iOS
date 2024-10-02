@@ -41,7 +41,13 @@ final class ConfirmLogComponent {
         return ConfirmLogComponent(logId: logId)
     }
 
-    func togetherRunnerComponent(gatheringId: Int) -> TogetherRunnerComponent {
-        return TogetherRunnerComponent(gatheringId: gatheringId)
+    func togetherRunnerComponent(
+        logId: Int,
+        gatheringId: Int
+    ) -> TogetherRunnerComponent {
+        return TogetherRunnerComponent(
+            logId: logId,
+            gatheringId: gatheringId
+        )
     }
 }
