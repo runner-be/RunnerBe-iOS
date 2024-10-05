@@ -104,7 +104,9 @@ final class CalendarViewModel: BaseViewModel {
         routeInputs.needUpdate
             .filter { $0.needUpdate }
             .compactMap { [weak self] targetDate, _ in
-                self?.targetDate = targetDate ?? Date()
+                if let targetDate = targetDate {
+                    self?.targetDate = targetDate
+                }
                 return self?.targetDate
             }
             .bind(to: inputs.changedTargetDate)
