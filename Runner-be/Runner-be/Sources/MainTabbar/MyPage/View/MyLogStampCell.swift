@@ -72,6 +72,8 @@ final class MyLogStampCell: UICollectionViewCell {
 
         if let stampIcon = logStamp.stampType?.icon {
             self.stampIcon.image = stampIcon
+        } else if logStamp.isGathering {
+            stampIcon.image = Asset.iconLogPostable30.uiImage
         } else {
             stampIcon.image = Asset.iconLogEmpty30.uiImage
         }

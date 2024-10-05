@@ -36,6 +36,8 @@ final class CalendarViewModel: BaseViewModel {
         return Int(monthString) ?? 00
     }
 
+    var dates: [MyLogStampConfig] = []
+
     // MARK: - Init
 
     init(logAPIService: LogAPIService = BasicLogAPIService()) {
@@ -73,6 +75,24 @@ final class CalendarViewModel: BaseViewModel {
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
+        inputs.tappedDate
+            .compactMap { [weak self] index in
+                let currentDate = Date()
+
+                guard let self = self,
+                      self.myRunningLogs[index]?.logId == nil,
+                      currentDate.timeIntervalSince1970 > self.dates[index].date.timeIntervalSince1970
+                else {
+                    return nil
+                }
+                return LogForm(
+                    runningDate: self.dates[index].date,
+                    isOpened: 1
+                )
+            }
+            .bind(to: routes.writeLog)
+            .disposed(by: disposeBag)
+
         inputs.showSelectDate
             .map { [weak self] _ in
                 guard let self = self else { return Date() }
@@ -103,7 +123,7 @@ final class CalendarViewModel: BaseViewModel {
     }
 
     func generateCalendarDates(runningLog: [MyRunningLog]) -> [MyLogStampConfig] {
-        var dates: [MyLogStampConfig] = []
+        dates = []
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -210,6 +230,7 @@ final class CalendarViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var dateBottomSheet = PublishSubject<Date>()
         var confirmLog = PublishSubject<Int>()
+        var writeLog = PublishSubject<LogForm>()
     }
 
     struct RouteInput {

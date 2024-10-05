@@ -59,6 +59,17 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
                 )
 
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.writeLog
+            .map { (vm: scene.VM, logForm: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushWriteLog(
+                    vm: inputs.vm,
+                    logForm: inputs.logForm,
+                    writeLogMode: .create,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func showDateBottomSheet(
@@ -97,6 +108,29 @@ final class CalendarCoordinator: BasicCoordinator<CalendarResult> {
             coordinator: coord,
             animated: animated
         ) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext((nil, needUpdate))
+            }
+        }
+    }
+
+    private func pushWriteLog(
+        vm: CalendarViewModel,
+        logForm: LogForm,
+        writeLogMode: WriteLogMode,
+        animated: Bool
+    ) {
+        let comp = component.writeLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+        let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward(needUpdate):
                 vm.routeInputs.needUpdate.onNext((nil, needUpdate))

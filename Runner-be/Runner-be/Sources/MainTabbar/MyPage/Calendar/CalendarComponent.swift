@@ -22,4 +22,14 @@ final class CalendarComponent {
     func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
         return ConfirmLogComponent(logId: logId)
     }
+
+    func writeLogComponent(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
+    ) -> WriteLogComponent {
+        return WriteLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+    }
 }

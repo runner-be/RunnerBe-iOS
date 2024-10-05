@@ -55,6 +55,12 @@ final class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.changePhoto)
             .disposed(by: disposeBag)
 
+        myLogStampView.titleIcon.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapLogStampIcon)
+            .disposed(by: disposeBag)
+
         myLogStampView.logStampCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapLogStamp)

@@ -13,6 +13,10 @@ struct LogStamp {
     let gatheringId: Int?
     let date: Date
     let stampType: StampType?
+
+    var isGathering: Bool {
+        return logId == nil && gatheringId != nil
+    }
 }
 
 struct MyLogStampConfig: Equatable, IdentifiableType {

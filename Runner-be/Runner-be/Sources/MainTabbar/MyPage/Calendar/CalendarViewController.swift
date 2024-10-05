@@ -125,7 +125,11 @@ final class CalendarViewController: BaseViewController {
 
         calendarCollectionView.rx.itemSelected
             .map { $0.item }
-            .bind(to: viewModel.inputs.tappedDate)
+//            .bind(to: viewModel.inputs.tappedDate)
+            .bind {
+                print("sje9fjsnoiefjsf index : \($0)")
+                self.viewModel.inputs.tappedDate.onNext($0)
+            }
             .disposed(by: disposeBag)
     }
 

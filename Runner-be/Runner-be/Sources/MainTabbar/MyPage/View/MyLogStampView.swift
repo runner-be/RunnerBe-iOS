@@ -23,7 +23,7 @@ final class MyLogStampView: UIView {
         $0.font = .pretendardSemiBold16
     }
 
-    private let titleIcon = UIImageView().then {
+    let titleIcon = UIImageView().then {
         $0.image = Asset.scheduled.uiImage
     }
 

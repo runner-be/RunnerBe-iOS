@@ -133,6 +133,7 @@ internal enum Asset {
   internal static let iconLocation18 = ImageAsset(name: "iconLocation18")
   internal static let iconLock24 = ImageAsset(name: "iconLock24")
   internal static let iconLogEmpty30 = ImageAsset(name: "iconLogEmpty30")
+  internal static let iconLogPostable30 = ImageAsset(name: "iconLogPostable30")
   internal static let iconMoreButton24 = ImageAsset(name: "iconMoreButton24")
   internal static let iconPhoto18 = ImageAsset(name: "iconPhoto18")
   internal static let iconSearch18 = ImageAsset(name: "iconSearch18")

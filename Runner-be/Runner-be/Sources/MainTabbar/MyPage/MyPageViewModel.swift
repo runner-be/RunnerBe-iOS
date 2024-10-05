@@ -135,6 +135,15 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapLogStamp
+            .bind { [weak self] logItemIndex in
+                guard let self = self else { return }
+                print("로그 스탬프 클릭 됨 logItemIndex: \(logItemIndex)")
+                print("로그 작성이 되어있으면 로그 확인 페이지로 이동")
+                print("로그 작성이 안되있으면 로그 작성 페이지로 이동")
+            }
+            .disposed(by: disposeBag)
+
+        inputs.tapLogStampIcon
             .bind(to: routes.calendar)
             .disposed(by: disposeBag)
 
@@ -454,6 +463,7 @@ final class MyPageViewModel: BaseViewModel {
         var editInfo = PublishSubject<Void>()
         var tapPost = PublishSubject<Int>()
         var tapLogStamp = PublishSubject<Int>()
+        var tapLogStampIcon = PublishSubject<Void>()
         var tapMyRunning = PublishSubject<Void>()
         var bookMark = PublishSubject<Int>()
         var attend = PublishSubject<Int>()
@@ -487,7 +497,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Route {
-        var calendar = PublishSubject<Int>()
+        var calendar = PublishSubject<Void>()
         var myRunningList = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
