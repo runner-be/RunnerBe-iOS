@@ -41,9 +41,14 @@ final class MyInfoView: UIView {
         }
     }
 
-    var levelView = MyPageProfileLabel(iconPosition: .left).then { view in
+    var levelView = MyPageProfileLabel(
+        iconPosition: .left,
+        iconSize: CGSize(width: 20, height: 20),
+        padding: .zero
+    ).then { view in
         view.icon.image = Asset.smile.uiImage
         view.label.text = "초보 출석"
+        view.layer.borderWidth = 0
     }
 
     var editPaceLabel = UILabel().then { view in
@@ -106,13 +111,13 @@ extension MyInfoView {
 
         switch userConfig.diligence {
         case "성실 출석":
-            levelView.icon.image = Asset.smile.uiImage
+            levelView.icon.image = Asset.iconGoodRunner.uiImage
         case "노력 출석":
-            levelView.icon.image = Asset.icEffortRunner.uiImage
+            levelView.icon.image = Asset.iconEffortRunner.uiImage
         case "불량 출석":
-            levelView.icon.image = Asset.icBadRunner.uiImage
+            levelView.icon.image = Asset.iconBadRunner.uiImage
         case "초보 출석":
-            levelView.icon.image = Asset.icBasicRunner.uiImage
+            levelView.icon.image = Asset.iconBasicRunner.uiImage
         default:
             break
         }

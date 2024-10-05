@@ -27,7 +27,17 @@ class MyPageProfileLabel: UIView {
 
     private let iconPosition: IconPosition
 
-    init(iconPosition: IconPosition = .left, iconSize: CGSize = CGSize(width: 16, height: 16), spacing: CGFloat = 4, padding: UIEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)) {
+    init(
+        iconPosition: IconPosition = .left,
+        iconSize: CGSize = CGSize(width: 16, height: 16),
+        spacing: CGFloat = 4,
+        padding: UIEdgeInsets = UIEdgeInsets(
+            top: 4,
+            left: 8,
+            bottom: 4,
+            right: 8
+        )
+    ) {
         self.iconPosition = iconPosition
         self.iconSize = iconSize
         self.spacing = spacing
