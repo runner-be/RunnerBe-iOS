@@ -10,11 +10,12 @@ struct DetailRunningLog: Decodable {
     let status: String
     let runnedDate: String
     let userId: Int
+    let nickname: String
     let gatheringId: Int?
     let stampCode: String
     let contents: String?
     let imageUrl: String?
-    let weatherDegree: Int
+    let weatherDegree: Int?
     let weatherIcon: String
     let isOpened: Int
 }
@@ -30,22 +31,15 @@ struct GotStamp: Decodable {
 struct LogDetail: Decodable {
     let gotStamp: [GotStamp]
     let gatheringCount: Int
-    let detailRunningLogs: [DetailRunningLog]
+    let detailRunningLog: DetailRunningLog
 
     enum CodingKeys: String, CodingKey {
         case gotStamp
         case gatheringCount
-        case detailRunningLogs = "detailRunningLog"
-    }
-
-    var detailRunningLog: DetailRunningLog? {
-        detailRunningLogs.first
+        case detailRunningLog
     }
 
     var runningDate: Date? {
-        guard let detailRunningLog = detailRunningLog else {
-            return nil
-        }
         let isoDateFormatter = DateFormatter()
         isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         isoDateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 Locale 설정
@@ -55,10 +49,6 @@ struct LogDetail: Decodable {
 
     // ex) 2024년 09월 23일 월요일
     var runningDateString: String? {
-        guard let detailRunningLog = detailRunningLog else {
-            return nil
-        }
-
         let isoDateFormatter = DateFormatter()
         isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         isoDateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 Locale 설정
@@ -79,15 +69,15 @@ struct LogDetail: Decodable {
     }
 
     var runningStamp: StampType? {
-        StampType(rawValue: detailRunningLog?.stampCode ?? "")
+        StampType(rawValue: detailRunningLog.stampCode)
     }
 
     var weatherStamp: StampType? {
-        StampType(rawValue: detailRunningLog?.weatherIcon ?? "")
+        StampType(rawValue: detailRunningLog.weatherIcon)
     }
 
     var weatherDegree: String {
-        if let weatherDegree = detailRunningLog?.weatherDegree {
+        if let weatherDegree = detailRunningLog.weatherDegree {
             return "\(weatherDegree)"
         } else {
             return "-"
@@ -95,14 +85,14 @@ struct LogDetail: Decodable {
     }
 
     var contents: String? {
-        detailRunningLog?.contents
+        detailRunningLog.contents
     }
 
-    var imageURL: String {
-        detailRunningLog?.imageUrl ?? ""
+    var imageURL: String? {
+        detailRunningLog.imageUrl
     }
 
     var isOpened: Bool {
-        detailRunningLog?.isOpened == 1
+        detailRunningLog.isOpened == 1
     }
 }

@@ -170,7 +170,7 @@ final class ConfirmLogViewController: BaseViewController {
         logDiaryView.textView.text = logDetail.contents
         logDiaryView.textView.placeholder = ""
         // 러닝 일기 사진
-        logDiaryView.confirmImageView.kf.setImage(with: URL(string: logDetail.imageURL))
+        logDiaryView.confirmImageView.kf.setImage(with: URL(string: logDetail.imageURL ?? ""))
 
         // 날씨
         logDiaryView.updateWeather(

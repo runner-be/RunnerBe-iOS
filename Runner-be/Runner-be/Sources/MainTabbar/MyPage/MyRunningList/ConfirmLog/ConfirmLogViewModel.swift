@@ -63,11 +63,11 @@ final class ConfirmLogViewModel: BaseViewModel {
                 return LogForm(
                     runningDate: logDetail.runningDate ?? Date(),
                     logId: logId,
-                    stampCode: logDetail.detailRunningLog?.stampCode,
+                    stampCode: logDetail.detailRunningLog.stampCode,
                     contents: logDetail.contents,
                     imageUrl: logDetail.imageURL,
                     imageData: nil,
-                    weatherDegree: logDetail.detailRunningLog?.weatherDegree,
+                    weatherDegree: logDetail.detailRunningLog.weatherDegree,
                     weatherIcon: logDetail.weatherStamp?.rawValue,
                     isOpened: logDetail.isOpened ? 1 : 2
                 )
@@ -98,7 +98,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         inputs.tapTogether
             .compactMap { [weak self] _ in
                 guard let self = self,
-                      let gatheringId = logDetail?.detailRunningLog?.gatheringId
+                      let gatheringId = logDetail?.detailRunningLog.gatheringId
                 else {
                     return nil
                 }
