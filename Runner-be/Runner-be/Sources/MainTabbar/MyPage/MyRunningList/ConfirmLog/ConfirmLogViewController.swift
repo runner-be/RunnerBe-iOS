@@ -14,6 +14,8 @@ final class ConfirmLogViewController: BaseViewController {
 
     private let viewModel: ConfirmLogViewModel
 
+    private let loginKeyChain: LoginKeyChainService
+
     // MARK: - UI
 
     private var navBar = RunnerbeNavBar().then {
@@ -78,8 +80,12 @@ final class ConfirmLogViewController: BaseViewController {
 
     // MARK: - Init
 
-    init(viewModel: ConfirmLogViewModel) {
+    init(
+        viewModel: ConfirmLogViewModel,
+        loginKeyChain: LoginKeyChainService = BasicLoginKeyChainService.shared
+    ) {
         self.viewModel = viewModel
+        self.loginKeyChain = loginKeyChain
         super.init()
     }
 
@@ -162,6 +168,9 @@ final class ConfirmLogViewController: BaseViewController {
     private func update(with logDetail: LogDetail) {
         // navbar 날짜 타이틀
         navBar.titleLabel.text = logDetail.runningDateString
+
+        // navBar 우측 더보기 메뉴 버튼
+        navBar.rightBtnItem.isHidden = logDetail.detailRunningLog.userId != loginKeyChain.userId
 
         // 러닝 로그
         logStampView.update(stampType: logDetail.runningStamp)
