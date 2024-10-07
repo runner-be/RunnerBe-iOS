@@ -22,7 +22,8 @@ final class ConfirmLogViewModel: BaseViewModel {
 
     init(
         logId: Int,
-        logAPIService: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService(),
+        loginKeyChain: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
         super.init()
 
@@ -97,6 +98,9 @@ final class ConfirmLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapTogether
+            .filter { [weak self] _ in
+                self?.logDetail?.detailRunningLog.userId == loginKeyChain.userId
+            }
             .compactMap { [weak self] _ in
                 guard let self = self,
                       let gatheringId = logDetail?.detailRunningLog.gatheringId
@@ -109,6 +113,9 @@ final class ConfirmLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapGotStamp
+            .filter { [weak self] _ in
+                self?.logDetail?.detailRunningLog.userId == loginKeyChain.userId
+            }
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
                 return self.logDetail?.gotStamp[index].logId
