@@ -87,6 +87,7 @@ final class CalendarViewModel: BaseViewModel {
                 }
                 return LogForm(
                     runningDate: self.dates[index].date,
+                    gatheringId: self.dates[index].gatheringId,
                     isOpened: 1
                 )
             }

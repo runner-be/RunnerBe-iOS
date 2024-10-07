@@ -39,21 +39,25 @@ final class LogStampBottomSheetViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(selectedStamp: StampType) {
+    init(
+        selectedStamp: StampType,
+        gatheringId: Int?
+    ) {
         self.selectedStamp = selectedStamp
+        let isEnabled = (gatheringId != nil)
         super.init()
         // FIXME: - 하드코딩
         logStamps = [
-            LogStampConfig(from: StampType(rawValue: "RUN001")),
-            LogStampConfig(from: StampType(rawValue: "RUN002")),
-            LogStampConfig(from: StampType(rawValue: "RUN003")),
-            LogStampConfig(from: StampType(rawValue: "RUN004")),
-            LogStampConfig(from: StampType(rawValue: "RUN005")),
-            LogStampConfig(from: StampType(rawValue: "RUN006")),
-            LogStampConfig(from: StampType(rawValue: "RUN007")),
-            LogStampConfig(from: StampType(rawValue: "RUN008")),
-            LogStampConfig(from: StampType(rawValue: "RUN009")),
-            LogStampConfig(from: StampType(rawValue: "RUN010")),
+            LogStampConfig(from: StampType(rawValue: "RUN001"), isEnabled: true),
+            LogStampConfig(from: StampType(rawValue: "RUN002"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN003"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN004"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN005"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN006"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN007"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN008"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN009"), isEnabled: isEnabled),
+            LogStampConfig(from: StampType(rawValue: "RUN010"), isEnabled: isEnabled),
         ]
 
         outputs.logStamps.onNext(logStamps)

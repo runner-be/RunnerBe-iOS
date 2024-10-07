@@ -22,7 +22,11 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var logStampBottomSheet = PublishSubject<(stamp: StampType, title: String)>()
+        var logStampBottomSheet = PublishSubject<(
+            stamp: StampType,
+            title: String,
+            gatheringId: Int?
+        )>()
         var confirmLog = PublishSubject<Int>()
     }
 
@@ -90,13 +94,15 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 else {
                     return (
                         stamp: StampType(rawValue: "RUN001")!,
-                        title: "에게 \n 러닝 스탬프를 찍어봐요!"
+                        title: "에게 \n 러닝 스탬프를 찍어봐요!",
+                        gatheringId: nil
                     )
                 }
 
                 return (
                     stamp: selectedLogStamp,
-                    title: "\(self.partnerList[itemIndex].nickname)에게 \n 러닝 스탬프를 찍어봐요!"
+                    title: "\(self.partnerList[itemIndex].nickname)에게 \n 러닝 스탬프를 찍어봐요!",
+                    gatheringId: gatheringId
                 )
             }
             .bind(to: routes.logStampBottomSheet)

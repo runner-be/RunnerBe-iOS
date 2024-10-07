@@ -31,10 +31,15 @@ final class TogetherRunnerComponent {
         self.gatheringId = gatheringId
     }
 
-    func logStampBottomSheetComponent(selectedLogStamp: StampType, title: String) -> LogStampBottomSheetComponent {
+    func logStampBottomSheetComponent(
+        selectedLogStamp: StampType,
+        title: String,
+        gatheringId: Int?
+    ) -> LogStampBottomSheetComponent {
         return LogStampBottomSheetComponent(
             selectedLogStamp: selectedLogStamp,
-            title: title
+            title: title,
+            gatheringId: gatheringId
         )
     }
 

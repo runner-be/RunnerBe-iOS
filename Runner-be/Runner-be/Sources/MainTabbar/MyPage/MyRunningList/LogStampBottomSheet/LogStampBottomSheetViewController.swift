@@ -153,7 +153,10 @@ final class LogStampBottomSheetViewController: BaseViewController {
                 }
 
                 if let stampType = element.stampType {
-                    cell.configure(with: stampType)
+                    cell.configure(
+                        with: stampType,
+                        isEnabled: element.isEnabled
+                    )
                 }
 
                 return cell

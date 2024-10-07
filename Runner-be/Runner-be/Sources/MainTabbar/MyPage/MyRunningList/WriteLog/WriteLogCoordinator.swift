@@ -37,14 +37,18 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.logStampBottomSheet
-            .map { (vm: scene.VM, result: $0) }
+            .map { (
+                vm: scene.VM,
+                stampType: $0.stampType,
+                title: $0.title,
+                gatheringId: $0.gatheringId
+            ) }
             .bind { [weak self] inputs in
-                let selectedLogStamp = inputs.result
-                let title = inputs.result.title
                 self?.pushLogStampBottomSheetScene(
                     vm: inputs.vm,
-                    selectedLogStamp: selectedLogStamp,
-                    title: title,
+                    selectedLogStamp: inputs.stampType,
+                    title: inputs.title,
+                    gatheringId: inputs.gatheringId,
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
@@ -91,11 +95,13 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
         vm: WriteLogViewModel,
         selectedLogStamp: StampType,
         title: String,
+        gatheringId: Int?,
         animated: Bool
     ) {
         let comp = component.logStampBottomSheetComponent(
             selectedLogStamp: selectedLogStamp,
-            title: title
+            title: title,
+            gatheringId: gatheringId
         )
         let coord = LogStampBottomSheetCoordinator(
             component: comp,

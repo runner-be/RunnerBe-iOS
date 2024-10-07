@@ -41,12 +41,18 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.logStampBottomSheet
-            .map { (vm: scene.VM, result: $0) }
+            .map { (
+                vm: scene.VM,
+                stampType: $0.stamp,
+                title: $0.title,
+                gatheringId: $0.gatheringId
+            ) }
             .bind { [weak self] inputs in
                 self?.pushLogStampBottomSheetScene(
                     vm: inputs.vm,
-                    selectedLogStamp: inputs.result.stamp,
-                    title: inputs.result.title,
+                    selectedLogStamp: inputs.stampType,
+                    title: inputs.title,
+                    gatheringId: inputs.gatheringId,
                     animated: false
                 )
             }.disposed(by: sceneDisposeBag)
@@ -66,11 +72,13 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
         vm: TogetherRunnerViewModel,
         selectedLogStamp: StampType,
         title: String,
+        gatheringId: Int?,
         animated: Bool
     ) {
         let comp = component.logStampBottomSheetComponent(
             selectedLogStamp: selectedLogStamp,
-            title: title
+            title: title,
+            gatheringId: gatheringId
         )
         let coord = LogStampBottomSheetCoordinator(
             component: comp,

@@ -11,13 +11,18 @@ import RxDataSources
 struct LogStampConfig: Equatable, IdentifiableType {
     let id = UUID()
     let stampType: StampType?
+    let isEnabled: Bool
 
     var identity: String {
         "\(id)"
     }
 
-    init(from: StampType?) {
+    init(
+        from: StampType?,
+        isEnabled: Bool = true
+    ) {
         stampType = from
+        self.isEnabled = isEnabled
     }
 }
 

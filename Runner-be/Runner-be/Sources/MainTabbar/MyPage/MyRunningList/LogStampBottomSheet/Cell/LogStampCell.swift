@@ -39,8 +39,13 @@ final class LogStampCell: UICollectionViewCell {
 
     // MARK: - Methods
 
-    func configure(with stampType: StampType) {
+    func configure(
+        with stampType: StampType,
+        isEnabled: Bool
+    ) {
         stampIcon.image = stampType.icon
+        contentView.layer.opacity = isEnabled ? 1.0 : 0.2
+        isUserInteractionEnabled = isEnabled
     }
 }
 

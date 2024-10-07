@@ -10,6 +10,7 @@ import Foundation
 struct LogForm {
     let runningDate: Date
     var logId: Int?
+    var gatheringId: Int?
     var stampCode: String?
     var contents: String?
     var imageUrl: String?
@@ -17,6 +18,10 @@ struct LogForm {
     var weatherDegree: Int?
     var weatherIcon: String?
     var isOpened: Int
+
+    var isPersonalLog: Bool {
+        return gatheringId == nil
+    }
 }
 
 extension LogForm: Encodable {

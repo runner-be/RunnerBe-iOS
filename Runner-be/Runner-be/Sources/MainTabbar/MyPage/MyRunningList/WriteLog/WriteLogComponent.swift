@@ -33,11 +33,13 @@ final class WriteLogComponent {
 
     func logStampBottomSheetComponent(
         selectedLogStamp: StampType,
-        title: String
+        title: String,
+        gatheringId: Int?
     ) -> LogStampBottomSheetComponent {
         return LogStampBottomSheetComponent(
             selectedLogStamp: selectedLogStamp,
-            title: title
+            title: title,
+            gatheringId: gatheringId
         )
     }
 

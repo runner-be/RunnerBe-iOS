@@ -41,7 +41,11 @@ final class WriteLogViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Bool>()
-        var logStampBottomSheet = PublishSubject<StampType>()
+        var logStampBottomSheet = PublishSubject<(
+            stampType: StampType,
+            title: String,
+            gatheringId: Int?
+        )>()
         var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
         var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
         var photoModal = PublishSubject<Void>()
@@ -89,9 +93,17 @@ final class WriteLogViewModel: BaseViewModel {
         inputs.showLogStampBottomSheet
             .compactMap { [weak self] _ in
                 if let selectedLogStamp = self?.selectedLogStamp {
-                    return selectedLogStamp
+                    return (
+                        stampType: selectedLogStamp,
+                        title: "스탬프",
+                        gatheringId: logForm.gatheringId
+                    )
                 } else {
-                    return StampType(rawValue: "RUN001")
+                    return (
+                        stampType: StampType(rawValue: "RUN001")!,
+                        title: "스탬프",
+                        gatheringId: logForm.gatheringId
+                    )
                 }
             }
             .bind(to: routes.logStampBottomSheet)

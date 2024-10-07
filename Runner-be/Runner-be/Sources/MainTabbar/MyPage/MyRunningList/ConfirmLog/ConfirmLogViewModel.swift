@@ -63,6 +63,7 @@ final class ConfirmLogViewModel: BaseViewModel {
                 return LogForm(
                     runningDate: logDetail.runningDate ?? Date(),
                     logId: logId,
+                    gatheringId: logDetail.detailRunningLog.gatheringId,
                     stampCode: logDetail.detailRunningLog.stampCode,
                     contents: logDetail.contents,
                     imageUrl: logDetail.imageURL,

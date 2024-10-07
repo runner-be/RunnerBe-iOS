@@ -18,17 +18,23 @@ final class LogStampBottomSheetComponent {
     }
 
     var viewModel: LogStampBottomSheetViewModel {
-        return LogStampBottomSheetViewModel(selectedStamp: selectedStamp)
+        return LogStampBottomSheetViewModel(
+            selectedStamp: selectedStamp,
+            gatheringId: gatheringId
+        )
     }
 
     var selectedStamp: StampType
     var title: String
+    var gatheringId: Int?
 
     init(
         selectedLogStamp: StampType,
-        title: String
+        title: String,
+        gatheringId: Int?
     ) {
         selectedStamp = selectedLogStamp
         self.title = title
+        self.gatheringId = gatheringId
     }
 }
