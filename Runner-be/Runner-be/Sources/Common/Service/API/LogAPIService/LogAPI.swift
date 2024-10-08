@@ -87,9 +87,8 @@ extension LogAPI: TargetType {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let formattedDate = dateFormatter.string(from: logForm.runningDate)
 
-            let parameters: [String: Any] = [
+            var parameters: [String: Any] = [
                 "runningDate": formattedDate,
-                "gatheringId": logForm.logId ?? "",
                 "stampCode": logForm.stampCode ?? "",
                 "contents": logForm.contents ?? "",
                 "imageUrl": logForm.imageUrl ?? "",
@@ -97,6 +96,10 @@ extension LogAPI: TargetType {
                 "weatherIcon": logForm.weatherIcon ?? "",
                 "isOpened": logForm.isOpened,
             ]
+            if let gatheringId = logForm.gatheringId {
+                parameters["gatheringId"] = gatheringId
+            }
+
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .edit(editLogForm, _, _):
             let dateFormatter = DateFormatter()
@@ -104,7 +107,7 @@ extension LogAPI: TargetType {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let formattedDate = dateFormatter.string(from: editLogForm.runningDate)
 
-            let parameters: [String: Any] = [
+            var parameters: [String: Any] = [
                 "runningDate": formattedDate,
                 "stampCode": editLogForm.stampCode ?? "",
                 "contents": editLogForm.contents ?? "",
@@ -113,6 +116,10 @@ extension LogAPI: TargetType {
                 "weatherIcon": editLogForm.weatherIcon ?? "",
                 "isOpened": editLogForm.isOpened,
             ]
+
+            if let gatheringId = editLogForm.gatheringId {
+                parameters["gatheringId"] = gatheringId
+            }
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
 

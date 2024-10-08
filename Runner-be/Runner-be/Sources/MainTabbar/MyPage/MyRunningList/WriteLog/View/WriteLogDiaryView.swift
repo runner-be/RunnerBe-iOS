@@ -206,6 +206,7 @@ final class WriteLogDiaryView: UIView {
         gatheringCount: Int,
         gatheringId: Int?
     ) {
+        print("ane9f0jesfje90sjf0 gathreingCount: \(gatheringCount), gatheringId: \(gatheringId)")
         isPersonalLog = gatheringId == nil
         participantTempLabel.text = "\(gatheringCount) 명"
         participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
@@ -272,6 +273,7 @@ extension WriteLogDiaryView {
     }
 
     @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
+        print("ane9f0jesfje90sjf0 handleGlobalTap")
         let location = sender.location(in: participantView)
         let isTouchInfoLogo = participantIconBg.frame.contains(location)
         if isTouchInfoLogo {

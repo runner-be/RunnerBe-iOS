@@ -266,11 +266,6 @@ final class WriteLogViewController: BaseViewController {
             logDiaryView.updateWeather(stamp: weatherStamp, degree: "\(weatherDegree)")
         }
 
-        logDiaryView.updateGathering(
-            gatheringCount: 0,
-            gatheringId: logForm.gatheringId
-        )
-
         privacyToggleView.toggleButton.isOn = logForm.isOpened == 1
     }
 }
