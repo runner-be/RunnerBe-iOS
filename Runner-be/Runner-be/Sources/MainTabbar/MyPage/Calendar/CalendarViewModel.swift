@@ -45,13 +45,38 @@ final class CalendarViewModel: BaseViewModel {
         super.init()
 
         inputs.changedTargetDate
-            .flatMap { logAPIService.fetchLog(targetDate: $0) }
-            .subscribe(onNext: { [weak self] result in
-                switch result {
+            .flatMap { targetDate in
+                let currentDate = targetDate
+                let currentLog = logAPIService.fetchLog(targetDate: currentDate)
+
+                guard let previousDateMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) else {
+                    return Observable.zip(currentLog, Observable.just(APIResult<LogResponse?>.response(result: nil)))
+                }
+
+                let previousLog = logAPIService.fetchLog(targetDate: previousDateMonthDate)
+                return Observable.zip(currentLog, previousLog)
+            }
+            .subscribe(onNext: { [weak self] currentResult, previousResult in
+                var combinedRunningLogs: [MyRunningLog] = []
+
+                switch currentResult {
                 case let .response(data):
                     if let data = data {
                         self?.outputs.logTotalCount.onNext(data.totalCount)
-                        self?.changeTargetDate(runningLog: data.myRunningLog)
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
+
+                switch previousResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        self?.changeTargetDate(runningLog: combinedRunningLogs)
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -147,14 +172,37 @@ final class CalendarViewModel: BaseViewModel {
             for i in stride(from: adjustedWeekdayOfFirstDay - 1, through: 1, by: -1) {
                 let dayOfPreviousMonth = rangeOfPreviousMonth.count - i + 1
                 let date = previousMonth.with(day: dayOfPreviousMonth)!
+                var stampType: StampType?
+                var logId: Int?
+                var gatheringId: Int?
+
+                // 이전 달의 runningLog에서 해당 날짜의 로그를 찾아 설정
+                for log in runningLog {
+                    if let logDate = dateFormatter.date(from: log.runnedDate) {
+                        if calendar.isDate(logDate, inSameDayAs: date) {
+                            stampType = StampType(rawValue: log.stampCode ?? "")
+                            logId = log.logId
+                            gatheringId = log.gatheringId
+                            break
+                        }
+                    }
+                }
+
+                // 이전 달 날짜를 dates에 추가
                 dates.append(MyLogStampConfig(from: LogStamp(
-                    logId: nil,
-                    gatheringId: nil,
+                    logId: logId,
+                    gatheringId: gatheringId,
                     date: date,
-                    stampType: nil
+                    stampType: stampType
                 )))
 
-                myRunningLogs.append(nil)
+                // 이전 달의 해당 날짜에 대한 myRunningLog 추가
+                myRunningLogs.append(MyRunningLog(
+                    logId: logId,
+                    gatheringId: gatheringId,
+                    runnedDate: date.description,
+                    stampCode: stampType?.rawValue
+                ))
             }
         }
 
