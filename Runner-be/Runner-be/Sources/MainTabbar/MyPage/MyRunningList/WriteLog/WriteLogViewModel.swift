@@ -37,6 +37,7 @@ final class WriteLogViewModel: BaseViewModel {
         var showPicker = PublishSubject<EditProfileType>()
         var selectedImageChanged = PublishSubject<Data?>()
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
+        var logPartners = PublishSubject<([LogPartners], Int?)>()
     }
 
     struct Route {
@@ -53,6 +54,7 @@ final class WriteLogViewModel: BaseViewModel {
     }
 
     struct RouteInput {
+        var needUpdate = ReplaySubject<Bool>.create(bufferSize: 1)
         var selectedLogStamp = PublishSubject<StampType>()
         var selectedWeather = PublishSubject<(stamp: StampType, temp: String)>()
         var photoTypeSelected = PublishSubject<EditProfileType?>()
@@ -90,6 +92,26 @@ final class WriteLogViewModel: BaseViewModel {
         selectedLogStamp = StampType(rawValue: logForm.stampCode ?? "")
         // -- 초기 설정
 
+        if let gatheringId = logForm.gatheringId {
+            logAPIService.partners(gatheringId: gatheringId)
+                .compactMap { [weak self] result in
+                    switch result {
+                    case let .response(data):
+                        if let data = data {
+                            return (data, gatheringId)
+                        }
+                        self?.toast.onNext("함께한 러너 프로필 조회에 실패했습니다.")
+                    case let .error(alertMessage):
+                        if let alertMessage = alertMessage {
+                            self?.toast.onNext(alertMessage)
+                        }
+                        return nil
+                    }
+                    return nil
+                }
+                .bind(to: outputs.logPartners)
+                .disposed(by: disposeBag)
+        }
         inputs.showLogStampBottomSheet
             .compactMap { [weak self] _ in
                 if let selectedLogStamp = self?.selectedLogStamp {
@@ -138,10 +160,16 @@ final class WriteLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapTogether
-//            .bind(to: routes.togetherRunner)
-            .bind {
-                print("WriteLogViewModel - 로그 작성 시 외부에서 gatheringId를 받아 사용하도록 수정해야합니다.")
+            .compactMap { [weak self] _ in
+                guard let self = self,
+                      let logId = logForm.logId,
+                      let gatheringId = logForm.gatheringId
+                else {
+                    return nil
+                }
+                return (logId, gatheringId)
             }
+            .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
 
         inputs.photoSelected

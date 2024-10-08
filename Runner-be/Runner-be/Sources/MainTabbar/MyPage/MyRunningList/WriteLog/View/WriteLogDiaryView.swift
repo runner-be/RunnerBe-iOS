@@ -17,7 +17,7 @@ final class WriteLogDiaryView: UIView {
     // MARK: - Properties
 
     private var logDiaryType: LogDiaryType = .write
-    private var isPersonalGather: Bool = true
+    private var isPersonalLog: Bool = true
 
     // MARK: - UI
 
@@ -202,14 +202,16 @@ final class WriteLogDiaryView: UIView {
         weatherDegreeLabel.text = degree + " ℃"
     }
 
-    func updateGathering(gatheringCount: Int) {
-        isPersonalGather = gatheringCount <= 0
-        let gatheringCount = isPersonalGather ? 0 : gatheringCount
+    func updateGathering(
+        gatheringCount: Int,
+        gatheringId: Int?
+    ) {
+        isPersonalLog = gatheringId == nil
         participantTempLabel.text = "\(gatheringCount) 명"
-        participantIcon.image = isPersonalGather ? Asset.iconLock24.uiImage : Asset.group.uiImage
-        participantView.isUserInteractionEnabled = !isPersonalGather
+        participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
+        participantView.isUserInteractionEnabled = !isPersonalLog
 
-        if isPersonalGather {
+        if isPersonalLog {
             if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
                 tapGesture.cancelsTouchesInView = false

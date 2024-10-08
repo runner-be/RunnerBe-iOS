@@ -188,7 +188,10 @@ final class ConfirmLogViewController: BaseViewController {
         )
 
         // 함께한 러너
-        logDiaryView.updateGathering(gatheringCount: logDetail.gatheringCount)
+        logDiaryView.updateGathering(
+            gatheringCount: logDetail.gatheringCount,
+            gatheringId: logDetail.detailRunningLog.gatheringId
+        )
 
         // 받은 스탬프
         if logDetail.gotStamp.isEmpty {

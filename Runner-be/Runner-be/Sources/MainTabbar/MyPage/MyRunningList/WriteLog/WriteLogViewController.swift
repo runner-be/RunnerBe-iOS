@@ -168,6 +168,14 @@ final class WriteLogViewController: BaseViewController {
                 self?.setupInitialUI(with: logForm)
             }).disposed(by: disposeBag)
 
+        viewModel.outputs.logPartners
+            .subscribe(onNext: { [weak self] logPartners, gatheringId in
+                self?.logDiaryView.updateGathering(
+                    gatheringCount: logPartners.count,
+                    gatheringId: gatheringId
+                )
+            }).disposed(by: disposeBag)
+
         viewModel.outputs.selectedLogStamp
             .bind { [weak self] selectedLogStamp in
                 self?.logStampView.update(stampType: selectedLogStamp)
@@ -257,6 +265,11 @@ final class WriteLogViewController: BaseViewController {
         {
             logDiaryView.updateWeather(stamp: weatherStamp, degree: "\(weatherDegree)")
         }
+
+        logDiaryView.updateGathering(
+            gatheringCount: 0,
+            gatheringId: logForm.gatheringId
+        )
 
         privacyToggleView.toggleButton.isOn = logForm.isOpened == 1
     }
