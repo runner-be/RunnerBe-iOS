@@ -37,7 +37,7 @@ final class WriteLogViewModel: BaseViewModel {
         var showPicker = PublishSubject<EditProfileType>()
         var selectedImageChanged = PublishSubject<Data?>()
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
-        var logPartners = PublishSubject<([LogPartners], Int?)>()
+        var logPartners = ReplaySubject<([LogPartners], Int?)>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -111,7 +111,10 @@ final class WriteLogViewModel: BaseViewModel {
                 }
                 .bind(to: outputs.logPartners)
                 .disposed(by: disposeBag)
+        } else {
+            outputs.logPartners.onNext(([], nil))
         }
+
         inputs.showLogStampBottomSheet
             .compactMap { [weak self] _ in
                 if let selectedLogStamp = self?.selectedLogStamp {

@@ -206,18 +206,17 @@ final class WriteLogDiaryView: UIView {
         gatheringCount: Int,
         gatheringId: Int?
     ) {
-        print("ane9f0jesfje90sjf0 gathreingCount: \(gatheringCount), gatheringId: \(gatheringId)")
         isPersonalLog = gatheringId == nil
         participantTempLabel.text = "\(gatheringCount) 명"
         participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
         participantView.isUserInteractionEnabled = !isPersonalLog
 
-        if isPersonalLog {
-            if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
-                tapGesture.cancelsTouchesInView = false
-                window.addGestureRecognizer(tapGesture)
-            }
+        if let superview = superview,
+           isPersonalLog
+        {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
+            tapGesture.cancelsTouchesInView = false
+            superview.addGestureRecognizer(tapGesture)
         }
     }
 }
