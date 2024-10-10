@@ -62,7 +62,7 @@ final class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         myLogStampView.logStampCollectionView.rx.itemSelected
-            .map { $0.item }
+            .map { $0 }
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 

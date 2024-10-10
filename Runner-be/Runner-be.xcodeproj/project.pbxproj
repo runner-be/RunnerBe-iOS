@@ -82,6 +82,7 @@
 		2BBA6E5F2C87104500E6CE40 /* TogetherRunnerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E5E2C87104500E6CE40 /* TogetherRunnerViewModel.swift */; };
 		2BBA6E612C87104C00E6CE40 /* TogetherRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */; };
 		2BBA6E642C871F0200E6CE40 /* TogetherRunnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */; };
+		2BBCD20A2CB7CC070088A048 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD2092CB7CC070088A048 /* String+.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
 		2BC6A5992C837EB100CCE73F /* GotStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* GotStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
@@ -574,6 +575,7 @@
 		2BBA6E5E2C87104500E6CE40 /* TogetherRunnerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerViewModel.swift; sourceTree = "<group>"; };
 		2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerViewController.swift; sourceTree = "<group>"; };
 		2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerCell.swift; sourceTree = "<group>"; };
+		2BBCD2092CB7CC070088A048 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
 		2BC6A5982C837EB100CCE73F /* GotStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
@@ -1954,6 +1956,7 @@
 				C379302027BA012E0076AB85 /* String+Subscript.swift */,
 				C3D3937C27BB886A00D47C9C /* String+SHA256.swift */,
 				C3256B5427CDBB79009B16DA /* String+regex.swift */,
+				2BBCD2092CB7CC070088A048 /* String+.swift */,
 			);
 			path = "String+";
 			sourceTree = "<group>";
@@ -3117,6 +3120,7 @@
 				C3EB5CD427B8B6F000775779 /* SignupAPIService.swift in Sources */,
 				C3C9735527CA967000232251 /* SettingsViewModel.swift in Sources */,
 				C3BA45DD27B621850048CA76 /* OnboardingCompletionComponent.swift in Sources */,
+				2BBCD20A2CB7CC070088A048 /* String+.swift in Sources */,
 				434635CA28910476007D8C10 /* PostOrderModalComponent.swift in Sources */,
 				C3BA459A27B405210048CA76 /* BadgeLabel.swift in Sources */,
 				C3EB5CCC27B8B64D00775779 /* BasicImageUploadService.swift in Sources */,

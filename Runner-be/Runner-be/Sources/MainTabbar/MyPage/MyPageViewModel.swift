@@ -19,6 +19,7 @@ final class MyPageViewModel: BaseViewModel {
 
     var user: User?
     var posts = [PostType: [Post]]()
+    private var myRunningLogs: [MyRunningLog?] = []
 
     private let calendar = Calendar.current
     private var components = DateComponents()
@@ -134,13 +135,46 @@ final class MyPageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        // 스탬프 클릭 시 스탬프가 있으면 로그 확인 페이지로 이동
         inputs.tapLogStamp
-            .bind { [weak self] logItemIndex in
-                guard let self = self else { return }
-                print("로그 스탬프 클릭 됨 logItemIndex: \(logItemIndex)")
-                print("로그 작성이 되어있으면 로그 확인 페이지로 이동")
-                print("로그 작성이 안되있으면 로그 작성 페이지로 이동")
+            .compactMap { [weak self] indexPath in
+                // 1주 단위로 section으로 구분되어 있습니다.
+                let section = indexPath.section * 7
+                let item = indexPath.item
+                let logItemIndex = section + item
+                guard let self = self else { return nil }
+
+                return self.myRunningLogs[logItemIndex]?.logId
             }
+            .bind(to: routes.confirmLog)
+            .disposed(by: disposeBag)
+
+        // 스탬프 클릭 시 스탬프가 없으면 개인 로그 작성 페이지로 이동
+        inputs.tapLogStamp
+            .compactMap { [weak self] indexPath in
+                // 1주 단위로 section으로 구분되어 있습니다.
+                let section = indexPath.section * 7
+                let item = indexPath.item
+                let logItemIndex = section + item
+                guard let self = self,
+                      let myRunningLog = self.myRunningLogs[logItemIndex],
+                      myRunningLog.logId == nil,
+                      myRunningLog.isFuture == false
+                else {
+                    return nil
+                }
+
+                let runnedDate = myRunningLog.runnedDate
+                if let runDate = runnedDate.toDate() {
+                    return LogForm(
+                        runningDate: runDate,
+                        gatheringId: self.myRunningLogs[logItemIndex]?.gatheringId,
+                        isOpened: 1
+                    )
+                }
+                return nil
+            }
+            .bind(to: routes.writeLog)
             .disposed(by: disposeBag)
 
         inputs.tapLogStampIcon
@@ -388,6 +422,7 @@ final class MyPageViewModel: BaseViewModel {
     // MARK: - Methods
 
     private func changeTargetDate(runningLog: [MyRunningLog]) {
+        myRunningLogs.removeAll()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -405,11 +440,15 @@ final class MyPageViewModel: BaseViewModel {
         // `weeks` 배열을 `MyLogStampConfig` 배열로 변환
         let myLogStampConfigs: [MyLogStampConfig] = weeks.map { date in
             var stampType: StampType?
+            var logId: Int?
+            var gatheringId: Int?
 
             for log in runningLog {
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
                     if calendar.isDate(logDate, inSameDayAs: date) {
                         stampType = StampType(rawValue: log.stampCode ?? "")
+                        logId = log.logId
+                        gatheringId = log.gatheringId
                         break
                     } else {
                         stampType = nil
@@ -417,9 +456,16 @@ final class MyPageViewModel: BaseViewModel {
                 }
             }
 
+            myRunningLogs.append(MyRunningLog(
+                logId: logId,
+                gatheringId: gatheringId,
+                runnedDate: date.description,
+                stampCode: stampType?.rawValue
+            ))
+
             return MyLogStampConfig(from: LogStamp(
-                logId: nil,
-                gatheringId: nil,
+                logId: logId,
+                gatheringId: gatheringId,
                 date: date,
                 stampType: stampType
             ))
@@ -462,7 +508,7 @@ final class MyPageViewModel: BaseViewModel {
         var settings = PublishSubject<Void>()
         var editInfo = PublishSubject<Void>()
         var tapPost = PublishSubject<Int>()
-        var tapLogStamp = PublishSubject<Int>()
+        var tapLogStamp = PublishSubject<IndexPath>()
         var tapLogStampIcon = PublishSubject<Void>()
         var tapMyRunning = PublishSubject<Void>()
         var bookMark = PublishSubject<Int>()
