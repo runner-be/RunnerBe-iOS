@@ -103,6 +103,7 @@ extension MyInfoView {
             make.trailing.equalTo(backgroundView.snp.trailing)
             make.top.equalTo(backgroundView.snp.bottom).offset(4)
             make.bottom.equalToSuperview()
+            make.height.equalTo(24)
         }
     }
 
