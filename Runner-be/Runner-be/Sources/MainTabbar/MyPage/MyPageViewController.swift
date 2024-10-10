@@ -142,17 +142,14 @@ final class MyPageViewController: BaseViewController {
                 guard let self = self else { return }
 
                 // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
-                DispatchQueue.main.async {
-                    self.myLogStampView.logStampCollectionView.scrollToItem(
-                        at: IndexPath(
-                            item: 0,
-                            section: self.myLogStampView.logStampCollectionView.numberOfSections - 1
-                        ),
-                        at: .left,
-                        animated: true
-                    )
-                    self.myLogStampView.pageControl.currentPage = 2
-                }
+                self.myLogStampView.logStampCollectionView.scrollToItem(
+                    at: IndexPath(
+                        item: 0,
+                        section: self.myLogStampView.pageControl.currentPage
+                    ),
+                    at: .left,
+                    animated: false
+                )
             })
             .disposed(by: disposeBag)
 
@@ -320,7 +317,9 @@ final class MyPageViewController: BaseViewController {
         view.isHidden = true
     }
 
-    private let myLogStampView = MyLogStampView()
+    private let myLogStampView = MyLogStampView().then {
+        $0.pageControl.currentPage = 2
+    }
 
     private var hDivider = UIView().then { view in
         view.backgroundColor = .black
