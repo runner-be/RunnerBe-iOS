@@ -24,7 +24,6 @@ class MyPageParticipateCell: UICollectionViewCell {
     }
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
-        print("sjeifjsiofjseiofj: \(item)")
         postInfoView.configure(with: item.cellConfig)
         update(with: item.runningState)
     }
@@ -171,20 +170,34 @@ extension MyPageParticipateCell {
         confirmLogButton.isHidden = true
 
         switch state {
-        case .participantDuringMeeting:
+        case .participantDuringMeeting: // 참여자 모임참여(1) ~ 모임 중(6)
             statusLabel.text = "모임 후 로그를 관리할 수 있어요"
             statusLabel.isHidden = false
-        case .creatorBeforeMeetingStart:
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+
+        case .creatorBeforeMeetingStart: // 작성자 모임작성(1) ~ 모임 시작 전(2)
             statusLabel.text = "모임 후 출석/로그를 관리할 수 있어요"
             statusLabel.isHidden = false
-        case .creatorDuringMeetingBeforeEnd:
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+
+        case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
             manageAttendanceButton.isHidden = false
-        case .attendanceClosed:
+            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.textColor = .darkG3
+
+        case .attendanceClosed: // 출석 마감(9)
             confirmAttendanceButton.isHidden = false
             writeLogButton.isHidden = false
-        case .logSubmissionClosed:
+            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.textColor = .darkG3
+
+        case .logSubmissionClosed: // 로그 마감(10)
             confirmAttendanceButton.isHidden = false
             confirmLogButton.isHidden = false
+            postInfoView.statusLabel.label.text = "모임 종료"
+            postInfoView.statusLabel.label.textColor = .darkG3
         }
     }
 }

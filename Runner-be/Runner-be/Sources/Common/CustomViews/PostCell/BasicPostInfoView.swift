@@ -95,7 +95,7 @@ class BasicPostInfoView: UIView {
         $0.text = "PostTitlePlaceHolder"
     }
 
-    private var statusLabel = IconLabel(
+    let statusLabel = IconLabel(
         iconSize: CGSize(width: 16, height: 16),
         spacing: 6
     ).then {
