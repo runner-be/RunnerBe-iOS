@@ -97,16 +97,16 @@ final class MyPageViewModel: BaseViewModel {
                     case let .success(info, posting, joined):
                         let now = DateUtil.shared.now
                         self.user = info
+                        // FIXME: postings 사용하지 않음, 마이페이지에서는 참여한 러닝만 포함하고 있기 때문
                         let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
                         let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
 
                         self.posts[.myPost] = postings
                         self.posts[.attendable] = joins
 
-                        let posts = self.outputs.postType == .myPost ? postings : joins
                         self.user = info
                         self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                        self.outputs.posts.onNext(posts.map { MyPagePostConfig(post: $0, now: now) })
+                        self.outputs.posts.onNext(joins.map { MyPagePostConfig(post: $0, now: now) })
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {

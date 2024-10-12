@@ -193,11 +193,11 @@ final class MyPageViewController: BaseViewController {
             return cell
         }
 
-//        viewModel.outputs.posts
-//            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-//            .map { [MyPagePostSection(items: $0)] }
-//            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-//            .disposed(by: disposeBag)
+        viewModel.outputs.posts
+            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
+            .map { [MyPagePostSection(items: $0)] }
+            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
+            .disposed(by: disposeBag)
 
         viewModel.outputs.posts
             .map { $0.isEmpty }
