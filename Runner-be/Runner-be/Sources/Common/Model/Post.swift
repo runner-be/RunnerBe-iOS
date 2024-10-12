@@ -40,6 +40,8 @@ struct Post {
     var postingTime: Date
     let afterParty: Int
     let pace: String
+
+    let logId: Int?
 }
 
 struct PostDetail {
@@ -74,6 +76,7 @@ extension Post: CustomStringConvertible {
             attendance: \(attendance),
             whetherCheck: \(whetherCheck),
             attendanceProfiles: \(attendanceProfiles),
+            logId: \(logId),
         }
         """
         return desc

@@ -32,6 +32,7 @@ struct DetailPostResponse: Decodable {
     let placeExplain: String?
     let pace: String?
     let afterParty: Int?
+    let logId: Int?
 
     enum CodingKeys: String, CodingKey {
         case whetherEnd
@@ -56,6 +57,7 @@ struct DetailPostResponse: Decodable {
         case postingTime
         case pace
         case afterParty
+        case logId
     }
 }
 
@@ -153,7 +155,8 @@ extension DetailPostResponse {
             attendanceProfiles: [],
             postingTime: postingTime,
             afterParty: afterParty,
-            pace: pace
+            pace: pace,
+            logId: logId
         )
 
         post.open = open && post.gatherDate > Date()

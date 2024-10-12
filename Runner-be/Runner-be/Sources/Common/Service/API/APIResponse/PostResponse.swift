@@ -41,6 +41,8 @@ struct PostResponse: Decodable {
     let afterParty: Int?
     let pace: String?
 
+    let logId: Int?
+
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
         case postingTime
@@ -71,6 +73,7 @@ struct PostResponse: Decodable {
         case profileURLList = "profileUrlList"
         case afterParty
         case pace
+        case logId
     }
 }
 
@@ -190,7 +193,8 @@ extension PostResponse {
             attendanceProfiles: profileURLList ?? [],
             postingTime: postingTime,
             afterParty: afterParty,
-            pace: pace
+            pace: pace,
+            logId: logId
         )
 
         post.marked = marked

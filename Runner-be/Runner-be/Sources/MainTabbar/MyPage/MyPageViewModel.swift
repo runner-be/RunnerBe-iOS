@@ -402,7 +402,7 @@ final class MyPageViewModel: BaseViewModel {
                     return nil
                 }
 
-                return selectedPost.ID
+                return selectedPost.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)

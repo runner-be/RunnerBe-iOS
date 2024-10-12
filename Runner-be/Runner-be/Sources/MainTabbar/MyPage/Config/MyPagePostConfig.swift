@@ -86,6 +86,11 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
                 }
             }
         }
+
+        // 모임에 logID가 있으면 로그쓰기 마감입니다.
+        if post.logId != nil {
+            runningState = .logSubmissionClosed
+        }
     }
 
     var identity: String {
