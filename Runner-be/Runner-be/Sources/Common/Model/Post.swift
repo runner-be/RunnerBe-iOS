@@ -19,6 +19,7 @@ struct Post {
 
     let runningTime: (hour: Int, minute: Int)
     let gatherDate: Date
+    let gatheringId: Int?
 
     let ageRange: (min: Int, max: Int)
 
@@ -61,6 +62,7 @@ extension Post: CustomStringConvertible {
             tag: \(tag.name),
             runningTime: hour - \(runningTime.hour), minute - \(runningTime.minute),
             gatherDate: \(gatherDate),
+            gatheringId: \(gatheringId),
             ageRange: \(ageRange.min) ~ \(ageRange.max),
             gender: \(gender.name),
             locationInfo: \(locationInfo),

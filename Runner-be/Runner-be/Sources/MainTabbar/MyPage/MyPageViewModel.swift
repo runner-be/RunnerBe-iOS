@@ -382,6 +382,7 @@ final class MyPageViewModel: BaseViewModel {
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
                     logId: selectedPost.ID,
+                    gatheringId: selectedPost.gatheringId,
                     stampCode: nil,
                     contents: nil,
                     imageUrl: nil,

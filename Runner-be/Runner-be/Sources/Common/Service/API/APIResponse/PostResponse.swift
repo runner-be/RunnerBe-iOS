@@ -18,6 +18,7 @@ struct PostResponse: Decodable {
 
     let title: String?
     let runningTime: String? // "01:30:00"
+    let gatheringId: Int?
     let gatheringTime: String? // "2022-02-23T19:49:39.000z"
     let gatherLongitude: String?
     let gatherLatitude: String?
@@ -48,6 +49,7 @@ struct PostResponse: Decodable {
         case profileImageURL = "profileImageUrl"
         case title
         case runningTime
+        case gatheringId
         case gatheringTime
         case gatherLongitude
         case gatherLatitude
@@ -148,6 +150,7 @@ extension PostResponse {
     var convertedPost: Post? {
         guard let runningTime = timeRunning,
               let gatherDate = gatherDate,
+              let gatheringId = gatheringId,
               let postingTime = createTime,
               let ageRange = ageRange,
               let postID = postID,
@@ -176,6 +179,7 @@ extension PostResponse {
             tag: tag,
             runningTime: runningTime,
             gatherDate: gatherDate,
+            gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,

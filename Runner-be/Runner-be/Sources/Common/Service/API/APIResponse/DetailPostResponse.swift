@@ -16,6 +16,7 @@ struct DetailPostResponse: Decodable {
     let title: String?
     let gatherLongitude: String?
     let gatherLatitude: String?
+    let gatheringId: Int?
     let runningTag: String?
     let postID: Int?
     let contents: String?
@@ -41,6 +42,7 @@ struct DetailPostResponse: Decodable {
         case runningTag
         case postID = "postId"
         case gatheringTime
+        case gatheringId
         case contents
         case gender
         case locationInfo
@@ -118,6 +120,7 @@ extension DetailPostResponse {
               let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
+              let gatheringId = gatheringId,
               let postingTime = createTime,
               let ageRange = ageRange,
               let coords = coords,
@@ -140,6 +143,7 @@ extension DetailPostResponse {
             tag: tag,
             runningTime: runningTime,
             gatherDate: gatherDate,
+            gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
