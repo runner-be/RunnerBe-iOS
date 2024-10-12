@@ -24,6 +24,7 @@ class MyPageParticipateCell: UICollectionViewCell {
     }
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
+        print("sjeifjsiofjseiofj: \(item)")
         postInfoView.configure(with: item.cellConfig)
         update(with: item.runningState)
     }

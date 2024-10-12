@@ -246,7 +246,11 @@ final class MyPageViewModel: BaseViewModel {
                 }
 
                 self.posts[self.outputs.postType]![idx].marked = result.mark
-                self.outputs.marked.onNext((type: self.outputs.postType, idx: idx, marked: result.mark))
+                self.outputs.marked.onNext((
+                    type: self.outputs.postType,
+                    idx: idx,
+                    marked: result.mark
+                ))
             })
             .disposed(by: disposeBag)
 
