@@ -114,7 +114,7 @@ extension MyPagePostCell {
             postInfoView.statusLabel.label.text = "모집 마감"
             postInfoView.statusLabel.label.textColor = .darkG3
         case .attendanceClosed: // 출석 마감(9)
-            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.text = "모임 종료"
             postInfoView.statusLabel.label.textColor = .darkG3
         case .logSubmissionClosed: // 로그 마감(10)
             postInfoView.statusLabel.label.text = "모집 종료"

@@ -190,7 +190,7 @@ extension MyPageParticipateCell {
         case .attendanceClosed: // 출석 마감(9)
             confirmAttendanceButton.isHidden = false
             writeLogButton.isHidden = false
-            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.text = "모임 종료"
             postInfoView.statusLabel.label.textColor = .darkG3
 
         case .logSubmissionClosed: // 로그 마감(10)
