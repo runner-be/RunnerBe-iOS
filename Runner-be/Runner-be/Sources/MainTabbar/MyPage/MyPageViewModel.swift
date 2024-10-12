@@ -312,9 +312,9 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: routes.writePost)
             .disposed(by: disposeBag)
 
-        inputs.manageAttendance
-            .bind(to: routes.manageAttendance)
-            .disposed(by: disposeBag)
+//        inputs.manageAttendance
+//            .bind(to: routes.manageAttendance)
+//            .disposed(by: disposeBag)
 
         Observable<String?>.of(user?.profileImageURL)
             .subscribe(outputs.currentProfile)

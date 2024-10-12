@@ -78,17 +78,6 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.manageAttendance
-            .map { (vm: scene.VM, myRunningIdx: $0) }
-            .subscribe(onNext: { [weak self] result in
-                self?.pushManageAttendanceScene(
-                    vm: result.vm,
-                    myRunningId: result.myRunningIdx,
-                    animated: true
-                )
-            })
-            .disposed(by: sceneDisposeBag)
-
         scene.VM.routes.registerRunningPace
             .subscribe(onNext: { [weak self] _ in
                 self?.pushRegisterRunningPaceScene(vm: scene.VM)
