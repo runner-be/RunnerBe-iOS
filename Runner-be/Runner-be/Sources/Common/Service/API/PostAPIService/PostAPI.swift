@@ -153,7 +153,12 @@ extension PostAPI: TargetType {
         case .report:
             return .requestPlain
         case let .manageAttendance(_, request, _):
-            return .requestJSONEncodable(request)
+            let parameters: [String: Any] = [
+                "userIdList": request.userIdList,
+                "whetherAttendList": request.whetherAttendList,
+            ]
+
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .getRunnerList:
             return .requestPlain
         }

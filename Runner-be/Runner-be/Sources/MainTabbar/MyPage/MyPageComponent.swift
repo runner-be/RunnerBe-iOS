@@ -40,8 +40,8 @@ final class MyPageComponent {
         return TakePhotoModalComponent()
     }
 
-    func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
-        return ManageAttendanceComponent(myRunningIdx: myRunningIdx)
+    func manageAttendanceComponent(myRunningId: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(myRunningId: myRunningId)
     }
 
     var registerRunningPaceComponent: RegisterRunningPaceComponent {
@@ -67,7 +67,7 @@ final class MyPageComponent {
     }
 
     func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {
-        return ManageAttendanceComponent(myRunningIdx: postId)
+        return ManageAttendanceComponent(myRunningId: postId)
     }
 
     func confirmAttendanceComponent(postId: Int) -> ConfirmAttendanceComponent {

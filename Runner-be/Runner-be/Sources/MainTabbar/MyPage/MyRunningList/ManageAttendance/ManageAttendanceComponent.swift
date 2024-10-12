@@ -14,13 +14,13 @@ final class ManageAttendanceComponent {
     }
 
     var viewModel: ManageAttendanceViewModel {
-        return ManageAttendanceViewModel(myRunningIdx: myRunningIdx)
+        return ManageAttendanceViewModel(myRunningId: myRunningId)
     }
 
-    let myRunningIdx: Int
+    let myRunningId: Int
 
-    init(myRunningIdx: Int) {
-        self.myRunningIdx = myRunningIdx
+    init(myRunningId: Int) {
+        self.myRunningId = myRunningId
     }
 
     var manageExpiredModalComponent: ManageTimeExpiredModalComponent {

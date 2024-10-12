@@ -30,7 +30,7 @@ final class MyRunningListComponent {
     }
 
     func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {
-        return ManageAttendanceComponent(myRunningIdx: postId)
+        return ManageAttendanceComponent(myRunningId: postId)
     }
 
     func confirmAttendanceComponent(postId: Int) -> ConfirmAttendanceComponent {

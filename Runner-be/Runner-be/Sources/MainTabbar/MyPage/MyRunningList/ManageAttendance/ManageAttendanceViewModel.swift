@@ -14,7 +14,7 @@ final class ManageAttendanceViewModel: BaseViewModel {
     var attendTimeOver = "N"
     var postID = -1
 
-    init(myRunningIdx: Int, postAPIService: PostAPIService = BasicPostAPIService()) {
+    init(myRunningId: Int, postAPIService: PostAPIService = BasicPostAPIService()) {
         super.init()
 
         routeInputs.needUpdate
@@ -23,11 +23,14 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
                 switch result {
                 case let .response(result: result):
-                    self.outputs.info.onNext(result![myRunningIdx])
-                    self.attendTimeOver = result![myRunningIdx].attendTimeOver!
-                    self.postID = result![myRunningIdx].postID!
-                    self.runnerList = result![myRunningIdx].runnerList!
-                    self.outputs.runnerList.onNext(result![myRunningIdx].runnerList!)
+                    guard let myPosting = result?.filter({ $0.postID == myRunningId }).first else {
+                        return
+                    }
+                    self.outputs.info.onNext(myPosting)
+                    self.attendTimeOver = myPosting.attendTimeOver!
+                    self.postID = myPosting.postID!
+                    self.runnerList = myPosting.runnerList!
+                    self.outputs.runnerList.onNext(myPosting.runnerList!)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self.toast.onNext(alertMessage)
@@ -51,7 +54,13 @@ final class ManageAttendanceViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.patchAttendance
-            .flatMap { postAPIService.mangageAttendance(postId: self.postID, request: PatchAttendanceRequest(userIdList: $0.userIdList, whetherAttendList: $0.whetherAttendList)) }
+            .flatMap { postAPIService.mangageAttendance(
+                postId: self.postID,
+                request: PatchAttendanceRequest(
+                    userIdList: $0.userIdList,
+                    whetherAttendList: $0.whetherAttendList
+                )
+            ) }
             .subscribe(onNext: { result in
 
                 switch result {

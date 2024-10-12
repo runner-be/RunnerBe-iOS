@@ -63,7 +63,11 @@ class ManageAttendanceViewController: BaseViewController {
 
         saveButton.rx.tap
             .filter { !self.whetherAttendList.contains("-") }
-            .map { (userIdList: self.userIdList.map { String($0) }.joined(separator: ","), whetherAttendList: self.whetherAttendList.joined(separator: ",")) }
+            .map { (
+                userIdList: self.userIdList.map { String($0) }.joined(separator: ","),
+                whetherAttendList: self.whetherAttendList.joined(separator: ",")
+
+            ) }
             .bind(to: viewModel.inputs.patchAttendance)
             .disposed(by: disposeBag)
     }
@@ -256,6 +260,18 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
 
         cell.configure(userInfo: UserConfig(from: user, owner: isUser))
 
+        // FIXME: 하드코딩
+        if runnerList[indexPath.row].attendance == 0 {
+            cell.refusalBtn.isSelected = true
+            cell.refusalBtn.backgroundColor = .primary
+            cell.refusalBtn.setTitleColor(.black, for: .selected)
+            cell.refusalBtn.titleLabel?.font = .iosBody15B
+        } else if runnerList[indexPath.row].attendance == 1 {
+            cell.acceptBtn.isSelected = true
+            cell.acceptBtn.backgroundColor = .primary
+            cell.acceptBtn.setTitleColor(.black, for: .selected)
+            cell.acceptBtn.titleLabel?.font = .iosBody15B
+        }
         // 출석관리하기 버튼 / 결과값 여부
         let attendTimeOver = viewModel.attendTimeOver
 

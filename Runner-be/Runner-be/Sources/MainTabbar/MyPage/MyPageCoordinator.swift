@@ -81,7 +81,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         scene.VM.routes.manageAttendance
             .map { (vm: scene.VM, myRunningIdx: $0) }
             .subscribe(onNext: { [weak self] result in
-                self?.pushManageAttendanceScene(vm: result.vm, myRunningIdx: result.myRunningIdx, animated: true)
+                self?.pushManageAttendanceScene(
+                    vm: result.vm,
+                    myRunningId: result.myRunningIdx,
+                    animated: true
+                )
             })
             .disposed(by: sceneDisposeBag)
 
@@ -238,8 +242,8 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         }
     }
 
-    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningIdx: Int, animated: Bool) {
-        let comp = component.manageAttendanceComponent(myRunningIdx: myRunningIdx)
+    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningId: Int, animated: Bool) {
+        let comp = component.manageAttendanceComponent(myRunningId: myRunningId)
         let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
