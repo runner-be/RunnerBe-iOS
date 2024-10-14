@@ -31,7 +31,11 @@ final class UserPageViewController: BaseViewController {
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage, for: .normal)
     }
 
-    private let profileView = MyProfileView()
+    private let profileView = MyProfileView().then {
+        $0.myInfoView.editPaceLabel.snp.makeConstraints {
+            $0.height.equalTo(0)
+        }
+    }
 
     private let logStampView = MyLogStampView().then {
         $0.pageControl.currentPage = 2
@@ -101,6 +105,7 @@ final class UserPageViewController: BaseViewController {
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] userConfig in
                 self?.profileView.configure(with: userConfig)
+                self?.profileView.myInfoView.registerPaceView.isHidden = true
                 self?.navBar.titleLabel.text = "\(userConfig.nickName)님 프로필"
             }).disposed(by: disposeBag)
 

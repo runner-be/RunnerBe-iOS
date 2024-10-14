@@ -63,7 +63,7 @@ final class UserPageViewModel: BaseViewModel {
     // MARK: - Init
 
     init(
-        userId: Int,
+        userId _: Int,
         userAPIService: UserAPIService = BasicUserAPIService()
     ) {
         super.init()
@@ -73,7 +73,7 @@ final class UserPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        userAPIService.userPage(userId: userId)
+        userAPIService.userPage(userId: 414)
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
