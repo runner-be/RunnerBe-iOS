@@ -54,10 +54,10 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
                 )
             }.disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.newConfirmLog
-            .bind { [weak self] logId in
-                self?.pushNewConfirmLogScene(
-                    logId: logId,
+        scene.VM.routes.userPage
+            .bind { [weak self] userId in
+                self?.pushUserPageScene(
+                    userId: userId,
                     vm: scene.VM,
                     animated: true
                 )
@@ -126,13 +126,13 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
         }
     }
 
-    private func pushNewConfirmLogScene(
-        logId: Int,
-        vm: ConfirmLogViewModel,
+    private func pushUserPageScene(
+        userId: Int,
+        vm _: ConfirmLogViewModel,
         animated: Bool
     ) {
-        let comp = component.newConfirmLogComponent(logId: logId)
-        let coord = ConfirmLogCoordinator(
+        let comp = component.userPageComponent(userId: userId)
+        let coord = UserPageCoordinator(
             component: comp,
             navController: navigationController
         )
@@ -142,8 +142,9 @@ final class ConfirmLogCoordinator: BasicCoordinator<ConfirmLogResult> {
             animated: animated
         ) { coordResult in
             switch coordResult {
-            case let .backward(needUpdate):
-                vm.routeInputs.needUpdate.onNext(needUpdate)
+            case .backward:
+                print("UserPage coordResult: Backward")
+//                vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
     }

@@ -50,4 +50,8 @@ final class ConfirmLogComponent {
             gatheringId: gatheringId
         )
     }
+
+    func userPageComponent(userId: Int) -> UserPageComponent {
+        return UserPageComponent(userId: userId)
+    }
 }

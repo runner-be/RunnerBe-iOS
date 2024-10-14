@@ -416,7 +416,12 @@ final class BasicPostAPIService: PostAPIService {
                 \(joinedData)
                 """)
 
-                return (responseCode: response.basic.code, userData: userData, postingData: postingData, joinedData: joinedData)
+                return (
+                    responseCode: response.basic.code,
+                    userData: userData,
+                    postingData: postingData,
+                    joinedData: joinedData
+                ) as RawDatas
             }
             .compactMap { $0 }
             .map { result in

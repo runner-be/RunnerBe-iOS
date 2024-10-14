@@ -82,3 +82,20 @@ extension Post: CustomStringConvertible {
         return desc
     }
 }
+
+struct UserPagePost {
+    let postId: Int
+    let postingTime: String
+    let postUserId: Int
+    let title: String
+    let gatheringTime: String
+    let runningTag: String
+    let age: String
+    let gender: String
+    let whetherEnd: String
+    let pace: String
+    let afterParty: Int
+    let userId: Int
+    let gatheringId: Int
+    let logId: Int?
+}

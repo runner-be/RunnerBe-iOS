@@ -7,6 +7,7 @@
 
 import Foundation
 
+// 마이페이지에서 사용되는 LogResponse
 struct LogResponse: Decodable {
     let totalCount: LogTotalCount
     let myRunningLog: [MyRunningLog]
@@ -14,6 +15,17 @@ struct LogResponse: Decodable {
     enum CodingKeys: String, CodingKey {
         case totalCount
         case myRunningLog
+    }
+}
+
+// 타인 유저페이지에서 사용되는 LogResponse
+struct UserLogResponse: Decodable {
+    let totalCount: LogTotalCount
+    let userLogInfo: [MyRunningLog]
+
+    enum CodingKeys: String, CodingKey {
+        case totalCount
+        case userLogInfo
     }
 }
 
@@ -31,9 +43,6 @@ struct MyRunningLog: Decodable {
     var isFuture: Bool {
         // 현재 날짜와 시간을 가져옴
         let currentDate = Date()
-
-        // ISO8601DateFormatter 인스턴스 생성
-        let isoFormatter = ISO8601DateFormatter()
 
         // runnedDate를 Date 객체로 변환
         if let runDate = runnedDate.toDate() {

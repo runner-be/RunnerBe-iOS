@@ -64,7 +64,7 @@ final class MyLogStampView: UIView {
         return collectionView
     }()
 
-    private let logCountView = UIView().then {
+    let logCountView = UIView().then {
         $0.layer.cornerRadius = 4
         $0.backgroundColor = .darkG6
     }

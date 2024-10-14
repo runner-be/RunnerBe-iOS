@@ -14,7 +14,7 @@ struct UserConfig: Equatable, IdentifiableType {
     let gender: String
     let job: String
     let isPostOwner: Bool
-    let pushOn: String
+    let pushOn: String?
     let diligence: String
     let profileURL: String?
     let pace: String?

@@ -336,7 +336,7 @@ final class MyPageViewController: BaseViewController {
     }
 
     private var hDivider = UIView().then { view in
-        view.backgroundColor = .black
+        view.backgroundColor = .orange
         view.snp.makeConstraints { make in
             make.height.equalTo(14)
         }

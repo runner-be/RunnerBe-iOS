@@ -118,9 +118,9 @@ final class ConfirmLogViewModel: BaseViewModel {
             }
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
-                return self.logDetail?.gotStamp[index].logId
+                return self.logDetail?.gotStamp[index].userId
             }
-            .bind(to: routes.newConfirmLog)
+            .bind(to: routes.userPage)
             .disposed(by: disposeBag)
     }
 
@@ -141,7 +141,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var modal = PublishSubject<Void>()
         var writeLog = PublishSubject<LogForm>()
-        var newConfirmLog = PublishSubject<Int>()
+        var userPage = PublishSubject<Int>()
         var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
     }
 
