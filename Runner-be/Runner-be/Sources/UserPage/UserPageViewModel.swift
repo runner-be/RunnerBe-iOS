@@ -11,7 +11,10 @@ import RxSwift
 final class UserPageViewModel: BaseViewModel {
     // MARK: - Properties
 
-    struct Input {}
+    struct Input {
+        var tapLogStampIcon = PublishSubject<Void>()
+        var tapLogStamp = PublishSubject<IndexPath>()
+    }
 
     struct Output {
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
@@ -22,9 +25,13 @@ final class UserPageViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
+        var calendar = PublishSubject<Void>()
+        var confirmLog = PublishSubject<Int>()
     }
 
-    struct RouteInputs {}
+    struct RouteInputs {
+        var needUpdate = ReplaySubject<Bool>.create(bufferSize: 1)
+    }
 
     private var disposeBag = DisposeBag()
     var inputs = Input()
@@ -101,6 +108,23 @@ final class UserPageViewModel: BaseViewModel {
                     }
                 }
             }).disposed(by: disposeBag)
+
+        inputs.tapLogStamp
+            .compactMap { [weak self] indexPath in
+                // 1주 단위로 section으로 구분되어 있습니다.
+                let section = indexPath.section * 7
+                let item = indexPath.item
+                let logItemIndex = section + item
+                guard let self = self else { return nil }
+
+                return self.userRunningLogs[logItemIndex]?.logId
+            }
+            .bind(to: routes.confirmLog)
+            .disposed(by: disposeBag)
+
+        inputs.tapLogStampIcon
+            .bind(to: routes.calendar)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods

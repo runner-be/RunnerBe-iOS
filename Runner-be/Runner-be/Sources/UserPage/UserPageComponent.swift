@@ -22,4 +22,12 @@ final class UserPageComponent {
     init(userId: Int) {
         self.userId = userId
     }
+
+    func calendarComponent() -> CalendarComponent {
+        return CalendarComponent()
+    }
+
+    func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logId: logId)
+    }
 }

@@ -96,6 +96,17 @@ final class UserPageViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
+
+        logStampView.titleIcon.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapLogStampIcon)
+            .disposed(by: disposeBag)
+
+        logStampView.logStampCollectionView.rx.itemSelected
+            .map { $0 }
+            .bind(to: viewModel.inputs.tapLogStamp)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {

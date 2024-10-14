@@ -39,5 +39,59 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
             .map { UserPageResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.calendar
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushCalendarScene(vm: scene.VM, animated: true)
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmLog
+            .map { (vm: scene.VM, logId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushConfirmLog(
+                    vm: inputs.vm,
+                    logId: inputs.logId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+    }
+
+    private func pushCalendarScene(vm: UserPageViewModel, animated: Bool) {
+        let comp = component.calendarComponent()
+        let coord = CalendarCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+
+        comp.viewModel.routeInputs.needUpdate.onNext((
+            targetDate: nil,
+            needUpdate: true
+        ))
+    }
+
+    private func pushConfirmLog(
+        vm: UserPageViewModel,
+        logId: Int,
+        animated: Bool
+    ) {
+        let comp = component.confirmLogComponent(logId: logId)
+        let coord = ConfirmLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 }
