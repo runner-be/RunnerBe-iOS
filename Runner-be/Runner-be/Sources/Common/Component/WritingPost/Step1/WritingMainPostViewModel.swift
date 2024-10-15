@@ -41,7 +41,11 @@ final class WritingMainPostViewModel: BaseViewModel {
                     self.toast.onNext("시간을 다시 설정해 주세요")
                     return
                 }
-
+                guard !self.writingPostData.placeInfo.isEmpty
+                else {
+                    self.toast.onNext("모임장소를 설정해 주세요")
+                    return
+                }
                 self.routes.next.onNext(self.writingPostData)
             })
             .disposed(by: disposeBag)
