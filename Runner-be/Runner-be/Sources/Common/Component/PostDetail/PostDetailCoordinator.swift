@@ -100,6 +100,8 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 if needUpdate {
                     vm.routeInputs.needUpdate.onNext(())
                 }
+            case let .userPage(userId):
+                vm.routeInputs.userPage.onNext(userId)
             }
         }
     }

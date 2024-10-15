@@ -33,7 +33,7 @@ final class UserInfoAcceptableCell: UICollectionViewCell {
         userInfoView.setup(userInfo: userInfo)
     }
 
-    private var userInfoView = UserInfoView()
+    let userInfoView = UserInfoView()
 
     var acceptBtn = UIButton().then { button in
         button.setTitle(L10n.Home.PostDetail.Writer.yes, for: .normal)

@@ -69,6 +69,12 @@ class ApplicantListModalViewController: BaseViewController {
                     .bind(to: self.viewModel.inputs.accept)
                     .disposed(by: cell.disposeBag)
 
+                cell.userInfoView.avatarView.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in element.userId
+                    }
+                    .bind(to: self.viewModel.inputs.tapProfile)
+                    .disposed(by: cell.disposeBag)
                 return cell
             }
         )

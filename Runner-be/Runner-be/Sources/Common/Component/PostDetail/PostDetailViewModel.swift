@@ -257,6 +257,10 @@ final class PostDetailViewModel: BaseViewModel {
         inputs.tapProfile
             .bind(to: routes.userPage)
             .disposed(by: disposeBag)
+
+        routeInputs.userPage
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -292,6 +296,7 @@ final class PostDetailViewModel: BaseViewModel {
         var report = PublishSubject<Bool>()
         var deleteOption = PublishSubject<Void>()
         var delete = PublishSubject<Void>()
+        var userPage = PublishSubject<Int>()
     }
 
     private var disposeBag = DisposeBag()
