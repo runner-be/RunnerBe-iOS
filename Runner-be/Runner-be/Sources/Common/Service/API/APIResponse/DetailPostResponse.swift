@@ -122,7 +122,6 @@ extension DetailPostResponse {
               let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
-              let gatheringId = gatheringId,
               let postingTime = createTime,
               let ageRange = ageRange,
               let coords = coords,
