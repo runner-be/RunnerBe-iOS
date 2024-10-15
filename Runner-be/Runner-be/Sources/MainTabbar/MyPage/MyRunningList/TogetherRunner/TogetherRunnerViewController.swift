@@ -122,6 +122,12 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
                         index: indexPath.item
                     )
 
+                    cell.profileImage.rx.tapGesture()
+                        .when(.recognized)
+                        .map { _ in indexPath.item }
+                        .bind(to: self.viewModel.inputs.tapProfile)
+                        .disposed(by: cell.disposeBag)
+
                     cell.showLogButton.rx.tap
                         .map { indexPath.item }
                         .bind(to: self.viewModel.inputs.tapShowLogButton)

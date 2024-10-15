@@ -27,7 +27,7 @@ final class TogetherRunnerCell: UITableViewCell {
 
     private let containerView = UIView()
 
-    private let profileImage = UIImageView().then {
+    let profileImage = UIImageView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.primary.cgColor
         $0.layer.cornerRadius = 28

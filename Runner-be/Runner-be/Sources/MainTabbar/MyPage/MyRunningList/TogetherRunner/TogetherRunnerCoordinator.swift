@@ -66,6 +66,15 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
                     animated: true
                 )
             }.disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.userPage
+            .bind { [weak self] userId in
+                self?.pushUserPageScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     private func pushLogStampBottomSheetScene(
@@ -113,6 +122,29 @@ final class TogetherRunnerCoordinator: BasicCoordinator<TogetherRunnerResult> {
             switch coordResult {
             case .backward:
                 break
+            }
+        }
+    }
+
+    private func pushUserPageScene(
+        userId: Int,
+        vm _: TogetherRunnerViewModel,
+        animated: Bool
+    ) {
+        let comp = component.userPageComponent(userId: userId)
+        let coord = UserPageCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                print("UserPage coordResult: Backward")
+//                vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
     }

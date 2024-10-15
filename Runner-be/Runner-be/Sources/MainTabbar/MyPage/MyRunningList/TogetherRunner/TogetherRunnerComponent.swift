@@ -46,4 +46,8 @@ final class TogetherRunnerComponent {
     func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
         return ConfirmLogComponent(logId: logId)
     }
+
+    func userPageComponent(userId: Int) -> UserPageComponent {
+        return UserPageComponent(userId: userId)
+    }
 }

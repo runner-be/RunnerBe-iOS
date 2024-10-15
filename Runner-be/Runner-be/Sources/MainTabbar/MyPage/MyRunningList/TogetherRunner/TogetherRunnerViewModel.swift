@@ -14,6 +14,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     struct Input {
         var tapRunner = PublishSubject<Int>()
         var tapShowLogButton = PublishSubject<Int>()
+        var tapProfile = PublishSubject<Int>()
     }
 
     struct Output {
@@ -28,6 +29,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
             gatheringId: Int?
         )>()
         var confirmLog = PublishSubject<Int>()
+        var userPage = PublishSubject<Int>()
     }
 
     struct RouteInputs {
@@ -106,6 +108,14 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 )
             }
             .bind(to: routes.logStampBottomSheet)
+            .disposed(by: disposeBag)
+
+        inputs.tapProfile
+            .compactMap { [weak self] index in
+                guard let self = self else { return nil }
+                return self.partnerList[index].userId
+            }
+            .bind(to: routes.userPage)
             .disposed(by: disposeBag)
 
         inputs.tapShowLogButton
