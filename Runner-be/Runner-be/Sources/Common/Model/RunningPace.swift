@@ -19,13 +19,13 @@ extension RunningPace {
     var value: String {
         switch self {
         case .beginner:
-            return "700 ~ 900"
-        case .average:
-            return "600 ~ 700"
-        case .high:
-            return "430 ~ 600"
-        case .master:
             return "430 이하"
+        case .average:
+            return "430 ~ 600"
+        case .high:
+            return "600 ~ 700"
+        case .master:
+            return "700 ~ 900"
         case .none:
             return ""
         }
