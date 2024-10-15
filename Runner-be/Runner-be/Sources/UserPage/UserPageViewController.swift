@@ -133,12 +133,15 @@ final class UserPageViewController: BaseViewController {
                     return UICollectionViewCell()
                 }
 
-                cell.configure(with: LogStamp(
-                    logId: nil,
-                    gatheringId: nil,
-                    date: element.date,
-                    stampType: element.stampType
-                ))
+                cell.configure(
+                    with: LogStamp(
+                        logId: nil,
+                        gatheringId: nil,
+                        date: element.date,
+                        stampType: element.stampType
+                    ),
+                    isMyLogStamp: false
+                )
 
                 return cell
             }

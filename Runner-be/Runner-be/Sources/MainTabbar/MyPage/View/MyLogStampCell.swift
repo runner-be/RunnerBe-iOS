@@ -46,7 +46,10 @@ final class MyLogStampCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with logStamp: LogStamp) {
+    func configure(
+        with logStamp: LogStamp,
+        isMyLogStamp: Bool = true
+    ) {
         let currentDate = Date()
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
@@ -73,9 +76,10 @@ final class MyLogStampCell: UICollectionViewCell {
         if let stampIcon = logStamp.stampType?.icon {
             self.stampIcon.image = stampIcon
         } else if logStamp.isGathering {
-            stampIcon.image = Asset.iconLogPostable30.uiImage
+            stampIcon.image = isMyLogStamp ? Asset.iconLogPostable30.uiImage : Asset.iconOthersLogPostable30.uiImage
         } else {
-            stampIcon.image = Asset.iconLogEmpty30.uiImage
+            stampIcon.image = isMyLogStamp ? Asset.iconLogEmpty30.uiImage :
+                Asset.iconOthersLogEmpty30.uiImage
         }
     }
 }

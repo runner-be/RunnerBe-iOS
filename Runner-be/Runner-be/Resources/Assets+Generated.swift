@@ -135,6 +135,8 @@ internal enum Asset {
   internal static let iconLogEmpty30 = ImageAsset(name: "iconLogEmpty30")
   internal static let iconLogPostable30 = ImageAsset(name: "iconLogPostable30")
   internal static let iconMoreButton24 = ImageAsset(name: "iconMoreButton24")
+  internal static let iconOthersLogEmpty30 = ImageAsset(name: "iconOthersLogEmpty30")
+  internal static let iconOthersLogPostable30 = ImageAsset(name: "iconOthersLogPostable30")
   internal static let iconPhoto18 = ImageAsset(name: "iconPhoto18")
   internal static let iconSearch18 = ImageAsset(name: "iconSearch18")
   internal static let iconWarning20 = ImageAsset(name: "iconWarning20")
