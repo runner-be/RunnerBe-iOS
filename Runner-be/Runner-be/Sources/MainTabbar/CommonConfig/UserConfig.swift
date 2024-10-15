@@ -9,6 +9,7 @@ import Foundation
 import RxDataSources
 
 struct UserConfig: Equatable, IdentifiableType {
+    let userId: Int
     let nickName: String
     let age: String
     let gender: String
@@ -20,6 +21,7 @@ struct UserConfig: Equatable, IdentifiableType {
     let pace: String?
 
     init(from user: User, owner: Bool) {
+        userId = user.userID
         nickName = user.nickName
         age = user.age
         gender = user.gender
@@ -41,6 +43,7 @@ struct UserConfig: Equatable, IdentifiableType {
         diligence = "초보 출석"
         pushOn = "N"
         pace = nil
+        userId = 0
     }
 
     var identity: String { nickName }
