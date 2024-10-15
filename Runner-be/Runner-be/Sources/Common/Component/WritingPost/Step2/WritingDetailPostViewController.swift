@@ -18,7 +18,7 @@ class WritingDetailPostViewController: BaseViewController {
     var isRegisterButtonValid = false {
         didSet {
             self.navBar.rightBtnItem.isEnabled = true
-            self.navBar.rightBtnItem.titleLabel?.textColor = .primary
+            self.navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
         }
     }
 
