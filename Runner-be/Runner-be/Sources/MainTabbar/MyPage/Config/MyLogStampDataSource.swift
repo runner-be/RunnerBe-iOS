@@ -13,6 +13,7 @@ struct LogStamp {
     let gatheringId: Int?
     let date: Date
     let stampType: StampType?
+    let isOpened: Int?
 }
 
 extension LogStamp {
@@ -27,6 +28,7 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
     let gatheringId: Int?
     var date: Date
     var stampType: StampType?
+    let isOpened: Int?
 
     var identity: String {
         "\(id)"
@@ -37,6 +39,7 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
         gatheringId = from.gatheringId
         date = from.date
         stampType = from.stampType
+        isOpened = from.isOpened
     }
 }
 

@@ -138,7 +138,8 @@ final class UserPageViewController: BaseViewController {
                         logId: nil,
                         gatheringId: nil,
                         date: element.date,
-                        stampType: element.stampType
+                        stampType: element.stampType,
+                        isOpened: element.isOpened
                     ),
                     isMyLogStamp: false
                 )

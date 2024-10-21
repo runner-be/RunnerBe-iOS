@@ -153,7 +153,8 @@ final class CalendarViewController: BaseViewController {
                     logId: element.logId,
                     gatheringId: element.gatheringId,
                     date: element.date,
-                    stampType: element.stampType
+                    stampType: element.stampType,
+                    isOpened: element.isOpened
                 ))
 
                 return cell

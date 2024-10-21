@@ -120,7 +120,8 @@ final class MyPageViewController: BaseViewController {
                     logId: nil,
                     gatheringId: nil,
                     date: element.date,
-                    stampType: element.stampType
+                    stampType: element.stampType,
+                    isOpened: element.isOpened
                 ))
 
                 return cell

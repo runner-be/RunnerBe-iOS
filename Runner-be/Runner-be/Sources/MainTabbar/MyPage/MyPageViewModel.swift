@@ -447,6 +447,7 @@ final class MyPageViewModel: BaseViewModel {
             var stampType: StampType?
             var logId: Int?
             var gatheringId: Int?
+            var isOpened: Int?
 
             for log in runningLog {
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
@@ -454,6 +455,7 @@ final class MyPageViewModel: BaseViewModel {
                         stampType = StampType(rawValue: log.stampCode ?? "")
                         logId = log.logId
                         gatheringId = log.gatheringId
+                        isOpened = log.isOpened
                         break
                     } else {
                         stampType = nil
@@ -465,14 +467,16 @@ final class MyPageViewModel: BaseViewModel {
                 logId: logId,
                 gatheringId: gatheringId,
                 runnedDate: date.description,
-                stampCode: stampType?.rawValue
+                stampCode: stampType?.rawValue,
+                isOpened: isOpened
             ))
 
             return MyLogStampConfig(from: LogStamp(
                 logId: logId,
                 gatheringId: gatheringId,
                 date: date,
-                stampType: stampType
+                stampType: stampType,
+                isOpened: isOpened
             ))
         }
 

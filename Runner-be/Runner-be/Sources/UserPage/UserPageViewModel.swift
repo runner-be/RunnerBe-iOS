@@ -70,7 +70,7 @@ final class UserPageViewModel: BaseViewModel {
     // MARK: - Init
 
     init(
-        userId: Int,
+        userId _: Int,
         userAPIService: UserAPIService = BasicUserAPIService()
     ) {
         super.init()
@@ -80,7 +80,7 @@ final class UserPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        userAPIService.userPage(userId: userId)
+        userAPIService.userPage(userId: 414)
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
@@ -110,14 +110,20 @@ final class UserPageViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
 
         inputs.tapLogStamp
-            .compactMap { [weak self] indexPath in
+            .compactMap { [weak self] indexPath -> MyRunningLog? in
                 // 1주 단위로 section으로 구분되어 있습니다.
                 let section = indexPath.section * 7
                 let item = indexPath.item
                 let logItemIndex = section + item
                 guard let self = self else { return nil }
 
-                return self.userRunningLogs[logItemIndex]?.logId
+                return self.userRunningLogs[logItemIndex]
+            }
+            .filter { logItem in
+                logItem.isOpened == 1
+            }
+            .compactMap { logItem in
+                logItem.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -150,6 +156,7 @@ final class UserPageViewModel: BaseViewModel {
             var stampType: StampType?
             var logId: Int?
             var gatheringId: Int?
+            var isOpened: Int?
 
             for log in runningLog {
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
@@ -157,6 +164,7 @@ final class UserPageViewModel: BaseViewModel {
                         stampType = StampType(rawValue: log.stampCode ?? "")
                         logId = log.logId
                         gatheringId = log.gatheringId
+                        isOpened = log.isOpened
                         break
                     } else {
                         stampType = nil
@@ -168,14 +176,16 @@ final class UserPageViewModel: BaseViewModel {
                 logId: logId,
                 gatheringId: gatheringId,
                 runnedDate: date.description,
-                stampCode: stampType?.rawValue
+                stampCode: stampType?.rawValue,
+                isOpened: isOpened
             ))
 
             return MyLogStampConfig(from: LogStamp(
                 logId: logId,
                 gatheringId: gatheringId,
                 date: date,
-                stampType: stampType
+                stampType: stampType,
+                isOpened: isOpened
             ))
         }
 

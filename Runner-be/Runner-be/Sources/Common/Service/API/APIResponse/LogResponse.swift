@@ -39,6 +39,7 @@ struct MyRunningLog: Decodable {
     let gatheringId: Int?
     let runnedDate: String
     let stampCode: String?
+    let isOpened: Int?
 
     var isFuture: Bool {
         // 현재 날짜와 시간을 가져옴

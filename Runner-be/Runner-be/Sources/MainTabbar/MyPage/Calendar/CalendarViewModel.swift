@@ -175,6 +175,7 @@ final class CalendarViewModel: BaseViewModel {
                 var stampType: StampType?
                 var logId: Int?
                 var gatheringId: Int?
+                var isOpened: Int?
 
                 // 이전 달의 runningLog에서 해당 날짜의 로그를 찾아 설정
                 for log in runningLog {
@@ -183,6 +184,7 @@ final class CalendarViewModel: BaseViewModel {
                             stampType = StampType(rawValue: log.stampCode ?? "")
                             logId = log.logId
                             gatheringId = log.gatheringId
+                            isOpened = log.isOpened
                             break
                         }
                     }
@@ -193,7 +195,8 @@ final class CalendarViewModel: BaseViewModel {
                     logId: logId,
                     gatheringId: gatheringId,
                     date: date,
-                    stampType: stampType
+                    stampType: stampType,
+                    isOpened: isOpened
                 )))
 
                 // 이전 달의 해당 날짜에 대한 myRunningLog 추가
@@ -201,7 +204,8 @@ final class CalendarViewModel: BaseViewModel {
                     logId: logId,
                     gatheringId: gatheringId,
                     runnedDate: date.description,
-                    stampCode: stampType?.rawValue
+                    stampCode: stampType?.rawValue,
+                    isOpened: isOpened
                 ))
             }
         }
@@ -214,7 +218,7 @@ final class CalendarViewModel: BaseViewModel {
             var stampType: StampType?
             var logId: Int?
             var gatheringId: Int?
-
+            var isOpened: Int?
             for log in runningLog {
                 // runningLog와 동일한 날짜가 있는지 확인
                 if let logDate = dateFormatter.date(from: log.runnedDate) {
@@ -222,6 +226,7 @@ final class CalendarViewModel: BaseViewModel {
                         stampType = StampType(rawValue: log.stampCode ?? "")
                         logId = log.logId
                         gatheringId = log.gatheringId
+                        isOpened = log.isOpened
                         break
                     } else {
                         stampType = nil
@@ -233,14 +238,16 @@ final class CalendarViewModel: BaseViewModel {
                 logId: logId,
                 gatheringId: gatheringId,
                 date: date,
-                stampType: stampType
+                stampType: stampType,
+                isOpened: isOpened
             )))
 
             myRunningLogs.append(MyRunningLog(
                 logId: logId,
                 gatheringId: gatheringId,
                 runnedDate: date.description,
-                stampCode: stampType?.rawValue
+                stampCode: stampType?.rawValue,
+                isOpened: isOpened
             ))
         }
 
@@ -255,7 +262,8 @@ final class CalendarViewModel: BaseViewModel {
                     logId: nil,
                     gatheringId: nil,
                     date: date,
-                    stampType: nil
+                    stampType: nil,
+                    isOpened: nil
                 )))
 
                 myRunningLogs.append(nil)
