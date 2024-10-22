@@ -23,8 +23,8 @@ final class UserPageComponent {
         self.userId = userId
     }
 
-    func calendarComponent() -> CalendarComponent {
-        return CalendarComponent()
+    func calendarComponent(userId: Int) -> CalendarComponent {
+        return CalendarComponent(userId: userId)
     }
 
     func confirmLogComponent(logId: Int) -> ConfirmLogComponent {

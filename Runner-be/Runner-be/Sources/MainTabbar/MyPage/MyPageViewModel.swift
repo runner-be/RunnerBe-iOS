@@ -61,7 +61,11 @@ final class MyPageViewModel: BaseViewModel {
 
         routeInputs.needUpdate
             .filter { $0 }
-            .flatMap { _ in logAPIService.fetchLog(targetDate: Date()) }
+            .flatMap { _ in logAPIService.fetchLog(
+                userId: 414,
+                targetDate: Date()
+            )
+            }
             .compactMap { [weak self] result -> LogResponse? in
                 switch result {
                 case let .response(data):

@@ -40,20 +40,30 @@ final class CalendarViewModel: BaseViewModel {
 
     // MARK: - Init
 
-    init(logAPIService: LogAPIService = BasicLogAPIService()) {
+    init(
+        userId: Int,
+        logAPIService: LogAPIService = BasicLogAPIService()
+    ) {
         targetDate = Date()
         super.init()
+        print("jseiofnesoijfsef 11: \(userId)")
+        inputs.changedTargetDate.onNext(Date())
 
         inputs.changedTargetDate
             .flatMap { targetDate in
                 let currentDate = targetDate
-                let currentLog = logAPIService.fetchLog(targetDate: currentDate)
-
+                let currentLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: currentDate
+                )
                 guard let previousDateMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) else {
                     return Observable.zip(currentLog, Observable.just(APIResult<LogResponse?>.response(result: nil)))
                 }
 
-                let previousLog = logAPIService.fetchLog(targetDate: previousDateMonthDate)
+                let previousLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: previousDateMonthDate
+                )
                 return Observable.zip(currentLog, previousLog)
             }
             .subscribe(onNext: { [weak self] currentResult, previousResult in
@@ -281,7 +291,7 @@ final class CalendarViewModel: BaseViewModel {
 
     struct Output {
         var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
-        var changedTargetDate = PublishSubject<(year: Int, month: Int)>()
+        var changedTargetDate = ReplaySubject<(year: Int, month: Int)>.create(bufferSize: 2)
         var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
     }
 
@@ -293,7 +303,7 @@ final class CalendarViewModel: BaseViewModel {
     }
 
     struct RouteInput {
-        var needUpdate = PublishSubject<(targetDate: Date?, needUpdate: Bool)>()
+        var needUpdate = ReplaySubject<(targetDate: Date?, needUpdate: Bool)>.create(bufferSize: 1)
     }
 
     private var disposeBag = DisposeBag()

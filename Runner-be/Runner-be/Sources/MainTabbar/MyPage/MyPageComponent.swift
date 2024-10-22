@@ -12,8 +12,8 @@ final class MyPageComponent {
 
     lazy var viewModel = MyPageViewModel()
 
-    func calendarComponent() -> CalendarComponent {
-        return CalendarComponent()
+    func calendarComponent(userId: Int) -> CalendarComponent {
+        return CalendarComponent(userId: userId)
     }
 
     func postDetailComponent(postId: Int) -> PostDetailComponent {

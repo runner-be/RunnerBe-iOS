@@ -25,7 +25,7 @@ final class UserPageViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var calendar = PublishSubject<Void>()
+        var calendar = PublishSubject<Int>()
         var confirmLog = PublishSubject<Int>()
     }
 
@@ -70,7 +70,7 @@ final class UserPageViewModel: BaseViewModel {
     // MARK: - Init
 
     init(
-        userId _: Int,
+        userId: Int,
         userAPIService: UserAPIService = BasicUserAPIService()
     ) {
         super.init()
@@ -80,7 +80,7 @@ final class UserPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        userAPIService.userPage(userId: 414)
+        userAPIService.userPage(userId: userId)
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
@@ -129,6 +129,7 @@ final class UserPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapLogStampIcon
+            .map { _ in userId }
             .bind(to: routes.calendar)
             .disposed(by: disposeBag)
     }

@@ -41,8 +41,13 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.calendar
-            .subscribe(onNext: { [weak self] _ in
-                self?.pushCalendarScene(vm: scene.VM, animated: true)
+            .subscribe(onNext: { [weak self] userId in
+                print("jseiofnesoijfsef 22: \(userId)")
+                self?.pushCalendarScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.confirmLog
@@ -56,8 +61,12 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
             }).disposed(by: sceneDisposeBag)
     }
 
-    private func pushCalendarScene(vm: UserPageViewModel, animated: Bool) {
-        let comp = component.calendarComponent()
+    private func pushCalendarScene(
+        userId: Int,
+        vm: UserPageViewModel,
+        animated: Bool
+    ) {
+        let comp = component.calendarComponent(userId: userId)
         let coord = CalendarCoordinator(
             component: comp,
             navController: navigationController

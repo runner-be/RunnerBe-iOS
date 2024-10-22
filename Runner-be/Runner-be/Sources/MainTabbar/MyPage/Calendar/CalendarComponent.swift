@@ -13,7 +13,15 @@ final class CalendarComponent {
         return (CalendarViewController(viewModel: viewModel), viewModel)
     }
 
-    lazy var viewModel = CalendarViewModel()
+    var viewModel: CalendarViewModel {
+        return CalendarViewModel(userId: userId)
+    }
+
+    let userId: Int
+
+    init(userId: Int) {
+        self.userId = userId
+    }
 
     func selectDateComponent(selectedDate: Date) -> SelectDateBottomSheetComponent {
         return SelectDateBottomSheetComponent(selectedDate: selectedDate)

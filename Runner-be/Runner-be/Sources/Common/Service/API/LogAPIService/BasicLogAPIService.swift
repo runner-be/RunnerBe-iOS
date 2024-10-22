@@ -36,9 +36,11 @@ final class BasicLogAPIService: LogAPIService {
 
     // MARK: - Methods
 
-    func fetchLog(targetDate: Date) -> Observable<APIResult<LogResponse?>> {
-        guard let userId = loginKeyChain.userId,
-              let token = loginKeyChain.token
+    func fetchLog(
+        userId: Int,
+        targetDate: Date
+    ) -> Observable<APIResult<LogResponse?>> {
+        guard let token = loginKeyChain.token
         else {
             return .just(APIResult.response(result: nil))
         }

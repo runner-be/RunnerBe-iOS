@@ -37,7 +37,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
 
         scene.VM.routes.calendar
             .subscribe(onNext: { [weak self] _ in
-                self?.pushCalendarScene(vm: scene.VM, animated: true)
+                self?.pushCalendarScene(
+                    userId: 414,
+                    vm: scene.VM,
+                    animated: true
+                )
             }).disposed(by: sceneDisposeBag)
 
         scene.VM.routes.myRunningList
@@ -138,8 +142,12 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         }
     }
 
-    func pushCalendarScene(vm: MyPageViewModel, animated: Bool) {
-        let comp = component.calendarComponent()
+    func pushCalendarScene(
+        userId: Int,
+        vm: MyPageViewModel,
+        animated: Bool
+    ) {
+        let comp = component.calendarComponent(userId: userId)
         let coord = CalendarCoordinator(
             component: comp,
             navController: navigationController
