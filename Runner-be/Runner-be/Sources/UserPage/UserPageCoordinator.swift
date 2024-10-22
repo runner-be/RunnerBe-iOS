@@ -58,6 +58,13 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushCalendarScene(
@@ -98,6 +105,18 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    func pushDetailPostScene(vm: UserPageViewModel, postId: Int, animated: Bool) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(_, needUpdate):
                 vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }

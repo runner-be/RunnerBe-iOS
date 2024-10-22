@@ -14,6 +14,7 @@ final class UserPageViewModel: BaseViewModel {
     struct Input {
         var tapLogStampIcon = PublishSubject<Void>()
         var tapLogStamp = PublishSubject<IndexPath>()
+        var tapPost = PublishSubject<Int>()
     }
 
     struct Output {
@@ -27,6 +28,7 @@ final class UserPageViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var calendar = PublishSubject<Int>()
         var confirmLog = PublishSubject<Int>()
+        var detailPost = PublishSubject<Int>()
     }
 
     struct RouteInputs {
@@ -80,7 +82,7 @@ final class UserPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        userAPIService.userPage(userId: 414)
+        userAPIService.userPage(userId: userId)
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
@@ -131,6 +133,27 @@ final class UserPageViewModel: BaseViewModel {
         inputs.tapLogStampIcon
             .map { _ in userId }
             .bind(to: routes.calendar)
+            .disposed(by: disposeBag)
+
+        inputs.tapPost
+            .compactMap { [weak self] idx in
+                guard let self = self,
+                      idx >= 0,
+                      idx < posts.count
+                else {
+                    self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
+                    return nil
+                }
+
+                // 아직 시작안했을 때
+                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970 {
+                    self.toast.onNext("모임이 아직 시작되지 않았어요.")
+                    return nil
+                }
+                print("sjeifosjf: \(posts[idx].postId)")
+                return posts[idx].postId
+            }
+            .bind(to: routes.detailPost)
             .disposed(by: disposeBag)
     }
 

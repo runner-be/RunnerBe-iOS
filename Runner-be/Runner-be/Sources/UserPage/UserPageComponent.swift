@@ -30,4 +30,8 @@ final class UserPageComponent {
     func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
         return ConfirmLogComponent(logId: logId)
     }
+
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(postId: postId)
+    }
 }

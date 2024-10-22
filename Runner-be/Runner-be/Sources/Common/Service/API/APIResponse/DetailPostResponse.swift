@@ -119,7 +119,6 @@ extension DetailPostResponse {
               let writerID = postUserID,
               let title = title,
               let locationInfo = locationInfo,
-              let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
               let postingTime = createTime,

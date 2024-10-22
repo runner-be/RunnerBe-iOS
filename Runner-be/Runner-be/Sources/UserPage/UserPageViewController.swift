@@ -107,6 +107,11 @@ final class UserPageViewController: BaseViewController {
             .map { $0 }
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
+
+        userRunningCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
