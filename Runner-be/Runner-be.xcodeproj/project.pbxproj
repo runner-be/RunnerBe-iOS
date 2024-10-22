@@ -35,6 +35,10 @@
 		2B4263A62C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */; };
 		2B4263A82C7835F700455B8C /* DetailSelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */; };
 		2B4263AA2C78360500455B8C /* DetailSelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */; };
+		2B524A0E2CC7420900D1AB02 /* UserPageParticipateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A0D2CC7420900D1AB02 /* UserPageParticipateCell.swift */; };
+		2B524A112CC7440F00D1AB02 /* UserPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A102CC7440F00D1AB02 /* UserPagePostConfig.swift */; };
+		2B524A132CC751C700D1AB02 /* UserPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A122CC751C700D1AB02 /* UserPostResponse.swift */; };
+		2B524A152CC75B0B00D1AB02 /* UserPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A142CC75B0B00D1AB02 /* UserPagePostDataSource.swift */; };
 		2B57EA6D2C80226E00C696FF /* MyRunningListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */; };
 		2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */; };
 		2B57EA712C80228A00C696FF /* MyRunningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */; };
@@ -532,6 +536,10 @@
 		2B4263A52C7835ED00455B8C /* DetailSelectPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B4263A72C7835F700455B8C /* DetailSelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewModel.swift; sourceTree = "<group>"; };
 		2B4263A92C78360500455B8C /* DetailSelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSelectPlaceViewController.swift; sourceTree = "<group>"; };
+		2B524A0D2CC7420900D1AB02 /* UserPageParticipateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageParticipateCell.swift; sourceTree = "<group>"; };
+		2B524A102CC7440F00D1AB02 /* UserPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPagePostConfig.swift; sourceTree = "<group>"; };
+		2B524A122CC751C700D1AB02 /* UserPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostResponse.swift; sourceTree = "<group>"; };
+		2B524A142CC75B0B00D1AB02 /* UserPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPagePostDataSource.swift; sourceTree = "<group>"; };
 		2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListComponent.swift; sourceTree = "<group>"; };
 		2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListCoordinator.swift; sourceTree = "<group>"; };
 		2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewModel.swift; sourceTree = "<group>"; };
@@ -1096,6 +1104,23 @@
 			path = DetailSelectPlace;
 			sourceTree = "<group>";
 		};
+		2B524A0C2CC741F800D1AB02 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2B524A0D2CC7420900D1AB02 /* UserPageParticipateCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2B524A0F2CC743F200D1AB02 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2B524A102CC7440F00D1AB02 /* UserPagePostConfig.swift */,
+				2B524A142CC75B0B00D1AB02 /* UserPagePostDataSource.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1232,6 +1257,8 @@
 		2BB4CB0C2CBD205C0032AD7B /* UserPage */ = {
 			isa = PBXGroup;
 			children = (
+				2B524A0C2CC741F800D1AB02 /* Cell */,
+				2B524A0F2CC743F200D1AB02 /* Config */,
 				2BB4CB0D2CBD20730032AD7B /* UserPageComponent.swift */,
 				2BB4CB0F2CBD207F0032AD7B /* UserPageCoordinator.swift */,
 				2BB4CB112CBD20890032AD7B /* UserPageViewModel.swift */,
@@ -1763,6 +1790,7 @@
 				C34BA6B027CD47C9003E393A /* DetailPostResponse.swift */,
 				C342F9A5282D58420000E46C /* PostResponse.swift */,
 				2B0D55B32C8BFE0B004D74D2 /* LogResponse.swift */,
+				2B524A122CC751C700D1AB02 /* UserPostResponse.swift */,
 			);
 			path = APIResponse;
 			sourceTree = "<group>";
@@ -3112,6 +3140,7 @@
 				C3498F4027C13D53003EDD0F /* SelectTimeModalViewController.swift in Sources */,
 				C3256B5927CE7599009B16DA /* PolicyType.swift in Sources */,
 				C38F8F2B27AD963C0050137D /* HomeViewController.swift in Sources */,
+				2B524A132CC751C700D1AB02 /* UserPostResponse.swift in Sources */,
 				C39F2EA527BC71C300A7D86B /* CGPoint+.swift in Sources */,
 				C3F74B6427B0A3BA002D5846 /* PolicyTermCoordinator.swift in Sources */,
 				2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */,
@@ -3242,6 +3271,7 @@
 				C3C9736727CAA67E00232251 /* MakerView.swift in Sources */,
 				C39E926227BACCF300798F3A /* EmailAPI.swift in Sources */,
 				C343A33527BD103C008E6FA4 /* Slider.swift in Sources */,
+				2B524A0E2CC7420900D1AB02 /* UserPageParticipateCell.swift in Sources */,
 				433BD03828A13655003B444E /* DeleteConfirmModalViewController.swift in Sources */,
 				C34FDA7A27AD5D45007718F8 /* Fonts+Generated.swift in Sources */,
 				2B4263A42C7835E100455B8C /* DetailSelectPlaceComponent.swift in Sources */,
@@ -3274,6 +3304,7 @@
 				438AB20628C3875C00AD1AD3 /* WritingPostData.swift in Sources */,
 				C342F9A6282D58420000E46C /* PostResponse.swift in Sources */,
 				2BBA6E562C8562D000E6CE40 /* StampBottomSheetViewModel.swift in Sources */,
+				2B524A152CC75B0B00D1AB02 /* UserPagePostDataSource.swift in Sources */,
 				DAA252CA287205050087FCA9 /* ManageAttendanceViewController.swift in Sources */,
 				C39E925E27BACB6800798F3A /* Mail.swift in Sources */,
 				C34FDA6F27AD5C83007718F8 /* SocialLoginService.swift in Sources */,
@@ -3522,6 +3553,7 @@
 				2B1797662C7DE1DB0001C354 /* CalendarCoordinator.swift in Sources */,
 				C3319A5427C517830054B688 /* BubbleLabel.swift in Sources */,
 				DAC50002282B8F38004CFF64 /* MessageRoomComponent.swift in Sources */,
+				2B524A112CC7440F00D1AB02 /* UserPagePostConfig.swift in Sources */,
 				C31E633228171CEE00C6B5A0 /* MessageComponent.swift in Sources */,
 				DA4353422B8B31A5004C047A /* RegisterRunningPaceConfirmModalComponent.swift in Sources */,
 				C38F8F3C27AD99D70050137D /* HomeComponent.swift in Sources */,

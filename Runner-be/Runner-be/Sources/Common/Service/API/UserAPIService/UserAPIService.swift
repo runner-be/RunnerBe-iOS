@@ -26,7 +26,7 @@ enum SetProfileResult {
 }
 
 enum UserPageAPIResult {
-    case success(userInfo: User, userRunningLog: [MyRunningLog], userRunning: [Post])
+    case success(userInfo: User, userRunningLog: [MyRunningLog], userRunning: [UserPost])
 }
 
 protocol UserAPIService {

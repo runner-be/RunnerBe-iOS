@@ -42,7 +42,6 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
 
         scene.VM.routes.calendar
             .subscribe(onNext: { [weak self] userId in
-                print("jseiofnesoijfsef 22: \(userId)")
                 self?.pushCalendarScene(
                     userId: userId,
                     vm: scene.VM,

@@ -46,7 +46,7 @@ final class CalendarViewModel: BaseViewModel {
     ) {
         targetDate = Date()
         super.init()
-        print("jseiofnesoijfsef 11: \(userId)")
+
         inputs.changedTargetDate.onNext(Date())
 
         inputs.changedTargetDate

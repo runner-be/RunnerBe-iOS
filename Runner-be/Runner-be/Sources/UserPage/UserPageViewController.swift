@@ -63,7 +63,7 @@ final class UserPageViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
+        collectionView.register(UserPageParticipateCell.self, forCellWithReuseIdentifier: UserPageParticipateCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
         collectionView.isPagingEnabled = false
@@ -171,12 +171,12 @@ final class UserPageViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
+            = RxCollectionViewSectionedAnimatedDataSource<UserPagePostSection>
 
         let userRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self else { return UICollectionViewCell() }
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPageParticipateCell.id, for: indexPath) as? UserPageParticipateCell
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
@@ -185,7 +185,7 @@ final class UserPageViewController: BaseViewController {
         }
 
         viewModel.outputs.posts
-            .map { [MyPagePostSection(items: $0)] }
+            .map { [UserPagePostSection(items: $0)] }
             .bind(to: userRunningCollectionView.rx.items(dataSource: userRunningDatasource))
             .disposed(by: disposeBag)
 
@@ -202,7 +202,7 @@ extension UserPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {
         case let c where c == userRunningCollectionView:
-            return MyPageParticipateCell.size
+            return UserPageParticipateCell.size
         case let c where c == logStampView.logStampCollectionView:
             return MyLogStampCell.size
         default:
@@ -294,13 +294,13 @@ extension UserPageViewController {
             $0.top.right.bottom.equalToSuperview()
             $0.size.equalTo(24)
         }
-        userRunningCollectionView.backgroundColor = .orange
+
         userRunningCollectionView.snp.makeConstraints { make in
             make.top.equalTo(userRunningHeaderView.snp.bottom).offset(12)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).inset(20)
-            make.height.equalTo(208)
+            make.height.equalTo(150)
         }
     }
 }

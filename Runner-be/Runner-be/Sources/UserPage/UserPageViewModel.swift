@@ -18,7 +18,7 @@ final class UserPageViewModel: BaseViewModel {
 
     struct Output {
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
-        var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var posts = ReplaySubject<[UserPagePostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var changeTargetDate = ReplaySubject<(year: Int, month: Int)>.create(bufferSize: 1)
     }
@@ -40,7 +40,7 @@ final class UserPageViewModel: BaseViewModel {
     var routeInputs = RouteInputs()
 
     var user: User?
-    var posts = [Post]()
+    var posts = [UserPost]()
     private var userRunningLogs: [MyRunningLog?] = []
 
     private let calendar = Calendar.current
@@ -80,7 +80,7 @@ final class UserPageViewModel: BaseViewModel {
             month: targetMonth
         ))
 
-        userAPIService.userPage(userId: userId)
+        userAPIService.userPage(userId: 414)
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
                 self.posts.removeAll()
@@ -97,7 +97,7 @@ final class UserPageViewModel: BaseViewModel {
 
                         self.outputs.userInfo.onNext(UserConfig(from: userInfo, owner: false))
                         self.changeTargetDate(runningLog: userRunningLog)
-                        self.outputs.posts.onNext(userRunning.map { MyPagePostConfig(post: $0, now: now) })
+                        self.outputs.posts.onNext(userRunning.map { UserPagePostConfig(userPost: $0) })
                     }
 
                 case let .error(alertMessage):
