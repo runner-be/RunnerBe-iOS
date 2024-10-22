@@ -31,6 +31,10 @@ final class UserPageComponent {
         return ConfirmLogComponent(logId: logId)
     }
 
+    func userRunningListComponent(userId: Int) -> UserRunningListComponent {
+        return UserRunningListComponent(userId: userId)
+    }
+
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(postId: postId)
     }

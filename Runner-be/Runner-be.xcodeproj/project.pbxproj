@@ -39,6 +39,10 @@
 		2B524A112CC7440F00D1AB02 /* UserPagePostConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A102CC7440F00D1AB02 /* UserPagePostConfig.swift */; };
 		2B524A132CC751C700D1AB02 /* UserPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A122CC751C700D1AB02 /* UserPostResponse.swift */; };
 		2B524A152CC75B0B00D1AB02 /* UserPagePostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A142CC75B0B00D1AB02 /* UserPagePostDataSource.swift */; };
+		2B524A182CC77DB500D1AB02 /* UserRunningListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A172CC77DB500D1AB02 /* UserRunningListComponent.swift */; };
+		2B524A1A2CC77DBE00D1AB02 /* UserRunningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A192CC77DBE00D1AB02 /* UserRunningListCoordinator.swift */; };
+		2B524A1C2CC77DC700D1AB02 /* UserRunningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A1B2CC77DC700D1AB02 /* UserRunningListViewModel.swift */; };
+		2B524A1E2CC77DD200D1AB02 /* UserRunningListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B524A1D2CC77DD200D1AB02 /* UserRunningListViewController.swift */; };
 		2B57EA6D2C80226E00C696FF /* MyRunningListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */; };
 		2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */; };
 		2B57EA712C80228A00C696FF /* MyRunningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */; };
@@ -540,6 +544,10 @@
 		2B524A102CC7440F00D1AB02 /* UserPagePostConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPagePostConfig.swift; sourceTree = "<group>"; };
 		2B524A122CC751C700D1AB02 /* UserPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostResponse.swift; sourceTree = "<group>"; };
 		2B524A142CC75B0B00D1AB02 /* UserPagePostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPagePostDataSource.swift; sourceTree = "<group>"; };
+		2B524A172CC77DB500D1AB02 /* UserRunningListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRunningListComponent.swift; sourceTree = "<group>"; };
+		2B524A192CC77DBE00D1AB02 /* UserRunningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRunningListCoordinator.swift; sourceTree = "<group>"; };
+		2B524A1B2CC77DC700D1AB02 /* UserRunningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRunningListViewModel.swift; sourceTree = "<group>"; };
+		2B524A1D2CC77DD200D1AB02 /* UserRunningListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRunningListViewController.swift; sourceTree = "<group>"; };
 		2B57EA6C2C80226E00C696FF /* MyRunningListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListComponent.swift; sourceTree = "<group>"; };
 		2B57EA6E2C80227F00C696FF /* MyRunningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListCoordinator.swift; sourceTree = "<group>"; };
 		2B57EA702C80228A00C696FF /* MyRunningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunningListViewModel.swift; sourceTree = "<group>"; };
@@ -1121,6 +1129,17 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		2B524A162CC77D8600D1AB02 /* UserRunningList */ = {
+			isa = PBXGroup;
+			children = (
+				2B524A172CC77DB500D1AB02 /* UserRunningListComponent.swift */,
+				2B524A192CC77DBE00D1AB02 /* UserRunningListCoordinator.swift */,
+				2B524A1B2CC77DC700D1AB02 /* UserRunningListViewModel.swift */,
+				2B524A1D2CC77DD200D1AB02 /* UserRunningListViewController.swift */,
+			);
+			path = UserRunningList;
+			sourceTree = "<group>";
+		};
 		2B57EA6B2C8020E900C696FF /* MyRunningList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,6 +1276,7 @@
 		2BB4CB0C2CBD205C0032AD7B /* UserPage */ = {
 			isa = PBXGroup;
 			children = (
+				2B524A162CC77D8600D1AB02 /* UserRunningList */,
 				2B524A0C2CC741F800D1AB02 /* Cell */,
 				2B524A0F2CC743F200D1AB02 /* Config */,
 				2BB4CB0D2CBD20730032AD7B /* UserPageComponent.swift */,
@@ -3215,6 +3235,7 @@
 				2B57EA6F2C80227F00C696FF /* MyRunningListCoordinator.swift in Sources */,
 				C34FDA6727AD5C83007718F8 /* BaseViewController.swift in Sources */,
 				C399FD1327C283DF00396DC3 /* BasicPostCell.swift in Sources */,
+				2B524A1C2CC77DC700D1AB02 /* UserRunningListViewModel.swift in Sources */,
 				C3C9732727C9BB0E00232251 /* PostDetailViewConfigItem.swift in Sources */,
 				C3BA45B627B571040048CA76 /* OnboardingCancelModalComponent.swift in Sources */,
 				C3EB5CCA27B8B64100775779 /* ImageUploadService.swift in Sources */,
@@ -3228,6 +3249,7 @@
 				DABB518D2BCE9308008AFCD2 /* RegisterRunningPaceCancelModalViewModel.swift in Sources */,
 				C3F74B6F27B0B444002D5846 /* UIView+.swift in Sources */,
 				2B9ACC6B2C88797700E2B16D /* LogAPIService.swift in Sources */,
+				2B524A182CC77DB500D1AB02 /* UserRunningListComponent.swift in Sources */,
 				2BB4CB0E2CBD20730032AD7B /* UserPageComponent.swift in Sources */,
 				C3E0CEB42838E725007A0443 /* Log.swift in Sources */,
 				C34BA6AA27CD409C003E393A /* DateFormat.swift in Sources */,
@@ -3465,6 +3487,7 @@
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
+				2B524A1E2CC77DD200D1AB02 /* UserRunningListViewController.swift in Sources */,
 				2B0D55AC2C8ADD08004D74D2 /* MenuModalComponent.swift in Sources */,
 				DA4183F02872702D0008C0B6 /* ManageAttendanceViewModel.swift in Sources */,
 				2B0D55B02C8ADD17004D74D2 /* MenuModalViewModel.swift in Sources */,
@@ -3493,6 +3516,7 @@
 				C3BA45C727B5AEB40048CA76 /* BaseViewModel.swift in Sources */,
 				2B9ACC712C89558900E2B16D /* LogForm.swift in Sources */,
 				C3C9732927C9C26F00232251 /* PostDetailFooter.swift in Sources */,
+				2B524A1A2CC77DBE00D1AB02 /* UserRunningListCoordinator.swift in Sources */,
 				DA7E23E32B7A2892005D18A6 /* RunningPaceView.swift in Sources */,
 				C32C029227CB47470011419E /* BasicPostInfoView.swift in Sources */,
 				DA3067622826235600543D74 /* MessageTableViewCell.swift in Sources */,

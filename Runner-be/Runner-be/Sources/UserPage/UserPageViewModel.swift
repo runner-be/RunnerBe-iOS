@@ -15,6 +15,7 @@ final class UserPageViewModel: BaseViewModel {
         var tapLogStampIcon = PublishSubject<Void>()
         var tapLogStamp = PublishSubject<IndexPath>()
         var tapPost = PublishSubject<Int>()
+        var tapRunningHeader = PublishSubject<Void>()
     }
 
     struct Output {
@@ -28,6 +29,8 @@ final class UserPageViewModel: BaseViewModel {
         var backward = PublishSubject<Void>()
         var calendar = PublishSubject<Int>()
         var confirmLog = PublishSubject<Int>()
+
+        var myRunningList = PublishSubject<Int>()
         var detailPost = PublishSubject<Int>()
     }
 
@@ -133,6 +136,11 @@ final class UserPageViewModel: BaseViewModel {
         inputs.tapLogStampIcon
             .map { _ in userId }
             .bind(to: routes.calendar)
+            .disposed(by: disposeBag)
+
+        inputs.tapRunningHeader
+            .map { _ in userId }
+            .bind(to: routes.myRunningList)
             .disposed(by: disposeBag)
 
         inputs.tapPost

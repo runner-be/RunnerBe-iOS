@@ -59,6 +59,15 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
                 )
             }).disposed(by: sceneDisposeBag)
 
+        scene.VM.routes.myRunningList
+            .subscribe(onNext: { [weak self] userId in
+                self?.pushUserRunningListScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
@@ -108,6 +117,26 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
                 vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
+    }
+
+    func pushUserRunningListScene(
+        userId: Int,
+        vm: UserPageViewModel,
+        animated: Bool
+    ) {
+        let comp = component.userRunningListComponent(userId: userId)
+        let coord = UserRunningListCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+        comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
 
     func pushDetailPostScene(vm: UserPageViewModel, postId: Int, animated: Bool) {

@@ -108,6 +108,12 @@ final class UserPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 
+        userRunningHeaderView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.tapRunningHeader)
+            .disposed(by: disposeBag)
+
         userRunningCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
