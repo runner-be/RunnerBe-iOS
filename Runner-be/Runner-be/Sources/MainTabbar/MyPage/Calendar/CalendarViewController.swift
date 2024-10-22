@@ -140,7 +140,7 @@ final class CalendarViewController: BaseViewController {
 
         let calendarDatasource = CalendarDataSource(
             configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
-                guard let _ = self,
+                guard let self = self,
                       let cell = collectionView.dequeueReusableCell(
                           withReuseIdentifier: MyLogStampCell.id,
                           for: indexPath
@@ -149,13 +149,16 @@ final class CalendarViewController: BaseViewController {
                     return UICollectionViewCell()
                 }
 
-                cell.configure(with: LogStamp(
-                    logId: element.logId,
-                    gatheringId: element.gatheringId,
-                    date: element.date,
-                    stampType: element.stampType,
-                    isOpened: element.isOpened
-                ))
+                cell.configure(
+                    with: LogStamp(
+                        logId: element.logId,
+                        gatheringId: element.gatheringId,
+                        date: element.date,
+                        stampType: element.stampType,
+                        isOpened: element.isOpened
+                    ),
+                    isMyLogStamp: self.viewModel.isMyLogStamp
+                )
 
                 return cell
             })

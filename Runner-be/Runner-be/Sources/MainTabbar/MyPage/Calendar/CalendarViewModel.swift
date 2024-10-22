@@ -38,13 +38,19 @@ final class CalendarViewModel: BaseViewModel {
 
     var dates: [MyLogStampConfig] = []
 
+    let loginKeyChain: LoginKeyChainService
+    var isMyLogStamp: Bool = false
+
     // MARK: - Init
 
     init(
         userId: Int,
-        logAPIService: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService(),
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
         targetDate = Date()
+        loginKeyChain = loginKeyChainService
+        isMyLogStamp = userId == loginKeyChain.userId
         super.init()
 
         inputs.changedTargetDate.onNext(Date())
@@ -97,20 +103,33 @@ final class CalendarViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        // 로그가 있는 날짜를 클릭했을 때
         inputs.tappedDate
-            .compactMap { [weak self] index in
+            .compactMap { [weak self] index -> MyRunningLog? in
                 guard let self = self,
-                      let logId = self.myRunningLogs[index]?.logId
+                      let runningLog = self.myRunningLogs[index]
                 else {
                     return nil
                 }
 
-                return logId
+                return runningLog
+            }
+            .filter { [weak self] runningLog in
+                guard let self = self else { return false }
+                return self.isMyLogStamp || runningLog.isOpened == 1
+            }
+            .compactMap {
+                $0.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
 
+        // 로그가 없는 날짜를 클릭했을 때
         inputs.tappedDate
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                return self.isMyLogStamp
+            }
             .compactMap { [weak self] index in
                 let currentDate = Date()
 
