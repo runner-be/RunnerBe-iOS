@@ -69,7 +69,7 @@ final class UserRunningListViewController: BaseViewController {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
-        
+
         userRunningCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)

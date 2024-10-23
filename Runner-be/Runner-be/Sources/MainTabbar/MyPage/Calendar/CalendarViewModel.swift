@@ -116,6 +116,7 @@ final class CalendarViewModel: BaseViewModel {
             }
             .filter { [weak self] runningLog in
                 guard let self = self else { return false }
+                print("fjiesnefjisef runningLog.isOpened: \(runningLog.isOpened)")
                 return self.isMyLogStamp || runningLog.isOpened == 1
             }
             .compactMap {

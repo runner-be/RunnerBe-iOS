@@ -39,7 +39,9 @@ struct UserPostResponse: Decodable {
     }
 
     var convertedPost: UserPost? {
-        guard let gatherDate = gatherDate else { return nil }
+        guard let gatherDate = gatherDate,
+              let runningTime = timeRunning
+        else { return nil }
         return UserPost(
             postId: postId,
             gatherDate: gatherDate,
@@ -49,7 +51,7 @@ struct UserPostResponse: Decodable {
             afterParty: afterParty,
             pace: pace,
             logId: logId,
-            runningTime: timeRunning ?? (hour: 1, minute: 0)
+            runningTime: runningTime
         )
     }
 }
