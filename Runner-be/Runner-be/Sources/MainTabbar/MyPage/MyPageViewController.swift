@@ -168,14 +168,6 @@ final class MyPageViewController: BaseViewController {
 
             cell.configure(with: item)
 
-            viewModel.outputs.marked
-                .filter { $0.idx == indexPath.item }
-                .map { $0.marked }
-                .subscribe(onNext: { [weak cell] marked in
-                    cell?.postInfoView.bookMarkIcon.isSelected = marked
-
-                }).disposed(by: cell.disposeBag)
-
             cell.postInfoView.bookMarkIcon.rx.tap
                 .map { indexPath.item }
                 .subscribe(onNext: { [weak self] index in

@@ -250,12 +250,6 @@ final class MyPageViewModel: BaseViewModel {
                 }
 
                 self.posts[self.outputs.postType]![idx].marked = result.mark
-                self.outputs.marked.onNext((
-                    type: self.outputs.postType,
-                    idx: idx,
-                    marked: result.mark
-                ))
-
                 self.outputs.posts.onNext(self.posts[self.outputs.postType]!.map { MyPagePostConfig(post: $0, now: Date()) })
             })
             .disposed(by: disposeBag)
@@ -548,7 +542,6 @@ final class MyPageViewModel: BaseViewModel {
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
-        var marked = PublishSubject<(type: PostType, idx: Int, marked: Bool)>()
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)

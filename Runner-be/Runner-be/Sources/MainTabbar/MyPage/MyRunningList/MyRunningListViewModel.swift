@@ -73,6 +73,95 @@ final class MyRunningListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+//        inputs.typeChanged
+//            .flatMap { _ in postAPIService.myPage() }
+//            .subscribe(onNext: { [weak self] result in
+//                guard let self = self else { return }
+//                self.posts.removeAll()
+//                self.outputs.posts.onNext([])
+//
+//                switch result {
+//                case let .response(result: data):
+//                    switch data {
+//                    case let .success(info, posting, joined):
+//                        let now = DateUtil.shared.now
+//                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
+//                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+//
+//                        self.posts[.all] = joins
+//                        self.posts[.myPost] = postings
+//
+//                        let posts = self.outputs.postType == .all ? joins : postings
+//
+//                        self.outputs.posts.onNext(posts.map {
+//                            MyPagePostConfig(post: $0, now: now)
+//                        })
+//                    }
+//                case let .error(alertMessage):
+//                    if let alertMessage = alertMessage {
+//                        self.toast.onNext(alertMessage)
+//                    } else {
+//                        self.toast.onNext("불러오기에 실패했습니다.")
+//                    }
+//                }
+//            }).disposed(by: disposeBag)
+
+        inputs.bookMark
+            .compactMap { [weak self] idx -> Post? in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      idx >= 0, idx < posts.count
+                else {
+                    self?.toast.onNext("북마크를 실패했습니다.")
+                    return nil
+                }
+                return posts[idx]
+            }
+            .flatMap { postAPIService.bookmark(postId: $0.ID, mark: !$0.marked) }
+            .do(onNext: { [weak self] result in
+                switch result {
+                case .response:
+                    return
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
+            })
+            .compactMap { result -> (postId: Int, mark: Bool)? in
+                switch result {
+                case let .response(data):
+                    return data
+                case .error:
+                    return nil
+                }
+            }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
+                else {
+                    self?.toast.onNext("북마크를 실패했습니다.")
+                    return
+                }
+
+                if let posts = self.posts[.all],
+                   let idx = posts.firstIndex(where: { $0.ID == result.postId })
+                {
+                    self.posts[.all]![idx].marked = result.mark
+                }
+
+                if let posts = self.posts[.myPost],
+                   let idx = posts.firstIndex(where: { $0.ID == result.postId })
+                {
+                    self.posts[.myPost]![idx].marked = result.mark
+                }
+
+                self.outputs.posts.onNext(self.posts[.all]!.map { MyPagePostConfig(post: $0, now: Date()) })
+                self.outputs.posts.onNext(self.posts[.myPost]!.map { MyPagePostConfig(post: $0, now: Date()) })
+            })
+            .disposed(by: disposeBag)
+
         inputs.tapWriteLog
             .compactMap { [weak self] itemIndex in
                 guard let self = self,
@@ -130,6 +219,7 @@ final class MyRunningListViewModel: BaseViewModel {
 
     struct Input {
         var typeChanged = PublishSubject<PostType>()
+        var bookMark = PublishSubject<Int>()
         var tapWriteLog = PublishSubject<Int>()
         var tapConfirmLog = PublishSubject<Int>()
         var tapManageAttendance = PublishSubject<Int>()

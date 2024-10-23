@@ -155,6 +155,12 @@ final class MyRunningListViewController: BaseViewController {
 
             cell.configure(with: item)
 
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.item }
+                .subscribe(onNext: { [weak self] index in
+                    self?.viewModel.inputs.bookMark.onNext(index)
+                }).disposed(by: cell.disposeBag)
+
             cell.manageAttendanceButton.rx.tapGesture()
                 .when(.recognized)
                 .map { _ in indexPath.item }
@@ -195,6 +201,12 @@ final class MyRunningListViewController: BaseViewController {
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
+
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.item }
+                .subscribe(onNext: { [weak self] index in
+                    self?.viewModel.inputs.bookMark.onNext(index)
+                }).disposed(by: cell.disposeBag)
 
             cell.manageAttendanceButton.rx.tapGesture()
                 .when(.recognized)
