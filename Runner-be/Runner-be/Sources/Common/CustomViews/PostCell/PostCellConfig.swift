@@ -66,6 +66,6 @@ struct PostCellConfig: Equatable, IdentifiableType {
     }
 
     static func == (lhs: PostCellConfig, rhs: PostCellConfig) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.bookmarked == rhs.bookmarked
     }
 }

@@ -255,6 +255,8 @@ final class MyPageViewModel: BaseViewModel {
                     idx: idx,
                     marked: result.mark
                 ))
+
+                self.outputs.posts.onNext(self.posts[self.outputs.postType]!.map { MyPagePostConfig(post: $0, now: Date()) })
             })
             .disposed(by: disposeBag)
 
