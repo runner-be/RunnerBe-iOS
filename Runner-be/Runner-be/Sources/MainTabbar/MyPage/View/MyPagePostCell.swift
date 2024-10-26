@@ -25,7 +25,7 @@ class MyPagePostCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.myRunningState)
+        update(with: item.runningState)
     }
 
     override func prepareForReuse() {
@@ -102,17 +102,23 @@ extension MyPagePostCell {
         manageButton.layer.cornerRadius = Constants.ManageButton.cornerRadius
     }
 
-    func update(with state: MyRunningState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
         switch state {
-        case .beforeManagable:
-            manageButton.isEnabled = false
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Before.title, for: .disabled)
-        case .managable:
-            manageButton.isEnabled = true
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.After.title, for: .normal)
-        case .confirmManage:
-            manageButton.isEnabled = true
-            manageButton.setTitle(L10n.MyPage.MyPost.Manage.Finished.title, for: .normal)
+        case .participantDuringMeeting: // 참여자 모임참여(1) ~ 모임 중(6)
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+        case .creatorBeforeMeetingStart: // 작성자 모임작성(1) ~ 모임 시작 전(2)
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+        case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
+            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.textColor = .darkG3
+        case .attendanceClosed: // 출석 마감(9)
+            postInfoView.statusLabel.label.text = "모임 종료"
+            postInfoView.statusLabel.label.textColor = .darkG3
+        case .logSubmissionClosed: // 로그 마감(10)
+            postInfoView.statusLabel.label.text = "모집 종료"
+            postInfoView.statusLabel.label.textColor = .darkG3
         }
     }
 }

@@ -30,7 +30,7 @@ struct MessageContent: Decodable {
     let content: String?
     let imageUrl: String?
     let createdAt: String?
-    let userID: Int?
+    let userId: Int
     let nickName: String?
     let profileImageURL: String?
     let messageFrom: String?

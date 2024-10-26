@@ -35,8 +35,18 @@ class BasicPostInfoView: UIView {
         participantLabel.text = "\(item.gender) · \(item.ageText)"
         bookMarkIcon.isSelected = item.bookmarked
         afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
+    }
 
-        print("seifjsljfeislfj: \(item.closed)")
+    func configure(with item: UserPostCellConfig) {
+        bookMarkIcon.isHidden = true
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.text = item.age
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
 
         runningPaceView.configure(
             pace: item.pace,
@@ -98,7 +108,7 @@ class BasicPostInfoView: UIView {
         $0.text = "PostTitlePlaceHolder"
     }
 
-    private var statusLabel = IconLabel(
+    let statusLabel = IconLabel(
         iconSize: CGSize(width: 16, height: 16),
         spacing: 6
     ).then {

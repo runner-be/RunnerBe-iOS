@@ -416,7 +416,12 @@ final class BasicPostAPIService: PostAPIService {
                 \(joinedData)
                 """)
 
-                return (responseCode: response.basic.code, userData: userData, postingData: postingData, joinedData: joinedData)
+                return (
+                    responseCode: response.basic.code,
+                    userData: userData,
+                    postingData: postingData,
+                    joinedData: joinedData
+                ) as RawDatas
             }
             .compactMap { $0 }
             .map { result in
@@ -479,16 +484,20 @@ final class BasicPostAPIService: PostAPIService {
             return .just(.error(alertMessage: nil))
         }
 
-        return provider.rx.request(.manageAttendance(postId: postId, request: request, token: token))
-            .asObservable()
-            .mapResponse()
-            .catch { error in
-                Log.e("\(error)")
-                return .just(nil)
-            } // 에러발생시 nil observable return
-            .map { APIResult.response(result: $0?.basic.isSuccess ?? false) }
-            .timeout(.seconds(2), scheduler: MainScheduler.instance)
-            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
+        return provider.rx.request(.manageAttendance(
+            postId: postId,
+            request: request,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .catch { error in
+            Log.e("\(error)")
+            return .just(nil)
+        } // 에러발생시 nil observable return
+        .map { APIResult.response(result: $0?.basic.isSuccess ?? false) }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
     }
 
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>> {

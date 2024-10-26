@@ -54,9 +54,10 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     private func viewModelOutput() {
         viewModel.outputs.detailData
             .subscribe(onNext: { [weak self] data in
-                self?.navBar.titleLabel.text = data.running.badge
-                self?.titleView.configure(title: data.postDetail.post.title, runningPace: data.postDetail.post.pace, isFinished: data.finished)
-                self?.infoView.setup(
+                guard let self = self else { return }
+                self.navBar.titleLabel.text = data.running.badge
+                self.titleView.configure(title: data.postDetail.post.title, runningPace: data.postDetail.post.pace, isFinished: data.finished)
+                self.infoView.setup(
                     date: data.running.date,
                     afterParty: data.running.afterParty,
                     time: data.running.time,
@@ -64,8 +65,8 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
                     gender: data.running.gender,
                     age: data.running.age
                 )
-                self?.textView.text = data.running.contents
-                self?.detailMapView.setup(
+                self.textView.text = data.running.contents
+                self.detailMapView.setup(
                     lat: data.running.lat,
                     long: data.running.long,
                     range: data.participated ? data.running.range / 3 : data.running.range,
@@ -76,24 +77,32 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {
                     let view = UserInfoWithSingleDivider()
+                    let userId = $1.userId
+
                     view.setup(userInfo: $1)
                     $0.append(view)
+
+                    view.userInfoView.avatarView.rx.tapGesture()
+                        .when(.recognized)
+                        .map { _ in userId }
+                        .bind(to: self.viewModel.inputs.tapProfile)
+                        .disposed(by: self.disposeBag)
                 }
 
-                self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/\(data.postDetail.maximumNum))"
-                self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-                self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeNavBarRightButton(writer: data.writer)
-                self?.makeFooter(
+                self.participantHeader.numLabel.text = "(\(userInfoViews.count)/\(data.postDetail.maximumNum))"
+                self.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                self.participantView.addArrangedSubviews(userInfoViews)
+                self.makeNavBarRightButton(writer: data.writer)
+                self.makeFooter(
                     writer: data.writer,
                     participated: data.participated,
                     applied: data.applied,
                     satisfied: data.satisfied,
                     finished: data.finished
                 )
-                self?.applicantNoti.isHidden = data.numApplicant == 0
+                self.applicantNoti.isHidden = data.numApplicant == 0
 
-                self?.hideSkeleton()
+                self.hideSkeleton()
             })
             .disposed(by: disposeBag)
 

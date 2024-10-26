@@ -25,7 +25,7 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     func configure(with item: MyPagePostConfig) { // 작성한 글 cell 내용 구성하는 부분
         postInfoView.configure(with: item.cellConfig)
-        update(with: item.myParticipateState)
+        update(with: item.runningState)
     }
 
     override func prepareForReuse() {
@@ -60,14 +60,48 @@ class MyPageParticipateCell: UICollectionViewCell {
 
     var postInfoView = BasicPostInfoView()
 
-    var hDivider = UIView().then { view in
-        view.backgroundColor = .darkG6
+    var statusLabel = UILabel().then {
+        $0.font = .pretendardSemiBold14
+        $0.textColor = .darkG4
+        $0.layer.backgroundColor = UIColor.darkG5.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
     }
 
-    var statusLabel = UILabel().then { make in
-        make.font = .iosBody15R
-//        make.text = "hi"
-        make.textColor = .darkG35
+    let manageAttendanceButton = UILabel().then {
+        $0.text = "출석 관리"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let confirmAttendanceButton = UILabel().then {
+        $0.text = "출석 확인하기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let writeLogButton = UILabel().then {
+        $0.text = "로그 쓰기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
+    }
+
+    let confirmLogButton = UILabel().then {
+        $0.text = "로그 보기"
+        $0.textColor = .darkG6
+        $0.font = .pretendardSemiBold14
+        $0.layer.backgroundColor = UIColor.primary.cgColor
+        $0.layer.cornerRadius = 17
+        $0.textAlignment = .center
     }
 }
 
@@ -76,8 +110,11 @@ extension MyPageParticipateCell {
         backgroundColor = Constants.backgroundColor
         contentView.addSubviews([
             postInfoView,
-            hDivider,
             statusLabel,
+            manageAttendanceButton,
+            confirmAttendanceButton,
+            writeLogButton,
+            confirmLogButton,
         ])
     }
 
@@ -91,34 +128,76 @@ extension MyPageParticipateCell {
             make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
         }
 
-        hDivider.snp.makeConstraints { make in
-            make.top.equalTo(postInfoView.snp.bottom).offset(Constants.hDivider.top)
-            make.leading.equalTo(contentView.snp.leading).offset(Constants.hDivider.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(Constants.hDivider.trailing)
-            make.height.equalTo(1)
+        statusLabel.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
 
-        statusLabel.snp.makeConstraints { make in
-            make.top.equalTo(hDivider.snp.bottom).offset(Constants.statusLabel.top)
-            make.centerX.equalTo(hDivider.snp.centerX)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-12)
+        manageAttendanceButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        confirmAttendanceButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.left.equalToSuperview().inset(16)
+            $0.right.equalTo(contentView.snp.centerX).offset(-4)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        writeLogButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.right.equalToSuperview().inset(16)
+            $0.left.equalTo(contentView.snp.centerX).offset(4)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        confirmLogButton.snp.makeConstraints {
+            $0.top.equalTo(postInfoView.snp.bottom).offset(24)
+            $0.right.equalToSuperview().inset(16)
+            $0.left.equalTo(contentView.snp.centerX).offset(4)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 
-    func update(with state: MyParticipateState) { // 상황에 따라 뷰 업데이트하는 부분
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
+        statusLabel.isHidden = true
+        manageAttendanceButton.isHidden = true
+        confirmAttendanceButton.isHidden = true
+        writeLogButton.isHidden = true
+        confirmLogButton.isHidden = true
+
         switch state {
-        case .memberbeforeManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.Before.title
-        case .writerbeforeManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.Before.title
-        case .attendance:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Attendance.title
-        case .absence:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Absence.title
-        case .membernotManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Participate.NotCheck.title
-        case .writernotManage:
-            statusLabel.text = L10n.MyPage.MyRunning.Attendance.Writer.NotCheck.title
+        case .participantDuringMeeting: // 참여자 모임참여(1) ~ 모임 중(6)
+            statusLabel.text = "모임 후 로그를 관리할 수 있어요"
+            statusLabel.isHidden = false
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+
+        case .creatorBeforeMeetingStart: // 작성자 모임작성(1) ~ 모임 시작 전(2)
+            statusLabel.text = "모임 후 출석/로그를 관리할 수 있어요"
+            statusLabel.isHidden = false
+            postInfoView.statusLabel.label.text = "모집중"
+            postInfoView.statusLabel.label.textColor = .primarydark
+
+        case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
+            manageAttendanceButton.isHidden = false
+            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.textColor = .darkG3
+
+        case .attendanceClosed: // 출석 마감(9)
+            confirmAttendanceButton.isHidden = false
+            writeLogButton.isHidden = false
+            postInfoView.statusLabel.label.text = "모임 종료"
+            postInfoView.statusLabel.label.textColor = .darkG3
+
+        case .logSubmissionClosed: // 로그 마감(10)
+            confirmAttendanceButton.isHidden = false
+            confirmLogButton.isHidden = false
+            postInfoView.statusLabel.label.text = "모임 종료"
+            postInfoView.statusLabel.label.textColor = .darkG3
         }
     }
 }
@@ -127,7 +206,7 @@ extension MyPageParticipateCell {
     static let id: String = "\(MyPageParticipateCell.self)"
 
     static let size: CGSize = {
-        let width = UIScreen.main.bounds.width - Constants.marginX * 2
+        let width = UIScreen.main.bounds.width - 40
         let height: CGFloat = Constants.PostInfo.top
             + BasicPostInfoView.height
             + Constants.hDivider.top
@@ -135,7 +214,7 @@ extension MyPageParticipateCell {
             + Constants.statusLabel.bottom
             + 15 // 폰트크기
             + 1
-
-        return CGSize(width: width, height: height)
+        print("seijfsoefesf: \(height)")
+        return CGSize(width: width, height: 208)
     }()
 }

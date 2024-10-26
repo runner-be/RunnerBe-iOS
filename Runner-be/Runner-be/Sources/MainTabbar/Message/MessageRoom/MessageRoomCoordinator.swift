@@ -69,6 +69,15 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
                     image: result.image
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.userPage
+            .bind { [weak self] userId in
+                self?.pushUserPageScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }.disposed(by: sceneDisposeBag)
     }
 
     func pushMessageReportScene(vm: MessageRoomViewModel, roomId: Int) {
@@ -129,6 +138,29 @@ final class MessageRoomCoordinator: BasicCoordinator<MessageRoomResult> {
             switch coordResult {
             case .backward:
                 vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+
+    private func pushUserPageScene(
+        userId: Int,
+        vm _: MessageRoomViewModel,
+        animated: Bool
+    ) {
+        let comp = component.userPageComponent(userId: userId)
+        let coord = UserPageCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                print("UserPage coordResult: Backward")
+//                vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
     }

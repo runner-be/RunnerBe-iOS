@@ -55,7 +55,24 @@ final class RunningPaceView: UIView {
         }
 
         switch viewType {
-        case .myPage, .postDetail:
+        case .myPage:
+            label.font = .pretendardSemiBold14
+            label.textColor = .darkG3
+            backgroundColor = .clear
+            // TODO: 여러 타입에 중복코드를 고려하여 레이아웃 다시 작성
+            icon.snp.makeConstraints {
+                $0.left.equalToSuperview()
+                $0.top.bottom.equalToSuperview().inset(5)
+                $0.size.equalTo(20)
+            }
+
+            label.snp.makeConstraints {
+                $0.left.equalTo(icon.snp.right).offset(6)
+                $0.right.equalToSuperview()
+                $0.centerY.equalToSuperview()
+            }
+
+        case .postDetail:
             label.font = .pretendardRegular14
 
             icon.snp.makeConstraints { make in

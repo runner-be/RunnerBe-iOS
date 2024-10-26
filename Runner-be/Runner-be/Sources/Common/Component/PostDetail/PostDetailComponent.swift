@@ -49,4 +49,8 @@ final class PostDetailComponent {
     var registerRunningPaceComponent: RegisterRunningPaceComponent {
         return RegisterRunningPaceComponent()
     }
+
+    func userPageComponent(userId: Int) -> UserPageComponent {
+        return UserPageComponent(userId: userId)
+    }
 }

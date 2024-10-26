@@ -79,6 +79,15 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 self?.pushRegisterRunningPaceScene()
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.userPage
+            .subscribe(onNext: { [weak self] userId in
+                self?.pushUserPageScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     private func presentApplicantListModal(vm: PostDetailViewModel, applicants: [User], animated: Bool) {
@@ -91,6 +100,8 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
                 if needUpdate {
                     vm.routeInputs.needUpdate.onNext(())
                 }
+            case let .userPage(userId):
+                vm.routeInputs.userPage.onNext(userId)
             }
         }
     }
@@ -149,5 +160,28 @@ final class PostDetailCoordinator: BasicCoordinator<PostDetailResult> {
         let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord)
+    }
+
+    private func pushUserPageScene(
+        userId: Int,
+        vm _: PostDetailViewModel,
+        animated: Bool
+    ) {
+        let comp = component.userPageComponent(userId: userId)
+        let coord = UserPageCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
+            switch coordResult {
+            case .backward:
+                print("UserPage coordResult: Backward")
+//                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
     }
 }

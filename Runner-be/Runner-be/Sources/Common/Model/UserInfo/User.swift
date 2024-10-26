@@ -10,7 +10,7 @@ import Foundation
 struct User: Codable {
     let userID: Int
     let nickName, gender, age, diligence: String
-    let pushOn: String
+    let pushOn: String?
     let job: String
     let profileImageURL: String?
     var nameChanged, jobChangePossible: String?

@@ -40,4 +40,8 @@ final class MessageRoomComponent {
     func imageViewerComponent(image: UIImage) -> ImageViewerComponent {
         return ImageViewerComponent(image: image)
     }
+
+    func userPageComponent(userId: Int) -> UserPageComponent {
+        return UserPageComponent(userId: userId)
+    }
 }

@@ -12,6 +12,10 @@ final class MyPageComponent {
 
     lazy var viewModel = MyPageViewModel()
 
+    func calendarComponent(userId: Int) -> CalendarComponent {
+        return CalendarComponent(userId: userId)
+    }
+
     func postDetailComponent(postId: Int) -> PostDetailComponent {
         return PostDetailComponent(postId: postId)
     }
@@ -36,11 +40,37 @@ final class MyPageComponent {
         return TakePhotoModalComponent()
     }
 
-    func manageAttendanceComponent(myRunningIdx: Int) -> ManageAttendanceComponent {
-        return ManageAttendanceComponent(myRunningIdx: myRunningIdx)
+    func manageAttendanceComponent(myRunningId: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(myRunningId: myRunningId)
     }
 
     var registerRunningPaceComponent: RegisterRunningPaceComponent {
         return RegisterRunningPaceComponent()
+    }
+
+    var myRunningListComponent: MyRunningListComponent {
+        return MyRunningListComponent()
+    }
+
+    func writeLogComponent(
+        logForm: LogForm,
+        writeLogMode: WriteLogMode
+    ) -> WriteLogComponent {
+        return WriteLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+    }
+
+    func confirmLogComponent(logId: Int) -> ConfirmLogComponent {
+        return ConfirmLogComponent(logId: logId)
+    }
+
+    func manageAttendanceComponent(postId: Int) -> ManageAttendanceComponent {
+        return ManageAttendanceComponent(myRunningId: postId)
+    }
+
+    func confirmAttendanceComponent(postId: Int) -> ConfirmAttendanceComponent {
+        return ConfirmAttendanceComponent(postId: postId)
     }
 }

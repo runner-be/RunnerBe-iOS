@@ -39,6 +39,8 @@ final class MyProfileView: UIView {
         }
 
         myInfoView.configure(userConfig: config)
+
+        BasicUserKeyChainService.shared.nickName = config.nickName
     }
 
     func reset() {

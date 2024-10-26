@@ -19,6 +19,7 @@ struct Post {
 
     let runningTime: (hour: Int, minute: Int)
     let gatherDate: Date
+    let gatheringId: Int?
 
     let ageRange: (min: Int, max: Int)
 
@@ -39,6 +40,8 @@ struct Post {
     var postingTime: Date
     let afterParty: Int
     let pace: String
+
+    let logId: Int?
 }
 
 struct PostDetail {
@@ -61,6 +64,7 @@ extension Post: CustomStringConvertible {
             tag: \(tag.name),
             runningTime: hour - \(runningTime.hour), minute - \(runningTime.minute),
             gatherDate: \(gatherDate),
+            gatheringId: \(gatheringId),
             ageRange: \(ageRange.min) ~ \(ageRange.max),
             gender: \(gender.name),
             locationInfo: \(locationInfo),
@@ -72,8 +76,26 @@ extension Post: CustomStringConvertible {
             attendance: \(attendance),
             whetherCheck: \(whetherCheck),
             attendanceProfiles: \(attendanceProfiles),
+            logId: \(logId),
         }
         """
         return desc
     }
+}
+
+struct UserPagePost {
+    let postId: Int
+    let postingTime: String
+    let postUserId: Int
+    let title: String
+    let gatheringTime: String
+    let runningTag: String
+    let age: String
+    let gender: String
+    let whetherEnd: String
+    let pace: String
+    let afterParty: Int
+    let userId: Int
+    let gatheringId: Int
+    let logId: Int?
 }

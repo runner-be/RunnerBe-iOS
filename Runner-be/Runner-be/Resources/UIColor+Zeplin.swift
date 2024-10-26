@@ -8,10 +8,6 @@
 import UIKit
 
 extension UIColor {
-    @nonobjc class var darkG6: UIColor {
-        return UIColor(white: 41.0 / 255.0, alpha: 1.0)
-    }
-
     @nonobjc class var primarydark: UIColor {
         // 254 207 108
         return UIColor(red: 254.0 / 255.0, green: 207.0 / 255.0, blue: 108.0 / 255.0, alpha: 1.0)
@@ -46,38 +42,52 @@ extension UIColor {
         return UIColor(white: 20.0 / 255.0, alpha: 1.0)
     }
 
-    @nonobjc class var darkG5: UIColor {
-        return UIColor(white: 65.0 / 255.0, alpha: 1.0)
+    /// #292929
+    @nonobjc class var darkG6: UIColor {
+        return UIColor(white: 41.0 / 255.0, alpha: 1.0)
     }
 
+    /// #363636
     @nonobjc class var darkG55: UIColor {
         return UIColor(white: 54.0 / 255.0, alpha: 1.0)
     }
 
-    @nonobjc class var darkG4: UIColor {
-        return UIColor(white: 111.0 / 255.0, alpha: 1.0)
+    /// #414141
+    @nonobjc class var darkG5: UIColor {
+        return UIColor(white: 65.0 / 255.0, alpha: 1.0)
     }
 
-    @nonobjc class var darkG25: UIColor {
-        return UIColor(white: 189.0 / 255.0, alpha: 1.0)
-    }
-
-    @nonobjc class var darkG35: UIColor {
-        return UIColor(white: 141.0 / 255.0, alpha: 1.0)
-    }
-
-    @nonobjc class var darkG3: UIColor {
-        return UIColor(white: 168.0 / 255.0, alpha: 1.0)
-    }
-
-    @nonobjc class var darkG2: UIColor {
-        return UIColor(white: 205.0 / 255.0, alpha: 1.0)
-    }
-
+    /// #595959
     @nonobjc class var darkG45: UIColor {
         return UIColor(white: 89.0 / 255.0, alpha: 1.0)
     }
 
+    /// #6F6F6F
+    @nonobjc class var darkG4: UIColor {
+        return UIColor(white: 111.0 / 255.0, alpha: 1.0)
+    }
+
+    /// #8D8D8D
+    @nonobjc class var darkG35: UIColor {
+        return UIColor(white: 141.0 / 255.0, alpha: 1.0)
+    }
+
+    /// #A8A8A8
+    @nonobjc class var darkG3: UIColor {
+        return UIColor(white: 168.0 / 255.0, alpha: 1.0)
+    }
+
+    /// #BDBDBD
+    @nonobjc class var darkG25: UIColor {
+        return UIColor(white: 189.0 / 255.0, alpha: 1.0)
+    }
+
+    /// #CDCDCD
+    @nonobjc class var darkG2: UIColor {
+        return UIColor(white: 205.0 / 255.0, alpha: 1.0)
+    }
+
+    /// #F5F5F5
     @nonobjc class var darkG1: UIColor {
         return UIColor(white: 245.0 / 255.0, alpha: 1.0)
     }

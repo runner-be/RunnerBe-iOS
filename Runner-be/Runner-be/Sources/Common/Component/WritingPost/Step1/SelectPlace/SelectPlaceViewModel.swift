@@ -19,6 +19,8 @@ struct PlaceInfo {
 final class SelectPlaceViewModel: BaseViewModel {
     // MARK: - Properties
 
+    private let locationManager = CLLocationManager()
+    private let geocoder = CLGeocoder()
     var completerResults: [MKLocalSearchCompletion]? // 검색한 결과를 담는 변수
 
     // MARK: - Init
@@ -56,11 +58,18 @@ final class SelectPlaceViewModel: BaseViewModel {
                 self.fetchLocation(for: completerResult)
             }
             .disposed(by: disposeBag)
+
+        inputs.tapCurrentPlace
+            .bind { [weak self] in
+                self?.fetchCurrentLocation()
+            }
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var completerResults = PublishSubject<[MKLocalSearchCompletion]>()
         var tapPlace = PublishSubject<Int>()
+        var tapCurrentPlace = PublishSubject<Void>()
     }
 
     struct Output {
@@ -79,6 +88,48 @@ final class SelectPlaceViewModel: BaseViewModel {
     var routes = Route()
 
     // MARK: - Methods
+
+    // 현재 위치 가져오기
+    private func fetchCurrentLocation() {
+        guard CLLocationManager.locationServicesEnabled() else {
+            // 위치 서비스를 사용할 수 없을 때의 처리
+            return
+        }
+
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+
+        guard let location = locationManager.location?.coordinate else {
+            return
+        }
+
+        // CLGeocoder로 위치 이름 가져오기
+        let clLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        geocoder.reverseGeocodeLocation(clLocation) { [weak self] placemarks, error in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error reverse geocoding location: \(error.localizedDescription)")
+                return
+            }
+
+            guard let placemark = placemarks?.first else {
+                return
+            }
+
+            // placemark로부터 위치 이름 가져오기
+            let locationInfo = placemark.name ?? "알 수 없음"
+            let placeName = placemark.locality ?? "알 수 없음"
+
+            let currentPlaceInfo = PlaceInfo(
+                locationInfo: locationInfo, // 위치 이름
+                placeName: placeName, // 위치 주소 (도시 이름 등)
+                location: location // 위도, 경도
+            )
+
+            // routes.detailSelectPlace에 현재 위치 정보 전달
+            self.routes.detailSelectPlace.onNext(currentPlaceInfo)
+        }
+    }
 
     private func fetchLocation(for completion: MKLocalSearchCompletion) {
         let searchRequest = MKLocalSearch.Request()

@@ -281,4 +281,70 @@ final class BasicUserAPIService: UserAPIService {
             .mapResponse()
             .map { $0?.basic.code == 1000 }
     }
+
+    func userPage(userId: Int) -> Observable<APIResult<UserPageAPIResult>> {
+        typealias RawDatas = (
+            responseCode: Int?,
+            userData: Data,
+            myRunningLog: Data,
+            myRunning: Data
+        )
+
+        return provider.rx.request(.userPage(userId: userId))
+            .asObservable()
+            .mapResponse()
+            .map { response -> RawDatas? in
+                guard let response = response else {
+                    return nil
+                }
+                let userData = (try? response.json["result"]["userInfo"].rawData()) ?? Data()
+                let myRunningLog = (try? response.json["result"]["userLogInfo"].rawData()) ?? Data()
+                let myRunning = (try? response.json["result"]["userRunning"].rawData()) ?? Data()
+
+                Log.d(tag: .info, """
+                userData:
+                \(userData)
+                logData:
+                \(myRunningLog)
+                myRunning:
+                \(myRunning)
+                """)
+
+                return (
+                    responseCode: response.basic.code,
+                    userData: userData,
+                    myRunningLog: myRunningLog,
+                    myRunning: myRunning
+                )
+            }
+            .compactMap { $0 }
+            .map { result in
+                switch result.responseCode {
+                case 1000: // 성공
+                    let decoder = JSONDecoder()
+                    let userInfo = try? decoder.decode(User.self, from: result.userData)
+                    let runningLog = (try? decoder.decode([MyRunningLog].self, from: result.myRunningLog)) ?? []
+                    let running = (try? decoder.decode([UserPostResponse].self, from: result.myRunning)) ?? []
+
+                    let userRunning: [UserPost] = running.compactMap { $0.convertedPost }
+
+                    if let user = userInfo {
+                        return APIResult.response(result: .success(
+                            userInfo: user,
+                            userRunningLog: runningLog,
+                            userRunning: userRunning
+                        ))
+                    } else {
+                        return APIResult.error(alertMessage: nil)
+                    }
+
+                case 2012: // userId는 숫자로 입력해주세요.
+                    return APIResult.error(alertMessage: nil)
+                default:
+                    return APIResult.error(alertMessage: nil)
+                }
+            }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }

@@ -126,6 +126,12 @@ class MessageRoomViewController: BaseViewController {
                         imageUrls: [item.imageUrl] // TODO: 서버로부터 받아오는 URL을 사용
                     )
 
+                    cell.profileImage.rx.tapGesture()
+                        .when(.recognized)
+                        .compactMap { _ in item.userId }
+                        .bind(to: self.viewModel.inputs.tapProfile)
+                        .disposed(by: cell.disposeBag)
+
                     return cell
 
                 } else {

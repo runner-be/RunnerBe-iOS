@@ -124,6 +124,10 @@ final class MessageRoomViewModel: BaseViewModel {
             .compactMap { $0 }
             .bind(to: outputs.showPicker)
             .disposed(by: disposeBag)
+
+        inputs.tapProfile
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input { // View에서 ViewModel로 전달되는 이벤트 정의
@@ -134,6 +138,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var tapPostImage = PublishSubject<Void>()
         var selectImage = PublishSubject<UIImage>()
         var deleteImage = PublishSubject<Int>()
+        var tapProfile = PublishSubject<Int>()
     }
 
     struct Output { // ViewModel에서 View로의 데이터 전달이 정의되어있는 구조체
@@ -150,6 +155,7 @@ final class MessageRoomViewModel: BaseViewModel {
         var detailPost = PublishSubject<Int>()
         var photoModal = PublishSubject<Void>()
         var imageViewer = PublishSubject<UIImage>()
+        var userPage = PublishSubject<Int>()
     }
 
     struct RouteInput { // 자식화면이 해제되면서 전달되어야하느 정보가 있을 경우, 전달되어야할 이벤트가 정의되어있는 구조체

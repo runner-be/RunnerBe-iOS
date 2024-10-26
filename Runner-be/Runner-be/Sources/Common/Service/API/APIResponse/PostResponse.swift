@@ -18,6 +18,7 @@ struct PostResponse: Decodable {
 
     let title: String?
     let runningTime: String? // "01:30:00"
+    let gatheringId: Int?
     let gatheringTime: String? // "2022-02-23T19:49:39.000z"
     let gatherLongitude: String?
     let gatherLatitude: String?
@@ -40,6 +41,8 @@ struct PostResponse: Decodable {
     let afterParty: Int?
     let pace: String?
 
+    let logId: Int?
+
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
         case postingTime
@@ -48,6 +51,7 @@ struct PostResponse: Decodable {
         case profileImageURL = "profileImageUrl"
         case title
         case runningTime
+        case gatheringId
         case gatheringTime
         case gatherLongitude
         case gatherLatitude
@@ -69,6 +73,7 @@ struct PostResponse: Decodable {
         case profileURLList = "profileUrlList"
         case afterParty
         case pace
+        case logId
     }
 }
 
@@ -176,6 +181,7 @@ extension PostResponse {
             tag: tag,
             runningTime: runningTime,
             gatherDate: gatherDate,
+            gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
             locationInfo: locationInfo,
@@ -186,7 +192,8 @@ extension PostResponse {
             attendanceProfiles: profileURLList ?? [],
             postingTime: postingTime,
             afterParty: afterParty,
-            pace: pace
+            pace: pace,
+            logId: logId
         )
 
         post.marked = marked

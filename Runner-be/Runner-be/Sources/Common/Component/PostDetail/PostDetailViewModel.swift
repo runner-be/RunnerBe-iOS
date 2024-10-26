@@ -253,6 +253,14 @@ final class PostDetailViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        inputs.tapProfile
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
+
+        routeInputs.userPage
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
@@ -263,6 +271,7 @@ final class PostDetailViewModel: BaseViewModel {
         var finishing = PublishSubject<Void>()
         var showApplicant = PublishSubject<Void>()
         var copyPlaceName = PublishSubject<Void>()
+        var tapProfile = PublishSubject<Int>()
     }
 
     struct Output {
@@ -279,6 +288,7 @@ final class PostDetailViewModel: BaseViewModel {
         var applicantsModal = PublishSubject<[User]>()
         var message = PublishSubject<Int>()
         var registerRunningPace = PublishSubject<Void>()
+        var userPage = PublishSubject<Int>()
     }
 
     struct RouteInput {
@@ -286,6 +296,7 @@ final class PostDetailViewModel: BaseViewModel {
         var report = PublishSubject<Bool>()
         var deleteOption = PublishSubject<Void>()
         var delete = PublishSubject<Void>()
+        var userPage = PublishSubject<Int>()
     }
 
     private var disposeBag = DisposeBag()

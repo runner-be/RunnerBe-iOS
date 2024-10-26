@@ -23,6 +23,7 @@ final class MyInfoView: UIView {
 
     private var backgroundView = UIView().then { view in
         view.backgroundColor = .black
+        view.layer.cornerRadius = 4
     }
 
     var registerPaceView = MyPageProfileLabel(iconPosition: .right).then { view in
@@ -33,21 +34,26 @@ final class MyInfoView: UIView {
     var paceView = RunningPaceView()
 
     private var vDivider = UIImageView().then { view in
-        view.image = Asset.vDivider.uiImage
+        view.backgroundColor = .darkG55
         view.snp.makeConstraints { make in
             make.width.equalTo(1)
             make.height.equalTo(30)
         }
     }
 
-    var levelView = MyPageProfileLabel(iconPosition: .left).then { view in
+    var levelView = MyPageProfileLabel(
+        iconPosition: .left,
+        iconSize: CGSize(width: 20, height: 20),
+        padding: .zero
+    ).then { view in
         view.icon.image = Asset.smile.uiImage
         view.label.text = "초보 출석"
+        view.layer.borderWidth = 0
     }
 
     var editPaceLabel = UILabel().then { view in
         view.text = "페이스 수정하기"
-        view.font = .pretendardRegular12
+        view.font = .pretendardRegular14
         view.textColor = .darkG25
         view.isHidden = true
     }
@@ -71,7 +77,7 @@ extension MyInfoView {
     func initialLayout() {
         backgroundView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(70)
+            make.height.equalTo(48)
         }
 
         vDivider.snp.makeConstraints { make in
@@ -84,19 +90,20 @@ extension MyInfoView {
         }
 
         paceView.snp.makeConstraints { make in
-            make.trailing.equalTo(vDivider.snp.leading).offset(-24)
+            make.centerX.equalTo(backgroundView.snp.trailing).multipliedBy(0.25)
             make.centerY.equalToSuperview()
         }
 
         levelView.snp.makeConstraints { make in
-            make.leading.equalTo(vDivider.snp.trailing).offset(24)
+            make.centerX.equalTo(backgroundView.snp.trailing).multipliedBy(0.75)
             make.centerY.equalToSuperview()
         }
 
         editPaceLabel.snp.makeConstraints { make in
             make.trailing.equalTo(backgroundView.snp.trailing)
-            make.top.equalTo(backgroundView.snp.bottom).offset(8)
+            make.top.equalTo(backgroundView.snp.bottom).offset(4)
             make.bottom.equalToSuperview()
+            make.height.equalTo(24)
         }
     }
 
@@ -105,13 +112,13 @@ extension MyInfoView {
 
         switch userConfig.diligence {
         case "성실 출석":
-            levelView.icon.image = Asset.smile.uiImage
+            levelView.icon.image = Asset.iconGoodRunner.uiImage
         case "노력 출석":
-            levelView.icon.image = Asset.icEffortRunner.uiImage
+            levelView.icon.image = Asset.iconEffortRunner.uiImage
         case "불량 출석":
-            levelView.icon.image = Asset.icBadRunner.uiImage
+            levelView.icon.image = Asset.iconBadRunner.uiImage
         case "초보 출석":
-            levelView.icon.image = Asset.icBasicRunner.uiImage
+            levelView.icon.image = Asset.iconBasicRunner.uiImage
         default:
             break
         }
