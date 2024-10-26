@@ -43,7 +43,10 @@ final class RegisterRunningPaceCoordinator: BasicCoordinator<RegisterRunningPace
 
         scene.VM.routes.showCancelModal
             .subscribe(onNext: { _ in
-                self.showRegisterCancelModal(vm: scene.VM)
+                self.showRegisterCancelModal(
+                    vm: scene.VM,
+                    animated: false
+                )
             })
             .disposed(by: sceneDisposeBag)
 
@@ -74,11 +77,17 @@ final class RegisterRunningPaceCoordinator: BasicCoordinator<RegisterRunningPace
         }
     }
 
-    private func showRegisterCancelModal(vm: RegisterRunningPaceViewModel) {
+    private func showRegisterCancelModal(
+        vm: RegisterRunningPaceViewModel,
+        animated: Bool
+    ) {
         let comp = component.cancelModal
         let coord = RegisterRunningPaceCancelModalCoordinator(component: comp, navController: navigationController)
 
-        coordinate(coordinator: coord) { coordResult in
+        coordinate(
+            coordinator: coord,
+            animated: animated
+        ) { coordResult in
             switch coordResult {
             case .ok:
                 vm.routes.close.onNext(())

@@ -43,6 +43,9 @@ class WritingMainPostViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
+            .do { [weak self] _ in
+                self?.dismissKeyboard()
+            }
             .bind(to: viewModel.inputs.next)
             .disposed(by: disposeBag)
 
