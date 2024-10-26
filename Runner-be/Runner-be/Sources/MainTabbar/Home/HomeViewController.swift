@@ -91,7 +91,11 @@ class HomeViewController: BaseViewController {
             .skip(1) // 첫 번째 이벤트를 건너뛰기
             .map { _ in true }
             .do(onNext: { [weak self] _ in
-                self?.postCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                if let visibleCells = self?.postCollectionView.visibleCells,
+                   !visibleCells.isEmpty
+                {
+                    self?.postCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                }
             })
             .bind(to: viewModel.inputs.needUpdate)
             .disposed(by: disposeBag)

@@ -27,7 +27,7 @@ final class HomeViewModel: BaseViewModel {
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            postState: .open,
+            postState: .closed,
             filter: .distance,
             distanceFilter: 3,
             gender: .none,
