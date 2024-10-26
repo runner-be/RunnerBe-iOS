@@ -29,7 +29,7 @@ class MessageRoomViewController: BaseViewController {
         formatter.dateFormat = DateFormat.apiDate.formatString
 
 //        messageInputView.delegate = self
-        dismissKeyboardWhenTappedAround()
+//        dismissKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -64,6 +64,9 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         messageInputView.sendButtonTapped
+            .do { [weak self] _ in
+                self?.dismissKeyboard()
+            }
             .map { text in
                 let imageData = self.viewModel.images.compactMap { $0.jpegData(compressionQuality: 0.5) }
                 var contents: [String?] = Array(repeating: nil, count: imageData.count + 1)
