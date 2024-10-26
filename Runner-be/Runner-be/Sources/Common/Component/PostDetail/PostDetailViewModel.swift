@@ -13,7 +13,7 @@ final class PostDetailViewModel: BaseViewModel {
     private var applicants: [User] = []
     private var participants: [User] = []
     private var roomID: Int?
-    private var placeName: String?
+    private var placeAddress: String?
     var anyChanged = false
 
     init(
@@ -33,7 +33,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .guest(postDetail, participated, marked, apply, participants, roomID):
                     self.isWriter = false
                     self.roomID = roomID
-                    self.placeName = postDetail.post.placeName
+                    self.placeAddress = postDetail.post.placeAddress
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -55,7 +55,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .writer(postDetail, marked, participants, applicant, roomID):
                     self.isWriter = true
                     self.roomID = roomID
-                    self.placeName = postDetail.post.placeName
+                    self.placeAddress = postDetail.post.placeAddress
                     self.outputs.detailData.onNext(
                         (
                             postDetail: postDetail,
@@ -192,7 +192,7 @@ final class PostDetailViewModel: BaseViewModel {
 
         inputs.copyPlaceName
             .subscribe(onNext: { [weak self] _ in
-                UIPasteboard.general.string = self?.placeName
+                UIPasteboard.general.string = self?.placeAddress
             }).disposed(by: disposeBag)
 
         routeInputs.deleteOption

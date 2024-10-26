@@ -28,7 +28,7 @@ class DetailMapView: UIView {
         long: Float,
         range: Float,
         showMarker: Bool,
-        locationInfo: String,
+        placeName: String,
         placeExplain: String
     ) {
         let coord = CLLocationCoordinate2D(latitude: CGFloat(lat), longitude: CGFloat(long))
@@ -52,7 +52,7 @@ class DetailMapView: UIView {
             self.circleOverlay = circleOverlay
         }
 
-        locationInfoLabel.text = locationInfo
+        locationInfoLabel.text = placeName
         placeExplainLabel.text = placeExplain
     }
 

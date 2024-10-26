@@ -71,7 +71,7 @@ final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
                     long: data.running.long,
                     range: data.participated ? data.running.range / 3 : data.running.range,
                     showMarker: data.participated,
-                    locationInfo: data.running.locationInfo,
+                    placeName: data.running.placeName,
                     placeExplain: data.running.placeExplain
                 )
 

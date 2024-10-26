@@ -87,8 +87,8 @@ final class DetailSelectPlaceViewController: BaseViewController {
     init(
         viewModel: DetailSelectPlaceViewModel
     ) {
-        locationInfoLabel.text = viewModel.placeInfo.locationInfo
-        placeNameLabel.text = viewModel.placeInfo.placeName
+        locationInfoLabel.text = viewModel.placeInfo.placeName
+        placeNameLabel.text = viewModel.placeInfo.placeAddress
         self.viewModel = viewModel
         super.init()
     }
@@ -141,15 +141,15 @@ final class DetailSelectPlaceViewController: BaseViewController {
         registerButton.rx.tap
             .compactMap { [weak self] _ in
                 guard let self = self,
-                      let locationInfo = locationInfoLabel.text,
-                      let placeName = placeNameLabel.text,
+                      let placeName = locationInfoLabel.text,
+                      let placeAddress = placeNameLabel.text,
                       let placeExplain = placeExplainTextField.text
                 else {
                     return nil
                 }
                 return PlaceInfo(
-                    locationInfo: locationInfo,
                     placeName: placeName,
+                    placeAddress: placeAddress,
                     placeExplain: placeExplain,
                     location: viewModel.placeInfo.location
                 )

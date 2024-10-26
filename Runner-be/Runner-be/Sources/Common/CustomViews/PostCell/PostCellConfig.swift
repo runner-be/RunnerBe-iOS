@@ -37,7 +37,7 @@ struct PostCellConfig: Equatable, IdentifiableType {
                 + DateUtil.shared.formattedString(for: post.gatherDate, format: .custom(format: "hh:mm"))
         time = "\(post.runningTime.hour)시간 \(post.runningTime.minute)분"
 
-        place = post.locationInfo
+        place = post.placeName
         switch post.gender {
         case .female, .male:
             gender = post.gender.name + L10n.Additional.Gender.limit

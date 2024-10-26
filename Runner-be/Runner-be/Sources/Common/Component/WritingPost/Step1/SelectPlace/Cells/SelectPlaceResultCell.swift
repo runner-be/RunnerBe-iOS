@@ -41,11 +41,11 @@ final class SelectPlaceResultCell: UICollectionViewCell {
     // MARK: - Methods
 
     func configure(
-        locationInfo: String,
-        placeName: String
+        placeName: String,
+        placeAddress: String
     ) {
-        locationInfoLabel.text = locationInfo
-        placeNameLabel.text = placeName
+        locationInfoLabel.text = placeName
+        placeNameLabel.text = placeAddress
     }
 }
 

@@ -13,8 +13,8 @@ struct PostingForm {
     let runningTime: String // "hh:mm"
     let gatherLongitude: Float
     let gatherLatitude: Float
-    let locationInfo: String // 위치명
-    let placeName: String // 위치 주소
+    let placeName: String // 위치명
+    let placeAddress: String // 위치 주소
     let placeExplain: String // 위치 설명
     let runningTag: RunningTag
     let ageMin: Int
@@ -34,8 +34,8 @@ extension PostingForm: Encodable {
         try container.encode(runningTime, forKey: .runningTime)
         try container.encode(gatherLongitude, forKey: .gatherLongitude)
         try container.encode(gatherLatitude, forKey: .gatherLatitude)
-        try container.encode(locationInfo, forKey: .locationInfo)
         try container.encode(placeName, forKey: .placeName)
+        try container.encode(placeAddress, forKey: .placeAddress)
         try container.encode(placeExplain, forKey: .placeExplain)
         try container.encode(runningTag.code, forKey: .runningTag)
         try container.encode(ageMin, forKey: .ageMin)
@@ -53,8 +53,8 @@ extension PostingForm: Encodable {
         case runningTime
         case gatherLongitude
         case gatherLatitude
-        case locationInfo
         case placeName
+        case placeAddress
         case placeExplain
         case runningTag
         case ageMin
@@ -75,8 +75,8 @@ extension PostingForm: CustomDebugStringConvertible {
             gatheringTime:  \(gatheringTime) // "YYYY-MM-dd hh:mm:ss"
             runningTime:  \(runningTime) // "hh:mm"
             gatherLatitude:  \(gatherLatitude) gatherLongitude:  \(gatherLongitude)
-            locationInfo:  \(locationInfo)
             placeName:  \(placeName)
+            placeAddress:  \(placeAddress)
             placeExplain:  \(placeExplain)
             runningTag:  \(runningTag.name)
             ageMin:  \(ageMin) ageMax:  \(ageMax)

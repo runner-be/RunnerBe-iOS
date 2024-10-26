@@ -22,8 +22,8 @@ struct PostResponse: Decodable {
     let gatheringTime: String? // "2022-02-23T19:49:39.000z"
     let gatherLongitude: String?
     let gatherLatitude: String?
-    let locationInfo: String?
     let placeName: String?
+    let placeAddress: String?
     let placeExplain: String?
     let runningTag: String?
     let age: String?
@@ -55,8 +55,8 @@ struct PostResponse: Decodable {
         case gatheringTime
         case gatherLongitude
         case gatherLatitude
-        case locationInfo
         case placeName
+        case placeAddress
         case placeExplain
         case runningTag
         case age
@@ -160,7 +160,7 @@ extension PostResponse {
               let nickName = nickName,
               let postTitle = title,
               let runningTagType = runningTagType,
-              let locationInformation = locationInfo,
+              let placeName = placeName,
               let pace = pace,
               let afterParty = afterParty
         else { return nil }
@@ -170,7 +170,6 @@ extension PostResponse {
         let writerName = nickName
         let title = postTitle
         let tag = runningTagType
-        let locationInfo = locationInformation
 
         var post = Post(
             ID: id,
@@ -184,8 +183,8 @@ extension PostResponse {
             gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
-            locationInfo: locationInfo,
             placeName: placeName,
+            placeAddress: placeAddress,
             placeExplain: placeExplain,
             coord: coords, // nullable
             whetherCheck: whetherCheck ?? "N",

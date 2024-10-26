@@ -10,8 +10,8 @@ import MapKit
 import RxSwift
 
 struct PlaceInfo {
-    let locationInfo: String // 위치 이름(거리, 상호, 장소명)
-    let placeName: String // 위치 주소
+    let placeName: String // 위치 이름(거리, 상호, 장소명)
+    let placeAddress: String // 위치 주소
     var placeExplain: String? = nil
     var location: CLLocationCoordinate2D // 위도, 경도
 }
@@ -34,8 +34,8 @@ final class SelectPlaceViewModel: BaseViewModel {
                 return completerResults.map {
                     SelectPlaceResultCellConfig(
                         from: PlaceInfo(
-                            locationInfo: $0.title,
-                            placeName: $0.subtitle,
+                            placeName: $0.title,
+                            placeAddress: $0.subtitle,
                             location: CLLocationCoordinate2D()
                         )
                     )
@@ -117,12 +117,12 @@ final class SelectPlaceViewModel: BaseViewModel {
             }
 
             // placemark로부터 위치 이름 가져오기
-            let locationInfo = placemark.name ?? "알 수 없음"
-            let placeName = placemark.locality ?? "알 수 없음"
+            let placeName = placemark.name ?? "알 수 없음"
+            let placeAddress = placemark.locality ?? "알 수 없음"
 
             let currentPlaceInfo = PlaceInfo(
-                locationInfo: locationInfo, // 위치 이름
-                placeName: placeName, // 위치 주소 (도시 이름 등)
+                placeName: placeName, // 위치 이름
+                placeAddress: placeAddress, // 위치 주소 (도시 이름 등)
                 location: location // 위도, 경도
             )
 
@@ -141,8 +141,8 @@ final class SelectPlaceViewModel: BaseViewModel {
                 return
             }
             self.routes.detailSelectPlace.onNext(PlaceInfo(
-                locationInfo: completion.title,
-                placeName: completion.subtitle,
+                placeName: completion.title,
+                placeAddress: completion.subtitle,
                 location: mapItem.placemark.coordinate
             ))
         }

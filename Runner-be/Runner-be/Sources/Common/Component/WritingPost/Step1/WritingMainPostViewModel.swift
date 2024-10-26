@@ -41,7 +41,7 @@ final class WritingMainPostViewModel: BaseViewModel {
                     self.toast.onNext("시간을 다시 설정해 주세요")
                     return
                 }
-                guard !self.writingPostData.placeInfo.isEmpty
+                guard !self.writingPostData.placeName.isEmpty
                 else {
                     self.toast.onNext("모임장소를 설정해 주세요")
                     return
@@ -97,13 +97,13 @@ final class WritingMainPostViewModel: BaseViewModel {
         routeInputs.editPlaceResult
             .subscribe(onNext: { [weak self] placeInfo in
                 guard let self = self else { return }
-                self.writingPostData.placeInfo = placeInfo.locationInfo
                 self.writingPostData.placeName = placeInfo.placeName
+                self.writingPostData.placeAddress = placeInfo.placeAddress
                 self.writingPostData.placeExplain = placeInfo.placeExplain ?? ""
                 self.writingPostData.location = placeInfo.location
 
                 self.outputs.placeInfo.onNext((
-                    city: placeInfo.locationInfo,
+                    city: placeInfo.placeName,
                     detail: placeInfo.placeExplain ?? ""
                 ))
                 self.outputs.location.onNext(self.writingPostData.location)
