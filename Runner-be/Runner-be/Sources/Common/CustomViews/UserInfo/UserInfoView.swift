@@ -149,9 +149,8 @@ final class UserInfoView: UIView {
 
     private func initialLayout() {
         avatarView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
-            make.bottom.equalTo(self.snp.bottom)
+            make.centerY.equalToSuperview()
         }
 
         nameLabel.snp.makeConstraints { make in
