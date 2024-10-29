@@ -55,11 +55,12 @@ class HomeFilterViewController: BaseViewController {
                 let jobIdx = self.filterJobView.jobGroup.selected.first
                 var minAge = Int(self.filterAgeView.slider.selectedMinValue)
                 var maxAge = Int(self.filterAgeView.slider.selectedMaxValue)
+                let afterPartyIdx = self.filterAfterPartyView.afterPartyLabelGroup.selected.first
                 if self.filterAgeView.checkBox.isSelected {
                     minAge = 20
                     maxAge = 65
                 }
-                return (paceFilter, genderIdx, jobIdx, minAge, maxAge)
+                return (paceFilter, genderIdx, jobIdx, minAge, maxAge, afterPartyIdx)
             }
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
@@ -108,6 +109,12 @@ class HomeFilterViewController: BaseViewController {
                     self?.selectRunningPaceView.selected = "master"
                 }
 
+            }.disposed(by: disposeBag)
+
+        viewModel.outputs.afterPartyFilter
+            .take(1)
+            .bind { [weak self] idx in
+                self?.filterAfterPartyView.select(idx: idx)
             }.disposed(by: disposeBag)
 
         viewModel.outputs.gender
@@ -200,6 +207,11 @@ class HomeFilterViewController: BaseViewController {
     }
 
     private var filterJobView = SelectJobView()
+    private var hDivider4 = UIView().then { view in
+        view.backgroundColor = .darkG6
+    }
+
+    private var filterAfterPartyView = FilterAfterPartyView()
 
     private lazy var vStackView = UIStackView.make(
         with: [
@@ -209,6 +221,8 @@ class HomeFilterViewController: BaseViewController {
             hDivider2,
             filterAgeView,
             hDivider3,
+            filterAfterPartyView,
+            hDivider4,
             filterJobView,
         ],
         axis: .vertical,
@@ -279,6 +293,12 @@ extension HomeFilterViewController {
         }
 
         hDivider3.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(12)
+            make.trailing.equalTo(view.snp.trailing).offset(-12)
+            make.height.equalTo(1)
+        }
+
+        hDivider4.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(12)
             make.trailing.equalTo(view.snp.trailing).offset(-12)
             make.height.equalTo(1)

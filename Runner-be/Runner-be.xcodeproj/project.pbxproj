@@ -95,6 +95,8 @@
 		2BBA6E612C87104C00E6CE40 /* TogetherRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */; };
 		2BBA6E642C871F0200E6CE40 /* TogetherRunnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */; };
 		2BBCD20A2CB7CC070088A048 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD2092CB7CC070088A048 /* String+.swift */; };
+		2BBCD63D2CD0E18200F8CB80 /* FilterAfterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */; };
+		2BBCD63F2CD0E9CA00F8CB80 /* AfterParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
 		2BC6A5992C837EB100CCE73F /* GotStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* GotStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
@@ -600,6 +602,8 @@
 		2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerViewController.swift; sourceTree = "<group>"; };
 		2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerCell.swift; sourceTree = "<group>"; };
 		2BBCD2092CB7CC070088A048 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAfterPartyView.swift; sourceTree = "<group>"; };
+		2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterParty.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
 		2BC6A5982C837EB100CCE73F /* GotStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
@@ -1565,6 +1569,7 @@
 			isa = PBXGroup;
 			children = (
 				C304C583282708A100C24295 /* SelectionLabel.swift */,
+				2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1976,6 +1981,7 @@
 				C35B832527B91E6600551AC5 /* Job.swift */,
 				C35B832727B91E6E00551AC5 /* Gender.swift */,
 				C3C9732427C9373900232251 /* User.swift */,
+				2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -3223,6 +3229,7 @@
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
+				2BBCD63D2CD0E18200F8CB80 /* FilterAfterPartyView.swift in Sources */,
 				4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */,
 				2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
@@ -3484,6 +3491,7 @@
 				2B6D00362C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift in Sources */,
 				433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
+				2BBCD63F2CD0E9CA00F8CB80 /* AfterParty.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,

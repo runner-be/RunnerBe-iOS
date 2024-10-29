@@ -22,7 +22,8 @@ final class HomeFilterViewModel: BaseViewModel {
         genderIdx: Int?,
         jobIdx: Int?,
         minAge: Int,
-        maxAge: Int
+        maxAge: Int,
+        afterPartyIdx: Int?
     )
 
     init(
@@ -43,6 +44,7 @@ final class HomeFilterViewModel: BaseViewModel {
         outputs.age.onNext((min: inputFilter.ageMin, max: inputFilter.ageMax))
         outputs.job.onNext(inputFilter.jobFilter.index)
         outputs.gender.onNext(inputFilter.gender.index)
+        outputs.afterPartyFilter.onNext(inputFilter.afterPartyFilter.index)
 
         inputs.backward
             .map { input in
@@ -64,6 +66,7 @@ final class HomeFilterViewModel: BaseViewModel {
                             "average",
                             "high",
                         ],
+                        afterPartyFilter: .all,
                         keywordSearch: "N",
                         page: 1,
                         pageSize: 10
@@ -71,6 +74,7 @@ final class HomeFilterViewModel: BaseViewModel {
                 }
                 let gender = Gender(idx: input.genderIdx ?? -1)
                 let job = Job(idx: input.jobIdx ?? -1)
+                let afterParty = AfterPartyFilter(idx: input.afterPartyIdx ?? -1)
                 return PostFilter(
                     latitude: 0,
                     longitude: 0,
@@ -83,6 +87,7 @@ final class HomeFilterViewModel: BaseViewModel {
                     runningTag: .error,
                     jobFilter: job,
                     paceFilter: input.paceFilter,
+                    afterPartyFilter: afterParty,
                     keywordSearch: "N",
                     page: 1,
                     pageSize: 10
@@ -111,6 +116,7 @@ final class HomeFilterViewModel: BaseViewModel {
         var job = ReplaySubject<Int>.create(bufferSize: 1)
         var age = ReplaySubject<(min: Int, max: Int)>.create(bufferSize: 1)
         var paceFilter = ReplaySubject<[String]>.create(bufferSize: 1)
+        var afterPartyFilter = ReplaySubject<Int>.create(bufferSize: 1)
         var reset = PublishSubject<Void>()
     }
 

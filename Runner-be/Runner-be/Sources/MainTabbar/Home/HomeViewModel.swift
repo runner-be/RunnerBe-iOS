@@ -36,6 +36,7 @@ final class HomeViewModel: BaseViewModel {
             runningTag: .beforeWork,
             jobFilter: .none,
             paceFilter: ["beginner", "average", "high", "master"],
+            afterPartyFilter: .all,
             keywordSearch: "",
             page: 1,
             pageSize: 10
@@ -363,7 +364,8 @@ final class HomeViewModel: BaseViewModel {
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
                     inputFilter.jobFilter == initialFilter.jobFilter &&
-                    inputFilter.paceFilter == initialFilter.paceFilter
+                    inputFilter.paceFilter == initialFilter.paceFilter &&
+                    inputFilter.afterPartyFilter == initialFilter.afterPartyFilter
 
                 self?.outputs.highLightFilter.onNext(!notChanged)
             })
@@ -375,6 +377,7 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
                 newFilter.paceFilter = inputFilter.paceFilter
+                newFilter.afterPartyFilter = inputFilter.afterPartyFilter
                 self?.filter = newFilter
                 return newFilter
             }

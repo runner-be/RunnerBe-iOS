@@ -113,7 +113,7 @@ extension PostAPI: TargetType {
                 "ageFilterMin": "\(filter.ageMin)",
                 "jobFilter": filter.jobFilter.code,
                 "paceFilter": filter.paceFilter.joined(separator: ","),
-                "afterPartyFilter": "A",
+                "afterPartyFilter": filter.afterPartyFilter.code,
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
