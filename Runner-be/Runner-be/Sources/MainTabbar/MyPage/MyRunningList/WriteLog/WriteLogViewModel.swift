@@ -140,12 +140,20 @@ final class WriteLogViewModel: BaseViewModel {
             }.disposed(by: disposeBag)
 
         inputs.tapPhotoButton
+            .filter { [weak self] _ in
+                if let imageData = self?.logForm.imageData {
+                    self?.toast.onNext("사진은 한 장만 올릴 수 있어요")
+                    return false
+                }
+                return true
+            }
             .bind(to: routes.photoModal)
             .disposed(by: disposeBag)
 
         inputs.tapPhotoCancel
             .bind { [weak self] _ in
                 self?.logForm.imageUrl = ""
+                self?.logForm.imageData = nil
                 self?.outputs.selectedImageChanged.onNext(nil)
             }
             .disposed(by: disposeBag)
