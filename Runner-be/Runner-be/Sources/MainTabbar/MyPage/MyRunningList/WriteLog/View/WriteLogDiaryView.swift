@@ -210,6 +210,24 @@ final class WriteLogDiaryView: UIView {
         participantTempLabel.text = "\(gatheringCount) 명"
         participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
     }
+
+    func showInfoWordBubble() {
+        if infoWordBubble.isHidden {
+            // Ensure the bubble is visible
+            infoWordBubble.alpha = 1.0
+            infoWordBubble.isHidden = false
+
+            // Delay for 1 second before starting the fade-out animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.infoWordBubble.alpha = 0.0
+                }) { _ in
+                    // Hide after the fade-out completes
+                    self.infoWordBubble.isHidden = true
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Layout

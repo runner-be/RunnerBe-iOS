@@ -163,6 +163,11 @@ final class ConfirmLogViewController: BaseViewController {
             .map { [ReceivedStampSection(items: $0)] }
             .bind(to: gotStampListView.stampCollectionView.rx.items(dataSource: gotStampDatasource))
             .disposed(by: disposeBag)
+
+        viewModel.outputs.showBubbleInfo
+            .bind { [weak self] _ in
+                self?.logDiaryView.showInfoWordBubble()
+            }.disposed(by: disposeBag)
     }
 
     private func update(with logDetail: LogDetail) {
