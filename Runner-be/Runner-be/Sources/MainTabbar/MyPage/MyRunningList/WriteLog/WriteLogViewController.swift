@@ -251,17 +251,19 @@ final class WriteLogViewController: BaseViewController {
     }
 
     private func showInfoWordBubble() {
-        // Ensure the bubble is visible
-        logDiaryView.infoWordBubble.alpha = 1.0
-        logDiaryView.infoWordBubble.isHidden = false
+        if logDiaryView.infoWordBubble.isHidden {
+            // Ensure the bubble is visible
+            logDiaryView.infoWordBubble.alpha = 1.0
+            logDiaryView.infoWordBubble.isHidden = false
 
-        // Delay for 1 second before starting the fade-out animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.logDiaryView.infoWordBubble.alpha = 0.0
-            }) { _ in
-                // Hide after the fade-out completes
-                self.logDiaryView.infoWordBubble.isHidden = true
+            // Delay for 1 second before starting the fade-out animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.logDiaryView.infoWordBubble.alpha = 0.0
+                }) { _ in
+                    // Hide after the fade-out completes
+                    self.logDiaryView.infoWordBubble.isHidden = true
+                }
             }
         }
     }
