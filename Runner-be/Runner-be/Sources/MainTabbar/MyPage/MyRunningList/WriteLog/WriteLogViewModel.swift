@@ -38,6 +38,7 @@ final class WriteLogViewModel: BaseViewModel {
         var selectedImageChanged = PublishSubject<Data?>()
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
         var logPartners = ReplaySubject<([LogPartners], Int?)>.create(bufferSize: 1)
+        var showBubbleInfo = PublishSubject<Void>()
     }
 
     struct Route {
@@ -176,6 +177,7 @@ final class WriteLogViewModel: BaseViewModel {
                       let logId = logForm.logId,
                       let gatheringId = logForm.gatheringId
                 else {
+                    self?.outputs.showBubbleInfo.onNext(())
                     return nil
                 }
                 return (logId, gatheringId)

@@ -147,7 +147,7 @@ final class WriteLogDiaryView: UIView {
         $0.image = Asset.group.uiImage
     }
 
-    private let infoWordBubble = UIImageView().then {
+    let infoWordBubble = UIImageView().then {
         $0.image = Asset.logGatheringWordbubble.image
         let label = UILabel()
         label.font = .pretendardRegular12
@@ -209,15 +209,6 @@ final class WriteLogDiaryView: UIView {
         isPersonalLog = gatheringId == nil
         participantTempLabel.text = "\(gatheringCount) 명"
         participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
-        participantView.isUserInteractionEnabled = !isPersonalLog
-
-        if let superview = superview,
-           isPersonalLog
-        {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
-            tapGesture.cancelsTouchesInView = false
-            superview.addGestureRecognizer(tapGesture)
-        }
     }
 }
 
@@ -269,17 +260,6 @@ extension WriteLogDiaryView {
         participantIconBg.addSubviews([
             participantIcon,
         ])
-    }
-
-    @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
-        print("ane9f0jesfje90sjf0 handleGlobalTap")
-        let location = sender.location(in: participantView)
-        let isTouchInfoLogo = participantIconBg.frame.contains(location)
-        if isTouchInfoLogo {
-            infoWordBubble.isHidden.toggle()
-        } else {
-            infoWordBubble.isHidden = true
-        }
     }
 
     private func initialLayout() {
