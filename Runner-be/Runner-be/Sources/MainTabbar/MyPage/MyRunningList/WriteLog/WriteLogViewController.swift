@@ -91,8 +91,7 @@ final class WriteLogViewController: BaseViewController {
         viewModelOutput()
 
         logDiaryView.textView.delegate = self
-
-        dismissKeyboardWhenTappedAround()
+        addTapGestureToLogDiaryView()
     }
 
     // MARK: - Methods
@@ -267,6 +266,12 @@ final class WriteLogViewController: BaseViewController {
         }
 
         privacyToggleView.toggleButton.isOn = logForm.isOpened == 1
+    }
+
+    private func addTapGestureToLogDiaryView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        logDiaryView.addGestureRecognizer(tapGesture)
     }
 }
 
