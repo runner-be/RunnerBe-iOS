@@ -200,6 +200,13 @@ final class WriteLogViewModel: BaseViewModel {
 
         inputs.createLog
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .filter { [weak self] _ in
+                if self?.logForm.stampCode == nil {
+                    self?.toast.onNext("러닝 기록을 입력해주세요!")
+                    return false
+                }
+                return true
+            }
             .compactMap { [weak self] _ in
                 self?.logForm
             }.flatMap { [weak self] logForm in
