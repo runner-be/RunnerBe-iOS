@@ -13,6 +13,8 @@ final class WriteLogViewController: BaseViewController {
 
     private let viewModel: WriteLogViewModel
 
+    private var diaryTextViewHeight = 0.0
+
     // MARK: - UI
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -358,23 +360,35 @@ extension WriteLogViewController: UIImagePickerControllerDelegate, UINavigationC
 // MARK: - TextViewDelegate
 
 extension WriteLogViewController: UITextViewDelegate {
-    func textViewDidChange(_: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         // FIXME: 하드코딩
-        let lineHeight = 22.0 // logDiaryView.textView.font?.lineHeight ?? 0
 
-        let maxHeight = lineHeight * 5 // 최대 5줄까지만 입력 허용
-        if logDiaryView.textView.contentSize.height > maxHeight {
-            // 텍스트가 최대 라인 수를 초과할 경우 마지막 입력을 제거
+        // 텍스트가 500자를 초과할 경우 마지막 입력을 제거
+        if textView.text.count > 500 {
             logDiaryView.textView.text = String(logDiaryView.textView.text.dropLast())
         }
 
-        // 레이아웃 업데이트를 위해 뷰를 강제로 재배치
-        logDiaryView.textView.snp.updateConstraints {
-            $0.height.equalTo(logDiaryView.textView.contentSize.height)
-        }
+        // 줄 바뀜이 감지되면 실행됩니다.
+        if diaryTextViewHeight != logDiaryView.textView.contentSize.height {
+            diaryTextViewHeight = logDiaryView.textView.contentSize.height
+            // 레이아웃 업데이트를 위해 뷰를 강제로 재배치
+            logDiaryView.textView.snp.updateConstraints {
+                $0.height.equalTo(logDiaryView.textView.contentSize.height)
+            }
 
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
+            // textView가 키보드에 가려지면 강제로 스크롤하여 다시 보여지도록
+            let textViewFrameInView = logDiaryView.textView.convert(logDiaryView.editView.bounds, to: view)
+            let padding: CGFloat = 24
+            let textViewBottomY = textViewFrameInView.maxY + padding
+
+            if textViewBottomY > (view.frame.height - (keyboardHeight ?? 0.0)) {
+                let overedHeight: CGFloat = textViewBottomY - (view.frame.height - (keyboardHeight ?? 0.0))
+                scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + overedHeight), animated: true)
+            }
+
+            UIView.animate(withDuration: 0.2) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
 }
@@ -404,7 +418,6 @@ extension WriteLogViewController {
         }
 
         vStackView.snp.makeConstraints {
-//            $0.top.equalToSuperview().inset(24)
             $0.edges.equalToSuperview()
             $0.width.equalTo(scrollView.snp.width)
         }

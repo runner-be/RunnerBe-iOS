@@ -22,13 +22,13 @@ final class WriteLogDiaryView: UIView {
     // MARK: - UI
 
     private let titleLabel = UILabel().then {
-        $0.text = "5줄 러닝 일기"
+        $0.text = "러닝 일기"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16
     }
 
     private let title = UILabel().then {
-        $0.text = "5줄 러닝 일기"
+        $0.text = "러닝 일기"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16
     }
@@ -41,7 +41,7 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - [START] Eidt
 
-    private let editView = UIView().then {
+    let editView = UIView().then {
         $0.backgroundColor = .darkG6
         $0.layer.cornerRadius = 12
     }
@@ -53,7 +53,7 @@ final class WriteLogDiaryView: UIView {
         $0.textContainerInset = .zero
         $0.textContainer.lineFragmentPadding = 0
 
-        $0.placeholder = "5줄 일기로 오늘 하루 러닝을 표현해보세요."
+        $0.placeholder = "러닝 일기로 오늘 하루 러닝을 표현해보세요."
         $0.placeholderColor = .darkG35
     }
 
