@@ -125,10 +125,7 @@ final class LogStampBottomSheetViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         stampCollectionView.rx.itemSelected
-            .map { test in
-                print("sejifesljfse: \(test)")
-                return test.item
-            }
+            .map { $0.item }
             .bind(to: viewModel.inputs.tapStamp)
             .disposed(by: disposeBag)
 
@@ -178,7 +175,8 @@ final class LogStampBottomSheetViewController: BaseViewController {
                     scrollPosition: .centeredHorizontally
                 )
                 self.stampTitleLabel.text = outputs.stampType.title
-                self.stampSubTitleLabel.text = outputs.stampType.subTitle
+                self.stampSubTitleLabel.text = outputs.stampSubTitle
+                self.stampSubTitleLabel.textColor = outputs.stampSubTitleColor
             }.disposed(by: disposeBag)
     }
 
