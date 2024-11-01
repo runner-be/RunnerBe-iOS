@@ -83,7 +83,7 @@ final class LogStampBottomSheetViewModel: BaseViewModel {
                       let selectedStamp = logStamps[itemIndex].stampType
                 else { return nil }
                 self.selectedStamp = selectedStamp
-                //TODO: 리팩토링
+                // TODO: 리팩토링
                 let disabled = isPersonalLog && selectedStamp != .RUN001
                 let stampSubTitle = disabled ? "{\(selectedStamp.title)} 스탬프는 크루 활동시 얻을 수 있어요!" : selectedStamp.subTitle
                 let stampSubTitleColor = disabled ? UIColor.primarydark : UIColor.darkG35

@@ -108,6 +108,7 @@ class MessageChatLeftCell: UITableViewCell {
         disposeBag = DisposeBag()
         messageImage.kf.cancelDownloadTask()
         messageImage.image = nil
+        messageDate.text = nil
     }
 
     var disposeBag = DisposeBag()
