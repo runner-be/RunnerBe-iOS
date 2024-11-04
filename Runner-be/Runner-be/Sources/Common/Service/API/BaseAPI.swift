@@ -10,10 +10,10 @@ import Foundation
 enum BaseAPI {
     #if DEBUG
 //        static let url = URL(string: "https://dev.runnerbe2.shop")!
-        static let url = URL(string: "https://new-runnerbe.shop")!
+        static let url = URL(string: "https://www.runnerbe.shop")!
 
     #else
-        static let url = URL(string: "https://new-runnerbe.shop")!
+        static let url = URL(string: "https://www.runnerbe.shop")!
     #endif
 }
 
