@@ -198,7 +198,7 @@ final class WriteLogDiaryView: UIView {
         stamp: StampType?,
         degree: String
     ) {
-        weatherIcon.image = stamp?.icon
+        weatherIcon.image = stamp?.icon ?? Asset.runningWeatherDefault.uiImage
         weatherDegreeLabel.text = degree + " ℃"
     }
 

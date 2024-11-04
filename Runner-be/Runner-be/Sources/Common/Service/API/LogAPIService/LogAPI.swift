@@ -92,12 +92,18 @@ extension LogAPI: TargetType {
                 "stampCode": logForm.stampCode ?? "",
                 "contents": logForm.contents ?? "",
                 "imageUrl": logForm.imageUrl ?? "",
-                "weatherDegree": logForm.weatherDegree ?? "",
-                "weatherIcon": logForm.weatherIcon ?? "",
                 "isOpened": logForm.isOpened,
             ]
             if let gatheringId = logForm.gatheringId {
                 parameters["gatheringId"] = gatheringId
+            }
+
+            if let weatherDegree = logForm.weatherDegree {
+                parameters["weatherDegree"] = weatherDegree
+            }
+
+            if let weatherIcon = logForm.weatherIcon {
+                parameters["weatherIcon"] = weatherIcon
             }
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)

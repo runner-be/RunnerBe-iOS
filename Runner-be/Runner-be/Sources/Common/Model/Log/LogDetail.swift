@@ -16,7 +16,7 @@ struct DetailRunningLog: Decodable {
     let contents: String?
     let imageUrl: String?
     let weatherDegree: Int?
-    let weatherIcon: String
+    let weatherIcon: String?
     let isOpened: Int
 }
 
@@ -73,7 +73,7 @@ struct LogDetail: Decodable {
     }
 
     var weatherStamp: StampType? {
-        StampType(rawValue: detailRunningLog.weatherIcon)
+        StampType(rawValue: detailRunningLog.weatherIcon ?? "")
     }
 
     var weatherDegree: String {
