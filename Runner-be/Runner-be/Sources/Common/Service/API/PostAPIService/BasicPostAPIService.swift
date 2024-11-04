@@ -57,6 +57,9 @@ final class BasicPostAPIService: PostAPIService {
                     return .response(result: .needLogin)
                 case 2095: // 성별 불가
                     return .error(alertMessage: response.basic.message)
+                case 2096:
+                    // TODO: 서버의 메시지를 가져와 사용하도록
+                    return .error(alertMessage: "내 성별과 다른 성별만 모집하는 글은 등록할 수 없어요.")
                 case 4000: // db에러
                     return .error(alertMessage: nil)
                 default: // 나머지 에러
