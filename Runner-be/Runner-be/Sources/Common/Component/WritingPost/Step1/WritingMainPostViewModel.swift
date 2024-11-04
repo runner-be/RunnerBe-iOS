@@ -58,8 +58,16 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.editTitle
+            .filter { text in
+                if let text = text,
+                   text.count < 31
+                {
+                    return true
+                }
+                return false
+            }
             .subscribe(onNext: { [weak self] title in
-                self?.writingPostData.title = title
+                self?.writingPostData.title = title ?? ""
             })
             .disposed(by: disposeBag)
 
@@ -112,7 +120,7 @@ final class WritingMainPostViewModel: BaseViewModel {
 
     struct Input {
         var editTag = PublishSubject<Int>()
-        var editTitle = PublishSubject<String>()
+        var editTitle = PublishSubject<String?>()
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var editPlace = PublishSubject<Void>()
