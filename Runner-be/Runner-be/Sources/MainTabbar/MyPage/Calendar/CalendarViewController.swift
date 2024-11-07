@@ -155,7 +155,8 @@ final class CalendarViewController: BaseViewController {
                         gatheringId: element.gatheringId,
                         date: element.date,
                         stampType: element.stampType,
-                        isOpened: element.isOpened
+                        isOpened: element.isOpened,
+                        isGathering: element.isGathering
                     ),
                     isMyLogStamp: self.viewModel.isMyLogStamp
                 )

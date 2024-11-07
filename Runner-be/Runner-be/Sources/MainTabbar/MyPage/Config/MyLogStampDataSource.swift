@@ -14,12 +14,7 @@ struct LogStamp {
     let date: Date
     let stampType: StampType?
     let isOpened: Int?
-}
-
-extension LogStamp {
-    var isGathering: Bool {
-        return logId == nil && gatheringId != nil
-    }
+    let isGathering: Bool
 }
 
 struct MyLogStampConfig: Equatable, IdentifiableType {
@@ -29,6 +24,7 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
     var date: Date
     var stampType: StampType?
     let isOpened: Int?
+    let isGathering: Bool
 
     var identity: String {
         "\(id)"
@@ -40,6 +36,7 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
         date = from.date
         stampType = from.stampType
         isOpened = from.isOpened
+        isGathering = from.isGathering
     }
 }
 
