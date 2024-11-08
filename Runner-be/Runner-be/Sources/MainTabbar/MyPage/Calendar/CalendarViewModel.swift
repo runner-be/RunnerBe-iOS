@@ -86,7 +86,11 @@ final class CalendarViewModel: BaseViewModel {
                 )
 
                 guard let previousDateMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) else {
-                    return Observable.zip(currentLog, Observable.just(APIResult<LogResponse?>.response(result: nil)))
+                    return Observable.zip(
+                        currentLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil)),
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
                 }
 
                 let previousLog = logAPIService.fetchLog(
@@ -95,17 +99,21 @@ final class CalendarViewModel: BaseViewModel {
                 )
 
                 guard let nextDateMonthDate = Calendar.current.date(byAdding: .month, value: +1, to: targetDate) else {
-                    return Observable.zip(currentLog, Observable.just(APIResult<LogResponse?>.response(result: nil)))
+                    return Observable.zip(
+                        currentLog,
+                        previousLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
                 }
 
-//                let nextLog = logAPIService.fetchLog(
-//                    userId: userId,
-//                    targetDate: nextDateMonthDate
-//                )
+                let nextLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: nextDateMonthDate
+                )
 
-                return Observable.zip(currentLog, previousLog)
+                return Observable.zip(currentLog, previousLog, nextLog)
             }
-            .subscribe(onNext: { [weak self] currentResult, previousResult in
+            .subscribe(onNext: { [weak self] currentResult, previousResult, nextResult in
 //                //                guard let self = self else { return }
                 var combinedRunningLogs: [MyRunningLog] = []
                 var combinedExistingGathering: [ExistingGathering] = []
@@ -130,6 +138,20 @@ final class CalendarViewModel: BaseViewModel {
 
                         combinedRunningLogs.append(contentsOf: data.myRunningLog)
                         combinedExistingGathering.append(contentsOf: data.isExistGathering)
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
+
+                switch nextResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+
                         self?.changeTargetDate(
                             runningLog: combinedRunningLogs,
                             existingGathering: combinedExistingGathering
@@ -142,18 +164,6 @@ final class CalendarViewModel: BaseViewModel {
                     }
                     return
                 }
-
-//                switch nextResult {
-//                case let .response(data):
-//                    if let data = data {
-//                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
-//                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
-//                    }
-//                case let .error(alertMessage):
-//                    if let alertMessage = alertMessage {
-//                        self?.toast.onNext(alertMessage)
-//                    }
-//                    return
             })
             .disposed(by: disposeBag)
 
