@@ -18,7 +18,7 @@ struct LogStamp {
 }
 
 struct MyLogStampConfig: Equatable, IdentifiableType {
-    let id = UUID()
+    let id: String
     let logId: Int?
     let gatheringId: Int?
     var date: Date
@@ -27,16 +27,27 @@ struct MyLogStampConfig: Equatable, IdentifiableType {
     let isGathering: Bool
 
     var identity: String {
-        "\(id)"
+        id
     }
 
     init(from: LogStamp) {
+        id = from.date.toString()
         logId = from.logId
         gatheringId = from.gatheringId
         date = from.date
         stampType = from.stampType
         isOpened = from.isOpened
         isGathering = from.isGathering
+    }
+
+    static func == (lhs: MyLogStampConfig, rhs: MyLogStampConfig) -> Bool {
+        return lhs.identity == rhs.identity &&
+            lhs.date == rhs.date &&
+            lhs.stampType == rhs.stampType &&
+            lhs.isGathering == rhs.isGathering &&
+            lhs.logId == rhs.logId &&
+            lhs.gatheringId == rhs.gatheringId &&
+            lhs.isOpened == rhs.isOpened
     }
 }
 

@@ -103,7 +103,7 @@ final class MyPageViewController: BaseViewController {
         myLogStampView.logStampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         // 나의 로그 스탬프
-        typealias MyLogStampDataSource = RxCollectionViewSectionedAnimatedDataSource<MyLogStampSection>
+        typealias MyLogStampDataSource = RxCollectionViewSectionedReloadDataSource<MyLogStampSection>
 
         let myLogStampDatasource = MyLogStampDataSource(
             configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
@@ -129,20 +129,21 @@ final class MyPageViewController: BaseViewController {
             }
         )
 
-        // 작성한 글 탭
-        typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
-
         viewModel.outputs.days
             .debug("logStamps")
             .map { [MyLogStampSection(items: $0)] }
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
 
-//        viewModel.outputs.days
-//            .observe(on: MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] _ in
-//                guard let self = self else { return }
+        // 작성한 글 탭
+        typealias MyPagePostDataSource
+            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
+
+        viewModel.outputs.days
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+//FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
 //                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
 //                self.myLogStampView.logStampCollectionView.scrollToItem(
 //                    at: IndexPath(
@@ -152,8 +153,8 @@ final class MyPageViewController: BaseViewController {
 //                    at: .left,
 //                    animated: false
 //                )
-//            })
-//            .disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
 
         viewModel.outputs.logTotalCount
             .bind { [weak self] logTotalCount in

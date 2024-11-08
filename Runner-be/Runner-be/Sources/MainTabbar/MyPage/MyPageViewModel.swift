@@ -23,7 +23,7 @@ final class MyPageViewModel: BaseViewModel {
 
     typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
     var dates: [LogDate] = []
-    var myLogStampsConfigs: [MyLogStampConfig] = []
+//    var myLogStampsConfigs: [MyLogStampConfig] = []
 
     private let calendar = Calendar.current
     private var components = DateComponents()
@@ -59,6 +59,20 @@ final class MyPageViewModel: BaseViewModel {
     ) {
         super.init()
         let userId = loginKeyChain.userId ?? 0
+
+        dates += generateWeeks()
+        outputs.days.onNext(dates.map {
+            MyLogStampConfig(
+                from: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
+                    date: $0.date,
+                    stampType: nil,
+                    isOpened: nil,
+                    isGathering: $0.existGathering != nil
+                )
+            )
+        })
 
         routeInputs.needUpdate
             .filter { $0 }
@@ -479,72 +493,6 @@ final class MyPageViewModel: BaseViewModel {
 
     // MARK: - Methods
 
-    private func changeTargetDate(runningLog: [MyRunningLog]) {
-        myRunningLogs.removeAll()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-
-        let daysPerWeek = 7
-        // 현재 주와 이전 2주의 날짜들을 가져옴
-        let currentWeek = getWeek(for: Date())
-        let previousWeek = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -1, to: Date())!)
-        let twoWeeksAgo = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -2, to: Date())!)
-
-        // 날짜 배열 합치기
-        let weeks: [Date] = twoWeeksAgo + previousWeek + currentWeek
-
-        // `weeks` 배열을 `MyLogStampConfig` 배열로 변환
-        let myLogStampConfigs: [MyLogStampConfig] = weeks.map { date in
-            var stampType: StampType?
-            var logId: Int?
-            var gatheringId: Int?
-            var isOpened: Int?
-
-            for log in runningLog {
-                if let logDate = dateFormatter.date(from: log.runnedDate) {
-                    if calendar.isDate(logDate, inSameDayAs: date) {
-                        stampType = StampType(rawValue: log.stampCode ?? "")
-                        logId = log.logId
-                        gatheringId = log.gatheringId
-                        isOpened = log.isOpened
-                        break
-                    } else {
-                        stampType = nil
-                    }
-                }
-            }
-
-            myRunningLogs.append(MyRunningLog(
-                logId: logId,
-                gatheringId: gatheringId,
-                runnedDate: date.description,
-                stampCode: stampType?.rawValue,
-                isOpened: isOpened
-            ))
-
-            return MyLogStampConfig(from: LogStamp(
-                logId: logId,
-                gatheringId: gatheringId,
-                date: date,
-                stampType: stampType,
-                isOpened: isOpened,
-                isGathering: false
-            ))
-        }
-
-        // 7개씩 끊어서 `MyLogStampSection`을 만듦
-        let sections = stride(from: 0, to: myLogStampConfigs.count, by: daysPerWeek).map { startIndex -> MyLogStampSection in
-            let endIndex = min(startIndex + daysPerWeek, myLogStampConfigs.count)
-            let items = Array(myLogStampConfigs[startIndex ..< endIndex])
-            return MyLogStampSection(items: items)
-        }
-
-        // ViewModel Output에 섹션 전달
-        outputs.logStamps.onNext(sections)
-    }
-
     private func changeTargetDate(
         runningLog: [MyRunningLog],
         existingGathering: [ExistingGathering]
@@ -552,10 +500,11 @@ final class MyPageViewModel: BaseViewModel {
         if let _ = calendar.date(from: components) {
             myRunningLogs.removeAll()
             dates.removeAll()
+
             dates += generateWeeks()
             markMonthGatheringDates(existingGathering)
-            let test = markMonthLogDates(runningLogs: runningLog)
 
+            let test = markMonthLogDates(runningLogs: runningLog)
             outputs.days.onNext(test)
 
             outputs.changeTargetDate.onNext((

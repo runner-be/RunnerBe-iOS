@@ -38,7 +38,7 @@ final class CalendarViewModel: BaseViewModel {
 
     typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
     var dates: [LogDate] = []
-    var myLogStampsConfigs: [MyLogStampConfig] = []
+//    var myLogStampsConfigs: [MyLogStampConfig] = []
 
     let loginKeyChain: LoginKeyChainService
     var isMyLogStamp: Bool = false
