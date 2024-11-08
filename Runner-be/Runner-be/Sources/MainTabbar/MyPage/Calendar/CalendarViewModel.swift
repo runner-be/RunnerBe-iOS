@@ -50,8 +50,7 @@ final class CalendarViewModel: BaseViewModel {
         logAPIService: LogAPIService = BasicLogAPIService(),
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
-        let targetDate = Date()
-        self.targetDate = targetDate
+        targetDate = Date()
 
         loginKeyChain = loginKeyChainService
         isMyLogStamp = userId == loginKeyChain.userId
@@ -215,7 +214,7 @@ final class CalendarViewModel: BaseViewModel {
         inputs.showSelectDate
             .map { [weak self] _ in
                 guard let self = self else { return Date() }
-                return targetDate
+                return self.targetDate
             }
             .bind(to: routes.dateBottomSheet)
             .disposed(by: disposeBag)
