@@ -36,7 +36,7 @@ final class CalendarViewModel: BaseViewModel {
         return Int(monthString) ?? 00
     }
 
-    typealias LogDate = (date: Date, isGathering: Bool)
+    typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
     var dates: [LogDate] = []
     var myLogStampsConfigs: [MyLogStampConfig] = []
 
@@ -71,7 +71,7 @@ final class CalendarViewModel: BaseViewModel {
                     date: $0.date,
                     stampType: nil,
                     isOpened: nil,
-                    isGathering: $0.isGathering
+                    isGathering: $0.existGathering != nil
                 )
             )
         })
@@ -170,11 +170,10 @@ final class CalendarViewModel: BaseViewModel {
         inputs.tappedDate
             .compactMap { [weak self] index -> MyRunningLog? in
                 guard let self = self,
-                      let runningLog = self.myRunningLogs[index]
+                      let runningLog = self.dates[index].runningLog
                 else {
                     return nil
                 }
-
                 return runningLog
             }
             .filter { [weak self] runningLog in
@@ -197,14 +196,14 @@ final class CalendarViewModel: BaseViewModel {
                 let currentDate = Date()
 
                 guard let self = self,
-                      self.myRunningLogs[index]?.logId == nil,
+                      self.dates[index].runningLog == nil,
                       currentDate.timeIntervalSince1970 > self.dates[index].date.timeIntervalSince1970
                 else {
                     return nil
                 }
                 return LogForm(
                     runningDate: self.dates[index].date,
-                    gatheringId: 0, // self.dates[index].gatheringId,
+                    gatheringId: self.dates[index].existGathering?.gatheringId,
                     isOpened: 1
                 )
             }
@@ -314,7 +313,11 @@ extension CalendarViewModel {
                 dateComponents.day = dayOfPreviousMonth
                 dateComponents.timeZone = utcCalendar.timeZone
                 if let date = calendar.date(from: dateComponents) {
-                    previousDates.append(LogDate(date: date, isGathering: false))
+                    previousDates.append(LogDate(
+                        date: date,
+                        existGathering: nil,
+                        runningLog: nil
+                    ))
                 }
             }
         }
@@ -340,7 +343,11 @@ extension CalendarViewModel {
 
             // 날짜를 생성하고 MyLogStampConfig 객체를 반환합니다.
             if let date = calendar.date(from: dateComponents) {
-                currentDates.append(LogDate(date: date, isGathering: false))
+                currentDates.append(LogDate(
+                    date: date,
+                    existGathering: nil,
+                    runningLog: nil
+                ))
             }
         }
 
@@ -365,7 +372,11 @@ extension CalendarViewModel {
             if let nextMonthStart = utcCalendar.date(from: components) {
                 for day in 1 ... remainingDays {
                     if let date = utcCalendar.date(byAdding: .day, value: day - 1, to: nextMonthStart) {
-                        nextDates.append(LogDate(date: date, isGathering: false))
+                        nextDates.append(LogDate(
+                            date: date,
+                            existGathering: nil,
+                            runningLog: nil
+                        ))
                     }
                 }
             }
@@ -388,7 +399,7 @@ extension CalendarViewModel {
                 if let gatheringDate = element.gatheringTime.toDate(withFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") {
                     if calendar.isDate(gatheringDate, inSameDayAs: dates[i].date) {
                         print("Matching date found: \(dates[i].date), \(element)")
-                        dates[i].isGathering = true
+                        dates[i].existGathering = element
                         break
                     }
                 }
@@ -415,10 +426,10 @@ extension CalendarViewModel {
                             date: dates[i].date,
                             stampType: StampType(rawValue: log.stampCode ?? ""),
                             isOpened: log.isOpened,
-                            isGathering: dates[i].isGathering
+                            isGathering: dates[i].existGathering != nil
                         ))
                         myLogStampsConfigs.append(config)
-
+                        dates[i].runningLog = log
                         logFound = true // 로그를 찾았음을 표시
                         break
                     }
@@ -433,7 +444,7 @@ extension CalendarViewModel {
                     date: dates[i].date,
                     stampType: nil,
                     isOpened: nil,
-                    isGathering: dates[i].isGathering
+                    isGathering: dates[i].existGathering != nil
                 )))
             }
         }

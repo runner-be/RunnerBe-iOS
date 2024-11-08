@@ -173,7 +173,7 @@ final class WriteLogCoordinator: BasicCoordinator<WriteLogResult> {
 
     private func pushTogetherRunnerScene(
         vm _: WriteLogViewModel,
-        logId: Int,
+        logId: Int?,
         gatheringId: Int,
         animated: Bool
     ) {

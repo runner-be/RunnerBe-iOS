@@ -49,7 +49,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     // MARK: - Init
 
     init(
-        logId: Int,
+        logId: Int?,
         gatheringId: Int,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
@@ -132,7 +132,8 @@ final class TogetherRunnerViewModel: BaseViewModel {
         routeInputs.selectedLogStamp
             .flatMap { [weak self] stampType -> Observable<APIResult<LogResult>> in
                 guard let self = self,
-                      let selectedIndex = self.selectedIndex
+                      let selectedIndex = self.selectedIndex,
+                      let logId = logId
                 else {
                     // TODO: 에러 원인 더 명확하게
                     return Observable.empty()

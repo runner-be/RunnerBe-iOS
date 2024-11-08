@@ -49,7 +49,7 @@ final class WriteLogViewModel: BaseViewModel {
             gatheringId: Int?
         )>()
         var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
-        var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
+        var togetherRunner = PublishSubject<(logId: Int?, gatheringId: Int)>()
         var photoModal = PublishSubject<Void>()
         var backwardModal = PublishSubject<Void>()
     }
@@ -174,13 +174,12 @@ final class WriteLogViewModel: BaseViewModel {
         inputs.tapTogether
             .compactMap { [weak self] _ in
                 guard let self = self,
-                      let logId = logForm.logId,
                       let gatheringId = logForm.gatheringId
                 else {
                     self?.outputs.showBubbleInfo.onNext(())
                     return nil
                 }
-                return (logId, gatheringId)
+                return (logForm.logId, gatheringId)
             }
             .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
