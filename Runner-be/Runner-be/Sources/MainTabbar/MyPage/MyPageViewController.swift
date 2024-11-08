@@ -122,7 +122,7 @@ final class MyPageViewController: BaseViewController {
                     date: element.date,
                     stampType: element.stampType,
                     isOpened: element.isOpened,
-                    isGathering: false
+                    isGathering: element.isGathering
                 ))
 
                 return cell
@@ -133,27 +133,27 @@ final class MyPageViewController: BaseViewController {
         typealias MyPagePostDataSource
             = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
-        viewModel.outputs.logStamps
+        viewModel.outputs.days
             .debug("logStamps")
+            .map { [MyLogStampSection(items: $0)] }
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
 
-        viewModel.outputs.logStamps
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-
-                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
-                self.myLogStampView.logStampCollectionView.scrollToItem(
-                    at: IndexPath(
-                        item: 0,
-                        section: self.myLogStampView.pageControl.currentPage
-                    ),
-                    at: .left,
-                    animated: false
-                )
-            })
-            .disposed(by: disposeBag)
+//        viewModel.outputs.days
+//            .observe(on: MainScheduler.instance)
+//            .subscribe(onNext: { [weak self] _ in
+//                guard let self = self else { return }
+//                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
+//                self.myLogStampView.logStampCollectionView.scrollToItem(
+//                    at: IndexPath(
+//                        item: 0,
+//                        section: self.myLogStampView.pageControl.currentPage
+//                    ),
+//                    at: .left,
+//                    animated: false
+//                )
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.logTotalCount
             .bind { [weak self] logTotalCount in

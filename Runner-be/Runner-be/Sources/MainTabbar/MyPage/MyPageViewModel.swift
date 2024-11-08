@@ -21,6 +21,10 @@ final class MyPageViewModel: BaseViewModel {
     var posts = [PostType: [Post]]()
     private var myRunningLogs: [MyRunningLog?] = []
 
+    typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
+    var dates: [LogDate] = []
+    var myLogStampsConfigs: [MyLogStampConfig] = []
+
     private let calendar = Calendar.current
     private var components = DateComponents()
     private var targetDate: Date = .init() {
@@ -50,40 +54,98 @@ final class MyPageViewModel: BaseViewModel {
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
         userAPIService: UserAPIService = BasicUserAPIService(),
-        logAPIService: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService(),
+        loginKeyChain: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
         super.init()
-
-        outputs.changeTargetDate.onNext((
-            year: targetYear,
-            month: targetMonth
-        ))
+        let userId = loginKeyChain.userId ?? 0
 
         routeInputs.needUpdate
             .filter { $0 }
-            .flatMap { _ in logAPIService.fetchLog(
-                userId: 414,
-                targetDate: Date()
-            )
+            .flatMap { _ in
+                let targetDate = Date()
+
+                let currentLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: targetDate
+                )
+
+                guard let previousDateMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) else {
+                    return Observable.zip(
+                        currentLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil)),
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
+                }
+
+                let previousLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: previousDateMonthDate
+                )
+
+                guard let nextDateMonthDate = Calendar.current.date(byAdding: .month, value: +1, to: targetDate) else {
+                    return Observable.zip(
+                        currentLog,
+                        previousLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
+                }
+
+                let nextLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: nextDateMonthDate
+                )
+
+                return Observable.zip(currentLog, previousLog, nextLog)
             }
-            .compactMap { [weak self] result -> LogResponse? in
-                switch result {
+            .subscribe(onNext: { [weak self] currentResult, previousResult, nextResult in
+                var combinedRunningLogs: [MyRunningLog] = []
+                var combinedExistingGathering: [ExistingGathering] = []
+
+                switch previousResult {
                 case let .response(data):
                     if let data = data {
-                        return data
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
                     }
-                    self?.toast.onNext("로그 스탬프 조회에 실패했습니다.")
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
                     }
-                    return nil
+                    return
                 }
-                return nil
-            }
-            .subscribe(onNext: { [weak self] logResponse in
-                self?.outputs.logTotalCount.onNext(logResponse.totalCount)
-                self?.changeTargetDate(runningLog: logResponse.myRunningLog)
+
+                switch currentResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
+
+                switch nextResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+
+                        self?.changeTargetDate(
+                            runningLog: combinedRunningLogs,
+                            existingGathering: combinedExistingGathering
+                        )
+                        self?.myRunningLogs = combinedRunningLogs
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
             })
             .disposed(by: disposeBag)
 
@@ -147,8 +209,8 @@ final class MyPageViewModel: BaseViewModel {
                 let item = indexPath.item
                 let logItemIndex = section + item
                 guard let self = self else { return nil }
-
-                return self.myRunningLogs[logItemIndex]?.logId
+                return self.dates[logItemIndex].runningLog?.logId
+//                return self.myRunningLogs[logItemIndex]?.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -156,27 +218,23 @@ final class MyPageViewModel: BaseViewModel {
         // 스탬프 클릭 시 스탬프가 없으면 개인 로그 작성 페이지로 이동
         inputs.tapLogStamp
             .compactMap { [weak self] indexPath in
+                let currentDate = Date()
                 // 1주 단위로 section으로 구분되어 있습니다.
                 let section = indexPath.section * 7
                 let item = indexPath.item
                 let logItemIndex = section + item
+
                 guard let self = self,
-                      let myRunningLog = self.myRunningLogs[logItemIndex],
-                      myRunningLog.logId == nil,
-                      myRunningLog.isFuture == false
+                      self.dates[logItemIndex].runningLog == nil,
+                      currentDate.timeIntervalSince1970 > self.dates[logItemIndex].date.timeIntervalSince1970
                 else {
                     return nil
                 }
-
-                let runnedDate = myRunningLog.runnedDate
-                if let runDate = runnedDate.toDate() {
-                    return LogForm(
-                        runningDate: runDate,
-                        gatheringId: self.myRunningLogs[logItemIndex]?.gatheringId,
-                        isOpened: 1
-                    )
-                }
-                return nil
+                return LogForm(
+                    runningDate: self.dates[logItemIndex].date,
+                    gatheringId: self.dates[logItemIndex].existGathering?.gatheringId,
+                    isOpened: 1
+                )
             }
             .bind(to: routes.writeLog)
             .disposed(by: disposeBag)
@@ -487,6 +545,26 @@ final class MyPageViewModel: BaseViewModel {
         outputs.logStamps.onNext(sections)
     }
 
+    private func changeTargetDate(
+        runningLog: [MyRunningLog],
+        existingGathering: [ExistingGathering]
+    ) {
+        if let _ = calendar.date(from: components) {
+            myRunningLogs.removeAll()
+            dates.removeAll()
+            dates += generateWeeks()
+            markMonthGatheringDates(existingGathering)
+            let test = markMonthLogDates(runningLogs: runningLog)
+
+            outputs.days.onNext(test)
+
+            outputs.changeTargetDate.onNext((
+                year: targetYear,
+                month: targetMonth
+            ))
+        }
+    }
+
     private func getWeek(for date: Date) -> [Date] {
         let calendar = Calendar.current
 
@@ -574,4 +652,93 @@ final class MyPageViewModel: BaseViewModel {
     var outputs = Output()
     var routes = Route()
     var routeInputs = RouteInput()
+}
+
+// MARK: - 날짜 계산
+
+extension MyPageViewModel {
+    func generateWeeks() -> [LogDate] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let daysPerWeek = 7
+        // 현재 주와 이전 2주의 날짜들을 가져옴
+        let currentWeek = getWeek(for: Date())
+        let previousWeek = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -1, to: Date())!)
+        let twoWeeksAgo = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -2, to: Date())!)
+
+        // 날짜 배열 합치기
+        let weeks: [Date] = twoWeeksAgo + previousWeek + currentWeek
+
+        return weeks.map { LogDate(
+            date: $0,
+            existGathering: nil,
+            runningLog: nil
+        ) }
+    }
+
+    func markMonthGatheringDates(_ existingGathering: [ExistingGathering]) {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+
+        // 최대 4만번
+        for i in 0 ..< dates.count {
+            for element in existingGathering {
+                if let gatheringDate = element.gatheringTime.toDate(withFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") {
+                    if calendar.isDate(gatheringDate, inSameDayAs: dates[i].date) {
+                        print("Matching date found: \(dates[i].date), \(element)")
+                        dates[i].existGathering = element
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    func markMonthLogDates(runningLogs: [MyRunningLog]) -> [MyLogStampConfig] {
+        var myLogStampsConfigs = [MyLogStampConfig]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        for i in 0 ..< dates.count {
+            var logFound = false // 로그가 발견되었는지 여부를 확인합니다.
+            for log in runningLogs {
+                // runningLog와 동일한 날짜가 있는지 확인
+                if let logDate = dateFormatter.date(from: log.runnedDate) {
+                    if calendar.isDate(logDate, inSameDayAs: dates[i].date) {
+                        let config = MyLogStampConfig(from: LogStamp(
+                            logId: log.logId,
+                            gatheringId: log.gatheringId,
+                            date: dates[i].date,
+                            stampType: StampType(rawValue: log.stampCode ?? ""),
+                            isOpened: log.isOpened,
+                            isGathering: dates[i].existGathering != nil
+                        ))
+                        myLogStampsConfigs.append(config)
+                        dates[i].runningLog = log
+                        logFound = true // 로그를 찾았음을 표시
+                        break
+                    }
+                }
+            }
+
+            // 로그가 발견되지 않았을 경우 기본 값을 추가
+            if !logFound {
+                myLogStampsConfigs.append(MyLogStampConfig(from: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
+                    date: dates[i].date,
+                    stampType: nil,
+                    isOpened: nil,
+                    isGathering: dates[i].existGathering != nil
+                )))
+            }
+        }
+
+        return myLogStampsConfigs
+    }
 }
