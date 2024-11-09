@@ -102,7 +102,7 @@ final class TogetherRunnerCell: UITableViewCell {
             stampBg.isHidden = false
             stampIcon.image = stamp.icon
         } else {
-//            stampBg.isHidden = true
+            stampBg.isHidden = true
         }
 
         updateLogButton(with: config)
