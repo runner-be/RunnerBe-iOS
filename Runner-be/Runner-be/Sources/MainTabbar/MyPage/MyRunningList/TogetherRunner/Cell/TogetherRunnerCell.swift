@@ -102,13 +102,25 @@ final class TogetherRunnerCell: UITableViewCell {
             stampBg.isHidden = false
             stampIcon.image = stamp.icon
         } else {
-            stampBg.isHidden = true
+//            stampBg.isHidden = true
         }
 
-        updateLogButton(isOpened: config.isOpened == 1)
+        updateLogButton(with: config)
     }
 
-    private func updateLogButton(isOpened: Bool) {
+    private func updateLogButton(with config: TogetherRunnerConfig) {
+        let isOpened = (config.isOpened == 1)
+        if config.logId == nil {
+            showLogButton.snp.makeConstraints {
+                $0.width.equalTo(0)
+            }
+            return
+        }
+
+        showLogButton.snp.makeConstraints {
+            $0.width.equalTo(64)
+        }
+
         if isOpened {
             showLogButton.layer.opacity = 1
             showLogButton.setTitle("로그 보기", for: .normal)
