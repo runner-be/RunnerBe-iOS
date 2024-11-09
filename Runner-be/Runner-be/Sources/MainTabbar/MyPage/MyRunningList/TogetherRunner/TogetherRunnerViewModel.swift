@@ -97,7 +97,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
                     return (
                         stamp: StampType(rawValue: "RUN001")!,
                         title: "에게 \n 러닝 스탬프를 찍어봐요!",
-                        gatheringId: nil
+                        gatheringId: gatheringId
                     )
                 }
 
