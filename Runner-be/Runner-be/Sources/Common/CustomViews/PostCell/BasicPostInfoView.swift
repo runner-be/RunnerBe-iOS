@@ -165,6 +165,7 @@ extension BasicPostInfoView {
 
         bookMarkIcon.snp.makeConstraints {
             $0.top.equalTo(titleLabel)
+            $0.left.equalTo(titleLabel.snp.right).offset(8)
             $0.right.equalToSuperview()
             $0.size.equalTo(24)
         }
