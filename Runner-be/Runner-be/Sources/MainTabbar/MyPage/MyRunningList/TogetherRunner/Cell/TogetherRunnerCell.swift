@@ -82,12 +82,24 @@ final class TogetherRunnerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - LifeCycle
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+//        showLogButton.snp.remakeConstraints {
+//            $0.right.equalTo(showLogButton.snp.left).inset(-8)
+//            $0.centerY.equalToSuperview()
+//            $0.size.equalTo(32)
+//        }
+    }
+
     // MARK: - Methods
 
     // FIXME: 조장을 인덱스 첫번째일 경우로 임시 설정됨 API수정후 앱적용
     func configure(
         with config: TogetherRunnerConfig,
-        index: Int
+        index: Int,
+        logId: Int?
     ) {
         disposeBag = DisposeBag()
         nameLabel.text = config.nickname
@@ -105,20 +117,20 @@ final class TogetherRunnerCell: UITableViewCell {
             stampBg.isHidden = true
         }
 
-        updateLogButton(with: config)
+        updateLogButton(with: config, logId: logId)
     }
 
-    private func updateLogButton(with config: TogetherRunnerConfig) {
+    // FIXME: 임시
+    private func updateLogButton(
+        with config: TogetherRunnerConfig,
+        logId: Int?
+    ) {
         let isOpened = (config.isOpened == 1)
-        if config.logId == nil {
+        if logId == nil {
             showLogButton.snp.makeConstraints {
                 $0.width.equalTo(0)
             }
             return
-        }
-
-        showLogButton.snp.makeConstraints {
-            $0.width.equalTo(64)
         }
 
         if isOpened {

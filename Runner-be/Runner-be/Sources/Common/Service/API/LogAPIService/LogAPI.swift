@@ -16,8 +16,8 @@ enum LogAPI {
     case delete(userId: Int, logId: Int, token: LoginToken)
     case detail(userId: Int, logId: Int, token: LoginToken)
     case partners(userId: Int, gatheringId: Int, token: LoginToken)
-    case postPartnerStamp(userId: Int, logId: Int, targetId: Int, stampCode: String, token: LoginToken)
-    case editPartnerStamp(userId: Int, logId: Int, targetId: Int, stampCode: String, token: LoginToken)
+    case postPartnerStamp(userId: Int, gatheringId: Int, targetId: Int, stampCode: String, token: LoginToken)
+    case editPartnerStamp(userId: Int, gatheringId: Int, targetId: Int, stampCode: String, token: LoginToken)
 }
 
 extension LogAPI: TargetType {

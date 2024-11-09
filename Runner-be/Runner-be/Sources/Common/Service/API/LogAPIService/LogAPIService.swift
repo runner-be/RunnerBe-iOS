@@ -20,6 +20,6 @@ protocol LogAPIService {
     func delete(logId: Int) -> Observable<APIResult<LogResult>>
     func detail(logId: Int) -> Observable<APIResult<LogDetail?>>
     func partners(gatheringId: Int) -> Observable<APIResult<[LogPartners]?>>
-    func postPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>>
-    func editPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>>
+    func postPartnerStamp(gatheringId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>>
+    func editPartnerStamp(gatheringId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>>
 }

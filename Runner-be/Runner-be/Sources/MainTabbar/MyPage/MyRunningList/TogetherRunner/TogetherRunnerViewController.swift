@@ -119,7 +119,8 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
 
                     cell.configure(
                         with: item,
-                        index: indexPath.item
+                        index: indexPath.item,
+                        logId: viewModel.logId
                     )
 
                     cell.profileImage.rx.tapGesture()

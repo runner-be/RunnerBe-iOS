@@ -46,6 +46,8 @@ final class TogetherRunnerViewModel: BaseViewModel {
     var partnerList: [LogPartners] = []
     var selectedIndex: Int?
 
+    var logId: Int?
+ 
     // MARK: - Init
 
     init(
@@ -53,6 +55,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
         gatheringId: Int,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
+        self.logId = logId // logID 유무로 로그 확인 / 작성페이지 구분
         super.init()
 
         logAPIService.partners(gatheringId: gatheringId)
@@ -132,8 +135,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
         routeInputs.selectedLogStamp
             .flatMap { [weak self] stampType -> Observable<APIResult<LogResult>> in
                 guard let self = self,
-                      let selectedIndex = self.selectedIndex,
-                      let logId = logId
+                      let selectedIndex = self.selectedIndex
                 else {
                     // TODO: 에러 원인 더 명확하게
                     return Observable.empty()
@@ -143,14 +145,14 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 if let currentStampCode = self.partnerList[selectedIndex].stampCode {
                     self.partnerList[selectedIndex].stampCode = stampType.rawValue
                     return logAPIService.editPartnerStamp(
-                        logId: logId,
+                        gatheringId: gatheringId,
                         targetId: targetId,
                         stampCode: stampType.rawValue
                     )
                 } else {
                     self.partnerList[selectedIndex].stampCode = stampType.rawValue
                     return logAPIService.postPartnerStamp(
-                        logId: logId,
+                        gatheringId: gatheringId,
                         targetId: targetId,
                         stampCode: stampType.rawValue
                     )
