@@ -138,7 +138,7 @@ final class MyPageViewController: BaseViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-
+                self.myLogStampView.logStampCollectionView.layoutIfNeeded()
                 // FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
                 // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
                 self.myLogStampView.logStampCollectionView.scrollToItem(
