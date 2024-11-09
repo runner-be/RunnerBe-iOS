@@ -131,28 +131,24 @@ final class MyPageViewController: BaseViewController {
 
         viewModel.outputs.days
             .debug("logStamps")
-            .map { [MyLogStampSection(items: $0)] }
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
-
-        // 작성한 글 탭
-        typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
         viewModel.outputs.days
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-//FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
-//                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
-//                self.myLogStampView.logStampCollectionView.scrollToItem(
-//                    at: IndexPath(
-//                        item: 0,
-//                        section: self.myLogStampView.pageControl.currentPage
-//                    ),
-//                    at: .left,
-//                    animated: false
-//                )
+
+                // FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
+                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
+                self.myLogStampView.logStampCollectionView.scrollToItem(
+                    at: IndexPath(
+                        item: 0,
+                        section: self.myLogStampView.pageControl.currentPage
+                    ),
+                    at: .left,
+                    animated: true
+                )
             })
             .disposed(by: disposeBag)
 
@@ -161,6 +157,10 @@ final class MyPageViewController: BaseViewController {
                 self?.myLogStampView.updateCountLabel(with: logTotalCount)
             }
             .disposed(by: disposeBag)
+
+        // 작성한 글 탭
+        typealias MyPagePostDataSource
+            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
 
         let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
             guard let self = self else { return UICollectionViewCell() }

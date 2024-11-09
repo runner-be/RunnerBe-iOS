@@ -61,17 +61,19 @@ final class MyPageViewModel: BaseViewModel {
         let userId = loginKeyChain.userId ?? 0
 
         dates += generateWeeks()
-        outputs.days.onNext(dates.map {
-            MyLogStampConfig(
-                from: LogStamp(
-                    logId: nil,
-                    gatheringId: nil,
-                    date: $0.date,
-                    stampType: nil,
-                    isOpened: nil,
-                    isGathering: $0.existGathering != nil
+        outputs.days.onNext(dates.chunked(into: 7).map { weekDates in
+            MyLogStampSection(items: weekDates.map { logDate in
+                MyLogStampConfig(
+                    from: LogStamp(
+                        logId: logDate.runningLog?.logId,
+                        gatheringId: logDate.existGathering?.gatheringId,
+                        date: logDate.date,
+                        stampType: StampType(rawValue: logDate.runningLog?.stampCode ?? ""),
+                        isOpened: logDate.runningLog?.isOpened,
+                        isGathering: logDate.existGathering != nil
+                    )
                 )
-            )
+            })
         })
 
         routeInputs.needUpdate
@@ -134,6 +136,8 @@ final class MyPageViewModel: BaseViewModel {
                     if let data = data {
                         combinedRunningLogs.append(contentsOf: data.myRunningLog)
                         combinedExistingGathering.append(contentsOf: data.isExistGathering)
+
+                        self?.outputs.logTotalCount.onNext(data.totalCount)
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -503,10 +507,7 @@ final class MyPageViewModel: BaseViewModel {
 
             dates += generateWeeks()
             markMonthGatheringDates(existingGathering)
-
-            let test = markMonthLogDates(runningLogs: runningLog)
-            outputs.days.onNext(test)
-
+            outputs.days.onNext(markMonthLogDates(runningLogs: runningLog))
             outputs.changeTargetDate.onNext((
                 year: targetYear,
                 month: targetMonth
@@ -569,7 +570,7 @@ final class MyPageViewModel: BaseViewModel {
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
         var showPicker = PublishSubject<EditProfileType>()
-        var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
+        var days = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var changeTargetDate = ReplaySubject<(year: Int, month: Int)>.create(bufferSize: 1)
     }
 
@@ -646,7 +647,7 @@ extension MyPageViewModel {
         }
     }
 
-    func markMonthLogDates(runningLogs: [MyRunningLog]) -> [MyLogStampConfig] {
+    func markMonthLogDates(runningLogs: [MyRunningLog]) -> [MyLogStampSection] {
         var myLogStampsConfigs = [MyLogStampConfig]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -688,6 +689,9 @@ extension MyPageViewModel {
             }
         }
 
-        return myLogStampsConfigs
+        // myLogStampsConfigs 배열을 7개씩 그룹화하여 MyLogStampSection으로 변환
+        return myLogStampsConfigs.chunked(into: 7).map { weekConfigs in
+            MyLogStampSection(items: weekConfigs)
+        }
     }
 }
