@@ -361,11 +361,9 @@ extension WriteLogViewController: UIImagePickerControllerDelegate, UINavigationC
 
 extension WriteLogViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        // FIXME: 하드코딩
-
         // 텍스트가 500자를 초과할 경우 마지막 입력을 제거
         if textView.text.count > 500 {
-            logDiaryView.textView.text = String(logDiaryView.textView.text.dropLast())
+            logDiaryView.textView.text = String((logDiaryView.textView.text ?? "").prefix(500))
         }
 
         // 줄 바뀜이 감지되면 실행됩니다.

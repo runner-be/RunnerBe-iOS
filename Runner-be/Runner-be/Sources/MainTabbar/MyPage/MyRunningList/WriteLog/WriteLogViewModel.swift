@@ -136,9 +136,15 @@ final class WriteLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.contents
+            .map { contents -> String in
+                // contents가 nil일 경우 빈 문자열로 처리하고, 500자 제한
+                String((contents ?? "").prefix(500))
+            }
             .bind { [weak self] contents in
+                print("Filtered contents: \(contents)")
                 self?.logForm.contents = contents
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
 
         inputs.tapPhotoButton
             .filter { [weak self] _ in

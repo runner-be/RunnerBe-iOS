@@ -47,7 +47,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
     var selectedIndex: Int?
 
     var logId: Int?
- 
+
     // MARK: - Init
 
     init(
