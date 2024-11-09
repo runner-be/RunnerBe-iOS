@@ -24,7 +24,7 @@ class RunnerBadge: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        layer.cornerRadius = bounds.height / 2.0
+//        layer.cornerRadius = bounds.height / 2.0
     }
 
     var padding: UIEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 7)
@@ -43,10 +43,10 @@ class RunnerBadge: UIView {
     }
 
     func setupViews() {
-        backgroundColor = .clear
-        clipsToBounds = true
-        layer.borderWidth = 0.5
-        layer.borderColor = UIColor.darkG25.cgColor
+        layer.cornerRadius = 4
+        layer.masksToBounds = true
+        backgroundColor = .darkG45
+        layer.borderWidth = 0
 
         addSubviews([
             iconView,
@@ -55,18 +55,15 @@ class RunnerBadge: UIView {
     }
 
     func initialLayout() {
-        iconView.snp.makeConstraints { make in
-            make.leading.equalTo(self.snp.leading)
-            make.top.equalTo(self.snp.top)
-            make.bottom.equalTo(self.snp.bottom)
-            make.width.equalTo(iconView.snp.height)
+        iconView.snp.makeConstraints {
+            $0.top.left.bottom.equalToSuperview().inset(2)
+            $0.size.equalTo(14)
         }
 
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(iconView.snp.trailing).offset(2)
-            make.trailing.equalTo(self.snp.trailing).offset(-padding.right)
-            make.top.equalTo(self.snp.top)
-            make.bottom.equalTo(self.snp.bottom)
+        label.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(iconView.snp.right).offset(2)
+            $0.right.equalToSuperview().inset(4)
         }
     }
 }
