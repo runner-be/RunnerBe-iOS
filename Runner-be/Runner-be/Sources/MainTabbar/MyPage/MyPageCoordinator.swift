@@ -36,9 +36,9 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.calendar
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] userId in
                 self?.pushCalendarScene(
-                    userId: 414,
+                    userId: userId,
                     vm: scene.VM,
                     animated: true
                 )

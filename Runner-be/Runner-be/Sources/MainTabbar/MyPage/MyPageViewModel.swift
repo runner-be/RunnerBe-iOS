@@ -258,6 +258,7 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.tapLogStampIcon
+            .map { userId }
             .bind(to: routes.calendar)
             .disposed(by: disposeBag)
 
@@ -575,7 +576,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Route {
-        var calendar = PublishSubject<Void>()
+        var calendar = PublishSubject<Int>()
         var myRunningList = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
