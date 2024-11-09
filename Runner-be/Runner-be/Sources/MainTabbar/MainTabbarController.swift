@@ -197,26 +197,9 @@ extension MainTabViewController {
             make.height.equalTo(AppContext.shared.tabHeight + AppContext.shared.safeAreaInsets.bottom)
         }
 
-        bottomContentHStack.snp.makeConstraints { make in
-            make.top.equalTo(bottomView.snp.top).offset(14)
-            make.leading.equalTo(bottomView.snp.leading).offset(36)
-            make.trailing.equalTo(bottomView.snp.trailing).offset(-36)
-        }
-
-        homeBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
-        }
-
-        bookmarkBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
-        }
-
-        messageBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
-        }
-
-        myPageBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
+        bottomContentHStack.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(14)
+            $0.left.right.equalToSuperview().inset(36)
         }
     }
 }
