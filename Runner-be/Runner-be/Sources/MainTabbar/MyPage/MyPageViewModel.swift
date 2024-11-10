@@ -23,7 +23,9 @@ final class MyPageViewModel: BaseViewModel {
 
     typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
     var dates: [LogDate] = []
-//    var myLogStampsConfigs: [MyLogStampConfig] = []
+
+    var previousLogStampTotalCount: LogTotalCount?
+    var currentLogStampTotalCount: LogTotalCount?
 
     private let calendar = Calendar.current
     private var components = DateComponents()
@@ -123,6 +125,7 @@ final class MyPageViewModel: BaseViewModel {
                     if let data = data {
                         combinedRunningLogs.append(contentsOf: data.myRunningLog)
                         combinedExistingGathering.append(contentsOf: data.isExistGathering)
+                        self?.previousLogStampTotalCount = data.totalCount
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -136,7 +139,7 @@ final class MyPageViewModel: BaseViewModel {
                     if let data = data {
                         combinedRunningLogs.append(contentsOf: data.myRunningLog)
                         combinedExistingGathering.append(contentsOf: data.isExistGathering)
-
+                        self?.currentLogStampTotalCount = data.totalCount
                         self?.outputs.logTotalCount.onNext(data.totalCount)
                     }
                 case let .error(alertMessage):
@@ -494,6 +497,29 @@ final class MyPageViewModel: BaseViewModel {
             }
             .bind(to: routes.confirmAttendance)
             .disposed(by: disposeBag)
+
+        inputs.logStampDidEndDecelerating
+            .compactMap { [weak self] sectionIndex in
+                guard let self = self else { return nil }
+                if sectionIndex != 2 { // 1,2페이지에서만 계산, 3페이지는 현재날짜로 고정
+                    let firstDateIndex = sectionIndex * 7 // 일주일 단위 7
+                    let firstDateOfSection: Date = dates[firstDateIndex].date
+                    let sectionYear = calendar.component(.year, from: firstDateOfSection)
+                    let sectionMonth = calendar.component(.month, from: firstDateOfSection)
+
+                    if let totalCount = previousLogStampTotalCount {
+                        self.outputs.logTotalCount.onNext(totalCount)
+                    }
+                    return (year: sectionYear, month: sectionMonth)
+                }
+
+                if let totalCount = currentLogStampTotalCount {
+                    self.outputs.logTotalCount.onNext(totalCount)
+                }
+                return (year: targetYear, month: targetMonth)
+            }
+            .bind(to: outputs.changeTargetDate)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
@@ -559,6 +585,8 @@ final class MyPageViewModel: BaseViewModel {
         var tapConfirmLog = PublishSubject<Int>()
         var tapManageAttendance = PublishSubject<Int>()
         var tapConfirmAttendance = PublishSubject<Int>()
+
+        var logStampDidEndDecelerating = PublishSubject<Int>()
     }
 
     struct Output {

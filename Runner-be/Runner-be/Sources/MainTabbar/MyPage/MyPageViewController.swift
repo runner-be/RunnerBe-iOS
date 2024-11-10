@@ -66,6 +66,15 @@ final class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 
+        // 로그 스탬프의 스크롤가 완료되면 현재 페이지(section)의 수를 전달합니다.
+        myLogStampView.logStampCollectionView.rx.didEndDecelerating
+            .compactMap { [weak self] _ in
+                guard let self = self else { return nil }
+                return self.myLogStampView.pageControl.currentPage
+            }
+            .bind(to: viewModel.inputs.logStampDidEndDecelerating)
+            .disposed(by: disposeBag)
+
         myPostHeaderView.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
