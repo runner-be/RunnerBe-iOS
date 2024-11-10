@@ -73,38 +73,21 @@ final class MyRunningListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-//        inputs.typeChanged
-//            .flatMap { _ in postAPIService.myPage() }
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self else { return }
-//                self.posts.removeAll()
-//                self.outputs.posts.onNext([])
-//
-//                switch result {
-//                case let .response(result: data):
-//                    switch data {
-//                    case let .success(info, posting, joined):
-//                        let now = DateUtil.shared.now
-//                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-//                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
-//
-//                        self.posts[.all] = joins
-//                        self.posts[.myPost] = postings
-//
-//                        let posts = self.outputs.postType == .all ? joins : postings
-//
-//                        self.outputs.posts.onNext(posts.map {
-//                            MyPagePostConfig(post: $0, now: now)
-//                        })
-//                    }
-//                case let .error(alertMessage):
-//                    if let alertMessage = alertMessage {
-//                        self.toast.onNext(alertMessage)
-//                    } else {
-//                        self.toast.onNext("불러오기에 실패했습니다.")
-//                    }
-//                }
-//            }).disposed(by: disposeBag)
+        inputs.tapPost
+            .compactMap { [weak self] idx in
+                guard let self = self,
+                      let posts = self.posts[self.outputs.postType],
+                      idx >= 0, idx < posts.count
+                else {
+                    self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
+                    return nil
+                }
+
+                print("post id: \(posts[idx].ID)")
+                return posts[idx].ID
+            }
+            .bind(to: routes.detailPost)
+            .disposed(by: disposeBag)
 
         inputs.bookMark
             .compactMap { [weak self] idx -> Post? in
@@ -224,6 +207,7 @@ final class MyRunningListViewModel: BaseViewModel {
         var tapConfirmLog = PublishSubject<Int>()
         var tapManageAttendance = PublishSubject<Int>()
         var tapConfirmAttendance = PublishSubject<Int>()
+        var tapPost = PublishSubject<Int>()
     }
 
     struct Output {
@@ -237,6 +221,7 @@ final class MyRunningListViewModel: BaseViewModel {
         var confirmLog = PublishSubject<Int>()
         var manageAttendance = PublishSubject<Int>()
         var confirmAttendance = PublishSubject<Int>()
+        var detailPost = PublishSubject<Int>()
     }
 
     struct RouteInput {

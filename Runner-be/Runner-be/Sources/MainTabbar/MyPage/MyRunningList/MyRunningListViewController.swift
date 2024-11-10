@@ -137,6 +137,16 @@ final class MyRunningListViewController: BaseViewController {
             .map { MyRunningListViewModel.PostType.myPost }
             .bind(to: viewModel.inputs.typeChanged)
             .disposed(by: disposeBag)
+
+        allRunningCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBag)
+
+        myRunningCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
