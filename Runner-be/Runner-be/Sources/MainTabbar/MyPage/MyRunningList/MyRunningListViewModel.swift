@@ -171,7 +171,7 @@ final class MyRunningListViewModel: BaseViewModel {
         inputs.tapConfirmLog
             .compactMap { [weak self] itemIndex in
                 guard let self = self,
-                      let selectedPost = self.posts[.all]?[itemIndex]
+                      let selectedPost = self.posts[outputs.postType]?[itemIndex]
                 else {
                     return nil
                 }
