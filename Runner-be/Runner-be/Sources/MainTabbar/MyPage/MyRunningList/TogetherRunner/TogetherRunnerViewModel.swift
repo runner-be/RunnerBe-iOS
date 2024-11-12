@@ -123,11 +123,14 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
         inputs.tapShowLogButton
             .compactMap { [weak self] itemIndex in
-                guard let self = self
+                guard let self = self,
+                      let logId = self.partnerList[itemIndex].logId,
+                      self.partnerList[itemIndex].isOpened == 1
                 else {
+                    self?.toast.onNext("열람할 수 없는 로그입니다.")
                     return nil
                 }
-                return self.partnerList[itemIndex].logId
+                return logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)

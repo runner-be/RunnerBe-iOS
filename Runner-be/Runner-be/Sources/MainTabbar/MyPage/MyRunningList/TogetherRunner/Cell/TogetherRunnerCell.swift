@@ -136,11 +136,9 @@ final class TogetherRunnerCell: UITableViewCell {
         if isOpened {
             showLogButton.layer.opacity = 1
             showLogButton.setTitle("로그 보기", for: .normal)
-            showLogButton.isUserInteractionEnabled = true
         } else {
             showLogButton.layer.opacity = 0.2
             showLogButton.setTitle("비공개", for: .normal)
-            showLogButton.isUserInteractionEnabled = false
         }
     }
 }
