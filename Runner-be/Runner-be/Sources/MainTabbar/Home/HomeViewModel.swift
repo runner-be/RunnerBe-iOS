@@ -501,6 +501,16 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        routeInputs.postListOrderChanged
+            .map { [weak self] postListOrder in
+                self?.filter.filter = postListOrder.filterType
+                self?.outputs.postListOrderChanged.onNext(postListOrder)
+            }
+            .bind { [weak self] _ in
+                self?.routeInputs.needUpdate.onNext(true)
+            }
+            .disposed(by: disposeBag)
+
         inputs.tapRunningTag
             .skip(1)
             .bind(to: routes.runningTag)
