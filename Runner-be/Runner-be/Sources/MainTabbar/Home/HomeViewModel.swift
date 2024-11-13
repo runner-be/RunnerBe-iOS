@@ -402,6 +402,23 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
+        // 필터 변경에 따라 아이콘 변경 이벤트를 발생합니다.
+        routeInputs.filterChanged
+            .map { inputFilter in
+                if inputFilter.paceFilter.count == 4 &&
+                    inputFilter.gender == .none &&
+                    inputFilter.ageMin == 20 && inputFilter.ageMax == 65 &&
+                    inputFilter.afterPartyFilter == .all &&
+                    inputFilter.jobFilter == .none
+                {
+                    return false
+                }
+
+                return true
+            }
+            .bind(to: outputs.activatedFilterIcon)
+            .disposed(by: disposeBag)
+
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in
                 self?.routeInputs.needUpdate.onNext(true)
@@ -551,6 +568,7 @@ final class HomeViewModel: BaseViewModel {
         var runningTagChanged = PublishSubject<RunningTag>()
         var titleLocationChanged = PublishSubject<String?>()
         var alarmChecked = PublishSubject<Bool>()
+        var activatedFilterIcon = PublishSubject<Bool>()
     }
 
     struct Route {

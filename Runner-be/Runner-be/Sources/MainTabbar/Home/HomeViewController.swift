@@ -246,6 +246,12 @@ class HomeViewController: BaseViewController {
                 AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
+
+        viewModel.outputs.activatedFilterIcon
+            .bind { [weak self] isHighlight in
+                self?.filterIconView.icon.image = isHighlight ? Asset.filterActive.uiImage : Asset.filter.uiImage
+            }
+            .disposed(by: disposeBag)
     }
 
     private func bindBottomSheetGesture() {
@@ -531,7 +537,7 @@ class HomeViewController: BaseViewController {
         $0.label.text = "필터"
         $0.backgroundColor = .darkG55
         $0.layer.cornerRadius = 18
-        $0.icon.image = Asset.filterActive.uiImage
+        $0.icon.image = Asset.filter.uiImage
         $0.icon.image?.withTintColor(.primary)
     }
 
