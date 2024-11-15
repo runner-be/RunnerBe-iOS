@@ -57,7 +57,6 @@ class MessageChatLeftCell: UITableViewCell {
         label.font = .iosBody15R
         label.textColor = .darkG1
         label.text = "메시지 내용"
-        label.textColor = .black
         label.numberOfLines = 0
     }
 
