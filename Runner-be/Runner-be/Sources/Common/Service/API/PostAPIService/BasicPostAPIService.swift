@@ -616,4 +616,48 @@ final class BasicPostAPIService: PostAPIService {
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+
+    // 해당 postId의 모임의 참여자 목록 가져옵니다.
+    // 출석 관련 API가 존재하지 않아 게시글상세보기 API를 통해 데이터를 가져옵니다.
+    // 이 후 출석 관련 API가 추가되면 아래코드는 수정 또는 삭제가 필요합니다.
+    func attendanceList(postId: Int) -> Observable<APIResult<[RunnerInfo]>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(APIResult.error(alertMessage: nil)) }
+
+        return provider.rx.request(.detail(
+            postId: postId,
+            userId: userId,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .map { response in
+            guard let response = response else {
+                return .error(alertMessage: "Invalid response")
+            }
+
+            let runnerInfoData = (try? response.json["result"]["runnerInfo"].rawData()) ?? Data()
+
+            Log.d(tag: .info, "runnerInfo : \(runnerInfoData)")
+
+            switch response.basic.code {
+            case 1015, 1016, 1017, 1018, 1019, 1020:
+                // 성공 코드이므로 데이터를 반환해야 함
+                let decoder = JSONDecoder()
+                if let runnerInfo = try? decoder.decode([RunnerInfo].self, from: runnerInfoData) {
+                    return .response(result: runnerInfo)
+                } else {
+                    return .error(alertMessage: "Data parsing failed")
+                }
+
+            case 2010, 2011, 2012, 2041, 2042, 2044, 4000:
+                return .error(alertMessage: "API error: \(response.basic.message)")
+            default:
+                return .error(alertMessage: "Unknown error")
+            }
+        }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }

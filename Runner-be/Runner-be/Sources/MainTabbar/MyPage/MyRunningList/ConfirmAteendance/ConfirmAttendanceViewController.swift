@@ -66,7 +66,7 @@ final class ConfirmAttendanceViewController: BaseViewController {
     }
 
     private func viewModelOutput() {
-        viewModel.outputs.runnerList
+        viewModel.outputs.runnerInfoList
             .bind { [weak self] _ in
                 self?.confirmAttendanceTableView.reloadData()
 
@@ -81,7 +81,7 @@ extension ConfirmAttendanceViewController: UITableViewDelegate, UITableViewDataS
         _: UITableView,
         numberOfRowsInSection _: Int
     ) -> Int {
-        return viewModel.runnerList.count
+        return viewModel.runnerInfoList.count
     }
 
     func tableView(
@@ -93,7 +93,7 @@ extension ConfirmAttendanceViewController: UITableViewDelegate, UITableViewDataS
         ) as? ConfirmAttendanceCell
         else { return .init() }
         cell.selectionStyle = .none
-        let runner = viewModel.runnerList[indexPath.item]
+        let runner = viewModel.runnerInfoList[indexPath.item]
 
         cell.configure(with: runner)
 
