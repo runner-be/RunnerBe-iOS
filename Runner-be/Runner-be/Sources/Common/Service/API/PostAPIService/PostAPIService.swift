@@ -38,4 +38,5 @@ protocol PostAPIService {
     func attendance(postId: Int) -> Observable<APIResult<(postId: Int, success: Bool)>>
     func report(postId: Int) -> Observable<APIResult<Bool>>
     func attendanceList(postId: Int) -> Observable<APIResult<[RunnerInfo]>>
+    func manageAttendacne(postId: Int) -> Observable<APIResult<ManageAttendance>>
 }

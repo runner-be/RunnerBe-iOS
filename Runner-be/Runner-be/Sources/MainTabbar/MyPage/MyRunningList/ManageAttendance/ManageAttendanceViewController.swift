@@ -81,7 +81,7 @@ class ManageAttendanceViewController: BaseViewController {
 
         viewModel.outputs.info
             .subscribe(onNext: { info in
-                if info.attendTimeOver! == "Y" { // 출석 관리 마감 여부
+                if info.attendTimeOver { // 출석 관리 마감 여부
                     self.navBar.titleLabel.text = L10n.MyPage.MyPost.Manage.Finished.title
                     self.saveButton.isHidden = true
 
@@ -115,20 +115,15 @@ class ManageAttendanceViewController: BaseViewController {
 
                 let formatter = DateUtil.shared.dateFormatter
                 formatter.dateFormat = DateFormat.apiDate.formatString
-
-                let dateString = info.gatheringTime!
-                print("dateString : \(dateString)")
-                self.gatherDate = DateUtil.shared.apiDateStringToDate(dateString)!
-
-                let hms = info.runningTime?.components(separatedBy: ":") // hour miniute seconds
-                let hour = Int(hms![0])
-                let minute = Int(hms![1])
+                self.gatherDate = info.gatherDate
+                let hour = info.runningTime.hour
+                let minute = info.runningTime.minute
 
                 // 모임 날짜
                 self.gatherDate = self.gatherDate.addingTimeInterval(TimeInterval(9 * 60 * 60))
 
                 // 출석 마감 날짜
-                let finishedDate = self.gatherDate.addingTimeInterval(TimeInterval((hour! + 3) * 60 * 60 + minute! * 60))
+                let finishedDate = self.gatherDate.addingTimeInterval(TimeInterval((hour + 3) * 60 * 60 + minute * 60))
                 print("finishedDate \(finishedDate.description)")
 
                 // 현재 - 출석 마감 날짜 남은 분
@@ -142,7 +137,7 @@ class ManageAttendanceViewController: BaseViewController {
 
         viewModel.outputs.runnerList
             .subscribe(onNext: { runnerList in
-                self.userIdList = runnerList.map { $0.userID! }
+                self.userIdList = runnerList.map { $0.userID }
                 self.whetherAttendList = Array(repeating: "-", count: runnerList.count)
 
                 self.manageAttendanceTableView.reloadData()
@@ -249,7 +244,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
         let runnerList = viewModel.runnerList
 
         // user 세팅하기 -> profileImageURL이 null인 경우가 있으니, null일 경우엔 빈값으로 두어서 대응
-        let user = User(userID: runnerList[indexPath.row].userID!, nickName: runnerList[indexPath.row].nickName!, gender: runnerList[indexPath.row].gender!, age: runnerList[indexPath.row].age!, diligence: runnerList[indexPath.row].diligence!, pushOn: "Y", job: runnerList[indexPath.row].job!, profileImageURL: runnerList[indexPath.row].profileImageURL ?? "", pace: runnerList[indexPath.row].pace)
+        let user = User(userID: runnerList[indexPath.row].userID, nickName: runnerList[indexPath.row].nickName, gender: runnerList[indexPath.row].gender, age: runnerList[indexPath.row].age, diligence: runnerList[indexPath.row].diligence, pushOn: "Y", job: runnerList[indexPath.row].job, profileImageURL: runnerList[indexPath.row].profileImageURL ?? "", pace: runnerList[indexPath.row].pace)
         var isUser = false
 
         if runnerList[indexPath.row].whetherPostUser == "Y" {
@@ -275,7 +270,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
         // 출석관리하기 버튼 / 결과값 여부
         let attendTimeOver = viewModel.attendTimeOver
 
-        if attendTimeOver == "Y" { // 출석관리 마감시간 여부
+        if attendTimeOver { // 출석관리 마감시간 여부
             timeView.isHidden = true
             cell.resultView.isHidden = false
             cell.refusalBtn.isHidden = true
@@ -361,7 +356,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-        if viewModel.attendTimeOver == "Y" { // 출석확인
+        if viewModel.attendTimeOver { // 출석확인
             return AppContext.shared.safeAreaInsets.top + AppContext.shared.navHeight
         } else { // 출석관리
             return AppContext.shared.safeAreaInsets.top + AppContext.shared.navHeight + 48
@@ -369,7 +364,7 @@ extension ManageAttendanceViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? { // 섹션 뷰
-        if viewModel.attendTimeOver == "Y" {
+        if viewModel.attendTimeOver {
             navBar.snp.makeConstraints { make in
                 make.width.equalTo(view.frame.width)
             }

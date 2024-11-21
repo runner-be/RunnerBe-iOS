@@ -10,27 +10,26 @@ import RxSwift
 
 final class ManageAttendanceViewModel: BaseViewModel {
     var posts = [MyPosting]()
-    var runnerList: [RunnerList] = []
-    var attendTimeOver = "N"
+    var runnerList: [RunnerInfo] = []
+    var attendTimeOver = false
     var postID = -1
 
-    init(myRunningId: Int, postAPIService: PostAPIService = BasicPostAPIService()) {
+    init(
+        myRunningId: Int,
+        postAPIService: PostAPIService = BasicPostAPIService()
+    ) {
+        postID = myRunningId
         super.init()
 
         routeInputs.needUpdate
-            .flatMap { _ in postAPIService.getRunnerList() }
+            .flatMap { _ in postAPIService.manageAttendacne(postId: myRunningId) }
             .subscribe(onNext: { result in
-
                 switch result {
                 case let .response(result: result):
-                    guard let myPosting = result?.filter({ $0.postID == myRunningId }).first else {
-                        return
-                    }
-                    self.outputs.info.onNext(myPosting)
-                    self.attendTimeOver = myPosting.attendTimeOver!
-                    self.postID = myPosting.postID!
-                    self.runnerList = myPosting.runnerList!
-                    self.outputs.runnerList.onNext(myPosting.runnerList!)
+                    self.outputs.info.onNext(result)
+                    self.attendTimeOver = result.attendTimeOver
+                    self.runnerList = result.attendanceList
+                    self.outputs.runnerList.onNext(result.attendanceList)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self.toast.onNext(alertMessage)
@@ -86,8 +85,8 @@ final class ManageAttendanceViewModel: BaseViewModel {
 
     struct Output {
         var goToMyPage = PublishSubject<Bool>()
-        var runnerList = ReplaySubject<[RunnerList]>.create(bufferSize: 1)
-        var info = PublishSubject<MyPosting>()
+        var runnerList = ReplaySubject<[RunnerInfo]>.create(bufferSize: 1)
+        var info = PublishSubject<ManageAttendance>()
     }
 
     struct Route {

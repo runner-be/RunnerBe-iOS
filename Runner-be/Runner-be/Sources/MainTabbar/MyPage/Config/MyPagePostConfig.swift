@@ -56,7 +56,7 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
         let currentIntervalFromRef = now.timeIntervalSince1970 // 현재 시간
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970 // 모임 시간
         let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60) // 러닝 시간
-        let attendanceTimeLimit: Double = (3 * 60 * 60)
+        let attendanceTimeLimit: Double = (3 * 60 * 60) // 출석관리 가능 시간 TODO: 3시간 고정 재 확인
         let isCreator = post.writerID == userId
 
         if isCreator { // 모임 작성자

@@ -660,4 +660,57 @@ final class BasicPostAPIService: PostAPIService {
         .timeout(.seconds(2), scheduler: MainScheduler.instance)
         .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+
+    func manageAttendacne(postId: Int) -> Observable<APIResult<ManageAttendance>> {
+        guard let userId = loginKeyChain.userId,
+              let token = loginKeyChain.token
+        else { return .just(APIResult.error(alertMessage: nil)) }
+
+        return provider.rx.request(.detail(
+            postId: postId,
+            userId: userId,
+            token: token
+        ))
+        .asObservable()
+        .mapResponse()
+        .map { response in
+            guard let response = response else {
+                return .error(alertMessage: "Invalid response")
+            }
+            let postData = (try? response.json["result"]["postingInfo"].rawData()) ?? Data()
+            let runnerInfoData = (try? response.json["result"]["runnerInfo"].rawData()) ?? Data()
+
+            Log.d(tag: .info, "runnerInfo : \(runnerInfoData)")
+
+            switch response.basic.code {
+            case 1015, 1016, 1017, 1018, 1019, 1020:
+                // 성공 코드이므로 데이터를 반환해야 함
+                let decoder = JSONDecoder()
+                if let detailPosts = try? decoder.decode([DetailPostResponse].self, from: postData),
+                   let detailPost = detailPosts.first?.convertedDetailPost,
+                   let runnerInfo = try? decoder.decode([RunnerInfo].self, from: runnerInfoData)
+                {
+//                    let runnerInfo = runnerInfo
+                    // 출석 마감 상태 (출석확인) : (러닝모임 시간 + 러닝타임 + 출석관리시간 3시간(고정))
+                    // 출석 관리 상태 : (러닝모임 시간 + 러닝타임)
+
+                    return .response(result: ManageAttendance(
+                        currentDate: Date(),
+                        gatherDate: detailPost.post.gatherDate,
+                        runningTime: detailPost.post.runningTime,
+                        attendanceList: runnerInfo
+                    ))
+                } else {
+                    return .error(alertMessage: "Data parsing failed")
+                }
+
+            case 2010, 2011, 2012, 2041, 2042, 2044, 4000:
+                return .error(alertMessage: "API error: \(response.basic.message)")
+            default:
+                return .error(alertMessage: "Unknown error")
+            }
+        }
+        .timeout(.seconds(2), scheduler: MainScheduler.instance)
+        .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }
