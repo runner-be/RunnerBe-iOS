@@ -208,6 +208,9 @@ final class ConfirmLogViewController: BaseViewController {
 
         // 공개 설정
         privacyToggleView.toggleButton.isOn = logDetail.isOpened
+
+        // 타인이면 공개설정 숨김 처리
+        privacyToggleView.isHidden = logDetail.detailRunningLog.userId != loginKeyChain.userId
     }
 }
 
