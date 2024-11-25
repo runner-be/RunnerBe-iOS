@@ -125,7 +125,6 @@ extension DetailPostResponse {
               let ageRange = ageRange,
               let coords = coords,
               let maximumNum = peopleNum,
-              let content = contents,
               let pace = pace,
               let afterParty = afterParty
         else { return nil }
@@ -161,6 +160,6 @@ extension DetailPostResponse {
         post.marked = false
         post.attendance = false
 
-        return PostDetail(post: post, maximumNum: maximumNum, content: content)
+        return PostDetail(post: post, maximumNum: maximumNum, content: contents ?? "")
     }
 }
