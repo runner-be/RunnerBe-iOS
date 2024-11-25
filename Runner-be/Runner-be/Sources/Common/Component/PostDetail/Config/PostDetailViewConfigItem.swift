@@ -32,7 +32,17 @@ extension PostDetailRunningConfig {
         badge = postDetail.post.tag.name
         title = postDetail.post.title
         placeInfo = postDetail.post.placeName
-        time = "\(postDetail.post.runningTime.hour)시간 \(postDetail.post.runningTime.minute)분"
+
+        var time = ""
+        if postDetail.post.runningTime.hour > 0 {
+            time += "\(postDetail.post.runningTime.hour)시간 "
+        }
+
+        if postDetail.post.runningTime.minute > 0 {
+            time += "\(postDetail.post.runningTime.minute)분 "
+        }
+        self.time = time
+
         age = "\(postDetail.post.ageRange.min)-\(postDetail.post.ageRange.max)"
         date =
             DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "M/d (E)"))
