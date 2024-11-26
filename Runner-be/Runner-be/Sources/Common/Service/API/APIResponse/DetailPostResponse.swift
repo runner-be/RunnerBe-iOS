@@ -126,7 +126,8 @@ extension DetailPostResponse {
               let coords = coords,
               let maximumNum = peopleNum,
               let pace = pace,
-              let afterParty = afterParty
+              let afterParty = afterParty,
+              let peopleNum = peopleNum
         else { return nil }
 
         let writerName = ""
@@ -153,7 +154,8 @@ extension DetailPostResponse {
             postingTime: postingTime,
             afterParty: afterParty,
             pace: pace,
-            logId: logId
+            logId: logId,
+            peopleNum: peopleNum
         )
 
         post.open = open && post.gatherDate > Date()

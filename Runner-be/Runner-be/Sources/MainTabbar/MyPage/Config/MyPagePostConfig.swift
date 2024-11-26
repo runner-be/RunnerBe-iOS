@@ -51,9 +51,11 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
     var runningState: RunningState
     private let userId = BasicLoginKeyChainService.shared.userId!
 
-    init(post: Post, now: Date) {
+    init(post: Post, now _: Date) {
         cellConfig = PostCellConfig(from: post)
-        let currentIntervalFromRef = now.timeIntervalSince1970 // 현재 시간
+
+        // FIXME: 하드코딩 PostCellConfig에 중복 코드
+        let currentIntervalFromRef = Date().timeIntervalSince1970 // 현재 시간
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970 // 모임 시간
         let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60) // 러닝 시간
         let attendanceTimeLimit: Double = (3 * 60 * 60) // 출석관리 가능 시간 TODO: 3시간 고정 재 확인
@@ -65,24 +67,32 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
 
             if isStart { // (작성자) 모임 시작 후
                 if isAttendanceClosed {
-                    runningState = .attendanceClosed
+                    runningState = .attendanceClosed // 모임 종료
                 } else {
-                    runningState = .creatorDuringMeetingBeforeEnd
+                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
                 }
             } else { // (작성자) 모임 시작 전
-                runningState = .creatorBeforeMeetingStart
+                if post.peopleNum == post.attendanceProfiles.count {
+                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
+                } else {
+                    runningState = .creatorBeforeMeetingStart // 모집중
+                }
             }
         } else { // 모임 참여자
             let isDuring = currentIntervalFromRef < startIntervalFromRef + runningInterval
             let isAttendanceClosed = currentIntervalFromRef > startIntervalFromRef + runningInterval + attendanceTimeLimit // 모임 시작 후 출석 마감이 되었는가?
 
             if isDuring { // 모임 진행 중
-                runningState = .participantDuringMeeting
+                if post.peopleNum == post.attendanceProfiles.count {
+                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
+                } else {
+                    runningState = .participantDuringMeeting // 모집중
+                }
             } else { // 모임 종료
                 if isAttendanceClosed {
-                    runningState = .attendanceClosed
+                    runningState = .attendanceClosed // 출석 마감
                 } else {
-                    runningState = .logSubmissionClosed
+                    runningState = .logSubmissionClosed // 모집 종료
                 }
             }
         }

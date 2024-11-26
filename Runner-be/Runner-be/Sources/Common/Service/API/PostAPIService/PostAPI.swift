@@ -122,10 +122,6 @@ extension PostAPI: TargetType {
                 "runningTag": filter.runningTag.code,
             ]
 
-            if let userId = userId {
-                parameters["userId"] = userId
-            }
-
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):
             return .requestJSONEncodable(form)

@@ -42,6 +42,8 @@ struct Post {
     let pace: String
 
     let logId: Int?
+
+    let peopleNum: Int
 }
 
 struct PostDetail {

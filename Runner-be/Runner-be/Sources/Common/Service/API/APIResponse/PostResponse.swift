@@ -162,7 +162,8 @@ extension PostResponse {
               let runningTagType = runningTagType,
               let placeName = placeName,
               let pace = pace,
-              let afterParty = afterParty
+              let afterParty = afterParty,
+              let peopleNum = peopleNum
         else { return nil }
 
         let id = postID
@@ -192,7 +193,8 @@ extension PostResponse {
             postingTime: postingTime,
             afterParty: afterParty,
             pace: pace,
-            logId: logId
+            logId: logId,
+            peopleNum: peopleNum
         )
 
         post.marked = marked
