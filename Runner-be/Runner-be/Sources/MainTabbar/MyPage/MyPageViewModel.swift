@@ -507,9 +507,21 @@ final class MyPageViewModel: BaseViewModel {
                     let sectionYear = calendar.component(.year, from: firstDateOfSection)
                     let sectionMonth = calendar.component(.month, from: firstDateOfSection)
 
-                    if let totalCount = previousLogStampTotalCount {
-                        self.outputs.logTotalCount.onNext(totalCount)
+                    let targetPreDate = calendar.date(byAdding: .month, value: -1, to: targetDate)! // 타겟 날짜의 이전 달
+                    let targetPreMonth = calendar.dateComponents([.year, .month], from: targetPreDate).month
+
+                    let isPreMonth = (sectionMonth == targetPreMonth) // 타겟 날짜의 이전 달인가?
+
+                    if isPreMonth { // 이전달이면 이전달의 로그 횟수가져온다.
+                        if let totalCount = previousLogStampTotalCount {
+                            self.outputs.logTotalCount.onNext(totalCount)
+                        }
+                    } else { // 이전달이 아니면 현재 로그 횟수를 가져온다.
+                        if let totalCount = currentLogStampTotalCount {
+                            self.outputs.logTotalCount.onNext(totalCount)
+                        }
                     }
+
                     return (year: sectionYear, month: sectionMonth)
                 }
 
