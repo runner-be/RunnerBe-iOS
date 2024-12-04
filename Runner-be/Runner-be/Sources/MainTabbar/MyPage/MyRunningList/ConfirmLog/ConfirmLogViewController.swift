@@ -183,6 +183,9 @@ final class ConfirmLogViewController: BaseViewController {
         // 러닝 일기 작성 글
         logDiaryView.textView.text = logDetail.contents
         logDiaryView.textView.placeholder = ""
+        logDiaryView.textView.snp.updateConstraints {
+            $0.height.equalTo(logDiaryView.textView.contentSize.height)
+        }
         // 러닝 일기 사진
         logDiaryView.confirmImageView.kf.setImage(with: URL(string: logDetail.imageURL ?? ""))
 

@@ -171,6 +171,7 @@ final class WriteLogDiaryView: UIView {
         imageButton.isHidden = logDiaryType == .confirm
         confirmImageView.isHidden = logDiaryType == .write
         countLabel.isHidden = logDiaryType == .confirm
+        editView.isUserInteractionEnabled = logDiaryType == .write
 
         super.init(frame: .zero)
 
