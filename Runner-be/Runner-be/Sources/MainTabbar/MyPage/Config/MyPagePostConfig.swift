@@ -42,6 +42,7 @@ enum RunningState {
     case participantDuringMeeting // 참여자 모임참여(1) ~ 모임 중(6)
     case creatorBeforeMeetingStart // 작성자 모임작성(1) ~ 모임 시작 전(2)
     case creatorDuringMeetingBeforeEnd // 작성자 모임시작(3) ~ 출석 진행(8)
+    case participantDuringMeetingBeforeEnd // 참여자 모임시작(3) ~ 출석 진행(8)
     case attendanceClosed // 출석 마감(9)
     case logSubmissionClosed // 로그 마감(10)
 }
@@ -84,7 +85,7 @@ struct MyPagePostConfig: Equatable, IdentifiableType {
 
             if isDuring { // 모임 진행 중
                 if post.peopleNum == post.attendanceProfiles.count {
-                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
+                    runningState = .participantDuringMeetingBeforeEnd // 모집 마감
                 } else {
                     runningState = .participantDuringMeeting // 모집중
                 }

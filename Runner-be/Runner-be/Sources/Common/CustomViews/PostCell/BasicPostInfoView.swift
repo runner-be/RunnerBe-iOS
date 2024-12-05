@@ -74,6 +74,9 @@ class BasicPostInfoView: UIView {
         case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
             statusLabel.label.text = "모집 마감"
             statusLabel.label.textColor = .darkG3
+        case .participantDuringMeetingBeforeEnd: // 참여자 모임시작(3) ~ 출석 진행(8)
+            statusLabel.label.text = "모집 마감"
+            statusLabel.label.textColor = .darkG3
         case .attendanceClosed: // 출석 마감(9)
             statusLabel.label.text = "모임 종료"
             statusLabel.label.textColor = .darkG3

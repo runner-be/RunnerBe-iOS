@@ -113,6 +113,9 @@ extension MyPagePostCell {
         case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
             postInfoView.statusLabel.label.text = "모집 마감"
             postInfoView.statusLabel.label.textColor = .darkG3
+        case .participantDuringMeetingBeforeEnd: // 참여자 모임시작(3) ~ 출석 진행(8)
+            postInfoView.statusLabel.label.text = "모집 마감"
+            postInfoView.statusLabel.label.textColor = .darkG3
         case .attendanceClosed: // 출석 마감(9)
             postInfoView.statusLabel.label.text = "모임 종료"
             postInfoView.statusLabel.label.textColor = .darkG3
