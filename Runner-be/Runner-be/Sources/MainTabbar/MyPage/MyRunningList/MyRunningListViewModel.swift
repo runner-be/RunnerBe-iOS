@@ -33,19 +33,15 @@ final class MyRunningListViewModel: BaseViewModel {
                 switch result {
                 case let .response(result: data):
                     switch data {
-                    case let .success(info, posting, joined):
-                        let now = DateUtil.shared.now
-                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+                    case let .success(_, posting, joined):
+                        self.posts[.all] = joined.reversed()
+                        self.posts[.myPost] = posting.reversed()
 
-                        self.posts[.all] = joins
-                        self.posts[.myPost] = postings
-
-                        let posts = self.outputs.postType == .all ? joins : postings
-
-                        self.outputs.posts.onNext(posts.map {
-                            MyPagePostConfig(post: $0, now: now)
-                        })
+                        if let posts = self.posts[self.outputs.postType] {
+                            self.outputs.newPosts.onNext(posts.map { PostConfig(from: $0) })
+                        } else {
+                            self.toast.onNext("불러오기에 실패했습니다.")
+                        }
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -57,20 +53,16 @@ final class MyRunningListViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
 
         inputs.typeChanged
-            .filter { [unowned self] type in
-                type != self.outputs.postType
+            .map { [weak self] postType in
+                if postType != self?.outputs.postType {
+                    self?.outputs.postType = postType
+                    self?.outputs.newPosts.onNext([])
+                    return true
+                } else {
+                    return false
+                }
             }
-            .map { [unowned self] type -> [Post] in
-                self.outputs.postType = type
-                return self.posts[type] ?? []
-            }
-            .map { posts -> [MyPagePostConfig] in
-                let now = DateUtil.shared.now
-                return posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, now: now)) }
-            }
-            .subscribe(onNext: { [unowned self] postConfigs in
-                self.outputs.posts.onNext(postConfigs)
-            })
+            .bind(to: routeInputs.needUpdate)
             .disposed(by: disposeBag)
 
         inputs.tapPost
@@ -122,7 +114,7 @@ final class MyRunningListViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
                       let posts = self.posts[self.outputs.postType],
-                      let idx = posts.firstIndex(where: { $0.ID == result.postId })
+                      let _ = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
                     self?.toast.onNext("북마크를 실패했습니다.")
                     return
@@ -139,16 +131,18 @@ final class MyRunningListViewModel: BaseViewModel {
                 {
                     self.posts[.myPost]![idx].marked = result.mark
                 }
-
-                self.outputs.posts.onNext(self.posts[.all]!.map { MyPagePostConfig(post: $0, now: Date()) })
-                self.outputs.posts.onNext(self.posts[.myPost]!.map { MyPagePostConfig(post: $0, now: Date()) })
+                if let posts = self.posts[self.outputs.postType] {
+                    self.outputs.newPosts.onNext(posts.map { PostConfig(from: $0) })
+                } else {
+                    self.toast.onNext("북마크를 실패했습니다.")
+                }
             })
             .disposed(by: disposeBag)
 
         inputs.tapWriteLog
             .compactMap { [weak self] itemIndex in
                 guard let self = self,
-                      let selectedPost = self.posts[.all]?[itemIndex]
+                      let selectedPost = self.posts[outputs.postType]?[itemIndex]
                 else {
                     return nil
                 }
@@ -213,6 +207,7 @@ final class MyRunningListViewModel: BaseViewModel {
     struct Output {
         var postType: PostType = .all
         var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var newPosts = ReplaySubject<[PostConfig]>.create(bufferSize: 1)
     }
 
     struct Route {
