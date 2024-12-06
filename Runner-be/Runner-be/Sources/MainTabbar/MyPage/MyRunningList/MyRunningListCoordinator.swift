@@ -175,8 +175,8 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward(_, needUpdate):
-                vm.routeInputs.needUpdate.onNext(needUpdate)
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }
