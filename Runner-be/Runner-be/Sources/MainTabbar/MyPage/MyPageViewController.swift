@@ -153,7 +153,7 @@ final class MyPageViewController: BaseViewController {
                 self.myLogStampView.logStampCollectionView.scrollToItem(
                     at: IndexPath(
                         item: 0,
-                        section: self.myLogStampView.pageControl.currentPage
+                        section: 2
                     ),
                     at: .left,
                     animated: true
