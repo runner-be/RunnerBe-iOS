@@ -18,7 +18,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     var user: User?
-    var posts = [PostType: [Post]]()
+    var posts = [Post]()
     private var myRunningLogs: [MyRunningLog?] = []
 
     typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
@@ -175,25 +175,16 @@ final class MyPageViewModel: BaseViewModel {
             .flatMap { _ in postAPIService.myPage() }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
-                self.posts.removeAll()
-                self.outputs.posts.onNext([])
 
                 switch result {
                 case let .response(result: data):
                     switch data {
-                    case let .success(info, posting, joined):
-                        let now = DateUtil.shared.now
+                    case let .success(info, _, joined):
                         self.user = info
-                        // FIXME: postings 사용하지 않음, 마이페이지에서는 참여한 러닝만 포함하고 있기 때문
-                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+                        self.posts = joined.reversed()
 
-                        self.posts[.myPost] = postings
-                        self.posts[.attendable] = joins
-
-                        self.user = info
                         self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                        self.outputs.posts.onNext(joins.map { MyPagePostConfig(post: $0, now: now) })
+                        self.outputs.posts.onNext(self.posts.map { PostConfig(from: $0) })
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -202,23 +193,6 @@ final class MyPageViewModel: BaseViewModel {
                         self.toast.onNext("불러오기에 실패했습니다.")
                     }
                 }
-            })
-            .disposed(by: disposeBag)
-
-        inputs.typeChanged
-            .filter { [unowned self] type in
-                type != self.outputs.postType
-            }
-            .map { [unowned self] type -> [Post] in
-                self.outputs.postType = type
-                return self.posts[type] ?? []
-            }
-            .map { posts -> [MyPagePostConfig] in
-                let now = DateUtil.shared.now
-                return posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, now: now)) }
-            }
-            .subscribe(onNext: { [unowned self] postConfigs in
-                self.outputs.posts.onNext(postConfigs)
             })
             .disposed(by: disposeBag)
 
@@ -272,7 +246,6 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapPost
             .compactMap { [weak self] idx in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
@@ -288,7 +261,6 @@ final class MyPageViewModel: BaseViewModel {
         inputs.bookMark
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("북마크를 실패했습니다.")
@@ -317,22 +289,20 @@ final class MyPageViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
                     self?.toast.onNext("북마크를 실패했습니다.")
                     return
                 }
 
-                self.posts[self.outputs.postType]![idx].marked = result.mark
-                self.outputs.posts.onNext(self.posts[self.outputs.postType]!.map { MyPagePostConfig(post: $0, now: Date()) })
+                self.posts[idx].marked = result.mark
+                self.outputs.posts.onNext(self.posts.map { PostConfig(from: $0) })
             })
             .disposed(by: disposeBag)
 
         inputs.attend
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
@@ -346,7 +316,6 @@ final class MyPageViewModel: BaseViewModel {
                 case let .response(result: data):
                     guard data.success,
                           let self = self,
-                          let posts = self.posts[self.outputs.postType],
                           let idx = posts.firstIndex(where: { $0.ID == data.postId })
                     else {
                         self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
@@ -386,10 +355,6 @@ final class MyPageViewModel: BaseViewModel {
         inputs.writePost
             .bind(to: routes.writePost)
             .disposed(by: disposeBag)
-
-//        inputs.manageAttendance
-//            .bind(to: routes.manageAttendance)
-//            .disposed(by: disposeBag)
 
         Observable<String?>.of(user?.profileImageURL)
             .subscribe(outputs.currentProfile)
@@ -448,12 +413,10 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.tapWriteLog
             .compactMap { [weak self] itemIndex in
-                guard let self = self,
-                      let selectedPost = self.posts[.attendable]?[itemIndex]
-                else {
+                guard let self = self else {
                     return nil
                 }
-
+                let selectedPost = self.posts[itemIndex]
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
                     logId: selectedPost.ID,
@@ -471,12 +434,10 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.tapConfirmLog
             .compactMap { [weak self] itemIndex in
-                guard let self = self,
-                      let selectedPost = self.posts[.attendable]?[itemIndex]
-                else {
+                guard let self = self else {
                     return nil
                 }
-
+                let selectedPost = self.posts[itemIndex]
                 return selectedPost.logId
             }
             .bind(to: routes.confirmLog)
@@ -485,7 +446,7 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapManageAttendance
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
-                return posts[outputs.postType]?[index].ID
+                return posts[index].ID
             }
             .bind(to: routes.manageAttendance)
             .disposed(by: disposeBag)
@@ -493,7 +454,7 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapConfirmAttendance
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
-                return posts[outputs.postType]?[index].ID
+                return posts[index].ID
             }
             .bind(to: routes.confirmAttendance)
             .disposed(by: disposeBag)
@@ -604,7 +565,7 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         var postType: PostType = .attendable
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
-        var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var posts = ReplaySubject<[PostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()

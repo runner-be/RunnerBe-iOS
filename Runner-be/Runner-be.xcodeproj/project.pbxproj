@@ -58,6 +58,8 @@
 		2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */; };
 		2B6D003A2C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */; };
 		2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */; };
+		2B7789392D01C62B00A88C78 /* PostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7789382D01C62300A88C78 /* PostDataSource.swift */; };
+		2B77893B2D01CE4800A88C78 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77893A2D01CE4000A88C78 /* PostCell.swift */; };
 		2B7EA0722CDF2AEB00BE5C0B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EA0712CDF2AE700BE5C0B /* Array+.swift */; };
 		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
 		2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */; };
@@ -566,6 +568,8 @@
 		2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetCoordinator.swift; sourceTree = "<group>"; };
 		2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewController.swift; sourceTree = "<group>"; };
+		2B7789382D01C62300A88C78 /* PostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataSource.swift; sourceTree = "<group>"; };
+		2B77893A2D01CE4000A88C78 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		2B7EA0712CDF2AE700BE5C0B /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
 		2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerComponent.swift; sourceTree = "<group>"; };
@@ -1651,6 +1655,8 @@
 		C32C029727CB9F7E0011419E /* CommonConfig */ = {
 			isa = PBXGroup;
 			children = (
+				2B77893A2D01CE4000A88C78 /* PostCell.swift */,
+				2B7789382D01C62300A88C78 /* PostDataSource.swift */,
 				C32C029827CB9F8E0011419E /* UserConfig.swift */,
 			);
 			path = CommonConfig;
@@ -3476,6 +3482,7 @@
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
+				2B77893B2D01CE4800A88C78 /* PostCell.swift in Sources */,
 				2B7EA0722CDF2AEB00BE5C0B /* Array+.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
@@ -3607,6 +3614,7 @@
 				2B0A758D2C75FF2D00818710 /* SelectPlaceGuideView.swift in Sources */,
 				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
+				2B7789392D01C62B00A88C78 /* PostDataSource.swift in Sources */,
 				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,

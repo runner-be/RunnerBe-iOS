@@ -41,13 +41,13 @@ class BasicPostInfoView: UIView {
         )
 
         update(with: item.runningState)
-//        if item.peopleNum == item.attendanceProfiles.count {
-//            statusLabel.label.text = "모집 마감"
-//            statusLabel.label.textColor = .darkG3
-//        } else {
-//            statusLabel.label.textColor = .primarydark
-//            statusLabel.label.text = "모집중"
-//        }
+        //        if item.peopleNum == item.attendanceProfiles.count {
+        //            statusLabel.label.text = "모집 마감"
+        //            statusLabel.label.textColor = .darkG3
+        //        } else {
+        //            statusLabel.label.textColor = .primarydark
+        //            statusLabel.label.text = "모집중"
+        //        }
     }
 
     func configure(with item: UserPostCellConfig) {
@@ -61,6 +61,20 @@ class BasicPostInfoView: UIView {
             pace: item.pace,
             viewType: .postDetail
         )
+    }
+
+    func configure(with item: PostConfig) {
+        bookMarkIcon.isSelected = item.bookmarked
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.text = "\(item.gender) · \(item.ageText)"
+        bookMarkIcon.isSelected = item.bookmarked
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
+        update(with: item.runningState)
     }
 
     func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분

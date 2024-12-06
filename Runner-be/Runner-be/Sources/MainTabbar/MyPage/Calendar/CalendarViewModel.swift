@@ -244,6 +244,7 @@ final class CalendarViewModel: BaseViewModel {
             dates += generateCurrentMonthDates(targetDate)
             dates += generateNextMonthDates(targetDate)
             markMonthGatheringDates(existingGathering)
+            print("senf9i0sejf09sej ")
             outputs.days.onNext(markMonthLogDates(runningLogs: runningLog))
 
             outputs.changedTargetDate.onNext((

@@ -167,65 +167,74 @@ final class MyPageViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
 
-        // 작성한 글 탭
-        typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
+        typealias PostDataSource = RxCollectionViewSectionedAnimatedDataSource<PostSection>
+        let postDataSource = PostDataSource(
+            configureCell: { [weak self] _, collectionView, indexPath, item -> UICollectionViewCell in
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(
+                          withReuseIdentifier: PostCell.id,
+                          for: indexPath
+                      ) as? PostCell
+                else {
+                    return UICollectionViewCell()
+                }
 
-        let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self else { return UICollectionViewCell() }
+                cell.configure(with: item)
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
-            else { return UICollectionViewCell() }
+                cell.postInfoView.bookMarkIcon.rx.tap
+                    .map { indexPath.item }
+                    .subscribe(onNext: { [weak self] index in
+                        self?.viewModel.inputs.bookMark.onNext(index)
+                    }).disposed(by: cell.disposeBag)
 
-            cell.configure(with: item)
+                cell.manageAttendanceButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapManageAttendance)
+                    .disposed(by: cell.disposeBag)
 
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.item }
-                .subscribe(onNext: { [weak self] index in
-                    self?.viewModel.inputs.bookMark.onNext(index)
-                }).disposed(by: cell.disposeBag)
+                cell.confirmAttendanceButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapConfirmAttendance)
+                    .disposed(by: cell.disposeBag)
 
-            cell.manageAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapManageAttendance)
-                .disposed(by: cell.disposeBag)
+                cell.writeLogButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapWriteLog)
+                    .disposed(by: cell.disposeBag)
 
-            cell.confirmAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmAttendance)
-                .disposed(by: cell.disposeBag)
+                cell.confirmLogButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapConfirmLog)
+                    .disposed(by: cell.disposeBag)
 
-            cell.writeLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapWriteLog)
-                .disposed(by: cell.disposeBag)
-
-            cell.confirmLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmLog)
-                .disposed(by: cell.disposeBag)
-            return cell
-        }
-
-        viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-            .map { [MyPagePostSection(items: $0)] }
-            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.posts
-            .map { $0.isEmpty }
-            .subscribe(onNext: { [weak self] empty in
-                guard let self = self else { return }
-                self.myRunningCollectionView.isHidden = false
-                self.myRunningEmptyLabel.isHidden = !empty
-                self.myRunningEmptyButton.isHidden = !empty
+                return cell
             })
+
+        viewModel.outputs.posts
+            .debug("MyPage-Post")
+            .map { [PostSection(items: $0)] }
+            .bind(to: myRunningCollectionView.rx.items(dataSource: postDataSource))
             .disposed(by: disposeBag)
+
+//        viewModel.outputs.posts
+//            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
+//            .map { [MyPagePostSection(items: $0)] }
+//            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
+//            .disposed(by: disposeBag)
+
+//        viewModel.outputs.posts
+//            .map { $0.isEmpty }
+//            .subscribe(onNext: { [weak self] empty in
+//                guard let self = self else { return }
+//                self.myRunningCollectionView.isHidden = false
+//                self.myRunningEmptyLabel.isHidden = !empty
+//                self.myRunningEmptyButton.isHidden = !empty
+//            })
+//            .disposed(by: disposeBag)
 
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
@@ -364,7 +373,7 @@ final class MyPageViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
         collectionView.isPagingEnabled = false
