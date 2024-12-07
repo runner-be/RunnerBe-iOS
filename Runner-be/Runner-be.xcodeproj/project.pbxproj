@@ -66,6 +66,7 @@
 		2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */; };
 		2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */; };
 		2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */; };
+		2B92EE1B2D04345800A4CB98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */; };
 		2B9738192C873B4500DD79B0 /* TogetherRunnerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9738182C873B4500DD79B0 /* TogetherRunnerDataSource.swift */; };
 		2B9ACC692C88766000E2B16D /* LogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC682C88766000E2B16D /* LogAPI.swift */; };
 		2B9ACC6B2C88797700E2B16D /* LogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */; };
@@ -338,7 +339,6 @@
 		C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */; };
 		C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */; };
 		C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9627C57F5A0088E387 /* PostingForm.swift */; };
-		C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */; };
 		C3AB6B61280EBFCC00D58AEC /* EditProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
@@ -576,6 +576,8 @@
 		2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerCoordinator.swift; sourceTree = "<group>"; };
 		2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
 		2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		2B92EE192D04302800A4CB98 /* Runner-beRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Runner-beRelease.entitlements"; sourceTree = "<group>"; };
+		2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2B9738182C873B4500DD79B0 /* TogetherRunnerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerDataSource.swift; sourceTree = "<group>"; };
 		2B9ACC682C88766000E2B16D /* LogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPI.swift; sourceTree = "<group>"; };
 		2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPIService.swift; sourceTree = "<group>"; };
@@ -847,7 +849,6 @@
 		C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostAPIService.swift; sourceTree = "<group>"; };
 		C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellConfig.swift; sourceTree = "<group>"; };
 		C3A64F9627C57F5A0088E387 /* PostingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingForm.swift; sourceTree = "<group>"; };
-		C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileType.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -1851,6 +1852,7 @@
 		C34FDA1C27AD5997007718F8 /* Runner-be */ = {
 			isa = PBXGroup;
 			children = (
+				2B92EE192D04302800A4CB98 /* Runner-beRelease.entitlements */,
 				2BD73D842C27C91A0058D6E9 /* Ignore */,
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
@@ -1858,7 +1860,7 @@
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
-				C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */,
+				2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */,
 			);
 			path = "Runner-be";
 			sourceTree = "<group>";
@@ -3033,6 +3035,7 @@
 			files = (
 				C39D86C927AEB78700A9C201 /* AppleSDGothicNeoR.ttf in Resources */,
 				DA17F4802B653FD500CD237A /* Pretendard-Bold.otf in Resources */,
+				2B92EE1B2D04345800A4CB98 /* GoogleService-Info.plist in Resources */,
 				DA17F4862B653FD500CD237A /* Pretendard-Medium.otf in Resources */,
 				DA17F4812B653FD500CD237A /* Pretendard-ExtraBold.otf in Resources */,
 				C39D86C627AEB78700A9C201 /* AppleSDGothicNeoSB.ttf in Resources */,
@@ -3047,7 +3050,6 @@
 				DA17F4822B653FD500CD237A /* Pretendard-SemiBold.otf in Resources */,
 				C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */,
 				C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */,
-				C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */,
 				C3F0968427AED0F900959F9A /* Localizable.strings in Resources */,
 				DA17F4842B653FD500CD237A /* Pretendard-Light.otf in Resources */,
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
@@ -3839,7 +3841,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-beRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.2.7;
