@@ -158,6 +158,7 @@ final class MyPageViewController: BaseViewController {
                     at: .left,
                     animated: true
                 )
+                myLogStampView.pageControl.currentPage = 2
             })
             .disposed(by: disposeBag)
 
