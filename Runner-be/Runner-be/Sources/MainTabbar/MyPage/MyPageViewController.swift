@@ -221,22 +221,6 @@ final class MyPageViewController: BaseViewController {
             .bind(to: myRunningCollectionView.rx.items(dataSource: postDataSource))
             .disposed(by: disposeBag)
 
-//        viewModel.outputs.posts
-//            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-//            .map { [MyPagePostSection(items: $0)] }
-//            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-//            .disposed(by: disposeBag)
-
-//        viewModel.outputs.posts
-//            .map { $0.isEmpty }
-//            .subscribe(onNext: { [weak self] empty in
-//                guard let self = self else { return }
-//                self.myRunningCollectionView.isHidden = false
-//                self.myRunningEmptyLabel.isHidden = !empty
-//                self.myRunningEmptyButton.isHidden = !empty
-//            })
-//            .disposed(by: disposeBag)
-
         viewModel.outputs.userInfo
             .subscribe(onNext: { [weak self] config in
                 self?.myProfileView.configure(with: config)

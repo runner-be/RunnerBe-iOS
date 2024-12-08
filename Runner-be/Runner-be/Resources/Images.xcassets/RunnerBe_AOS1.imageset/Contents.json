@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ios__ 1.png",
+      "filename" : "RunnerBe_AOS1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ios__ 1@2x.png",
+      "filename" : "RunnerBe_AOS1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ios__ 1@3x.png",
+      "filename" : "RunnerBe_AOS1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

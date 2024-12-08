@@ -29,6 +29,8 @@ class MakerView: UIView {
         view.contentMode = .scaleAspectFit
     }
 
+    var labelContainerView = UIView()
+
     var roleLabel = UILabel().then { label in
         label.font = .iosBody13B
         label.textColor = .primary
@@ -44,6 +46,10 @@ class MakerView: UIView {
     func setupViews() {
         addSubviews([
             imageView,
+            labelContainerView,
+        ])
+
+        labelContainerView.addSubviews([
             roleLabel,
             nameLabel,
         ])
@@ -53,18 +59,24 @@ class MakerView: UIView {
         imageView.snp.makeConstraints { make in
             make.width.equalTo(83)
             make.height.equalTo(96)
+            make.centerX.equalToSuperview()
             make.leading.equalTo(self.snp.leading)
             make.top.equalTo(self.snp.top)
         }
 
-        roleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.leading).offset(10)
-            make.top.equalTo(imageView.snp.bottom).offset(5)
+        labelContainerView.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(4)
+            $0.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
 
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(roleLabel.snp.trailing).offset(6)
-            make.centerY.equalTo(roleLabel.snp.centerY)
+        roleLabel.snp.makeConstraints {
+            $0.top.left.bottom.equalToSuperview()
+        }
+
+        nameLabel.snp.makeConstraints {
+            $0.top.right.bottom.equalToSuperview()
+            $0.left.equalTo(roleLabel.snp.right).offset(6)
         }
     }
 }

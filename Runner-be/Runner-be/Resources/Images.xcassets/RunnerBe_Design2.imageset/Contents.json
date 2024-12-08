@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "RunnerBe_Plan.png",
+      "filename" : "RunnerBe_Design2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "RunnerBe_Plan@2x.png",
+      "filename" : "RunnerBe_Design2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "RunnerBe_Plan@3x.png",
+      "filename" : "RunnerBe_Design2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
