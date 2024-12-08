@@ -98,8 +98,7 @@ final class TogetherRunnerCell: UITableViewCell {
     // FIXME: 조장을 인덱스 첫번째일 경우로 임시 설정됨 API수정후 앱적용
     func configure(
         with config: TogetherRunnerConfig,
-        index: Int,
-        logId: Int?
+        index: Int
     ) {
         disposeBag = DisposeBag()
         nameLabel.text = config.nickname
@@ -117,19 +116,14 @@ final class TogetherRunnerCell: UITableViewCell {
             stampBg.isHidden = true
         }
 
-        updateLogButton(with: config, logId: logId)
+        updateLogButton(with: config)
     }
 
     // FIXME: 임시
-    private func updateLogButton(
-        with config: TogetherRunnerConfig,
-        logId: Int?
-    ) {
+    private func updateLogButton(with config: TogetherRunnerConfig) {
         let isOpened = (config.isOpened == 1)
-        if logId == nil {
-            showLogButton.snp.makeConstraints {
-                $0.width.equalTo(0)
-            }
+        if config.logId == nil {
+            showLogButton.layer.opacity = 0
             return
         }
 
