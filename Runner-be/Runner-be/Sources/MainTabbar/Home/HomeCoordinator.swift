@@ -74,6 +74,12 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 self?.pushAlarmListScene(vm: vm, animated: true)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.registerRunningPace
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushRegisterRunningPaceScene(vm: scene.VM)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
@@ -110,6 +116,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
         ) { coordResult in
             switch coordResult {
             case let .backward(filter):
+
                 vm.routeInputs.filterChanged.onNext(filter)
             }
         }
@@ -149,6 +156,20 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             switch coordResult {
             case .backward:
                 vm.routeInputs.alarmChecked.onNext(())
+            }
+        }
+    }
+
+    func pushRegisterRunningPaceScene(vm: HomeViewModel) {
+        let comp = component.registerRunningPaceComponent
+        let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .close:
+                break
+            case .registeredAndClose:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }

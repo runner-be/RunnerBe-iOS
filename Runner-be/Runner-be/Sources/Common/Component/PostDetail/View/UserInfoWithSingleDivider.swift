@@ -24,7 +24,7 @@ final class UserInfoWithSingleDivider: UIView {
         userInfoView.setup(userInfo: userInfo)
     }
 
-    private var userInfoView = UserInfoView()
+    let userInfoView = UserInfoView()
 
     private var hDivider = UIView().then { view in
         view.backgroundColor = .darkG5

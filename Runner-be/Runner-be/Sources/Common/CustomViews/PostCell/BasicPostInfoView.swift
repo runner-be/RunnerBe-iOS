@@ -25,78 +25,98 @@ class BasicPostInfoView: UIView {
         initialLayout()
     }
 
-    func configure(with item: PostCellConfig, backgroundColor: UIColor = .darkG55) {
+    func configure(
+        with item: PostCellConfig,
+        backgroundColor _: UIColor = .darkG55
+    ) {
         bookMarkIcon.isSelected = item.bookmarked
         titleLabel.text = item.title
         dateLabel.label.text = item.date
-        participantLabel.label.text = "\(item.gender) · \(item.ageText)"
+        participantLabel.text = "\(item.gender) · \(item.ageText)"
         bookMarkIcon.isSelected = item.bookmarked
-        timeLabel.label.text = item.time
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
 
-        if !item.attendanceProfiles.isEmpty {
-            let numProfiles = min(4, CGFloat(item.attendanceProfiles.count))
-            let profileSpacing = Constants.Profile.spacing
-            let profileDimension = Constants.Profile.dimension
-            var offsetLeading = (numProfiles - 1) * profileDimension + profileSpacing * (numProfiles - 1)
-            for idx in 1 ... Int(numProfiles) {
-                let reverseIdx = Int(numProfiles) - idx
-                let imageView = UIImageView()
-                profileFrameView.addSubview(imageView)
+        update(with: item.runningState)
+        //        if item.peopleNum == item.attendanceProfiles.count {
+        //            statusLabel.label.text = "모집 마감"
+        //            statusLabel.label.textColor = .darkG3
+        //        } else {
+        //            statusLabel.label.textColor = .primarydark
+        //            statusLabel.label.text = "모집중"
+        //        }
+    }
 
-                if let profileURL = item.attendanceProfiles[reverseIdx].profileImageURL {
-                    imageView.kf.setImage(with: URL(string: profileURL), placeholder: Asset.profileEmptyIcon.uiImage)
-                } else {
-                    imageView.image = Asset.profileEmptyIcon.uiImage
-                }
+    func configure(with item: UserPostCellConfig) {
+        bookMarkIcon.isHidden = true
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.text = item.age
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
 
-                imageView.snp.makeConstraints { make in
-                    make.top.equalTo(profileFrameView.snp.top)
-                    make.bottom.equalTo(profileFrameView.snp.bottom)
-                    make.leading.equalTo(profileFrameView.snp.leading).offset(offsetLeading)
-                    make.width.equalTo(profileDimension)
-                    make.height.equalTo(profileDimension)
-                }
-                imageView.clipsToBounds = true
-                imageView.layer.borderColor = backgroundColor.cgColor
-                imageView.layer.borderWidth = Constants.Profile.borderWidth
-                imageView.layer.cornerRadius = Constants.Profile.cornerRadius
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
+    }
 
-                offsetLeading -= profileDimension + profileSpacing
-            }
+    func configure(with item: PostConfig) {
+        bookMarkIcon.isSelected = item.bookmarked
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.text = "\(item.gender) · \(item.ageText)"
+        bookMarkIcon.isSelected = item.bookmarked
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
+        update(with: item.runningState)
+    }
 
-            profileFrameView.snp.updateConstraints { make in
-                make.width.equalTo(numProfiles * profileDimension + profileSpacing * (numProfiles - 1))
-            }
-
-            if numProfiles > 4 {
-                profileExtraLabel.text = "외 \(Int(numProfiles) - 4)명"
-                profileExtraLabel.isHidden = false
-            } else {
-                profileExtraLabel.isHidden = true
-            }
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
+        switch state {
+        case .participantDuringMeeting: // 참여자 모임참여(1) ~ 모임 중(6)
+            statusLabel.label.text = "모집중"
+            statusLabel.label.textColor = .primarydark
+        case .creatorBeforeMeetingStart: // 작성자 모임작성(1) ~ 모임 시작 전(2)
+            statusLabel.label.text = "모집중"
+            statusLabel.label.textColor = .primarydark
+        case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
+            statusLabel.label.text = "모집 마감"
+            statusLabel.label.textColor = .darkG3
+        case .participantDuringMeetingBeforeEnd: // 참여자 모임시작(3) ~ 출석 진행(8)
+            statusLabel.label.text = "모집 마감"
+            statusLabel.label.textColor = .darkG3
+        case .attendanceClosed: // 출석 마감(9)
+            statusLabel.label.text = "모임 종료"
+            statusLabel.label.textColor = .darkG3
+        case .logSubmissionClosed: // 로그 마감(10)
+            statusLabel.label.text = "모집 종료"
+            statusLabel.label.textColor = .darkG3
         }
-
-        recruitFinishView.isHidden = !item.closed
     }
 
     func reset() {
         bookMarkIcon.isSelected = false
-        profileFrameView.subviews.forEach { $0.removeFromSuperview() }
     }
 
     enum Constants {
         enum BookMark {}
 
         enum Title {
-            static let height: CGFloat = 25
-            static let font: UIFont = .iosTitle19R
-            static let textColor: UIColor = .darkG2
+            static let height: CGFloat = 22
+            static let font: UIFont = .pretendardBold16
+            static let textColor: UIColor = .darkG1
         }
 
         enum Profile {
             static let top: CGFloat = 14
 
-            static let dimension: CGFloat = 28
+            static let dimension: CGFloat = 0
             static let spacing: CGFloat = -8
             static let borderWidth: CGFloat = 2
             static let cornerRadius: CGFloat = dimension / 2.0
@@ -123,70 +143,50 @@ class BasicPostInfoView: UIView {
         }
     }
 
-    var blurAlpha: CGFloat = 0.7
-
-    var bookMarkIcon = UIButton().then { button in
-        button.setImage(Asset.bookmarkTabIconNormal.uiImage, for: .normal)
-        button.setImage(Asset.bookmarkTabIconFocused.uiImage, for: .selected)
+    var bookMarkIcon = UIButton().then {
+        $0.setImage(Asset.bookmarkTabIconNormal.uiImage, for: .normal)
+        $0.setImage(Asset.bookmarkTabIconFocused.uiImage, for: .selected)
     }
 
-    var titleLabel = UILabel().then { label in
-        label.font = Constants.Title.font
-        label.textColor = Constants.Title.textColor
-        label.text = "PostTitlePlaceHolder"
+    private var titleLabel = UILabel().then {
+        $0.font = .pretendardSemiBold16
+        $0.textColor = .darkG1
+        $0.text = "PostTitlePlaceHolder"
     }
 
-    var profileFrameView = UIView()
-
-    var dateLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
-        view.label.font = Constants.InfoLabel.font
-        view.label.textColor = Constants.InfoLabel.textColor
-        view.label.text = "3/31 (금) AM 6:00"
-        view.icon.image = Asset.scheduled.uiImage
+    let statusLabel = IconLabel(
+        iconSize: CGSize(width: 16, height: 16),
+        spacing: 6
+    ).then {
+        $0.label.font = .pretendardRegular14
+        $0.label.textColor = .primarydark
+        $0.label.text = "모집중"
+        $0.icon.image = Asset.group.uiImage
     }
 
-    var timeLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
-        view.label.font = Constants.InfoLabel.font
-        view.label.textColor = Constants.InfoLabel.textColor
-        view.label.text = "2시간 20분"
-        view.icon.image = Asset.time.uiImage
+    private var dateLabel = IconLabel(
+        iconSize: CGSize(width: 16, height: 16),
+        spacing: 6
+    ).then {
+        $0.label.font = .pretendardRegular14
+        $0.label.textColor = .darkG3
+        $0.label.text = "3/31 (금) AM 6:00"
+        $0.icon.image = Asset.scheduled.uiImage
     }
 
-    var participantLabel = IconLabel(iconSize: Constants.InfoLabel.iconSize, spacing: Constants.InfoLabel.spacing).then { view in
-        view.label.font = Constants.InfoLabel.font
-        view.label.textColor = Constants.InfoLabel.textColor
-        view.label.text = "여성 · 20-35"
-        view.icon.image = Asset.group.uiImage
+    private var participantLabel = UILabel().then {
+        $0.font = .pretendardRegular14
+        $0.textColor = .darkG3
+        $0.text = "여성 · 20-35"
     }
 
-    lazy var participantExtraHStack = UIStackView.make(with: [profileExtraLabel, recruitFinishView], axis: .horizontal, alignment: .center, distribution: .equalSpacing, spacing: 8)
-
-    var profileExtraLabel = UILabel().then { label in
-        label.textColor = .darkG35
-        label.font = .iosBody13R
+    private var afterPartyLabel = UILabel().then {
+        $0.font = .pretendardRegular14
+        $0.textColor = .darkG3
+        $0.text = "뒷풀이 없음"
     }
 
-    var recruitFinishView = UIView().then { view in
-        view.backgroundColor = .darkG45
-        view.layer.cornerRadius = 4
-        view.clipsToBounds = true
-
-        let label = UILabel()
-        label.text = "모집 완료"
-        label.textColor = .darkG25
-        label.font = .iosBody13B
-
-        view.addSubview(label)
-
-        view.snp.makeConstraints { make in
-            make.height.equalTo(28)
-        }
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(8)
-            make.trailing.equalTo(view.snp.trailing).offset(-8)
-            make.centerY.equalTo(view.snp.centerY)
-        }
-    }
+    private var runningPaceView = RunningPaceView()
 }
 
 extension BasicPostInfoView {
@@ -194,55 +194,57 @@ extension BasicPostInfoView {
         backgroundColor = .clear
         addSubviews([
             bookMarkIcon,
-            profileFrameView,
             titleLabel,
-            dateLabel,
-            timeLabel,
+            statusLabel,
             participantLabel,
-            participantExtraHStack,
+            dateLabel,
+            afterPartyLabel,
+            runningPaceView,
         ])
     }
 
     private func initialLayout() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
-            make.leading.equalTo(self.snp.leading)
-            make.height.equalTo(Constants.Title.height)
+        titleLabel.snp.makeConstraints {
+            $0.top.left.equalToSuperview()
+            $0.height.equalTo(22)
         }
 
-        bookMarkIcon.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.top)
-            make.trailing.equalTo(self.snp.trailing)
-            make.width.equalTo(40)
-            make.height.equalTo(40)
+        bookMarkIcon.snp.makeConstraints {
+            $0.top.equalTo(titleLabel)
+            $0.left.equalTo(titleLabel.snp.right).offset(8)
+            $0.right.equalToSuperview()
+            $0.size.equalTo(24)
         }
 
-        profileFrameView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(Constants.Profile.top)
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.width.equalTo(0) // update dynamically
+        statusLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.left.equalTo(titleLabel)
+            $0.height.equalTo(22)
         }
 
-        participantExtraHStack.snp.makeConstraints { make in
-            make.centerY.equalTo(profileFrameView.snp.centerY)
-            make.leading.equalTo(profileFrameView.snp.trailing).offset(8)
+        participantLabel.snp.makeConstraints {
+            $0.left.equalTo(statusLabel.snp.right).offset(8)
+            $0.centerY.equalTo(statusLabel)
+            $0.height.equalTo(22)
         }
 
-        dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileFrameView.snp.bottom).offset(Constants.InfoLabel.Date.top)
-            make.leading.equalTo(titleLabel.snp.leading)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(participantLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(titleLabel.snp.leading)
+            $0.height.equalTo(22)
         }
 
-        participantLabel.snp.makeConstraints { make in
-            make.leading.equalTo(dateLabel.snp.trailing).offset(Constants.InfoLabel.Participant.leading)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing)
-            make.top.equalTo(dateLabel.snp.top)
+        afterPartyLabel.snp.makeConstraints {
+            $0.left.equalTo(dateLabel.snp.right).offset(6)
+            $0.centerY.equalTo(dateLabel)
+            $0.height.equalTo(22)
         }
 
-        timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(Constants.InfoLabel.Time.top)
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.bottom.equalTo(self.snp.bottom)
+        runningPaceView.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(8)
+            $0.left.equalTo(titleLabel)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(30)
         }
     }
 }
@@ -251,12 +253,11 @@ extension BasicPostInfoView {
     static var height: CGFloat {
         let infoLabelHeight = IconLabel.Size(iconSize: Constants.InfoLabel.iconSize, text: "abc", font: Constants.InfoLabel.font, spacing: Constants.InfoLabel.spacing).height
 
-        return Constants.Title.height
-            + Constants.Profile.top
-            + Constants.Profile.dimension
-            + Constants.InfoLabel.Date.top
-            + infoLabelHeight
-            + Constants.InfoLabel.Time.top
-            + infoLabelHeight
+        // FIXME: 고정값말고 옽 레이아웃 잡기
+        let titleHeight = 24.0
+        let contentHeight = 48.0
+        let paceHeight = 30.0
+        let spacing = 16.0
+        return titleHeight + contentHeight + paceHeight + spacing
     }
 }

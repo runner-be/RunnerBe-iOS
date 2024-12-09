@@ -69,6 +69,12 @@ class ApplicantListModalViewController: BaseViewController {
                     .bind(to: self.viewModel.inputs.accept)
                     .disposed(by: cell.disposeBag)
 
+                cell.userInfoView.avatarView.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in element.userId
+                    }
+                    .bind(to: self.viewModel.inputs.tapProfile)
+                    .disposed(by: cell.disposeBag)
                 return cell
             }
         )
@@ -96,8 +102,8 @@ class ApplicantListModalViewController: BaseViewController {
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosBody17Sb
-        label.textColor = .darkG2
+        label.font = .pretendardSemiBold16
+        label.textColor = .darkG35
         label.text = L10n.Home.PostDetail.Participant.title
     }
 

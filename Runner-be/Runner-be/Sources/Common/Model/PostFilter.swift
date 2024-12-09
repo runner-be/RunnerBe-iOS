@@ -18,7 +18,11 @@ struct PostFilter {
     var ageMax: Int
     var runningTag: RunningTag
     var jobFilter: Job
+    var paceFilter: [String]
+    var afterPartyFilter: AfterPartyFilter
     var keywordSearch: String
+    var page: Int
+    var pageSize: Int
 }
 
 extension PostFilter: CustomDebugStringConvertible {
@@ -32,8 +36,12 @@ extension PostFilter: CustomDebugStringConvertible {
             distanceFilter: \(distanceFilter)
             ageMin: \(ageMin) ageMax: \(ageMax)
             jobFilter: \(jobFilter)
+            paceFilter: \(paceFilter)
+            afterPartyFilter: \(afterPartyFilter)
             gender: \(gender.name)
             keywordSearch: \(keywordSearch)
+            page: \(page)
+            pageSize: \(pageSize)
         }
         """
     }

@@ -18,111 +18,57 @@ final class DetailTitleView: UIView {
     init() {
         super.init(frame: .zero)
         setup()
-        initialLayout(finished: false)
+        initialLayout()
     }
 
-    func setup(title: String, tag: String, finished: Bool) {
+    func configure(title: String, runningPace: String, isFinished: Bool) {
         titleLabel.text = title
-        tagLabel.text = tag
-        tagLabel.applyStyle(
-            BadgeLabel.Style(
-                font: .iosBody13R,
-                backgroundColor: .clear,
-                textColor: .primarydark,
-                borderWidth: 1,
-                borderColor: .primarydark,
-                cornerRadiusRatio: 1,
-                useCornerRadiusAsFactor: true,
-                padding: UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
-            )
-        )
-        finishTag.isHidden = !finished
-        initialLayout(finished: finished)
+        runningPaceView.configure(pace: runningPace, viewType: .postDetail)
+        if isFinished {
+            tagLabel.text = "모집 완료"
+        } else {
+            tagLabel.text = "모집중"
+        }
+    }
+
+    private var tagLabel = UILabel().then { label in
+        label.font = .pretendardRegular14
+        label.textColor = .primary
+        label.text = "게시글 태그"
     }
 
     private var titleLabel = UILabel().then { label in
-        label.font = .iosBody17R
+        label.font = .pretendardSemiBold18
         label.textColor = .darkG1
         label.text = "게시글 제목"
     }
 
-    private var tagLabel = BadgeLabel().then { label in
-        let style = BadgeLabel.Style(
-            font: .iosBody13R,
-            backgroundColor: .clear,
-            textColor: .primarydark,
-            borderWidth: 0,
-            borderColor: .primarydark,
-            cornerRadiusRatio: 1,
-            useCornerRadiusAsFactor: true,
-            padding: UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
-        )
-
-        label.applyStyle(style)
-        label.text = "게시글 태그"
-    }
-
-    private var finishTag = UIView().then { view in
-        view.backgroundColor = .darkG45
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 4
-
-        let label = UILabel()
-        label.text = "모집 완료"
-        label.font = .iosBody13B
-        label.textColor = .darkG25
-
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(8)
-            make.trailing.equalTo(view.snp.trailing).offset(-8)
-            make.top.equalTo(view.snp.top).offset(5)
-            make.bottom.equalTo(view.snp.bottom).offset(-5)
-        }
-    }
+    private var runningPaceView = RunningPaceView()
 
     private func setup() {
         addSubviews([
             titleLabel,
             tagLabel,
-            finishTag,
+            runningPaceView,
         ])
     }
 
-    private func initialLayout(finished: Bool) {
-        tagLabel.snp.removeConstraints()
-        titleLabel.snp.removeConstraints()
-        finishTag.snp.removeConstraints()
+    private func initialLayout() {
+        tagLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top)
+            make.leading.equalTo(self.snp.leading)
+        }
 
-        if finished {
-            tagLabel.snp.makeConstraints { make in
-                make.top.equalTo(self.snp.top)
-                make.leading.equalTo(self.snp.leading)
-            }
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(tagLabel.snp.bottom).offset(4)
+            make.leading.equalTo(tagLabel.snp.leading)
+            make.trailing.lessThanOrEqualTo(self.snp.trailing)
+        }
 
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(tagLabel.snp.bottom).offset(9)
-                make.leading.equalTo(tagLabel.snp.leading)
-                make.trailing.lessThanOrEqualTo(self.snp.trailing)
-            }
-
-            finishTag.snp.makeConstraints { make in
-                make.top.equalTo(titleLabel.snp.bottom).offset(12)
-                make.leading.equalTo(tagLabel.snp.leading)
-                make.bottom.equalTo(self.snp.bottom).offset(-3)
-            }
-        } else {
-            tagLabel.snp.makeConstraints { make in
-                make.top.equalTo(self.snp.top)
-                make.leading.equalTo(self.snp.leading)
-            }
-
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(tagLabel.snp.bottom).offset(9)
-                make.leading.equalTo(tagLabel.snp.leading)
-                make.trailing.lessThanOrEqualTo(self.snp.trailing)
-                make.bottom.equalTo(self.snp.bottom).offset(-3)
-            }
+        runningPaceView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.bottom.equalTo(self.snp.bottom)
         }
     }
 }

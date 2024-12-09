@@ -83,11 +83,11 @@ final class SelectJobGroupViewController: BaseViewController {
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.attributedText = NSMutableAttributedString()
             .style(to: "4", attributes: [
-                .font: UIFont.iosBody17Sb,
+                .font: UIFont.pretendardSemiBold18,
                 .foregroundColor: UIColor.primarydark,
             ])
             .style(to: "/4", attributes: [
-                .font: UIFont.iosBody17Sb,
+                .font: UIFont.pretendardSemiBold18,
                 .foregroundColor: UIColor.darkG35,
             ])
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)

@@ -13,7 +13,7 @@ import Then
 import Toast_Swift
 import UIKit
 
-class PostDetailViewController: BaseViewController, SkeletonDisplayable {
+final class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -45,49 +45,64 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
         navBar.rightBtnItem.rx.tap
             .bind(to: viewModel.inputs.rightOptionItem)
             .disposed(by: disposeBag)
+
+        detailMapView.copyButton.rx.tap
+            .bind(to: viewModel.inputs.copyPlaceName)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         viewModel.outputs.detailData
             .subscribe(onNext: { [weak self] data in
-                self?.navBar.titleLabel.text = data.running.badge
-                self?.titleView.setup(title: data.running.title, tag: data.running.badge, finished: data.finished)
-                self?.infoView.setup(
-                    place: data.running.placeInfo,
+                guard let self = self else { return }
+                self.navBar.titleLabel.text = data.running.badge
+                self.titleView.configure(title: data.postDetail.post.title, runningPace: data.postDetail.post.pace, isFinished: data.finished)
+                self.infoView.setup(
                     date: data.running.date,
+                    afterParty: data.running.afterParty,
                     time: data.running.time,
                     numLimit: data.running.numParticipant,
                     gender: data.running.gender,
                     age: data.running.age
                 )
-                self?.textView.text = data.running.contents
-                self?.detailMapView.setup(
+                self.textView.text = data.running.contents
+                self.detailMapView.setup(
                     lat: data.running.lat,
                     long: data.running.long,
                     range: data.participated ? data.running.range / 3 : data.running.range,
-                    showMarker: data.participated
+                    showMarker: data.participated,
+                    placeName: data.running.placeName,
+                    placeExplain: data.running.placeExplain
                 )
 
                 let userInfoViews = data.participants.reduce(into: [UIView]()) {
                     let view = UserInfoWithSingleDivider()
+                    let userId = $1.userId
+
                     view.setup(userInfo: $1)
                     $0.append(view)
+
+                    view.userInfoView.avatarView.rx.tapGesture()
+                        .when(.recognized)
+                        .map { _ in userId }
+                        .bind(to: self.viewModel.inputs.tapProfile)
+                        .disposed(by: self.disposeBag)
                 }
 
-                self?.participantHeader.numLabel.text = "(\(userInfoViews.count)/\(data.postDetail.maximumNum))"
-                self?.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-                self?.participantView.addArrangedSubviews(userInfoViews)
-                self?.makeNavBarRightButton(writer: data.writer)
-                self?.makeFooter(
+                self.participantHeader.numLabel.text = "(\(userInfoViews.count)/\(data.postDetail.maximumNum))"
+                self.participantView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                self.participantView.addArrangedSubviews(userInfoViews)
+                self.makeNavBarRightButton(writer: data.writer)
+                self.makeFooter(
                     writer: data.writer,
                     participated: data.participated,
                     applied: data.applied,
                     satisfied: data.satisfied,
                     finished: data.finished
                 )
-                self?.applicantNoti.isHidden = data.numApplicant == 0
+                self.applicantNoti.isHidden = data.numApplicant == 0
 
-                self?.hideSkeleton()
+                self.hideSkeleton()
             })
             .disposed(by: disposeBag)
 
@@ -98,7 +113,6 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
             .disposed(by: disposeBag)
     }
 
-    private var detailMapView = DetailMapView()
     private var titleView = DetailTitleView()
     private var hDivider1 = UIView().then { view in
         view.backgroundColor = .darkG55
@@ -119,7 +133,12 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
     }
 
     private var hDivider3 = UIView().then { view in
-        view.backgroundColor = .darkG55
+        view.backgroundColor = .black
+    }
+
+    private var detailMapView = DetailMapView().then {
+        $0.layer.cornerRadius = 12
+        $0.layer.masksToBounds = true
     }
 
     private lazy var vStackView = UIStackView.make(
@@ -129,12 +148,13 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
             infoView,
             hDivider2,
             textView,
+            detailMapView,
             hDivider3,
         ],
         axis: .vertical,
         alignment: .fill,
         distribution: .equalSpacing,
-        spacing: 15
+        spacing: 24
     )
 
     private var participantHeader = UserInfoHeader()
@@ -176,8 +196,6 @@ class PostDetailViewController: BaseViewController, SkeletonDisplayable {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = ""
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setImage(Asset.report.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightSecondBtnItem.isHidden = true
@@ -197,7 +215,6 @@ extension PostDetailViewController {
         ])
 
         scrollView.addSubviews([
-            detailMapView,
             vStackView,
             participantHeader,
             participantView,
@@ -220,18 +237,14 @@ extension PostDetailViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        detailMapView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
-            make.width.equalTo(view.snp.width)
-            make.height.equalTo(202)
-        }
-
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(detailMapView.snp.bottom).offset(24)
+            make.top.equalTo(scrollView.snp.top).offset(24)
             make.leading.equalTo(scrollView.snp.leading).offset(16)
             make.trailing.equalTo(scrollView.snp.trailing).offset(-16)
+        }
+
+        detailMapView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
         }
 
         hDivider1.snp.makeConstraints { make in

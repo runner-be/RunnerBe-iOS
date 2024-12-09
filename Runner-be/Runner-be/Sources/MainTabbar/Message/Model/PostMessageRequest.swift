@@ -9,4 +9,5 @@ import Foundation
 
 struct PostMessageRequest: Encodable {
     var content: String?
+    var imageUrl: String? = nil
 }

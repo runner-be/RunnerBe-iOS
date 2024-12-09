@@ -13,11 +13,23 @@ import Then
 import UIKit
 
 class BaseViewController: UIViewController {
+    // MARK: - Peroperties
+
+    var keyboardHeight: CGFloat?
+
     // MARK: Lifecycle
 
     init() {
         Log.d(tag: .lifeCycle, "VC Initialized")
         super.init(nibName: nil, bundle: nil)
+
+        // 키보드 알림 등록
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
     }
 
     @available(*, unavailable)
@@ -55,7 +67,7 @@ extension BaseViewController: UIGestureRecognizerDelegate {
     func dismissKeyboardWhenTappedAround() {
         let tap =
             UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//        tap.cancelsTouchesInView = false
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
@@ -66,5 +78,13 @@ extension BaseViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_: UIGestureRecognizer, shouldBeRequiredToFailBy _: UIGestureRecognizer) -> Bool {
         dismissKeyboard() // 제스처로 뒤로가기할 때 키보드 없애야함
         return true
+    }
+
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            keyboardHeight = keyboardFrame.height
+        } else {
+            print("Keyboard Frame not found")
+        }
     }
 }

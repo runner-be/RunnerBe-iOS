@@ -9,6 +9,7 @@
 /*
     "Key" = "localizing한 문자열"
  ex) "Hello" = "Hello"; << 세미콜론(;) 필수
+ MARK: 세미콜론 붙이지 않으면 빌드 오류가 발생하므로 유의해주세요!
  
  */
 // MARK: - Locale
@@ -107,15 +108,17 @@
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";
 "Home.Filter.Gender.title" = "모집 성별";
-"Home.Filter.Age.title" = "모집 연령";
+"Home.Filter.Age.title" = "연령";
 "Home.Filter.Job.title" = "모집 직군";
 "Home.Filter.Place.title" = "모임장소";
 "Home.Filter.Age.all" = "모든연령";
+"Home.Filter.Afterparty.title" = "뒤풀이";
+"Home.Filter.RunningPace.title" = "페이스 난이도";
 
 // MARK: - Post
 "Post.WorkTime.All" = "전체";
-"Post.WorkTime.BeforeWork" = "출근 전";
-"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.BeforeWork" = "출근전";
+"Post.WorkTime.AfterWork" = "퇴근후";
 "Post.WorkTime.DayOff" = "휴일";
 "Post.Title.Title" = "제목";
 "Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
@@ -125,6 +128,7 @@
 "Post.Time.PlaceHolder" = "0시간 20분";
 "Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
 "Post.Place.Title" = "모임 장소";
+"Post.Place.PlaceHolder" = "위치 추가";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
 
 "Post.Write.NavBar.title" = "게시글 작성";
@@ -132,6 +136,8 @@
 "Post.Modal.Time.time" = "시간";
 "Post.Modal.Time.minute" = "분";
 
+// MARK: - Post.EditPlace
+"Post.Place.NavBar.Title" = "장소 정보 입력";
 
 // MARK: - Common NavBar
 "NavBar.Right.First.next" = "다음";
@@ -301,4 +307,18 @@
 "Modal.TakePhoto.Button.default" = "기본 이미지로 변경하기";
 
 
-//
+// MARK: Running Pace
+"RunningPace.master.title" = "700 ~ 900";
+"RunningPace.master.description" = "1km당 4.5분 미만으로 러닝하는 초고수 러너";
+"RunningPace.high.title" = "600 ~ 700";
+"RunningPace.high.description" = "1km당 4.5~6분 러닝하는 고수 러너";
+"RunningPace.average.title" = "430 ~ 600";
+"RunningPace.average.description" = "1km당 6~7분 러닝하는 평균 러너";
+"RunningPace.beginner.title" = "430 이하";
+"RunningPace.beginner.description" = "1km당 7~9분 러닝하는 입문 러너";
+
+
+"RunningPace.register.title" = "나의 러닝 페이스를 선택해주세요!";
+"RunningPace.register.subtitle" = "페이스는 1km당 달리는데 걸리는 시간에 대한\n나의 러닝 페이스를 의미해요.";
+"RunningPace.info.description" = "1km당 달리는데 걸리는 시간에 대한\n러닝 모임 페이스를 의미합니다.";
+"RunningPace.register.cancel.modal.title" = "페이스 등록을 중단하시겠어요?";

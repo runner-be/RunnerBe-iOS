@@ -35,4 +35,8 @@ final class HomeComponent {
     var alarmListComponent: AlarmListComponent {
         return AlarmListComponent()
     }
+
+    var registerRunningPaceComponent: RegisterRunningPaceComponent {
+        return RegisterRunningPaceComponent()
+    }
 }

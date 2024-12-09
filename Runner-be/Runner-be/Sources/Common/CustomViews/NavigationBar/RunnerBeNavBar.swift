@@ -40,11 +40,18 @@ final class RunnerbeNavBar: UIView {
     var topNotchView = UIView()
     var navContentView = UIView()
     var leftBtnItem = UIButton()
-    var rightBtnItem = UIButton()
-    var rightSecondBtnItem = UIButton()
+    var rightBtnItem = UIButton().then { view in
+        view.titleLabel?.font = .pretendardRegular16
+    }
+
+    var rightSecondBtnItem = UIButton().then { view in
+        view.titleLabel?.font = .pretendardRegular16
+    }
+
     var titleLabel = UILabel().then { label in
         label.text = ""
-        label.font = .iosBody17Sb
+        label.font = .pretendardSemiBold18
+        label.textColor = .darkG35
     }
 }
 

@@ -18,10 +18,13 @@ struct PostResponse: Decodable {
 
     let title: String?
     let runningTime: String? // "01:30:00"
+    let gatheringId: Int?
     let gatheringTime: String? // "2022-02-23T19:49:39.000z"
     let gatherLongitude: String?
     let gatherLatitude: String?
-    let locationInfo: String?
+    let placeName: String?
+    let placeAddress: String?
+    let placeExplain: String?
     let runningTag: String?
     let age: String?
     let gender: String?
@@ -35,6 +38,10 @@ struct PostResponse: Decodable {
     let whetherCheck: String?
     let distance: String?
     let profileURLList: [ProfileURL]?
+    let afterParty: Int?
+    let pace: String?
+
+    let logId: Int?
 
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
@@ -44,10 +51,13 @@ struct PostResponse: Decodable {
         case profileImageURL = "profileImageUrl"
         case title
         case runningTime
+        case gatheringId
         case gatheringTime
         case gatherLongitude
         case gatherLatitude
-        case locationInfo
+        case placeName
+        case placeAddress
+        case placeExplain
         case runningTag
         case age
         case gender
@@ -61,6 +71,9 @@ struct PostResponse: Decodable {
         case whetherCheck
         case distance = "DISTANCE"
         case profileURLList = "profileUrlList"
+        case afterParty
+        case pace
+        case logId
     }
 }
 
@@ -147,7 +160,10 @@ extension PostResponse {
               let nickName = nickName,
               let postTitle = title,
               let runningTagType = runningTagType,
-              let locationInformation = locationInfo
+              let placeName = placeName,
+              let pace = pace,
+              let afterParty = afterParty,
+              let peopleNum = peopleNum
         else { return nil }
 
         let id = postID
@@ -155,7 +171,6 @@ extension PostResponse {
         let writerName = nickName
         let title = postTitle
         let tag = runningTagType
-        let locationInfo = locationInformation
 
         var post = Post(
             ID: id,
@@ -166,13 +181,20 @@ extension PostResponse {
             tag: tag,
             runningTime: runningTime,
             gatherDate: gatherDate,
+            gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
-            locationInfo: locationInfo,
+            placeName: placeName,
+            placeAddress: placeAddress,
+            placeExplain: placeExplain,
             coord: coords, // nullable
             whetherCheck: whetherCheck ?? "N",
             attendanceProfiles: profileURLList ?? [],
-            postingTime: postingTime
+            postingTime: postingTime,
+            afterParty: afterParty,
+            pace: pace,
+            logId: logId,
+            peopleNum: peopleNum
         )
 
         post.marked = marked

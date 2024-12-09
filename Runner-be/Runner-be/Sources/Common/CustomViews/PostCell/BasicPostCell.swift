@@ -79,9 +79,10 @@ extension BasicPostCell {
         clipsToBounds = true
 
         postInfoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(Constants.PostInfo.top)
+            make.top.equalTo(contentView.snp.top).offset(16)
             make.leading.equalTo(contentView.snp.leading).offset(Constants.PostInfo.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(Constants.PostInfo.trailing)
+            make.bottom.equalTo(contentView.snp.bottom).inset(16)
         }
     }
 }

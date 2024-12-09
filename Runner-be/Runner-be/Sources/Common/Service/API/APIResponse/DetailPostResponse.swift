@@ -16,6 +16,7 @@ struct DetailPostResponse: Decodable {
     let title: String?
     let gatherLongitude: String?
     let gatherLatitude: String?
+    let gatheringId: Int?
     let runningTag: String?
     let postID: Int?
     let contents: String?
@@ -26,7 +27,12 @@ struct DetailPostResponse: Decodable {
     let postUserID: Int?
     let gender: String?
     let peopleNum: Int?
-    let locationInfo: String?
+    let placeName: String?
+    let placeAddress: String?
+    let placeExplain: String?
+    let pace: String?
+    let afterParty: Int?
+    let logId: Int?
 
     enum CodingKeys: String, CodingKey {
         case whetherEnd
@@ -37,15 +43,21 @@ struct DetailPostResponse: Decodable {
         case runningTag
         case postID = "postId"
         case gatheringTime
+        case gatheringId
         case contents
         case gender
-        case locationInfo
+        case placeName
+        case placeAddress
+        case placeExplain
         case peopleNum
         case postUserID = "postUserId"
         case runningTime
         case age
         case gatherLongitude
         case postingTime
+        case pace
+        case afterParty
+        case logId
     }
 }
 
@@ -106,14 +118,16 @@ extension DetailPostResponse {
         guard let id = postID,
               let writerID = postUserID,
               let title = title,
-              let locationInfo = locationInfo,
+              let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
               let postingTime = createTime,
               let ageRange = ageRange,
               let coords = coords,
               let maximumNum = peopleNum,
-              let content = contents
+              let pace = pace,
+              let afterParty = afterParty,
+              let peopleNum = peopleNum
         else { return nil }
 
         let writerName = ""
@@ -129,18 +143,25 @@ extension DetailPostResponse {
             tag: tag,
             runningTime: runningTime,
             gatherDate: gatherDate,
+            gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
-            locationInfo: locationInfo,
+            placeName: placeName,
+            placeAddress: placeAddress,
+            placeExplain: placeExplain,
             coord: coords,
             attendanceProfiles: [],
-            postingTime: postingTime
+            postingTime: postingTime,
+            afterParty: afterParty,
+            pace: pace,
+            logId: logId,
+            peopleNum: peopleNum
         )
 
         post.open = open && post.gatherDate > Date()
         post.marked = false
         post.attendance = false
 
-        return PostDetail(post: post, maximumNum: maximumNum, content: content)
+        return PostDetail(post: post, maximumNum: maximumNum, content: contents ?? "")
     }
 }

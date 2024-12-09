@@ -30,7 +30,7 @@ class SummaryMainPostView: UIView {
         dateLabel.label.text = data.dateString
         timeLabel.label.text = data.time
         mapView.centerToCoord(data.location, regionRadius: 300, animated: false)
-        addressInfoView.label.text = data.placeInfo
+        addressInfoView.label.text = data.placeName
     }
 
     private func processingInputs() {}

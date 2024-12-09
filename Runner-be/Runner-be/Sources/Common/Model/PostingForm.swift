@@ -13,13 +13,17 @@ struct PostingForm {
     let runningTime: String // "hh:mm"
     let gatherLongitude: Float
     let gatherLatitude: Float
-    let locationInfo: String
+    let placeName: String // 위치명
+    let placeAddress: String // 위치 주소
+    let placeExplain: String // 위치 설명
     let runningTag: RunningTag
     let ageMin: Int
     let ageMax: Int
     let peopleNum: Int
     let contents: String
     let runnerGender: Gender
+    let paceGrade: String
+    let afterParty: Int
 }
 
 extension PostingForm: Encodable {
@@ -30,13 +34,17 @@ extension PostingForm: Encodable {
         try container.encode(runningTime, forKey: .runningTime)
         try container.encode(gatherLongitude, forKey: .gatherLongitude)
         try container.encode(gatherLatitude, forKey: .gatherLatitude)
-        try container.encode(locationInfo, forKey: .locationInfo)
+        try container.encode(placeName, forKey: .placeName)
+        try container.encode(placeAddress, forKey: .placeAddress)
+        try container.encode(placeExplain, forKey: .placeExplain)
         try container.encode(runningTag.code, forKey: .runningTag)
         try container.encode(ageMin, forKey: .ageMin)
         try container.encode(ageMax, forKey: .ageMax)
         try container.encode(peopleNum, forKey: .peopleNum)
         try container.encode(contents, forKey: .contents)
         try container.encode(runnerGender.code, forKey: .runnerGender)
+        try container.encode(paceGrade, forKey: .paceGrade)
+        try container.encode(afterParty, forKey: .afterParty)
     }
 
     enum CodingKeys: CodingKey {
@@ -45,13 +53,17 @@ extension PostingForm: Encodable {
         case runningTime
         case gatherLongitude
         case gatherLatitude
-        case locationInfo
+        case placeName
+        case placeAddress
+        case placeExplain
         case runningTag
         case ageMin
         case ageMax
         case peopleNum
         case contents
         case runnerGender
+        case paceGrade
+        case afterParty
     }
 }
 
@@ -63,7 +75,9 @@ extension PostingForm: CustomDebugStringConvertible {
             gatheringTime:  \(gatheringTime) // "YYYY-MM-dd hh:mm:ss"
             runningTime:  \(runningTime) // "hh:mm"
             gatherLatitude:  \(gatherLatitude) gatherLongitude:  \(gatherLongitude)
-            locationInfo:  \(locationInfo)
+            placeName:  \(placeName)
+            placeAddress:  \(placeAddress)
+            placeExplain:  \(placeExplain)
             runningTag:  \(runningTag.name)
             ageMin:  \(ageMin) ageMax:  \(ageMax)
             runnerGender:  \(runnerGender)

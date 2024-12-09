@@ -25,6 +25,10 @@ enum SetProfileResult {
     case error
 }
 
+enum UserPageAPIResult {
+    case success(userInfo: User, userRunningLog: [MyRunningLog], userRunning: [UserPost])
+}
+
 protocol UserAPIService {
     func setNickName(to name: String) -> Observable<SetNickNameResult>
     func setJob(to job: Job) -> Observable<Bool>
@@ -33,4 +37,6 @@ protocol UserAPIService {
     func fetchAlarms() -> Observable<[Alarm]?>
     func checkAlarms() -> Observable<Bool>
     func patchPushAlaram(userId: String, pushOn: String) -> Observable<Bool>
+    func patchRunningPace(pace: String) -> Observable<Bool>
+    func userPage(userId: Int) -> Observable<APIResult<UserPageAPIResult>>
 }

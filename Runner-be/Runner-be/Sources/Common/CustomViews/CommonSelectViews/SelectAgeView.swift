@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class SelectAgeView: SelectBaseView {
+final class SelectAgeView: SelectBaseView {
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -47,16 +47,15 @@ class SelectAgeView: SelectBaseView {
         view.moreInfoButton.isHidden = true
         view.checkBoxButton.tintColor = .darkG35
         view.titleLabel.textColor = .darkG35
-        view.titleLabel.font = .iosBody13R
+        view.titleLabel.font = .pretendardRegular14
         view.spacing = 5
-        view.isSelected = false
+        view.isSelected = true
     }
 
     var slider = Slider(leftHandle: CircularHandle(diameter: 16), rightHandle: CircularHandle(diameter: 16)).then { slider in
-        let rightFollower = BubbleFollower()
-        rightFollower.moreThanMax = true
-        slider.showRightFollower = true
-        slider.rightHandleFollower = rightFollower
+
+        let textLayer = BasicSliderValueLabel()
+        slider.sliderValueLabel = textLayer
 
         var labelGroups = BasicSliderLabelGroup(valueFormatter: { "\(Int($0))" })
         labelGroups.maxValueFormatter = { "\(Int($0))↑" }
@@ -71,7 +70,7 @@ class SelectAgeView: SelectBaseView {
         slider.maxValue = 65
         slider.minValue = 20
 
-        slider.enable = true
+        slider.enable = false
     }
 
     override func setupViews() {

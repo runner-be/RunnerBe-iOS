@@ -43,22 +43,32 @@ class WritingMainPostViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         navBar.rightBtnItem.rx.tap
+            .do { [weak self] _ in
+                self?.dismissKeyboard()
+            }
             .bind(to: viewModel.inputs.next)
             .disposed(by: disposeBag)
 
+        // 제목 입력 TextField 30자 제한
+        writeTitleView.textField.rx.text.orEmpty
+            .map { text in
+                String(text.prefix(30))
+            }
+            .bind(to: writeTitleView.textField.rx.text)
+            .disposed(by: disposeBag)
+
+        // 제목 입력 이벤트 처리
         writeTitleView.textField.rx.text
-            .subscribe(onNext: { text in
-                if let text = text, !text.isEmpty {
-                    self.navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
-                    self.navBar.rightBtnItem.isEnabled = true
-                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
-                    self.viewModel.inputs.editTitle.onNext(text)
-                } else {
-                    self.navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
-                    self.navBar.rightBtnItem.isEnabled = false
-                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17R
-                }
-            })
+            .orEmpty
+            .do { [weak self] text in
+                guard let self = self else { return }
+                let isValid = text != ""
+
+                self.navBar.rightBtnItem.setTitleColor(isValid ? .primary : .darkG3, for: .normal)
+                self.navBar.rightBtnItem.isEnabled = isValid
+                self.navBar.rightBtnItem.titleLabel?.font = isValid ? .iosBody17Sb : .iosBody17R
+            }
+            .bind(to: viewModel.inputs.editTitle)
             .disposed(by: disposeBag)
 
         writeDateView.rx
@@ -79,8 +89,10 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.editTime)
             .disposed(by: disposeBag)
 
-        writePlaceView.locationChanged
-            .bind(to: viewModel.inputs.locationChanged)
+        writePlaceView.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .bind(to: viewModel.inputs.editPlace)
             .disposed(by: disposeBag)
     }
 
@@ -93,24 +105,16 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: writeTimeView.contentText)
             .disposed(by: disposeBag)
 
-        viewModel.outputs.boundaryLimit
-            .take(1)
-            .subscribe(onNext: { [weak self] coords in
-                self?.writePlaceView.setMapBoundary(with: coords)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.location
-            .take(1)
-            .subscribe(onNext: { [weak self] location in
-                self?.writePlaceView.mapView.centerToCoord(location, animated: false)
-            })
-            .disposed(by: disposeBag)
-
         viewModel.outputs.placeInfo
-            .subscribe(onNext: { [weak self] placeInfo in
-                self?.writePlaceView.showPlaceInfo(city: placeInfo.city, name: placeInfo.detail)
-            })
+            .bind { [weak self] result in
+                self?.writePlaceView.iconTextButtonGroup.titleLabel.layer.opacity = 0.0
+
+                self?.writePlaceView.setCityLabel.isHidden = false
+                self?.writePlaceView.setCityLabel.text = result.city
+
+                self?.writePlaceView.setDetailLabel.isHidden = false
+                self?.writePlaceView.setDetailLabel.text = result.detail
+            }
             .disposed(by: disposeBag)
 
         viewModel.toast
@@ -149,28 +153,24 @@ class WritingMainPostViewController: BaseViewController {
 
     private var navBar = RunnerbeNavBar().then { navBar in
         navBar.titleLabel.text = L10n.Post.Write.NavBar.title
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.leftBtnItem.setImage(Asset.arrowLeft.uiImage.withTintColor(.darkG3), for: .normal)
         navBar.rightBtnItem.setTitle(L10n.NavBar.Right.First.next, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG5, for: .highlighted)
-        navBar.rightBtnItem.titleLabel?.font = .iosBody17R
         navBar.rightSecondBtnItem.isHidden = true
         navBar.rightBtnItem.isEnabled = false
-        navBar.titleSpacing = 12
     }
 
     private var segmentedControl = SegmentedControl().then { control in
-        control.defaultTextFont = .iosBody15R
+        control.defaultTextFont = .pretendardSemiBold14
         control.defaultTextColor = .darkG45
-        control.highlightTextFont = .iosBody15B
+        control.highlightTextFont = .pretendardSemiBold14
         control.highlightTextColor = .darkG5
-        control.fontSize = 15
+        control.fontSize = 14
         control.boxColors = [.darkG6]
         control.highlightBoxColors = [.primary, .primary]
         control.highlightBoxPadding = .zero
-        control.boxPadding = UIEdgeInsets(top: 6, left: 0, bottom: 8, right: 0)
+        control.boxPadding = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)
 
         // 작성화면에서는 전체 필터 제외
         control.items = RunningTag.allCases.filter { $0.code != "W" }.reduce(into: [String]()) {
@@ -238,9 +238,9 @@ extension WritingMainPostViewController {
 
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(12)
-            make.leading.equalTo(view.snp.leading).offset(14)
-            make.trailing.equalTo(view.snp.trailing).offset(-14)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
 
         segmentedControl.snp.makeConstraints { make in
@@ -250,9 +250,9 @@ extension WritingMainPostViewController {
         }
 
         vStackView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(18)
-            make.leading.equalTo(scrollView.snp.leading).offset(2)
-            make.trailing.equalTo(scrollView.snp.trailing).offset(-2)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(28)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
 
@@ -276,6 +276,7 @@ extension WritingMainPostViewController {
 
 extension WritingMainPostViewController: SegmentedControlDelegate {
     func didChanged(_: SegmentedControl, from _: Int, to: Int) {
-        viewModel.inputs.editTag.onNext(to)
+        // 상단 러닝태그 "전체" 선택지를 뺐기 때문에 1을 더해줍니다.
+        viewModel.inputs.editTag.onNext(to + 1)
     }
 }

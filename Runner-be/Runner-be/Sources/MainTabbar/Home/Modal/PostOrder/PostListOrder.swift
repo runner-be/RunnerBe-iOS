@@ -20,4 +20,13 @@ extension PostListOrder {
             return "최신순"
         }
     }
+
+    var filterType: FilterType {
+        switch self {
+        case .distance:
+            return FilterType.distance
+        case .latest:
+            return FilterType.newest
+        }
+    }
 }

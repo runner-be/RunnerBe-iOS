@@ -107,15 +107,15 @@
 // MARK: - Home.Filter
 "Home.Filter.NavBar.title" = "필터";
 "Home.Filter.Gender.title" = "모집 성별";
-"Home.Filter.Age.title" = "모집 연령";
+"Home.Filter.Age.title" = "연령";
 "Home.Filter.Job.title" = "모집 직군";
 "Home.Filter.Place.title" = "모임장소";
 "Home.Filter.Age.all" = "모든연령";
 
 // MARK: - Post
 "Post.WorkTime.All" = "전체";
-"Post.WorkTime.BeforeWork" = "출근 전";
-"Post.WorkTime.AfterWork" = "퇴근 후";
+"Post.WorkTime.BeforeWork" = "출근전";
+"Post.WorkTime.AfterWork" = "퇴근후";
 "Post.WorkTime.DayOff" = "휴일";
 "Post.Title.Title" = "제목";
 "Post.Title.PlaceHolder" = "ex) A 직군 모여라, 묵언 러닝 하실 분, 마라톤 완주!";
@@ -125,6 +125,7 @@
 "Post.Time.PlaceHolder" = "0시간 20분";
 "Post.Time.Error" = "모임은 최대 5시간까지 가능해요";
 "Post.Place.Title" = "모임 장소";
+"Post.Place.PlaceHolder" = "위치 추가";
 "Post.Place.Guide.Readable" = "* 정확한 위치는 참여 러너에게만 보여요!";
 
 "Post.Write.NavBar.title" = "게시글 작성";

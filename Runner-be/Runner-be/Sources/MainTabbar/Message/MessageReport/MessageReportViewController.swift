@@ -65,7 +65,6 @@ class MessageReportViewController: BaseViewController {
 
         viewModel.outputs.roomInfo
             .subscribe(onNext: { roomInfo in
-                self.postSection.badgeLabel.setTitle(roomInfo.runningTag, for: .normal)
                 self.postSection.postTitle.text = roomInfo.title
             })
             .disposed(by: disposeBag)
@@ -127,13 +126,10 @@ class MessageReportViewController: BaseViewController {
         navBar.rightBtnItem.setTitle(L10n.MessageList.NavBar.rightItem, for: .normal)
         navBar.rightBtnItem.setTitleColor(.darkG35, for: .normal)
         navBar.rightBtnItem.isEnabled = false
-        navBar.titleLabel.font = .iosBody17Sb
-        navBar.titleLabel.textColor = .darkG35
         navBar.titleLabel.text = L10n.MessageList.Chat.NavBar.title
     }
 
     var postSection = MessagePostView().then { view in
-        view.badgeLabel.titleLabel?.text = "출근 전"
         view.postTitle.text = "불금에 달리기하실분!"
     }
 

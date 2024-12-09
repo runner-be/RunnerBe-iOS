@@ -27,16 +27,19 @@ struct GetMessageRoomInfoResult: Decodable {
 
 struct MessageContent: Decodable {
     let messageId: Int?
-    let content, createdAt: String?
-    let userID: Int?
+    let content: String?
+    let imageUrl: String?
+    var createdAt: String?
+    let userId: Int
     let nickName: String?
     let profileImageURL: String?
-    let messageFrom, whetherPostUser: String?
+    let messageFrom: String?
+    let whetherPostUser: String?
 }
 
 // MARK: - RoomInfo
 
 struct RoomInfo: Decodable {
     let postId: Int?
-    let runningTag, title: String?
+    let pace, title: String?
 }

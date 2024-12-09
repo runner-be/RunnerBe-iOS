@@ -45,4 +45,12 @@ final class PostDetailComponent {
     var deleteConfirmModalComponent: DeleteConfirmModalComponent {
         return DeleteConfirmModalComponent()
     }
+
+    var registerRunningPaceComponent: RegisterRunningPaceComponent {
+        return RegisterRunningPaceComponent()
+    }
+
+    func userPageComponent(userId: Int) -> UserPageComponent {
+        return UserPageComponent(userId: userId)
+    }
 }

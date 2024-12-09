@@ -19,6 +19,7 @@ class Slider: UIControl {
         }
         updatePositions()
         rightHandleFollower?.update()
+        sliderValueLabel?.update()
     }
 
     func setSelectValue(minValue: CGFloat?, maxValue: CGFloat?) {
@@ -38,6 +39,7 @@ class Slider: UIControl {
 
         updatePositions()
         rightHandleFollower?.update()
+        sliderValueLabel?.update()
     }
 
     init(leftHandle: SliderHandle, rightHandle: SliderHandle) {
@@ -59,6 +61,12 @@ class Slider: UIControl {
             rightHandleFollower.update()
             height += rightHandleFollower.frame.size.height + followerSpacing
         }
+
+        if let sliderValueLabel = sliderValueLabel {
+            sliderValueLabel.update()
+            height += sliderValueLabel.frame.size.height + valueLabelSpacing
+        }
+
         if let sliderLabels = sliderLabels {
             height += sliderLabels.frame.size.height + labelGroupSpacing
         }
@@ -103,6 +111,7 @@ class Slider: UIControl {
             updateFixedPosition()
             updatePositions()
             rightHandleFollower?.update()
+            sliderValueLabel?.update()
             updateColors()
         }
     }
@@ -198,6 +207,19 @@ class Slider: UIControl {
         }
     }
 
+    // Label for Selected Value
+    var valueLabelSpacing: CGFloat = 18
+    var sliderValueLabel: SliderValueLabel? {
+        didSet {
+            if let selectedValueText = sliderValueLabel {
+                selectedValueText.slider = self
+                layer.addSublayer(selectedValueText)
+                needLayout = true
+                setNeedsLayout()
+            }
+        }
+    }
+
     // MARK: Update & Refresh
 
     private func refreshSeparators() {
@@ -226,7 +248,14 @@ class Slider: UIControl {
     }
 
     private func updateFixedPosition() {
-        let middleY: CGFloat = lineHeight / 2.0 + (rightHandleFollower?.frame.height ?? 0) + (rightHandleFollower != nil ? followerSpacing : 0)
+        var middleY: CGFloat = 0.0
+        if let rightHandleFollower = rightHandleFollower {
+            middleY = lineHeight / 2.0 + rightHandleFollower.frame.height + followerSpacing
+        } else if let sliderValueLabel = sliderValueLabel {
+            middleY = lineHeight / 2.0 + sliderValueLabel.frame.height + valueLabelSpacing
+        } else {
+            middleY = lineHeight / 2.0
+        }
 
         let leftPos = CGPoint(x: leftHandle.handleSize.width / 2.0, y: middleY)
         let rightPos = CGPoint(x: frame.width - rightHandle.handleSize.width / 2.0, y: middleY)
@@ -325,6 +354,7 @@ class Slider: UIControl {
         }
         updatePositions()
         rightHandleFollower?.update()
+        sliderValueLabel?.update()
         CATransaction.commit()
         return true
     }
@@ -338,6 +368,7 @@ class Slider: UIControl {
             applySelectedValue(at: touchPoint, trackingMode: trackingMode)
             updatePositions()
             rightHandleFollower?.update()
+            sliderValueLabel?.update()
         }
 
         let handle = trackingMode == .left ? leftHandle : rightHandle

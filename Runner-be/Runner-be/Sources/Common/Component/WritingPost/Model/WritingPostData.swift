@@ -24,8 +24,10 @@ struct WritingPostData {
     }
 
     var time: String = "1시간 00분"
-    var location: CLLocationCoordinate2D
-    var placeInfo: String = ""
+    var location: CLLocationCoordinate2D = .init()
+    var placeAddress: String = ""
+    var placeExplain: String = ""
+    var placeName: String = ""
 
     // Step2
     var gender: Int = Gender.none.index

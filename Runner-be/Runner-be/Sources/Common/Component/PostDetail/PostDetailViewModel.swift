@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 
 final class PostDetailViewModel: BaseViewModel {
-//    private var marked: Bool = false
     private var isWriter: Bool = false
     private var applicants: [User] = []
     private var participants: [User] = []
     private var roomID: Int?
+    private var placeAddress: String?
     var anyChanged = false
 
     init(
@@ -33,6 +33,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .guest(postDetail, participated, marked, apply, participants, roomID):
                     self.isWriter = false
                     self.roomID = roomID
+                    self.placeAddress = postDetail.post.placeAddress
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -51,12 +52,10 @@ final class PostDetailViewModel: BaseViewModel {
                             numApplicant: 0
                         )
                     )
-//                    self.marked = marked
-//                    self.outputs.bookMarked.onNext(marked)
-//                    self.outputs.apply.onNext(apply)
                 case let .writer(postDetail, marked, participants, applicant, roomID):
                     self.isWriter = true
                     self.roomID = roomID
+                    self.placeAddress = postDetail.post.placeAddress
                     self.outputs.detailData.onNext(
                         (
                             postDetail: postDetail,
@@ -74,8 +73,6 @@ final class PostDetailViewModel: BaseViewModel {
                     )
                     self.applicants = applicant
                     self.participants = participants
-//                    self.marked = marked
-//                    self.outputs.bookMarked.onNext(marked)
                 default: break
                 }
             })
@@ -120,21 +117,15 @@ final class PostDetailViewModel: BaseViewModel {
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
 
-//        inputs.bookMark
-//            .flatMap {
-//                postAPIService.bookmark(postId: postId, mark: $0)
-//            }
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self
-//                else { return }
-//
-//                self.marked = result.mark
-//                self.outputs.bookMarked.onNext(result.mark)
-//                self.anyChanged = true
-//            })
-//            .disposed(by: disposeBag)
-
         inputs.apply
+            .filter {
+                if userKeyChainService.runningPace == .none {
+                    self.routes.registerRunningPace.onNext(())
+                    return false
+                } else {
+                    return true
+                }
+            }
             .flatMap {
                 postAPIService.apply(postId: postId)
             }
@@ -199,6 +190,11 @@ final class PostDetailViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        inputs.copyPlaceName
+            .subscribe(onNext: { [weak self] _ in
+                UIPasteboard.general.string = self?.placeAddress
+            }).disposed(by: disposeBag)
+
         routeInputs.deleteOption
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -257,22 +253,29 @@ final class PostDetailViewModel: BaseViewModel {
                 }
             })
             .disposed(by: disposeBag)
+
+        inputs.tapProfile
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
+
+        routeInputs.userPage
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var backward = PublishSubject<Void>()
         var rightOptionItem = PublishSubject<Void>()
-
-//        var bookMark = PublishSubject<Bool>()
         var toMessage = PublishSubject<Void>()
         var apply = PublishSubject<Void>()
         var finishing = PublishSubject<Void>()
         var showApplicant = PublishSubject<Void>()
+        var copyPlaceName = PublishSubject<Void>()
+        var tapProfile = PublishSubject<Int>()
     }
 
     struct Output {
         var detailData = ReplaySubject<(postDetail: PostDetail, finished: Bool, writer: Bool, participated: Bool, satisfied: Bool, applied: Bool, running: PostDetailRunningConfig, participants: [UserConfig], numApplicant: Int)>.create(bufferSize: 1)
-//        var bookMarked = PublishSubject<Bool>()
         var apply = PublishSubject<Bool>()
         var finished = PublishSubject<Bool>()
     }
@@ -284,6 +287,8 @@ final class PostDetailViewModel: BaseViewModel {
         var report = PublishSubject<Void>()
         var applicantsModal = PublishSubject<[User]>()
         var message = PublishSubject<Int>()
+        var registerRunningPace = PublishSubject<Void>()
+        var userPage = PublishSubject<Int>()
     }
 
     struct RouteInput {
@@ -291,6 +296,7 @@ final class PostDetailViewModel: BaseViewModel {
         var report = PublishSubject<Bool>()
         var deleteOption = PublishSubject<Void>()
         var delete = PublishSubject<Void>()
+        var userPage = PublishSubject<Int>()
     }
 
     private var disposeBag = DisposeBag()

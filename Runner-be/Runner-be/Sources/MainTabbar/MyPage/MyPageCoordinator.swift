@@ -35,6 +35,20 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
 
+        scene.VM.routes.calendar
+            .subscribe(onNext: { [weak self] userId in
+                self?.pushCalendarScene(
+                    userId: userId,
+                    vm: scene.VM,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.myRunningList
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushMyRunningListScene(vm: scene.VM, animated: true)
+            }).disposed(by: sceneDisposeBag)
+
         scene.VM.routes.detailPost
             .map { (vm: scene.VM, postId: $0) }
             .subscribe(onNext: { [weak self] result in
@@ -68,12 +82,52 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
 
-        scene.VM.routes.manageAttendance
-            .map { (vm: scene.VM, myRunningIdx: $0) }
-            .subscribe(onNext: { [weak self] result in
-                self?.pushManageAttendanceScene(vm: result.vm, myRunningIdx: result.myRunningIdx, animated: true)
+        scene.VM.routes.registerRunningPace
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushRegisterRunningPaceScene(vm: scene.VM)
             })
             .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.writeLog
+            .map { (vm: scene.VM, logForm: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushWriteLog(
+                    vm: inputs.vm,
+                    logForm: inputs.logForm,
+                    writeLogMode: .create,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmLog
+            .map { (vm: scene.VM, logId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushConfirmLog(
+                    vm: inputs.vm,
+                    logId: inputs.logId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.manageAttendance
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushManageAttendanceScene(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.confirmAttendance
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] inputs in
+                self?.pushConfirmAttendanceScene(
+                    vm: inputs.vm,
+                    postId: inputs.postId,
+                    animated: true
+                )
+            }).disposed(by: sceneDisposeBag)
     }
 
     func pushEditInfoScene(vm: MyPageViewModel, user: User, animated: Bool) {
@@ -86,6 +140,46 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 vm.routeInputs.needUpdate.onNext(needUpdate)
             }
         }
+    }
+
+    func pushCalendarScene(
+        userId: Int,
+        vm: MyPageViewModel,
+        animated: Bool
+    ) {
+        let comp = component.calendarComponent(userId: userId)
+        let coord = CalendarCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+
+        comp.viewModel.routeInputs.needUpdate.onNext((
+            targetDate: nil,
+            needUpdate: true
+        ))
+    }
+
+    func pushMyRunningListScene(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.myRunningListComponent
+        let coord = MyRunningListCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+        comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
 
     func pushDetailPostScene(vm: MyPageViewModel, postId: Int, animated: Bool) {
@@ -145,14 +239,108 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         }
     }
 
-    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningIdx: Int, animated: Bool) {
-        let comp = component.manageAttendanceComponent(myRunningIdx: myRunningIdx)
+    func pushManageAttendanceScene(vm _: MyPageViewModel, myRunningId: Int, animated: Bool) {
+        let comp = component.manageAttendanceComponent(myRunningId: myRunningId)
         let coord = ManageAttendanceCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case .backward:
                 break
+            }
+        }
+    }
+
+    func pushRegisterRunningPaceScene(vm: MyPageViewModel) {
+        let comp = component.registerRunningPaceComponent
+        let coord = RegisterRunningPaceCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .close:
+                break
+            case .registeredAndClose:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+
+    private func pushWriteLog(
+        vm: MyPageViewModel,
+        logForm: LogForm,
+        writeLogMode: WriteLogMode,
+        animated: Bool
+    ) {
+        let comp = component.writeLogComponent(
+            logForm: logForm,
+            writeLogMode: writeLogMode
+        )
+        let coord = WriteLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushConfirmLog(
+        vm: MyPageViewModel,
+        logId: Int,
+        animated: Bool
+    ) {
+        let comp = component.confirmLogComponent(logId: logId)
+        let coord = ConfirmLogCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward(needUpdate):
+                vm.routeInputs.needUpdate.onNext(needUpdate)
+            }
+        }
+    }
+
+    private func pushManageAttendanceScene(
+        vm: MyPageViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.manageAttendanceComponent(postId: postId)
+        let coord = ManageAttendanceCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+
+    private func pushConfirmAttendanceScene(
+        vm: MyPageViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.confirmAttendanceComponent(postId: postId)
+        let coord = ConfirmAttendanceCoordinator(
+            component: comp,
+            navController: navigationController
+        )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }

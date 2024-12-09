@@ -13,28 +13,33 @@ final class HomeViewModel: BaseViewModel {
     private var posts: [Post] = []
     private var selectedPostID: Int?
     var filter: PostFilter
-    var listOrderType: PostListOrder = .distance
 
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
         userAPIService: UserAPIService = BasicUserAPIService(),
         notificationService: RBNotificationService = BasicRBNotificationService.shared,
         locationService: LocationService = BasicLocationService.shared,
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService: UserKeychainService =
+            BasicUserKeyChainService.shared
     ) {
         let searchLocation = loginKeyChainService.userId == 213 ? CLLocationCoordinate2D(latitude: 37.57191043904224, longitude: 126.96173755287116) : locationService.currentPlace
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            postState: .open,
-            filter: .newest,
+            postState: .closed,
+            filter: .distance,
             distanceFilter: 3,
             gender: .none,
             ageMin: 20,
             ageMax: 65,
             runningTag: .beforeWork,
             jobFilter: .none,
-            keywordSearch: ""
+            paceFilter: ["beginner", "average", "high", "master"],
+            afterPartyFilter: .all,
+            keywordSearch: "",
+            page: 1,
+            pageSize: 10
         )
         filter = initialFilter
         super.init()
@@ -70,31 +75,27 @@ final class HomeViewModel: BaseViewModel {
                 }
             }
             .subscribe(onNext: { [unowned self] posts in
-                let currentCenterLocation = CLLocation(latitude: self.filter.latitude, longitude: self.filter.longitude)
-                self.posts = posts.sorted(by: { pLeft, pRight in
-                    switch self.listOrderType {
-                    case .distance:
-                        guard let leftCoord = pLeft.coord,
-                              let rightCoord = pRight.coord
-                        else { return true }
-
-                        let pLeftLocation = CLLocation(
-                            latitude: Double(leftCoord.lat),
-                            longitude: Double(leftCoord.long)
-                        )
-                        let pRightLocation = CLLocation(
-                            latitude: Double(rightCoord.lat),
-                            longitude: Double(rightCoord.long)
-                        )
-                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
-                    case .latest:
-                        return pLeft.postingTime > pRight.postingTime
-                    }
-                })
+                self.posts = posts
                 self.outputs.posts.onNext(self.posts)
                 self.outputs.focusSelectedPost.onNext(nil)
                 self.outputs.refresh.onNext(())
                 self.outputs.showRefreshRegion.onNext(false)
+            })
+            .disposed(by: disposeBag)
+
+        let nextPostReady = PublishSubject<[Post]?>()
+        nextPostReady
+            .compactMap { $0 }
+            .map { [weak self] posts -> [Post] in
+                if self?.filter.postState == .open {
+                    return posts.filter { post in post.open }
+                } else {
+                    return posts
+                }
+            }
+            .subscribe(onNext: { [unowned self] posts in
+                self.posts.append(contentsOf: posts)
+                self.outputs.posts.onNext(self.posts)
             })
             .disposed(by: disposeBag)
 
@@ -147,6 +148,7 @@ final class HomeViewModel: BaseViewModel {
             .map { [unowned self] filterType -> PostFilter in
                 var newFilter = self.filter
                 newFilter.filter = filterType
+                newFilter.page = 1
                 self.filter = newFilter
                 return newFilter
             }
@@ -178,14 +180,17 @@ final class HomeViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.writingPost
-            // TODO: 시작시 이벤트가 바로 들어오는 현상이 있음 그래서 skip 1 해결방안 찾으면 수정할 것
             .skip(1)
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 if loginKeyChainService.loginType != .member {
                     self.routes.nonMemberCover.onNext(())
                 } else {
-                    self.routes.writingPost.onNext(())
+                    if userKeyChainService.runningPace == .none {
+                        self.routes.registerRunningPace.onNext(())
+                    } else {
+                        self.routes.writingPost.onNext(())
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -251,6 +256,39 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(routes.detailPost)
             .disposed(by: disposeBag)
 
+        inputs.loadNextPagePosts
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                let isLastPage = self.posts.count % self.filter.pageSize == 0
+                return isLastPage
+            }
+            .do(onNext: { [weak self] _ in
+                self?.filter.page += 1
+            })
+            .compactMap { [weak self] _ in
+                self?.filter
+            }
+            .flatMap { filter in
+                postAPIService.fetchPosts(with: filter)
+            }
+            .compactMap { [weak self] result in
+                guard let self = self else { return nil }
+                switch result {
+                case let .response(data):
+                    if data == nil {
+                        self.toast.onNext("페이지 불러오기를 실패했습니다.")
+                    }
+                    return data
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    }
+                    return nil
+                }
+            }
+            .subscribe(onNext: { nextPostReady.onNext($0) })
+            .disposed(by: disposeBag)
+
         // MARK: - RouteInput
 
         routeInputs.needUpdate
@@ -258,6 +296,9 @@ final class HomeViewModel: BaseViewModel {
                 self?.outputs.showRefreshRegion.onNext(false)
             })
             .filter { $0 }
+            .do(onNext: { [weak self] _ in
+                self?.filter.page = 1
+            })
             .compactMap { [weak self] _ in
                 self?.filter
             }
@@ -291,12 +332,40 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        routeInputs.needUpdate
+            .filter { _ in loginKeyChainService.loginType == .member }
+            .flatMap { _ in postAPIService.myPage() }
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+
+                switch result {
+                case let .response(result: data):
+                    switch data {
+                    case let .success(info, _, _):
+                        if info.pace != nil, let runningPace = RunningPace(rawValue: info.pace!) {
+                            BasicUserKeyChainService.shared.runningPace = runningPace
+                        } else {
+                            BasicUserKeyChainService.shared.runningPace = .none
+                        }
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    } else {
+                        self.toast.onNext("불러오기에 실패했습니다.")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+
         routeInputs.filterChanged
             .do(onNext: { [weak self] inputFilter in
                 let notChanged = inputFilter.ageMin == initialFilter.ageMin &&
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
-                    inputFilter.jobFilter == initialFilter.jobFilter
+                    inputFilter.jobFilter == initialFilter.jobFilter &&
+                    inputFilter.paceFilter == initialFilter.paceFilter &&
+                    inputFilter.afterPartyFilter == initialFilter.afterPartyFilter
 
                 self?.outputs.highLightFilter.onNext(!notChanged)
             })
@@ -307,6 +376,8 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMax = inputFilter.ageMax
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
+                newFilter.paceFilter = inputFilter.paceFilter
+                newFilter.afterPartyFilter = inputFilter.afterPartyFilter
                 self?.filter = newFilter
                 return newFilter
             }
@@ -319,7 +390,6 @@ final class HomeViewModel: BaseViewModel {
                 case let .response(data):
                     if data == nil {
                         self?.toast.onNext("필터 적용에 실패했습니다.")
-                        // TODO: 필터 아이콘 다시 이전 상태로 돌리기
                     }
                     return data
                 case let .error(alertMessage):
@@ -332,17 +402,22 @@ final class HomeViewModel: BaseViewModel {
             .subscribe(onNext: { postReady.onNext($0) })
             .disposed(by: disposeBag)
 
-//        routeInputs.detailClosed
-//            .subscribe(onNext: { [weak self] result in
-//                guard let self = self,
-//                      let index = self.posts.firstIndex(where: { $0.ID == result.id })
-//                else { return }
-//                self.posts[index].marked = result.marked
-//                self.outputs.bookMarked.onNext((id: result.id, marked: result.marked))
-//                self.outputs.posts.onNext(self.posts)
-//                self.outputs.focusSelectedPost.onNext(nil)
-//            })
-//            .disposed(by: disposeBag)
+        // 필터 변경에 따라 아이콘 변경 이벤트를 발생합니다.
+        routeInputs.filterChanged
+            .map { inputFilter in
+                if inputFilter.paceFilter.count == 4 &&
+                    inputFilter.gender == .none &&
+                    inputFilter.ageMin == 20 && inputFilter.ageMax == 65 &&
+                    inputFilter.afterPartyFilter == .all &&
+                    inputFilter.jobFilter == .none
+                {
+                    return false
+                }
+
+                return true
+            }
+            .bind(to: outputs.activatedFilterIcon)
+            .disposed(by: disposeBag)
 
         locationService.locationEnableState
             .subscribe(onNext: { [weak self] _ in
@@ -421,34 +496,19 @@ final class HomeViewModel: BaseViewModel {
 
         routeInputs.postListOrderChanged
             .subscribe(onNext: { [unowned self] postListOrder in
-                self.listOrderType = postListOrder
-                let currentCenterLocation = CLLocation(
-                    latitude: self.filter.latitude,
-                    longitude: self.filter.longitude
-                )
-                self.posts = self.posts.sorted(by: { pLeft, pRight in
-                    switch self.listOrderType {
-                    case .distance:
-                        guard let leftCoord = pLeft.coord,
-                              let rightCoord = pRight.coord
-                        else { return true }
-
-                        let pLeftLocation = CLLocation(
-                            latitude: Double(leftCoord.lat),
-                            longitude: Double(leftCoord.long)
-                        )
-                        let pRightLocation = CLLocation(
-                            latitude: Double(rightCoord.lat),
-                            longitude: Double(rightCoord.long)
-                        )
-                        return currentCenterLocation.distance(from: pLeftLocation) < currentCenterLocation.distance(from: pRightLocation)
-                    case .latest:
-                        return pLeft.postingTime > pRight.postingTime
-                    }
-                })
                 self.outputs.posts.onNext(self.posts)
                 self.outputs.postListOrderChanged.onNext(postListOrder)
             })
+            .disposed(by: disposeBag)
+
+        routeInputs.postListOrderChanged
+            .map { [weak self] postListOrder in
+                self?.filter.filter = postListOrder.filterType
+                self?.outputs.postListOrderChanged.onNext(postListOrder)
+            }
+            .bind { [weak self] _ in
+                self?.routeInputs.needUpdate.onNext(true)
+            }
             .disposed(by: disposeBag)
 
         inputs.tapRunningTag
@@ -492,6 +552,7 @@ final class HomeViewModel: BaseViewModel {
         var tapPostBookMarkWithId = PublishSubject<Int>()
         var tapPost = PublishSubject<Int>()
         var tapSelectedPost = PublishSubject<Void>()
+        var loadNextPagePosts = PublishSubject<Bool>()
         var regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
         var moveRegion = PublishSubject<Void>()
         var needUpdate = PublishSubject<Bool>()
@@ -501,6 +562,7 @@ final class HomeViewModel: BaseViewModel {
         var tapRunningTag = PublishSubject<Void>()
 
         var tapAlarm = PublishSubject<Void>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct Output {
@@ -516,6 +578,7 @@ final class HomeViewModel: BaseViewModel {
         var runningTagChanged = PublishSubject<RunningTag>()
         var titleLocationChanged = PublishSubject<String?>()
         var alarmChecked = PublishSubject<Bool>()
+        var activatedFilterIcon = PublishSubject<Bool>()
     }
 
     struct Route {
@@ -526,6 +589,7 @@ final class HomeViewModel: BaseViewModel {
         var postListOrder = PublishSubject<Void>()
         var runningTag = PublishSubject<Void>()
         var alarmList = PublishSubject<Void>()
+        var registerRunningPace = PublishSubject<Void>()
     }
 
     struct RouteInput {
@@ -533,6 +597,7 @@ final class HomeViewModel: BaseViewModel {
         var filterChanged = PublishSubject<PostFilter>()
         var detailClosed = PublishSubject<Void>()
         var postListOrderChanged = PublishSubject<PostListOrder>()
+        var loadNextPagePosts = PublishSubject<Bool>()
         var runningTagChanged = PublishSubject<RunningTag>()
         var alarmChecked = PublishSubject<Void>()
     }

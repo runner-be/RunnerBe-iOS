@@ -25,53 +25,82 @@ enum MyParticipateState {
     case writernotManage // 출석을 체크하지 않았어요 (작성자)
 }
 
+// [러닝모임 진행순서]
+// 1. 모임 작성(관리자) or 모임 참여(참여자)
+// 2. 모임 시작 전
+// 3. (모임에 설정된 시간에) 모임 시작
+// 4. 출석 시작
+// 5. 모임 시작
+// 6. 모임 중
+// 7. ( 소요시간 뒤 ) 모임 종료
+// 8. ( 4번 시점부터 3시간 동안 ) 출석 진행 중
+// 9. 출석 마감
+// 10. (로그작성 시) 로그 마감
+// 11. 종료
+
+enum RunningState {
+    case participantDuringMeeting // 참여자 모임참여(1) ~ 모임 중(6)
+    case creatorBeforeMeetingStart // 작성자 모임작성(1) ~ 모임 시작 전(2)
+    case creatorDuringMeetingBeforeEnd // 작성자 모임시작(3) ~ 출석 진행(8)
+    case participantDuringMeetingBeforeEnd // 참여자 모임시작(3) ~ 출석 진행(8)
+    case attendanceClosed // 출석 마감(9)
+    case logSubmissionClosed // 로그 마감(10)
+}
+
 struct MyPagePostConfig: Equatable, IdentifiableType {
     let cellConfig: PostCellConfig
-    var myRunningState: MyRunningState
-    var myParticipateState: MyParticipateState
+    var runningState: RunningState
     private let userId = BasicLoginKeyChainService.shared.userId!
 
-    init(post: Post, now: Date) {
+    init(post: Post, now _: Date) {
         cellConfig = PostCellConfig(from: post)
-        myRunningState = .beforeManagable
-        myParticipateState = .memberbeforeManage
 
-        let currentIntervalFromRef = now.timeIntervalSince1970 // 현재 시간
+        // FIXME: 하드코딩 PostCellConfig에 중복 코드
+        let currentIntervalFromRef = Date().timeIntervalSince1970 // 현재 시간
         let startIntervalFromRef = post.gatherDate.timeIntervalSince1970 // 모임 시간
         let runningInterval = TimeInterval(post.runningTime.hour * 60 * 60 + post.runningTime.minute * 60) // 러닝 시간
+        let attendanceTimeLimit: Double = (3 * 60 * 60) // 출석관리 가능 시간 TODO: 3시간 고정 재 확인
+        let isCreator = post.writerID == userId
 
-        // 참여 러닝
-        if currentIntervalFromRef < startIntervalFromRef + runningInterval + (3 * 60 * 60) { // 출석 관리 시간이 아직 지나지 않음
-            if post.writerID != userId { // 참여자 : 리더의 체크를 기다리고 있어요
-                myParticipateState = .memberbeforeManage
-            } else {
-                myParticipateState = .writerbeforeManage // 리더 : 참여자의 출석을 체크해주세요
-                if startIntervalFromRef < currentIntervalFromRef { // 작성한글 / 출석 관리
-                    myRunningState = .managable
-                }
-            }
-        } else if currentIntervalFromRef > startIntervalFromRef + runningInterval + (3 * 60 * 60) {
-            if post.writerID != userId {
-                if post.whetherCheck == "N" { // 참여자 : 종료 이후에도 리더가 출석 체크 안했을 때
-                    myParticipateState = .membernotManage
-                }
-            } else { // 리더
-                myRunningState = .confirmManage // 출석 확인하기
-                if post.whetherCheck == "N" { // 리더 : 종료 이후에도 출석 체크 안했을 때
-                    myParticipateState = .writernotManage
-                }
-            }
+        if isCreator { // 모임 작성자
+            let isStart = currentIntervalFromRef > startIntervalFromRef // 모임이 시작했는가?
+            let isAttendanceClosed = currentIntervalFromRef > startIntervalFromRef + runningInterval + attendanceTimeLimit // 모임 시작 후 출석 마감이 되었는가?
 
-            if post.whetherCheck == "Y" {
-                if post.attendance {
-                    myParticipateState = .attendance
+            if isStart { // (작성자) 모임 시작 후
+                if isAttendanceClosed {
+                    runningState = .attendanceClosed // 모임 종료
                 } else {
-                    myParticipateState = .absence
+                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
+                }
+            } else { // (작성자) 모임 시작 전
+                if post.peopleNum == post.attendanceProfiles.count {
+                    runningState = .creatorDuringMeetingBeforeEnd // 모집 마감
+                } else {
+                    runningState = .creatorBeforeMeetingStart // 모집중
                 }
             }
+        } else { // 모임 참여자
+            let isDuring = currentIntervalFromRef < startIntervalFromRef + runningInterval
+            let isAttendanceClosed = currentIntervalFromRef > startIntervalFromRef + runningInterval + attendanceTimeLimit // 모임 시작 후 출석 마감이 되었는가?
 
-        } else if post.writerID == userId, currentIntervalFromRef < startIntervalFromRef { // 러닝후에 관리해주세요 (리더인데 시작 전)
-            myRunningState = .beforeManagable
+            if isDuring { // 모임 진행 중
+                if post.peopleNum == post.attendanceProfiles.count {
+                    runningState = .participantDuringMeetingBeforeEnd // 모집 마감
+                } else {
+                    runningState = .participantDuringMeeting // 모집중
+                }
+            } else { // 모임 종료
+                if isAttendanceClosed {
+                    runningState = .attendanceClosed // 출석 마감
+                } else {
+                    runningState = .logSubmissionClosed // 모집 종료
+                }
+            }
+        }
+
+        // 모임에 logID가 있으면 로그쓰기 마감입니다.
+        if post.logId != nil {
+            runningState = .logSubmissionClosed
         }
     }
 

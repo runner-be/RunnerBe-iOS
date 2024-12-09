@@ -84,12 +84,17 @@ final class ApplicantListModalViewModel: BaseViewModel {
                     }
                 }
             })
+
+        inputs.tapProfile
+            .bind(to: routes.userPage)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var backward = PublishSubject<Void>()
         var accept = PublishSubject<(idx: Int, accept: Bool)>()
         var finishing = PublishSubject<Void>()
+        var tapProfile = PublishSubject<Int>()
     }
 
     struct Output {
@@ -98,6 +103,7 @@ final class ApplicantListModalViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Bool>()
+        var userPage = PublishSubject<Int>()
     }
 
     private var disposeBag = DisposeBag()
