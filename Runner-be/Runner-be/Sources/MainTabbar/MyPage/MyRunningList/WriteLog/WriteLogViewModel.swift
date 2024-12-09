@@ -38,6 +38,7 @@ final class WriteLogViewModel: BaseViewModel {
         var selectedImageChanged = PublishSubject<Data?>()
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
         var logPartners = ReplaySubject<([LogPartners], Int?)>.create(bufferSize: 1)
+        var showBubbleInfo = PublishSubject<Void>()
     }
 
     struct Route {
@@ -48,7 +49,7 @@ final class WriteLogViewModel: BaseViewModel {
             gatheringId: Int?
         )>()
         var stampBottomSheet = PublishSubject<(stamp: StampType, temp: String)>()
-        var togetherRunner = PublishSubject<(logId: Int, gatheringId: Int)>()
+        var togetherRunner = PublishSubject<(logId: Int?, gatheringId: Int)>()
         var photoModal = PublishSubject<Void>()
         var backwardModal = PublishSubject<Void>()
     }
@@ -135,17 +136,31 @@ final class WriteLogViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.contents
+            .map { contents -> String in
+                // contents가 nil일 경우 빈 문자열로 처리하고, 500자 제한
+                String((contents ?? "").prefix(500))
+            }
             .bind { [weak self] contents in
+                print("Filtered contents: \(contents)")
                 self?.logForm.contents = contents
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
 
         inputs.tapPhotoButton
+            .filter { [weak self] _ in
+                if let imageData = self?.logForm.imageData {
+                    self?.toast.onNext("사진은 한 장만 올릴 수 있어요")
+                    return false
+                }
+                return true
+            }
             .bind(to: routes.photoModal)
             .disposed(by: disposeBag)
 
         inputs.tapPhotoCancel
             .bind { [weak self] _ in
                 self?.logForm.imageUrl = ""
+                self?.logForm.imageData = nil
                 self?.outputs.selectedImageChanged.onNext(nil)
             }
             .disposed(by: disposeBag)
@@ -165,12 +180,12 @@ final class WriteLogViewModel: BaseViewModel {
         inputs.tapTogether
             .compactMap { [weak self] _ in
                 guard let self = self,
-                      let logId = logForm.logId,
                       let gatheringId = logForm.gatheringId
                 else {
+                    self?.outputs.showBubbleInfo.onNext(())
                     return nil
                 }
-                return (logId, gatheringId)
+                return (logForm.logId, gatheringId)
             }
             .bind(to: routes.togetherRunner)
             .disposed(by: disposeBag)
@@ -192,6 +207,13 @@ final class WriteLogViewModel: BaseViewModel {
 
         inputs.createLog
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .filter { [weak self] _ in
+                if self?.logForm.stampCode == nil {
+                    self?.toast.onNext("러닝 기록을 입력해주세요!")
+                    return false
+                }
+                return true
+            }
             .compactMap { [weak self] _ in
                 self?.logForm
             }.flatMap { [weak self] logForm in

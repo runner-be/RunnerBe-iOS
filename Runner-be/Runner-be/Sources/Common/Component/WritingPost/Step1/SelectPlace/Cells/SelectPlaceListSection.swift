@@ -10,8 +10,8 @@ import RxDataSources
 
 struct SelectPlaceResultCellConfig: Equatable, IdentifiableType {
     let id = UUID()
-    let locationInfo: String
     let placeName: String
+    let placeAddress: String
     let placeExplain: String
 
     var identity: String {
@@ -19,8 +19,8 @@ struct SelectPlaceResultCellConfig: Equatable, IdentifiableType {
     }
 
     init(from: PlaceInfo) {
-        locationInfo = from.locationInfo
         placeName = from.placeName
+        placeAddress = from.placeAddress
         placeExplain = from.placeExplain ?? ""
     }
 }

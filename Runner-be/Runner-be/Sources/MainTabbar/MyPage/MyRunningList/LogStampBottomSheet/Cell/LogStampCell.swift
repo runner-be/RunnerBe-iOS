@@ -45,7 +45,6 @@ final class LogStampCell: UICollectionViewCell {
     ) {
         stampIcon.image = stampType.icon
         contentView.layer.opacity = isEnabled ? 1.0 : 0.2
-        isUserInteractionEnabled = isEnabled
     }
 }
 

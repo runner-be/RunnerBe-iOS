@@ -20,11 +20,11 @@ final class TogetherRunnerComponent {
         )
     }
 
-    let logId: Int
+    let logId: Int?
     let gatheringId: Int
 
     init(
-        logId: Int,
+        logId: Int?,
         gatheringId: Int
     ) {
         self.logId = logId

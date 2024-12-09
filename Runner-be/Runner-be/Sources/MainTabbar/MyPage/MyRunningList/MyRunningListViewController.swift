@@ -55,31 +55,16 @@ final class MyRunningListViewController: BaseViewController {
         $0.font = .pretendardSemiBold16
     }
 
-    private lazy var allRunningCollectionView: UICollectionView = { // 작성 글 탭
+    private lazy var postCollectionView: UICollectionView = { // 작성 글 탭
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
 
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
-        collectionView.isPagingEnabled = false
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
-
-    private lazy var myRunningCollectionView: UICollectionView = { // 참여 러닝 탭
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
-        collectionView.backgroundColor = .clear
-        collectionView.isHidden = true
         collectionView.isPagingEnabled = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -137,127 +122,71 @@ final class MyRunningListViewController: BaseViewController {
             .map { MyRunningListViewModel.PostType.myPost }
             .bind(to: viewModel.inputs.typeChanged)
             .disposed(by: disposeBag)
+
+        postCollectionView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.inputs.tapPost)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-        allRunningCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        myRunningCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        typealias RunningDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
-
-        let allRunningDatasource = RunningDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self
-            else { return UICollectionViewCell() }
-
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
-            else { return UICollectionViewCell() }
-
-            cell.configure(with: item)
-
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.item }
-                .subscribe(onNext: { [weak self] index in
-                    self?.viewModel.inputs.bookMark.onNext(index)
-                }).disposed(by: cell.disposeBag)
-
-            cell.manageAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapManageAttendance)
-                .disposed(by: cell.disposeBag)
-
-            cell.confirmAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmAttendance)
-                .disposed(by: cell.disposeBag)
-
-            cell.writeLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapWriteLog)
-                .disposed(by: cell.disposeBag)
-
-            cell.confirmLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmLog)
-                .disposed(by: cell.disposeBag)
-            return cell
-        }
-
-        viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .all }
-            .map { [MyPagePostSection(items: $0)] }
-            .bind(to: allRunningCollectionView.rx.items(dataSource: allRunningDatasource))
-            .disposed(by: disposeBag)
-
-        let myRunningDatasource = RunningDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self
-            else { return UICollectionViewCell() }
-
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
-            else { return UICollectionViewCell() }
-
-            cell.configure(with: item)
-
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.item }
-                .subscribe(onNext: { [weak self] index in
-                    self?.viewModel.inputs.bookMark.onNext(index)
-                }).disposed(by: cell.disposeBag)
-
-            cell.manageAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapManageAttendance)
-                .disposed(by: cell.disposeBag)
-
-            cell.confirmAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmAttendance)
-                .disposed(by: cell.disposeBag)
-
-            cell.writeLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapWriteLog)
-                .disposed(by: cell.disposeBag)
-
-            cell.confirmLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmLog)
-                .disposed(by: cell.disposeBag)
-
-            return cell
-        }
-
-        viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .myPost }
-            .map { [MyPagePostSection(items: $0)] }
-            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.posts
-            .do { [weak self] posts in
-                self?.totalCountLabel.text = "총 \(posts.count)건"
+        typealias PostDataSource = RxCollectionViewSectionedAnimatedDataSource<PostSection>
+        let postDataSource = PostDataSource { [weak self] _, collectionView, indexPath, item in
+            guard let self = self,
+                  let cell = collectionView.dequeueReusableCell(
+                      withReuseIdentifier: PostCell.id,
+                      for: indexPath
+                  ) as? PostCell
+            else {
+                return UICollectionViewCell()
             }
-            .map { $0.isEmpty }
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                let type = self.viewModel.outputs.postType
-                switch type {
-                case .all:
-                    self.allRunningCollectionView.isHidden = false
-                    self.myRunningCollectionView.isHidden = true
-                case .myPost:
-                    self.allRunningCollectionView.isHidden = true
-                    self.myRunningCollectionView.isHidden = false
-                }
-            }).disposed(by: disposeBag)
+
+            cell.configure(with: item)
+
+            cell.postInfoView.bookMarkIcon.rx.tap
+                .map { indexPath.item }
+                .subscribe(onNext: { [weak self] index in
+                    self?.viewModel.inputs.bookMark.onNext(index)
+                }).disposed(by: cell.disposeBag)
+
+            cell.manageAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapManageAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmAttendanceButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmAttendance)
+                .disposed(by: cell.disposeBag)
+
+            cell.writeLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapWriteLog)
+                .disposed(by: cell.disposeBag)
+
+            cell.confirmLogButton.rx.tapGesture()
+                .when(.recognized)
+                .map { _ in indexPath.item }
+                .bind(to: viewModel.inputs.tapConfirmLog)
+                .disposed(by: cell.disposeBag)
+
+            return cell
+        }
+
+        viewModel.outputs.newPosts
+            .map { [PostSection(items: $0)] }
+            .bind(to: postCollectionView.rx.items(dataSource: postDataSource))
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.newPosts
+            .map { "총 \($0.count)건" }
+            .bind(to: totalCountLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -277,8 +206,7 @@ extension MyRunningListViewController {
             navBar,
             buttonStackView,
             totalCountLabel,
-            allRunningCollectionView,
-            myRunningCollectionView,
+            postCollectionView,
         ])
 
         buttonStackView.addArrangedSubviews([
@@ -303,12 +231,7 @@ extension MyRunningListViewController {
             $0.left.right.equalToSuperview().inset(16)
         }
 
-        allRunningCollectionView.snp.makeConstraints {
-            $0.top.equalTo(totalCountLabel.snp.bottom).offset(24)
-            $0.left.bottom.right.equalToSuperview()
-        }
-
-        myRunningCollectionView.snp.makeConstraints {
+        postCollectionView.snp.makeConstraints {
             $0.top.equalTo(totalCountLabel.snp.bottom).offset(24)
             $0.left.bottom.right.equalToSuperview()
         }

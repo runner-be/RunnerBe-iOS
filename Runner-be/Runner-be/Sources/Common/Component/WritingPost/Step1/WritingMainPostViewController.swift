@@ -49,19 +49,26 @@ class WritingMainPostViewController: BaseViewController {
             .bind(to: viewModel.inputs.next)
             .disposed(by: disposeBag)
 
+        // 제목 입력 TextField 30자 제한
+        writeTitleView.textField.rx.text.orEmpty
+            .map { text in
+                String(text.prefix(30))
+            }
+            .bind(to: writeTitleView.textField.rx.text)
+            .disposed(by: disposeBag)
+
+        // 제목 입력 이벤트 처리
         writeTitleView.textField.rx.text
-            .subscribe(onNext: { text in
-                if let text = text, !text.isEmpty {
-                    self.navBar.rightBtnItem.setTitleColor(.primary, for: .normal)
-                    self.navBar.rightBtnItem.isEnabled = true
-                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17Sb
-                    self.viewModel.inputs.editTitle.onNext(text)
-                } else {
-                    self.navBar.rightBtnItem.setTitleColor(.darkG3, for: .normal)
-                    self.navBar.rightBtnItem.isEnabled = false
-                    self.navBar.rightBtnItem.titleLabel?.font = .iosBody17R
-                }
-            })
+            .orEmpty
+            .do { [weak self] text in
+                guard let self = self else { return }
+                let isValid = text != ""
+
+                self.navBar.rightBtnItem.setTitleColor(isValid ? .primary : .darkG3, for: .normal)
+                self.navBar.rightBtnItem.isEnabled = isValid
+                self.navBar.rightBtnItem.titleLabel?.font = isValid ? .iosBody17Sb : .iosBody17R
+            }
+            .bind(to: viewModel.inputs.editTitle)
             .disposed(by: disposeBag)
 
         writeDateView.rx

@@ -50,7 +50,7 @@ struct MyPosting: Codable {
     let nickName: String?
     let profileImageURL: String?
     let title, runningTime, gatheringTime, gatherLongitude: String?
-    let gatherLatitude, locationInfo, runningTag, age: String?
+    let gatherLatitude, placeName, runningTag, age: String?
     let gender, whetherEnd, job: String?
     let peopleNum: Int?
     let contents: String?
@@ -67,7 +67,7 @@ struct MyPosting: Codable {
         case postUserID = "postUserId"
         case nickName
         case profileImageURL = "profileImageUrl"
-        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, locationInfo, runningTag, age, gender, whetherEnd, job, peopleNum, contents
+        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, placeName, runningTag, age, gender, whetherEnd, job, peopleNum, contents
         case userID = "userId"
         case bookMark
         case distance = "DISTANCE"
@@ -119,7 +119,7 @@ struct MyRunning: Codable {
     let nickName: String?
     let profileImageURL: String?
     let title, runningTime, gatheringTime, gatherLongitude: String?
-    let gatherLatitude, locationInfo, runningTag, age: String?
+    let gatherLatitude, placeName, runningTag, age: String?
     let gender, whetherEnd, job: String?
     let peopleNum: Int?
     let contents: String?
@@ -134,7 +134,7 @@ struct MyRunning: Codable {
         case postUserID = "postUserId"
         case nickName
         case profileImageURL = "profileImageUrl"
-        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, locationInfo, runningTag, age, gender, whetherEnd, job, peopleNum, contents
+        case title, runningTime, gatheringTime, gatherLongitude, gatherLatitude, placeName, runningTag, age, gender, whetherEnd, job, peopleNum, contents
         case userID = "userId"
         case bookMark, attendance, whetherCheck
         case distance = "DISTANCE"

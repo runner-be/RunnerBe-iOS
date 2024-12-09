@@ -182,7 +182,8 @@ final class SelectDateBottomSheetViewModel: BaseViewModel {
                 dateComponents.day = 1 // 필요에 따라 기본 일(day)을 설정
 
                 // Calendar를 사용하여 Date로 변환
-                let calendar = Calendar.current
+                var calendar = Calendar.current
+                calendar.timeZone = TimeZone(identifier: "UTC")!
                 if let date = calendar.date(from: dateComponents) {
                     return date
                 }

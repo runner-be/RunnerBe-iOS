@@ -46,13 +46,16 @@ final class TogetherRunnerViewModel: BaseViewModel {
     var partnerList: [LogPartners] = []
     var selectedIndex: Int?
 
+    var logId: Int?
+
     // MARK: - Init
 
     init(
-        logId: Int,
+        logId: Int?,
         gatheringId: Int,
         logAPIService: LogAPIService = BasicLogAPIService()
     ) {
+        self.logId = logId // logID 유무로 로그 확인 / 작성페이지 구분
         super.init()
 
         logAPIService.partners(gatheringId: gatheringId)
@@ -97,7 +100,7 @@ final class TogetherRunnerViewModel: BaseViewModel {
                     return (
                         stamp: StampType(rawValue: "RUN001")!,
                         title: "에게 \n 러닝 스탬프를 찍어봐요!",
-                        gatheringId: nil
+                        gatheringId: gatheringId
                     )
                 }
 
@@ -120,11 +123,14 @@ final class TogetherRunnerViewModel: BaseViewModel {
 
         inputs.tapShowLogButton
             .compactMap { [weak self] itemIndex in
-                guard let self = self
+                guard let self = self,
+                      let logId = self.partnerList[itemIndex].logId,
+                      self.partnerList[itemIndex].isOpened == 1
                 else {
+                    self?.toast.onNext("열람할 수 없는 로그입니다.")
                     return nil
                 }
-                return self.partnerList[itemIndex].logId
+                return logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -142,14 +148,14 @@ final class TogetherRunnerViewModel: BaseViewModel {
                 if let currentStampCode = self.partnerList[selectedIndex].stampCode {
                     self.partnerList[selectedIndex].stampCode = stampType.rawValue
                     return logAPIService.editPartnerStamp(
-                        logId: logId,
+                        gatheringId: gatheringId,
                         targetId: targetId,
                         stampCode: stampType.rawValue
                     )
                 } else {
                     self.partnerList[selectedIndex].stampCode = stampType.rawValue
                     return logAPIService.postPartnerStamp(
-                        logId: logId,
+                        gatheringId: gatheringId,
                         targetId: targetId,
                         stampCode: stampType.rawValue
                     )

@@ -217,7 +217,8 @@ final class UserPageViewModel: BaseViewModel {
                 gatheringId: gatheringId,
                 date: date,
                 stampType: stampType,
-                isOpened: isOpened
+                isOpened: isOpened,
+                isGathering: false
             ))
         }
 

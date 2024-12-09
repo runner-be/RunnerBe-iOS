@@ -76,6 +76,13 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
                     animated: true
                 )
             }).disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.detailPost
+            .map { (vm: scene.VM, postId: $0) }
+            .subscribe(onNext: { [weak self] result in
+                self?.pushDetailPostScene(vm: result.vm, postId: result.postId, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushWriteLog(
@@ -149,6 +156,22 @@ final class MyRunningListCoordinator: BasicCoordinator<MyRunningListResult> {
             component: comp,
             navController: navigationController
         )
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+
+    private func pushDetailPostScene(
+        vm: MyRunningListViewModel,
+        postId: Int,
+        animated: Bool
+    ) {
+        let comp = component.postDetailComponent(postId: postId)
+        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {

@@ -58,11 +58,15 @@
 		2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */; };
 		2B6D003A2C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */; };
 		2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */; };
+		2B7789392D01C62B00A88C78 /* PostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7789382D01C62300A88C78 /* PostDataSource.swift */; };
+		2B77893B2D01CE4800A88C78 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77893A2D01CE4000A88C78 /* PostCell.swift */; };
+		2B7EA0722CDF2AEB00BE5C0B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EA0712CDF2AE700BE5C0B /* Array+.swift */; };
 		2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */; };
 		2B8C9D5D2C3FECEE0053913B /* ImageViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */; };
 		2B8C9D5F2C3FECFA0053913B /* ImageViewerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */; };
 		2B8C9D612C3FED080053913B /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */; };
 		2B8C9D632C3FED130053913B /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */; };
+		2B92EE1B2D04345800A4CB98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */; };
 		2B9738192C873B4500DD79B0 /* TogetherRunnerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9738182C873B4500DD79B0 /* TogetherRunnerDataSource.swift */; };
 		2B9ACC692C88766000E2B16D /* LogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC682C88766000E2B16D /* LogAPI.swift */; };
 		2B9ACC6B2C88797700E2B16D /* LogAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */; };
@@ -95,6 +99,8 @@
 		2BBA6E612C87104C00E6CE40 /* TogetherRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */; };
 		2BBA6E642C871F0200E6CE40 /* TogetherRunnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */; };
 		2BBCD20A2CB7CC070088A048 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD2092CB7CC070088A048 /* String+.swift */; };
+		2BBCD63D2CD0E18200F8CB80 /* FilterAfterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */; };
+		2BBCD63F2CD0E9CA00F8CB80 /* AfterParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */; };
 		2BC6A5972C82F40D00CCE73F /* WriteLogToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */; };
 		2BC6A5992C837EB100CCE73F /* GotStampListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A5982C837EB100CCE73F /* GotStampListView.swift */; };
 		2BC6A59C2C83818400CCE73F /* ReceivedStampDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */; };
@@ -333,7 +339,6 @@
 		C3A64F9327C5541A0088E387 /* BasicPostAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */; };
 		C3A64F9527C55E7C0088E387 /* PostCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */; };
 		C3A64F9727C57F5A0088E387 /* PostingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A64F9627C57F5A0088E387 /* PostingForm.swift */; };
-		C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */; };
 		C3AB6B61280EBFCC00D58AEC /* EditProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */; };
 		C3AD114627B80F7F00A7044C /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114527B80F7F00A7044C /* BasicResponse.swift */; };
 		C3AD114927B8112500A7044C /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AD114827B8112500A7044C /* LoginAPI.swift */; };
@@ -563,11 +568,16 @@
 		2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetCoordinator.swift; sourceTree = "<group>"; };
 		2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewController.swift; sourceTree = "<group>"; };
+		2B7789382D01C62300A88C78 /* PostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataSource.swift; sourceTree = "<group>"; };
+		2B77893A2D01CE4000A88C78 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		2B7EA0712CDF2AE700BE5C0B /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		2B87EE4D2C3A631E002FBA03 /* MessageSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSelectedImageCell.swift; sourceTree = "<group>"; };
 		2B8C9D5C2C3FECEE0053913B /* ImageViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerComponent.swift; sourceTree = "<group>"; };
 		2B8C9D5E2C3FECFA0053913B /* ImageViewerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerCoordinator.swift; sourceTree = "<group>"; };
 		2B8C9D602C3FED080053913B /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
 		2B8C9D622C3FED130053913B /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		2B92EE192D04302800A4CB98 /* Runner-beRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Runner-beRelease.entitlements"; sourceTree = "<group>"; };
+		2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2B9738182C873B4500DD79B0 /* TogetherRunnerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerDataSource.swift; sourceTree = "<group>"; };
 		2B9ACC682C88766000E2B16D /* LogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPI.swift; sourceTree = "<group>"; };
 		2B9ACC6A2C88797700E2B16D /* LogAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAPIService.swift; sourceTree = "<group>"; };
@@ -600,6 +610,8 @@
 		2BBA6E602C87104C00E6CE40 /* TogetherRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerViewController.swift; sourceTree = "<group>"; };
 		2BBA6E632C871F0200E6CE40 /* TogetherRunnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogetherRunnerCell.swift; sourceTree = "<group>"; };
 		2BBCD2092CB7CC070088A048 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAfterPartyView.swift; sourceTree = "<group>"; };
+		2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterParty.swift; sourceTree = "<group>"; };
 		2BC6A5962C82F40D00CCE73F /* WriteLogToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLogToggleView.swift; sourceTree = "<group>"; };
 		2BC6A5982C837EB100CCE73F /* GotStampListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotStampListView.swift; sourceTree = "<group>"; };
 		2BC6A59B2C83818400CCE73F /* ReceivedStampDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedStampDataSource.swift; sourceTree = "<group>"; };
@@ -837,7 +849,6 @@
 		C3A64F9227C5541A0088E387 /* BasicPostAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPostAPIService.swift; sourceTree = "<group>"; };
 		C3A64F9427C55E7C0088E387 /* PostCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellConfig.swift; sourceTree = "<group>"; };
 		C3A64F9627C57F5A0088E387 /* PostingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingForm.swift; sourceTree = "<group>"; };
-		C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3AB6B60280EBFCC00D58AEC /* EditProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileType.swift; sourceTree = "<group>"; };
 		C3AD114527B80F7F00A7044C /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		C3AD114827B8112500A7044C /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -1194,6 +1205,7 @@
 		2B6D00212C7EE4C100B50930 /* Foundation+ */ = {
 			isa = PBXGroup;
 			children = (
+				2B7EA0712CDF2AE700BE5C0B /* Array+.swift */,
 				2B6D001F2C7EE4AE00B50930 /* Date+.swift */,
 			);
 			path = "Foundation+";
@@ -1565,6 +1577,7 @@
 			isa = PBXGroup;
 			children = (
 				C304C583282708A100C24295 /* SelectionLabel.swift */,
+				2BBCD63C2CD0E18200F8CB80 /* FilterAfterPartyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1643,6 +1656,8 @@
 		C32C029727CB9F7E0011419E /* CommonConfig */ = {
 			isa = PBXGroup;
 			children = (
+				2B77893A2D01CE4000A88C78 /* PostCell.swift */,
+				2B7789382D01C62300A88C78 /* PostDataSource.swift */,
 				C32C029827CB9F8E0011419E /* UserConfig.swift */,
 			);
 			path = CommonConfig;
@@ -1837,6 +1852,7 @@
 		C34FDA1C27AD5997007718F8 /* Runner-be */ = {
 			isa = PBXGroup;
 			children = (
+				2B92EE192D04302800A4CB98 /* Runner-beRelease.entitlements */,
 				2BD73D842C27C91A0058D6E9 /* Ignore */,
 				C3B865ED27CED7100040D95C /* Pods-Runner-be-acknowledgements.plist */,
 				C3D3937927BB469300D47C9C /* Runner-be.entitlements */,
@@ -1844,7 +1860,7 @@
 				C34FDA3227AD59F3007718F8 /* Resources */,
 				C34FDA2827AD5999007718F8 /* LaunchScreen.storyboard */,
 				C34FDA2B27AD5999007718F8 /* Info.plist */,
-				C3AB6B5E280EB53300D58AEC /* GoogleService-Info.plist */,
+				2B92EE1A2D04345800A4CB98 /* GoogleService-Info.plist */,
 			);
 			path = "Runner-be";
 			sourceTree = "<group>";
@@ -1976,6 +1992,7 @@
 				C35B832527B91E6600551AC5 /* Job.swift */,
 				C35B832727B91E6E00551AC5 /* Gender.swift */,
 				C3C9732427C9373900232251 /* User.swift */,
+				2BBCD63E2CD0E9CA00F8CB80 /* AfterParty.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -3018,6 +3035,7 @@
 			files = (
 				C39D86C927AEB78700A9C201 /* AppleSDGothicNeoR.ttf in Resources */,
 				DA17F4802B653FD500CD237A /* Pretendard-Bold.otf in Resources */,
+				2B92EE1B2D04345800A4CB98 /* GoogleService-Info.plist in Resources */,
 				DA17F4862B653FD500CD237A /* Pretendard-Medium.otf in Resources */,
 				DA17F4812B653FD500CD237A /* Pretendard-ExtraBold.otf in Resources */,
 				C39D86C627AEB78700A9C201 /* AppleSDGothicNeoSB.ttf in Resources */,
@@ -3032,7 +3050,6 @@
 				DA17F4822B653FD500CD237A /* Pretendard-SemiBold.otf in Resources */,
 				C34FDA4527AD5BC7007718F8 /* Assets.xcassets in Resources */,
 				C39D86CB27AEB78700A9C201 /* AppleSDGothicNeoH.ttf in Resources */,
-				C3AB6B5F280EB53300D58AEC /* GoogleService-Info.plist in Resources */,
 				C3F0968427AED0F900959F9A /* Localizable.strings in Resources */,
 				DA17F4842B653FD500CD237A /* Pretendard-Light.otf in Resources */,
 				C39D86C327AEB78700A9C201 /* AppleSDGothicNeoUL.ttf in Resources */,
@@ -3223,6 +3240,7 @@
 				C3256B6227CE8048009B16DA /* BasicPolicyAPIService.swift in Sources */,
 				DAB25441282E36C5005B78B6 /* MessagePostView.swift in Sources */,
 				C3BA459E27B408930048CA76 /* OnOffLabelGroup.swift in Sources */,
+				2BBCD63D2CD0E18200F8CB80 /* FilterAfterPartyView.swift in Sources */,
 				4360E2F82953D6EA003583BB /* Rx+Response.swift in Sources */,
 				2B87EE4E2C3A631E002FBA03 /* MessageSelectedImageCell.swift in Sources */,
 				C3347BEB27C2D11B006FB110 /* WritingDetailPostCoordinator.swift in Sources */,
@@ -3466,6 +3484,8 @@
 				C3BA45CE27B5FEE10048CA76 /* PolicyDetailViewModel.swift in Sources */,
 				C3A64F8527C54A6F0088E387 /* RunningTag.swift in Sources */,
 				C3A64F8D27C54D650088E387 /* PostAPIService.swift in Sources */,
+				2B77893B2D01CE4800A88C78 /* PostCell.swift in Sources */,
+				2B7EA0722CDF2AEB00BE5C0B /* Array+.swift in Sources */,
 				C3BA45E127B6219F0048CA76 /* OnboardingCompletionViewModel.swift in Sources */,
 				C39F2E9B27BC536100A7D86B /* SelectBaseView.swift in Sources */,
 				DADD949728A7CF5C0004F86F /* MessageReportCoordinator.swift in Sources */,
@@ -3484,6 +3504,7 @@
 				2B6D00362C7EF0E400B50930 /* SelectDateBottomSheetComponent.swift in Sources */,
 				433BD03C28A13661003B444E /* DeleteConfirmModalComponent.swift in Sources */,
 				C3BA45E327B621A60048CA76 /* OnboardingCompletionViewController.swift in Sources */,
+				2BBCD63F2CD0E9CA00F8CB80 /* AfterParty.swift in Sources */,
 				C343A34327BE22B7008E6FA4 /* BasicSliderLabelGroup.swift in Sources */,
 				C3CF9B7627C6F2B70042B65D /* BasicPostDataSource.swift in Sources */,
 				DA7E23E92B7A48D2005D18A6 /* RegisterRunningPaceView.swift in Sources */,
@@ -3595,6 +3616,7 @@
 				2B0A758D2C75FF2D00818710 /* SelectPlaceGuideView.swift in Sources */,
 				433BD03E28A13669003B444E /* DeleteConfirmModalCoordinator.swift in Sources */,
 				C32C029627CB63270011419E /* MyPagePostDataSource.swift in Sources */,
+				2B7789392D01C62B00A88C78 /* PostDataSource.swift in Sources */,
 				43E5181E28C2E257009A1897 /* DateStamp.swift in Sources */,
 				C3BA45BC27B5712D0048CA76 /* OnboardingCancelModalViewController.swift in Sources */,
 				C3D3937D27BB886A00D47C9C /* String+SHA256.swift in Sources */,
@@ -3780,12 +3802,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.5;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ATZ5H5VN5;
+				DEVELOPMENT_TEAM = K988K33886;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Runner-be/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Runner-be";
@@ -3807,7 +3827,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Gogochang_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -3822,13 +3841,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-be.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Runner-be/Runner-beRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.5;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ATZ5H5VN5;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.7;
+				DEVELOPMENT_TEAM = K988K33886;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Runner-be/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Runner-be";
@@ -3851,7 +3868,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivvv.RunnerBeiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Gogochang_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -32,13 +32,13 @@ final class UserInfoView: UIView {
 
         switch userInfo.diligence {
         case "성실 출석":
-            badgeLabel.iconView.image = Asset.smile.uiImage
+            badgeLabel.iconView.image = Asset.iconGoodRunner.uiImage
         case "노력 출석":
-            badgeLabel.iconView.image = Asset.icEffortRunner.uiImage
+            badgeLabel.iconView.image = Asset.iconEffortRunner.uiImage
         case "불량 출석":
-            badgeLabel.iconView.image = Asset.icBadRunner.uiImage
+            badgeLabel.iconView.image = Asset.iconBadRunner.uiImage
         case "초보 출석":
-            badgeLabel.iconView.image = Asset.icBasicRunner.uiImage
+            badgeLabel.iconView.image = Asset.iconBasicRunner.uiImage
         default:
             break
         }
@@ -149,9 +149,8 @@ final class UserInfoView: UIView {
 
     private func initialLayout() {
         avatarView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
-            make.bottom.equalTo(self.snp.bottom)
+            make.centerY.equalToSuperview()
         }
 
         nameLabel.snp.makeConstraints { make in

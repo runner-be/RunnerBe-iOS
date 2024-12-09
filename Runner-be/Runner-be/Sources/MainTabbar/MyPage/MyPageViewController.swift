@@ -66,6 +66,15 @@ final class MyPageViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapLogStamp)
             .disposed(by: disposeBag)
 
+        // 로그 스탬프의 스크롤가 완료되면 현재 페이지(section)의 수를 전달합니다.
+        myLogStampView.logStampCollectionView.rx.didEndDecelerating
+            .compactMap { [weak self] _ in
+                guard let self = self else { return nil }
+                return self.myLogStampView.pageControl.currentPage
+            }
+            .bind(to: viewModel.inputs.logStampDidEndDecelerating)
+            .disposed(by: disposeBag)
+
         myPostHeaderView.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
@@ -103,7 +112,7 @@ final class MyPageViewController: BaseViewController {
         myLogStampView.logStampCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
         // 나의 로그 스탬프
-        typealias MyLogStampDataSource = RxCollectionViewSectionedAnimatedDataSource<MyLogStampSection>
+        typealias MyLogStampDataSource = RxCollectionViewSectionedReloadDataSource<MyLogStampSection>
 
         let myLogStampDatasource = MyLogStampDataSource(
             configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
@@ -121,36 +130,35 @@ final class MyPageViewController: BaseViewController {
                     gatheringId: nil,
                     date: element.date,
                     stampType: element.stampType,
-                    isOpened: element.isOpened
+                    isOpened: element.isOpened,
+                    isGathering: element.isGathering
                 ))
 
                 return cell
             }
         )
 
-        // 작성한 글 탭
-        typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<MyPagePostSection>
-
-        viewModel.outputs.logStamps
+        viewModel.outputs.days
             .debug("logStamps")
             .bind(to: myLogStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
             .disposed(by: disposeBag)
 
-        viewModel.outputs.logStamps
+        viewModel.outputs.days
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-
+                self.myLogStampView.logStampCollectionView.layoutIfNeeded()
+                // FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
                 // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
                 self.myLogStampView.logStampCollectionView.scrollToItem(
                     at: IndexPath(
                         item: 0,
-                        section: self.myLogStampView.pageControl.currentPage
+                        section: 2
                     ),
                     at: .left,
-                    animated: false
+                    animated: true
                 )
+                myLogStampView.pageControl.currentPage = 2
             })
             .disposed(by: disposeBag)
 
@@ -160,60 +168,57 @@ final class MyPageViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
 
-        let myRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self else { return UICollectionViewCell() }
+        typealias PostDataSource = RxCollectionViewSectionedAnimatedDataSource<PostSection>
+        let postDataSource = PostDataSource(
+            configureCell: { [weak self] _, collectionView, indexPath, item -> UICollectionViewCell in
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(
+                          withReuseIdentifier: PostCell.id,
+                          for: indexPath
+                      ) as? PostCell
+                else {
+                    return UICollectionViewCell()
+                }
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageParticipateCell.id, for: indexPath) as? MyPageParticipateCell
-            else { return UICollectionViewCell() }
+                cell.configure(with: item)
 
-            cell.configure(with: item)
+                cell.postInfoView.bookMarkIcon.rx.tap
+                    .map { indexPath.item }
+                    .subscribe(onNext: { [weak self] index in
+                        self?.viewModel.inputs.bookMark.onNext(index)
+                    }).disposed(by: cell.disposeBag)
 
-            cell.postInfoView.bookMarkIcon.rx.tap
-                .map { indexPath.item }
-                .subscribe(onNext: { [weak self] index in
-                    self?.viewModel.inputs.bookMark.onNext(index)
-                }).disposed(by: cell.disposeBag)
+                cell.manageAttendanceButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapManageAttendance)
+                    .disposed(by: cell.disposeBag)
 
-            cell.manageAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapManageAttendance)
-                .disposed(by: cell.disposeBag)
+                cell.confirmAttendanceButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapConfirmAttendance)
+                    .disposed(by: cell.disposeBag)
 
-            cell.confirmAttendanceButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmAttendance)
-                .disposed(by: cell.disposeBag)
+                cell.writeLogButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapWriteLog)
+                    .disposed(by: cell.disposeBag)
 
-            cell.writeLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapWriteLog)
-                .disposed(by: cell.disposeBag)
+                cell.confirmLogButton.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in indexPath.item }
+                    .bind(to: viewModel.inputs.tapConfirmLog)
+                    .disposed(by: cell.disposeBag)
 
-            cell.confirmLogButton.rx.tapGesture()
-                .when(.recognized)
-                .map { _ in indexPath.item }
-                .bind(to: viewModel.inputs.tapConfirmLog)
-                .disposed(by: cell.disposeBag)
-            return cell
-        }
-
-        viewModel.outputs.posts
-            .filter { [unowned self] _ in self.viewModel.outputs.postType == .attendable }
-            .map { [MyPagePostSection(items: $0)] }
-            .bind(to: myRunningCollectionView.rx.items(dataSource: myRunningDatasource))
-            .disposed(by: disposeBag)
-
-        viewModel.outputs.posts
-            .map { $0.isEmpty }
-            .subscribe(onNext: { [weak self] empty in
-                guard let self = self else { return }
-                self.myRunningCollectionView.isHidden = false
-                self.myRunningEmptyLabel.isHidden = !empty
-                self.myRunningEmptyButton.isHidden = !empty
+                return cell
             })
+
+        viewModel.outputs.posts
+            .debug("MyPage-Post")
+            .map { [PostSection(items: $0)] }
+            .bind(to: myRunningCollectionView.rx.items(dataSource: postDataSource))
             .disposed(by: disposeBag)
 
         viewModel.outputs.userInfo
@@ -353,7 +358,7 @@ final class MyPageViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MyPageParticipateCell.self, forCellWithReuseIdentifier: MyPageParticipateCell.id)
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
         collectionView.isPagingEnabled = false

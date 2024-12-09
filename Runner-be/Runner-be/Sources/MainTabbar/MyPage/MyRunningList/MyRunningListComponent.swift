@@ -36,4 +36,8 @@ final class MyRunningListComponent {
     func confirmAttendanceComponent(postId: Int) -> ConfirmAttendanceComponent {
         return ConfirmAttendanceComponent(postId: postId)
     }
+
+    func postDetailComponent(postId: Int) -> PostDetailComponent {
+        return PostDetailComponent(postId: postId)
+    }
 }

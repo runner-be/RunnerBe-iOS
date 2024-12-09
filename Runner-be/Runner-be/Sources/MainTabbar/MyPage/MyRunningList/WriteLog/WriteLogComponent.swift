@@ -58,7 +58,7 @@ final class WriteLogComponent {
     }
 
     func togetherRunnerComponent(
-        logId: Int,
+        logId: Int?,
         gatheringId: Int
     ) -> TogetherRunnerComponent {
         return TogetherRunnerComponent(

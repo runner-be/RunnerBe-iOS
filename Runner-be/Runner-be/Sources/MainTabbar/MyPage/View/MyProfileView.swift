@@ -41,6 +41,16 @@ final class MyProfileView: UIView {
         myInfoView.configure(userConfig: config)
 
         BasicUserKeyChainService.shared.nickName = config.nickName
+
+        // FIXME: 하드코딩
+        switch config.gender {
+        case "남성":
+            BasicUserKeyChainService.shared.gender = Gender(idx: 2)
+        case "여성":
+            BasicUserKeyChainService.shared.gender = Gender(idx: 1)
+        default:
+            BasicUserKeyChainService.shared.gender = Gender(idx: 0)
+        }
     }
 
     func reset() {

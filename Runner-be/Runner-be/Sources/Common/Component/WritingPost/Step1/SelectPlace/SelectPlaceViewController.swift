@@ -168,8 +168,8 @@ final class SelectPlaceViewController: BaseViewController {
                 }
 
                 cell.configure(
-                    locationInfo: element.locationInfo,
-                    placeName: element.placeName
+                    placeName: element.placeName,
+                    placeAddress: element.placeAddress
                 )
 
                 return cell

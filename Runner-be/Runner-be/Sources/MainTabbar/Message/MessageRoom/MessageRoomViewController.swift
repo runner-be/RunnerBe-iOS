@@ -28,8 +28,6 @@ class MessageRoomViewController: BaseViewController {
 
         formatter.dateFormat = DateFormat.apiDate.formatString
 
-//        messageInputView.delegate = self
-        dismissKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -64,6 +62,9 @@ class MessageRoomViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         messageInputView.sendButtonTapped
+            .do { [weak self] _ in
+                self?.dismissKeyboard()
+            }
             .map { text in
                 let imageData = self.viewModel.images.compactMap { $0.jpegData(compressionQuality: 0.5) }
                 var contents: [String?] = Array(repeating: nil, count: imageData.count + 1)
@@ -114,7 +115,10 @@ class MessageRoomViewController: BaseViewController {
             }
             .bind(to: messageContentsTableView.rx.items) { _, _, item -> UITableViewCell in
 
-                let date = self.dateUtil.apiDateStringToDate(item.createdAt!)
+                var date: Date? = nil
+                if let createAt = item.createdAt {
+                    date = self.dateUtil.apiDateStringToDate(createAt)
+                }
 
                 if item.messageFrom == "Others" {
                     let cell = self.messageContentsTableView.dequeueReusableCell(withIdentifier: MessageChatLeftCell.id) as! MessageChatLeftCell

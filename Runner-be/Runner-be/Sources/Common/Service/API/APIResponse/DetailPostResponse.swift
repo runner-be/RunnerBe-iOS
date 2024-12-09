@@ -27,8 +27,8 @@ struct DetailPostResponse: Decodable {
     let postUserID: Int?
     let gender: String?
     let peopleNum: Int?
-    let locationInfo: String?
     let placeName: String?
+    let placeAddress: String?
     let placeExplain: String?
     let pace: String?
     let afterParty: Int?
@@ -46,8 +46,8 @@ struct DetailPostResponse: Decodable {
         case gatheringId
         case contents
         case gender
-        case locationInfo
         case placeName
+        case placeAddress
         case placeExplain
         case peopleNum
         case postUserID = "postUserId"
@@ -118,16 +118,16 @@ extension DetailPostResponse {
         guard let id = postID,
               let writerID = postUserID,
               let title = title,
-              let locationInfo = locationInfo,
+              let placeName = placeName,
               let runningTime = timeRunning,
               let gatherDate = gatherDate,
               let postingTime = createTime,
               let ageRange = ageRange,
               let coords = coords,
               let maximumNum = peopleNum,
-              let content = contents,
               let pace = pace,
-              let afterParty = afterParty
+              let afterParty = afterParty,
+              let peopleNum = peopleNum
         else { return nil }
 
         let writerName = ""
@@ -146,21 +146,22 @@ extension DetailPostResponse {
             gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
-            locationInfo: locationInfo,
             placeName: placeName,
+            placeAddress: placeAddress,
             placeExplain: placeExplain,
             coord: coords,
             attendanceProfiles: [],
             postingTime: postingTime,
             afterParty: afterParty,
             pace: pace,
-            logId: logId
+            logId: logId,
+            peopleNum: peopleNum
         )
 
         post.open = open && post.gatherDate > Date()
         post.marked = false
         post.attendance = false
 
-        return PostDetail(post: post, maximumNum: maximumNum, content: content)
+        return PostDetail(post: post, maximumNum: maximumNum, content: contents ?? "")
     }
 }

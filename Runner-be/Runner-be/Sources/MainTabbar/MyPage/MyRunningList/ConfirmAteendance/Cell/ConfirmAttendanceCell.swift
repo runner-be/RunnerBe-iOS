@@ -48,7 +48,7 @@ final class ConfirmAttendanceCell: UITableViewCell {
 
     // MARK: - Methods
 
-    func configure(with runner: RunnerList) { // FIXME: 임시
+    func configure(with runner: RunnerInfo) { // FIXME: 임시
         switch runner.attendance {
         case 0:
             resultLabel.text = "출석을 체크하지 않았어요"
@@ -62,13 +62,13 @@ final class ConfirmAttendanceCell: UITableViewCell {
         }
 
         let user = User(
-            userID: runner.userID!,
-            nickName: runner.nickName!,
-            gender: runner.gender!,
-            age: runner.age!,
-            diligence: runner.diligence!,
+            userID: runner.userID,
+            nickName: runner.nickName,
+            gender: runner.gender,
+            age: runner.age,
+            diligence: runner.diligence,
             pushOn: "Y",
-            job: runner.job!,
+            job: runner.job,
             profileImageURL: runner.profileImageURL,
             pace: runner.pace
         )

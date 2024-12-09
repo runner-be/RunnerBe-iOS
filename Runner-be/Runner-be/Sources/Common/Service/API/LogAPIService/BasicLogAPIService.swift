@@ -409,7 +409,7 @@ final class BasicLogAPIService: LogAPIService {
         .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
 
-    func postPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
+    func postPartnerStamp(gatheringId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
@@ -420,7 +420,7 @@ final class BasicLogAPIService: LogAPIService {
 
         provider.rx.request(.postPartnerStamp(
             userId: userId,
-            logId: logId,
+            gatheringId: gatheringId,
             targetId: targetId,
             stampCode: stampCode,
             token: token
@@ -459,7 +459,7 @@ final class BasicLogAPIService: LogAPIService {
         return functionResult
     }
 
-    func editPartnerStamp(logId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
+    func editPartnerStamp(gatheringId: Int, targetId: Int, stampCode: String) -> Observable<APIResult<LogResult>> {
         guard let userId = loginKeyChain.userId,
               let token = loginKeyChain.token
         else {
@@ -470,7 +470,7 @@ final class BasicLogAPIService: LogAPIService {
 
         provider.rx.request(.editPartnerStamp(
             userId: userId,
-            logId: logId,
+            gatheringId: gatheringId,
             targetId: targetId,
             stampCode: stampCode,
             token: token

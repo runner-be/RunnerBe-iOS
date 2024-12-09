@@ -113,7 +113,7 @@ extension PostAPI: TargetType {
                 "ageFilterMin": "\(filter.ageMin)",
                 "jobFilter": filter.jobFilter.code,
                 "paceFilter": filter.paceFilter.joined(separator: ","),
-                "afterPartyFilter": "A",
+                "afterPartyFilter": filter.afterPartyFilter.code,
                 "userLongitude": "\(filter.longitude)",
                 "userLatitude": "\(filter.latitude)",
                 "keywordSearch": filter.keywordSearch.isEmpty ? "N" : filter.keywordSearch,
@@ -121,10 +121,6 @@ extension PostAPI: TargetType {
                 "pageSize": filter.pageSize,
                 "runningTag": filter.runningTag.code,
             ]
-
-            if let userId = userId {
-                parameters["userId"] = userId
-            }
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case let .posting(form, _, _):

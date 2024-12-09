@@ -82,6 +82,17 @@ final class TogetherRunnerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - LifeCycle
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+//        showLogButton.snp.remakeConstraints {
+//            $0.right.equalTo(showLogButton.snp.left).inset(-8)
+//            $0.centerY.equalToSuperview()
+//            $0.size.equalTo(32)
+//        }
+    }
+
     // MARK: - Methods
 
     // FIXME: 조장을 인덱스 첫번째일 경우로 임시 설정됨 API수정후 앱적용
@@ -105,18 +116,23 @@ final class TogetherRunnerCell: UITableViewCell {
             stampBg.isHidden = true
         }
 
-        updateLogButton(isOpened: config.isOpened == 1)
+        updateLogButton(with: config)
     }
 
-    private func updateLogButton(isOpened: Bool) {
+    // FIXME: 임시
+    private func updateLogButton(with config: TogetherRunnerConfig) {
+        let isOpened = (config.isOpened == 1)
+        if config.logId == nil {
+            showLogButton.layer.opacity = 0
+            return
+        }
+
         if isOpened {
             showLogButton.layer.opacity = 1
             showLogButton.setTitle("로그 보기", for: .normal)
-            showLogButton.isUserInteractionEnabled = true
         } else {
             showLogButton.layer.opacity = 0.2
             showLogButton.setTitle("비공개", for: .normal)
-            showLogButton.isUserInteractionEnabled = false
         }
     }
 }

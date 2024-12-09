@@ -27,7 +27,7 @@ final class HomeViewModel: BaseViewModel {
 
         let initialFilter = PostFilter(
             latitude: searchLocation.latitude, longitude: searchLocation.longitude,
-            postState: .open,
+            postState: .closed,
             filter: .distance,
             distanceFilter: 3,
             gender: .none,
@@ -36,6 +36,7 @@ final class HomeViewModel: BaseViewModel {
             runningTag: .beforeWork,
             jobFilter: .none,
             paceFilter: ["beginner", "average", "high", "master"],
+            afterPartyFilter: .all,
             keywordSearch: "",
             page: 1,
             pageSize: 10
@@ -363,7 +364,8 @@ final class HomeViewModel: BaseViewModel {
                     inputFilter.ageMax == initialFilter.ageMax &&
                     inputFilter.gender == initialFilter.gender &&
                     inputFilter.jobFilter == initialFilter.jobFilter &&
-                    inputFilter.paceFilter == initialFilter.paceFilter
+                    inputFilter.paceFilter == initialFilter.paceFilter &&
+                    inputFilter.afterPartyFilter == initialFilter.afterPartyFilter
 
                 self?.outputs.highLightFilter.onNext(!notChanged)
             })
@@ -375,6 +377,7 @@ final class HomeViewModel: BaseViewModel {
                 newFilter.ageMin = inputFilter.ageMin
                 newFilter.jobFilter = inputFilter.jobFilter
                 newFilter.paceFilter = inputFilter.paceFilter
+                newFilter.afterPartyFilter = inputFilter.afterPartyFilter
                 self?.filter = newFilter
                 return newFilter
             }
@@ -397,6 +400,23 @@ final class HomeViewModel: BaseViewModel {
                 }
             }
             .subscribe(onNext: { postReady.onNext($0) })
+            .disposed(by: disposeBag)
+
+        // 필터 변경에 따라 아이콘 변경 이벤트를 발생합니다.
+        routeInputs.filterChanged
+            .map { inputFilter in
+                if inputFilter.paceFilter.count == 4 &&
+                    inputFilter.gender == .none &&
+                    inputFilter.ageMin == 20 && inputFilter.ageMax == 65 &&
+                    inputFilter.afterPartyFilter == .all &&
+                    inputFilter.jobFilter == .none
+                {
+                    return false
+                }
+
+                return true
+            }
+            .bind(to: outputs.activatedFilterIcon)
             .disposed(by: disposeBag)
 
         locationService.locationEnableState
@@ -481,6 +501,16 @@ final class HomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
+        routeInputs.postListOrderChanged
+            .map { [weak self] postListOrder in
+                self?.filter.filter = postListOrder.filterType
+                self?.outputs.postListOrderChanged.onNext(postListOrder)
+            }
+            .bind { [weak self] _ in
+                self?.routeInputs.needUpdate.onNext(true)
+            }
+            .disposed(by: disposeBag)
+
         inputs.tapRunningTag
             .skip(1)
             .bind(to: routes.runningTag)
@@ -548,6 +578,7 @@ final class HomeViewModel: BaseViewModel {
         var runningTagChanged = PublishSubject<RunningTag>()
         var titleLocationChanged = PublishSubject<String?>()
         var alarmChecked = PublishSubject<Bool>()
+        var activatedFilterIcon = PublishSubject<Bool>()
     }
 
     struct Route {

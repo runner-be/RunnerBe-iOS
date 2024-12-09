@@ -14,7 +14,7 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
     struct Input {}
 
     struct Output {
-        var runnerList = ReplaySubject<[RunnerList]>.create(bufferSize: 1)
+        var runnerInfoList = ReplaySubject<[RunnerInfo]>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -30,7 +30,7 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
     var routeInputs = RouteInputs()
 
     let postId: Int
-    var runnerList: [RunnerList] = []
+    var runnerInfoList: [RunnerInfo] = []
 
     // MARK: - Init
 
@@ -42,25 +42,18 @@ final class ConfirmAttendanceViewModel: BaseViewModel {
         self.postId = postId
         super.init()
 
-        postAPIService.getRunnerList()
+        postAPIService.attendanceList(postId: postId)
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case let .response(data):
-                    guard let data = data,
-                          let runnerList = data.filter({ $0.postID == postId }).first?.runnerList
-                    else {
-                        self?.toast.onNext("출석 조회에 실패했습니다.")
-                        return
-                    }
-
-                    self?.runnerList = runnerList
-                    self?.outputs.runnerList.onNext(runnerList)
-
+                    self?.runnerInfoList = data
+                    self?.outputs.runnerInfoList.onNext(data)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
                     }
                 }
+
             }).disposed(by: disposeBag)
     }
 

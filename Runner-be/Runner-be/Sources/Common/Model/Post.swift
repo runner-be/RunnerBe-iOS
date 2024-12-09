@@ -25,8 +25,8 @@ struct Post {
 
     let gender: Gender
 
-    let locationInfo: String
-    let placeName: String?
+    let placeName: String
+    let placeAddress: String?
     let placeExplain: String?
     let coord: (lat: Float, long: Float)?
 
@@ -42,6 +42,8 @@ struct Post {
     let pace: String
 
     let logId: Int?
+
+    let peopleNum: Int
 }
 
 struct PostDetail {
@@ -67,8 +69,8 @@ extension Post: CustomStringConvertible {
             gatheringId: \(gatheringId),
             ageRange: \(ageRange.min) ~ \(ageRange.max),
             gender: \(gender.name),
-            locationInfo: \(locationInfo),
-            placeName: \(placeName ?? "nil"),
+            placeName: \(placeName),
+            placeName: \(placeAddress ?? "nil"),
             placeExplain: \(placeExplain ?? "nil"),
             coord: lat - \(coord?.lat), long - \(coord?.long),
             open: \(open),

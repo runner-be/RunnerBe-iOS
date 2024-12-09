@@ -11,10 +11,12 @@ import Foundation
 struct LogResponse: Decodable {
     let totalCount: LogTotalCount
     let myRunningLog: [MyRunningLog]
+    let isExistGathering: [ExistingGathering]
 
     enum CodingKeys: String, CodingKey {
         case totalCount
         case myRunningLog
+        case isExistGathering
     }
 }
 
@@ -52,5 +54,20 @@ struct MyRunningLog: Decodable {
 
         // 만약 날짜 변환에 실패한 경우, 기본적으로 미래가 아니라고 간주
         return false
+    }
+}
+
+struct ExistingGathering: Decodable {
+    var gatheringId: Int
+    var gatheringTime: String
+}
+
+extension ExistingGathering {
+    var date: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return Date()
     }
 }

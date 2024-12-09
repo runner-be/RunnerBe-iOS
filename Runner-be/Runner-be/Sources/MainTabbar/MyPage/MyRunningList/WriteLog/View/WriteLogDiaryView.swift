@@ -22,13 +22,13 @@ final class WriteLogDiaryView: UIView {
     // MARK: - UI
 
     private let titleLabel = UILabel().then {
-        $0.text = "5줄 러닝 일기"
+        $0.text = "러닝 일기"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16
     }
 
     private let title = UILabel().then {
-        $0.text = "5줄 러닝 일기"
+        $0.text = "러닝 일기"
         $0.textColor = .darkG35
         $0.font = .pretendardSemiBold16
     }
@@ -41,7 +41,7 @@ final class WriteLogDiaryView: UIView {
 
     // MARK: - [START] Eidt
 
-    private let editView = UIView().then {
+    let editView = UIView().then {
         $0.backgroundColor = .darkG6
         $0.layer.cornerRadius = 12
     }
@@ -53,7 +53,7 @@ final class WriteLogDiaryView: UIView {
         $0.textContainerInset = .zero
         $0.textContainer.lineFragmentPadding = 0
 
-        $0.placeholder = "5줄 일기로 오늘 하루 러닝을 표현해보세요."
+        $0.placeholder = "러닝 일기로 오늘 하루 러닝을 표현해보세요."
         $0.placeholderColor = .darkG35
     }
 
@@ -147,7 +147,7 @@ final class WriteLogDiaryView: UIView {
         $0.image = Asset.group.uiImage
     }
 
-    private let infoWordBubble = UIImageView().then {
+    let infoWordBubble = UIImageView().then {
         $0.image = Asset.logGatheringWordbubble.image
         let label = UILabel()
         label.font = .pretendardRegular12
@@ -171,6 +171,7 @@ final class WriteLogDiaryView: UIView {
         imageButton.isHidden = logDiaryType == .confirm
         confirmImageView.isHidden = logDiaryType == .write
         countLabel.isHidden = logDiaryType == .confirm
+        editView.isUserInteractionEnabled = logDiaryType == .write
 
         super.init(frame: .zero)
 
@@ -198,7 +199,7 @@ final class WriteLogDiaryView: UIView {
         stamp: StampType?,
         degree: String
     ) {
-        weatherIcon.image = stamp?.icon
+        weatherIcon.image = stamp?.icon ?? Asset.runningWeatherDefault.uiImage
         weatherDegreeLabel.text = degree + " ℃"
     }
 
@@ -209,14 +210,23 @@ final class WriteLogDiaryView: UIView {
         isPersonalLog = gatheringId == nil
         participantTempLabel.text = "\(gatheringCount) 명"
         participantIcon.image = isPersonalLog ? Asset.iconLock24.uiImage : Asset.group.uiImage
-        participantView.isUserInteractionEnabled = !isPersonalLog
+    }
 
-        if let superview = superview,
-           isPersonalLog
-        {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGlobalTap(_:)))
-            tapGesture.cancelsTouchesInView = false
-            superview.addGestureRecognizer(tapGesture)
+    func showInfoWordBubble() {
+        if infoWordBubble.isHidden {
+            // Ensure the bubble is visible
+            infoWordBubble.alpha = 1.0
+            infoWordBubble.isHidden = false
+
+            // Delay for 1 second before starting the fade-out animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.infoWordBubble.alpha = 0.0
+                }) { _ in
+                    // Hide after the fade-out completes
+                    self.infoWordBubble.isHidden = true
+                }
+            }
         }
     }
 }
@@ -269,17 +279,6 @@ extension WriteLogDiaryView {
         participantIconBg.addSubviews([
             participantIcon,
         ])
-    }
-
-    @objc private func handleGlobalTap(_ sender: UITapGestureRecognizer) {
-        print("ane9f0jesfje90sjf0 handleGlobalTap")
-        let location = sender.location(in: participantView)
-        let isTouchInfoLogo = participantIconBg.frame.contains(location)
-        if isTouchInfoLogo {
-            infoWordBubble.isHidden.toggle()
-        } else {
-            infoWordBubble.isHidden = true
-        }
     }
 
     private func initialLayout() {

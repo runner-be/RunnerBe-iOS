@@ -46,43 +46,49 @@ final class MakerViewController: BaseViewController {
     private lazy var plan = MakerView().then { view in
         view.roleLabel.text = "Plan"
         view.nameLabel.text = "은서"
-        view.imageView.image = Asset.runnerBePLAN.uiImage
-    }
-
-    private lazy var design = MakerView().then { view in
-        view.roleLabel.text = "Design"
-        view.nameLabel.text = "정"
-        view.imageView.image = Asset.runnerBeDESIGN.uiImage
-    }
-
-    private lazy var aos_niaka = MakerView().then { view in
-        view.roleLabel.text = "AOS"
-        view.nameLabel.text = "나이아카"
-        view.imageView.image = Asset.runnerBeNiaka.uiImage
-    }
-
-    private lazy var aos_judy = MakerView().then { view in
-        view.roleLabel.text = "AOS"
-        view.nameLabel.text = "주디"
-        view.imageView.image = Asset.runnerBeJudy.uiImage
-    }
-
-    private lazy var ios_shiv = MakerView().then { view in
-        view.roleLabel.text = "iOS"
-        view.nameLabel.text = "시브"
-        view.imageView.image = Asset.runnerBeSiv.uiImage
-    }
-
-    private lazy var ios_zoe = MakerView().then { view in
-        view.roleLabel.text = "iOS"
-        view.nameLabel.text = "조이"
-        view.imageView.image = Asset.runnerBeZoe.uiImage
+        view.imageView.image = Asset.runnerBePlan.uiImage
     }
 
     private lazy var server = MakerView().then { view in
         view.roleLabel.text = "Server"
-        view.nameLabel.text = "찬호"
+        view.nameLabel.text = "승완"
         view.imageView.image = Asset.runnerBeServer.uiImage
+    }
+
+    private lazy var design1 = MakerView().then { view in
+        view.roleLabel.text = "Design"
+        view.nameLabel.text = "정"
+        view.imageView.image = Asset.runnerBeDesign1.uiImage
+    }
+
+    private lazy var design2 = MakerView().then { view in
+        view.roleLabel.text = "Design"
+        view.nameLabel.text = "쥬쥬"
+        view.imageView.image = Asset.runnerBeDesign2.uiImage
+    }
+
+    private lazy var aos1 = MakerView().then { view in
+        view.roleLabel.text = "AOS"
+        view.nameLabel.text = "나이아카"
+        view.imageView.image = Asset.runnerBeAOS1.uiImage
+    }
+
+    private lazy var aos2 = MakerView().then { view in
+        view.roleLabel.text = "AOS"
+        view.nameLabel.text = "로키"
+        view.imageView.image = Asset.runnerBeAOS2.uiImage
+    }
+
+    private lazy var ios1 = MakerView().then { view in
+        view.roleLabel.text = "iOS"
+        view.nameLabel.text = "조이"
+        view.imageView.image = Asset.runnerBeIOS1.uiImage
+    }
+
+    private lazy var ios2 = MakerView().then { view in
+        view.roleLabel.text = "iOS"
+        view.nameLabel.text = "창규"
+        view.imageView.image = Asset.runnerBeIOS2.uiImage
     }
 
     private var navBar = RunnerbeNavBar().then { navBar in
@@ -102,12 +108,13 @@ extension MakerViewController {
         view.addSubviews([
             navBar,
             plan,
-            design,
-            aos_niaka,
-            aos_judy,
-            ios_shiv,
-            ios_zoe,
             server,
+            design1,
+            design2,
+            aos1,
+            aos2,
+            ios1,
+            ios2,
         ])
     }
 
@@ -119,52 +126,59 @@ extension MakerViewController {
         }
 
         plan.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(plan.snp.height)
-            make.top.equalTo(navBar.snp.bottom).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(view.bounds.width * 0.194)
-        }
-
-        design.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(design.snp.height)
-            make.top.equalTo(plan.snp.top)
-            make.trailing.equalTo(view.snp.trailing).offset(-view.bounds.width * 0.194)
-        }
-
-        aos_niaka.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(aos_niaka.snp.height)
-            make.top.equalTo(plan.snp.bottom).offset(43)
-            make.leading.equalTo(plan.snp.leading)
-        }
-
-        aos_judy.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(aos_judy.snp.height)
-            make.top.equalTo(aos_niaka.snp.top)
-            make.leading.equalTo(design.snp.leading)
-        }
-
-        ios_shiv.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(ios_shiv.snp.height)
-            make.top.equalTo(aos_niaka.snp.bottom).offset(43)
-            make.leading.equalTo(plan.snp.leading)
-        }
-
-        ios_zoe.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
-            make.width.equalTo(ios_zoe.snp.height)
-            make.top.equalTo(ios_shiv.snp.top)
-            make.leading.equalTo(design.snp.leading)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(server.snp.height)
+            make.top.equalTo(navBar.snp.bottom).offset(24)
+            make.right.equalTo(view.snp.centerX).offset(-30)
         }
 
         server.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height * 0.13)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
             make.width.equalTo(server.snp.height)
-            make.top.equalTo(ios_shiv.snp.bottom).offset(43)
+            make.top.equalTo(plan.snp.top)
+            make.left.equalTo(view.snp.centerX).offset(30)
+        }
+
+        design1.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(design1.snp.height)
+            make.top.equalTo(plan.snp.bottom).offset(32)
             make.leading.equalTo(plan.snp.leading)
+        }
+
+        design2.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(design2.snp.height)
+            make.top.equalTo(design1.snp.top)
+            make.leading.equalTo(server.snp.leading)
+        }
+
+        aos1.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(aos1.snp.height)
+            make.top.equalTo(design1.snp.bottom).offset(32)
+            make.leading.equalTo(plan.snp.leading)
+        }
+
+        aos2.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(aos2.snp.height)
+            make.top.equalTo(aos1.snp.top)
+            make.leading.equalTo(server.snp.leading)
+        }
+
+        ios1.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(ios1.snp.height)
+            make.top.equalTo(aos1.snp.bottom).offset(32)
+            make.leading.equalTo(plan.snp.leading)
+        }
+
+        ios2.snp.makeConstraints { make in
+            make.height.equalTo(UIScreen.main.bounds.height * 0.14)
+            make.width.equalTo(ios2.snp.height)
+            make.top.equalTo(ios1.snp.top)
+            make.leading.equalTo(server.snp.leading)
         }
     }
 }

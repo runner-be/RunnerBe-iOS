@@ -136,7 +136,7 @@ final class StampBottomSheetViewController: BaseViewController {
 
     // MARK: - Methods
 
-    @objc func keyboardWillShow(notification: NSNotification) {
+    override func keyboardWillShow(notification: Notification) {
         // 키보드 높이를 가져옴
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height

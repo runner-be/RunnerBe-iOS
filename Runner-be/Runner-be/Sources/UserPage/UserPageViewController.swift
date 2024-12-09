@@ -35,6 +35,14 @@ final class UserPageViewController: BaseViewController {
         $0.myInfoView.editPaceLabel.snp.makeConstraints {
             $0.height.equalTo(0)
         }
+
+        // FIXME: - 하드코딩 QA14
+        $0.nickNameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(37)
+            $0.left.equalToSuperview().inset(92)
+        }
+
+        $0.editProfileLabel.isHidden = true
     }
 
     private let logStampView = MyLogStampView().then {
@@ -150,7 +158,8 @@ final class UserPageViewController: BaseViewController {
                         gatheringId: nil,
                         date: element.date,
                         stampType: element.stampType,
-                        isOpened: element.isOpened
+                        isOpened: element.isOpened,
+                        isGathering: false
                     ),
                     isMyLogStamp: false
                 )

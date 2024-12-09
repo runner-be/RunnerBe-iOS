@@ -12,6 +12,9 @@ final class MyLogStampCell: UICollectionViewCell {
 
     // MARK: - Properties
 
+    // 사용하는 CollectionView에서 현재 Cell의 날짜를 구분하가위해 사용됨
+    var date: Date?
+
     // MARK: - UI
 
     private let stampIcon = UIImageView().then {
@@ -50,6 +53,7 @@ final class MyLogStampCell: UICollectionViewCell {
         with logStamp: LogStamp,
         isMyLogStamp: Bool = true
     ) {
+        date = logStamp.date
         let currentDate = Date()
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")

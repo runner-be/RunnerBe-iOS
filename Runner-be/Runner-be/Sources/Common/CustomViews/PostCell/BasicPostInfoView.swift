@@ -39,6 +39,15 @@ class BasicPostInfoView: UIView {
             pace: item.pace,
             viewType: .postDetail
         )
+
+        update(with: item.runningState)
+        //        if item.peopleNum == item.attendanceProfiles.count {
+        //            statusLabel.label.text = "모집 마감"
+        //            statusLabel.label.textColor = .darkG3
+        //        } else {
+        //            statusLabel.label.textColor = .primarydark
+        //            statusLabel.label.text = "모집중"
+        //        }
     }
 
     func configure(with item: UserPostCellConfig) {
@@ -52,6 +61,43 @@ class BasicPostInfoView: UIView {
             pace: item.pace,
             viewType: .postDetail
         )
+    }
+
+    func configure(with item: PostConfig) {
+        bookMarkIcon.isSelected = item.bookmarked
+        titleLabel.text = item.title
+        dateLabel.label.text = item.date
+        participantLabel.text = "\(item.gender) · \(item.ageText)"
+        bookMarkIcon.isSelected = item.bookmarked
+        afterPartyLabel.text = item.afterParty == 1 ? "뒷풀이 있음" : "뒷풀이 없음"
+        runningPaceView.configure(
+            pace: item.pace,
+            viewType: .postDetail
+        )
+        update(with: item.runningState)
+    }
+
+    func update(with state: RunningState) { // 상황에 따라 뷰 업데이트하는 부분
+        switch state {
+        case .participantDuringMeeting: // 참여자 모임참여(1) ~ 모임 중(6)
+            statusLabel.label.text = "모집중"
+            statusLabel.label.textColor = .primarydark
+        case .creatorBeforeMeetingStart: // 작성자 모임작성(1) ~ 모임 시작 전(2)
+            statusLabel.label.text = "모집중"
+            statusLabel.label.textColor = .primarydark
+        case .creatorDuringMeetingBeforeEnd: // 작성자 모임시작(3) ~ 출석 진행(8)
+            statusLabel.label.text = "모집 마감"
+            statusLabel.label.textColor = .darkG3
+        case .participantDuringMeetingBeforeEnd: // 참여자 모임시작(3) ~ 출석 진행(8)
+            statusLabel.label.text = "모집 마감"
+            statusLabel.label.textColor = .darkG3
+        case .attendanceClosed: // 출석 마감(9)
+            statusLabel.label.text = "모임 종료"
+            statusLabel.label.textColor = .darkG3
+        case .logSubmissionClosed: // 로그 마감(10)
+            statusLabel.label.text = "모집 종료"
+            statusLabel.label.textColor = .darkG3
+        }
     }
 
     func reset() {
@@ -165,6 +211,7 @@ extension BasicPostInfoView {
 
         bookMarkIcon.snp.makeConstraints {
             $0.top.equalTo(titleLabel)
+            $0.left.equalTo(titleLabel.snp.right).offset(8)
             $0.right.equalToSuperview()
             $0.size.equalTo(24)
         }

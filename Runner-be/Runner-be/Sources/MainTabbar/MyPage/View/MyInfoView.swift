@@ -26,9 +26,18 @@ final class MyInfoView: UIView {
         view.layer.cornerRadius = 4
     }
 
-    var registerPaceView = MyPageProfileLabel(iconPosition: .right).then { view in
-        view.icon.image = Asset.plusDarkG4.uiImage
-        view.label.text = "👟 페이스 등록"
+    var registerPaceView = UIView()
+
+    var registerContainerView = UIView()
+
+    var registerPaceIcon = UIImageView().then {
+        $0.image = Asset.iconPlusPrimary20.uiImage
+    }
+
+    var registerPaceLabel = UILabel().then {
+        $0.text = "페이스 등록"
+        $0.textColor = .darkG3
+        $0.font = .pretendardSemiBold14
     }
 
     var paceView = RunningPaceView()
@@ -72,6 +81,16 @@ extension MyInfoView {
             levelView,
             paceView,
         ])
+
+        // TODO: 레이아웃 리팩토링
+        registerPaceView.addSubviews([
+            registerContainerView,
+        ])
+
+        registerContainerView.addSubviews([
+            registerPaceIcon,
+            registerPaceLabel,
+        ])
     }
 
     func initialLayout() {
@@ -87,6 +106,27 @@ extension MyInfoView {
         registerPaceView.snp.makeConstraints { make in
             make.trailing.equalTo(vDivider.snp.leading).offset(-24)
             make.centerY.equalToSuperview()
+        }
+
+        registerPaceView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(9)
+            $0.left.equalToSuperview().inset(12)
+            $0.right.equalTo(vDivider.snp.left).offset(-12)
+        }
+
+        registerContainerView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+
+        registerPaceIcon.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview()
+        }
+
+        registerPaceLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(registerPaceIcon.snp.right).offset(6)
+            $0.right.equalToSuperview()
         }
 
         paceView.snp.makeConstraints { make in

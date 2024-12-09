@@ -57,7 +57,6 @@ class MessageChatLeftCell: UITableViewCell {
         label.font = .iosBody15R
         label.textColor = .darkG1
         label.text = "메시지 내용"
-        label.textColor = .black
         label.numberOfLines = 0
     }
 
@@ -108,6 +107,7 @@ class MessageChatLeftCell: UITableViewCell {
         disposeBag = DisposeBag()
         messageImage.kf.cancelDownloadTask()
         messageImage.image = nil
+        messageDate.text = nil
     }
 
     var disposeBag = DisposeBag()

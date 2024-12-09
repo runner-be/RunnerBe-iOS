@@ -18,8 +18,14 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     var user: User?
-    var posts = [PostType: [Post]]()
+    var posts = [Post]()
     private var myRunningLogs: [MyRunningLog?] = []
+
+    typealias LogDate = (date: Date, existGathering: ExistingGathering?, runningLog: MyRunningLog?)
+    var dates: [LogDate] = []
+
+    var previousLogStampTotalCount: LogTotalCount?
+    var currentLogStampTotalCount: LogTotalCount?
 
     private let calendar = Calendar.current
     private var components = DateComponents()
@@ -50,40 +56,117 @@ final class MyPageViewModel: BaseViewModel {
     init(
         postAPIService: PostAPIService = BasicPostAPIService(),
         userAPIService: UserAPIService = BasicUserAPIService(),
-        logAPIService: LogAPIService = BasicLogAPIService()
+        logAPIService: LogAPIService = BasicLogAPIService(),
+        loginKeyChain: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
         super.init()
+        let userId = loginKeyChain.userId ?? 0
 
-        outputs.changeTargetDate.onNext((
-            year: targetYear,
-            month: targetMonth
-        ))
+        dates += generateWeeks()
+        outputs.days.onNext(dates.chunked(into: 7).map { weekDates in
+            MyLogStampSection(items: weekDates.map { logDate in
+                MyLogStampConfig(
+                    from: LogStamp(
+                        logId: logDate.runningLog?.logId,
+                        gatheringId: logDate.existGathering?.gatheringId,
+                        date: logDate.date,
+                        stampType: StampType(rawValue: logDate.runningLog?.stampCode ?? ""),
+                        isOpened: logDate.runningLog?.isOpened,
+                        isGathering: logDate.existGathering != nil
+                    )
+                )
+            })
+        })
 
         routeInputs.needUpdate
             .filter { $0 }
-            .flatMap { _ in logAPIService.fetchLog(
-                userId: 414,
-                targetDate: Date()
-            )
+            .flatMap { _ in
+                let targetDate = Date()
+
+                let currentLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: targetDate
+                )
+
+                guard let previousDateMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) else {
+                    return Observable.zip(
+                        currentLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil)),
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
+                }
+
+                let previousLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: previousDateMonthDate
+                )
+
+                guard let nextDateMonthDate = Calendar.current.date(byAdding: .month, value: +1, to: targetDate) else {
+                    return Observable.zip(
+                        currentLog,
+                        previousLog,
+                        Observable.just(APIResult<LogResponse?>.response(result: nil))
+                    )
+                }
+
+                let nextLog = logAPIService.fetchLog(
+                    userId: userId,
+                    targetDate: nextDateMonthDate
+                )
+
+                return Observable.zip(currentLog, previousLog, nextLog)
             }
-            .compactMap { [weak self] result -> LogResponse? in
-                switch result {
+            .subscribe(onNext: { [weak self] currentResult, previousResult, nextResult in
+                var combinedRunningLogs: [MyRunningLog] = []
+                var combinedExistingGathering: [ExistingGathering] = []
+
+                switch previousResult {
                 case let .response(data):
                     if let data = data {
-                        return data
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+                        self?.previousLogStampTotalCount = data.totalCount
                     }
-                    self?.toast.onNext("로그 스탬프 조회에 실패했습니다.")
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
                     }
-                    return nil
+                    return
                 }
-                return nil
-            }
-            .subscribe(onNext: { [weak self] logResponse in
-                self?.outputs.logTotalCount.onNext(logResponse.totalCount)
-                self?.changeTargetDate(runningLog: logResponse.myRunningLog)
+
+                switch currentResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+                        self?.currentLogStampTotalCount = data.totalCount
+                        self?.outputs.logTotalCount.onNext(data.totalCount)
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
+
+                switch nextResult {
+                case let .response(data):
+                    if let data = data {
+                        combinedRunningLogs.append(contentsOf: data.myRunningLog)
+                        combinedExistingGathering.append(contentsOf: data.isExistGathering)
+
+                        self?.changeTargetDate(
+                            runningLog: combinedRunningLogs,
+                            existingGathering: combinedExistingGathering
+                        )
+                        self?.myRunningLogs = combinedRunningLogs
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                    return
+                }
             })
             .disposed(by: disposeBag)
 
@@ -92,25 +175,16 @@ final class MyPageViewModel: BaseViewModel {
             .flatMap { _ in postAPIService.myPage() }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
-                self.posts.removeAll()
-                self.outputs.posts.onNext([])
 
                 switch result {
                 case let .response(result: data):
                     switch data {
-                    case let .success(info, posting, joined):
-                        let now = DateUtil.shared.now
+                    case let .success(info, _, joined):
                         self.user = info
-                        // FIXME: postings 사용하지 않음, 마이페이지에서는 참여한 러닝만 포함하고 있기 때문
-                        let postings = posting.sorted(by: { $0.gatherDate > $1.gatherDate })
-                        let joins = joined.sorted(by: { $0.gatherDate > $1.gatherDate })
+                        self.posts = joined.reversed()
 
-                        self.posts[.myPost] = postings
-                        self.posts[.attendable] = joins
-
-                        self.user = info
                         self.outputs.userInfo.onNext(UserConfig(from: info, owner: false))
-                        self.outputs.posts.onNext(joins.map { MyPagePostConfig(post: $0, now: now) })
+                        self.outputs.posts.onNext(self.posts.map { PostConfig(from: $0) })
                     }
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
@@ -122,23 +196,6 @@ final class MyPageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
 
-        inputs.typeChanged
-            .filter { [unowned self] type in
-                type != self.outputs.postType
-            }
-            .map { [unowned self] type -> [Post] in
-                self.outputs.postType = type
-                return self.posts[type] ?? []
-            }
-            .map { posts -> [MyPagePostConfig] in
-                let now = DateUtil.shared.now
-                return posts.reduce(into: [MyPagePostConfig]()) { $0.append(MyPagePostConfig(post: $1, now: now)) }
-            }
-            .subscribe(onNext: { [unowned self] postConfigs in
-                self.outputs.posts.onNext(postConfigs)
-            })
-            .disposed(by: disposeBag)
-
         // 스탬프 클릭 시 스탬프가 있으면 로그 확인 페이지로 이동
         inputs.tapLogStamp
             .compactMap { [weak self] indexPath in
@@ -147,8 +204,8 @@ final class MyPageViewModel: BaseViewModel {
                 let item = indexPath.item
                 let logItemIndex = section + item
                 guard let self = self else { return nil }
-
-                return self.myRunningLogs[logItemIndex]?.logId
+                return self.dates[logItemIndex].runningLog?.logId
+//                return self.myRunningLogs[logItemIndex]?.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)
@@ -156,32 +213,29 @@ final class MyPageViewModel: BaseViewModel {
         // 스탬프 클릭 시 스탬프가 없으면 개인 로그 작성 페이지로 이동
         inputs.tapLogStamp
             .compactMap { [weak self] indexPath in
+                let currentDate = Date()
                 // 1주 단위로 section으로 구분되어 있습니다.
                 let section = indexPath.section * 7
                 let item = indexPath.item
                 let logItemIndex = section + item
+
                 guard let self = self,
-                      let myRunningLog = self.myRunningLogs[logItemIndex],
-                      myRunningLog.logId == nil,
-                      myRunningLog.isFuture == false
+                      self.dates[logItemIndex].runningLog == nil,
+                      currentDate.timeIntervalSince1970 > self.dates[logItemIndex].date.timeIntervalSince1970
                 else {
                     return nil
                 }
-
-                let runnedDate = myRunningLog.runnedDate
-                if let runDate = runnedDate.toDate() {
-                    return LogForm(
-                        runningDate: runDate,
-                        gatheringId: self.myRunningLogs[logItemIndex]?.gatheringId,
-                        isOpened: 1
-                    )
-                }
-                return nil
+                return LogForm(
+                    runningDate: self.dates[logItemIndex].date,
+                    gatheringId: self.dates[logItemIndex].existGathering?.gatheringId,
+                    isOpened: 1
+                )
             }
             .bind(to: routes.writeLog)
             .disposed(by: disposeBag)
 
         inputs.tapLogStampIcon
+            .map { userId }
             .bind(to: routes.calendar)
             .disposed(by: disposeBag)
 
@@ -192,15 +246,9 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapPost
             .compactMap { [weak self] idx in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
-                    return nil
-                }
-
-                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970, self.posts[self.outputs.postType]?[idx].writerID == BasicLoginKeyChainService.shared.userId! { // 리더이면서 아직 시작안했을 때
-                    self.toast.onNext("모임이 시작되면 출석을 체크할 수 있어요!")
                     return nil
                 }
 
@@ -213,7 +261,6 @@ final class MyPageViewModel: BaseViewModel {
         inputs.bookMark
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("북마크를 실패했습니다.")
@@ -242,22 +289,20 @@ final class MyPageViewModel: BaseViewModel {
             }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       let idx = posts.firstIndex(where: { $0.ID == result.postId })
                 else {
                     self?.toast.onNext("북마크를 실패했습니다.")
                     return
                 }
 
-                self.posts[self.outputs.postType]![idx].marked = result.mark
-                self.outputs.posts.onNext(self.posts[self.outputs.postType]!.map { MyPagePostConfig(post: $0, now: Date()) })
+                self.posts[idx].marked = result.mark
+                self.outputs.posts.onNext(self.posts.map { PostConfig(from: $0) })
             })
             .disposed(by: disposeBag)
 
         inputs.attend
             .compactMap { [weak self] idx -> Post? in
                 guard let self = self,
-                      let posts = self.posts[self.outputs.postType],
                       idx >= 0, idx < posts.count
                 else {
                     self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
@@ -271,7 +316,6 @@ final class MyPageViewModel: BaseViewModel {
                 case let .response(result: data):
                     guard data.success,
                           let self = self,
-                          let posts = self.posts[self.outputs.postType],
                           let idx = posts.firstIndex(where: { $0.ID == data.postId })
                     else {
                         self?.toast.onNext("참석하기 요청중 오류가 발생했습니다.")
@@ -311,10 +355,6 @@ final class MyPageViewModel: BaseViewModel {
         inputs.writePost
             .bind(to: routes.writePost)
             .disposed(by: disposeBag)
-
-//        inputs.manageAttendance
-//            .bind(to: routes.manageAttendance)
-//            .disposed(by: disposeBag)
 
         Observable<String?>.of(user?.profileImageURL)
             .subscribe(outputs.currentProfile)
@@ -373,12 +413,10 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.tapWriteLog
             .compactMap { [weak self] itemIndex in
-                guard let self = self,
-                      let selectedPost = self.posts[.attendable]?[itemIndex]
-                else {
+                guard let self = self else {
                     return nil
                 }
-
+                let selectedPost = self.posts[itemIndex]
                 return LogForm(
                     runningDate: selectedPost.gatherDate,
                     logId: selectedPost.ID,
@@ -396,12 +434,10 @@ final class MyPageViewModel: BaseViewModel {
 
         inputs.tapConfirmLog
             .compactMap { [weak self] itemIndex in
-                guard let self = self,
-                      let selectedPost = self.posts[.attendable]?[itemIndex]
-                else {
+                guard let self = self else {
                     return nil
                 }
-
+                let selectedPost = self.posts[itemIndex]
                 return selectedPost.logId
             }
             .bind(to: routes.confirmLog)
@@ -410,7 +446,7 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapManageAttendance
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
-                return posts[outputs.postType]?[index].ID
+                return posts[index].ID
             }
             .bind(to: routes.manageAttendance)
             .disposed(by: disposeBag)
@@ -418,77 +454,65 @@ final class MyPageViewModel: BaseViewModel {
         inputs.tapConfirmAttendance
             .compactMap { [weak self] index in
                 guard let self = self else { return nil }
-                return posts[outputs.postType]?[index].ID
+                return posts[index].ID
             }
             .bind(to: routes.confirmAttendance)
+            .disposed(by: disposeBag)
+
+        inputs.logStampDidEndDecelerating
+            .compactMap { [weak self] sectionIndex in
+                guard let self = self else { return nil }
+                if sectionIndex != 2 { // 1,2페이지에서만 계산, 3페이지는 현재날짜로 고정
+                    let firstDateIndex = sectionIndex * 7 // 일주일 단위 7
+                    let firstDateOfSection: Date = dates[firstDateIndex].date
+                    let sectionYear = calendar.component(.year, from: firstDateOfSection)
+                    let sectionMonth = calendar.component(.month, from: firstDateOfSection)
+
+                    let targetPreDate = calendar.date(byAdding: .month, value: -1, to: targetDate)! // 타겟 날짜의 이전 달
+                    let targetPreMonth = calendar.dateComponents([.year, .month], from: targetPreDate).month
+
+                    let isPreMonth = (sectionMonth == targetPreMonth) // 타겟 날짜의 이전 달인가?
+
+                    if isPreMonth { // 이전달이면 이전달의 로그 횟수가져온다.
+                        if let totalCount = previousLogStampTotalCount {
+                            self.outputs.logTotalCount.onNext(totalCount)
+                        }
+                    } else { // 이전달이 아니면 현재 로그 횟수를 가져온다.
+                        if let totalCount = currentLogStampTotalCount {
+                            self.outputs.logTotalCount.onNext(totalCount)
+                        }
+                    }
+
+                    return (year: sectionYear, month: sectionMonth)
+                }
+
+                if let totalCount = currentLogStampTotalCount {
+                    self.outputs.logTotalCount.onNext(totalCount)
+                }
+                return (year: targetYear, month: targetMonth)
+            }
+            .bind(to: outputs.changeTargetDate)
             .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
 
-    private func changeTargetDate(runningLog: [MyRunningLog]) {
-        myRunningLogs.removeAll()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    private func changeTargetDate(
+        runningLog: [MyRunningLog],
+        existingGathering: [ExistingGathering]
+    ) {
+        if let _ = calendar.date(from: components) {
+            myRunningLogs.removeAll()
+            dates.removeAll()
 
-        let daysPerWeek = 7
-        // 현재 주와 이전 2주의 날짜들을 가져옴
-        let currentWeek = getWeek(for: Date())
-        let previousWeek = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -1, to: Date())!)
-        let twoWeeksAgo = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -2, to: Date())!)
-
-        // 날짜 배열 합치기
-        let weeks: [Date] = twoWeeksAgo + previousWeek + currentWeek
-
-        // `weeks` 배열을 `MyLogStampConfig` 배열로 변환
-        let myLogStampConfigs: [MyLogStampConfig] = weeks.map { date in
-            var stampType: StampType?
-            var logId: Int?
-            var gatheringId: Int?
-            var isOpened: Int?
-
-            for log in runningLog {
-                if let logDate = dateFormatter.date(from: log.runnedDate) {
-                    if calendar.isDate(logDate, inSameDayAs: date) {
-                        stampType = StampType(rawValue: log.stampCode ?? "")
-                        logId = log.logId
-                        gatheringId = log.gatheringId
-                        isOpened = log.isOpened
-                        break
-                    } else {
-                        stampType = nil
-                    }
-                }
-            }
-
-            myRunningLogs.append(MyRunningLog(
-                logId: logId,
-                gatheringId: gatheringId,
-                runnedDate: date.description,
-                stampCode: stampType?.rawValue,
-                isOpened: isOpened
-            ))
-
-            return MyLogStampConfig(from: LogStamp(
-                logId: logId,
-                gatheringId: gatheringId,
-                date: date,
-                stampType: stampType,
-                isOpened: isOpened
+            dates += generateWeeks()
+            markMonthGatheringDates(existingGathering)
+            outputs.days.onNext(markMonthLogDates(runningLogs: runningLog))
+            outputs.changeTargetDate.onNext((
+                year: targetYear,
+                month: targetMonth
             ))
         }
-
-        // 7개씩 끊어서 `MyLogStampSection`을 만듦
-        let sections = stride(from: 0, to: myLogStampConfigs.count, by: daysPerWeek).map { startIndex -> MyLogStampSection in
-            let endIndex = min(startIndex + daysPerWeek, myLogStampConfigs.count)
-            let items = Array(myLogStampConfigs[startIndex ..< endIndex])
-            return MyLogStampSection(items: items)
-        }
-
-        // ViewModel Output에 섹션 전달
-        outputs.logStamps.onNext(sections)
     }
 
     private func getWeek(for date: Date) -> [Date] {
@@ -534,24 +558,26 @@ final class MyPageViewModel: BaseViewModel {
         var tapConfirmLog = PublishSubject<Int>()
         var tapManageAttendance = PublishSubject<Int>()
         var tapConfirmAttendance = PublishSubject<Int>()
+
+        var logStampDidEndDecelerating = PublishSubject<Int>()
     }
 
     struct Output {
         var postType: PostType = .attendable
         var userInfo = ReplaySubject<UserConfig>.create(bufferSize: 1)
-        var posts = ReplaySubject<[MyPagePostConfig]>.create(bufferSize: 1)
+        var posts = ReplaySubject<[PostConfig]>.create(bufferSize: 1)
         var logStamps = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var logTotalCount = ReplaySubject<LogTotalCount>.create(bufferSize: 1)
         var attend = PublishSubject<(type: PostType, idx: Int, state: ParticipateAttendState)>()
         var profileChanged = PublishSubject<Data?>()
         var currentProfile = ReplaySubject<String?>.create(bufferSize: 1)
         var showPicker = PublishSubject<EditProfileType>()
-        var days = ReplaySubject<[MyLogStampConfig]>.create(bufferSize: 1)
+        var days = ReplaySubject<[MyLogStampSection]>.create(bufferSize: 1)
         var changeTargetDate = ReplaySubject<(year: Int, month: Int)>.create(bufferSize: 1)
     }
 
     struct Route {
-        var calendar = PublishSubject<Void>()
+        var calendar = PublishSubject<Int>()
         var myRunningList = PublishSubject<Void>()
         var detailPost = PublishSubject<Int>()
         var needUpdates = PublishSubject<Void>()
@@ -578,4 +604,96 @@ final class MyPageViewModel: BaseViewModel {
     var outputs = Output()
     var routes = Route()
     var routeInputs = RouteInput()
+}
+
+// MARK: - 날짜 계산
+
+extension MyPageViewModel {
+    func generateWeeks() -> [LogDate] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let daysPerWeek = 7
+        // 현재 주와 이전 2주의 날짜들을 가져옴
+        let currentWeek = getWeek(for: Date())
+        let previousWeek = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -1, to: Date())!)
+        let twoWeeksAgo = getWeek(for: calendar.date(byAdding: .weekOfYear, value: -2, to: Date())!)
+
+        // 날짜 배열 합치기
+        let weeks: [Date] = twoWeeksAgo + previousWeek + currentWeek
+
+        return weeks.map { LogDate(
+            date: $0,
+            existGathering: nil,
+            runningLog: nil
+        ) }
+    }
+
+    func markMonthGatheringDates(_ existingGathering: [ExistingGathering]) {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+
+        // 최대 4만번
+        for i in 0 ..< dates.count {
+            for element in existingGathering {
+                if let gatheringDate = element.gatheringTime.toDate(withFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") {
+                    if calendar.isDate(gatheringDate, inSameDayAs: dates[i].date) {
+                        print("Matching date found: \(dates[i].date), \(element)")
+                        dates[i].existGathering = element
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    func markMonthLogDates(runningLogs: [MyRunningLog]) -> [MyLogStampSection] {
+        var myLogStampsConfigs = [MyLogStampConfig]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        for i in 0 ..< dates.count {
+            var logFound = false // 로그가 발견되었는지 여부를 확인합니다.
+            for log in runningLogs {
+                // runningLog와 동일한 날짜가 있는지 확인
+                if let logDate = dateFormatter.date(from: log.runnedDate) {
+                    if calendar.isDate(logDate, inSameDayAs: dates[i].date) {
+                        let config = MyLogStampConfig(from: LogStamp(
+                            logId: log.logId,
+                            gatheringId: log.gatheringId,
+                            date: dates[i].date,
+                            stampType: StampType(rawValue: log.stampCode ?? ""),
+                            isOpened: log.isOpened,
+                            isGathering: dates[i].existGathering != nil
+                        ))
+                        myLogStampsConfigs.append(config)
+                        dates[i].runningLog = log
+                        logFound = true // 로그를 찾았음을 표시
+                        break
+                    }
+                }
+            }
+
+            // 로그가 발견되지 않았을 경우 기본 값을 추가
+            if !logFound {
+                myLogStampsConfigs.append(MyLogStampConfig(from: LogStamp(
+                    logId: nil,
+                    gatheringId: nil,
+                    date: dates[i].date,
+                    stampType: nil,
+                    isOpened: nil,
+                    isGathering: dates[i].existGathering != nil
+                )))
+            }
+        }
+
+        // myLogStampsConfigs 배열을 7개씩 그룹화하여 MyLogStampSection으로 변환
+        return myLogStampsConfigs.chunked(into: 7).map { weekConfigs in
+            MyLogStampSection(items: weekConfigs)
+        }
+    }
 }

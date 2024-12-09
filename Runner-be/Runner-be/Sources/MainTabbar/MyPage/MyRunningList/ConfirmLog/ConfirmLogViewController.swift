@@ -163,6 +163,11 @@ final class ConfirmLogViewController: BaseViewController {
             .map { [ReceivedStampSection(items: $0)] }
             .bind(to: gotStampListView.stampCollectionView.rx.items(dataSource: gotStampDatasource))
             .disposed(by: disposeBag)
+
+        viewModel.outputs.showBubbleInfo
+            .bind { [weak self] _ in
+                self?.logDiaryView.showInfoWordBubble()
+            }.disposed(by: disposeBag)
     }
 
     private func update(with logDetail: LogDetail) {
@@ -178,6 +183,9 @@ final class ConfirmLogViewController: BaseViewController {
         // 러닝 일기 작성 글
         logDiaryView.textView.text = logDetail.contents
         logDiaryView.textView.placeholder = ""
+        logDiaryView.textView.snp.updateConstraints {
+            $0.height.equalTo(logDiaryView.textView.contentSize.height)
+        }
         // 러닝 일기 사진
         logDiaryView.confirmImageView.kf.setImage(with: URL(string: logDetail.imageURL ?? ""))
 
@@ -203,6 +211,9 @@ final class ConfirmLogViewController: BaseViewController {
 
         // 공개 설정
         privacyToggleView.toggleButton.isOn = logDetail.isOpened
+
+        // 타인이면 공개설정 숨김 처리
+        privacyToggleView.isHidden = logDetail.detailRunningLog.userId != loginKeyChain.userId
     }
 }
 

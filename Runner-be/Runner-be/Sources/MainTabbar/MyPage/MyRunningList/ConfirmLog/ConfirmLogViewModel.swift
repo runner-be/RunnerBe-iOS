@@ -105,6 +105,7 @@ final class ConfirmLogViewModel: BaseViewModel {
                 guard let self = self,
                       let gatheringId = logDetail?.detailRunningLog.gatheringId
                 else {
+                    self?.outputs.showBubbleInfo.onNext(())
                     return nil
                 }
                 return (logId, gatheringId)
@@ -135,6 +136,7 @@ final class ConfirmLogViewModel: BaseViewModel {
         var gotStamps = ReplaySubject<[GotStampConfig]>.create(bufferSize: 1)
         var logDate = ReplaySubject<String>.create(bufferSize: 1)
         var logDetail = ReplaySubject<LogDetail>.create(bufferSize: 1)
+        var showBubbleInfo = PublishSubject<Void>()
     }
 
     struct Route {

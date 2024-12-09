@@ -67,6 +67,7 @@ class MessageChatRightCell: UITableViewCell {
         disposeBag = DisposeBag()
         messageImage.kf.cancelDownloadTask()
         messageImage.image = nil
+        messageDate.text = nil
     }
 
     var disposeBag = DisposeBag()
@@ -81,7 +82,9 @@ class MessageChatRightCell: UITableViewCell {
         selectionStyle = .none
         separatorInset = .zero
         messageContent.text = text
-        messageDate.text = DateUtil.shared.formattedString(for: date!, format: DateFormat.messageTime)
+        if let date = date {
+            messageDate.text = DateUtil.shared.formattedString(for: date, format: DateFormat.messageTime)
+        }
 
         if text == "" || text?.isEmpty ?? true {
             messageContent.snp.updateConstraints { make in

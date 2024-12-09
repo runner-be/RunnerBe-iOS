@@ -42,6 +42,23 @@ final class MessageRoomViewModel: BaseViewModel {
                     }
                     self.roomInfo = roomInfos[0]
 
+                    // TODO: 함수로 따로 빼서 관리
+                    // Message가 같은 날짜가 연속이될 때 마지막 메세지에 날짜만 표시하도록 데이터를 수정합니다.
+                    // 현재 Message의 날짜가 이전 Message의 날짜, 작성자가 동일하면 이전 Message의 createAt를 삭제합니다.
+                    if messages.count > 1 {
+                        for i in 1 ..< messages.count {
+                            let preCreateAt = messages[i - 1].createdAt!.split(separator: "T").first
+                            let preMessageFrom = messages[i - 1].messageFrom
+                            let createAt = messages[i].createdAt!.split(separator: "T").first
+                            let messageFrom = messages[i].messageFrom
+                            if preCreateAt == createAt,
+                               preMessageFrom == messageFrom
+                            {
+                                messages[i - 1].createdAt = nil
+                            }
+                        }
+                    }
+
                     if !self.messages.isEmpty {
                         self.outputs.messageContents.onNext(self.messages)
                     } else {

@@ -141,6 +141,12 @@ final class TogetherRunnerViewController: BaseViewController, UIScrollViewDelega
             .map { "\($0.count) 명" }
             .bind(to: countLabel.rx.text)
             .disposed(by: disposeBag)
+
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

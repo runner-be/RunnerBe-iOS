@@ -12,8 +12,8 @@ struct PostDetailRunningConfig {
     let badge: String
     let title: String
     let placeInfo: String
-    let locationInfo: String
     let placeName: String
+    let placeAddress: String
     let placeExplain: String
     let date: String
     let afterParty: String
@@ -31,8 +31,18 @@ extension PostDetailRunningConfig {
     init(from postDetail: PostDetail) {
         badge = postDetail.post.tag.name
         title = postDetail.post.title
-        placeInfo = postDetail.post.locationInfo
-        time = "\(postDetail.post.runningTime.hour)시간 \(postDetail.post.runningTime.minute)분"
+        placeInfo = postDetail.post.placeName
+
+        var time = ""
+        if postDetail.post.runningTime.hour > 0 {
+            time += "\(postDetail.post.runningTime.hour)시간 "
+        }
+
+        if postDetail.post.runningTime.minute > 0 {
+            time += "\(postDetail.post.runningTime.minute)분 "
+        }
+        self.time = time
+
         age = "\(postDetail.post.ageRange.min)-\(postDetail.post.ageRange.max)"
         date =
             DateUtil.shared.formattedString(for: postDetail.post.gatherDate, format: .custom(format: "M/d (E)"))
@@ -53,8 +63,8 @@ extension PostDetailRunningConfig {
             afterParty = "뒷풀이 없음"
         }
 
-        locationInfo = postDetail.post.locationInfo
-        placeName = postDetail.post.placeName ?? ""
+        placeName = postDetail.post.placeName
+        placeAddress = postDetail.post.placeAddress ?? ""
         placeExplain = postDetail.post.placeExplain ?? ""
     }
 }

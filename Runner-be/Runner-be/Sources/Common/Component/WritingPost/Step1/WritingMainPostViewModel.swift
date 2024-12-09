@@ -41,7 +41,7 @@ final class WritingMainPostViewModel: BaseViewModel {
                     self.toast.onNext("시간을 다시 설정해 주세요")
                     return
                 }
-                guard !self.writingPostData.placeInfo.isEmpty
+                guard !self.writingPostData.placeName.isEmpty
                 else {
                     self.toast.onNext("모임장소를 설정해 주세요")
                     return
@@ -58,8 +58,16 @@ final class WritingMainPostViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         inputs.editTitle
+            .filter { text in
+                if let text = text,
+                   text.count < 31
+                {
+                    return true
+                }
+                return false
+            }
             .subscribe(onNext: { [weak self] title in
-                self?.writingPostData.title = title
+                self?.writingPostData.title = title ?? ""
             })
             .disposed(by: disposeBag)
 
@@ -97,13 +105,13 @@ final class WritingMainPostViewModel: BaseViewModel {
         routeInputs.editPlaceResult
             .subscribe(onNext: { [weak self] placeInfo in
                 guard let self = self else { return }
-                self.writingPostData.placeInfo = placeInfo.locationInfo
                 self.writingPostData.placeName = placeInfo.placeName
+                self.writingPostData.placeAddress = placeInfo.placeAddress
                 self.writingPostData.placeExplain = placeInfo.placeExplain ?? ""
                 self.writingPostData.location = placeInfo.location
 
                 self.outputs.placeInfo.onNext((
-                    city: placeInfo.locationInfo,
+                    city: placeInfo.placeName,
                     detail: placeInfo.placeExplain ?? ""
                 ))
                 self.outputs.location.onNext(self.writingPostData.location)
@@ -112,7 +120,7 @@ final class WritingMainPostViewModel: BaseViewModel {
 
     struct Input {
         var editTag = PublishSubject<Int>()
-        var editTitle = PublishSubject<String>()
+        var editTitle = PublishSubject<String?>()
         var editDate = PublishSubject<Void>()
         var editTime = PublishSubject<Void>()
         var editPlace = PublishSubject<Void>()
