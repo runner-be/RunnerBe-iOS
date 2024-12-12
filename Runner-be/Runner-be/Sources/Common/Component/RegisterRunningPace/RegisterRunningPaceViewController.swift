@@ -38,28 +38,15 @@ final class RegisterRunningPaceViewController: BaseViewController {
             .bind(to: viewModel.inputs.close)
             .disposed(by: disposeBag)
 
-        beginnerView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
-                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-
-                self.runningPace = "beginner"
-                self.completeButton.isEnabled = true
-            })
-            .disposed(by: disposeBag)
-
-        averageView.rx.tapGesture()
+        masterView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
                 self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
 
-                self.runningPace = "average"
+                self.runningPace = "master"
                 self.completeButton.isEnabled = true
             })
             .disposed(by: disposeBag)
@@ -77,15 +64,28 @@ final class RegisterRunningPaceViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        masterView.rx.tapGesture()
+        averageView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+
+                self.runningPace = "average"
+                self.completeButton.isEnabled = true
+            })
+            .disposed(by: disposeBag)
+
+        beginnerView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
                 self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
                 self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
 
-                self.runningPace = "master"
+                self.runningPace = "beginner"
                 self.completeButton.isEnabled = true
             })
             .disposed(by: disposeBag)
@@ -125,16 +125,10 @@ final class RegisterRunningPaceViewController: BaseViewController {
         label.adjustsFontSizeToFitWidth = true
     }
 
-    private var beginnerView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceBeginner.image
-        view.titleLabel.text = L10n.RunningPace.Beginner.title
-        view.subTitleLabel.text = L10n.RunningPace.Beginner.description
-    }
-
-    private var averageView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceAverage.image
-        view.titleLabel.text = L10n.RunningPace.Average.title
-        view.subTitleLabel.text = L10n.RunningPace.Average.description
+    private var masterView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceMaster.image
+        view.titleLabel.text = L10n.RunningPace.Master.title
+        view.subTitleLabel.text = L10n.RunningPace.Master.description
     }
 
     private var highView = RegisterRunningPaceView().then { view in
@@ -143,17 +137,23 @@ final class RegisterRunningPaceViewController: BaseViewController {
         view.subTitleLabel.text = L10n.RunningPace.High.description
     }
 
-    private var masterView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceMaster.image
-        view.titleLabel.text = L10n.RunningPace.Master.title
-        view.subTitleLabel.text = L10n.RunningPace.Master.description
+    private var averageView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceAverage.image
+        view.titleLabel.text = L10n.RunningPace.Average.title
+        view.subTitleLabel.text = L10n.RunningPace.Average.description
+    }
+
+    private var beginnerView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceBeginner.image
+        view.titleLabel.text = L10n.RunningPace.Beginner.title
+        view.subTitleLabel.text = L10n.RunningPace.Beginner.description
     }
 
     private lazy var stackView = UIStackView.make(with: [
-        beginnerView,
-        averageView,
-        highView,
         masterView,
+        highView,
+        averageView,
+        beginnerView,
     ], axis: .vertical, spacing: 12)
 
     private var completeButton = UIButton().then { button in
