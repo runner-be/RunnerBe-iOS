@@ -5,10 +5,13 @@
 //  Created by 김창규 on 8/31/24.
 //
 
+import RxSwift
 import UIKit
 
 final class WriteLogToggleView: UIView {
     // MARK: - Properties
+
+    var disposeBag = DisposeBag()
 
     // MARK: - UI
 
@@ -32,6 +35,7 @@ final class WriteLogToggleView: UIView {
         super.init(frame: .zero)
         setupViews()
         initialLayout()
+        bind()
     }
 
     @available(*, unavailable)
@@ -40,6 +44,17 @@ final class WriteLogToggleView: UIView {
     }
 
     // MARK: - Methods
+
+    private func bind() {
+        toggleButton.toggleObservable
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isOn in
+                self?.subTitleLabel.text = isOn
+                    ? "이 글을 모두가 볼 수 있습니다."
+                    : "이 글을 나만 볼 수 있습니다."
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - Layout
