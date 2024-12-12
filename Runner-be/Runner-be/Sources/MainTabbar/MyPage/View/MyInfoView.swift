@@ -62,7 +62,7 @@ final class MyInfoView: UIView {
 
     var editPaceLabel = UILabel().then { view in
         view.text = "페이스 수정하기"
-        view.font = .pretendardRegular14
+        view.font = .iosBody13R
         view.textColor = .darkG25
         view.isHidden = true
     }
