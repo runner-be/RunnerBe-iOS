@@ -125,16 +125,10 @@ final class RegisterRunningPaceViewController: BaseViewController {
         label.adjustsFontSizeToFitWidth = true
     }
 
-    private var masterView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceMaster.image
-        view.titleLabel.text = L10n.RunningPace.Master.title
-        view.subTitleLabel.text = L10n.RunningPace.Master.description
-    }
-
-    private var highView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceHigh.image
-        view.titleLabel.text = L10n.RunningPace.High.title
-        view.subTitleLabel.text = L10n.RunningPace.High.description
+    private var beginnerView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceBeginner.image
+        view.titleLabel.text = L10n.RunningPace.Beginner.title
+        view.subTitleLabel.text = L10n.RunningPace.Beginner.description
     }
 
     private var averageView = RegisterRunningPaceView().then { view in
@@ -143,17 +137,23 @@ final class RegisterRunningPaceViewController: BaseViewController {
         view.subTitleLabel.text = L10n.RunningPace.Average.description
     }
 
-    private var beginnerView = RegisterRunningPaceView().then { view in
-        view.icon.image = Asset.runningPaceBeginner.image
-        view.titleLabel.text = L10n.RunningPace.Beginner.title
-        view.subTitleLabel.text = L10n.RunningPace.Beginner.description
+    private var highView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceHigh.image
+        view.titleLabel.text = L10n.RunningPace.High.title
+        view.subTitleLabel.text = L10n.RunningPace.High.description
+    }
+
+    private var masterView = RegisterRunningPaceView().then { view in
+        view.icon.image = Asset.runningPaceMaster.image
+        view.titleLabel.text = L10n.RunningPace.Master.title
+        view.subTitleLabel.text = L10n.RunningPace.Master.description
     }
 
     private lazy var stackView = UIStackView.make(with: [
-        masterView,
-        highView,
-        averageView,
         beginnerView,
+        averageView,
+        highView,
+        masterView,
     ], axis: .vertical, spacing: 12)
 
     private var completeButton = UIButton().then { button in

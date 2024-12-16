@@ -45,6 +45,7 @@ internal enum Asset {
   internal static let homeLocation = ImageAsset(name: "HomeLocation")
   internal static let homeTabIconFocused = ImageAsset(name: "HomeTabIcon_Focused")
   internal static let homeTabIconNormal = ImageAsset(name: "HomeTabIcon_normal")
+  internal static let homeLocation40 = ImageAsset(name: "Home_location_40")
   internal static let kakaoLogin = ImageAsset(name: "Kakao_login")
   internal static let lockLocked = ImageAsset(name: "Lock_locked")
   internal static let logGatheringWordbubble = ImageAsset(name: "Log_Gathering_Wordbubble")
