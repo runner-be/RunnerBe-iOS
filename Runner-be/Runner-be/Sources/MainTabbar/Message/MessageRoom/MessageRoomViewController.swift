@@ -168,7 +168,7 @@ class MessageRoomViewController: BaseViewController {
                 guard let self = self else { return }
                 let picker = UIImagePickerController()
                 picker.delegate = self
-
+                picker.allowsEditing = true // 편집 허용 (크롭)
                 switch sourceType {
                 case .library: // 갤러리
                     picker.sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -315,17 +315,19 @@ extension MessageRoomViewController: UIImagePickerControllerDelegate, UINavigati
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        let originalImage = info[.originalImage] as? UIImage
-        let originalResizedImage = originalImage?.resize(newWidth: 300)
-
-        if let image = originalResizedImage,
-           let imageData = image.pngData()
+        if let editedImage = info[.editedImage] as? UIImage,
+           let resizedImage = editedImage.resize(newWidth: 300)
         {
-            viewModel.inputs.selectImage.onNext(image)
+            // 편집된 이미지 (크롭된 이미지)
+            viewModel.inputs.selectImage.onNext(resizedImage)
+        } else if let originalImage = info[.originalImage] as? UIImage,
+                  let resizedImage = originalImage.resize(newWidth: 300)
+        {
+            // 원본 이미지 (편집하지 않은 경우)
+            viewModel.inputs.selectImage.onNext(resizedImage)
         } else {
             AppContext.shared.makeToast("오류가 발생했습니다. 다시 시도해주세요")
         }
-
         picker.dismiss(animated: true)
     }
 
