@@ -202,8 +202,6 @@ final class UserPageViewModel: BaseViewModel {
             .flatMap { _ in userAPIService.userPage(userId: userId) }
             .subscribe(onNext: { [weak self] result in
                 guard let self = self else { return }
-                self.posts.removeAll()
-                self.outputs.posts.onNext([])
 
                 switch result {
                 case let .response(data):
