@@ -74,7 +74,7 @@ final class RunningPaceView: UIView {
 
         case .postDetail:
             label.font = .pretendardRegular14
-            
+
             icon.snp.makeConstraints {
                 $0.top.bottom.equalToSuperview().inset(5)
                 $0.left.equalToSuperview().inset(4)

@@ -25,6 +25,24 @@ class AppContext {
         }
     }
 
+    // Toast 메시지 위치 수정
+    func makeToast(
+        _ message: String?,
+        point: CGPoint,
+        title: String? = nil,
+        image: UIImage? = nil
+    ) {
+        rootNavigationController?.view.hideAllToasts()
+        rootNavigationController?.view.makeToast(
+            message,
+            point: point,
+            title: title,
+            image: image
+        ) { didTap in
+            print(didTap)
+        }
+    }
+
     func makeToastWithImage(_ message: String?, image: UIImage?) {
         rootNavigationController?.view.hideAllToasts()
 
