@@ -36,6 +36,8 @@ final class UserPageViewController: BaseViewController {
             $0.height.equalTo(0)
         }
 
+        $0.cameraIcon.isHidden = true
+
         // FIXME: - 하드코딩 QA14
         $0.nickNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(37)
