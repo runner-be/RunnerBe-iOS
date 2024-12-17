@@ -78,8 +78,16 @@ class ManageAttendanceViewController: BaseViewController {
 
     private func viewModelOutput() {
         viewModel.toast
-            .subscribe(onNext: { message in
-                AppContext.shared.makeToast(message)
+            .subscribe(onNext: { [weak self] message in
+                guard let self = self else { return }
+                let viewSize = self.view.bounds.size
+                AppContext.shared.makeToast(
+                    message,
+                    point: CGPoint(
+                        x: viewSize.width / 2,
+                        y: self.saveButton.frame.minY - self.saveButton.frame.height
+                    )
+                )
             })
             .disposed(by: disposeBag)
 
