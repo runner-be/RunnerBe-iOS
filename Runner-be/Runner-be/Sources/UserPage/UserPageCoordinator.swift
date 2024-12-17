@@ -114,7 +114,7 @@ final class UserPageCoordinator: BasicCoordinator<UserPageResult> {
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward(needUpdate):
-                vm.routeInputs.needUpdate.onNext(needUpdate)
+                vm.routeInputs.needUpdate.onNext(false)
             }
         }
     }

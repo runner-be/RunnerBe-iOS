@@ -119,34 +119,39 @@ extension PostCell {
         statusLabel.snp.makeConstraints {
             $0.top.equalTo(postInfoView.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(34)
         }
 
         manageAttendanceButton.snp.makeConstraints {
             $0.top.equalTo(postInfoView.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(34)
         }
 
         confirmAttendanceButton.snp.makeConstraints {
             $0.top.equalTo(postInfoView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(16)
             $0.right.equalTo(contentView.snp.centerX).offset(-4)
-            $0.bottom.equalToSuperview().inset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(34)
         }
 
         writeLogButton.snp.makeConstraints {
             $0.top.equalTo(postInfoView.snp.bottom).offset(24)
             $0.right.equalToSuperview().inset(16)
             $0.left.equalTo(contentView.snp.centerX).offset(4)
-            $0.bottom.equalToSuperview().inset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(34)
         }
 
         confirmLogButton.snp.makeConstraints {
             $0.top.equalTo(postInfoView.snp.bottom).offset(24)
             $0.right.equalToSuperview().inset(16)
             $0.left.equalTo(contentView.snp.centerX).offset(4)
-            $0.bottom.equalToSuperview().inset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(34)
         }
     }
 

@@ -591,7 +591,7 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {
         case let c where c == myRunningCollectionView:
-            return MyPageParticipateCell.size
+            return CGSize(width: 280, height: 208)
         case let c where c == myLogStampView.logStampCollectionView:
             return MyLogStampCell.size
         default:

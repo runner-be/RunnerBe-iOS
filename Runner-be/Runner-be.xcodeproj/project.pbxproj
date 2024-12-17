@@ -58,6 +58,7 @@
 		2B6D00382C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */; };
 		2B6D003A2C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */; };
 		2B6D003C2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */; };
+		2B6DD0202D115F1C00FBB7CF /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD01F2D115F1600FBB7CF /* UserPostCell.swift */; };
 		2B7789392D01C62B00A88C78 /* PostDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7789382D01C62300A88C78 /* PostDataSource.swift */; };
 		2B77893B2D01CE4800A88C78 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77893A2D01CE4000A88C78 /* PostCell.swift */; };
 		2B7EA0722CDF2AEB00BE5C0B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EA0712CDF2AE700BE5C0B /* Array+.swift */; };
@@ -568,6 +569,7 @@
 		2B6D00372C7EF0EC00B50930 /* SelectDateBottomSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetCoordinator.swift; sourceTree = "<group>"; };
 		2B6D00392C7EF0F700B50930 /* SelectDateBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		2B6D003B2C7EF0FF00B50930 /* SelectDateBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateBottomSheetViewController.swift; sourceTree = "<group>"; };
+		2B6DD01F2D115F1600FBB7CF /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
 		2B7789382D01C62300A88C78 /* PostDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataSource.swift; sourceTree = "<group>"; };
 		2B77893A2D01CE4000A88C78 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		2B7EA0712CDF2AE700BE5C0B /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -1656,6 +1658,7 @@
 		C32C029727CB9F7E0011419E /* CommonConfig */ = {
 			isa = PBXGroup;
 			children = (
+				2B6DD01F2D115F1600FBB7CF /* UserPostCell.swift */,
 				2B77893A2D01CE4000A88C78 /* PostCell.swift */,
 				2B7789382D01C62300A88C78 /* PostDataSource.swift */,
 				C32C029827CB9F8E0011419E /* UserConfig.swift */,
@@ -3183,6 +3186,7 @@
 				2B66A0EF2C746A00002542D5 /* SelectPlaceComponent.swift in Sources */,
 				43D8F20A28E9E25100EB3B92 /* Skeleton.swift in Sources */,
 				C361B6DB27B2BE4000824ABE /* NSMutableAttributedString+Style.swift in Sources */,
+				2B6DD0202D115F1C00FBB7CF /* UserPostCell.swift in Sources */,
 				C3498F3527C0DE70003EDD0F /* IconTextButtonGroup.swift in Sources */,
 				DA7E9728288C36330001BBDC /* ManageTimeExpiredModalViewModel.swift in Sources */,
 				DA7E23E62B7A4353005D18A6 /* RegisterRunningPaceViewController.swift in Sources */,

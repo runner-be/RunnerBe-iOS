@@ -71,7 +71,7 @@ final class UserPageViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UserPageParticipateCell.self, forCellWithReuseIdentifier: UserPageParticipateCell.id)
+        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: UserPostCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
         collectionView.isPagingEnabled = false
@@ -101,6 +101,8 @@ final class UserPageViewController: BaseViewController {
     // MARK: - Methods
 
     private func viewModelInput() {
+        viewModel.routeInputs.needUpdate.onNext(true)
+
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
@@ -114,6 +116,15 @@ final class UserPageViewController: BaseViewController {
         logStampView.logStampCollectionView.rx.itemSelected
             .map { $0 }
             .bind(to: viewModel.inputs.tapLogStamp)
+            .disposed(by: disposeBag)
+
+        // 로그 스탬프의 스크롤가 완료되면 현재 페이지(section)의 수를 전달합니다.
+        logStampView.logStampCollectionView.rx.didEndDecelerating
+            .compactMap { [weak self] _ in
+                guard let self = self else { return nil }
+                return self.logStampView.pageControl.currentPage
+            }
+            .bind(to: viewModel.inputs.logStampDidEndDecelerating)
             .disposed(by: disposeBag)
 
         userRunningHeaderView.rx.tapGesture()
@@ -139,9 +150,10 @@ final class UserPageViewController: BaseViewController {
                 self?.navBar.titleLabel.text = "\(userConfig.nickName)님 프로필"
             }).disposed(by: disposeBag)
 
-        typealias MyLogStampDataSource = RxCollectionViewSectionedAnimatedDataSource<MyLogStampSection>
+        // 나의 로그 스탬프
+        typealias UserLogStampDataSource = RxCollectionViewSectionedReloadDataSource<MyLogStampSection>
 
-        let myLogStampDatasource = MyLogStampDataSource(
+        let userLogStampDatasource = UserLogStampDataSource(
             configureCell: { [weak self] _, collectionView, indexPath, element -> UICollectionViewCell in
                 guard let _ = self,
                       let cell = collectionView.dequeueReusableCell(
@@ -159,7 +171,7 @@ final class UserPageViewController: BaseViewController {
                         date: element.date,
                         stampType: element.stampType,
                         isOpened: element.isOpened,
-                        isGathering: false
+                        isGathering: element.isGathering
                     ),
                     isMyLogStamp: false
                 )
@@ -168,9 +180,28 @@ final class UserPageViewController: BaseViewController {
             }
         )
 
-        viewModel.outputs.logStamps
+        viewModel.outputs.days
             .debug("logStamps")
-            .bind(to: logStampView.logStampCollectionView.rx.items(dataSource: myLogStampDatasource))
+            .bind(to: logStampView.logStampCollectionView.rx.items(dataSource: userLogStampDatasource))
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.days
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.logStampView.logStampCollectionView.layoutIfNeeded()
+                // FIXME: 3번째 페이지부터 시작하도록 스크롤을 옮겨야하는데 에러남
+                // 콜렉션 뷰가 리로드된 후 특정 아이템으로 스크롤
+                self.logStampView.logStampCollectionView.scrollToItem(
+                    at: IndexPath(
+                        item: 0,
+                        section: 2
+                    ),
+                    at: .left,
+                    animated: true
+                )
+                logStampView.pageControl.currentPage = 2
+            })
             .disposed(by: disposeBag)
 
         viewModel.outputs.logStamps
@@ -190,23 +221,28 @@ final class UserPageViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        typealias MyPagePostDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<UserPagePostSection>
+        typealias PostDataSource = RxCollectionViewSectionedAnimatedDataSource<PostSection>
 
-        let userRunningDatasource = MyPagePostDataSource { [weak self] _, collectionView, indexPath, item in
-            guard let self = self else { return UICollectionViewCell() }
+        let postDataSource = PostDataSource(
+            configureCell: { [weak self] _, collectionView, indexPath, item -> UICollectionViewCell in
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(
+                          withReuseIdentifier: UserPostCell.id,
+                          for: indexPath
+                      ) as? UserPostCell
+                else {
+                    return UICollectionViewCell()
+                }
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPageParticipateCell.id, for: indexPath) as? UserPageParticipateCell
-            else { return UICollectionViewCell() }
+                cell.configure(with: item)
 
-            cell.configure(with: item)
-
-            return cell
-        }
+                return cell
+            })
 
         viewModel.outputs.posts
-            .map { [UserPagePostSection(items: $0)] }
-            .bind(to: userRunningCollectionView.rx.items(dataSource: userRunningDatasource))
+            .debug("MyPage-Post")
+            .map { [PostSection(items: $0)] }
+            .bind(to: userRunningCollectionView.rx.items(dataSource: postDataSource))
             .disposed(by: disposeBag)
 
         viewModel.outputs.changeTargetDate
@@ -222,7 +258,7 @@ extension UserPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         switch collectionView {
         case let c where c == userRunningCollectionView:
-            return UserPageParticipateCell.size
+            return UserPostCell.size
         case let c where c == logStampView.logStampCollectionView:
             return MyLogStampCell.size
         default:
