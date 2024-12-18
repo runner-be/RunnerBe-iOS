@@ -205,7 +205,6 @@ final class MyPageViewModel: BaseViewModel {
                 let logItemIndex = section + item
                 guard let self = self else { return nil }
                 return self.dates[logItemIndex].runningLog?.logId
-//                return self.myRunningLogs[logItemIndex]?.logId
             }
             .bind(to: routes.confirmLog)
             .disposed(by: disposeBag)

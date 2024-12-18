@@ -29,14 +29,14 @@ final class UserRunningListViewController: BaseViewController {
         $0.font = .pretendardSemiBold16
     }
 
-    private lazy var userRunningCollectionView: UICollectionView = { // 작성 글 탭
+    private lazy var postCollectionView: UICollectionView = { // 작성 글 탭
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
 
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UserPageParticipateCell.self, forCellWithReuseIdentifier: UserPageParticipateCell.id)
+        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: UserPostCell.id)
         collectionView.backgroundColor = .clear
         collectionView.isHidden = false
         collectionView.isPagingEnabled = false
@@ -70,20 +70,19 @@ final class UserRunningListViewController: BaseViewController {
             .bind(to: viewModel.routes.backward)
             .disposed(by: disposeBag)
 
-        userRunningCollectionView.rx.itemSelected
+        postCollectionView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.inputs.tapPost)
             .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-        userRunningCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        typealias RunningDataSource
-            = RxCollectionViewSectionedAnimatedDataSource<UserPagePostSection>
+        typealias PostDataSource = RxCollectionViewSectionedAnimatedDataSource<PostSection>
 
-        let userRunningDatasource = RunningDataSource { _, collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPageParticipateCell.id, for: indexPath) as? UserPageParticipateCell
+        let postDataSource = PostDataSource { _, collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPostCell.id, for: indexPath) as? UserPostCell
             else { return UICollectionViewCell() }
 
             cell.configure(with: item)
@@ -101,15 +100,15 @@ final class UserRunningListViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.outputs.posts
-            .map { [UserPagePostSection(items: $0)] }
-            .bind(to: userRunningCollectionView.rx.items(dataSource: userRunningDatasource))
+            .map { [PostSection(items: $0)] }
+            .bind(to: postCollectionView.rx.items(dataSource: postDataSource))
             .disposed(by: disposeBag)
     }
 }
 
 extension UserRunningListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        return UserPageParticipateCell.size
+        return CGSize(width: UIScreen.main.bounds.width - 32, height: 150)
     }
 }
 
@@ -122,7 +121,7 @@ extension UserRunningListViewController {
         view.addSubviews([
             navBar,
             totalCountLabel,
-            userRunningCollectionView,
+            postCollectionView,
         ])
     }
 
@@ -136,7 +135,7 @@ extension UserRunningListViewController {
             $0.left.right.equalToSuperview().inset(16)
         }
 
-        userRunningCollectionView.snp.makeConstraints {
+        postCollectionView.snp.makeConstraints {
             $0.top.equalTo(totalCountLabel.snp.bottom).offset(24)
             $0.left.bottom.right.equalToSuperview()
         }

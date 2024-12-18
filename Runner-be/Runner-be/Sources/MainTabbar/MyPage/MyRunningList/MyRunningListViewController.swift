@@ -192,7 +192,7 @@ final class MyRunningListViewController: BaseViewController {
 
 extension MyRunningListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        return MyPageParticipateCell.size
+        return CGSize(width: UIScreen.main.bounds.width - 32, height: 208)
     }
 }
 

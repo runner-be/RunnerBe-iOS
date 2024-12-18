@@ -18,7 +18,7 @@ final class UserRunningListViewModel: BaseViewModel {
     struct Output {
         var nickName = PublishSubject<String>()
         var postCount = PublishSubject<Int>()
-        var posts = ReplaySubject<[UserPagePostConfig]>.create(bufferSize: 1)
+        var posts = ReplaySubject<[PostConfig]>.create(bufferSize: 1)
     }
 
     struct Route {
@@ -36,7 +36,7 @@ final class UserRunningListViewModel: BaseViewModel {
     var routes = Route()
     var routeInputs = RouteInputs()
 
-    var posts = [UserPost]()
+    var posts = [Post]()
 
     // MARK: - Init
 
@@ -59,7 +59,7 @@ final class UserRunningListViewModel: BaseViewModel {
                         self.posts = userRunning
                         self.outputs.nickName.onNext(userinfo.nickName)
                         self.outputs.postCount.onNext(userRunning.count)
-                        self.outputs.posts.onNext(userRunning.map { UserPagePostConfig(userPost: $0) })
+                        self.outputs.posts.onNext(posts.map { PostConfig(from: $0) })
                     }
 
                 case let .error(alertMessage):
@@ -74,20 +74,14 @@ final class UserRunningListViewModel: BaseViewModel {
         inputs.tapPost
             .compactMap { [weak self] idx in
                 guard let self = self,
-                      idx >= 0,
-                      idx < posts.count
+                      idx >= 0, idx < self.posts.count
                 else {
                     self?.toast.onNext("해당 포스트를 여는데 실패했습니다.")
                     return nil
                 }
 
-                // 아직 시작안했을 때
-                if Date().timeIntervalSince1970 < posts[idx].gatherDate.timeIntervalSince1970 {
-                    self.toast.onNext("모임이 아직 시작되지 않았어요.")
-                    return nil
-                }
-                print("sjeifosjf: \(posts[idx].postId)")
-                return posts[idx].postId
+                print("post id: \(posts[idx].ID)")
+                return posts[idx].ID
             }
             .bind(to: routes.detailPost)
             .disposed(by: disposeBag)

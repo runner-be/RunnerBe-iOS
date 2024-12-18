@@ -33,7 +33,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .guest(postDetail, participated, marked, apply, participants, roomID):
                     self.isWriter = false
                     self.roomID = roomID
-                    self.placeAddress = postDetail.post.placeAddress
+                    self.placeAddress = postDetail.post.placeName
                     let satisfied = (postDetail.post.gender == .none || postDetail.post.gender == userKeyChainService.gender)
                         && participants.count < postDetail.maximumNum
 
@@ -55,7 +55,7 @@ final class PostDetailViewModel: BaseViewModel {
                 case let .writer(postDetail, marked, participants, applicant, roomID):
                     self.isWriter = true
                     self.roomID = roomID
-                    self.placeAddress = postDetail.post.placeAddress
+                    self.placeAddress = postDetail.post.placeName
                     self.outputs.detailData.onNext(
                         (
                             postDetail: postDetail,
@@ -193,6 +193,7 @@ final class PostDetailViewModel: BaseViewModel {
         inputs.copyPlaceName
             .subscribe(onNext: { [weak self] _ in
                 UIPasteboard.general.string = self?.placeAddress
+                self?.toast.onNext("주소가 복사되었어요")
             }).disposed(by: disposeBag)
 
         routeInputs.deleteOption

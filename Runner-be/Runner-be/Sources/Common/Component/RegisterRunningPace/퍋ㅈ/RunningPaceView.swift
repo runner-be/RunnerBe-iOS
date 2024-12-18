@@ -75,10 +75,10 @@ final class RunningPaceView: UIView {
         case .postDetail:
             label.font = .pretendardRegular14
 
-            icon.snp.makeConstraints { make in
-                make.top.equalTo(self.snp.top).offset(4)
-                make.bottom.equalTo(self.snp.bottom).offset(-4)
-                make.leading.equalTo(self.snp.leading).offset(8)
+            icon.snp.makeConstraints {
+                $0.top.bottom.equalToSuperview().inset(5)
+                $0.left.equalToSuperview().inset(4)
+                $0.size.equalTo(20)
             }
 
             label.snp.makeConstraints { make in
@@ -93,6 +93,7 @@ final class RunningPaceView: UIView {
                 make.top.equalTo(self.snp.top).offset(2)
                 make.bottom.equalTo(self.snp.bottom).offset(-2)
                 make.leading.equalTo(self.snp.leading).offset(2)
+                make.size.equalTo(14)
             }
 
             label.snp.makeConstraints { make in

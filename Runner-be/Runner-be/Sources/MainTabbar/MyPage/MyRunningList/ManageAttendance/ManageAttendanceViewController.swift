@@ -19,6 +19,7 @@ import UIKit
 class ManageAttendanceViewController: BaseViewController {
     var userIdList: [Int] = [] // 유저 id 리스트
     var whetherAttendList: [String] = [] // 위 각각 유저 별로 참여 여부를 저장하는 리스트
+    var oldwhetherAttendList: [String] = [] // 위 각각 유저 별로 참여 여부를 저장하는 리스트를 비교하기 위한 이전 값
 
     let currentDate = DateUtil.shared.now.addingTimeInterval(TimeInterval(9 * 60 * 60)) // 타임존때문에 9시간 더 더해줘야함
     var gatherDate = Date()
@@ -62,20 +63,31 @@ class ManageAttendanceViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
-            .filter { !self.whetherAttendList.contains("-") }
-            .map { (
-                userIdList: self.userIdList.map { String($0) }.joined(separator: ","),
-                whetherAttendList: self.whetherAttendList.joined(separator: ",")
+            .filter { !self.whetherAttendList.contains("-") && self.oldwhetherAttendList != self.whetherAttendList }
+            .map {
+                self.oldwhetherAttendList = self.whetherAttendList
 
-            ) }
+                return (
+                    userIdList: self.userIdList.map { String($0) }.joined(separator: ","),
+                    whetherAttendList: self.whetherAttendList.joined(separator: ",")
+                )
+            }
             .bind(to: viewModel.inputs.patchAttendance)
             .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
         viewModel.toast
-            .subscribe(onNext: { message in
-                AppContext.shared.makeToast(message)
+            .subscribe(onNext: { [weak self] message in
+                guard let self = self else { return }
+                let viewSize = self.view.bounds.size
+                AppContext.shared.makeToast(
+                    message,
+                    point: CGPoint(
+                        x: viewSize.width / 2,
+                        y: self.saveButton.frame.minY - self.saveButton.frame.height
+                    )
+                )
             })
             .disposed(by: disposeBag)
 

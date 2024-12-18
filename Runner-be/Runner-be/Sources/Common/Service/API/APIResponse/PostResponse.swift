@@ -157,13 +157,10 @@ extension PostResponse {
               let ageRange = ageRange,
               let postID = postID,
               let postUserID = postUserID,
-              let nickName = nickName,
               let postTitle = title,
               let runningTagType = runningTagType,
-              let placeName = placeName,
               let pace = pace,
-              let afterParty = afterParty,
-              let peopleNum = peopleNum
+              let afterParty = afterParty
         else { return nil }
 
         let id = postID
@@ -175,7 +172,7 @@ extension PostResponse {
         var post = Post(
             ID: id,
             writerID: writerID,
-            writerName: writerName,
+            writerName: writerName ?? "",
             writerProfileURL: profileImageURL, // nullable
             title: title,
             tag: tag,
@@ -184,7 +181,7 @@ extension PostResponse {
             gatheringId: gatheringId,
             ageRange: ageRange,
             gender: genderType,
-            placeName: placeName,
+            placeName: placeName ?? "",
             placeAddress: placeAddress,
             placeExplain: placeExplain,
             coord: coords, // nullable
@@ -194,7 +191,7 @@ extension PostResponse {
             afterParty: afterParty,
             pace: pace,
             logId: logId,
-            peopleNum: peopleNum
+            peopleNum: peopleNum ?? 0
         )
 
         post.marked = marked

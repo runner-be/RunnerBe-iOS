@@ -117,7 +117,7 @@ final class MessageRoomViewModel: BaseViewModel {
                 if self.images.count < 3 {
                     return true
                 } else {
-                    AppContext.shared.makeToast("이미지는 3개 이상을 초과할 수 없습니다.(문구 임시)")
+                    AppContext.shared.makeToast("이미지는 3장까지만 업로드할 수 있어요")
                     return false
                 }
             }

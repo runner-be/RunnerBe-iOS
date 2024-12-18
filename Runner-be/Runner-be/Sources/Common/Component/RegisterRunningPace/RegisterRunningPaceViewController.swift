@@ -38,28 +38,15 @@ final class RegisterRunningPaceViewController: BaseViewController {
             .bind(to: viewModel.inputs.close)
             .disposed(by: disposeBag)
 
-        beginnerView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
-                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-
-                self.runningPace = "beginner"
-                self.completeButton.isEnabled = true
-            })
-            .disposed(by: disposeBag)
-
-        averageView.rx.tapGesture()
+        masterView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
                 self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
 
-                self.runningPace = "average"
+                self.runningPace = "master"
                 self.completeButton.isEnabled = true
             })
             .disposed(by: disposeBag)
@@ -77,15 +64,28 @@ final class RegisterRunningPaceViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        masterView.rx.tapGesture()
+        averageView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
+
+                self.runningPace = "average"
+                self.completeButton.isEnabled = true
+            })
+            .disposed(by: disposeBag)
+
+        beginnerView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.beginnerView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
                 self.averageView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
                 self.highView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
-                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOn.uiImage, for: .normal)
+                self.masterView.radioButton.setImage(Asset.registerRunningPaceRadioOff.uiImage, for: .normal)
 
-                self.runningPace = "master"
+                self.runningPace = "beginner"
                 self.completeButton.isEnabled = true
             })
             .disposed(by: disposeBag)

@@ -33,6 +33,10 @@ extension UIFont {
         return UIFont(font: FontFamily.AppleSDGothicNeoSB00.regular, size: 17.0)!
     }
 
+    class var iosBody16B: UIFont {
+        return UIFont(font: FontFamily.AppleSDGothicNeoB00.regular, size: 16.0)!
+    }
+
     class var iosBody15B: UIFont {
         return UIFont(font: FontFamily.AppleSDGothicNeoB00.regular, size: 15.0)!
     }

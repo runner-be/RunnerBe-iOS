@@ -61,10 +61,9 @@ final class ManageAttendanceViewModel: BaseViewModel {
                 )
             ) }
             .subscribe(onNext: { result in
-
                 switch result {
                 case .response(result: _):
-                    self.toast.onNext("출석이 제출되었습니다.")
+                    self.toast.onNext("제출 완료")
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self.toast.onNext(alertMessage)

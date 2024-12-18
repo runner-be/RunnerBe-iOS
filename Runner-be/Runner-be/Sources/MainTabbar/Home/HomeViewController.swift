@@ -359,9 +359,9 @@ class HomeViewController: BaseViewController {
             enum Title {
                 static let leading: CGFloat = 16
                 static let top: CGFloat = 24
-                static let height: CGFloat = 29
-                static let color: UIColor = .darkG25
-                static let font: UIFont = .iosTitle21Sb
+                static let height: CGFloat = 22
+                static let color: UIColor = .darkG35
+                static let font: UIFont = .pretendardBold16
                 static let text: String = L10n.Home.BottomSheet.title
             }
 
@@ -460,9 +460,18 @@ class HomeViewController: BaseViewController {
 
     private var homeLocationButton = UIImageView().then { view in
         view.image = Asset.homeLocation.uiImage
+        view.contentMode = .scaleToFill
+
+        // 그림자 설정
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1 // 그림자 불투명도 추가
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 8
+        view.layer.masksToBounds = false // 그림자가 보이도록 설정
+
+        // 크기 제약조건 설정
         view.snp.makeConstraints { make in
-            make.width.equalTo(Constants.HomeLocationButton.width)
-            make.height.equalTo(Constants.HomeLocationButton.height)
+            make.size.equalTo(40)
         }
     }
 
@@ -643,15 +652,17 @@ extension HomeViewController {
         }
 
         refreshPostListButton.snp.makeConstraints { make in
-            make.height.equalTo(Constants.RefreshButton.height)
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(navBar.snp.bottom).offset(Constants.RefreshButton.topSpacing)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(bottomSheet.snp.top).offset(-16).priority(999)
+            make.bottom.greaterThanOrEqualToSuperview().offset(-Constants.HomeLocationButton.bottomLimit).priority(1000)
+            make.height.equalTo(38)
         }
 
         homeLocationButton.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(Constants.HomeLocationButton.leading)
-            make.bottom.equalTo(bottomSheet.snp.top).offset(-12).priority(999)
+            make.leading.equalToSuperview().inset(16)
+            make.bottom.equalTo(bottomSheet.snp.top).offset(-16).priority(999)
             make.bottom.greaterThanOrEqualTo(view.snp.bottom).offset(-Constants.HomeLocationButton.bottomLimit).priority(1000)
+            make.size.equalTo(40)
         }
 
         bottomSheet.snp.makeConstraints { make in

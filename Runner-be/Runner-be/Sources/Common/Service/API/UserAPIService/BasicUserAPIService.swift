@@ -324,9 +324,9 @@ final class BasicUserAPIService: UserAPIService {
                     let decoder = JSONDecoder()
                     let userInfo = try? decoder.decode(User.self, from: result.userData)
                     let runningLog = (try? decoder.decode([MyRunningLog].self, from: result.myRunningLog)) ?? []
-                    let running = (try? decoder.decode([UserPostResponse].self, from: result.myRunning)) ?? []
+                    let running = (try? decoder.decode([PostResponse].self, from: result.myRunning)) ?? []
 
-                    let userRunning: [UserPost] = running.compactMap { $0.convertedPost }
+                    let userRunning: [Post] = running.compactMap { $0.convertedPost }
 
                     if let user = userInfo {
                         return APIResult.response(result: .success(
