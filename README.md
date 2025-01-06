@@ -12,9 +12,14 @@
 - [@yurrrri - 이유리](https://github.com/yurrrri)
   - 마이페이지 (MyPage 및 하위 도메인), 북마크(Bookmark), 러닝톡(Message)
 
+- [@gogochang - 김창규](https://github.com/gogochang)
+  - v2 작업 (기능 개선, 수정, 추가)
+  - 홈(Home), 마이페이지(MyPage), 로그 작성/수정/확인 페이지, 로그 달력 페이지, 스탬그 주기/받기 기능, 러닝 모임 UI 수정, 채팅방 이미지 첨부 및 크롭 기능
+    
 - 팀 구성: iOS 개발자 2명, Android 개발자 2명, 백엔드 개발자 1명, 디자이너 1명, PM 1명
 - Appstore: https://apps.apple.com/kr/app/%EB%9F%AC%EB%84%88%EB%B9%84/id1612604358
 - 브랜치
+  - devleop_gyu: [@gogochang - 김창규](https://github.com/gogochang) 개발
   - devleop_zoe: [@yurrrri - 이유리](https://github.com/yurrrri) 개발
   - develop: [@SHIVVVPP - 김신우](https://github.com/SHIVVVPP) 개발
   - main: 앱스토어 출시 버전과 동일한 브랜치 (앱스토어 배포 시 local 브랜치 release -> main, release -> develop_zoe merge)
