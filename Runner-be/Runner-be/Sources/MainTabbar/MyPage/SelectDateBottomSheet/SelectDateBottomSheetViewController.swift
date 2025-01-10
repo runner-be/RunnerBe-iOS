@@ -99,6 +99,11 @@ final class SelectDateBottomSheetViewController: BaseViewController {
     private func viewModelOutput() {
         yearPickerView.selectRow(viewModel.inputs.yearSelected, animated: false)
         monthPickerView.selectRow(viewModel.inputs.monthSelected, animated: false)
+
+        viewModel.outputs.updatePickerView
+            .bind { [weak self] _ in
+                self?.monthPickerView.reloadPickerView()
+            }.disposed(by: disposeBag)
     }
 
     private func animateBottomSheet() {
@@ -164,9 +169,9 @@ extension SelectDateBottomSheetViewController: PickerViewDelegate, PickerViewDat
     func pickerView(_ picker: PickerView, didSelectRow: Int) {
         switch picker {
         case let c where c == yearPickerView:
-            viewModel.inputs.yearSelected = didSelectRow
+            viewModel.inputs.newYearSelected.onNext(didSelectRow)
         case let c where c == monthPickerView:
-            viewModel.inputs.monthSelected = didSelectRow
+            viewModel.inputs.newMonthSelected.onNext(didSelectRow)
         default:
             return
         }
