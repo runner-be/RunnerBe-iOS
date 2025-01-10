@@ -132,6 +132,7 @@ final class SelectDateBottomSheetViewModel: BaseViewModel {
     // MARK: - Properties
 
     private var targetDate: Date
+    private var selectedDate: Date
 
     var targetYear: Int {
         let formatter = DateFormatter()
@@ -147,28 +148,48 @@ final class SelectDateBottomSheetViewModel: BaseViewModel {
         return Int(monthString) ?? 00
     }
 
+    var selectedYear: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let yearString = formatter.string(from: selectedDate)
+        return Int(yearString) ?? 0000
+    }
+
+    var selectedMonth: Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        let monthString = formatter.string(from: selectedDate)
+        return Int(monthString) ?? 00
+    }
+
     // MARK: - Init
 
     init(selectedDate: Date) {
-        targetDate = selectedDate
+        targetDate = Date()
+        self.selectedDate = selectedDate
         super.init()
 
-        outputs = Output(
-            yearItems: Array(2024 ... targetYear),
-            monthItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter {
+        let yearItems = Array(2024 ... targetYear)
+        var monthItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        if selectedYear >= targetYear {
+            monthItems = monthItems.filter {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "MM"
                 let monthString = formatter.string(from: Date())
                 let monthInt = Int(monthString) ?? 00
                 return $0 <= monthInt
             }
+        }
+
+        outputs = Output(
+            yearItems: yearItems,
+            monthItems: monthItems
         )
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MM"
-        let monthString = formatter.string(from: selectedDate)
-        inputs.yearSelected = 0
-        inputs.monthSelected = outputs.monthItems.firstIndex(of: targetMonth) ?? 0
+        inputs.yearSelected = outputs.yearItems.firstIndex(of: selectedYear) ?? 0
+        inputs.monthSelected = outputs.monthItems.firstIndex(of: selectedMonth) ?? 0
         inputs.selectDate
             .compactMap { [weak self] _ in
                 guard let yearIndex = self?.inputs.yearSelected,
@@ -192,15 +213,53 @@ final class SelectDateBottomSheetViewModel: BaseViewModel {
             }
             .bind(to: routes.apply)
             .disposed(by: disposeBag)
+
+        inputs.newYearSelected
+            .distinctUntilChanged()
+            .bind { [weak self] selectedRow in
+                guard let self = self else { return }
+                inputs.yearSelected = selectedRow
+                // 현재 년도의 이전 년도를 선택되었을 때
+                if selectedRow < self.outputs.yearItems.count - 1 {
+                    self.outputs.monthItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                } else { // 현재 년도가 선택 되었을 때
+                    self.outputs.monthItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter {
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "MM"
+                        let monthString = formatter.string(from: Date())
+                        let monthInt = Int(monthString) ?? 00
+                        return $0 <= monthInt
+                    }
+                }
+                // monthItems를 업데이트 후 pickerView reload 이벤트 발생
+                self.outputs.updatePickerView.onNext(())
+                
+                // 현재 monthselected가 monthItems보다 크면 monthItems의 마지막을 선택하도록 조건
+                if self.outputs.monthItems.count - 1 < inputs.monthSelected {
+                    inputs.newMonthSelected.onNext(self.outputs.monthItems.count - 1)
+                }
+
+            }.disposed(by: disposeBag)
+
+        inputs.newMonthSelected
+            .distinctUntilChanged()
+            .skip(1) // 초기값 설정에서 발생되는 첫번째 이벤트는 무시
+            .bind { [weak self] selectedRow in
+                guard let self = self else { return }
+                self.inputs.monthSelected = selectedRow
+            }.disposed(by: disposeBag)
     }
 
     struct Input {
         var yearSelected: Int = 0
-        var monthSelected: Int = 0
+        var monthSelected: Int = 2
+        var newYearSelected = PublishSubject<Int>()
+        var newMonthSelected = PublishSubject<Int>()
         var selectDate = PublishSubject<Void>()
     }
 
     struct Output {
+        var updatePickerView = PublishSubject<Void>()
         var yearItems: [Int] = []
         var monthItems: [Int] = []
     }
