@@ -72,8 +72,11 @@
 **2) 러닝 모임 개설 및 신청**
 - 성별 / 나이대 / 위치 / 직군 별로 모임 개설 및 필터를 통한 신청이 가능합니다.
 
-<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/11be9c33-056e-4909-bc84-d1caebb8627d" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/e444fdf4-0dac-442e-b2c3-9a41972fd453" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/6852b95e-68c0-4b9d-9038-cd9186ff42dc" />
-<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/43d9a655-ecb0-4b03-85d1-ee637f5b2985" />
+
+<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/11be9c33-056e-4909-bc84-d1caebb8627d" /> <img width="200" src="https://github.com/user-attachments/assets/040ed8be-7ad5-4078-b568-55718471d7f3" /> <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/e444fdf4-0dac-442e-b2c3-9a41972fd453" /> 
+
+<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/6852b95e-68c0-4b9d-9038-cd9186ff42dc" />
+<img width="200" src="https://github.com/user-attachments/assets/aacbc997-33a5-4787-9c82-e5675cdff166" />
 
 **3) 러닝톡**
 - 러닝 모임 참여자 간 실시간으로 소통할 수 있는 댓글 서비스입니다.
@@ -83,5 +86,13 @@
 **4) 러닝 모임 관리 및 현황 확인**
 - 러닝 모임 주최자는 러닝 참여자의 출석을 관리할 수 있으며, 참여자는 출석 여부를 확인할 수 있습니다.
 
-<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/e6f6f73b-1a6e-48c1-9a58-b17cf467c263" />
-<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/7a2e641e-27c1-41de-a70a-9fe8ae9077b1" /> <img src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/0d1cc772-5726-44ad-98bd-b0da21084bc4" width="200" />
+<img width="200" src="https://github.com/user-attachments/assets/eb7f4f1c-e858-4616-bb9c-909d4551d704" />
+<img width="200" src="https://github.com/user-attachments/assets/e052a4e5-fdee-448a-9b55-4ab28fed3c86" /> 
+<img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/7a2e641e-27c1-41de-a70a-9fe8ae9077b1" /> 
+
+**5) 러닝 로그**
+- 달린 후 일기와 같은 주관적, 객관적 정보를 남기는 로그를 작성하고, 모임 구성원들과 스탬프를 주고받을 수 있습니다.
+
+<img width="200" src="https://github.com/user-attachments/assets/b9278544-f8b8-4b96-ab50-30b61baf7533" />
+<img width="200" src="https://github.com/user-attachments/assets/a62b45cf-7532-438f-aae6-bca2d438c33c" />
+<img width="200" src="https://github.com/user-attachments/assets/9d1cc98a-7eb1-4d89-a08f-dd5d1f87328b" />
