@@ -36,10 +36,9 @@
 
 
 ## 아키텍처
-### MVVM-C + Clean Architecture
-(현재 앱스토어 버전에는 적용되지 않았기에 feature/refactor 브랜치에 적용되어있습니다.)
+### MVVM-C
 
-<img width="800" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/47d7e3ac-7feb-48e4-8953-18d2021ead8a"/> <br/>
+<img width="800" src="https://github.com/user-attachments/assets/90562df4-e2db-4cf5-ab48-f8e7b02cd262"/> <br/>
 
 - **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, CommonViews / 유용한 도구 모음 Util / Extension, Localization 등
   - 해당 그룹의 컴포넌트나 Common View, Extension, Util은 앱 공통적으로 사용하거나 자주 사용하는 코드 및 UI를 모듈화함으로써 코드 중복을 줄이고 재사용성을 높임 
@@ -53,11 +52,6 @@
   - **Coordinator**: ViewController의 화면 전환 및 전환에 따른 추가 작업 로직 분리, 화면 계층 관리
   - **ViewModel**: Moya 기반의 APIService에서 통신한 내용과 UserDefaults의 localDB에 의존하여 데이터를 획득하며, View는 ViewModel을 바인딩함 (RxSwift, RxCocoa)
     - **Input/Output Modeling**: ViewModel의 Nested Type으로 Input 및 Output 구조체를 추가하여 View에서 ViewModel로 입력이 들어오는 부분은 Input, ViewModel에서 View로 출력되는 부분은 Output으로 분리하여 코드 가독성을 높임
- 
-  **[Domain Layer]**
-  - **Entity**: Data Model
-  - **UseCase**: Data Layer 계층의 APIService, KeyChainService와 소통함으로써 데이터 제공자로부터 데이터를 제공받고, ViewModel에게 제공하기 위한 데이터 가공 및 비즈니스 로직 수행
-  - **Protocol**: Clean Architecture의 의존성 방향에 따르기 위해 Data Layer의 각 Service Class를 모듈화 및 추상화한 protocol을 생성하여 의존성을 주입함으로써 의존성이 역전되도록 함
 
   **[Data Layer]**
   - **APIService, KeyChainService**: 직접적으로 Entity를 사용하여 네트워크 통신, KeyChain 값 얻어오기 등을 통해 데이터를 UseCase에 제공하는 역할 수행
