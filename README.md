@@ -28,7 +28,7 @@
 
 -   **언어**  : Swift
 -   **UI**: UIKit, 코드 방식(SnapKit)
--   **아키텍처**  : MVVM + Coordinator + Clean Architecture
+-   **아키텍처**  : MVVM + Coordinator
 -   **비동기 처리**  : RxSwift, DispatchQueue
 -   **네트워킹**  : Moya
 -   **기타**: Firebase Analytics/Crashlytics (유저 및 버그 리포트)
